@@ -1,15 +1,20 @@
 ---
 name: autoresearch
-description: 抓取泰国官方政策最新动态,写入 data/policies/documents.jsonl,重新生成站点数据并推送,使原型站保持最新。用于定时刷新(如每 3 小时一次)或用户手动要求「更新政策数据/更新网页」时。Fetches the latest Thai government policy updates into the normalized data layer, rebuilds the site data, and pushes.
+description: 抓取泰国官方政策最新动态,写入 data/policies/documents.jsonl,入库并重新生成站点数据后推送。用于每日定时刷新或用户手动要求「更新政策数据/更新网页」时。Fetches the latest Thai government policy updates into the normalized data layer, loads the database, rebuilds site data, and pushes.
 ---
 
 # autoresearch —— 定时增量更新政策数据
 
 一次运行 = 一轮增量采集。
 
-**写入 `data/policies/*.jsonl`(规范化事实层),然后跑 `tools/build_site.py` 生成 `data/site/*.json`。**
-不要手改 `data/site/` 下的任何文件(那是派生产物,CI 会检查它与源数据一致),
-也不要改 `index.html` / `js/`(前端从 JSON 渲染)。
+**写入 `data/policies/*.jsonl`(规范化事实层),然后 `python3 -m app.ingest` 入库、
+`python3 -m app.export` 生成 `data/site/*.json`。**
+不要手改 `data/site/` 下的任何文件(那是派生产物,CI 会检查它与事实层一致),
+也不要改 `index.html` / `js/`(前端从 API 或这些 JSON 渲染)。
+
+**先看后端有没有在跑**:`python3 -m app.collect` 已经会自动采集 data.go.th 官方源并入库。
+本流程负责的是**官方接口拿不到、需要判断的那部分** —— 公开检索发现的线索,
+经人可复核的判断后写成结构化记录。两者不重叠:自动采集只做确定性的搬运。
 
 数据分层与字段含义见 [data/README.md](../../../data/README.md)。
 
@@ -35,13 +40,14 @@ cd <repo> && git fetch origin claude/code-review-loop-autoresearch-pisrof \
 读 `data/policies/documents.jsonl` 的全部 `uid` / `titles.zh` / `doc_no`(去重用)。
 读 `data/vocab.json` —— **所有 `*_id` 字段只能取词表里已有的 id**。
 
-### 2. 官方源(首选,可能被网络策略拦截)
+### 2. 官方源(交给后端,不要自己写解析)
 
 ```bash
-cd pipeline && python3 fetch_gazette.py --limit 1 && python3 fetch_cabinet.py --limit 1
+cd backend && python3 -m app.collect --trigger manual
 ```
 
-成功 → 读 `data/processed/*.csv`,取 `date > last_run_at` 的记录作为候选。
+这一步会自己完成:取 data.go.th 官方 CKAN 接口 → 佛历换算 → 红线过滤 →
+追加 JSONL → 入库 → 导出静态 JSON。成功就不用再做第 3 步之外的事。
 失败(`FetchError` / `ProxyError` / 403) → **不要重试超过一次,不要试图绕过**,继续走第 3 步。
 这是预期情况:泰国政府站点对海外 IP 有 WAF 拦截,且本仓库的远程执行环境出口默认只放行
 GitHub/包镜像,`data.go.th` 会返回 403 CONNECT。要打通需由用户在环境的网络策略里放行域名
@@ -88,21 +94,24 @@ GitHub/包镜像,`data.go.th` 会返回 403 CONNECT。要打通需由用户在�
 ### 5. 记录本轮运行状态
 
 更新 `data/policies/sources.json`:
-- `last_run_at` 改成当前时间,**带 `+07:00` 时区**。这个值同时是 build 的「现在」,
-  前端显示的「数据更新 …」也取它。
+- `last_run_at` 改成当前时间,**带 `+07:00` 时区**。这个值同时是分析层的「现在」
+  (生效日历窗口、「已生效」判定、按月分桶都以它为基准),前端显示的「数据更新 …」也取它。
 - 每个源的 `status`(`ok` / `error` / `unattempted`)、`last_ok`、`detail` 都要更新。
 
 ### 6. 校验 + 生成 + 提交
 
 ```bash
-python3 tools/validate.py      # 词表、关系、日期顺序、红线;不过就修数据,别改校验器
-python3 tools/build_site.py    # 生成 data/site/*.json(内部会先跑一次校验)
-git add data/policies data/site
+python3 tools/validate.py                    # 词表、关系、日期顺序、红线(纯标准库)
+cd backend && pip install -q -r requirements.txt   # 首次或依赖变动时
+python3 -m app.ingest                        # 事实层 → 数据库(幂等)
+python3 -m pytest tests -q                   # 60 个测试,分析口径别被改坏
+python3 -m app.export                        # 数据库 → data/site/*.json
+cd .. && git add data/policies data/site
 git commit -m "data: 政策数据增量更新(新增 N 条 / 更新 M 条)"
 git push -u origin claude/code-review-loop-autoresearch-pisrof
 ```
 
-校验报错就**修数据**;不要为了让校验通过去放宽 `tools/validate.py` 的规则。
+校验或测试报错就**修数据**;不要为了让它们通过去放宽 `tools/validate.py` 的规则或改 `MIN_N` 阈值。
 推送失败(网络)按 2s/4s/8s/16s 退避重试至多 4 次。
 
 **即使 0 条新增也要提交**:第 5 步的 `last_run_at` 与源状态本身就是有信息量的输出,
@@ -117,9 +126,13 @@ git push -u origin claude/code-review-loop-autoresearch-pisrof
 ## 不在本流程范围内
 
 - **上升话题榜**没有数据来源(需要关键词提取 + 环比),一直是 `js/app.js` 里的演示数据。
-- **趋势看板另三张图**已经接了 `data/site/trends.json`,但数据覆盖不足
-  `MIN_TREND_MONTHS` 个月时会自动退回演示数组 —— 这是有意的,不要为了「让图好看」
-  去改阈值或补造月份。
-- **政策维度页**(七维分析)仍是静态演示内容。它需要 `affected_parties`、`legal_form.stability`
-  等字段有足够样本才能真算,数据够了再单独做。
-- LLM 泰译中、PDF 抽取、入 PostgreSQL(见 `pipeline/README.md` 路线图)属于后续阶段。
+- **趋势看板另三张图**已经接了 `trends.json`,但数据覆盖不足 `MIN_TREND_MONTHS` 个月时
+  会自动退回演示数组 —— 这是有意的,不要为了「让图好看」去改阈值或补造月份。
+- **政策维度七维**已全部由数据库聚合算出(`backend/app/analytics.py`)。样本不足的维度会
+  自己显示「数据不足」提示条。**不要为了让提示条消失去调 `MIN_N`** —— 那个提示条就是产品的一部分。
+  要让维度更准,该做的是给新条目补 `instrument_ids` / `goal_ids` / `implementation_stage`
+  / `affected_parties`,而不是降低门槛。
+- **LLM 泰译中**:自动采集入库的公报条目 `titles.zh` 为空、`domain_ids` 是占位值。
+  把它们翻译分类是本流程最有价值的下一步 —— 查
+  `GET /api/documents?q=` 里 `title_zh` 为空的条目,补中文标题、摘要、领域、工具、目标。
+- PDF 原文抽取(见 `pipeline/README.md` 路线图)属于后续阶段。

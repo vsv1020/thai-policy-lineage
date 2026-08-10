@@ -231,7 +231,7 @@
     <!-- ═══════ 政策维度(重建自设计稿) ═══════ -->
     <section class="view" id="v-dims">
       <h1 class="page">政策维度分析</h1>
-      <div class="page-sub">当前切片:<b>EV 与汽车产业 · 全国＋府级 · 2565—2569(2022—2026)</b>。发文量回答"多不多",这一页回答"是什么样的政策"。</div>
+      <div class="page-sub" id="dims-sub">当前切片:<b>EV 与汽车产业 · 全国＋府级 · 2565—2569(2022—2026)</b>。发文量回答"多不多",这一页回答"是什么样的政策"。</div>
 
       <div class="card">
         <div style="display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap">
@@ -239,16 +239,7 @@
           <div class="mod-sub">格子深浅 = 该年该工具的使用件数占比</div></div>
           <div style="font-size:12px;color:var(--muted);max-width:420px">供给型＝政府直接投入;环境型＝规则与激励塑造环境;需求型＝直接拉动市场</div>
         </div>
-        <table class="matrix">
-          <tr><th style="width:158px"></th><th>2565/22</th><th>2566/23</th><th>2567/24</th><th>2568/25</th><th>2569/26</th></tr>
-        </table>
-        <div class="grp"><span class="sq" style="background:var(--blue)"></span><b>供给型 · 政府直接投入</b><span>占 31%,2567 起回升</span></div>
-        <table class="matrix" id="m1a"></table>
-        <div class="grp"><span class="sq" style="background:var(--seal)"></span><b>环境型 · 规则与激励塑造环境</b><span>占 47%,两年翻倍</span></div>
-        <table class="matrix" id="m1b"></table>
-        <div class="grp"><span class="sq" style="background:var(--gold-deep)"></span><b>需求型 · 直接拉动市场</b><span>占 22%,明显退坡</span></div>
-        <table class="matrix" id="m1c"></table>
-        <div class="reading">读法:2565—2566 的重心在"消费补贴＋税收减免"(需求型),2567 起明显转向"本地化率考核、充电桩标准、进口管制"(环境型＋供给型)。对整车厂的含义是:<b>拿激励的门槛从"卖得多"变成"造得多、造在本地"</b>。</div>
+        <div id="dim1"><div class="reading" id="dim1-ph">维度数据加载中…… 未加载成功时此处不显示任何数字(旧版本的演示数值已移除,避免把示意数据当结论)。</div></div>
       </div>
 
       <div class="dim-grid2">
@@ -256,13 +247,12 @@
           <div class="card">
             <h3 class="mod">维度二 · 政策工具 × 政策目标</h3>
             <div class="mod-sub">红框 = 该目标缺少对应工具,是政策空白,也是提意见和抢先布局的位置</div>
-            <table class="matrix" id="m2"></table>
-            <div class="reading">两处空白:<b>就业与技能</b>目标下几乎没有供给型工具(技工培训只有 2 件表态性文件),<b>区域均衡</b>目标只有 EEC 三府受益,其余 74 府无对应工具。</div>
+            <div id="dim2"><div class="reading" id="dim2-ph">维度数据加载中…… 未加载成功时此处不显示任何数字(旧版本的演示数值已移除,避免把示意数据当结论)。</div></div>
           </div>
           <div class="card">
             <h3 class="mod">维度四 · 作用对象:谁被支持,谁被约束</h3>
             <div class="mod-sub">左 = 支持性条款件数,右 = 约束性条款件数</div>
-            <div id="m4"></div>
+            <div id="dim4"><div class="reading" id="dim4-ph">维度数据加载中…… 未加载成功时此处不显示任何数字(旧版本的演示数值已移除,避免把示意数据当结论)。</div></div>
             <div class="legend"><span><i style="background:var(--green)"></i>支持</span><span><i style="background:var(--seal)"></i>约束</span></div>
           </div>
         </div>
@@ -270,24 +260,12 @@
           <div class="card">
             <h3 class="mod">维度三 · 法律形式与强制力</h3>
             <div class="mod-sub">泰国的法律形式本身就是力度信号,也是"能不能被起诉"的分界线</div>
-            <div class="pyr-row"><div class="pyr-num" style="background:var(--ink)">5</div><div><div class="pyr-name">พระราชบัญญัติ (พ.ร.บ.)</div><div class="pyr-desc">法律 · 须经国会,最稳定、可诉</div></div><div><div class="pyr-count">18</div><div class="pyr-pct">2%</div></div></div>
-            <div class="pyr-row"><div class="pyr-num" style="background:var(--ink)">5</div><div><div class="pyr-name">พระราชกำหนด (พ.ร.ก.)</div><div class="pyr-desc">紧急法令 · 内阁先行、事后追认</div></div><div><div class="pyr-count">6</div><div class="pyr-pct">1%</div></div></div>
-            <div class="pyr-row"><div class="pyr-num" style="background:var(--seal)">4</div><div><div class="pyr-name">พระราชกฤษฎีกา (พ.ร.ฎ.)</div><div class="pyr-desc">皇家法令 · 据法律授权,常用于税收减免</div></div><div><div class="pyr-count">34</div><div class="pyr-pct">4%</div></div></div>
-            <div class="pyr-row"><div class="pyr-num" style="background:var(--blue)">3</div><div><div class="pyr-name">กฎกระทรวง</div><div class="pyr-desc">部令 · 部长签发,程序性约束</div></div><div><div class="pyr-count">88</div><div class="pyr-pct">10%</div></div></div>
-            <div class="pyr-row"><div class="pyr-num" style="background:#2f3338">2</div><div><div class="pyr-name">ประกาศ / ระเบียบ</div><div class="pyr-desc">公告与规程 · 调整最快,占比最高</div></div><div><div class="pyr-count">526</div><div class="pyr-pct">41%</div></div></div>
-            <div class="pyr-row"><div class="pyr-num" style="background:#cfc9ba;color:var(--ink)">1</div><div><div class="pyr-name">มติคณะรัฐมนตรี</div><div class="pyr-desc">内阁决议 · 政策方向,需后续文件落地</div></div><div><div class="pyr-count">438</div><div class="pyr-pct">37%</div></div></div>
-            <div class="reading" style="margin-top:14px">78% 的 EV 政策承载在 ประกาศ 与 มติ ครม. 上——调整快、可诉性弱,意味着<b>政策稳定性风险高</b>,投资测算应按可撤回处理。</div>
+            <div id="dim3"><div class="reading" id="dim3-ph">维度数据加载中…… 未加载成功时此处不显示任何数字(旧版本的演示数值已移除,避免把示意数据当结论)。</div></div>
           </div>
           <div class="card">
             <h3 class="mod">维度五 · 发文机构协同</h3>
             <div class="mod-sub">联署强度 = 两机构共同署名或互相引用的件数</div>
-            <div class="co-row"><span>ครม. ↔ กรมสรรพสามิต 消费税厅</span><div class="co-bar"><i style="width:100%;background:var(--seal)"></i></div><span class="co-val">34</span></div>
-            <div class="co-row"><span>ครม. ↔ BOI</span><div class="co-bar"><i style="width:76%;background:var(--seal)"></i></div><span class="co-val">26</span></div>
-            <div class="co-row"><span>BOI ↔ EEC 办公室</span><div class="co-bar"><i style="width:56%;background:var(--blue)"></i></div><span class="co-val">19</span></div>
-            <div class="co-row"><span>กระทรวงพลังงาน 能源部 ↔ ERC</span><div class="co-bar"><i style="width:41%;background:var(--blue)"></i></div><span class="co-val">14</span></div>
-            <div class="co-row"><span>MDES ↔ ETDA</span><div class="co-bar"><i style="width:24%;background:var(--gold)"></i></div><span class="co-val">8</span></div>
-            <div class="co-row"><span>BOI ↔ กรมสรรพสามิต(联署)</span><div class="co-bar"><i style="width:9%;background:var(--gold)"></i></div><span class="co-val">3</span></div>
-            <div class="reading" style="margin-top:14px">BOI 与消费税厅联署仅 3 件,却在 11 件文件里<b>各自单独规定同一批激励</b>——这正是下方冲突的来源。</div>
+            <div id="dim5"><div class="reading" id="dim5-ph">维度数据加载中…… 未加载成功时此处不显示任何数字(旧版本的演示数值已移除,避免把示意数据当结论)。</div></div>
           </div>
         </div>
       </div>
@@ -295,44 +273,13 @@
       <div class="card">
         <h3 class="mod">维度六 · 一致性与冲突检测</h3>
         <div class="mod-sub">同一事项在不同文件中给出不同口径时自动标出,附双方原文定位</div>
-        <div class="conflict high">
-          <div class="cf-top"><span class="cf-badge">高危</span><span class="cf-title">电芯项目免税年限口径不一致</span></div>
-          <div class="cf-cols">
-            <div class="cf-quote">BOI ประกาศ 4/2568:电芯项目最长免征企业所得税 8 年,不附加本地采购条件。</div>
-            <div class="cf-quote">มติ ครม. 2569-05-12:享受减免者须在 2570 年前达 40% 本地零部件比例,否则追缴。</div>
-          </div>
-          <div class="cf-impact">影响:<b>已按 8 年测算的在建项目现金流模型可能失效</b>,需重新做敏感性测算。</div>
-        </div>
-        <div class="conflict">
-          <div class="cf-top"><span class="cf-badge">中</span><span class="cf-title">充电站计费上限由谁定</span></div>
-          <div class="cf-cols">
-            <div class="cf-quote">กระทรวงพลังงาน 公告:分时电价上限由 ERC 另行公布。</div>
-            <div class="cf-quote">ERC 现行公告未覆盖公共快充场景,仅规定居民与工商业电价。</div>
-          </div>
-          <div class="cf-impact">影响:运营商定价处于空窗,府级执法口径不一致,普吉与春武里已出现差异处理。</div>
-        </div>
-        <div class="conflict" style="margin-bottom:0">
-          <div class="cf-top"><span class="cf-badge">中</span><span class="cf-title">府级许可时限承诺与中央程序冲突</span></div>
-          <div class="cf-cols">
-            <div class="cf-quote">罗勇、春武里府规划:一站式窗口 45 日内完成许可。</div>
-            <div class="cf-quote">กฎกระทรวง 工业部令:环评与厂房许可法定期限合计 90 日。</div>
-          </div>
-          <div class="cf-impact">影响:府级承诺无法律基础,<b>投资时间表应按 90 日保守假设</b>。</div>
-        </div>
+        <div id="dim6"><div class="reading" id="dim6-ph">维度数据加载中…… 未加载成功时此处不显示任何数字(旧版本的演示数值已移除,避免把示意数据当结论)。</div></div>
       </div>
 
       <div class="card">
         <h3 class="mod">维度七 · 执行完整度(从规划到评估)</h3>
         <div class="mod-sub">同一议题在六个环节各有多少文件,缺环 = 落地风险</div>
-        <div class="stage-wrap">
-          <div class="stage"><div class="num">14</div><div class="bar" style="height:29px;background:#a9b4c2"></div><div class="lab">国家规划</div></div>
-          <div class="stage"><div class="num">26</div><div class="bar" style="height:53px;background:#8296ac"></div><div class="lab">法律形式</div></div>
-          <div class="stage"><div class="num">62</div><div class="bar" style="height:127px;background:#5b7391"></div><div class="lab">内阁决议</div></div>
-          <div class="stage hot"><div class="num">78</div><div class="bar" style="height:160px"></div><div class="lab">实施细则</div></div>
-          <div class="stage"><div class="num">41</div><div class="bar" style="height:84px;background:#8296ac"></div><div class="lab">预算与执行</div></div>
-          <div class="stage weak"><div class="num">2</div><div class="bar" style="height:5px"></div><div class="lab">评估与复盘</div></div>
-        </div>
-        <div class="warn-box">缺环预警:<b>评估环节仅 2 件</b>(且均为内部报告口径),意味着 EV 激励的效果没有官方评估基础,未来政策调整更可能是政治周期驱动而非数据驱动——这对投资时间表是实质风险。</div>
+        <div id="dim7"><div class="reading" id="dim7-ph">维度数据加载中…… 未加载成功时此处不显示任何数字(旧版本的演示数值已移除,避免把示意数据当结论)。</div></div>
       </div>
     </section>
 
@@ -361,7 +308,9 @@
 </footer>
 
 <script src="js/echarts.min.js"></script>
+<script src="js/api.js"></script>
 <script src="js/app.js"></script>
 <script src="js/data.js"></script>
+<script src="js/dims.js"></script>
 </body>
 </html>

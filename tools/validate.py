@@ -21,6 +21,7 @@ ROOT = Path(__file__).resolve().parent.parent
 VOCAB = ROOT / "data" / "vocab.json"
 DOCS = ROOT / "data" / "policies" / "documents.jsonl"
 ISSUES = ROOT / "data" / "policies" / "issues.jsonl"
+CONFLICTS = ROOT / "data" / "policies" / "conflicts.jsonl"
 
 UID_RE = re.compile(r"^TH-[A-Z0-9]+-[A-Z0-9]+(-[A-Z0-9]+)*$")
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
@@ -115,6 +116,21 @@ def check_doc(d: dict, v: dict, rep: Report, all_uids: set[str], issue_ids: set[
 
     if d.get("issue_id") is not None and d["issue_id"] not in issue_ids:
         rep.err(where, f"issue_id 在 issues.jsonl 中不存在: {d['issue_id']}")
+
+    # 维度分析用字段(维度一/二/七)
+    for iid in d.get("instrument_ids") or []:
+        if iid not in ids(v, "instruments"):
+            rep.err(where, f"未知 instrument_id: {iid}")
+    if not d.get("instrument_ids"):
+        rep.warn(where, "没有 instrument_ids,维度一/二的工具结构矩阵会漏掉这一条")
+    for gid in d.get("goal_ids") or []:
+        if gid not in ids(v, "goals"):
+            rep.err(where, f"未知 goal_id: {gid}")
+    if not d.get("goal_ids"):
+        rep.warn(where, "没有 goal_ids,维度二的工具×目标矩阵会漏掉这一条")
+    stage = d.get("implementation_stage")
+    if stage is not None and stage not in ids(v, "implementation_stages"):
+        rep.err(where, f"未知 implementation_stage: {stage}")
 
     # 日期
     dates = d.get("dates") or {}
@@ -217,6 +233,30 @@ def check_issue(it: dict, v: dict, rep: Report, all_uids: set[str]) -> None:
             rep.err(where, "stages[] 没有 uid 时必须给 label(否则前端无可显示内容)")
 
 
+def check_conflict(c: dict, v: dict, rep: Report, all_uids: set[str]) -> None:
+    where = f"conflicts.jsonl:{c['_line']} {c.get('id', '<无 id>')}"
+    for f in ("id", "severity", "title_zh", "sides", "impact_zh"):
+        if f not in c:
+            rep.err(where, f"缺少必填字段 {f}")
+    if c.get("severity") not in ids(v, "severities"):
+        rep.err(where, f"未知 severity: {c.get('severity')}")
+    for did in c.get("domain_ids") or []:
+        if did not in ids(v, "domains"):
+            rep.err(where, f"未知 domain_id: {did}")
+    sides = c.get("sides") or []
+    if len(sides) < 2:
+        rep.err(where, "冲突必须有至少两方(sides ≥ 2),否则无从对照")
+    for s in sides:
+        if s.get("uid") is not None and s["uid"] not in all_uids:
+            rep.err(where, f"sides[].uid 指向不存在的文件: {s['uid']}")
+        if s.get("uid") is None and not s.get("label"):
+            rep.err(where, "sides[] 没有 uid 时必须给 label")
+        if not s.get("quote_zh"):
+            rep.err(where, "sides[] 必须给 quote_zh —— 冲突要能看到双方口径")
+    if c.get("confidence") not in ids(v, "confidence_levels"):
+        rep.err(where, f"未知 confidence: {c.get('confidence')}")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="政策数据校验")
     ap.add_argument("--quiet", action="store_true")
@@ -226,6 +266,7 @@ def main() -> int:
     vocab = json.loads(VOCAB.read_text(encoding="utf-8"))
     docs = read_jsonl(DOCS, rep)
     issues = read_jsonl(ISSUES, rep)
+    conflicts = read_jsonl(CONFLICTS, rep) if CONFLICTS.exists() else []
 
     uids = [d.get("uid") for d in docs if d.get("uid")]
     dup = {u for u in uids if uids.count(u) > 1}
@@ -241,6 +282,8 @@ def main() -> int:
         check_doc(d, vocab, rep, all_uids, issue_ids)
     for it in issues:
         check_issue(it, vocab, rep, all_uids)
+    for c in conflicts:
+        check_conflict(c, vocab, rep, all_uids)
     check_relation_symmetry(docs, vocab, rep)
 
     for w in rep.warnings:
@@ -253,7 +296,7 @@ def main() -> int:
         print(f"\n校验失败:{len(rep.errors)} 个错误、{len(rep.warnings)} 个提醒", file=sys.stderr)
         return 1
     if not args.quiet:
-        print(f"校验通过:{len(docs)} 份文件、{len(issues)} 个议题、{len(rep.warnings)} 个提醒")
+        print(f"校验通过:{len(docs)} 份文件、{len(issues)} 个议题、{len(conflicts)} 条冲突、{len(rep.warnings)} 个提醒")
     return 0
 
 

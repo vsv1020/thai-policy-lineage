@@ -1,4 +1,5 @@
 {
+ "_generated": "由 backend/app/export.py 从数据库导出,请勿手改;改 data/policies/*.jsonl → python3 -m app.ingest → python3 -m app.export",
  "issues": [
   {
    "issue_id": "foreign-income-remittance",

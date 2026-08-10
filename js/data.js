@@ -1,27 +1,20 @@
-/* 数据层:从 data/site/policies.json 渲染政策流 / 检索列表 / 风向 / 生效日历。
-   —— 页面里保留的静态 HTML 是兜底:fetch 失败(离线打开、文件缺失)时原样保留,不白屏。
-   —— 该 JSON 由 .claude/skills/autoresearch 定时写入,前端只读。 */
+/* 首页政策流 / 检索列表 / 风向 / 生效日历 / 演进脉络 / 趋势图数据注入。
+   取数与降级由 js/api.js 负责;这里只管把数据变成 DOM。 */
 
-const DATA_URL = 'data/site/policies.json';
-const TRENDS_URL = 'data/site/trends.json';
-const LINEAGE_URL = 'data/site/lineage.json';
-
-const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g,
-  c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const { getData, esc, set } = window.PolicyData;
 
 const DIR_LABEL = { tight: '▲ 收紧', loose: '▼ 放宽', neutral: '● 中性' };
 const STATUS_CLASS = { active: 'st-active', soon: 'st-soon', draft: 'st-draft' };
 
 /* 一律按曼谷时间显示 —— 泰国政策的生效时点以泰国当地时间为准,
-   按访客本地时区渲染会让"今天刊登"看起来像昨天。 */
+   按访客本地时区渲染会让「今天刊登」看起来像昨天。 */
 function fmtStamp(iso) {
   const d = new Date(iso);
   if (isNaN(d)) return esc(iso);
-  const s = d.toLocaleString('sv-SE', { timeZone: 'Asia/Bangkok', hour12: false });
-  return s.slice(0, 16) + ' 曼谷时间';
+  return d.toLocaleString('sv-SE', { timeZone: 'Asia/Bangkok', hour12: false }).slice(0, 16)
+    + ' 曼谷时间';
 }
 
-/* 原文链接:有 source_url 出真链,否则不出链(不做假链接) */
 function originLink(p) {
   if (!p.source_url) return '';
   return `<span><a href="${esc(p.source_url)}" target="_blank" rel="noopener"
@@ -74,7 +67,7 @@ function calRow(c) {
   return `<div class="cal-item"><span class="cal-date">${esc(String(c.date).slice(5))}</span><span>${esc(c.text)}${tag}</span></div>`;
 }
 
-/* ── 演进脉络:从 lineage.json 渲染,议题可切换 ── */
+/* ── 演进脉络:议题可切换 ── */
 function lineageChain(issue) {
   return issue.stages.map(s => `<div class="ln-item${s.milestone ? ' milestone' : ''}">
     <div class="ln-stage">${esc(s.stage)}</div>
@@ -89,7 +82,6 @@ function renderLineage(data) {
   const issues = (data.issues || []).filter(i => i.stages && i.stages.length);
   if (!issues.length) return;
   let current = issues[0].issue_id;
-
   const draw = () => {
     const it = issues.find(i => i.issue_id === current) || issues[0];
     set('lineage-picker', issues.map(i =>
@@ -105,12 +97,7 @@ function renderLineage(data) {
   draw();
 }
 
-function set(id, html) {
-  const el = document.getElementById(id);
-  if (el && html) el.innerHTML = html;
-}
-
-function render(d) {
+function renderOverview(d) {
   const policies = (d.policies || []).slice()
     .sort((a, b) => String(b.date).localeCompare(String(a.date)));
 
@@ -118,38 +105,34 @@ function render(d) {
   set('lib', policies.map(libRow).join(''));
   set('wind', (d.wind || []).map(windRow).join(''));
   set('calendar', (d.calendar || []).map(calRow).join(''));
-
-  const n = policies.length;
-  set('lib-count', `领域 × 机关 × 法律形式 × 状态 × 时间 五维过滤 · 当前库内 <b>${n}</b> 条`);
+  set('lib-count', `领域 × 机关 × 法律形式 × 状态 × 时间 五维过滤 · 当前库内 <b>${policies.length}</b> 条`);
 
   const srcs = d.sources || [];
   const ok = srcs.filter(s => s.status === 'ok').length;
-  const research = (d.stats || {}).research || 0;   // 由 build 统计,不在前端重算
+  const research = (d.stats || {}).research || 0;
   const health = srcs.length
     ? (ok ? ` · 源 ${ok}/${srcs.length} 可用` : ` · ${srcs.length} 个源均未接通`)
     : '';
-  set('stamp', `数据更新 ${fmtStamp(d.updated_at)}${health}`
+  const mode = window.DATA_MODE === 'api' ? '实时接口' : '静态快照';
+  set('stamp', `${mode} · 数据更新 ${fmtStamp(d.updated_at)}${health}`
     + (research ? ` · 实采 ${research} 条` : ' · 全部为示意数据'));
 }
 
-const getJSON = url => fetch(url, { cache: 'no-store' })
-  .then(r => r.ok ? r.json() : Promise.reject(new Error(url + ' → HTTP ' + r.status)));
-
-getJSON(DATA_URL).then(render).catch(err => {
-  console.warn('[policies.json] 未加载,页面保留静态示意数据:', err.message);
-  set('stamp', '静态示意数据(未加载 policies.json)');
+getData('overview').then(renderOverview).catch(err => {
+  console.warn('[overview] 未加载,页面保留静态示意数据:', err.message);
+  window.DATA_MODE = 'inline';
+  set('stamp', '静态示意数据(未加载 overview)');
 });
 
-getJSON(TRENDS_URL).then(t => {
+getData('trends').then(t => {
   window.TRENDS = t;
-  const sub = t.usable
+  set('trends-sub', t.usable
     ? `基于全库结构化数据聚合 · 覆盖 ${t.months_covered} 个月`
-    : `发文量与风向由 <b>${t.months_covered}</b> 个月的真实数据算出,不足 ${t.min_months_required}`
-      + ' 个月,下方四图暂用演示数据';
-  set('trends-sub', sub);
+    : `发文量与风向由 <b>${t.months_covered}</b> 个月的真实数据算出,不足 `
+      + `${t.min_months_required} 个月,下方四图暂用演示数据`);
   // 真实数据可能比首次进入趋势页更晚到达 —— initCharts 可重复调用
   if (typeof initCharts === 'function' && document.querySelector('#c-stack canvas')) initCharts();
-}).catch(err => console.warn('[trends.json] 未加载,图表用演示数据:', err.message));
+}).catch(err => console.warn('[trends] 未加载,图表用演示数据:', err.message));
 
-getJSON(LINEAGE_URL).then(renderLineage)
-  .catch(err => console.warn('[lineage.json] 未加载,脉络页保留静态内容:', err.message));
+getData('lineage').then(renderLineage)
+  .catch(err => console.warn('[lineage] 未加载,脉络页保留静态内容:', err.message));

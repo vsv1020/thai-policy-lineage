@@ -1,7 +1,7 @@
 {
- "_generated": "由 tools/build_site.py 生成,请勿手改;改 data/policies/*.jsonl 后重跑",
- "schema_version": 2,
- "updated_at": "2026-08-10T23:53:23+07:00",
+ "_generated": "由 backend/app/export.py 从数据库导出,请勿手改;改 data/policies/*.jsonl → python3 -m app.ingest → python3 -m app.export",
+ "schema_version": 3,
+ "updated_at": "2026-08-11T00:38:08+07:00",
  "sources": [
   {
    "id": "gazette_json",
@@ -9,7 +9,7 @@
    "url": "https://data.go.th/dataset/dataset_02_04",
    "status": "error",
    "last_ok": null,
-   "detail": "2026-08-10 尝试失败:data.go.th CONNECT 403(运行环境网络出口策略拦截,非脚本问题)"
+   "detail": "ProxyError: 403 Forbidden"
   },
   {
    "id": "cabinet_json",
@@ -17,7 +17,7 @@
    "url": "https://data.go.th/dataset/dataset_02_03",
    "status": "error",
    "last_ok": null,
-   "detail": "2026-08-10 尝试失败:data.go.th CONNECT 403(同上)"
+   "detail": "ProxyError: 403 Forbidden"
   },
   {
    "id": "websearch",
@@ -37,44 +37,44 @@
   {
    "domain": "biz",
    "label": "公司投资",
-   "direction": "loose",
    "score": 0.55,
-   "n": 3
+   "n": 3,
+   "direction": "loose"
   },
   {
    "domain": "visa",
    "label": "签证居留",
-   "direction": "neutral",
    "score": 0.0,
-   "n": 3
+   "n": 3,
+   "direction": "neutral"
   },
   {
    "domain": "land",
    "label": "房产土地",
-   "direction": "neutral",
-   "score": -0.08,
-   "n": 2
-  },
-  {
-   "domain": "tax",
-   "label": "税务",
-   "direction": "tight",
    "score": -0.33,
-   "n": 1
-  },
-  {
-   "domain": "labor",
-   "label": "劳工用工",
-   "direction": "neutral",
-   "score": 0.0,
-   "n": 1
+   "n": 1,
+   "direction": "tight"
   },
   {
    "domain": "digital",
    "label": "数字与数据",
-   "direction": "neutral",
    "score": 0.0,
-   "n": 1
+   "n": 1,
+   "direction": "neutral"
+  },
+  {
+   "domain": "labor",
+   "label": "劳工用工",
+   "score": 0.0,
+   "n": 1,
+   "direction": "neutral"
+  },
+  {
+   "domain": "tax",
+   "label": "税务",
+   "score": -0.33,
+   "n": 1,
+   "direction": "tight"
   }
  ],
  "calendar": [
@@ -345,30 +345,6 @@
    "featured": false
   },
   {
-   "uid": "TH-RD-2566-POR-161",
-   "issue_id": "foreign-income-remittance",
-   "date": "2024-01-01",
-   "domain": "tax",
-   "domain_label": "税务",
-   "direction": "tight",
-   "title_zh": "税务厅指令 Por 161/2566:境外所得汇入课税新指引",
-   "title_th": "",
-   "summary_zh": "打破「次年汇入免税」的长期执行惯例,规定税务居民境外所得于汇入年度并入应税所得。",
-   "org": "税务厅 (RD)",
-   "doc_no": "Por 161/2566",
-   "doc_no_label": "文号",
-   "legal_form": "公告 · ประกาศ 层级",
-   "stability": 2,
-   "effective_label": "已生效",
-   "status": "draft",
-   "status_label": "已被替代",
-   "source_url": "",
-   "verified": false,
-   "detail_ready": false,
-   "provenance": "manual",
-   "featured": false
-  },
-  {
    "uid": "TH-RD-2566-POR-162",
    "issue_id": "foreign-income-remittance",
    "date": "2024-01-01",
@@ -386,6 +362,30 @@
    "effective_label": "已生效",
    "status": "active",
    "status_label": "现行有效",
+   "source_url": "",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "manual",
+   "featured": false
+  },
+  {
+   "uid": "TH-RD-2566-POR-161",
+   "issue_id": "foreign-income-remittance",
+   "date": "2024-01-01",
+   "domain": "tax",
+   "domain_label": "税务",
+   "direction": "tight",
+   "title_zh": "税务厅指令 Por 161/2566:境外所得汇入课税新指引",
+   "title_th": "",
+   "summary_zh": "打破「次年汇入免税」的长期执行惯例,规定税务居民境外所得于汇入年度并入应税所得。",
+   "org": "税务厅 (RD)",
+   "doc_no": "Por 161/2566",
+   "doc_no_label": "文号",
+   "legal_form": "公告 · ประกาศ 层级",
+   "stability": 2,
+   "effective_label": "已生效",
+   "status": "draft",
+   "status_label": "已被替代",
    "source_url": "",
    "verified": false,
    "detail_ready": false,

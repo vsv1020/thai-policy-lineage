@@ -1,0 +1,46 @@
+# 最小生产编排:Postgres + 应用(API + 静态站 + 每日采集定时器)。
+# 只想快速起来看看:注释掉 db 服务,把 DATABASE_URL 留空即用 SQLite。
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: policy
+      POSTGRES_USER: policy
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?请在 .env 里设置 POSTGRES_PASSWORD}
+      TZ: Asia/Bangkok
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U policy -d policy"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+psycopg://policy:${POSTGRES_PASSWORD}@db:5432/policy
+      TZ: Asia/Bangkok
+      ENABLE_SCHEDULER: "1"
+      COLLECT_HOUR: "7"
+      COLLECT_MINUTE: "23"
+      CORS_ORIGINS: ${CORS_ORIGINS:-https://vsv1020.github.io}
+    ports:
+      - "127.0.0.1:8000:8000"   # 只绑本机,前面挂 nginx/caddy 做 TLS
+    volumes:
+      # 采集会往 data/policies/*.jsonl 追加事实记录并导出 data/site/*.json,
+      # 挂出来才能在宿主机上 git commit 保留审计轨迹
+      - ./data:/srv/data
+      - appvar:/srv/var
+
+volumes:
+  pgdata:
+  appvar:

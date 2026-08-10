@@ -1,4 +1,5 @@
 {
+ "_generated": "由 backend/app/export.py 从数据库导出,请勿手改;改 data/policies/*.jsonl → python3 -m app.ingest → python3 -m app.export",
  "months": [
   "25-09",
   "25-10",
@@ -18,42 +19,6 @@
  "min_months_required": 6,
  "volume_by_domain": [
   {
-   "id": "tax",
-   "label": "税务",
-   "data": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    1
-   ]
-  },
-  {
-   "id": "land",
-   "label": "房产土地",
-   "data": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    1,
-    0,
-    0,
-    1
-   ]
-  },
-  {
    "id": "biz",
    "label": "公司投资",
    "data": [
@@ -72,10 +37,9 @@
    ]
   },
   {
-   "id": "labor",
-   "label": "劳工用工",
+   "id": "land",
+   "label": "房产土地",
    "data": [
-    0,
     0,
     0,
     0,
@@ -86,7 +50,8 @@
     0,
     1,
     0,
-    0
+    0,
+    1
    ]
   },
   {
@@ -124,45 +89,45 @@
     0,
     1
    ]
-  }
- ],
- "wind_by_domain": [
+  },
+  {
+   "id": "labor",
+   "label": "劳工用工",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0
+   ]
+  },
   {
    "id": "tax",
    "label": "税务",
    "data": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    -0.33
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1
    ]
-  },
-  {
-   "id": "land",
-   "label": "房产土地",
-   "data": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    0.26,
-    null,
-    null,
-    -0.33
-   ]
-  },
+  }
+ ],
+ "wind_by_domain": [
   {
    "id": "biz",
    "label": "公司投资",
@@ -182,8 +147,8 @@
    ]
   },
   {
-   "id": "labor",
-   "label": "劳工用工",
+   "id": "land",
+   "label": "房产土地",
    "data": [
     null,
     null,
@@ -193,10 +158,10 @@
     null,
     null,
     null,
+    0.26,
     null,
-    0.0,
     null,
-    null
+    -0.33
    ]
   },
   {
@@ -234,45 +199,45 @@
     null,
     0.0
    ]
+  },
+  {
+   "id": "labor",
+   "label": "劳工用工",
+   "data": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    0.0,
+    null,
+    null
+   ]
+  },
+  {
+   "id": "tax",
+   "label": "税务",
+   "data": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    -0.33
+   ]
   }
  ],
  "activity_by_agency": [
-  {
-   "id": "rd",
-   "label": "税务厅",
-   "data": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    1
-   ]
-  },
-  {
-   "id": "dol",
-   "label": "土地厅",
-   "data": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    1
-   ]
-  },
   {
    "id": "boi",
    "label": "投资促进委员会",
@@ -288,6 +253,42 @@
     0,
     0,
     1,
+    0
+   ]
+  },
+  {
+   "id": "cabinet",
+   "label": "内阁",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "moi",
+   "label": "内政部",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
     0
    ]
   },
@@ -310,8 +311,8 @@
    ]
   },
   {
-   "id": "mol",
-   "label": "劳工部",
+   "id": "dol",
+   "label": "土地厅",
    "data": [
     0,
     0,
@@ -322,9 +323,9 @@
     0,
     0,
     0,
-    1,
     0,
-    0
+    0,
+    1
    ]
   },
   {
@@ -364,27 +365,10 @@
    ]
   },
   {
-   "id": "cabinet",
-   "label": "内阁",
+   "id": "mol",
+   "label": "劳工部",
    "data": [
     0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    2,
-    0,
-    0,
-    0
-   ]
-  },
-  {
-   "id": "moi",
-   "label": "内政部",
-   "data": [
     0,
     0,
     0,
@@ -395,8 +379,25 @@
     0,
     1,
     0,
-    0,
     0
+   ]
+  },
+  {
+   "id": "rd",
+   "label": "税务厅",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1
    ]
   }
  ]

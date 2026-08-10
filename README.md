@@ -10,35 +10,53 @@
 ## 仓库结构
 
 ```
-index.html            产品原型(纯静态,GitHub Pages 直接访问)
-css/ js/              原型样式与逻辑(js/data.js 读派生数据;js/app.js 图表)
-data/vocab.json       受控词表:领域/机关/法律形式/状态/关系/作用对象
-data/policies/        事实层(JSONL,唯一手写与采集写入的地方)
-data/site/            派生层(tools/build_site.py 生成,禁止手改)
-tools/                validate.py 校验 · build_site.py 生成
-pipeline/             数据管线 PoC:皇家公报 + 内阁决议官方开放数据抓取
-.claude/skills/autoresearch   定时增量采集流程
-docs/research-report.md   完整调研报告(数据源盘点/竞品/技术架构/合规/商业模式)
+index.html            产品原型(静态站,GitHub Pages 直接访问)
+css/ js/              前端:api.js 取数与降级 · data.js 首页/检索/脉络 · dims.js 七维 · app.js 图表
+backend/              Python 后端:FastAPI + SQLAlchemy + 每日采集定时器(见 backend/README.md)
+data/vocab.json       受控词表:领域/机关/法律形式/工具/目标/环节/关系/作用对象
+data/policies/        事实层(JSONL,可 review 的政策记录)
+data/site/            派生层(backend/app/export.py 导出,禁止手改)
+tools/validate.py     纯标准库校验器(词表、关系、日期顺序、编辑红线)
+pipeline/             早期抓取 PoC(已由 backend/app/collect.py 接管)
+.claude/skills/autoresearch   LLM 采集流程(负责需要判断的那部分)
+docs/research-report.md   完整调研报告
 ```
 
-**没有数据库,是 git 里的结构化文件。**数据分三层单向流动:受控词表 → 事实层(JSONL)
-→ 派生层(build 生成),前端只读派生层。字段含义与设计理由见 [data/README.md](data/README.md)。
+## 架构
+
+```
+data/vocab.json ─┐
+data/policies/*.jsonl ─┴→ app.ingest ──→ 数据库 ──→ app.api  ──→ 前端(首选)
+                                          │           SQLite 开发 / Postgres 生产
+每日采集 app.collect ──→ 追加 JSONL ───────┤
+(data.go.th 官方接口)  └→ 写库             └→ app.export → data/site/*.json(静态降级)
+```
+
+**数据库是运行时存储,git 里的 JSONL 是可 review 的事实记录**,采集两边都写。
+对一个卖「可溯源」的产品,审计轨迹本身就是功能。字段含义与设计理由见
+[data/README.md](data/README.md),部署见 [backend/README.md](backend/README.md)。
+
+前端三级降级:**API → data/site/*.json → HTML 内联占位**,后端没部署时静态站照常工作。
 
 ```bash
-python3 tools/validate.py     # 校验:词表成员、关系双向、日期顺序、编辑红线
-python3 tools/build_site.py   # 生成 data/site/*.json
+cd backend && pip install -r requirements.txt
+python3 -m app.ingest --reset   # 建表 + 载入词表与事实层
+uvicorn app.main:app --port 8000  # 同时提供 API(/docs)与静态站(/)
 ```
 
-关键性质:
+## 关键性质
 
-- **风向指数、生效日历、首页选条、趋势聚合都是算出来的**,不是手填的 —— 结构上排除了
-  「为了让页面有变化而编造数字」。
-- **build 是纯函数**(「现在」取上次采集时间而非运行时刻),所以 CI 能用
-  `git diff --quiet -- data/site/` 抓出手改派生文件或漏跑 build。
-- 日期拆成决议/刊登/生效/意见截止四类,才表达得了泰国政策那个「决议已过、公报未刊、
-  尚未生效」同时成立的常见状态。
-- 派生 JSON 加载失败时页面回退到 HTML 里的静态内容,不白屏。
-- 趋势看板在真实数据覆盖不足 6 个月时自动退回演示数组;上升话题榜暂无数据源,始终为演示。
+- **所有分析都是算出来的**:风向指数、生效日历、首页选条、趋势聚合、政策维度七维,
+  全部由 `backend/app/analytics.py` 从数据库聚合。结构上排除了「为了让页面有变化而编造数字」。
+- **每个维度自报样本量**:不足阈值就显示「数据不足:仅 N 条样本」而不是画一张看起来
+  很确定的图。趋势图在覆盖不足 6 个月时退回演示数组。
+- **导出是纯函数**(「现在」取上次采集时间而非运行时刻),所以 CI 能用
+  `git diff --quiet -- data/site/` 抓出手改派生文件或漏跑导出。
+- **日期拆成四类**(决议/刊登/生效/意见截止),才表达得了泰国政策那个「决议已过、
+  公报未刊、尚未生效」同时成立的常见状态 —— `GET /api/documents?pending_gazette=true`
+  就是靠它把这个窗口期查出来的。
+- **词表是真表 + 外键**:未知领域/机关/工具 id 由数据库拒绝,不依赖应用层记得校验。
+- 上升话题榜暂无数据源,始终为演示数据。
 
 ## 原型包含的界面(演示数据)
 
@@ -61,14 +79,23 @@ python fetch_cabinet.py --limit 2   # 内阁决议年度数据 → data/processe
 
 ## 自动更新
 
-`/autoresearch`(定义见 [.claude/skills/autoresearch/SKILL.md](.claude/skills/autoresearch/SKILL.md))每轮做一次增量采集:
-官方 JSON 源 → 公开检索兜底 → 去重后写入 `data/site/policies.json` → 提交推送。可挂 3 小时一次的定时任务。
+分两层,互不重叠:
 
-流程内置三条编辑红线(王室零加工 / 不建人名索引 / 不虚构文号与链接),`verified` 恒为 `false`,
-人工复核后才手动改为 `true`。
+**① 确定性采集(每天一次,后端自动)** —— `backend/app/collect.py`:
+取 data.go.th 官方 CKAN 接口 → 佛历换算 → 红线过滤 → 追加 JSONL → 入库 → 导出静态 JSON。
+默认曼谷时间每天 07:23 由进程内定时器触发(可改用系统 cron,见 backend/README.md)。
+每次运行在 `collect_runs` 表留一条记录,`GET /api/runs` 可查。
 
-**注意**:泰国政府站点对海外 IP 有 WAF 拦截,受限出口环境下 `data.go.th` 返回 403;
-此时流程降级为只用公开检索,并在页面右上角显示「N 个源均未接通」。
+**② 需要判断的部分(LLM 流程)** —— [.claude/skills/autoresearch](.claude/skills/autoresearch/SKILL.md):
+公开检索发现的线索,经人可复核的判断后写成结构化记录。为什么分开:自动写入必须可复现、
+可审计,「检索摘要 → 带文号带机关带日期的记录」中间那一步判断应该发生在人能复核的地方。
+
+两层共用三条编辑红线(王室零加工 / 不建人名索引 / 不虚构文号与链接),
+在 `collect.normalize_*()` 与 `tools/validate.py` 里**机械执行**并有测试覆盖;
+自动采集的条目 `verified` 恒为 `false`(校验器强制),人工复核后才改 `true`。
+
+**注意**:泰国政府站点对海外 IP 有 WAF 拦截。受限出口环境下 `data.go.th` 返回 403,
+采集会诚实记为 `error` 并继续,页面右上角显示「N 个源均未接通」。生产部署建议用泰国出口。
 
 ## 设计原则(合规红线,见调研报告第七章)
 

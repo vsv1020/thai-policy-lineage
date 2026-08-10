@@ -17,42 +17,8 @@ function go(v) {
 }
 document.querySelectorAll('.nav-item[data-v]').forEach(b => b.addEventListener('click', () => go(b.dataset.v)));
 
-/* ── 维度一/二 矩阵渲染 ── */
-function cellTd(v, max, rgb, red) {
-  const frame = red ? ' red-frame' : '';
-  if (!v) return `<td class="cell${frame}" style="background:rgba(${rgb},0.06);color:var(--muted)">·</td>`;
-  const a = 0.10 + 0.80 * (v / max);
-  const txt = a > 0.55 ? '#fff' : 'var(--ink)';
-  return `<td class="cell${frame}" style="background:rgba(${rgb},${a.toFixed(2)});color:${txt}">${v}</td>`;
-}
-function renderGroup(id, rows, rgb) {
-  const max = Math.max(...rows.flatMap(r => r[1]));
-  document.getElementById(id).innerHTML = rows.map(r =>
-    `<tr><td class="rowname">${r[0]}</td>${r[1].map(v => cellTd(v, max, rgb)).join('')}</tr>`).join('');
-}
-const BLUE = '91,115,145', SEAL = '176,51,42', GOLD = '183,138,60';
-renderGroup('m1a', [['资金与预算投入',[6,8,11,14,9]], ['基础设施(充电网)',[2,5,12,18,13]], ['人才与技工培训',[1,1,2,3,2]]], BLUE);
-renderGroup('m1b', [['税收减免与追缴',[9,12,16,21,19]], ['标准与准入管制',[3,6,14,22,20]], ['本地化率考核',[0,2,7,15,17]]], SEAL);
-renderGroup('m1c', [['消费购置补贴',[14,18,12,6,3]], ['政府采购与公务车',[4,6,7,5,4]], ['进出口与贸易管制',[3,4,8,11,12]]], GOLD);
-(function renderM2() {
-  const cols = ['产业升级','投资吸引','绿色转型','就业与技能','区域均衡'];
-  const rows = [['供给型',[18,22,14,2,6],BLUE], ['环境型',[26,31,28,5,4],SEAL], ['需求型',[12,9,17,3,2],GOLD]];
-  const redCols = [3, 4];
-  let h = `<tr><th style="width:76px"></th>${cols.map(c => `<th>${c}</th>`).join('')}</tr>`;
-  h += rows.map(r => {
-    const max = Math.max(...r[1]);
-    return `<tr><td class="rowname" style="width:76px">${r[0]}</td>${r[1].map((v, i) => cellTd(v, max, r[2], redCols.includes(i))).join('')}</tr>`;
-  }).join('');
-  document.getElementById('m2').innerHTML = h;
-})();
-/* ── 维度四 双向条 ── */
-(function renderM4() {
-  const data = [['整车厂(含合资)',42,38], ['零部件与电池厂',36,14], ['进口商与经销商',9,31], ['消费者',22,4], ['外资投资者',34,17], ['府级与地方政府',12,26]];
-  const max = 42;
-  document.getElementById('m4').innerHTML = data.map(d =>
-    `<div class="bi-row"><div class="bi-head"><span class="n">${d[0]}</span><span class="v">支持 ${d[1]} / 约束 ${d[2]}</span></div>
-     <div class="bi-track"><div class="bi-l"><i style="width:${(d[1]/max*100).toFixed(0)}%"></i></div><div class="bi-r"><i style="width:${(d[2]/max*100).toFixed(0)}%"></i></div></div></div>`).join('');
-})();
+/* 维度页的矩阵/双向条渲染已移到 js/dims.js —— 那里的数据来自真实聚合,
+   不再是这里写死的 EV 演示数组。 */
 
 const ax = {
   axisLabel: { color: C.muted, fontSize: 11 },

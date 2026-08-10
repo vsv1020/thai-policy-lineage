@@ -100,5 +100,55 @@
     { "id": "med",  "zh": "官方引述/二手一致" },
     { "id": "low",  "zh": "单一二手来源" },
     { "id": "none", "zh": "未取得" }
+  ],
+
+  "_dimensions_comment": "以下三组支撑「政策维度」页的维度一/二/七。分类参照政策工具理论的供给型/环境型/需求型三分法。",
+
+  "instrument_classes": [
+    { "id": "supply",      "zh": "供给型", "desc": "政府直接投入",       "color": "blue" },
+    { "id": "environment", "zh": "环境型", "desc": "规则与激励塑造环境", "color": "seal" },
+    { "id": "demand",      "zh": "需求型", "desc": "直接拉动市场",       "color": "gold" }
+  ],
+
+  "instruments": [
+    { "id": "budget_funding",     "zh": "资金与预算投入",   "class": "supply" },
+    { "id": "infrastructure",     "zh": "基础设施建设",     "class": "supply" },
+    { "id": "training",           "zh": "人才与技能培训",   "class": "supply" },
+    { "id": "public_service",     "zh": "公共服务与系统供给", "class": "supply" },
+    { "id": "tax_incentive",      "zh": "税收减免与追缴",   "class": "environment" },
+    { "id": "standards_licensing","zh": "标准与准入管制",   "class": "environment" },
+    { "id": "local_content",      "zh": "本地化与合规考核", "class": "environment" },
+    { "id": "disclosure",         "zh": "申报、备案与披露", "class": "environment" },
+    { "id": "enforcement",        "zh": "执法、排查与处罚", "class": "environment" },
+    { "id": "subsidy",            "zh": "补贴与价格优惠",   "class": "demand" },
+    { "id": "public_procurement", "zh": "政府采购",         "class": "demand" },
+    { "id": "trade_control",      "zh": "进出口与贸易管制", "class": "demand" },
+    { "id": "price_control",      "zh": "价格与费率管制",   "class": "demand" }
+  ],
+
+  "goals": [
+    { "id": "industrial_upgrade",   "zh": "产业升级" },
+    { "id": "investment_attraction","zh": "投资吸引" },
+    { "id": "green_transition",     "zh": "绿色转型" },
+    { "id": "employment_skills",    "zh": "就业与技能" },
+    { "id": "regional_balance",     "zh": "区域均衡" },
+    { "id": "fiscal_revenue",       "zh": "财政收入" },
+    { "id": "order_security",       "zh": "秩序与安全" },
+    { "id": "consumer_protection",  "zh": "权益保护" }
+  ],
+
+  "implementation_stages": [
+    { "id": "national_plan",       "zh": "国家规划", "seq": 1 },
+    { "id": "legal_form",          "zh": "法律形式", "seq": 2 },
+    { "id": "cabinet_resolution",  "zh": "内阁决议", "seq": 3 },
+    { "id": "implementing_rule",   "zh": "实施细则", "seq": 4 },
+    { "id": "budget_execution",    "zh": "预算与执行", "seq": 5 },
+    { "id": "evaluation",          "zh": "评估与复盘", "seq": 6 }
+  ],
+
+  "severities": [
+    { "id": "high", "zh": "高危" },
+    { "id": "med",  "zh": "中" },
+    { "id": "low",  "zh": "低" }
   ]
 }
