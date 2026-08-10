@@ -1,0 +1,33 @@
+name: 政策数据校验
+
+on:
+  push:
+    paths: ['data/**', 'tools/**', '.github/workflows/data.yml']
+  pull_request:
+    paths: ['data/**', 'tools/**']
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 校验规范化数据
+        run: python3 tools/validate.py
+
+      - name: 重新生成派生数据
+        run: python3 tools/build_site.py
+
+      - name: 确认 data/site/ 与源数据一致
+        run: |
+          if ! git diff --quiet -- data/site/; then
+            echo "::error::data/site/ 与 data/policies/ 不一致 —— 说明有人手改了派生文件,"
+            echo "::error::或改了源数据但没重跑 tools/build_site.py。下面是差异:"
+            git --no-pager diff -- data/site/
+            exit 1
+          fi
+          echo "data/site/ 与源数据一致"

@@ -11,18 +11,34 @@
 
 ```
 index.html            产品原型(纯静态,GitHub Pages 直接访问)
-css/ js/              原型样式与逻辑(js/data.js 读数据层;js/app.js 含图表演示数据)
-data/site/policies.json   站点数据层(唯一入库控的数据文件,前端只读)
+css/ js/              原型样式与逻辑(js/data.js 读派生数据;js/app.js 图表)
+data/vocab.json       受控词表:领域/机关/法律形式/状态/关系/作用对象
+data/policies/        事实层(JSONL,唯一手写与采集写入的地方)
+data/site/            派生层(tools/build_site.py 生成,禁止手改)
+tools/                validate.py 校验 · build_site.py 生成
 pipeline/             数据管线 PoC:皇家公报 + 内阁决议官方开放数据抓取
-data/raw data/processed   管线输出(原始归档 / 规范化 CSV,不入库控)
-.claude/skills/autoresearch   定时增量采集流程(写 policies.json 并推送)
+.claude/skills/autoresearch   定时增量采集流程
 docs/research-report.md   完整调研报告(数据源盘点/竞品/技术架构/合规/商业模式)
 ```
 
-**没有数据库。**首页政策流、检索列表、风向、生效日历统一从 `data/site/policies.json` 渲染;
-该文件是 git 里的静态 JSON,由 `/autoresearch` 流程增量写入并推送,GitHub Pages 直接托管。
-JSON 加载失败时页面回退到 HTML 里的静态示意内容(不白屏)。趋势看板四张图仍是
-`js/app.js` 里的硬编码演示数据,等数据量到千条级再做聚合。
+**没有数据库,是 git 里的结构化文件。**数据分三层单向流动:受控词表 → 事实层(JSONL)
+→ 派生层(build 生成),前端只读派生层。字段含义与设计理由见 [data/README.md](data/README.md)。
+
+```bash
+python3 tools/validate.py     # 校验:词表成员、关系双向、日期顺序、编辑红线
+python3 tools/build_site.py   # 生成 data/site/*.json
+```
+
+关键性质:
+
+- **风向指数、生效日历、首页选条、趋势聚合都是算出来的**,不是手填的 —— 结构上排除了
+  「为了让页面有变化而编造数字」。
+- **build 是纯函数**(「现在」取上次采集时间而非运行时刻),所以 CI 能用
+  `git diff --quiet -- data/site/` 抓出手改派生文件或漏跑 build。
+- 日期拆成决议/刊登/生效/意见截止四类,才表达得了泰国政策那个「决议已过、公报未刊、
+  尚未生效」同时成立的常见状态。
+- 派生 JSON 加载失败时页面回退到 HTML 里的静态内容,不白屏。
+- 趋势看板在真实数据覆盖不足 6 个月时自动退回演示数组;上升话题榜暂无数据源,始终为演示。
 
 ## 原型包含的界面(演示数据)
 

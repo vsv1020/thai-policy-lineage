@@ -1,0 +1,4 @@
+{"id":"pnd94","title_zh":"个人所得税半年申报(PND 94)截止","domain_ids":["tax"],"agency_ids":["rd"],"recurrence":{"type":"yearly","month":9,"day":30},"note":"纸质申报 9 月底、电子申报通常延至 10 月初,以税务厅公告为准","confidence":"med"}
+{"id":"pnd90_91","title_zh":"个人所得税年度申报(PND 90/91)截止","domain_ids":["tax"],"agency_ids":["rd"],"recurrence":{"type":"yearly","month":3,"day":31},"note":"电子申报通常延至 4 月上旬","confidence":"med"}
+{"id":"platform_filing","title_zh":"数字平台服务备案年度更新截止","domain_ids":["digital"],"agency_ids":["etda"],"recurrence":{"type":"yearly","month":8,"day":15},"note":"《数字平台服务法令》下的年度信息更新义务","confidence":"low"}
+{"id":"work_permit_renewal_window","title_zh":"e-WorkPermit 系统旧件迁移截止","domain_ids":["labor"],"agency_ids":["mol"],"recurrence":{"type":"once","date":"2026-09-01"},"note":"演示条目,待官方公告核实","confidence":"low"}

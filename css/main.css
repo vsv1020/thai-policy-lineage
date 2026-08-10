@@ -93,6 +93,11 @@
   .chip.biz::before { background: var(--green); }
   .chip.labor::before { background: var(--gold-deep); }
   .chip.land::before { background: var(--seal-deep); }
+  .chip.customs::before { background: #7a6a52; }
+  .chip.finance::before { background: #4a6b78; }
+  .chip.digital::before { background: #6b5b8c; }
+  .chip.education::before { background: #7d8a5c; }
+  .chip.health::before { background: #8a6a6a; }
   .chip.bare::before { display: none; }
   .dir { font-size: 12px; font-weight: 600; }
   .dir.tight { color: var(--seal); }

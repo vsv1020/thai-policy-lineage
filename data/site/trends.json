@@ -1,0 +1,403 @@
+{
+ "months": [
+  "25-09",
+  "25-10",
+  "25-11",
+  "25-12",
+  "26-01",
+  "26-02",
+  "26-03",
+  "26-04",
+  "26-05",
+  "26-06",
+  "26-07",
+  "26-08"
+ ],
+ "months_covered": 4,
+ "usable": false,
+ "min_months_required": 6,
+ "volume_by_domain": [
+  {
+   "id": "tax",
+   "label": "税务",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1
+   ]
+  },
+  {
+   "id": "land",
+   "label": "房产土地",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1
+   ]
+  },
+  {
+   "id": "biz",
+   "label": "公司投资",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    2,
+    0
+   ]
+  },
+  {
+   "id": "labor",
+   "label": "劳工用工",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "visa",
+   "label": "签证居留",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    0,
+    1
+   ]
+  },
+  {
+   "id": "digital",
+   "label": "数字与数据",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1
+   ]
+  }
+ ],
+ "wind_by_domain": [
+  {
+   "id": "tax",
+   "label": "税务",
+   "data": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    -0.33
+   ]
+  },
+  {
+   "id": "land",
+   "label": "房产土地",
+   "data": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    0.26,
+    null,
+    null,
+    -0.33
+   ]
+  },
+  {
+   "id": "biz",
+   "label": "公司投资",
+   "data": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    0.26,
+    null,
+    0.46,
+    null
+   ]
+  },
+  {
+   "id": "labor",
+   "label": "劳工用工",
+   "data": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    0.0,
+    null,
+    null
+   ]
+  },
+  {
+   "id": "visa",
+   "label": "签证居留",
+   "data": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    -0.26,
+    0.26,
+    null,
+    0.0
+   ]
+  },
+  {
+   "id": "digital",
+   "label": "数字与数据",
+   "data": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    0.0
+   ]
+  }
+ ],
+ "activity_by_agency": [
+  {
+   "id": "rd",
+   "label": "税务厅",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1
+   ]
+  },
+  {
+   "id": "dol",
+   "label": "土地厅",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1
+   ]
+  },
+  {
+   "id": "boi",
+   "label": "投资促进委员会",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0
+   ]
+  },
+  {
+   "id": "dbd",
+   "label": "商业发展厅",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0
+   ]
+  },
+  {
+   "id": "mol",
+   "label": "劳工部",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "imm",
+   "label": "移民局",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    1
+   ]
+  },
+  {
+   "id": "moc",
+   "label": "商务部",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "cabinet",
+   "label": "内阁",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "moi",
+   "label": "内政部",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0
+   ]
+  }
+ ]
+}

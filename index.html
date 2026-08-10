@@ -192,9 +192,10 @@
     <!-- ═══════ 脉络 ═══════ -->
     <section class="view" id="v-lineage">
       <h1 class="page">演进脉络</h1>
-      <div class="page-sub">当前议题:<b>境外所得汇入课税</b> · 把同一议题的草案、决议、公报、修订串成一条可追溯的链 —— 回答"这项政策从哪来、现在是哪一版、接下来可能怎么变"。</div>
+      <div class="page-sub" id="lineage-sub">当前议题:<b>境外所得汇入课税</b> · 把同一议题的草案、决议、公报、修订串成一条可追溯的链 —— 回答"这项政策从哪来、现在是哪一版、接下来可能怎么变"。</div>
+      <div class="facets" id="lineage-picker"></div>
       <div class="card" style="max-width:860px">
-        <div class="lineage">
+        <div class="lineage" id="lineage">
           <div class="ln-item milestone">
             <div class="ln-stage">起点 · 旧规则</div>
             <div class="ln-card"><div class="ln-title">税法典第 41 条既有解释:境外所得"次年汇入不征税"惯例</div><div class="ln-meta">Krisdika 整编版 · 长期执行口径</div></div>
@@ -338,7 +339,7 @@
     <!-- ═══════ 趋势 ═══════ -->
     <section class="view" id="v-trends">
       <h1 class="page">趋势看板</h1>
-      <div class="page-sub">基于全库结构化数据聚合 · 发文量回答"多不多",<a href="#" onclick="go('dims');return false">政策维度</a>回答"是什么样的政策" · 演示数据</div>
+      <div class="page-sub" id="trends-sub">基于全库结构化数据聚合 · 发文量回答"多不多",<a href="#" onclick="go('dims');return false">政策维度</a>回答"是什么样的政策" · 演示数据</div>
       <div class="facets">
         <div class="facet">时间:<b>近 12 个月</b> ▾</div>
         <div class="facet">领域:<b>全部</b> ▾</div>

@@ -3,6 +3,8 @@
    —— 该 JSON 由 .claude/skills/autoresearch 定时写入,前端只读。 */
 
 const DATA_URL = 'data/site/policies.json';
+const TRENDS_URL = 'data/site/trends.json';
+const LINEAGE_URL = 'data/site/lineage.json';
 
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g,
   c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -63,11 +65,44 @@ function libRow(p) {
 function windRow(w) {
   const sign = w.score > 0 ? '+' : '';
   return `<div class="gauge-row"><span class="chip ${esc(w.domain)} bare">${esc(w.label)}</span>
-    <span class="dir ${esc(w.direction)}">${DIR_LABEL[w.direction] || ''} ${sign}${esc(w.score)}</span></div>`;
+    <span class="dir ${esc(w.direction)}">${DIR_LABEL[w.direction] || ''} ${sign}${esc(w.score)}
+    <span style="color:var(--muted);font-weight:400">/ ${esc(w.n)} 件</span></span></div>`;
 }
 
 function calRow(c) {
-  return `<div class="cal-item"><span class="cal-date">${esc(String(c.date).slice(5))}</span><span>${esc(c.text)}</span></div>`;
+  const tag = c.kind === 'deadline' ? ' <span style="color:var(--muted)">(法定截止)</span>' : '';
+  return `<div class="cal-item"><span class="cal-date">${esc(String(c.date).slice(5))}</span><span>${esc(c.text)}${tag}</span></div>`;
+}
+
+/* ── 演进脉络:从 lineage.json 渲染,议题可切换 ── */
+function lineageChain(issue) {
+  return issue.stages.map(s => `<div class="ln-item${s.milestone ? ' milestone' : ''}">
+    <div class="ln-stage">${esc(s.stage)}</div>
+    <div class="ln-card"${s.uid ? '' : ' style="border-style:dashed"'}>
+      <div class="ln-title">${esc(s.title)}</div>
+      ${s.meta ? `<div class="ln-meta">${esc(s.meta)}</div>` : ''}
+      ${s.note ? `<div class="ln-note">${esc(s.note)}</div>` : ''}
+    </div></div>`).join('');
+}
+
+function renderLineage(data) {
+  const issues = (data.issues || []).filter(i => i.stages && i.stages.length);
+  if (!issues.length) return;
+  let current = issues[0].issue_id;
+
+  const draw = () => {
+    const it = issues.find(i => i.issue_id === current) || issues[0];
+    set('lineage-picker', issues.map(i =>
+      `<div class="facet" data-issue="${esc(i.issue_id)}"${i.issue_id === current
+        ? ' style="border-color:var(--seal);color:var(--seal)"' : ''}>${esc(i.title_zh)}
+       <span style="color:var(--muted)">${i.stages.length}</span></div>`).join(''));
+    set('lineage-sub', `当前议题:<b>${esc(it.title_zh)}</b> · ${esc(it.summary_zh)}`
+      + (it.watch ? ` <span style="color:var(--muted)">前瞻:${esc(it.watch)}</span>` : ''));
+    set('lineage', lineageChain(it));
+    document.querySelectorAll('#lineage-picker .facet').forEach(el =>
+      el.addEventListener('click', () => { current = el.dataset.issue; draw(); }));
+  };
+  draw();
 }
 
 function set(id, html) {
@@ -89,7 +124,7 @@ function render(d) {
 
   const srcs = d.sources || [];
   const ok = srcs.filter(s => s.status === 'ok').length;
-  const research = policies.filter(p => p.provenance !== 'demo').length;
+  const research = (d.stats || {}).research || 0;   // 由 build 统计,不在前端重算
   const health = srcs.length
     ? (ok ? ` · 源 ${ok}/${srcs.length} 可用` : ` · ${srcs.length} 个源均未接通`)
     : '';
@@ -97,10 +132,24 @@ function render(d) {
     + (research ? ` · 实采 ${research} 条` : ' · 全部为示意数据'));
 }
 
-fetch(DATA_URL, { cache: 'no-store' })
-  .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)))
-  .then(render)
-  .catch(err => {
-    console.warn('[policies.json] 未加载,页面保留静态示意数据:', err.message);
-    set('stamp', '静态示意数据(未加载 policies.json)');
-  });
+const getJSON = url => fetch(url, { cache: 'no-store' })
+  .then(r => r.ok ? r.json() : Promise.reject(new Error(url + ' → HTTP ' + r.status)));
+
+getJSON(DATA_URL).then(render).catch(err => {
+  console.warn('[policies.json] 未加载,页面保留静态示意数据:', err.message);
+  set('stamp', '静态示意数据(未加载 policies.json)');
+});
+
+getJSON(TRENDS_URL).then(t => {
+  window.TRENDS = t;
+  const sub = t.usable
+    ? `基于全库结构化数据聚合 · 覆盖 ${t.months_covered} 个月`
+    : `发文量与风向由 <b>${t.months_covered}</b> 个月的真实数据算出,不足 ${t.min_months_required}`
+      + ' 个月,下方四图暂用演示数据';
+  set('trends-sub', sub);
+  // 真实数据可能比首次进入趋势页更晚到达 —— initCharts 可重复调用
+  if (typeof initCharts === 'function' && document.querySelector('#c-stack canvas')) initCharts();
+}).catch(err => console.warn('[trends.json] 未加载,图表用演示数据:', err.message));
+
+getJSON(LINEAGE_URL).then(renderLineage)
+  .catch(err => console.warn('[lineage.json] 未加载,脉络页保留静态内容:', err.message));

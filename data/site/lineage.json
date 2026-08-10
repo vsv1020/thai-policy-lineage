@@ -1,0 +1,217 @@
+{
+ "issues": [
+  {
+   "issue_id": "foreign-income-remittance",
+   "title_zh": "境外所得汇入课税",
+   "summary_zh": "从「次年汇入免税」惯例被打破,到过渡安排补丁,再到解释函更新;前瞻是税法典第 41 条是否正式修订、从公告层上升为法律层。",
+   "watch": "若进入国会程序升为 พ.ร.บ. 层级,稳定性显著提高",
+   "domains": [
+    "税务"
+   ],
+   "stages": [
+    {
+     "stage": "起点 · 旧规则",
+     "title": "税法典第 41 条既有解释:境外所得「次年汇入不征税」惯例",
+     "uid": null,
+     "milestone": true,
+     "note": "Krisdika 整编版 · 长期执行口径",
+     "meta": ""
+    },
+    {
+     "stage": "转折 · 2566/2023",
+     "title": "税务厅指令 Por 161/2566:境外所得汇入课税新指引",
+     "uid": "TH-RD-2566-POR-161",
+     "milestone": true,
+     "note": "打破「次年汇入免税」惯例,引发在泰长居人群广泛关注",
+     "meta": "ประกาศ 层级 · Por 161/2566"
+    },
+    {
+     "stage": "补丁",
+     "title": "税务厅指令 Por 162/2566:对 2566 年前所得设过渡安排",
+     "uid": "TH-RD-2566-POR-162",
+     "milestone": false,
+     "note": "回应执行争议",
+     "meta": "ประกาศ 层级 · Por 162/2566"
+    },
+    {
+     "stage": "现行版 · 2026-08",
+     "title": "税务厅解释函:境外所得汇入泰国的个人所得税适用规则更新",
+     "uid": "TH-RD-20260808-FOREIGN-INCOME",
+     "milestone": true,
+     "note": "公报 ง 143/58ก · 2026-01-01 生效(追溯)",
+     "meta": "ประกาศ 层级 · ง 143/58ก"
+    },
+    {
+     "stage": "前瞻",
+     "title": "待观察:税法典第 41 条正式修订(พ.ร.บ. 层级)",
+     "uid": null,
+     "milestone": false,
+     "note": "若进入国会程序,将从公告层上升为法律层",
+     "meta": ""
+    }
+   ]
+  },
+  {
+   "issue_id": "visa-free-duration",
+   "title_zh": "免签停留期长短",
+   "summary_zh": "60 天免签的终止已过内阁,但内政部公告未刊公报,处于「决议已过、公报未刊」的窗口期。",
+   "watch": "关注内政部公告刊登日;刊登后满 15 日生效",
+   "domains": [
+    "签证居留"
+   ],
+   "stages": [
+    {
+     "stage": "内阁决议 · 2026-05",
+     "title": "内阁决议:终止 60 天免签、多数国籍改回 30 天(截至 8 月初尚未刊登公报)",
+     "uid": "TH-CAB-20260519-VISAFREE-30D",
+     "milestone": true,
+     "note": "批准终止 60 天免签",
+     "meta": "มติ ครม. 层级"
+    },
+    {
+     "stage": "待刊公报",
+     "title": "内政部公告尚未刊登(截至 2026-08-03)",
+     "uid": null,
+     "milestone": false,
+     "note": "现行 60 天免签仍然有效",
+     "meta": ""
+    }
+   ]
+  },
+  {
+   "issue_id": "nominee-crackdown",
+   "title_zh": "代持(Nominee)结构排查",
+   "summary_zh": "土地厅与 DBD 对借泰籍代持持有不动产与公司股权的结构加强排查。",
+   "watch": "关注 DOL 与 DBD 的数据互查落地文件",
+   "domains": [
+    "房产土地",
+    "公司投资"
+   ],
+   "stages": [
+    {
+     "stage": "土地厅指令 · 2026-08",
+     "title": "土地厅新指令:加强对代持(Nominee)结构持有土地与公寓的排查",
+     "uid": "TH-DOL-20260805-NOMINEE-SCREENING",
+     "milestone": true,
+     "note": "加强交易审查",
+     "meta": "ระเบียบ 层级 · 2569/12"
+    }
+   ]
+  },
+  {
+   "issue_id": "land-lease-reform",
+   "title_zh": "外籍人士长期租赁改革",
+   "summary_zh": "内阁原则性批准修订长期租赁条款,待后续文件落地。",
+   "watch": "关注土地法修订草案与公报刊登",
+   "domains": [
+    "房产土地"
+   ],
+   "stages": [
+    {
+     "stage": "内阁决议 · 2026-05",
+     "title": "内阁决议:批准修订土地法关于外籍人士长期租赁条款的原则",
+     "uid": "TH-CAB-20260512-LEASE-PRINCIPLE",
+     "milestone": true,
+     "note": "批准修法原则",
+     "meta": "มติ ครม. 层级"
+    }
+   ]
+  },
+  {
+   "issue_id": "fba-liberalisation",
+   "title_zh": "《外商经营法》List 3 松绑",
+   "summary_zh": "部分服务业拟移出外资限制清单,处于公开听证阶段。",
+   "watch": "关注听证结果与是否进入国会程序",
+   "domains": [
+    "公司投资"
+   ],
+   "stages": [
+    {
+     "stage": "草案听证 · 2026-05",
+     "title": "《外商经营法》修订草案:List 3 部分服务业拟移出限制清单",
+     "uid": "TH-MOC-20260530-FBA-LIST3",
+     "milestone": true,
+     "note": "law.go.th 公开征求意见",
+     "meta": "พ.ร.บ. 层级"
+    }
+   ]
+  },
+  {
+   "issue_id": "boi-semiconductor",
+   "title_zh": "半导体与先进电子投资激励",
+   "summary_zh": "BOI 对晶圆制造与先进封装追加税收优惠并放宽技术人员配额。",
+   "watch": "关注申请窗口开启与配套的消费税/财政部口径",
+   "domains": [
+    "公司投资"
+   ],
+   "stages": [
+    {
+     "stage": "BOI 公告 · 2026-07",
+     "title": "BOI 公告:半导体与先进电子产业投资激励追加税收优惠",
+     "uid": "TH-BOI-20260728-SEMICON",
+     "milestone": true,
+     "note": "10-01 起施行",
+     "meta": "ประกาศ 层级 · No. 8/2569"
+    }
+   ]
+  },
+  {
+   "issue_id": "minimum-wage",
+   "title_zh": "最低工资调整",
+   "summary_zh": "工资委员会按府别分档上调日最低工资。",
+   "watch": "关注下一轮工资委员会公告",
+   "domains": [
+    "劳工用工"
+   ],
+   "stages": [
+    {
+     "stage": "公告 · 2026-06",
+     "title": "工资委员会第 14 号公告:7 月 1 日起上调日最低工资标准",
+     "uid": "TH-MOL-20260620-MINWAGE-14",
+     "milestone": true,
+     "note": "07-01 生效",
+     "meta": "ประกาศ 层级 · ง 特别号"
+    }
+   ]
+  },
+  {
+   "issue_id": "dtv-visa",
+   "title_zh": "DTV 签证执行口径",
+   "summary_zh": "各分局对 DTV 延期材料的口径统一。",
+   "watch": "关注是否升格为正式公告",
+   "domains": [
+    "签证居留"
+   ],
+   "stages": [
+    {
+     "stage": "操作指引 · 2026-06",
+     "title": "移民局:DTV 签证境内延期的材料清单与流程说明更新",
+     "uid": "TH-IMM-20260611-DTV-EXT",
+     "milestone": true,
+     "note": "统一材料口径",
+     "meta": "แนวปฏิบัติ 层级"
+    }
+   ]
+  },
+  {
+   "issue_id": "thim-entry-registration",
+   "title_zh": "THIM 入境登记平台",
+   "summary_zh": "TDAC 入境卡整合进 THIM 平台并转为强制。",
+   "watch": "关注移民局正式公告与强制启用确切日期",
+   "domains": [
+    "签证居留",
+    "数字与数据"
+   ],
+   "stages": [
+    {
+     "stage": "强制启用 · 2026-08",
+     "title": "移民局 THIM 入境登记 App 于 2026 年 8 月起对所有外籍入境者强制启用",
+     "uid": "TH-IMM-20260801-THIM-MANDATORY",
+     "milestone": true,
+     "note": "试点期结束",
+     "meta": "แนวปฏิบัติ 层级"
+    }
+   ]
+  }
+ ]
+}
