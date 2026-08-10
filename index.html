@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>政策脉络 · 泰国 — Thai Policy Lineage(整合原型)</title>
+<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="seal">脉</div>
+    <div class="brand-name">政策脉络 · 泰国</div>
+    <div class="brand-sub">Thai Policy Lineage · นโยบายไทย</div>
+  </div>
+  <div class="header-right">
+    <span>示意数据 · 整合原型</span>
+    <button class="btn-solid">订阅预警</button>
+  </div>
+</header>
+
+<div class="layout">
+  <aside>
+    <div class="side-label">界面</div>
+    <div class="nav-item soon"><span class="glyph">析</span>形态分析<span class="soon-tag">规划中</span></div>
+    <div class="nav-item active" data-v="today"><span class="glyph">今</span>首页 · 今日</div>
+    <div class="nav-item" data-v="search"><span class="glyph">检</span>检索结果</div>
+    <div class="nav-item" data-v="lineage"><span class="glyph">脉</span>演进脉络</div>
+    <div class="nav-item" data-v="dims"><span class="glyph">维</span>政策维度</div>
+    <div class="nav-item" data-v="trends"><span class="glyph">势</span>趋势看板</div>
+    <div class="nav-item" data-v="detail"><span class="glyph">文</span>政策详情</div>
+    <div class="nav-item soon"><span class="glyph">问</span>政策助手<span class="soon-tag">规划中</span></div>
+    <div class="side-div"></div>
+    <div class="side-label">我的订阅</div>
+    <div class="sub-item"><span class="sub-dot" style="background:var(--seal)"></span>EV 产业激励<span class="sub-badge" style="color:var(--seal)">+4</span></div>
+    <div class="sub-item"><span class="sub-dot" style="background:var(--blue)"></span>BOI 投资激励变动<span class="sub-badge" style="color:var(--blue-deep)">+2</span></div>
+    <div class="sub-item"><span class="sub-dot" style="background:var(--gold-deep)"></span>PDPA 与数据跨境<span class="sub-badge" style="color:var(--gold-deep)">+1</span></div>
+    <div class="sub-item"><span class="sub-dot" style="background:#b9b3a4"></span>最低工资与用工<span class="sub-badge" style="color:var(--muted)">—</span></div>
+  </aside>
+
+  <main>
+
+    <!-- ═══════ 今日 ═══════ -->
+    <section class="view active" id="v-today">
+      <h1 class="page">今日政策</h1>
+      <div class="page-sub">官方源自动监测 · 重要政策 24–48 小时内出中文 · 每条均附泰文原文与公报编号</div>
+      <div class="home-grid">
+        <div>
+          <div class="card policy-card" onclick="go('detail')">
+            <div class="pc-top"><span class="chip tax">税务</span><span class="dir tight">▲ 收紧</span><span class="verified">已人工复核</span></div>
+            <div class="pc-title">税务厅解释函:境外所得汇入泰国的个人所得税适用规则更新</div>
+            <div class="pc-sum">明确税务居民(年居留 ≥180 天)境外所得汇入时的申报义务与过渡安排,对长居华人及跨境收入人群有直接影响。</div>
+            <div class="pc-meta"><span>税务厅 (RD)</span><span>公报 <b>ง 143/58ก</b></span><span>生效 <b>2026-01-01</b></span><span><a href="#">泰文原文 ↗</a></span></div>
+          </div>
+          <div class="card policy-card" onclick="go('detail')">
+            <div class="pc-top"><span class="chip land">房产土地</span><span class="dir tight">▲ 收紧</span><span class="verified">已人工复核</span></div>
+            <div class="pc-title">土地厅新指令:加强对代持(Nominee)结构持有土地与公寓的排查</div>
+            <div class="pc-sum">要求地方土地办公室对涉嫌外籍人士借泰籍代持购地的交易加强审查,列出重点核查情形与文件要求。</div>
+            <div class="pc-meta"><span>土地厅 (DOL)</span><span>指令 <b>2569/12</b></span><span>已生效</span><span><a href="#">泰文原文 ↗</a></span></div>
+          </div>
+          <div class="card policy-card" onclick="go('detail')">
+            <div class="pc-top"><span class="chip labor">劳工用工</span><span class="dir neutral">● 中性</span><span class="verified">已人工复核</span></div>
+            <div class="pc-title">工资委员会第 14 号公告:7 月 1 日起上调日最低工资标准</div>
+            <div class="pc-sum">按府别分档上调最低日薪,雇佣泰籍员工的中资企业需同步调整薪酬与社保基数。</div>
+            <div class="pc-meta"><span>劳工部 (MOL)</span><span>公报 <b>ง 特别号</b></span><span>生效 <b>2026-07-01</b></span><span><a href="#">泰文原文 ↗</a></span></div>
+          </div>
+          <div class="card policy-card" onclick="go('detail')">
+            <div class="pc-top"><span class="chip biz">公司投资</span><span class="dir loose">▼ 放宽</span></div>
+            <div class="pc-title">BOI 公告:半导体与先进电子产业投资激励追加税收优惠</div>
+            <div class="pc-sum">对晶圆制造、先进封装、PCB 上游追加企业所得税豁免年限,并放宽外籍技术人员配额。</div>
+            <div class="pc-meta"><span>BOI</span><span>公告 <b>No. 8/2569</b></span><span>已关联内阁决议</span><span><a href="#">原文 ↗</a></span></div>
+          </div>
+          <div class="card policy-card" onclick="go('detail')">
+            <div class="pc-top"><span class="chip visa">签证居留</span><span class="dir loose">▼ 放宽</span></div>
+            <div class="pc-title">移民局:DTV 签证境内延期的材料清单与流程说明更新</div>
+            <div class="pc-sum">统一各分局对 DTV 延期的材料口径,明确资金证明认定标准,回应此前各地执行不一的问题。</div>
+            <div class="pc-meta"><span>移民局</span><span>操作指引</span><span>已生效</span><span><a href="#">泰文原文 ↗</a></span></div>
+          </div>
+        </div>
+        <div>
+          <div class="card">
+            <h3 class="mod">本月政策风向</h3>
+            <div class="mod-sub">近 30 天 · LLM 标注 + 人工复核</div>
+            <div class="gauge-row"><span class="chip visa bare">签证居留</span><span class="dir loose">▼ 放宽 +0.3</span></div>
+            <div class="gauge-row"><span class="chip tax bare">税务</span><span class="dir tight">▲ 收紧 −0.5</span></div>
+            <div class="gauge-row"><span class="chip biz bare">公司投资</span><span class="dir loose">▼ 放宽 +0.6</span></div>
+            <div class="gauge-row"><span class="chip land bare">房产土地</span><span class="dir tight">▲ 收紧 −0.4</span></div>
+            <div style="text-align:right;margin-top:8px"><a href="#" onclick="go('trends');return false" style="font-size:12.5px">查看趋势看板 →</a></div>
+          </div>
+          <div class="card">
+            <h3 class="mod">生效日历</h3>
+            <div class="mod-sub">未来 90 天</div>
+            <div class="cal-item"><span class="cal-date">08-15</span><span>数字平台服务备案年度更新截止</span></div>
+            <div class="cal-item"><span class="cal-date">08-31</span><span>个人所得税半年申报(PND 94)截止</span></div>
+            <div class="cal-item"><span class="cal-date">09-01</span><span>e-WorkPermit 系统旧件迁移截止</span></div>
+            <div class="cal-item"><span class="cal-date">10-01</span><span>半导体 BOI 新激励申请窗口开启</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ 检索 ═══════ -->
+    <section class="view" id="v-search">
+      <h1 class="page">政策检索</h1>
+      <div class="page-sub">领域 × 机关 × 法律形式 × 状态 × 时间 五维过滤 · 演示 8 条 / 库内 <b>112,406</b> 条</div>
+      <div class="facets">
+        <div class="facet">领域:<b>全部</b> ▾</div>
+        <div class="facet">机关:<b>全部</b> ▾</div>
+        <div class="facet">法律形式:<b>全部</b> ▾</div>
+        <div class="facet">状态:<b>现行有效</b> ✕</div>
+        <div class="facet">时间:<b>近 12 个月</b> ▾</div>
+        <div class="facet" style="border-style:dashed;color:var(--muted)">+ 保存为订阅</div>
+      </div>
+      <div class="lib-wrap">
+        <div class="lib-row"><span class="lib-date">2026-08-08</span><div><div class="lib-title">税务厅解释函:境外所得汇入个人所得税适用规则更新</div><div class="lib-sub"><span class="chip tax">税务</span>解释函 · ประกาศ 层级 · 公报 ง 143/58ก</div></div><span class="pill st-active">现行有效</span></div>
+        <div class="lib-row"><span class="lib-date">2026-08-05</span><div><div class="lib-title">土地厅指令:加强代持(Nominee)持有不动产排查</div><div class="lib-sub"><span class="chip land">房产土地</span>部门指令 · ระเบียบ 层级</div></div><span class="pill st-active">现行有效</span></div>
+        <div class="lib-row"><span class="lib-date">2026-07-28</span><div><div class="lib-title">BOI 公告 No. 8/2569:半导体产业投资激励追加</div><div class="lib-sub"><span class="chip biz">公司投资</span>委员会公告 · 已关联内阁决议</div></div><span class="pill st-soon">10-01 起施行</span></div>
+        <div class="lib-row"><span class="lib-date">2026-07-15</span><div><div class="lib-title">DBD:公司注册全面在线化与 e-Foreign 系统上线</div><div class="lib-sub"><span class="chip biz">公司投资</span>部门公告</div></div><span class="pill st-active">现行有效</span></div>
+        <div class="lib-row"><span class="lib-date">2026-06-20</span><div><div class="lib-title">工资委员会第 14 号公告:上调日最低工资</div><div class="lib-sub"><span class="chip labor">劳工用工</span>委员会公告 · 公报 ง 特别号</div></div><span class="pill st-active">07-01 已生效</span></div>
+        <div class="lib-row"><span class="lib-date">2026-06-11</span><div><div class="lib-title">移民局:DTV 签证境内延期材料与流程统一说明</div><div class="lib-sub"><span class="chip visa">签证居留</span>操作指引</div></div><span class="pill st-active">现行有效</span></div>
+        <div class="lib-row"><span class="lib-date">2026-05-30</span><div><div class="lib-title">《外商经营法》修订草案:List 3 部分服务业拟移出限制清单</div><div class="lib-sub"><span class="chip biz">公司投资</span>พ.ร.บ. 修订 · law.go.th 公开听证</div></div><span class="pill st-draft">草案听证中</span></div>
+        <div class="lib-row"><span class="lib-date">2026-05-12</span><div><div class="lib-title">内阁决议:批准修订土地法关于外籍人士长期租赁条款的原则</div><div class="lib-sub"><span class="chip land">房产土地</span>มติ ครม. · 待后续文件落地</div></div><span class="pill st-draft">待刊公报</span></div>
+      </div>
+      <div style="text-align:center;color:var(--muted);font-size:12.5px;margin-top:16px">← 上一页 · 第 1 / 14,051 页 · 下一页 →</div>
+    </section>
+
+    <!-- ═══════ 详情 ═══════ -->
+    <section class="view" id="v-detail">
+      <div class="crumb">检索 / 税务 / 解释函</div>
+      <div class="detail-grid">
+        <div class="card" style="padding:26px 30px">
+          <div class="pc-top"><span class="chip tax">税务</span><span class="chip bare">ประกาศ 层级</span><span class="dir tight">▲ 收紧</span><span class="verified">已人工复核 · 2026-08-09</span></div>
+          <div class="d-title">税务厅解释函:境外所得汇入泰国的个人所得税适用规则更新</div>
+          <div class="d-thai">泰文原题:คำชี้แจงกรมสรรพากร เรื่อง การเสียภาษีเงินได้บุคคลธรรมดาสำหรับเงินได้จากต่างประเทศ(演示)</div>
+          <div class="fields">
+            <div class="field"><div class="k">发文机关</div><div class="v">税务厅 (RD)</div></div>
+            <div class="field"><div class="k">公报编号</div><div class="v">ง 143 / 58ก</div></div>
+            <div class="field"><div class="k">刊登日期</div><div class="v">2026-08-06</div></div>
+            <div class="field"><div class="k">生效日期</div><div class="v">2026-01-01</div></div>
+            <div class="field"><div class="k">适用对象</div><div class="v">泰国税务居民</div></div>
+            <div class="field"><div class="k">政策方向</div><div class="v" style="color:var(--seal)">收紧</div></div>
+            <div class="field"><div class="k">法律层级</div><div class="v">公告 / 解释函</div></div>
+            <div class="field"><div class="k">替代版本</div><div class="v">Por 161/2566 ↗</div></div>
+          </div>
+          <div class="d-body">
+            <h4>中文摘要(AI 生成 · 已人工复核)</h4>
+            <p>本解释函针对税务居民(一个纳税年度内在泰居留合计满 180 天者)的境外所得汇入课税问题作出更新说明:一、明确"汇入"的认定范围,包括银行转账、支付工具入账及以实物形式带入;二、列明可豁免情形与所需证明文件;三、对此前年度所得设置过渡安排。对持长期签证在泰居住、有境外收入来源的人群有直接影响。</p>
+            <h4>关键条款</h4>
+            <ul>
+              <li>税务居民境外所得于汇入年度并入应税所得申报;</li>
+              <li>提供来源年度证明可适用过渡安排(具体文件见原文第 4 条);</li>
+              <li>未如实申报的补税与罚金标准援引税法典既有条款。</li>
+            </ul>
+            <h4>稳定性提示(法律形式信号)</h4>
+            <p>本文件为 <b>ประกาศ(公告/解释函)层级</b> —— 调整最快、可诉性弱。按"政策维度"页的形态规律,此类文件存在被后续文件修改的可能,重大安排建议按可调整口径做敏感性测算。</p>
+          </div>
+          <div class="origin"><b>泰文原文对照</b> · 公报 PDF:<a href="#">ratchakitcha.soc.go.th/…/T_0143.PDF ↗</a> · <a href="#">本站存档副本</a><br>此处逐段展示泰文原文与中文译文对照(演示占位)</div>
+          <div class="disclaim">免责声明:本页为非官方翻译,仅供参考,如与泰文原文有出入,以泰文原文为准;本内容不构成法律或税务意见。本站与泰国政府无隶属关系。<a href="#">提交更正</a>(更正记录公开)。</div>
+        </div>
+        <div>
+          <div class="card">
+            <h3 class="mod">政策生命周期</h3>
+            <div class="mod-sub">跨源自动关联</div>
+            <div class="timeline">
+              <div class="tl-item done"><div class="tl-date">2025-09-02</div><div class="tl-name">内阁决议:批准修法原则</div><div class="tl-src"><a href="#">resolution.soc.go.th ↗</a></div></div>
+              <div class="tl-item done"><div class="tl-date">2025-11-18</div><div class="tl-name">法案公开听证(草案)</div><div class="tl-src"><a href="#">law.go.th ↗</a></div></div>
+              <div class="tl-item done"><div class="tl-date">2026-08-06</div><div class="tl-name">刊登皇家公报</div><div class="tl-src"><a href="#">ratchakitcha ↗</a></div></div>
+              <div class="tl-item now"><div class="tl-date">2026-01-01(追溯)</div><div class="tl-name">生效适用</div><div class="tl-src">现行有效</div></div>
+            </div>
+            <div style="margin-top:12px;font-size:12.5px"><a href="#" onclick="go('lineage');return false">查看完整演进脉络 →</a></div>
+          </div>
+          <div class="card">
+            <h3 class="mod">相关政策</h3>
+            <div class="cal-item"><span>Por 161/2566:境外所得课税指引(被本函更新)</span></div>
+            <div class="cal-item"><span>Por 162/2566:过渡安排补充说明</span></div>
+            <div class="cal-item"><span>税法典第 41 条(Krisdika 现行版)</span></div>
+          </div>
+          <div class="card">
+            <h3 class="mod">订阅此主题</h3>
+            <div style="font-size:12.5px;color:var(--ink-2)">「税务 × 个人所得税」有更新时通知我</div>
+            <button class="btn-solid" style="margin-top:10px;width:100%">邮件 / 微信 / LINE 提醒</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ 脉络 ═══════ -->
+    <section class="view" id="v-lineage">
+      <h1 class="page">演进脉络</h1>
+      <div class="page-sub">当前议题:<b>境外所得汇入课税</b> · 把同一议题的草案、决议、公报、修订串成一条可追溯的链 —— 回答"这项政策从哪来、现在是哪一版、接下来可能怎么变"。</div>
+      <div class="card" style="max-width:860px">
+        <div class="lineage">
+          <div class="ln-item milestone">
+            <div class="ln-stage">起点 · 旧规则</div>
+            <div class="ln-card"><div class="ln-title">税法典第 41 条既有解释:境外所得"次年汇入不征税"惯例</div><div class="ln-meta">Krisdika 整编版 · 长期执行口径</div></div>
+          </div>
+          <div class="ln-item milestone">
+            <div class="ln-stage">转折 · 2566/2023</div>
+            <div class="ln-card"><div class="ln-title">Por 161/2566:境外所得汇入课税新指引</div><div class="ln-meta">税务厅 · ประกาศ 层级 · 2024-01-01 起适用</div><div class="ln-note">打破"次年汇入免税"惯例,引发在泰长居人群广泛关注。</div></div>
+          </div>
+          <div class="ln-item">
+            <div class="ln-stage">补丁</div>
+            <div class="ln-card"><div class="ln-title">Por 162/2566:对 2566 年前所得设过渡安排</div><div class="ln-meta">税务厅 · 回应执行争议</div></div>
+          </div>
+          <div class="ln-item">
+            <div class="ln-stage">上游信号 · 2025-09</div>
+            <div class="ln-card"><div class="ln-title">内阁决议:批准修法原则(全球所得口径研究)</div><div class="ln-meta">内阁秘书处决议库 · มติ ครม.</div><div class="ln-note">政策方向层信号 —— 按维度三规律,决议需后续文件落地,期间存在口径不确定窗口。</div></div>
+          </div>
+          <div class="ln-item">
+            <div class="ln-stage">听证 · 2025-11</div>
+            <div class="ln-card"><div class="ln-title">法案公开听证:境外所得课税修订草案</div><div class="ln-meta">law.go.th 公开征求意见 · 可提交意见</div></div>
+          </div>
+          <div class="ln-item milestone">
+            <div class="ln-stage">现行版 · 2026-08</div>
+            <div class="ln-card" style="border-color:var(--seal)"><div class="ln-title">税务厅解释函:适用规则更新(本站已收录)</div><div class="ln-meta">公报 ง 143/58ก · 2026-01-01 生效(追溯)</div><div class="ln-note"><a href="#" onclick="go('detail');return false">查看详情与中文摘要 →</a></div></div>
+          </div>
+          <div class="ln-item">
+            <div class="ln-stage">前瞻</div>
+            <div class="ln-card" style="border-style:dashed"><div class="ln-title">待观察:税法典第 41 条正式修订(พ.ร.บ. 层级)</div><div class="ln-meta">若进入国会程序,将从"公告层"上升为"法律层",稳定性显著提高</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ 政策维度(重建自设计稿) ═══════ -->
+    <section class="view" id="v-dims">
+      <h1 class="page">政策维度分析</h1>
+      <div class="page-sub">当前切片:<b>EV 与汽车产业 · 全国＋府级 · 2565—2569(2022—2026)</b>。发文量回答"多不多",这一页回答"是什么样的政策"。</div>
+
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap">
+          <div><h3 class="mod">维度一 · 政策工具结构随时间演变</h3>
+          <div class="mod-sub">格子深浅 = 该年该工具的使用件数占比</div></div>
+          <div style="font-size:12px;color:var(--muted);max-width:420px">供给型＝政府直接投入;环境型＝规则与激励塑造环境;需求型＝直接拉动市场</div>
+        </div>
+        <table class="matrix">
+          <tr><th style="width:158px"></th><th>2565/22</th><th>2566/23</th><th>2567/24</th><th>2568/25</th><th>2569/26</th></tr>
+        </table>
+        <div class="grp"><span class="sq" style="background:var(--blue)"></span><b>供给型 · 政府直接投入</b><span>占 31%,2567 起回升</span></div>
+        <table class="matrix" id="m1a"></table>
+        <div class="grp"><span class="sq" style="background:var(--seal)"></span><b>环境型 · 规则与激励塑造环境</b><span>占 47%,两年翻倍</span></div>
+        <table class="matrix" id="m1b"></table>
+        <div class="grp"><span class="sq" style="background:var(--gold-deep)"></span><b>需求型 · 直接拉动市场</b><span>占 22%,明显退坡</span></div>
+        <table class="matrix" id="m1c"></table>
+        <div class="reading">读法:2565—2566 的重心在"消费补贴＋税收减免"(需求型),2567 起明显转向"本地化率考核、充电桩标准、进口管制"(环境型＋供给型)。对整车厂的含义是:<b>拿激励的门槛从"卖得多"变成"造得多、造在本地"</b>。</div>
+      </div>
+
+      <div class="dim-grid2">
+        <div>
+          <div class="card">
+            <h3 class="mod">维度二 · 政策工具 × 政策目标</h3>
+            <div class="mod-sub">红框 = 该目标缺少对应工具,是政策空白,也是提意见和抢先布局的位置</div>
+            <table class="matrix" id="m2"></table>
+            <div class="reading">两处空白:<b>就业与技能</b>目标下几乎没有供给型工具(技工培训只有 2 件表态性文件),<b>区域均衡</b>目标只有 EEC 三府受益,其余 74 府无对应工具。</div>
+          </div>
+          <div class="card">
+            <h3 class="mod">维度四 · 作用对象:谁被支持,谁被约束</h3>
+            <div class="mod-sub">左 = 支持性条款件数,右 = 约束性条款件数</div>
+            <div id="m4"></div>
+            <div class="legend"><span><i style="background:var(--green)"></i>支持</span><span><i style="background:var(--seal)"></i>约束</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="card">
+            <h3 class="mod">维度三 · 法律形式与强制力</h3>
+            <div class="mod-sub">泰国的法律形式本身就是力度信号,也是"能不能被起诉"的分界线</div>
+            <div class="pyr-row"><div class="pyr-num" style="background:var(--ink)">5</div><div><div class="pyr-name">พระราชบัญญัติ (พ.ร.บ.)</div><div class="pyr-desc">法律 · 须经国会,最稳定、可诉</div></div><div><div class="pyr-count">18</div><div class="pyr-pct">2%</div></div></div>
+            <div class="pyr-row"><div class="pyr-num" style="background:var(--ink)">5</div><div><div class="pyr-name">พระราชกำหนด (พ.ร.ก.)</div><div class="pyr-desc">紧急法令 · 内阁先行、事后追认</div></div><div><div class="pyr-count">6</div><div class="pyr-pct">1%</div></div></div>
+            <div class="pyr-row"><div class="pyr-num" style="background:var(--seal)">4</div><div><div class="pyr-name">พระราชกฤษฎีกา (พ.ร.ฎ.)</div><div class="pyr-desc">皇家法令 · 据法律授权,常用于税收减免</div></div><div><div class="pyr-count">34</div><div class="pyr-pct">4%</div></div></div>
+            <div class="pyr-row"><div class="pyr-num" style="background:var(--blue)">3</div><div><div class="pyr-name">กฎกระทรวง</div><div class="pyr-desc">部令 · 部长签发,程序性约束</div></div><div><div class="pyr-count">88</div><div class="pyr-pct">10%</div></div></div>
+            <div class="pyr-row"><div class="pyr-num" style="background:#2f3338">2</div><div><div class="pyr-name">ประกาศ / ระเบียบ</div><div class="pyr-desc">公告与规程 · 调整最快,占比最高</div></div><div><div class="pyr-count">526</div><div class="pyr-pct">41%</div></div></div>
+            <div class="pyr-row"><div class="pyr-num" style="background:#cfc9ba;color:var(--ink)">1</div><div><div class="pyr-name">มติคณะรัฐมนตรี</div><div class="pyr-desc">内阁决议 · 政策方向,需后续文件落地</div></div><div><div class="pyr-count">438</div><div class="pyr-pct">37%</div></div></div>
+            <div class="reading" style="margin-top:14px">78% 的 EV 政策承载在 ประกาศ 与 มติ ครม. 上——调整快、可诉性弱,意味着<b>政策稳定性风险高</b>,投资测算应按可撤回处理。</div>
+          </div>
+          <div class="card">
+            <h3 class="mod">维度五 · 发文机构协同</h3>
+            <div class="mod-sub">联署强度 = 两机构共同署名或互相引用的件数</div>
+            <div class="co-row"><span>ครม. ↔ กรมสรรพสามิต 消费税厅</span><div class="co-bar"><i style="width:100%;background:var(--seal)"></i></div><span class="co-val">34</span></div>
+            <div class="co-row"><span>ครม. ↔ BOI</span><div class="co-bar"><i style="width:76%;background:var(--seal)"></i></div><span class="co-val">26</span></div>
+            <div class="co-row"><span>BOI ↔ EEC 办公室</span><div class="co-bar"><i style="width:56%;background:var(--blue)"></i></div><span class="co-val">19</span></div>
+            <div class="co-row"><span>กระทรวงพลังงาน 能源部 ↔ ERC</span><div class="co-bar"><i style="width:41%;background:var(--blue)"></i></div><span class="co-val">14</span></div>
+            <div class="co-row"><span>MDES ↔ ETDA</span><div class="co-bar"><i style="width:24%;background:var(--gold)"></i></div><span class="co-val">8</span></div>
+            <div class="co-row"><span>BOI ↔ กรมสรรพสามิต(联署)</span><div class="co-bar"><i style="width:9%;background:var(--gold)"></i></div><span class="co-val">3</span></div>
+            <div class="reading" style="margin-top:14px">BOI 与消费税厅联署仅 3 件,却在 11 件文件里<b>各自单独规定同一批激励</b>——这正是下方冲突的来源。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="mod">维度六 · 一致性与冲突检测</h3>
+        <div class="mod-sub">同一事项在不同文件中给出不同口径时自动标出,附双方原文定位</div>
+        <div class="conflict high">
+          <div class="cf-top"><span class="cf-badge">高危</span><span class="cf-title">电芯项目免税年限口径不一致</span></div>
+          <div class="cf-cols">
+            <div class="cf-quote">BOI ประกาศ 4/2568:电芯项目最长免征企业所得税 8 年,不附加本地采购条件。</div>
+            <div class="cf-quote">มติ ครม. 2569-05-12:享受减免者须在 2570 年前达 40% 本地零部件比例,否则追缴。</div>
+          </div>
+          <div class="cf-impact">影响:<b>已按 8 年测算的在建项目现金流模型可能失效</b>,需重新做敏感性测算。</div>
+        </div>
+        <div class="conflict">
+          <div class="cf-top"><span class="cf-badge">中</span><span class="cf-title">充电站计费上限由谁定</span></div>
+          <div class="cf-cols">
+            <div class="cf-quote">กระทรวงพลังงาน 公告:分时电价上限由 ERC 另行公布。</div>
+            <div class="cf-quote">ERC 现行公告未覆盖公共快充场景,仅规定居民与工商业电价。</div>
+          </div>
+          <div class="cf-impact">影响:运营商定价处于空窗,府级执法口径不一致,普吉与春武里已出现差异处理。</div>
+        </div>
+        <div class="conflict" style="margin-bottom:0">
+          <div class="cf-top"><span class="cf-badge">中</span><span class="cf-title">府级许可时限承诺与中央程序冲突</span></div>
+          <div class="cf-cols">
+            <div class="cf-quote">罗勇、春武里府规划:一站式窗口 45 日内完成许可。</div>
+            <div class="cf-quote">กฎกระทรวง 工业部令:环评与厂房许可法定期限合计 90 日。</div>
+          </div>
+          <div class="cf-impact">影响:府级承诺无法律基础,<b>投资时间表应按 90 日保守假设</b>。</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="mod">维度七 · 执行完整度(从规划到评估)</h3>
+        <div class="mod-sub">同一议题在六个环节各有多少文件,缺环 = 落地风险</div>
+        <div class="stage-wrap">
+          <div class="stage"><div class="num">14</div><div class="bar" style="height:29px;background:#a9b4c2"></div><div class="lab">国家规划</div></div>
+          <div class="stage"><div class="num">26</div><div class="bar" style="height:53px;background:#8296ac"></div><div class="lab">法律形式</div></div>
+          <div class="stage"><div class="num">62</div><div class="bar" style="height:127px;background:#5b7391"></div><div class="lab">内阁决议</div></div>
+          <div class="stage hot"><div class="num">78</div><div class="bar" style="height:160px"></div><div class="lab">实施细则</div></div>
+          <div class="stage"><div class="num">41</div><div class="bar" style="height:84px;background:#8296ac"></div><div class="lab">预算与执行</div></div>
+          <div class="stage weak"><div class="num">2</div><div class="bar" style="height:5px"></div><div class="lab">评估与复盘</div></div>
+        </div>
+        <div class="warn-box">缺环预警:<b>评估环节仅 2 件</b>(且均为内部报告口径),意味着 EV 激励的效果没有官方评估基础,未来政策调整更可能是政治周期驱动而非数据驱动——这对投资时间表是实质风险。</div>
+      </div>
+    </section>
+
+    <!-- ═══════ 趋势 ═══════ -->
+    <section class="view" id="v-trends">
+      <h1 class="page">趋势看板</h1>
+      <div class="page-sub">基于全库结构化数据聚合 · 发文量回答"多不多",<a href="#" onclick="go('dims');return false">政策维度</a>回答"是什么样的政策" · 演示数据</div>
+      <div class="facets">
+        <div class="facet">时间:<b>近 12 个月</b> ▾</div>
+        <div class="facet">领域:<b>全部</b> ▾</div>
+        <div class="facet">口径:<b>公报 + 内阁决议</b> ▾</div>
+      </div>
+      <div class="trend-grid">
+        <div class="card"><h3 class="mod">各领域政策发文量</h3><div class="mod-sub">按月 · 堆叠 · 悬停查看明细</div><div class="chart tall" id="c-stack"></div></div>
+        <div class="card"><h3 class="mod">政策风向指数</h3><div class="mod-sub">LLM 标注收紧(−)/放宽(+)后按月聚合 · 0 为中性</div><div class="chart tall" id="c-direction"></div></div>
+        <div class="card"><h3 class="mod">部委发文活跃度</h3><div class="mod-sub">机关 × 月份 · 颜色深浅 = 发文量</div><div class="chart" id="c-heat"></div></div>
+        <div class="card"><h3 class="mod">上升话题榜</h3><div class="mod-sub">近 30 天关键词提及次数环比增幅</div><div class="chart" id="c-topics"></div></div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  政策脉络 · 泰国(整合原型)—— 官方源自动监测 · 全部内容可溯源 · 零带货中立平台。本站译文均为非官方翻译,仅供参考,以泰文原文为准;不构成法律意见。数据来源:皇家公报 · 内阁决议库 · 各部委官网 · data.go.th。页面数据均为演示用途。
+</footer>
+
+<script src="js/echarts.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
