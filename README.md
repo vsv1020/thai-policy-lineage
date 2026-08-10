@@ -11,11 +11,18 @@
 
 ```
 index.html            产品原型(纯静态,GitHub Pages 直接访问)
-css/ js/              原型样式与逻辑(js/app.js 含演示数据;ECharts 本地托管)
+css/ js/              原型样式与逻辑(js/data.js 读数据层;js/app.js 含图表演示数据)
+data/site/policies.json   站点数据层(唯一入库控的数据文件,前端只读)
 pipeline/             数据管线 PoC:皇家公报 + 内阁决议官方开放数据抓取
-data/                 管线输出(raw 原始归档 / processed 规范化 CSV,不入库控)
+data/raw data/processed   管线输出(原始归档 / 规范化 CSV,不入库控)
+.claude/skills/autoresearch   定时增量采集流程(写 policies.json 并推送)
 docs/research-report.md   完整调研报告(数据源盘点/竞品/技术架构/合规/商业模式)
 ```
+
+**没有数据库。**首页政策流、检索列表、风向、生效日历统一从 `data/site/policies.json` 渲染;
+该文件是 git 里的静态 JSON,由 `/autoresearch` 流程增量写入并推送,GitHub Pages 直接托管。
+JSON 加载失败时页面回退到 HTML 里的静态示意内容(不白屏)。趋势看板四张图仍是
+`js/app.js` 里的硬编码演示数据,等数据量到千条级再做聚合。
 
 ## 原型包含的界面(演示数据)
 
@@ -35,6 +42,17 @@ python fetch_cabinet.py --limit 2   # 内阁决议年度数据 → data/processe
 ```
 
 数据走 data.go.th 官方开放接口(DGA Open Government License 明确允许复制、传播、再利用),内置礼貌限速;详见 [pipeline/README.md](pipeline/README.md)。
+
+## 自动更新
+
+`/autoresearch`(定义见 [.claude/skills/autoresearch/SKILL.md](.claude/skills/autoresearch/SKILL.md))每轮做一次增量采集:
+官方 JSON 源 → 公开检索兜底 → 去重后写入 `data/site/policies.json` → 提交推送。可挂 3 小时一次的定时任务。
+
+流程内置三条编辑红线(王室零加工 / 不建人名索引 / 不虚构文号与链接),`verified` 恒为 `false`,
+人工复核后才手动改为 `true`。
+
+**注意**:泰国政府站点对海外 IP 有 WAF 拦截,受限出口环境下 `data.go.th` 返回 403;
+此时流程降级为只用公开检索,并在页面右上角显示「N 个源均未接通」。
 
 ## 设计原则(合规红线,见调研报告第七章)
 

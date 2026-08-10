@@ -15,7 +15,7 @@
     <div class="brand-sub">Thai Policy Lineage · นโยบายไทย</div>
   </div>
   <div class="header-right">
-    <span>示意数据 · 整合原型</span>
+    <span id="stamp">示意数据 · 整合原型</span>
     <button class="btn-solid">订阅预警</button>
   </div>
 </header>
@@ -46,7 +46,7 @@
       <h1 class="page">今日政策</h1>
       <div class="page-sub">官方源自动监测 · 重要政策 24–48 小时内出中文 · 每条均附泰文原文与公报编号</div>
       <div class="home-grid">
-        <div>
+        <div id="feed">
           <div class="card policy-card" onclick="go('detail')">
             <div class="pc-top"><span class="chip tax">税务</span><span class="dir tight">▲ 收紧</span><span class="verified">已人工复核</span></div>
             <div class="pc-title">税务厅解释函:境外所得汇入泰国的个人所得税适用规则更新</div>
@@ -82,19 +82,23 @@
           <div class="card">
             <h3 class="mod">本月政策风向</h3>
             <div class="mod-sub">近 30 天 · LLM 标注 + 人工复核</div>
+            <div id="wind">
             <div class="gauge-row"><span class="chip visa bare">签证居留</span><span class="dir loose">▼ 放宽 +0.3</span></div>
             <div class="gauge-row"><span class="chip tax bare">税务</span><span class="dir tight">▲ 收紧 −0.5</span></div>
             <div class="gauge-row"><span class="chip biz bare">公司投资</span><span class="dir loose">▼ 放宽 +0.6</span></div>
             <div class="gauge-row"><span class="chip land bare">房产土地</span><span class="dir tight">▲ 收紧 −0.4</span></div>
+            </div>
             <div style="text-align:right;margin-top:8px"><a href="#" onclick="go('trends');return false" style="font-size:12.5px">查看趋势看板 →</a></div>
           </div>
           <div class="card">
             <h3 class="mod">生效日历</h3>
             <div class="mod-sub">未来 90 天</div>
+            <div id="calendar">
             <div class="cal-item"><span class="cal-date">08-15</span><span>数字平台服务备案年度更新截止</span></div>
             <div class="cal-item"><span class="cal-date">08-31</span><span>个人所得税半年申报(PND 94)截止</span></div>
             <div class="cal-item"><span class="cal-date">09-01</span><span>e-WorkPermit 系统旧件迁移截止</span></div>
             <div class="cal-item"><span class="cal-date">10-01</span><span>半导体 BOI 新激励申请窗口开启</span></div>
+            </div>
           </div>
         </div>
       </div>
@@ -103,7 +107,7 @@
     <!-- ═══════ 检索 ═══════ -->
     <section class="view" id="v-search">
       <h1 class="page">政策检索</h1>
-      <div class="page-sub">领域 × 机关 × 法律形式 × 状态 × 时间 五维过滤 · 演示 8 条 / 库内 <b>112,406</b> 条</div>
+      <div class="page-sub" id="lib-count">领域 × 机关 × 法律形式 × 状态 × 时间 五维过滤 · 演示 8 条</div>
       <div class="facets">
         <div class="facet">领域:<b>全部</b> ▾</div>
         <div class="facet">机关:<b>全部</b> ▾</div>
@@ -112,7 +116,7 @@
         <div class="facet">时间:<b>近 12 个月</b> ▾</div>
         <div class="facet" style="border-style:dashed;color:var(--muted)">+ 保存为订阅</div>
       </div>
-      <div class="lib-wrap">
+      <div class="lib-wrap" id="lib">
         <div class="lib-row"><span class="lib-date">2026-08-08</span><div><div class="lib-title">税务厅解释函:境外所得汇入个人所得税适用规则更新</div><div class="lib-sub"><span class="chip tax">税务</span>解释函 · ประกาศ 层级 · 公报 ง 143/58ก</div></div><span class="pill st-active">现行有效</span></div>
         <div class="lib-row"><span class="lib-date">2026-08-05</span><div><div class="lib-title">土地厅指令:加强代持(Nominee)持有不动产排查</div><div class="lib-sub"><span class="chip land">房产土地</span>部门指令 · ระเบียบ 层级</div></div><span class="pill st-active">现行有效</span></div>
         <div class="lib-row"><span class="lib-date">2026-07-28</span><div><div class="lib-title">BOI 公告 No. 8/2569:半导体产业投资激励追加</div><div class="lib-sub"><span class="chip biz">公司投资</span>委员会公告 · 已关联内阁决议</div></div><span class="pill st-soon">10-01 起施行</span></div>
@@ -122,7 +126,7 @@
         <div class="lib-row"><span class="lib-date">2026-05-30</span><div><div class="lib-title">《外商经营法》修订草案:List 3 部分服务业拟移出限制清单</div><div class="lib-sub"><span class="chip biz">公司投资</span>พ.ร.บ. 修订 · law.go.th 公开听证</div></div><span class="pill st-draft">草案听证中</span></div>
         <div class="lib-row"><span class="lib-date">2026-05-12</span><div><div class="lib-title">内阁决议:批准修订土地法关于外籍人士长期租赁条款的原则</div><div class="lib-sub"><span class="chip land">房产土地</span>มติ ครม. · 待后续文件落地</div></div><span class="pill st-draft">待刊公报</span></div>
       </div>
-      <div style="text-align:center;color:var(--muted);font-size:12.5px;margin-top:16px">← 上一页 · 第 1 / 14,051 页 · 下一页 →</div>
+      <div style="text-align:center;color:var(--muted);font-size:12.5px;margin-top:16px">← 上一页 · 第 1 页 · 下一页 →</div>
     </section>
 
     <!-- ═══════ 详情 ═══════ -->
@@ -357,5 +361,6 @@
 
 <script src="js/echarts.min.js"></script>
 <script src="js/app.js"></script>
+<script src="js/data.js"></script>
 </body>
 </html>
