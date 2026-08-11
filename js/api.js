@@ -72,5 +72,8 @@
     return '';
   }
 
-  window.PolicyData = { getData, esc, set, insufficientNote, API_BASE, ENDPOINTS };
+  /* ready:探测完成后 resolve,值为是否走 API。
+     调用方在读 window.DATA_MODE 之前必须先 await 它 —— 否则拿到的是探测前的初始值。 */
+  window.PolicyData = { getData, esc, set, insufficientNote, API_BASE, ENDPOINTS,
+                        ready: () => _probe };
 })();

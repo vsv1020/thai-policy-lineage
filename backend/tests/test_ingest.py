@@ -38,15 +38,15 @@ def test_multi_domain_primary_is_seq_zero(session):
 
 
 def test_relations_are_bidirectional(session):
-    """A supersedes B 必须伴随 B superseded_by A,否则脉络图少一条边。"""
+    """A implements B 必须伴随 B implemented_by A,否则脉络图少一条边。"""
     fwd = session.scalars(select(DocumentRelation.dst_uid).where(
-        DocumentRelation.src_uid == "TH-RD-20260808-FOREIGN-INCOME",
-        DocumentRelation.type == "supersedes")).all()
-    assert "TH-RD-2566-POR-161" in fwd
+        DocumentRelation.src_uid == "TH-RD-2565-DG-427",
+        DocumentRelation.type == "implements")).all()
+    assert "TH-RD-2565-DECREE-743" in fwd
     back = session.scalars(select(DocumentRelation.dst_uid).where(
-        DocumentRelation.src_uid == "TH-RD-2566-POR-161",
-        DocumentRelation.type == "superseded_by")).all()
-    assert "TH-RD-20260808-FOREIGN-INCOME" in back
+        DocumentRelation.src_uid == "TH-RD-2565-DECREE-743",
+        DocumentRelation.type == "implemented_by")).all()
+    assert "TH-RD-2565-DG-427" in back
 
 
 def test_dates_are_separate_columns(session):
@@ -60,9 +60,31 @@ def test_dates_are_separate_columns(session):
 
 
 def test_retroactive_effective_date_allowed(session):
-    """生效日可以早于刊登日(追溯生效),不能被当成脏数据。"""
-    doc = session.get(Document, "TH-RD-20260808-FOREIGN-INCOME")
+    """生效日可以早于刊登/公布日(追溯适用),不能被当成脏数据。"""
+    doc = session.get(Document, "TH-BOI-20260115-MEASURES-2026")
     assert doc.effective_from < doc.published_at
+
+
+def test_no_fabricated_demo_data_remains(session):
+    """事实层不允许再有虚构演示条目 —— 编造的公报号是负资产。"""
+    demos = session.scalars(select(Document.uid).where(Document.pipeline == "demo")).all()
+    assert demos == [], f"仍存在演示数据: {demos}"
+
+
+def test_every_document_has_agency_and_date(session):
+    """红线三的库级不变量:没有发文机关或没有任何日期的条目不得入库。"""
+    for doc in session.scalars(select(Document)).all():
+        assert doc.agencies, f"{doc.uid} 没有发文机关"
+        assert doc.display_date is not None, f"{doc.uid} 没有任何可用日期"
+
+
+def test_no_fabricated_source_urls(session):
+    """拿不到官方链接就必须留空,不能填二手链接冒充原文。"""
+    from app.models import DocumentSource
+    for src in session.scalars(select(DocumentSource)).all():
+        assert src.url == "" or src.url.startswith("http")
+        if src.role == "official":
+            assert src.url, "official 来源必须有真实链接,否则应标为 secondary"
 
 
 def test_unknown_vocab_id_is_rejected_by_foreign_key(session):

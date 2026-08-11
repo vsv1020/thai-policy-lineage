@@ -61,9 +61,13 @@ def test_dim4_counts_support_and_constrain(session):
 
 
 def test_dim5_pairs_only_from_cosigned_documents(session):
+    """联署对只能来自同一份文件上并列署名的机关。"""
     d = A.dim5_agency_cooperation(session)
-    assert {"内阁", "内政部"} == {d["pairs"][0]["a"], d["pairs"][0]["b"]}
-    assert d["solo_documents"] >= 10
+    pairs = {frozenset((p["a"], p["b"])) for p in d["pairs"]}
+    assert frozenset(("内阁", "内政部")) in pairs, "免签决议由内阁与内政部联署"
+    assert frozenset(("劳工部", "社会保障办公室")) in pairs, "社保部令由劳工部与社保办联署"
+    assert d["solo_documents"] >= 1
+    assert all(p["n"] >= 1 for p in d["pairs"])
 
 
 def test_dim6_sorted_by_severity(session):

@@ -20,7 +20,7 @@ from .analytics import iso_bkk
 from .config import BKK, settings
 from .db import get_session
 from .models import (Agency, CollectRun, Document, DocumentAgency, DocumentDomain, Domain,
-                     Goal, Instrument, InstrumentClass, Issue, LegalForm, Status)
+                     Goal, Instrument, InstrumentClass, Issue, LegalForm, Party, Status)
 
 router = APIRouter(prefix=settings.api_prefix)
 
@@ -150,7 +150,10 @@ def get_document(uid: str, s: Session = Depends(get_session)) -> dict:
     view["domains"] = [x.domain_id for x in sorted(doc.domains, key=lambda x: x.seq)]
     view["instruments"] = [x.instrument_id for x in doc.instruments]
     view["goals"] = [x.goal_id for x in doc.goals]
-    view["parties"] = [{"party_id": x.party_id, "stance": x.stance} for x in doc.parties]
+    # 带上中文名 —— 前端不该自己维护一份 id→中文的映射表
+    view["parties"] = [{"party_id": x.party_id, "stance": x.stance,
+                        "label": (p.zh if (p := s.get(Party, x.party_id)) else x.party_id)}
+                       for x in doc.parties]
     view["implementation_stage"] = doc.implementation_stage_id
     view["note"] = doc.note
     return view

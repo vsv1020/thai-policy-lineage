@@ -31,6 +31,8 @@
     { "id": "mdes",     "zh": "数字经济与社会部", "th": "กระทรวงดิจิทัลเพื่อเศรษฐกิจและสังคม", "abbr": "MDES", "ministry": null },
     { "id": "etda",     "zh": "电子交易发展局", "th": "สพธอ.",            "abbr": "ETDA",   "ministry": "mdes" },
     { "id": "bot",      "zh": "泰国央行",   "th": "ธนาคารแห่งประเทศไทย",   "abbr": "BOT",    "ministry": null },
+    { "id": "pdpc",     "zh": "个人资料保护委员会", "th": "คณะกรรมการคุ้มครองข้อมูลส่วนบุคคล", "abbr": "PDPC", "ministry": "mdes" },
+    { "id": "sso",      "zh": "社会保障办公室", "th": "สำนักงานประกันสังคม", "abbr": "SSO",   "ministry": "mol" },
     { "id": "police",   "zh": "皇家警察总署", "th": "สำนักงานตำรวจแห่งชาติ", "abbr": "RTP",  "ministry": null },
     { "id": "industry", "zh": "工业部",     "th": "กระทรวงอุตสาหกรรม",     "abbr": "MOI-IND","ministry": null },
     { "id": "energy",   "zh": "能源部",     "th": "กระทรวงพลังงาน",        "abbr": "MOEN",   "ministry": null },

@@ -105,6 +105,17 @@ def document_view(s: Session, doc: Document, today: date) -> dict:
         "verified": doc.verified,
         "detail_ready": doc.has_detail_page,
         "provenance": doc.pipeline,
+        # 四类日期与可信度也带在列表里 —— 静态导出没有单件接口,
+        # 带上它们前端在降级模式下也能画出生命周期时间线并标注可信度
+        "dates": {
+            "resolved_at": doc.resolved_at.isoformat() if doc.resolved_at else None,
+            "published_at": doc.published_at.isoformat() if doc.published_at else None,
+            "effective_from": doc.effective_from.isoformat() if doc.effective_from else None,
+            "effective_to": doc.effective_to.isoformat() if doc.effective_to else None,
+            "comment_deadline": (doc.comment_deadline.isoformat()
+                                 if doc.comment_deadline else None),
+        },
+        "confidence": {"dates": doc.confidence_dates, "doc_no": doc.confidence_doc_no},
     }
 
 

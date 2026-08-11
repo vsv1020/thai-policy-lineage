@@ -22,7 +22,7 @@ function originLink(p) {
 }
 
 function policyCard(p) {
-  const clickable = p.detail_ready ? ` onclick="go('detail')" style="cursor:pointer"` : '';
+  const clickable = ` onclick="openDetail('${esc(p.uid)}')" style="cursor:pointer"`;
   const meta = [
     p.org ? `<span>${esc(p.org)}</span>` : '',
     p.doc_no ? `<span>${esc(p.doc_no_label || '文号')} <b>${esc(p.doc_no)}</b></span>` : '',
@@ -48,7 +48,7 @@ function libRow(p) {
     esc(p.legal_form || ''),
     p.doc_no ? `${esc(p.doc_no_label || '文号')} ${esc(p.doc_no)}` : ''
   ].filter(Boolean).join(' · ');
-  return `<div class="lib-row">
+  return `<div class="lib-row" onclick="openDetail('${esc(p.uid)}')" style="cursor:pointer">
     <span class="lib-date">${esc(p.date)}</span>
     <div><div class="lib-title">${esc(p.title_zh)}</div><div class="lib-sub">${sub}</div></div>
     <span class="pill ${STATUS_CLASS[p.status] || 'st-draft'}">${esc(p.status_label)}</span>
@@ -97,12 +97,15 @@ function renderLineage(data) {
   draw();
 }
 
+window.renderLib = items => set('lib', (items || []).map(libRow).join(''));
+
 function renderOverview(d) {
   const policies = (d.policies || []).slice()
     .sort((a, b) => String(b.date).localeCompare(String(a.date)));
+  window.POLICIES = policies;      // detail.js 在静态模式下从这里取单件数据
 
   set('feed', policies.filter(p => p.featured).map(policyCard).join(''));
-  set('lib', policies.map(libRow).join(''));
+  window.renderLib(policies);
   set('wind', (d.wind || []).map(windRow).join(''));
   set('calendar', (d.calendar || []).map(calRow).join(''));
   set('lib-count', `领域 × 机关 × 法律形式 × 状态 × 时间 五维过滤 · 当前库内 <b>${policies.length}</b> 条`);

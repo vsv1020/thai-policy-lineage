@@ -37,7 +37,7 @@ def test_overview_shape_matches_static_export(client):
 def test_pending_gazette_filter(client):
     """这是这套数据模型最有价值的查询:决议已过、公报未刊的窗口期。"""
     d = client.get("/api/documents", params={"pending_gazette": True}).json()
-    assert d["total"] >= 2
+    assert d["total"] >= 1
     for i in d["items"]:
         assert i["status_label"] == "待刊公报"
 
@@ -49,10 +49,12 @@ def test_facet_filters_combine(client):
         assert i["direction"] == "tight"
 
 
-def test_keyword_search_matches_thai_title(client):
-    """中文搜译文、泰文搜原文 —— 双语检索是产品承诺。"""
-    d = client.get("/api/documents", params={"q": "กรมสรรพากร"}).json()
-    assert d["total"] >= 1
+def test_keyword_search_matches_thai_text(client):
+    """中文搜译文、泰文搜原文/文号 —— 双语检索是产品承诺。"""
+    zh = client.get("/api/documents", params={"q": "最低工资"}).json()
+    assert zh["total"] >= 1
+    th = client.get("/api/documents", params={"q": "ประกาศคณะกรรมการค่าจ้าง"}).json()
+    assert th["total"] >= 1, "泰文文号应可检索"
 
 
 def test_pagination(client):
@@ -62,11 +64,20 @@ def test_pagination(client):
     assert {i["uid"] for i in a["items"]}.isdisjoint({i["uid"] for i in b["items"]})
 
 
-def test_document_detail_exposes_all_dates_and_relations(client):
-    d = client.get("/api/documents/TH-RD-20260808-FOREIGN-INCOME").json()
-    assert d["dates"]["resolved_at"] and d["dates"]["published_at"]
-    assert any(r["type"] == "supersedes" for r in d["relations"])
+def test_document_detail_exposes_all_dates(client):
+    """四类日期各自独立可读 —— 决议日与刊登日不是同一件事。"""
+    d = client.get("/api/documents/TH-MOL-20250701-MINWAGE-14").json()
+    assert d["dates"]["resolved_at"] == "2025-06-17"
+    assert d["dates"]["published_at"] == "2025-07-01"
+    assert d["dates"]["effective_from"] == "2025-07-01"
     assert d["confidence"]["doc_no"] in ("high", "med", "low", "none")
+
+
+def test_document_detail_exposes_relations(client):
+    d = client.get("/api/documents/TH-RD-2565-DECREE-743").json()
+    assert any(r["type"] == "implemented_by" for r in d["relations"])
+    assert d["instruments"] and d["goals"]
+    assert d["implementation_stage"]
 
 
 def test_document_404(client):

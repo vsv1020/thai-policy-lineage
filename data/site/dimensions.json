@@ -3,11 +3,15 @@
  "scope": "全库(尚未按议题/领域切片)",
  "dim1_instruments": {
   "years": [
+   "2022",
+   "2023",
    "2024",
    "2025",
    "2026"
   ],
   "years_be": [
+   "2565/22",
+   "2566/23",
    "2567/24",
    "2568/25",
    "2569/26"
@@ -18,31 +22,37 @@
     "zh": "环境型",
     "desc": "规则与激励塑造环境",
     "color": "seal",
-    "share": 84,
-    "count": 16,
+    "share": 90,
+    "count": 27,
     "rows": [
      {
       "id": "disclosure",
       "label": "申报、备案与披露",
       "data": [
+       2,
+       2,
        1,
-       0,
-       4
+       1,
+       3
       ]
      },
      {
       "id": "enforcement",
       "label": "执法、排查与处罚",
       "data": [
+       1,
        0,
        0,
-       1
+       0,
+       2
       ]
      },
      {
       "id": "local_content",
       "label": "本地化与合规考核",
       "data": [
+       0,
+       0,
        0,
        0,
        1
@@ -52,15 +62,19 @@
       "id": "standards_licensing",
       "label": "标准与准入管制",
       "data": [
+       1,
+       2,
        0,
-       0,
-       5
+       2,
+       3
       ]
      },
      {
       "id": "tax_incentive",
       "label": "税收减免与追缴",
       "data": [
+       2,
+       0,
        2,
        0,
        2
@@ -73,8 +87,8 @@
     "zh": "供给型",
     "desc": "政府直接投入",
     "color": "blue",
-    "share": 16,
-    "count": 3,
+    "share": 7,
+    "count": 2,
     "rows": [
      {
       "id": "public_service",
@@ -82,18 +96,56 @@
       "data": [
        0,
        0,
-       3
+       0,
+       0,
+       1
+      ]
+     },
+     {
+      "id": "training",
+      "label": "人才与技能培训",
+      "data": [
+       0,
+       0,
+       0,
+       0,
+       1
+      ]
+     }
+    ]
+   },
+   {
+    "id": "demand",
+    "zh": "需求型",
+    "desc": "直接拉动市场",
+    "color": "gold",
+    "share": 3,
+    "count": 1,
+    "rows": [
+     {
+      "id": "trade_control",
+      "label": "进出口与贸易管制",
+      "data": [
+       0,
+       0,
+       0,
+       0,
+       1
       ]
      }
     ]
    }
   ],
-  "n": 19,
+  "n": 30,
   "sufficient": true,
   "min_n": 12
  },
  "dim2_instrument_goal": {
   "goals": [
+   {
+    "id": "consumer_protection",
+    "label": "权益保护"
+   },
    {
     "id": "employment_skills",
     "label": "就业与技能"
@@ -117,15 +169,29 @@
   ],
   "matrix": [
    {
+    "id": "demand",
+    "label": "需求型",
+    "color": "gold",
+    "data": [
+     0,
+     0,
+     1,
+     1,
+     0,
+     0
+    ]
+   },
+   {
     "id": "environment",
     "label": "环境型",
     "color": "seal",
     "data": [
-     1,
+     4,
+     3,
      3,
      2,
-     5,
-     3
+     3,
+     7
     ]
    },
    {
@@ -134,28 +200,41 @@
     "color": "blue",
     "data": [
      0,
+     1,
      0,
-     0,
-     2,
+     1,
+     1,
      1
     ]
    }
   ],
   "gaps": [
    {
-    "class": "供给型",
+    "class": "需求型",
+    "goal": "权益保护"
+   },
+   {
+    "class": "需求型",
     "goal": "就业与技能"
+   },
+   {
+    "class": "需求型",
+    "goal": "投资吸引"
+   },
+   {
+    "class": "需求型",
+    "goal": "秩序与安全"
+   },
+   {
+    "class": "供给型",
+    "goal": "权益保护"
    },
    {
     "class": "供给型",
     "goal": "财政收入"
-   },
-   {
-    "class": "供给型",
-    "goal": "产业升级"
    }
   ],
-  "n": 17,
+  "n": 28,
   "sufficient": true,
   "min_n": 12
  },
@@ -169,8 +248,8 @@
     "stability": 5,
     "justiciable": true,
     "note": "须经国会,最稳定",
-    "count": 1,
-    "pct": 8
+    "count": 0,
+    "pct": 0
    },
    {
     "id": "emergency",
@@ -191,8 +270,8 @@
     "stability": 4,
     "justiciable": true,
     "note": "据法律授权,常用于税收减免",
-    "count": 0,
-    "pct": 0
+    "count": 2,
+    "pct": 13
    },
    {
     "id": "ministerial",
@@ -202,8 +281,8 @@
     "stability": 3,
     "justiciable": true,
     "note": "部长签发,程序性约束",
-    "count": 0,
-    "pct": 0
+    "count": 1,
+    "pct": 7
    },
    {
     "id": "prakat",
@@ -213,8 +292,8 @@
     "stability": 2,
     "justiciable": false,
     "note": "调整最快,占比最高",
-    "count": 6,
-    "pct": 50
+    "count": 8,
+    "pct": 53
    },
    {
     "id": "rabiap",
@@ -224,8 +303,8 @@
     "stability": 2,
     "justiciable": false,
     "note": "部门内部规程",
-    "count": 1,
-    "pct": 8
+    "count": 2,
+    "pct": 13
    },
    {
     "id": "guidance",
@@ -235,8 +314,8 @@
     "stability": 1,
     "justiciable": false,
     "note": "执行层口径,最易变",
-    "count": 2,
-    "pct": 17
+    "count": 1,
+    "pct": 7
    },
    {
     "id": "resolution",
@@ -246,45 +325,59 @@
     "stability": 1,
     "justiciable": false,
     "note": "政策方向,需后续文件落地",
-    "count": 2,
-    "pct": 17
+    "count": 1,
+    "pct": 7
    }
   ],
-  "total": 12,
-  "fragile_pct": 92,
+  "total": 15,
+  "fragile_pct": 80,
   "fragile_note": "承载在公告与内阁决议层的比例 —— 调整快、可诉性弱,投资测算应按可撤回处理",
-  "n": 12,
+  "n": 15,
   "sufficient": false,
   "min_n": 20
  },
  "dim4_parties": {
   "items": [
    {
-    "id": "foreign_resident",
-    "label": "外籍长居个人",
-    "support": 2,
-    "constrain": 3,
+    "id": "sme",
+    "label": "中小企业",
+    "support": 1,
+    "constrain": 6,
     "neutral": 0
    },
    {
     "id": "foreign_company",
     "label": "外资企业",
-    "support": 2,
-    "constrain": 1,
+    "support": 1,
+    "constrain": 5,
+    "neutral": 0
+   },
+   {
+    "id": "foreign_resident",
+    "label": "外籍长居个人",
+    "support": 3,
+    "constrain": 2,
     "neutral": 0
    },
    {
     "id": "foreign_investor",
     "label": "外资投资者",
     "support": 2,
+    "constrain": 2,
+    "neutral": 0
+   },
+   {
+    "id": "consumer",
+    "label": "消费者",
+    "support": 1,
     "constrain": 1,
     "neutral": 0
    },
    {
-    "id": "sme",
-    "label": "中小企业",
-    "support": 1,
-    "constrain": 1,
+    "id": "thai_employer",
+    "label": "本地雇主",
+    "support": 0,
+    "constrain": 2,
     "neutral": 0
    },
    {
@@ -295,15 +388,22 @@
     "neutral": 0
    },
    {
-    "id": "thai_employer",
-    "label": "本地雇主",
+    "id": "importer",
+    "label": "进口商与经销商",
     "support": 0,
     "constrain": 1,
     "neutral": 0
+   },
+   {
+    "id": "local_government",
+    "label": "府级与地方政府",
+    "support": 0,
+    "constrain": 0,
+    "neutral": 1
    }
   ],
-  "max": 3,
-  "n": 16,
+  "max": 6,
+  "n": 30,
   "sufficient": true,
   "min_n": 10
  },
@@ -313,13 +413,48 @@
     "a": "内阁",
     "b": "内政部",
     "n": 1
+   },
+   {
+    "a": "劳工部",
+    "b": "社会保障办公室",
+    "n": 1
+   },
+   {
+    "a": "投资促进委员会",
+    "b": "税务厅",
+    "n": 1
+   },
+   {
+    "a": "投资促进委员会",
+    "b": "财政部",
+    "n": 1
+   },
+   {
+    "a": "海关厅",
+    "b": "税务厅",
+    "n": 1
+   },
+   {
+    "a": "海关厅",
+    "b": "财政部",
+    "n": 1
+   },
+   {
+    "a": "电子交易发展局",
+    "b": "数字经济与社会部",
+    "n": 1
+   },
+   {
+    "a": "财政部",
+    "b": "税务厅",
+    "n": 1
    }
   ],
   "max": 1,
-  "solo_documents": 11,
+  "solo_documents": 9,
   "note": "联署少而各自单独规定同一事项,是维度六冲突的来源",
-  "n": 1,
-  "sufficient": false,
+  "n": 8,
+  "sufficient": true,
   "min_n": 8
  },
  "dim6_conflicts": {
@@ -331,7 +466,7 @@
     "domains": [
      "visa"
     ],
-    "impact_zh": "入境停留期按现行 60 天,但随时可能因公报刊登而在 15 日后改为 30 天;跨该窗口的行程安排应按 30 天做保守假设。",
+    "impact_zh": "入境停留期按现行 60 天,但随时可能因公报刊登而在 15 日后改为 30 天;跨该窗口的行程与签证安排应按 30 天做保守假设。",
     "detected_by": "rule:pending_gazette",
     "confidence": "med",
     "sides": [
@@ -347,41 +482,42 @@
     ]
    },
    {
-    "id": "cf-remittance-vs-exemption-draft",
+    "id": "cf-remittance-current-vs-draft",
     "severity": "med",
-    "title_zh": "境外所得课税口径:现行解释函与在拟豁免草案并存",
+    "title_zh": "境外所得课税:现行指令与在拟豁免措施方向相反",
     "domains": [
      "tax"
     ],
-    "impact_zh": "现行义务与在拟豁免方向相反,汇入时点安排存在不确定窗口;以已刊登的文件为准。",
+    "impact_zh": "现行义务与在拟方向相反,汇入时点安排存在不确定窗口。未刊公报前一律以现行指令为准,不应按草案做税务规划。",
     "detected_by": "manual",
     "confidence": "med",
     "sides": [
      {
-      "uid": "TH-RD-20260808-FOREIGN-INCOME",
+      "uid": "TH-RD-2566-POR-161",
       "quote_zh": "税务居民境外所得于汇入年度并入应税所得申报。"
      },
      {
       "uid": null,
-      "label": "税务厅在拟豁免措施(草案)",
-      "quote_zh": "拟对取得当年或次年汇入的境外所得免税;截至 2026-07 仍未刊登公报,不具效力。"
+      "label": "税务厅在拟豁免措施(草案,截至 2026-07)",
+      "quote_zh": "拟对取得当年或次年汇入的境外所得免税;须经内阁批准、国务委员会审议并刊登公报后才具效力。"
      }
     ]
    },
    {
-    "id": "cf-nominee-dol-vs-quota",
+    "id": "cf-nominee-vs-condo-quota",
     "severity": "med",
     "title_zh": "代持排查与公寓外资配额的适用边界易被混淆",
     "domains": [
-     "land"
+     "land",
+     "biz"
     ],
-    "impact_zh": "配额内以本人名义持有的公寓产权不属排查对象;混淆二者会导致合法持有人误判风险。",
+    "impact_zh": "配额内以本人名义持有的公寓产权不属排查对象;排查针对的是以公司结构间接持有且泰籍股东无真实出资的情形。混淆二者会导致合法持有人误判风险。",
     "detected_by": "manual",
     "confidence": "med",
     "sides": [
      {
-      "uid": "TH-DOL-20260805-NOMINEE-SCREENING",
-      "quote_zh": "对涉嫌外籍人士借泰籍代持购地的交易加强审查。"
+      "uid": "TH-DBD-2569-ORDER-1",
+      "quote_zh": "新增外籍股东/董事或改变股东国籍构成的变更登记,须提交投资确认函与真实投资声明。"
      },
      {
       "uid": null,
@@ -389,12 +525,35 @@
       "quote_zh": "外籍人士可在项目 49% 外资配额内以本人名义持有公寓产权。"
      }
     ]
+   },
+   {
+    "id": "cf-boi-incentive-vs-local-staff",
+    "severity": "med",
+    "title_zh": "BOI 数据中心激励:税收豁免与泰籍人员占比条件的时序错配",
+    "domains": [
+     "biz",
+     "digital"
+    ],
+    "impact_zh": "豁免的可主张时点被人力资源条件前置,已按「投产即享豁免」测算的项目现金流模型可能失效,需按条件达成年度重做敏感性测算。",
+    "detected_by": "manual",
+    "confidence": "low",
+    "sides": [
+     {
+      "uid": "TH-BOI-20260115-MEASURES-2026",
+      "quote_zh": "数据中心须在三年内使管理与专业岗位泰籍人员占比不低于 50%,并完成人力资源发展活动后方可主张企业所得税豁免。"
+     },
+     {
+      "uid": null,
+      "label": "项目现金流测算的通常做法",
+      "quote_zh": "企业所得税豁免通常自项目产生应税所得的年度起算并计入模型。"
+     }
+    ]
    }
   ],
-  "n": 3,
+  "n": 4,
   "by_severity": {
    "high": 1,
-   "med": 2,
+   "med": 3,
    "low": 0
   }
  },
@@ -412,23 +571,23 @@
     "id": "legal_form",
     "label": "法律形式",
     "seq": 2,
-    "count": 1,
-    "hot": false,
-    "weak": true
-   },
-   {
-    "id": "cabinet_resolution",
-    "label": "内阁决议",
-    "seq": 3,
     "count": 2,
     "hot": false,
     "weak": false
    },
    {
+    "id": "cabinet_resolution",
+    "label": "内阁决议",
+    "seq": 3,
+    "count": 1,
+    "hot": false,
+    "weak": true
+   },
+   {
     "id": "implementing_rule",
     "label": "实施细则",
     "seq": 4,
-    "count": 7,
+    "count": 10,
     "hot": true,
     "weak": false
    },
@@ -449,13 +608,13 @@
     "weak": true
    }
   ],
-  "total": 12,
-  "peak": 7,
+  "total": 15,
+  "peak": 10,
   "missing": [
    "国家规划",
    "评估与复盘"
   ],
-  "n": 12,
+  "n": 15,
   "sufficient": true,
   "min_n": 12
  }
