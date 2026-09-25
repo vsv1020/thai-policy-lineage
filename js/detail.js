@@ -15,6 +15,7 @@ const CONF_LABEL = { high: '官方原文核对', med: '官方引述/二手一致
 /* 供 data.js 的卡片与检索行调用 */
 window.openDetail = async function (uid) {
   go('detail');
+  window.PolicyTrack && PolicyTrack.page(location.pathname.replace(/index\.html$/, '') + '#detail/' + uid);
   await ready();
   put('detail-body', '<div class="d-body"><p>加载中……</p></div>');
   let d = null;
@@ -192,6 +193,7 @@ async function buildFacets() {
       const r = await fetch(`${API_BASE}/api/documents?${p}`, { cache: 'no-store' });
       const d = await r.json();
       window.renderLib(d.items);
+      if (state.q) window.PolicyTrack && PolicyTrack.search(state.q, d.total);
       put('lib-count', `领域 × 法律形式 × 状态 × 方向 × 关键词 分面检索 · 命中 <b>${d.total}</b> 条`
         + (d.total > d.items.length ? `(显示前 ${d.items.length} 条)` : ''));
       if (!d.items.length) {

@@ -21,7 +21,9 @@ pipeline/             早期抓取 PoC(已由 backend/app/collect.py 接管)
 .github/workflows/collect.yml  每日自动采集 → 翻译 → 导出 → 提交
 p/                    每条政策的静态落地页(SEO,由 export 生成)
 config/ads.json       广告位配置(默认关闭,类别白名单)
-docs/deploy.md · docs/monetization.md   上线手册 · 营收与广告位
+config/analytics.json 站点统计配置(自建 /admin 后台 + 可选 Cloudflare/Plausible)
+admin.html            站点统计后台(需 ADMIN_TOKEN)
+docs/deploy.md · docs/monetization.md · docs/analytics.md   上线手册 · 营收与广告位 · 站点统计
 docs/research-report.md   完整调研报告
 ```
 
@@ -70,6 +72,8 @@ uvicorn app.main:app --port 8000  # 同时提供 API(/docs)与静态站(/)
 - **政策维度**:七维分析(工具结构演变 / 工具×目标空白 / 法律形式与强制力 / 作用对象 / 机构联署 / 一致性冲突检测 / 执行完整度)
 - **趋势看板**:发文量时序 · 风向指数 · 部委活跃度热力 · 上升话题榜
 - **采集状态**:数据源健康 · 每日运行记录 · 翻译队列 · 数据新鲜度
+- **统计后台** `/admin`(站长):浏览/访客 · 热门政策 · 来源与 UTM · 站内检索词与零结果检索 ·
+  外链(官方原文)点击 · 广告 CTR · 打赏漏斗 · 设备/语言/时段。无 Cookie、不存 IP,见 [docs/analytics.md](docs/analytics.md)
 
 ## 数据管线(PoC)
 

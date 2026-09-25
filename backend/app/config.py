@@ -58,6 +58,14 @@ class Settings:
     # 站点公开地址(用于 sitemap 与 SEO 落地页的 canonical 链接)
     site_url: str = os.getenv("SITE_URL", "https://vsv1020.github.io/thai-policy-lineage").rstrip("/")
 
+    # 站点统计(第一方、无 Cookie、不存 IP,见 app/stats.py)
+    stats_enabled: bool = _bool("STATS_ENABLED", True)
+    # 统计后台 /admin 的访问令牌;不设则后台接口一律 404。生成:openssl rand -hex 24
+    admin_token: str = os.getenv("ADMIN_TOKEN", "")
+    # 访客哈希的密钥。不设则每次进程启动随机生成 —— 重启当天的访客数会重复计一次
+    stats_secret: str = os.getenv("STATS_SECRET", "")
+    stats_retention_days: int = int(os.getenv("STATS_RETENTION_DAYS", "400"))
+
     # 分析参数(与前端展示口径一致,改这里就改了全站)
     wind_shrink: float = float(os.getenv("WIND_SHRINK", "2.0"))
     trend_months: int = int(os.getenv("TREND_MONTHS", "12"))

@@ -46,6 +46,7 @@
            <div class="ad-sponsor">${esc(it.sponsor)}</div></a>`
       : adsenseHtml(slot);
     if (!inner) return '';
+    window.PolicyTrack && PolicyTrack.event('ad_view', `${slot}|${it ? it.sponsor : 'adsense'}`);
     return `<div class="ad-box" data-slot="${esc(slot)}"><span class="ad-label">${esc(cfg.label || '广告')}</span>${inner}</div>`;
   }
 

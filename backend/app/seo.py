@@ -26,6 +26,7 @@ from .models import Document, Domain
 PAGES_DIR = REPO_ROOT / "p"
 ADS_CONFIG = REPO_ROOT / "config" / "ads.json"
 SUPPORT_CONFIG = REPO_ROOT / "config" / "support.json"
+ANALYTICS_CONFIG = REPO_ROOT / "config" / "analytics.json"
 
 REL_ZH = {"supersedes": "替代", "superseded_by": "被替代", "amends": "修订", "amended_by": "被修订",
           "implements": "落实", "implemented_by": "被落实", "repeals": "废止",
@@ -78,6 +79,7 @@ FOOT = """</main>
 <footer>政策脉络 · 泰国 —— 官方源自动监测 · 全部内容可溯源 · 零带货中立平台。
 本站译文均为非官方翻译,仅供参考,以泰文原文为准;不构成法律意见。
 <a href="../privacy.html">隐私政策</a></footer>
+<script src="../js/track.js" data-base="../"></script>
 <script src="../js/ads.js" data-base="../"></script>
 <script src="../js/vendor/qrcode-generator-1.4.4.js"></script>
 <script src="../js/promptpay.js"></script>
@@ -209,7 +211,7 @@ def build(s: Session) -> dict[str, int]:
     sm.append("</urlset>")
     (REPO_ROOT / "sitemap.xml").write_text("\n".join(sm) + "\n", encoding="utf-8")
     (REPO_ROOT / "robots.txt").write_text(
-        f"User-agent: *\nAllow: /\nDisallow: /api/\n\nSitemap: {settings.site_url}/sitemap.xml\n",
+        f"User-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /admin\n\nSitemap: {settings.site_url}/sitemap.xml\n",
         encoding="utf-8")
 
     # 广告配置:config/ads.json → data/site/ads.json;启用 AdSense 时生成 ads.txt
@@ -220,6 +222,10 @@ def build(s: Session) -> dict[str, int]:
                if SUPPORT_CONFIG.exists() else {"enabled": False})
     (SITE_DIR / "support.json").write_text(json.dumps(support, ensure_ascii=False, indent=1) + "\n",
                                            encoding="utf-8")
+    analytics = (json.loads(ANALYTICS_CONFIG.read_text(encoding="utf-8"))
+                 if ANALYTICS_CONFIG.exists() else {"self_hosted": {"enabled": False}})
+    (SITE_DIR / "analytics.json").write_text(json.dumps(analytics, ensure_ascii=False, indent=1) + "\n",
+                                             encoding="utf-8")
     client = (ads.get("adsense") or {}).get("client", "")
     ads_txt = REPO_ROOT / "ads.txt"
     if client.startswith("ca-pub-"):

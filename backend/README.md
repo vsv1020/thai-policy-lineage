@@ -50,6 +50,7 @@ python3 -m app.collect --dry-run # 只探测源可达性
 python3 -m app.export            # 导出静态 JSON
 python3 -m pytest tests -q       # 101 个测试
 python3 -m app.enrich --dry-run  # 看翻译队列(不调 API)
+python3 -m app.stats --days 7     # 站点统计文字报告(--purge 清理过期记录)
 python3 ../tools/validate.py     # 校验 JSONL(纯标准库,无依赖)
 ```
 
@@ -67,6 +68,8 @@ python3 ../tools/validate.py     # 校验 JSONL(纯标准库,无依赖)
 | `GET /api/vocab` | 受控词表(前端下拉与配色) |
 | `GET /api/runs` | 采集运行历史 |
 | `GET /api/ops` | 采集状态:源健康(含过期判定)、运行历史、翻译队列、数据新鲜度 |
+| `POST /api/t` | 站点统计上报(js/track.js 用 sendBeacon 发,204) |
+| `GET /api/admin/stats?days=` | 统计后台数据,需 `Authorization: Bearer $ADMIN_TOKEN`;未设令牌时 404 |
 
 最有价值的一个查询:`GET /api/documents?pending_gazette=true` —— 「内阁已决议但公报未刊」的窗口期条目。
 这类状态是泰国政策的常态,也是普通新闻编译看不见的东西。

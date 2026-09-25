@@ -44,6 +44,8 @@ Pages → Custom domain 填域名,DNS 加 CNAME 指向 `vsv1020.github.io`,勾 E
   ```
 - 在反向代理后面时 `TRUST_PROXY=1`(限流才能认出真实 IP);直接暴露公网时必须是 `0`。
 - 服务器放在泰国(曼谷机房),或给容器配泰国出口,否则采集会一直 403。
+- `.env` 里设 `ADMIN_TOKEN` 与 `STATS_SECRET`,即可在 `https://你的域名/admin` 看站点统计,
+  见 [analytics.md](analytics.md)。纯 GitHub 方案没有后端,用 Cloudflare Web Analytics。
 
 ## 上线前检查清单
 
@@ -51,12 +53,14 @@ Pages → Custom domain 填域名,DNS 加 CNAME 指向 `vsv1020.github.io`,勾 E
 - [ ] `curl -s -o /dev/null -w '%{http_code}' https://你的域名/.git/config` 返回 404
 - [ ] `https://你的域名/robots.txt` 里的 Sitemap 地址是正式域名
 - [ ] `config/ads.json` 的 `enabled` 是你想要的值(默认 false)
+- [ ] `/admin` 能用令牌登录;勾上「不统计本机的访问」;没设 `ADMIN_TOKEN` 时 `/api/admin/stats` 返回 404
 - [ ] 首页右上角时间戳、「采集状态」页的源状态与你的预期一致
 - [ ] 免责声明在首页页脚、详情页、每个落地页都在
 
 ## 日常运维
 
 - 每天看一眼「采集状态」页或 Actions 页面。连续红色 = 出口或数据源出了问题。
+- 每周看一次 `/admin` 的「零结果检索」:那是读者在找、站里还没有的主题。
 - 「待翻译」队列持续增长 = `ANTHROPIC_API_KEY` 没配或额度用完。
 - LLM 翻译的条目一律标「未经人工复核」。人工核对后,在 JSONL 里把 `provenance.verified` 改为 `true`
   并填 `verified_at`,提交即可 —— 这是把内容质量从「能看」变成「可信」的唯一途径。

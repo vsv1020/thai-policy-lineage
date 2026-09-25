@@ -35,6 +35,9 @@ services:
       SITE_URL: ${SITE_URL:-https://vsv1020.github.io/thai-policy-lineage}
       TRUST_PROXY: "1"            # 前面有 Caddy/nginx;直接暴露公网请改为 0
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      # 统计后台 /admin 的令牌(不设则后台关闭)与访客哈希密钥,生成:openssl rand -hex 24
+      ADMIN_TOKEN: ${ADMIN_TOKEN:-}
+      STATS_SECRET: ${STATS_SECRET:-}
       # 若采集改由 GitHub Actions 负责(推荐),把这里设为 0,
       # 服务器只做 git pull + ingest + export,避免两个采集器同时写
       ENABLE_SCHEDULER: ${ENABLE_SCHEDULER:-1}

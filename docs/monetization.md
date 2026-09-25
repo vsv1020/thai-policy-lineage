@@ -83,6 +83,6 @@
 
 ## 要看的数字
 
-在决定任何变现调整之前,先要有流量数据。建议接一个**无 Cookie 的统计**
-(Cloudflare Web Analytics 免费、无需同意弹窗),以及 Google Search Console 看落地页的收录与点击。
-没有这两样数据,调广告位和打赏文案都是盲调。
+站点统计后台 `/admin`(见 [analytics.md](analytics.md))直接给出变现要看的数:
+每个广告槽位×赞助方的曝光、点击、CTR;打赏弹窗的打开率、入口与金额分布。
+再加 Google Search Console 看落地页的收录与搜索点击。没有这些数据,调广告位和打赏文案都是盲调。

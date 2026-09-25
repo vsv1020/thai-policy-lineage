@@ -13,6 +13,8 @@ function go(v) {
   document.getElementById('v-' + v).classList.add('active');
   document.querySelectorAll('.nav-item[data-v]').forEach(b => b.classList.toggle('active', b.dataset.v === v));
   window.scrollTo(0, 0);
+  // 单页切换记一次虚拟浏览;详情页由 openDetail 带着 uid 自己记
+  if (v !== 'detail') window.PolicyTrack && PolicyTrack.page(location.pathname.replace(/index\.html$/, '') + '#' + v);
   if (v === 'trends' && !inited) { inited = true; setTimeout(initCharts, 30); }
 }
 document.querySelectorAll('.nav-item[data-v]').forEach(b => b.addEventListener('click', () => go(b.dataset.v)));

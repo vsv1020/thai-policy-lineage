@@ -294,3 +294,32 @@ class SourceHealth(Base):
     last_attempt_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     last_ok_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     detail: Mapped[str] = mapped_column(Text, default="")
+
+
+# ─────────────────────────── 站点统计 ───────────────────────────
+
+class PageHit(Base):
+    """第一方访问统计:一行一次浏览或一个事件。
+
+    不用 Cookie、不存 IP。visitor 是 hash(密钥 · 当天日期 · IP · UA) 的前 16 位 ——
+    密钥每天轮换,所以同一个人跨天无法关联,只能做「按天去重」的访客数。
+    与事实层无关:不进 JSONL、不参与导出,ingest --reset 也不会清它。
+    """
+    __tablename__ = "page_hits"
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    ts: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
+    day: Mapped[date] = mapped_column(Date, index=True)            # 曼谷日期
+    hour: Mapped[int] = mapped_column(Integer, default=0)          # 曼谷小时 0–23
+    kind: Mapped[str] = mapped_column(String(8), default="pv")     # pv / event
+    name: Mapped[str] = mapped_column(String(32), default="", index=True)  # 事件名
+    path: Mapped[str] = mapped_column(String(255), default="")
+    label: Mapped[str] = mapped_column(String(160), default="")
+    value: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    visitor: Mapped[str] = mapped_column(String(16), default="", index=True)
+    ref_host: Mapped[str] = mapped_column(String(128), default="")
+    utm_source: Mapped[str] = mapped_column(String(64), default="")
+    utm_medium: Mapped[str] = mapped_column(String(64), default="")
+    utm_campaign: Mapped[str] = mapped_column(String(64), default="")
+    device: Mapped[str] = mapped_column(String(8), default="")     # mobile / tablet / desktop
+    lang: Mapped[str] = mapped_column(String(8), default="")
+    country: Mapped[str] = mapped_column(String(2), default="")    # 仅在 Cloudflare 等代理提供时

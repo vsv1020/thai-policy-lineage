@@ -257,6 +257,32 @@ def check_conflict(c: dict, v: dict, rep: Report, all_uids: set[str]) -> None:
         rep.err(where, f"未知 confidence: {c.get('confidence')}")
 
 
+def check_analytics_config(rep: Report) -> None:
+    """config/analytics.json:第三方统计的 id 格式,以及脚本必须走 https。"""
+    import re as _re
+    p = ROOT / "config" / "analytics.json"
+    if not p.exists():
+        return
+    where = "config/analytics.json"
+    try:
+        cfg = json.loads(p.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        rep.err(where, f"JSON 解析失败: {exc}")
+        return
+    ep = (cfg.get("self_hosted") or {}).get("endpoint", "")
+    if ep and not ep.startswith("https://"):
+        rep.err(where, f"self_hosted.endpoint 必须是 https:// 地址: {ep}")
+    tok = (cfg.get("cloudflare") or {}).get("token", "")
+    if tok and not _re.fullmatch(r"[0-9a-f]{32}", tok):
+        rep.err(where, "cloudflare.token 应为 32 位十六进制(Web Analytics 的 JS beacon token)")
+    pl = cfg.get("plausible") or {}
+    if pl.get("domain"):
+        if "://" in pl["domain"] or "/" in pl["domain"]:
+            rep.err(where, f"plausible.domain 只填域名,不要带协议或路径: {pl['domain']}")
+        if not str(pl.get("src", "")).startswith("https://"):
+            rep.err(where, "plausible.src 必须是 https:// 地址")
+
+
 def check_site_config(rep: Report) -> None:
     """config/ads.json 与 config/support.json 是手改的配置 —— 改错了页面会静默不显示,
     或者更糟:显示了不该显示的东西。在这里机械地挡住。"""
@@ -349,6 +375,7 @@ def main() -> int:
         check_conflict(c, vocab, rep, all_uids)
     check_relation_symmetry(docs, vocab, rep)
     check_site_config(rep)
+    check_analytics_config(rep)
 
     for w in rep.warnings:
         if not args.quiet:

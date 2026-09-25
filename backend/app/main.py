@@ -19,6 +19,7 @@ from fastapi.responses import FileResponse, JSONResponse, PlainTextResponse
 from fastapi.staticfiles import StaticFiles
 
 from .api import router
+from .stats import router as stats_router
 from .config import REPO_ROOT, SITE_DIR, settings
 from .db import init_db
 
@@ -71,7 +72,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.cors_origins,
     allow_credentials=False,
-    allow_methods=["GET"],
+    allow_methods=["GET", "POST"],   # POST 只有统计上报 /api/t
     allow_headers=["*"],
 )
 
@@ -109,11 +110,19 @@ async def guard(request: Request, call_next):
 
 
 app.include_router(router)
+app.include_router(stats_router)
 
 
 @app.get("/", include_in_schema=False)
 def index() -> FileResponse:
     return FileResponse(REPO_ROOT / "index.html")
+
+
+@app.get("/admin", include_in_schema=False)
+def admin_page() -> FileResponse:
+    """统计后台页面。页面本身不含数据,数据接口 /api/admin/stats 另需 ADMIN_TOKEN。"""
+    return FileResponse(REPO_ROOT / "admin.html",
+                        headers={"X-Robots-Tag": "noindex, nofollow", "Cache-Control": "no-store"})
 
 
 @app.get("/{name}", include_in_schema=False)
@@ -122,7 +131,7 @@ def root_file(name: str):
     if name in PUBLIC_FILES and path.is_file():
         return FileResponse(path)
     if name == "robots.txt":        # 没生成过也给一个合理默认
-        return PlainTextResponse("User-agent: *\nAllow: /\nDisallow: /api/\n")
+        return PlainTextResponse("User-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /admin\n")
     return JSONResponse({"detail": "Not Found"}, status_code=404)
 
 

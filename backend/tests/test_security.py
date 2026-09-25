@@ -24,7 +24,7 @@ def client():
     "/data/policies/documents.jsonl", "/data/vocab.json",
     "/docs/research-report.md", "/docker-compose.yml",
     "/css/../backend/app/config.py", "/data/site/../policies/sources.json",
-    "/config/ads.json", "/config/support.json", "/assets/../config/support.json",
+    "/config/ads.json", "/config/support.json", "/config/analytics.json", "/admin.html", "/assets/../config/support.json",
 ])
 def test_private_paths_are_not_served(client, path):
     r = client.get(path)
@@ -34,6 +34,7 @@ def test_private_paths_are_not_served(client, path):
 @pytest.mark.parametrize("path", ["/", "/index.html", "/privacy.html", "/css/main.css", "/js/api.js",
                                   "/js/vendor/qrcode-generator-1.4.4.js", "/js/promptpay.js",
                                   "/data/site/policies.json", "/data/site/support.json",
+                                  "/data/site/analytics.json", "/js/track.js", "/admin",
                                   "/robots.txt"])
 def test_public_paths_are_served(client, path):
     assert client.get(path).status_code == 200

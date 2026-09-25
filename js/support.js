@@ -53,11 +53,13 @@
           box.closest('.support-ch').querySelectorAll('.support-amt')
             .forEach(x => x.classList.toggle('on', x === b));
           draw(Number(b.dataset.amt) || null);
+          window.PolicyTrack && PolicyTrack.event('tip_amount', b.dataset.amt || 'custom');
         }));
     });
   }
 
-  function openModal() {
+  function openModal(src) {
+    window.PolicyTrack && PolicyTrack.event('tip_open', typeof src === 'string' ? src : 'button');
     let m = document.getElementById('support-modal');
     if (!m) {
       m = document.createElement('div');
@@ -80,7 +82,7 @@
       if (el.dataset.filled) return;
       el.innerHTML = `<div class="support-inline"><span>这条整理对你有用?本站免费运营,靠读者打赏支撑。</span>
         <button class="btn-solid support-open">打赏支持</button></div>`;
-      el.querySelector('.support-open').addEventListener('click', openModal);
+      el.querySelector('.support-open').addEventListener('click', () => openModal('inline'));
       el.dataset.filled = '1';
     });
   }
@@ -91,11 +93,11 @@
       if (!c || !c.enabled || !(c.channels || []).some(usable)) return;
       cfg = c;
       document.querySelectorAll('[data-support-button]').forEach(b => {
-        b.hidden = false; b.addEventListener('click', openModal); });
+        b.hidden = false; b.addEventListener('click', () => openModal('header')); });
       fillSlots();
       new MutationObserver(fillSlots).observe(document.body, { childList: true, subtree: true });
     })
     .catch(() => {});
 
-  window.PolicySupport = { open: () => cfg && openModal() };
+  window.PolicySupport = { open: () => cfg && openModal('api') };
 })();

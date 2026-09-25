@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>站点统计 · 政策脉络</title>
+<link rel="stylesheet" href="css/main.css">
+<style>
+  .adm { max-width: 1180px; margin: 0 auto; padding: 24px 20px 60px; }
+  .adm-card { background: var(--card); border: 1px solid var(--line); padding: 18px 20px; min-width: 0; }
+  .adm-card h3 { font-family: var(--serif); font-size: 15px; margin-bottom: 4px; }
+  .adm-card .sub { color: var(--muted); font-size: 12px; margin-bottom: 12px; }
+  .adm-grid { display: grid; gap: 16px; margin-top: 16px; }
+  .g2 { grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); }
+  .g3 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .kpis { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .kpi .k-label { font-size: 12px; color: var(--ink-2); }
+  .kpi .k-val { font-family: var(--serif); font-size: 26px; font-weight: 700; line-height: 1.3; }
+  .kpi .k-chg { font-size: 12px; color: var(--muted); }
+  .kpi .up { color: var(--green); } .kpi .down { color: var(--seal); }
+  .bar-row { display: grid; grid-template-columns: minmax(0, 1fr) 56px; gap: 10px; align-items: center;
+             padding: 5px 0; border-bottom: 1px dashed var(--line); font-size: 13px; }
+  .bar-row:last-child { border-bottom: 0; }
+  .bar-lbl { position: relative; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; padding: 1px 6px; }
+  .bar-lbl i { position: absolute; left: 0; top: 0; bottom: 0; background: rgba(91,115,145,.14); z-index: 0; }
+  .bar-lbl span { position: relative; z-index: 1; }
+  .bar-n { text-align: right; font-variant-numeric: tabular-nums; }
+  .bar-n small { display: block; color: var(--muted); font-size: 11px; }
+  .tag { display: inline-block; font-size: 11px; padding: 0 5px; border: 1px solid var(--line); margin-left: 4px; color: var(--ink-2); }
+  .tag.seal { border-color: var(--seal); color: var(--seal); } .tag.ok { border-color: var(--green); color: var(--green); }
+  .toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .toolbar .sp { flex: 1; }
+  .rng button, .tool { background: var(--card); border: 1px solid var(--line); padding: 5px 12px; font: inherit; font-size: 13px; cursor: pointer; }
+  .rng button.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .live { font-size: 13px; color: var(--ink-2); }
+  .live b { color: var(--green); }
+  .live::before { content: ''; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--green); margin-right: 6px; }
+  table.t { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table.t th, table.t td { text-align: left; padding: 6px 4px; border-bottom: 1px solid var(--line); }
+  table.t th { font-weight: 500; color: var(--ink-2); font-size: 12px; }
+  table.t td.n, table.t th.n { text-align: right; font-variant-numeric: tabular-nums; }
+  .empty { color: var(--muted); font-size: 13px; padding: 8px 0; }
+  .chart { height: 280px; }
+  .login { max-width: 460px; margin: 60px auto; }
+  .login label { display: block; font-size: 12px; color: var(--ink-2); margin: 12px 0 4px; }
+  .login input { width: 100%; padding: 8px 10px; border: 1px solid var(--line); background: #fff; font: inherit; }
+  .login .err { color: var(--seal); font-size: 13px; margin-top: 10px; min-height: 1.2em; }
+  .note { font-size: 12px; color: var(--muted); margin-top: 18px; line-height: 1.8; }
+  @media (max-width: 600px) { .g2, .g3 { grid-template-columns: 1fr; } .adm { padding: 16px; } header .brand-sub { display: none; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><a href="index.html" style="display:flex;align-items:center;gap:14px;color:inherit;text-decoration:none">
+    <div class="seal">脉</div><div class="brand-name">政策脉络 · 泰国</div></a>
+    <div class="brand-sub">站点统计后台</div></div>
+  <div class="header-right"><button class="tool" id="logout" hidden style="color:var(--ink)">退出</button></div>
+</header>
+
+<div class="adm">
+  <form class="adm-card login" id="login" hidden>
+    <h3>登录统计后台</h3>
+    <div class="sub">令牌是服务器环境变量 <code>ADMIN_TOKEN</code> 的值,只保存在本标签页,关闭即失效。</div>
+    <label for="api">后端地址(与本页同一域名时留空)</label>
+    <input id="api" placeholder="https://api.example.com" autocomplete="url">
+    <label for="token">访问令牌</label>
+    <input id="token" type="password" autocomplete="current-password" required>
+    <button class="btn-solid" style="margin-top:16px;width:100%" type="submit">进入</button>
+    <div class="err" id="login-err"></div>
+  </form>
+
+  <div id="dash" hidden>
+    <div class="toolbar">
+      <div class="rng" id="rng">
+        <button data-d="1">今天</button><button data-d="7">7 天</button><button data-d="30" class="on">30 天</button><button data-d="90">90 天</button>
+      </div>
+      <span class="live" id="live">—</span>
+      <span class="sp"></span>
+      <label style="font-size:12px;color:var(--ink-2)"><input type="checkbox" id="notrack"> 不统计本机的访问</label>
+      <button class="tool" id="refresh">刷新</button>
+    </div>
+    <div class="sub" id="range-note" style="margin-top:8px;color:var(--muted);font-size:12px"></div>
+
+    <div class="adm-grid kpis" id="kpis"></div>
+
+    <div class="adm-grid"><div class="adm-card"><h3>每日浏览与访客</h3>
+      <div class="sub">浏览 = 页面打开与站内视图切换次数;访客 = 按天去重的访问者</div>
+      <div class="chart" id="c-daily"></div></div></div>
+
+    <div class="adm-grid g2">
+      <div class="adm-card"><h3>热门政策</h3><div class="sub">详情视图 + 独立落地页合计;落地页多说明搜索流量进来了</div><div id="policies"></div></div>
+      <div class="adm-card"><h3>热门页面</h3><div class="sub">含站内视图(#trends 等)</div><div id="pages"></div></div>
+    </div>
+
+    <div class="adm-grid g2">
+      <div class="adm-card"><h3>流量来源</h3><div class="sub" id="direct"></div><div id="referrers"></div><div id="campaigns"></div></div>
+      <div class="adm-card"><h3>站内检索词</h3><div class="sub">读者在找什么 —— 选题的第一手依据</div><div id="searches"></div></div>
+    </div>
+
+    <div class="adm-grid g2">
+      <div class="adm-card"><h3>零结果检索 · 内容缺口</h3><div class="sub">搜了但一条都没命中:优先补这些主题</div><div id="zero"></div></div>
+      <div class="adm-card"><h3>外链点击</h3><div class="sub">读者点去哪里;<span class="tag ok">官方</span> = 点击查看泰文原文,可溯源被实际使用的证据</div><div id="outbound"></div></div>
+    </div>
+
+    <div class="adm-grid g2">
+      <div class="adm-card"><h3>广告位表现</h3><div class="sub">曝光、点击与点击率;直销续约时给赞助方看这张表</div><div id="ads"></div></div>
+      <div class="adm-card"><h3>打赏</h3><div class="sub">只能看到「打开弹窗」「选金额」「点外部渠道」;实际是否付款以收款账户为准</div><div id="tips"></div></div>
+    </div>
+
+    <div class="adm-grid g3">
+      <div class="adm-card"><h3>设备</h3><div id="devices"></div></div>
+      <div class="adm-card"><h3>浏览器语言</h3><div id="languages"></div></div>
+      <div class="adm-card"><h3>国家 / 地区</h3><div class="sub">仅在 Cloudflare 代理后提供</div><div id="countries"></div></div>
+    </div>
+
+    <div class="adm-grid"><div class="adm-card"><h3>访问时段(曼谷时间)</h3>
+      <div class="sub">发推送、发社媒的最佳时间参考</div><div class="chart" id="c-hours" style="height:220px"></div></div></div>
+
+    <div class="note" id="note"></div>
+  </div>
+</div>
+
+<script src="js/echarts.min.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
