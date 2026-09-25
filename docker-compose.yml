@@ -29,16 +29,22 @@ services:
     environment:
       DATABASE_URL: postgresql+psycopg://policy:${POSTGRES_PASSWORD}@db:5432/policy
       TZ: Asia/Bangkok
-      ENABLE_SCHEDULER: "1"
       COLLECT_HOUR: "7"
       COLLECT_MINUTE: "23"
       CORS_ORIGINS: ${CORS_ORIGINS:-https://vsv1020.github.io}
+      SITE_URL: ${SITE_URL:-https://vsv1020.github.io/thai-policy-lineage}
+      TRUST_PROXY: "1"            # 前面有 Caddy/nginx;直接暴露公网请改为 0
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      # 若采集改由 GitHub Actions 负责(推荐),把这里设为 0,
+      # 服务器只做 git pull + ingest + export,避免两个采集器同时写
+      ENABLE_SCHEDULER: ${ENABLE_SCHEDULER:-1}
     ports:
       - "127.0.0.1:8000:8000"   # 只绑本机,前面挂 nginx/caddy 做 TLS
     volumes:
       # 采集会往 data/policies/*.jsonl 追加事实记录并导出 data/site/*.json,
       # 挂出来才能在宿主机上 git commit 保留审计轨迹
       - ./data:/srv/data
+      - ./p:/srv/p
       - appvar:/srv/var
 
 volumes:

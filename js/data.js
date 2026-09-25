@@ -105,6 +105,7 @@ function renderOverview(d) {
   window.POLICIES = policies;      // detail.js 在静态模式下从这里取单件数据
 
   set('feed', policies.filter(p => p.featured).map(policyCard).join(''));
+  if (window.PolicyAds) window.PolicyAds.injectFeed(document.getElementById('feed'));
   window.renderLib(policies);
   set('wind', (d.wind || []).map(windRow).join(''));
   set('calendar', (d.calendar || []).map(calRow).join(''));

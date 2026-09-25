@@ -12,6 +12,7 @@
     trends:     { api: 'trends',     file: 'data/site/trends.json' },
     lineage:    { api: 'lineage',    file: 'data/site/lineage.json' },
     dimensions: { api: 'dimensions', file: 'data/site/dimensions.json' },
+    ops:        { api: 'ops',        file: 'data/site/ops.json' },
   };
 
   const API_BASE = (() => {

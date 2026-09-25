@@ -27,7 +27,10 @@ def export_all() -> dict[str, int]:
             "trends.json": A.trends(s),
             "lineage.json": A.lineage(s),
             "dimensions.json": A.dimensions(s),
+            "ops.json": A.ops(s),
         }
+        from .seo import build as build_seo
+        seo = build_seo(s)
     for name, payload in payloads.items():
         if isinstance(payload, dict):
             payload = {"_generated": GENERATED_NOTE, **payload}
@@ -35,12 +38,16 @@ def export_all() -> dict[str, int]:
         text = json.dumps(payload, ensure_ascii=False, indent=1) + "\n"
         path.write_text(text, encoding="utf-8")
         written[name] = len(text)
+    written["_seo"] = seo
     return written
 
 
 def main() -> None:
-    for name, size in export_all().items():
+    out = export_all()
+    seo = out.pop("_seo")
+    for name, size in out.items():
         print(f"  → data/site/{name} ({size / 1024:.1f} KB)")
+    print(f"  → p/*.html {seo['pages']} 页 · sitemap.xml {seo['sitemap_urls']} 条 · robots.txt")
 
 
 if __name__ == "__main__":

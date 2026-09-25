@@ -3,7 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>政策脉络 · 泰国 — Thai Policy Lineage(整合原型)</title>
+<title>政策脉络 · 泰国 — 泰国政策中文数据库与预警</title>
+<meta name="description" content="泰国皇家公报、内阁决议与各部委政策的中文结构化数据库:每条附泰文原文溯源与可信度标注,含演进脉络、七维政策分析与趋势看板。非官方翻译,以泰文原文为准。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="政策脉络 · 泰国 — 泰国政策中文数据库">
+<meta property="og:description" content="签证、税务、公司投资、劳工、房产土地政策的中文结构化追踪,每条可溯源。">
+<meta property="og:site_name" content="政策脉络 · 泰国">
+<link rel="sitemap" type="application/xml" href="sitemap.xml">
 <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
@@ -15,8 +21,8 @@
     <div class="brand-sub">Thai Policy Lineage · นโยบายไทย</div>
   </div>
   <div class="header-right">
-    <span id="stamp">示意数据 · 整合原型</span>
-    <button class="btn-solid">订阅预警</button>
+    <span id="stamp">加载中……</span>
+    <button class="btn-solid" disabled title="订阅推送即将上线" style="opacity:.6;cursor:not-allowed">订阅预警 · 即将上线</button>
   </div>
 </header>
 
@@ -30,13 +36,12 @@
     <div class="nav-item" data-v="dims"><span class="glyph">维</span>政策维度</div>
     <div class="nav-item" data-v="trends"><span class="glyph">势</span>趋势看板</div>
     <div class="nav-item" data-v="detail"><span class="glyph">文</span>政策详情</div>
+    <div class="nav-item" data-v="ops"><span class="glyph">采</span>采集状态</div>
     <div class="nav-item soon"><span class="glyph">问</span>政策助手<span class="soon-tag">规划中</span></div>
     <div class="side-div"></div>
-    <div class="side-label">我的订阅<span style="color:var(--muted);font-weight:400"> · 示意</span></div>
-    <div class="sub-item"><span class="sub-dot" style="background:var(--seal)"></span>EV 产业激励<span class="sub-badge" style="color:var(--seal)">+4</span></div>
-    <div class="sub-item"><span class="sub-dot" style="background:var(--blue)"></span>BOI 投资激励变动<span class="sub-badge" style="color:var(--blue-deep)">+2</span></div>
-    <div class="sub-item"><span class="sub-dot" style="background:var(--gold-deep)"></span>PDPA 与数据跨境<span class="sub-badge" style="color:var(--gold-deep)">+1</span></div>
-    <div class="sub-item"><span class="sub-dot" style="background:#b9b3a4"></span>最低工资与用工<span class="sub-badge" style="color:var(--muted)">—</span></div>
+    <div class="side-label">订阅预警</div>
+    <div class="sub-item" style="color:var(--muted);font-size:12.5px;line-height:1.6">按领域 / 机关 / 关键词订阅政策变动,邮件与 LINE 推送 —— 即将上线。</div>
+    <div class="ad-slot" data-slot="home_sidebar_nav" style="margin-top:12px"></div>
   </aside>
 
   <main>
@@ -65,6 +70,7 @@
             <div class="mod-sub">加载中……</div>
             </div>
           </div>
+          <div class="ad-slot" data-slot="home_sidebar"></div>
         </div>
       </div>
     </section>
@@ -95,7 +101,9 @@
             <div class="mod-sub">由四类日期(决议/刊登/生效/失效)自动生成</div>
             <div class="timeline" id="detail-timeline"></div>
             <div style="margin-top:12px;font-size:12.5px" id="detail-issue"></div>
+            <div style="margin-top:8px;font-size:12.5px" id="detail-share"></div>
           </div>
+          <div class="ad-slot" data-slot="detail_side"></div>
           <div class="card">
             <h3 class="mod">订阅此主题</h3>
             <div style="font-size:12.5px;color:var(--ink-2)">该领域有更新时通知我</div>
@@ -190,6 +198,19 @@
       </div>
     </section>
 
+    <!-- ═══════ 采集状态 ═══════ -->
+    <section class="view" id="v-ops">
+      <h1 class="page">采集状态</h1>
+      <div class="page-sub" id="ops-sub">自动采集管道是否还活着 —— 源健康、每日运行记录、翻译队列、数据新鲜度。</div>
+      <div id="ops-banner"></div>
+      <div class="trend-grid">
+        <div class="card"><h3 class="mod">数据源</h3><div class="mod-sub">上次成功超过 3 天即判为过期</div><div id="ops-sources"><div class="mod-sub">加载中……</div></div></div>
+        <div class="card"><h3 class="mod">库存与队列</h3><div class="mod-sub">事实层全部记录 vs 可呈现条目</div><div id="ops-corpus"><div class="mod-sub">加载中……</div></div></div>
+        <div class="card" style="grid-column:1/-1"><h3 class="mod">最近运行</h3><div class="mod-sub">每日定时采集 · 最近 30 次</div><div class="chart" id="c-runs" style="height:160px"></div><div id="ops-runs"></div></div>
+        <div class="card" style="grid-column:1/-1"><h3 class="mod">待翻译队列</h3><div class="mod-sub">官方接口采回、尚无中文标题的条目(不会出现在首页)</div><div id="ops-queue"><div class="mod-sub">加载中……</div></div></div>
+      </div>
+    </section>
+
   </main>
 </div>
 
@@ -203,5 +224,7 @@
 <script src="js/data.js"></script>
 <script src="js/dims.js"></script>
 <script src="js/detail.js"></script>
+<script src="js/ops.js"></script>
+<script src="js/ads.js"></script>
 </body>
 </html>

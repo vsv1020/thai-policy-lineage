@@ -17,6 +17,9 @@ COPY index.html /srv/index.html
 COPY css /srv/css
 COPY js /srv/js
 COPY data /srv/data
+COPY config /srv/config
+COPY p /srv/p
+COPY sitemap.xml robots.txt /srv/
 COPY tools /srv/tools
 COPY backend /srv/backend
 
@@ -26,4 +29,5 @@ WORKDIR /srv/backend
 EXPOSE 8000
 
 # 首次启动:建表 + 载入词表与事实层(幂等,重启不会重复插)
-CMD ["sh", "-c", "python -m app.ingest && exec uvicorn app.main:app --host 0.0.0.0 --port 8000"]
+# 启动时:建表 + 载入事实层(幂等)→ 重新导出派生产物(落地页里的 canonical 用 SITE_URL)
+CMD ["sh", "-c", "python -m app.ingest && python -m app.export && exec uvicorn app.main:app --host 0.0.0.0 --port 8000"]

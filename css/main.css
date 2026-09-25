@@ -251,3 +251,15 @@
     .home-grid, .detail-grid, .trend-grid, .dim-grid2, .cf-cols { grid-template-columns: 1fr; }
     main { padding: 24px 20px 40px; }
   }
+
+/* ── 广告位:明确标注、视觉上与政策内容区隔 ── */
+.ad-slot:empty { display: none; }
+.ad-box { position: relative; border: 1px dashed var(--line); background: var(--panel, #f3f1ea);
+  padding: 20px 16px 14px; margin: 0 0 18px; }
+.ad-label { position: absolute; top: 4px; left: 8px; font-size: 10.5px; letter-spacing: .08em;
+  color: var(--muted); }
+.ad-link { display: block; color: inherit; text-decoration: none; }
+.ad-link:hover .ad-title { text-decoration: underline; }
+.ad-title { font-weight: 600; font-size: 13.5px; color: var(--ink); }
+.ad-text { font-size: 12.5px; color: var(--ink-2); margin-top: 3px; }
+.ad-sponsor { font-size: 11.5px; color: var(--muted); margin-top: 6px; }

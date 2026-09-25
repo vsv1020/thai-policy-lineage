@@ -104,7 +104,7 @@ GitHub/包镜像,`data.go.th` 会返回 403 CONNECT。要打通需由用户在�
 python3 tools/validate.py                    # 词表、关系、日期顺序、红线(纯标准库)
 cd backend && pip install -q -r requirements.txt   # 首次或依赖变动时
 python3 -m app.ingest                        # 事实层 → 数据库(幂等)
-python3 -m pytest tests -q                   # 60 个测试,分析口径别被改坏
+python3 -m pytest tests -q                   # 全部测试,分析口径别被改坏
 python3 -m app.export                        # 数据库 → data/site/*.json
 cd .. && git add data/policies data/site
 git commit -m "data: 政策数据增量更新(新增 N 条 / 更新 M 条)"

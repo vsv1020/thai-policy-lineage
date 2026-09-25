@@ -56,6 +56,11 @@ def dimensions(s: Session = Depends(get_session)) -> dict:
     return A.dimensions(s)
 
 
+@router.get("/ops", summary="采集运行状态:源健康、运行历史、翻译队列、数据新鲜度")
+def ops(s: Session = Depends(get_session)) -> dict:
+    return A.ops(s)
+
+
 @router.get("/lineage", summary="议题演进脉络")
 def lineage(s: Session = Depends(get_session)) -> dict:
     return A.lineage(s)

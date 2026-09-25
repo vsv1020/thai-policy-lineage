@@ -1,0 +1,59 @@
+{
+ "_comment": "广告位配置。app.export 会把它复制到 data/site/ads.json 供前端读取;改这里,不要改 data/site 下的副本。",
+ "enabled": false,
+ "label": "广告",
+ "_policy": "中立性红线:只有 allowed_categories 里的类别会被渲染 —— 签证中介、代持服务、移民掮客、博彩、未持牌金融一律不上,配置了也不显示。广告永远不进入政策正文、摘要与检索结果行内。",
+ "allowed_categories": {
+  "law_firm": "律师事务所(持牌)",
+  "accounting": "会计与税务师事务所",
+  "bank": "持牌银行",
+  "insurance": "持牌保险",
+  "relocation_licensed": "持牌搬迁与国际学校咨询",
+  "coworking": "办公空间",
+  "saas": "企业软件与合规工具",
+  "education": "语言与职业培训",
+  "house": "本站自有(订阅、企业版、数据报告)"
+ },
+ "slots": {
+  "home_sidebar_nav": {
+   "_where": "左侧导航栏底部(窄位,适合品牌名 + 一行字)",
+   "items": []
+  },
+  "home_sidebar": {
+   "_where": "首页右栏,生效日历下方",
+   "items": []
+  },
+  "home_feed_inline": {
+   "_where": "首页政策流第 N 张卡片之后",
+   "after_index": 3,
+   "items": []
+  },
+  "detail_side": {
+   "_where": "详情页右栏,生命周期下方",
+   "items": []
+  },
+  "landing_bottom": {
+   "_where": "每条政策静态落地页正文与免责声明之后",
+   "items": []
+  }
+ },
+ "_item_example": {
+  "sponsor": "某某律师事务所",
+  "category": "law_firm",
+  "title": "外资公司设立与 BOI 申请",
+  "text": "持牌律所 · 中文服务",
+  "href": "https://example.com/?utm_source=policy-lineage&utm_medium=sponsor",
+  "start": "2026-10-01",
+  "end": "2026-12-31"
+ },
+ "adsense": {
+  "_comment": "填了 client(形如 ca-pub-XXXXXXXX)才会加载 Google 脚本,并由 export 生成 ads.txt。没有直销广告的槽位才用 AdSense 兜底。",
+  "client": "",
+  "slots": {
+   "home_sidebar": "",
+   "detail_side": "",
+   "landing_bottom": "",
+   "home_sidebar_nav": ""
+  }
+ }
+}

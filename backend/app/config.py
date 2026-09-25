@@ -44,6 +44,19 @@ class Settings:
         ).split(",") if o.strip()
     ]
     api_prefix: str = os.getenv("API_PREFIX", "/api")
+    # 每个客户端 IP 每分钟 /api 请求上限;0 = 关闭(交给反向代理做)
+    api_rate_per_min: int = int(os.getenv("API_RATE_PER_MIN", "120"))
+    # 在 Caddy/nginx 后面时设 1,才会用 X-Forwarded-For 识别真实 IP;
+    # 直接暴露在公网时必须为 0,否则客户端可伪造 IP 绕过限流
+    trust_proxy: bool = _bool("TRUST_PROXY", False)
+
+    # LLM 翻译分类(app.enrich)。没有 ANTHROPIC_API_KEY 时自动跳过
+    enrich_model: str = os.getenv("ENRICH_MODEL", "claude-opus-5")
+    enrich_max_per_run: int = int(os.getenv("ENRICH_MAX_PER_RUN", "40"))
+    enrich_after_collect: bool = _bool("ENRICH_AFTER_COLLECT", True)
+
+    # 站点公开地址(用于 sitemap 与 SEO 落地页的 canonical 链接)
+    site_url: str = os.getenv("SITE_URL", "https://vsv1020.github.io/thai-policy-lineage").rstrip("/")
 
     # 分析参数(与前端展示口径一致,改这里就改了全站)
     wind_shrink: float = float(os.getenv("WIND_SHRINK", "2.0"))

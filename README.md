@@ -18,7 +18,10 @@ data/policies/        事实层(JSONL,可 review 的政策记录)
 data/site/            派生层(backend/app/export.py 导出,禁止手改)
 tools/validate.py     纯标准库校验器(词表、关系、日期顺序、编辑红线)
 pipeline/             早期抓取 PoC(已由 backend/app/collect.py 接管)
-.claude/skills/autoresearch   LLM 采集流程(负责需要判断的那部分)
+.github/workflows/collect.yml  每日自动采集 → 翻译 → 导出 → 提交
+p/                    每条政策的静态落地页(SEO,由 export 生成)
+config/ads.json       广告位配置(默认关闭,类别白名单)
+docs/deploy.md · docs/monetization.md   上线手册 · 营收与广告位
 docs/research-report.md   完整调研报告
 ```
 
@@ -58,7 +61,7 @@ uvicorn app.main:app --port 8000  # 同时提供 API(/docs)与静态站(/)
 - **词表是真表 + 外键**:未知领域/机关/工具 id 由数据库拒绝,不依赖应用层记得校验。
 - 上升话题榜暂无数据源,始终为演示数据。
 
-## 原型包含的界面(演示数据)
+## 界面
 
 - **今日**:政策流卡片(领域标签 · 收紧/放宽方向 · 公报编号 · 原文链接 · 人工复核标记)+ 本月风向 + 生效日历
 - **检索**:领域 × 机关 × 法律形式 × 状态 × 时间 的分面检索
@@ -66,6 +69,7 @@ uvicorn app.main:app --port 8000  # 同时提供 API(/docs)与静态站(/)
 - **演进脉络**:同一议题的"旧规 → 转折 → 补丁 → 决议 → 听证 → 现行版 → 前瞻"完整链条
 - **政策维度**:七维分析(工具结构演变 / 工具×目标空白 / 法律形式与强制力 / 作用对象 / 机构联署 / 一致性冲突检测 / 执行完整度)
 - **趋势看板**:发文量时序 · 风向指数 · 部委活跃度热力 · 上升话题榜
+- **采集状态**:数据源健康 · 每日运行记录 · 翻译队列 · 数据新鲜度
 
 ## 数据管线(PoC)
 
@@ -77,25 +81,28 @@ python fetch_cabinet.py --limit 2   # 内阁决议年度数据 → data/processe
 
 数据走 data.go.th 官方开放接口(DGA Open Government License 明确允许复制、传播、再利用),内置礼貌限速;详见 [pipeline/README.md](pipeline/README.md)。
 
-## 自动更新
+## 自动化采集与呈现
 
-分两层,互不重叠:
+```
+GitHub Actions(每天曼谷 07:23)
+  └─ app.collect   data.go.th 官方接口 → 佛历换算 → 红线过滤 → 追加 JSONL
+  └─ app.enrich    Claude 把泰文标题翻译分类成中文结构化记录(受词表约束,标「未经人工复核」)
+  └─ app.export    → data/site/*.json + p/*.html 落地页 + sitemap.xml
+  └─ git commit    → GitHub Pages 自动呈现
+```
 
-**① 确定性采集(每天一次,后端自动)** —— `backend/app/collect.py`:
-取 data.go.th 官方 CKAN 接口 → 佛历换算 → 红线过滤 → 追加 JSONL → 入库 → 导出静态 JSON。
-默认曼谷时间每天 07:23 由进程内定时器触发(可改用系统 cron,见 backend/README.md)。
-每次运行在 `collect_runs` 表留一条记录,`GET /api/runs` 可查。
+- **失败会响**:所有数据源失败时工作流变红,GitHub 给仓库所有者发邮件;失败事实本身也提交进仓库,
+  「采集状态」页显示「管道中断」。取代了原先每天开一个 LLM 会话的方案 —— 那个方案六周零提交却一直显示成功。
+- **只呈现可呈现的**:待翻译(无中文标题)与判定无关(人事任免、授勋)的条目只留在 JSONL 审计记录里,
+  不会以空标题出现在首页。
+- **三条编辑红线机械执行**:王室相关标题连模型都不发;模型只能从词表枚举里选 id,返回后再校验一次;
+  没有日期不入库,没有官方链接不编。全部有测试覆盖。
+- 没配 `ANTHROPIC_API_KEY` 时翻译步骤自动跳过,采集照常。
 
-**② 需要判断的部分(LLM 流程)** —— [.claude/skills/autoresearch](.claude/skills/autoresearch/SKILL.md):
-公开检索发现的线索,经人可复核的判断后写成结构化记录。为什么分开:自动写入必须可复现、
-可审计,「检索摘要 → 带文号带机关带日期的记录」中间那一步判断应该发生在人能复核的地方。
+上线步骤见 [docs/deploy.md](docs/deploy.md),营收与广告位见 [docs/monetization.md](docs/monetization.md)。
 
-两层共用三条编辑红线(王室零加工 / 不建人名索引 / 不虚构文号与链接),
-在 `collect.normalize_*()` 与 `tools/validate.py` 里**机械执行**并有测试覆盖;
-自动采集的条目 `verified` 恒为 `false`(校验器强制),人工复核后才改 `true`。
-
-**注意**:泰国政府站点对海外 IP 有 WAF 拦截。受限出口环境下 `data.go.th` 返回 403,
-采集会诚实记为 `error` 并继续,页面右上角显示「N 个源均未接通」。生产部署建议用泰国出口。
+**注意**:泰国政府站点可能拦截海外 IP。GitHub Actions 跑在美国;第一次运行若数据源 403,
+在仓库 Secrets 里配 `THAI_EGRESS_PROXY`(泰国出口代理)后重跑。
 
 ## 设计原则(合规红线,见调研报告第七章)
 

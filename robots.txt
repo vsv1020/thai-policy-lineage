@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://vsv1020.github.io/thai-policy-lineage/sitemap.xml

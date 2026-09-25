@@ -325,6 +325,11 @@ def append_jsonl(records: list[dict]) -> int:
     return len(fresh)
 
 
+def append_run(entry: dict) -> None:
+    with (POLICIES_DIR / "runs.jsonl").open("a", encoding="utf-8") as fh:
+        fh.write(json.dumps(entry, ensure_ascii=False) + "\n")
+
+
 def write_source_health(results: list[SourceResult], run_at: datetime) -> None:
     """同时写库和写 data/policies/sources.json,两边不漂移。"""
     with session_scope() as s:
@@ -355,11 +360,13 @@ def run_collection(trigger: str = "manual", dry_run: bool = False) -> dict:
     run_at_iso = started.replace(microsecond=0).isoformat()
     throttle = Throttle(settings.min_request_interval)
 
-    with session_scope() as s:
-        run = CollectRun(started_at=started, status="running", trigger=trigger)
-        s.add(run)
-        s.flush()
-        run_id = run.id
+    run_id = None
+    if not dry_run:
+        with session_scope() as s:
+            run = CollectRun(started_at=started, status="running", trigger=trigger)
+            s.add(run)
+            s.flush()
+            run_id = run.id
 
     results = [collect_source(src, throttle, run_at_iso, cutoff_date, dry_run)
                for src in SOURCES]
@@ -372,20 +379,40 @@ def run_collection(trigger: str = "manual", dry_run: bool = False) -> dict:
         with session_scope() as s:
             added, updated = load_documents(s, all_records, now=started)
 
-    write_source_health(results, started)
+    if not dry_run:
+        write_source_health(results, started)
 
     status = "ok" if ok_count == len(results) else ("partial" if ok_count else "failed")
     detail = " | ".join(f"{r.id}={r.status}: {r.detail}" for r in results)
     duration = time.monotonic() - t0
 
-    with session_scope() as s:
-        run = s.get(CollectRun, run_id)
-        run.finished_at = datetime.now(BKK)
-        run.status = status
-        run.added, run.updated = added, updated
-        run.skipped = len(all_records) - added - updated
-        run.duration_s = duration
-        run.detail = detail[:4000]
+    if not dry_run:
+        finished = datetime.now(BKK)
+        with session_scope() as s:
+            run = s.get(CollectRun, run_id)
+            run.finished_at = finished
+            run.status = status
+            run.added, run.updated = max(added, appended), updated
+            run.skipped = len(all_records) - added - updated
+            run.duration_s = duration
+            run.detail = detail[:4000]
+        # 运行记录也落到事实层:数据库重建(CI、换机器)后运行历史不丢,
+        # 且「管道每天有没有在跑」本身就是需要审计的事实
+        append_run({"started_at": started.replace(microsecond=0).isoformat(),
+                    "finished_at": finished.replace(microsecond=0).isoformat(),
+                    "status": status, "trigger": trigger,
+                    "added": max(added, appended), "updated": updated,
+                    "duration_s": round(duration, 1), "detail": detail[:1000]})
+
+    enrich_result = None
+    if not dry_run and settings.enrich_after_collect:
+        # 翻译分类:把刚采进来的泰文条目补成可呈现的记录。没有 API key 时自动跳过
+        from .enrich import run_enrichment
+        try:
+            enrich_result = run_enrichment()
+        except Exception:                      # 翻译失败不应让采集结果丢失
+            log.exception("翻译分类失败,采集结果已保存,待下轮重试")
+            enrich_result = {"status": "error"}
 
     if not dry_run and settings.export_after_collect:
         from .export import export_all
@@ -394,7 +421,7 @@ def run_collection(trigger: str = "manual", dry_run: bool = False) -> dict:
     log.info("采集完成 status=%s 新增=%d 更新=%d 源=%d/%d 耗时=%.1fs",
              status, added, updated, ok_count, len(results), duration)
     return {"run_id": run_id, "status": status, "added": added, "updated": updated,
-            "appended_to_jsonl": appended, "sources_ok": ok_count,
+            "appended_to_jsonl": appended, "sources_ok": ok_count, "enrich": enrich_result,
             "sources_total": len(results), "duration_s": round(duration, 1),
             "sources": [{"id": r.id, "status": r.status, "detail": r.detail} for r in results]}
 
@@ -403,9 +430,13 @@ def main() -> None:
     ap = argparse.ArgumentParser(description="每日政策数据采集")
     ap.add_argument("--dry-run", action="store_true", help="只探测源可达性,不写库不写文件")
     ap.add_argument("--trigger", default="manual")
+    ap.add_argument("--strict", action="store_true",
+                    help="所有源都失败时以退出码 2 结束 —— 给 CI 用,让失败变红、触发通知")
     args = ap.parse_args()
     out = run_collection(trigger=args.trigger, dry_run=args.dry_run)
     print(json.dumps(out, ensure_ascii=False, indent=1))
+    if args.strict and out["status"] == "failed":
+        raise SystemExit(2)
 
 
 if __name__ == "__main__":

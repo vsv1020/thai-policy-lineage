@@ -172,13 +172,25 @@ def calendar(s: Session, today: date) -> list[dict]:
     return sorted(items, key=lambda x: x["date"])
 
 
+# 上次成功距今超过这么多天,即使状态写着 ok 也按「过期」算 ——
+# 一个 6 周前成功过、此后再没跑过的源,不能在页面上显示为「可用」
+SOURCE_STALE_DAYS = 3
+
+
 def source_health(s: Session) -> tuple[str | None, list[dict]]:
     rows = s.scalars(select(SourceHealth)).all()
     last = max((r.last_attempt_at for r in rows if r.last_attempt_at), default=None)
-    return iso_bkk(last), [
-        {"id": r.id, "name": r.name, "url": r.url, "status": r.status,
-         "last_ok": iso_bkk(r.last_ok_at), "detail": r.detail}
-        for r in rows]
+    today = _today(s)
+    out = []
+    for r in rows:
+        status = r.status
+        if status == "ok" and r.last_ok_at is not None:
+            ok_day = (r.last_ok_at if r.last_ok_at.tzinfo else r.last_ok_at.replace(tzinfo=BKK))
+            if (today - ok_day.astimezone(BKK).date()).days > SOURCE_STALE_DAYS:
+                status = "stale"
+        out.append({"id": r.id, "name": r.name, "url": r.url, "status": status,
+                    "last_ok": iso_bkk(r.last_ok_at), "detail": r.detail})
+    return iso_bkk(last), out
 
 
 def overview(s: Session) -> dict:
@@ -474,3 +486,76 @@ def lineage(s: Session) -> dict:
                         "stages": stages})
     out.sort(key=lambda x: -len(x["stages"]))
     return {"issues": out}
+
+
+# ─────────────────────── 采集运行状态(运维看板) ───────────────────────
+
+def ops(s: Session) -> dict:
+    """把自动化本身呈现出来:最近运行、源健康、翻译队列、数据新鲜度。
+
+    这一页存在的理由:每日采集如果连续失败却没人看见,站点就会在「看起来正常」的
+    状态下慢慢变旧。这里的每个数字都应该能让人一眼判断「管道是不是还活着」。
+    """
+    from .config import POLICIES_DIR
+    from .ingest import read_jsonl
+    from .models import CollectRun
+
+    today = _today(s)
+    last_run, sources = source_health(s)
+
+    runs = s.scalars(select(CollectRun).order_by(CollectRun.started_at.desc()).limit(30)).all()
+    run_items = [{"started_at": iso_bkk(r.started_at), "status": r.status, "trigger": r.trigger,
+                  "added": r.added, "updated": r.updated,
+                  "duration_s": round(r.duration_s or 0, 1)} for r in runs]
+    # 连续失败天数:从最近一次往回数,直到遇到一次 ok/partial
+    streak = 0
+    for r in runs:
+        if r.status == "failed":
+            streak += 1
+        else:
+            break
+
+    records = read_jsonl(POLICIES_DIR / "documents.jsonl")
+    pending = [r for r in records if not (r.get("titles") or {}).get("zh")
+               and not (r.get("flags") or {}).get("skip")]
+    skipped = [r for r in records if (r.get("flags") or {}).get("skip")]
+    by_pipeline: dict[str, int] = defaultdict(int)
+    for r in records:
+        by_pipeline[(r.get("provenance") or {}).get("pipeline", "manual")] += 1
+
+    presentable = s.scalar(select(func.count(Document.uid))) or 0
+    verified = s.scalar(select(func.count(Document.uid)).where(Document.verified.is_(True))) or 0
+    llm = s.scalar(select(func.count(Document.uid))
+                   .where(Document.direction_method == "llm")) or 0
+    from .models import DocumentSource
+    with_official = s.scalar(
+        select(func.count(func.distinct(DocumentSource.uid)))
+        .where(DocumentSource.role == "official", DocumentSource.url != "")) or 0
+    newest = s.scalar(select(func.max(Document.display_date)))
+
+    ok_sources = [x for x in sources if x["status"] == "ok"]
+    health = ("down" if sources and not ok_sources
+              else "degraded" if len(ok_sources) < len(sources) else "ok")
+    return {
+        "as_of": last_run,
+        "health": health,
+        "failure_streak": streak,
+        "sources": sources,
+        "runs": run_items,
+        "corpus": {
+            "total_records": len(records),
+            "presentable": presentable,
+            "pending_translation": len(pending),
+            "skipped_irrelevant": len(skipped),
+            "verified": verified,
+            "llm_enriched": llm,
+            "with_official_link": with_official,
+            "by_pipeline": dict(by_pipeline),
+        },
+        "freshness": {
+            "newest_document": newest.isoformat() if newest else None,
+            "days_since_newest": (today - newest).days if newest else None,
+        },
+        "queue_sample": [{"uid": r["uid"], "title_th": (r.get("titles") or {}).get("th", "")[:80]}
+                         for r in pending[:10]],
+    }

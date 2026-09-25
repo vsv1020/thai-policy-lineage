@@ -120,6 +120,8 @@ function renderDetail(d) {
     ? tl.map(x => `<div class="tl-item ${x.s}"><div class="tl-date">${E(x.d)}</div>
         <div class="tl-name">${E(x.n)}</div></div>`).join('')
     : '<div class="mod-sub">该文件尚无可用日期</div>');
+  put('detail-share', `<a href="p/${E(d.uid.toLowerCase())}.html" target="_blank" rel="noopener">`
+    + `打开可分享的独立页面 ↗</a> <span style="color:var(--muted)">(无需 JS,可被搜索引擎收录)</span>`);
   put('detail-issue', d.issue_id
     ? `<a href="#" onclick="go('lineage');return false">查看「${E(d.issue_id)}」完整演进脉络 →</a>`
     : '<span style="color:var(--muted)">该文件尚未归入议题</span>');

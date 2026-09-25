@@ -88,12 +88,25 @@ def display_date_of(dates: dict) -> date | None:
     return None
 
 
+def presentable(r: dict) -> bool:
+    """有中文标题且未被标记跳过 —— 才进数据库、才会被呈现。"""
+    return bool((r.get("titles") or {}).get("zh")) and not (r.get("flags") or {}).get("skip")
+
+
 def load_documents(s: Session, records: list[dict], now: datetime | None = None) -> tuple[int, int]:
     """返回 (新增, 更新)。"""
     now = now or datetime.now(BKK)
     added = updated = 0
     for r in records:
         uid = r["uid"]
+        if not presentable(r):
+            # 待翻译或判定无关的条目只留在 JSONL(审计记录),不进数据库 ——
+            # 否则首页会出现空标题。已在库里的(例如刚被标 skip)要移除。
+            stale = s.get(Document, uid)
+            if stale is not None:
+                s.delete(stale)
+                s.flush()
+            continue
         doc = s.get(Document, uid)
         is_new = doc is None
         if is_new:
@@ -226,6 +239,18 @@ def load_source_health(s: Session, payload: dict) -> int:
     return len(payload.get("sources") or [])
 
 
+def load_runs(s: Session, records: list[dict]) -> int:
+    """运行历史整表重建 —— runs.jsonl 是唯一来源。"""
+    s.execute(delete(CollectRun))
+    for r in records:
+        s.add(CollectRun(started_at=_dt(r["started_at"]), finished_at=_dt(r.get("finished_at")),
+                         status=r.get("status", "unknown"), trigger=r.get("trigger", "manual"),
+                         added=r.get("added", 0), updated=r.get("updated", 0),
+                         duration_s=r.get("duration_s", 0.0), detail=r.get("detail", "")))
+    s.flush()
+    return len(records)
+
+
 def reset_facts(s: Session) -> None:
     """只清事实表,词表保留(词表是配置,不是数据)。"""
     for model in (DocumentRelation, DocumentSource, DocumentParty, DocumentGoal,
@@ -249,8 +274,9 @@ def ingest_all(reset: bool = False) -> dict:
         sh_path = POLICIES_DIR / "sources.json"
         n_sh = load_source_health(
             s, json.loads(sh_path.read_text(encoding="utf-8"))) if sh_path.exists() else 0
+        n_runs = load_runs(s, read_jsonl(POLICIES_DIR / "runs.jsonl"))
         return {"documents_added": added, "documents_updated": updated, "issues": n_issues,
-                "conflicts": n_conf, "deadlines": n_dl, "sources": n_sh}
+                "conflicts": n_conf, "deadlines": n_dl, "sources": n_sh, "runs": n_runs}
 
 
 def main() -> None:

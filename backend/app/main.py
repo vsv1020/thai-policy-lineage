@@ -1,21 +1,47 @@
 # -*- coding: utf-8 -*-
-"""应用入口:建表 → 装 API → 起定时器 → 顺带把原型静态站挂在 / 上。"""
+"""应用入口:建表 → 装 API → 起定时器 → 挂静态站。
+
+静态站只按白名单暴露 —— 早期版本把整个仓库根目录挂在 / 上,
+.git/、数据库文件、源码、以及生产机上的 backend/.env 都能被直接下载。
+新增公开目录必须显式加进 PUBLIC_DIRS,不要改回挂根目录。
+"""
 from __future__ import annotations
 
 import logging
+import time
+from collections import defaultdict, deque
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.gzip import GZipMiddleware
+from fastapi.responses import FileResponse, JSONResponse, PlainTextResponse
 from fastapi.staticfiles import StaticFiles
 
 from .api import router
-from .config import REPO_ROOT, settings
+from .config import REPO_ROOT, SITE_DIR, settings
 from .db import init_db
 
 log = logging.getLogger("policy")
 logging.basicConfig(level=logging.INFO,
                     format="%(asctime)s %(levelname)s %(name)s %(message)s")
+
+# 对外公开的目录:URL 前缀 → 磁盘目录。只有这些能被访问。
+PUBLIC_DIRS = {
+    "/css": REPO_ROOT / "css",
+    "/js": REPO_ROOT / "js",
+    "/data/site": SITE_DIR,
+    "/p": REPO_ROOT / "p",          # 每条政策的静态落地页(SEO),由 app.export 生成
+}
+# 根目录下允许单独访问的文件
+PUBLIC_FILES = {"index.html", "robots.txt", "sitemap.xml", "favicon.ico", "ads.txt"}
+
+SECURITY_HEADERS = {
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+    "X-Frame-Options": "SAMEORIGIN",
+    "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
+}
 
 
 @asynccontextmanager
@@ -35,10 +61,11 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="政策脉络 · 泰国 API",
     description="泰国政策的中文结构化数据与分析接口。译文为非官方翻译,以泰文原文为准。",
-    version="0.3.0",
+    version="0.4.0",
     lifespan=lifespan,
 )
 
+app.add_middleware(GZipMiddleware, minimum_size=1024)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.cors_origins,
@@ -47,8 +74,58 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# ── 限流:每个客户端 IP 每分钟最多 API_RATE_PER_MIN 次 /api 请求 ──
+# 进程内实现,单实例够用;多实例部署时放到反向代理(Caddy/nginx)上做。
+_hits: dict[str, deque] = defaultdict(deque)
+
+
+def _client_ip(request: Request) -> str:
+    if settings.trust_proxy:
+        fwd = request.headers.get("x-forwarded-for", "")
+        if fwd:
+            return fwd.split(",")[0].strip()
+    return request.client.host if request.client else "unknown"
+
+
+@app.middleware("http")
+async def guard(request: Request, call_next):
+    if request.url.path.startswith("/api/") and settings.api_rate_per_min > 0:
+        now = time.monotonic()
+        q = _hits[_client_ip(request)]
+        while q and now - q[0] > 60:
+            q.popleft()
+        if len(q) >= settings.api_rate_per_min:
+            return JSONResponse({"detail": "请求过于频繁,请稍后再试"}, status_code=429,
+                                headers={"Retry-After": "60"})
+        q.append(now)
+    response = await call_next(request)
+    for k, v in SECURITY_HEADERS.items():
+        response.headers.setdefault(k, v)
+    if request.url.path.startswith("/data/site/"):
+        # 派生数据每天更新一次,短缓存即可;API 不缓存
+        response.headers.setdefault("Cache-Control", "public, max-age=300")
+    return response
+
+
 app.include_router(router)
 
-# 把仓库根目录当静态站挂上 —— 一个进程既是 API 也是站点,部署只需要一个服务。
-# 放在最后,避免 /api/* 被静态路由吃掉。
-app.mount("/", StaticFiles(directory=str(REPO_ROOT), html=True), name="site")
+
+@app.get("/", include_in_schema=False)
+def index() -> FileResponse:
+    return FileResponse(REPO_ROOT / "index.html")
+
+
+@app.get("/{name}", include_in_schema=False)
+def root_file(name: str):
+    path = REPO_ROOT / name
+    if name in PUBLIC_FILES and path.is_file():
+        return FileResponse(path)
+    if name == "robots.txt":        # 没生成过也给一个合理默认
+        return PlainTextResponse("User-agent: *\nAllow: /\nDisallow: /api/\n")
+    return JSONResponse({"detail": "Not Found"}, status_code=404)
+
+
+for prefix, directory in PUBLIC_DIRS.items():
+    directory.mkdir(parents=True, exist_ok=True)
+    app.mount(prefix, StaticFiles(directory=str(directory), html=True),
+              name=prefix.strip("/").replace("/", "_"))

@@ -108,7 +108,7 @@ python3 tools/validate.py                  # 校验事实层(纯标准库,无需
 cd backend
 python3 -m app.ingest                      # 事实层 → 数据库(幂等)
 python3 -m app.export                      # 数据库 → data/site/*.json
-python3 -m pytest tests -q                 # 60 个测试
+python3 -m pytest tests -q                 # 全部测试
 ```
 
 ## SQLite 还是 Postgres

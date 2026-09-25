@@ -48,7 +48,8 @@ python3 -m app.ingest --reset    # 清空事实表后重载(词表保留)
 python3 -m app.collect           # 立即跑一轮采集
 python3 -m app.collect --dry-run # 只探测源可达性
 python3 -m app.export            # 导出静态 JSON
-python3 -m pytest tests -q       # 60 个测试
+python3 -m pytest tests -q       # 101 个测试
+python3 -m app.enrich --dry-run  # 看翻译队列(不调 API)
 python3 ../tools/validate.py     # 校验 JSONL(纯标准库,无依赖)
 ```
 
@@ -65,6 +66,7 @@ python3 ../tools/validate.py     # 校验 JSONL(纯标准库,无依赖)
 | `GET /api/documents/{uid}` | 单件全字段(四类日期、关系、逐字段可信度) |
 | `GET /api/vocab` | 受控词表(前端下拉与配色) |
 | `GET /api/runs` | 采集运行历史 |
+| `GET /api/ops` | 采集状态:源健康(含过期判定)、运行历史、翻译队列、数据新鲜度 |
 
 最有价值的一个查询:`GET /api/documents?pending_gazette=true` —— 「内阁已决议但公报未刊」的窗口期条目。
 这类状态是泰国政策的常态,也是普通新闻编译看不见的东西。
@@ -117,6 +119,29 @@ WantedBy=multi-user.target
 模型不含方言专属类型,换 `DATABASE_URL` 再跑 `python3 -m app.ingest` 即可。
 目前没上 Alembic —— 表结构还在动,`create_all` + `--reset` 重建更省事。
 上线有真实增量数据后应当引入 Alembic,别再靠 `create_all` 改表。
+
+## 翻译分类(app.enrich)
+
+官方接口采回的只有泰文标题 + 卷期 + 日期。`app.enrich` 把 `title_zh` 为空的条目交给 Claude
+(默认 `claude-opus-5`,结构化输出,枚举取自词表),补中文标题、摘要、领域、工具、目标、方向、作用对象。
+
+- 王室相关标题**不发给模型**,直接标 skip(红线一:翻译也是加工)
+- 模型判定与在泰外籍人士/企业无关的(人事任免、授勋、地方招标)标 skip,不上首页
+- 返回的 id 再按词表校验一次;拒答、截断、解析失败一律跳过、不写入
+- 产出一律 `verified=false`、`direction.method="llm"`
+- 已开启服务端 refusal fallback(`fallbacks: "default"`):主模型拒答时由服务端按类别换备用模型重跑
+- 没有 `ANTHROPIC_API_KEY` 时整步跳过
+
+成本量级:每条约几千输入 token + 几百输出 token,每天几十条,**估计每天约 1 美元上下**,以 Console 实际用量为准。
+`ENRICH_MAX_PER_RUN` 限制单轮上限,防止积压一次性涌入。
+
+## 安全
+
+- 静态文件**白名单挂载**(`main.py` 的 `PUBLIC_DIRS` / `PUBLIC_FILES`)。早期版本把仓库根目录整个挂出去,
+  `.git/`、数据库、源码、`.env` 都能被下载 —— `tests/test_security.py` 防止它回来。
+- 安全响应头、GZip、`/api` 按 IP 限流(`API_RATE_PER_MIN`,默认 120/分钟)
+- `TRUST_PROXY=1` 才信任 `X-Forwarded-For`;直接暴露公网时保持 0,否则可伪造 IP 绕过限流
+- 没有 CSP:页面有内联脚本,且 AdSense 需要大量放行。上 CSP 前需先把内联 onclick 移走
 
 ## 采集的边界(重要)
 
