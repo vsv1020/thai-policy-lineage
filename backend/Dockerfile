@@ -19,7 +19,8 @@ COPY js /srv/js
 COPY data /srv/data
 COPY config /srv/config
 COPY p /srv/p
-COPY sitemap.xml robots.txt /srv/
+COPY sitemap.xml robots.txt privacy.html /srv/
+COPY assets /srv/assets
 COPY tools /srv/tools
 COPY backend /srv/backend
 

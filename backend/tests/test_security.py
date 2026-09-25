@@ -24,14 +24,17 @@ def client():
     "/data/policies/documents.jsonl", "/data/vocab.json",
     "/docs/research-report.md", "/docker-compose.yml",
     "/css/../backend/app/config.py", "/data/site/../policies/sources.json",
+    "/config/ads.json", "/config/support.json", "/assets/../config/support.json",
 ])
 def test_private_paths_are_not_served(client, path):
     r = client.get(path)
     assert r.status_code == 404, f"{path} 不应可访问,实际 {r.status_code}"
 
 
-@pytest.mark.parametrize("path", ["/", "/index.html", "/css/main.css", "/js/api.js",
-                                  "/data/site/policies.json", "/robots.txt"])
+@pytest.mark.parametrize("path", ["/", "/index.html", "/privacy.html", "/css/main.css", "/js/api.js",
+                                  "/js/vendor/qrcode-generator-1.4.4.js", "/js/promptpay.js",
+                                  "/data/site/policies.json", "/data/site/support.json",
+                                  "/robots.txt"])
 def test_public_paths_are_served(client, path):
     assert client.get(path).status_code == 200
 

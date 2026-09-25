@@ -1,0 +1,32 @@
+{
+  "_comment": "打赏配置。app.export 会复制到 data/site/support.json。没填 id/src/href 的渠道自动不显示;全部为空时打赏入口整体隐藏。",
+  "enabled": false,
+  "title": "打赏支持「政策脉络」",
+  "message": "本站免费、不接中介推广、每条政策都附泰文原文溯源。整理、翻译和服务器都有成本 —— 如果某条内容帮到了你,欢迎随手打赏。",
+  "usage_note": "打赏用于服务器、域名与 Claude API 翻译费用。打赏不影响任何内容的取舍与排序。",
+  "amounts_thb": [30, 100, 300],
+  "channels": [
+    {
+      "type": "promptpay",
+      "label": "PromptPay · 泰国任意银行 App 扫码",
+      "id": "",
+      "_id_help": "10 位手机号 / 13 位税号 / 15 位电子钱包号。强烈建议用公司税号或电子钱包号 —— 手机号会被编码进二维码,且扫码时银行 App 会显示收款人真实姓名"
+    },
+    {
+      "type": "image",
+      "label": "微信赞赏码",
+      "src": "",
+      "_src_help": "把图片放到 assets/support/,这里填 assets/support/wechat.png。用「赞赏码」而不是个人收款码:个人收款码不允许用于经营性收款"
+    },
+    {
+      "type": "image",
+      "label": "支付宝",
+      "src": ""
+    },
+    {
+      "type": "link",
+      "label": "Buy Me a Coffee(信用卡 / 海外)",
+      "href": ""
+    }
+  ]
+}

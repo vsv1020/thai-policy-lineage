@@ -25,6 +25,7 @@ from .models import Document, Domain
 
 PAGES_DIR = REPO_ROOT / "p"
 ADS_CONFIG = REPO_ROOT / "config" / "ads.json"
+SUPPORT_CONFIG = REPO_ROOT / "config" / "support.json"
 
 REL_ZH = {"supersedes": "替代", "superseded_by": "被替代", "amends": "修订", "amended_by": "被修订",
           "implements": "落实", "implemented_by": "被落实", "repeals": "废止",
@@ -67,15 +68,20 @@ def _head(title: str, desc: str, canonical: str, jsonld: dict | None = None) -> 
   <div class="brand"><a href="../index.html" style="display:flex;align-items:center;gap:14px;color:inherit;text-decoration:none">
     <div class="seal">脉</div><div class="brand-name">政策脉络 · 泰国</div></a>
     <div class="brand-sub">Thai Policy Lineage · นโยบายไทย</div></div>
-  <div class="header-right"><a href="index.html" style="color:inherit">全部政策</a></div>
+  <div class="header-right"><a href="index.html" style="color:inherit">全部政策</a>
+    <button class="btn-solid" data-support-button hidden>☕ 打赏支持</button></div>
 </header>
 <main style="max-width:880px;margin:0 auto;padding:32px 20px">"""
 
 
 FOOT = """</main>
 <footer>政策脉络 · 泰国 —— 官方源自动监测 · 全部内容可溯源 · 零带货中立平台。
-本站译文均为非官方翻译,仅供参考,以泰文原文为准;不构成法律意见。</footer>
+本站译文均为非官方翻译,仅供参考,以泰文原文为准;不构成法律意见。
+<a href="../privacy.html">隐私政策</a></footer>
 <script src="../js/ads.js" data-base="../"></script>
+<script src="../js/vendor/qrcode-generator-1.4.4.js"></script>
+<script src="../js/promptpay.js"></script>
+<script src="../js/support.js" data-base="../"></script>
 </body>
 </html>
 """
@@ -148,6 +154,7 @@ def render_page(s: Session, doc: Document, today, titles: dict[str, str]) -> str
   <div class="disclaim">免责声明:本页为非官方翻译,仅供参考,如与泰文原文有出入,以泰文原文为准;
     本内容不构成法律或税务意见。本站与泰国政府无隶属关系。</div>
 </article>
+<div class="support-slot"></div>
 <div class="ad-slot" data-slot="landing_bottom" style="margin-top:18px"></div>
 <p style="margin-top:18px"><a href="../index.html">← 返回政策脉络首页(检索、趋势、七维分析)</a></p>
 """
@@ -191,7 +198,8 @@ def build(s: Session) -> dict[str, int]:
     (PAGES_DIR / "index.html").write_text(render_index(rows), encoding="utf-8")
 
     # sitemap:lastmod 用数据自身的日期,保证导出可重复
-    urls = [(f"{settings.site_url}/", None), (f"{settings.site_url}/p/index.html", None)]
+    urls = [(f"{settings.site_url}/", None), (f"{settings.site_url}/p/index.html", None),
+            (f"{settings.site_url}/privacy.html", None)]
     urls += [(page_url(d.uid), d.display_date.isoformat() if d.display_date else None) for d in docs]
     sm = ['<?xml version="1.0" encoding="UTF-8"?>',
           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
@@ -208,6 +216,10 @@ def build(s: Session) -> dict[str, int]:
     ads = json.loads(ADS_CONFIG.read_text(encoding="utf-8")) if ADS_CONFIG.exists() else {"enabled": False}
     (SITE_DIR / "ads.json").write_text(json.dumps(ads, ensure_ascii=False, indent=1) + "\n",
                                        encoding="utf-8")
+    support = (json.loads(SUPPORT_CONFIG.read_text(encoding="utf-8"))
+               if SUPPORT_CONFIG.exists() else {"enabled": False})
+    (SITE_DIR / "support.json").write_text(json.dumps(support, ensure_ascii=False, indent=1) + "\n",
+                                           encoding="utf-8")
     client = (ads.get("adsense") or {}).get("client", "")
     ads_txt = REPO_ROOT / "ads.txt"
     if client.startswith("ca-pub-"):

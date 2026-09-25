@@ -257,6 +257,69 @@ def check_conflict(c: dict, v: dict, rep: Report, all_uids: set[str]) -> None:
         rep.err(where, f"未知 confidence: {c.get('confidence')}")
 
 
+def check_site_config(rep: Report) -> None:
+    """config/ads.json 与 config/support.json 是手改的配置 —— 改错了页面会静默不显示,
+    或者更糟:显示了不该显示的东西。在这里机械地挡住。"""
+    from datetime import date as _date
+    cfg_dir = ROOT / "config"
+    ads_p, sup_p = cfg_dir / "ads.json", cfg_dir / "support.json"
+
+    if ads_p.exists():
+        try:
+            ads = json.loads(ads_p.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            rep.err("config/ads.json", f"JSON 解析失败: {exc}")
+            ads = None
+        if ads:
+            allowed = set((ads.get("allowed_categories") or {}).keys())
+            for bad in ("visa_agent", "nominee_service", "immigration_broker", "gambling"):
+                if bad in allowed:
+                    rep.err("config/ads.json", f"allowed_categories 不得包含 {bad} —— 中立性红线")
+            for slot, conf in (ads.get("slots") or {}).items():
+                for i, it in enumerate(conf.get("items") or []):
+                    where = f"config/ads.json slots.{slot}.items[{i}]"
+                    if it.get("category") not in allowed:
+                        rep.warn(where, f"类别 {it.get('category')!r} 不在白名单,前端不会显示")
+                    if not str(it.get("href", "")).startswith("https://"):
+                        rep.err(where, "href 必须是 https:// 链接")
+                    for k in ("start", "end"):
+                        if it.get(k):
+                            try:
+                                _date.fromisoformat(it[k])
+                            except ValueError:
+                                rep.err(where, f"{k} 必须是 YYYY-MM-DD")
+                    if not it.get("sponsor"):
+                        rep.err(where, "必须写明 sponsor —— 读者有权知道是谁付的钱")
+            client = (ads.get("adsense") or {}).get("client", "")
+            if client and not re.match(r"^ca-pub-\d{10,20}$", client):
+                rep.err("config/ads.json", f"adsense.client 格式应为 ca-pub-数字: {client!r}")
+
+    if sup_p.exists():
+        try:
+            sup = json.loads(sup_p.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            rep.err("config/support.json", f"JSON 解析失败: {exc}")
+            return
+        for i, ch in enumerate(sup.get("channels") or []):
+            where = f"config/support.json channels[{i}]"
+            t = ch.get("type")
+            if t == "promptpay" and ch.get("id"):
+                d = re.sub(r"\D", "", str(ch["id"]))
+                if not (len(d) in (13, 15) or (len(d) == 10 and d.startswith("0"))):
+                    rep.err(where, "PromptPay id 需为 10 位手机号、13 位税号或 15 位电子钱包号")
+                if len(d) == 10:
+                    rep.warn(where, "用手机号收款会把号码公开编码进二维码,扫码时还会显示收款人真实姓名")
+            elif t == "image" and ch.get("src"):
+                if not (ROOT / ch["src"]).is_file():
+                    rep.err(where, f"图片不存在: {ch['src']}")
+                if not ch["src"].startswith("assets/"):
+                    rep.err(where, "图片必须放在 assets/ 下,其他目录不对外公开")
+            elif t == "link" and ch.get("href") and not ch["href"].startswith("https://"):
+                rep.err(where, "href 必须是 https:// 链接")
+            elif t not in ("promptpay", "image", "link"):
+                rep.err(where, f"未知渠道类型 {t!r}")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="政策数据校验")
     ap.add_argument("--quiet", action="store_true")
@@ -285,6 +348,7 @@ def main() -> int:
     for c in conflicts:
         check_conflict(c, vocab, rep, all_uids)
     check_relation_symmetry(docs, vocab, rep)
+    check_site_config(rep)
 
     for w in rep.warnings:
         if not args.quiet:
