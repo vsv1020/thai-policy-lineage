@@ -107,15 +107,23 @@ def direct_client(headers: dict) -> httpx.Client:
 
 
 RETRY_WAITS = (3, 8)        # 连接层失败时的退避(秒);HTTP 4xx/5xx 不重试
+# 重试也不会好的连接错误:域名解析不到、代理明确回复连不上目标
+PERMANENT_ERRORS = ("name resolution", "Name or service not known", "nodename nor servname",
+                    "could not connect", "No address associated")
+MAX_RESOURCES = 3           # 每个数据集最多尝试最近的几个 resource
+DATASTORE_LIMIT = 5000
 
 
 def _err(exc: Exception) -> str:
     return f"{type(exc).__name__}: {exc}"[:160]
 
 
-def get_json(client: httpx.Client, url: str, throttle: Throttle, params: dict | None = None) -> Any:
-    """GET 并解析 JSON。连接层错误(代理握手失败、超时、断连)退避重试;HTTP 状态错误直接抛出。"""
-    for attempt in range(len(RETRY_WAITS) + 1):
+def get_json(client: httpx.Client, url: str, throttle: Throttle, params: dict | None = None,
+             retry: bool = True) -> Any:
+    """GET 并解析 JSON。连接层错误(代理握手失败、超时、断连)退避重试;
+    HTTP 状态错误、域名解析失败、代理明确回复连不上 —— 重试也没用,直接抛出。"""
+    waits = RETRY_WAITS if retry else ()
+    for attempt in range(len(waits) + 1):
         throttle.wait()
         try:
             r = client.get(url, params=params)
@@ -124,7 +132,7 @@ def get_json(client: httpx.Client, url: str, throttle: Throttle, params: dict | 
         except httpx.HTTPStatusError:
             raise
         except Exception as exc:           # socksio 的握手错误不是 httpx 异常,一并按连接层处理
-            if attempt == len(RETRY_WAITS):
+            if attempt == len(waits) or any(h in str(exc) for h in PERMANENT_ERRORS):
                 raise
             log.warning("请求失败(第 %d 次),%ds 后重试 %s:%s", attempt + 1,
                         RETRY_WAITS[attempt], urlsplit(url).hostname, _err(exc))
@@ -153,9 +161,40 @@ def fetch_resource(url: str, throttle: Throttle, client: httpx.Client) -> tuple[
         first = exc
     try:
         with direct_client({"User-Agent": UA}) as c:
-            return get_json(c, url, throttle), "直连兜底(经泰国出口失败)"
+            return get_json(c, url, throttle, retry=False), "直连兜底(经泰国出口失败)"
     except Exception as exc:
         raise RuntimeError(f"{host}:经泰国出口 {_err(first)};直连 {_err(exc)}") from exc
+
+
+def fetch_datastore(resource_id: str, throttle: Throttle, client: httpx.Client) -> list[dict]:
+    """CKAN datastore:数据直接存在 data.go.th 上,不依赖 resource 原始文件地址。
+    公报数据集的原始文件放在 soc.gdcatalog.go.th,该域名公网解析不到,只能走这条路。"""
+    payload = get_json(client, f"{CKAN_BASE}/api/3/action/datastore_search", throttle,
+                       {"resource_id": resource_id, "limit": DATASTORE_LIMIT, "sort": "_id desc"})
+    if not payload.get("success"):
+        raise RuntimeError("datastore_search 返回 success=false")
+    return payload["result"].get("records", [])
+
+
+def describe_resource(r: dict) -> str:
+    """resource 的一行摘要,写进运行记录 —— 数据源结构变了时,看这一行就知道该怎么改。"""
+    host = urlsplit(r.get("url") or "").hostname or "无url"
+    return (f"{r.get('name') or r.get('id', '?')}[{(r.get('format') or '?').lower()}·{host}"
+            f"·datastore={'是' if r.get('datastore_active') else '否'}]")
+
+
+def resource_candidates(resources: list[dict]) -> list[tuple[str, dict]]:
+    """按「JSON 优先、越新越先」排序,取前 MAX_RESOURCES 个;每个先试 datastore,再试原始文件。"""
+    ordered = sorted(resources, key=lambda r: ((r.get("format") or "").lower() == "json",
+                                               r.get("last_modified") or r.get("created") or ""),
+                     reverse=True)
+    out: list[tuple[str, dict]] = []
+    for r in ordered[:MAX_RESOURCES]:
+        if r.get("datastore_active") and r.get("id"):
+            out.append(("datastore", r))
+        if r.get("url"):
+            out.append(("file", r))
+    return out
 
 
 def iter_records(payload: Any) -> list[dict]:
@@ -330,27 +369,37 @@ def _collect_with(src: dict, res: SourceResult, client: httpx.Client, throttle: 
         res.detail = f"{type(exc).__name__}: {exc}"[:400]
         return res
 
-    json_res = [r for r in resources
-                if (r.get("format") or "").lower() == "json"] or resources
-    json_res.sort(key=lambda r: r.get("last_modified") or r.get("created") or "", reverse=True)
-    if not json_res:
+    candidates = resource_candidates(resources)
+    if not candidates:
         res.status = "error"
         res.detail = "数据集里没有可用 resource"
         return res
     if dry_run:
         res.status = "ok"
-        res.detail = f"可达,{len(json_res)} 个 resource(dry-run 未下载)"
+        res.detail = f"可达,{len(resources)} 个 resource(dry-run 未下载)"
         return res
 
     normalize = normalize_gazette if src["id"] == "gazette_json" else normalize_cabinet
     skipped: dict[str, int] = {}
-    url = json_res[0]["url"]
-    try:
-        payload, via = fetch_resource(url, throttle, client)
-    except Exception as exc:
+    attempts: list[str] = []
+    payload = used = None
+    via = ""
+    for kind, r in candidates:
+        try:
+            if kind == "datastore":
+                payload, via = fetch_datastore(r["id"], throttle, client), "data.go.th datastore"
+            else:
+                payload, via = fetch_resource(r["url"], throttle, client)
+            used = r
+            break
+        except Exception as exc:
+            attempts.append(f"{r.get('name') or r.get('id', '?')}/{kind}:{str(exc)[:150]}")
+    if used is None:
         res.status = "error"
-        res.detail = f"resource 下载失败 {exc}"[:400]
+        res.detail = ("resource 均不可用。尝试:" + ";".join(attempts)
+                      + " | 数据集内 resource:" + ", ".join(describe_resource(r) for r in resources[:6]))[:1200]
         return res
+    url = used.get("url") or ""
 
     for rec in iter_records(payload):
         norm, why = normalize(rec, run_at)
@@ -365,7 +414,7 @@ def _collect_with(src: dict, res: SourceResult, client: httpx.Client, throttle: 
         res.records.append(norm)
 
     res.status = "ok"
-    res.detail = (f"{json_res[0].get('name', 'resource')}({urlsplit(url).hostname},{via}):"
+    res.detail = (f"{used.get('name', 'resource')}({urlsplit(url).hostname},{via}):"
                   f"收 {len(res.records)} 条"
                   + (f",跳过 {sum(skipped.values())} 条(" +
                      ", ".join(f"{k}×{v}" for k, v in sorted(skipped.items())) + ")"
