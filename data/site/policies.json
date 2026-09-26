@@ -1,7 +1,7 @@
 {
  "_generated": "由 backend/app/export.py 从数据库导出,请勿手改;改 data/policies/*.jsonl → python3 -m app.ingest → python3 -m app.export",
  "schema_version": 3,
- "updated_at": "2026-09-26T22:47:44+07:00",
+ "updated_at": "2026-09-26T22:57:40+07:00",
  "sources": [
   {
    "id": "gazette_json",
@@ -9,7 +9,7 @@
    "url": "https://data.go.th/dataset/dataset_02_04",
    "status": "error",
    "last_ok": null,
-   "detail": "resource 下载失败 ProtocolError: Malformed reply"
+   "detail": "resource 下载失败 soc.gdcatalog.go.th:经泰国出口 ProtocolError: Malformed reply;直连 ConnectError: [Errno -3] Temporary failure in name resolution"
   },
   {
    "id": "cabinet_json",
@@ -17,7 +17,7 @@
    "url": "https://data.go.th/dataset/dataset_02_03",
    "status": "error",
    "last_ok": null,
-   "detail": "resource 下载失败 ProtocolError: Malformed reply"
+   "detail": "resource 下载失败 soc.gdcatalog.go.th:经泰国出口 ProxyError: Proxy Server could not connect: General SOCKS server failure.;直连 ConnectError: [Errno -3] Temporary failure in name resolution"
   },
   {
    "id": "websearch",
