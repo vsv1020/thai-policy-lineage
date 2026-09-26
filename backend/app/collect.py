@@ -27,6 +27,7 @@ import time
 from dataclasses import dataclass, field
 from datetime import date, datetime
 from typing import Any
+from urllib.parse import urlsplit
 
 import httpx
 from sqlalchemy import select
@@ -100,24 +101,61 @@ def source_client(headers: dict) -> httpx.Client:
                         follow_redirects=True, proxy=proxy)
 
 
-def fetch_ckan(dataset: str, throttle: Throttle) -> list[dict]:
+def direct_client(headers: dict) -> httpx.Client:
+    """不经泰国出口的客户端:代理反复失败时下载 resource 的兜底(文件可能放在不限地域的域名上)。"""
+    return httpx.Client(timeout=settings.http_timeout, headers=headers, follow_redirects=True)
+
+
+RETRY_WAITS = (3, 8)        # 连接层失败时的退避(秒);HTTP 4xx/5xx 不重试
+
+
+def _err(exc: Exception) -> str:
+    return f"{type(exc).__name__}: {exc}"[:160]
+
+
+def get_json(client: httpx.Client, url: str, throttle: Throttle, params: dict | None = None) -> Any:
+    """GET 并解析 JSON。连接层错误(代理握手失败、超时、断连)退避重试;HTTP 状态错误直接抛出。"""
+    for attempt in range(len(RETRY_WAITS) + 1):
+        throttle.wait()
+        try:
+            r = client.get(url, params=params)
+            r.raise_for_status()
+            return r.json()
+        except httpx.HTTPStatusError:
+            raise
+        except Exception as exc:           # socksio 的握手错误不是 httpx 异常,一并按连接层处理
+            if attempt == len(RETRY_WAITS):
+                raise
+            log.warning("请求失败(第 %d 次),%ds 后重试 %s:%s", attempt + 1,
+                        RETRY_WAITS[attempt], urlsplit(url).hostname, _err(exc))
+            time.sleep(RETRY_WAITS[attempt])
+
+
+def fetch_ckan(dataset: str, throttle: Throttle, client: httpx.Client) -> list[dict]:
     """取 CKAN 数据集的 resource 列表。失败抛异常,由调用方记 error。"""
-    throttle.wait()
-    with source_client({"User-Agent": UA, "Accept": "application/json"}) as c:
-        r = c.get(f"{CKAN_BASE}/api/3/action/package_show", params={"id": dataset})
-        r.raise_for_status()
-        payload = r.json()
+    payload = get_json(client, f"{CKAN_BASE}/api/3/action/package_show", throttle, {"id": dataset})
     if not payload.get("success"):
         raise RuntimeError(f"CKAN package_show 返回 success=false: {dataset}")
     return payload["result"].get("resources", [])
 
 
-def fetch_resource(url: str, throttle: Throttle) -> Any:
-    throttle.wait()
-    with source_client({"User-Agent": UA}) as c:
-        r = c.get(url)
-        r.raise_for_status()
-        return r.json()
+def fetch_resource(url: str, throttle: Throttle, client: httpx.Client) -> tuple[Any, str]:
+    """下载 resource,返回 (内容, 途径)。先走与 package_show 相同的客户端(复用已建立的连接);
+    配了泰国出口且连接层反复失败时,再直连试一次。两条路都失败时,异常信息里带上目标域名与各自的错误。"""
+    host = urlsplit(url).hostname or "?"
+    try:
+        return get_json(client, url, throttle), ("经泰国出口" if settings.egress_proxy else "直连")
+    except httpx.HTTPStatusError:
+        raise
+    except Exception as exc:
+        if not settings.egress_proxy:
+            raise RuntimeError(f"{host}:{_err(exc)}") from exc
+        first = exc
+    try:
+        with direct_client({"User-Agent": UA}) as c:
+            return get_json(c, url, throttle), "直连兜底(经泰国出口失败)"
+    except Exception as exc:
+        raise RuntimeError(f"{host}:经泰国出口 {_err(first)};直连 {_err(exc)}") from exc
 
 
 def iter_records(payload: Any) -> list[dict]:
@@ -278,8 +316,15 @@ def normalize_cabinet(rec: dict, run_at: str) -> tuple[dict | None, str]:
 def collect_source(src: dict, throttle: Throttle, run_at: str, cutoff: date,
                    dry_run: bool) -> SourceResult:
     res = SourceResult(id=src["id"], name=src["name"], url=src["url"])
+    # 同一个客户端贯穿 package_show 与 resource 下载:同域名时复用已建立的代理连接,少一次握手
+    with source_client({"User-Agent": UA, "Accept": "application/json"}) as client:
+        return _collect_with(src, res, client, throttle, run_at, cutoff, dry_run)
+
+
+def _collect_with(src: dict, res: SourceResult, client: httpx.Client, throttle: Throttle,
+                  run_at: str, cutoff: date, dry_run: bool) -> SourceResult:
     try:
-        resources = fetch_ckan(src["dataset"], throttle)
+        resources = fetch_ckan(src["dataset"], throttle, client)
     except Exception as exc:
         res.status = "error"
         res.detail = f"{type(exc).__name__}: {exc}"[:400]
@@ -299,11 +344,12 @@ def collect_source(src: dict, throttle: Throttle, run_at: str, cutoff: date,
 
     normalize = normalize_gazette if src["id"] == "gazette_json" else normalize_cabinet
     skipped: dict[str, int] = {}
+    url = json_res[0]["url"]
     try:
-        payload = fetch_resource(json_res[0]["url"], throttle)
+        payload, via = fetch_resource(url, throttle, client)
     except Exception as exc:
         res.status = "error"
-        res.detail = f"resource 下载失败 {type(exc).__name__}: {exc}"[:400]
+        res.detail = f"resource 下载失败 {exc}"[:400]
         return res
 
     for rec in iter_records(payload):
@@ -319,7 +365,8 @@ def collect_source(src: dict, throttle: Throttle, run_at: str, cutoff: date,
         res.records.append(norm)
 
     res.status = "ok"
-    res.detail = (f"{json_res[0].get('name', 'resource')}:收 {len(res.records)} 条"
+    res.detail = (f"{json_res[0].get('name', 'resource')}({urlsplit(url).hostname},{via}):"
+                  f"收 {len(res.records)} 条"
                   + (f",跳过 {sum(skipped.values())} 条(" +
                      ", ".join(f"{k}×{v}" for k, v in sorted(skipped.items())) + ")"
                      if skipped else ""))

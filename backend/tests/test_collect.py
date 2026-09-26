@@ -105,16 +105,17 @@ def test_collect_source_records_error_without_raising(monkeypatch):
 def test_collect_source_reports_ok_and_filters_by_window(monkeypatch):
     monkeypatch.setattr(C, "fetch_ckan", lambda *_a, **_k: [
         {"format": "JSON", "url": "https://example.invalid/x.json", "name": "2569-08"}])
-    monkeypatch.setattr(C, "fetch_resource", lambda *_a, **_k: [
+    monkeypatch.setattr(C, "fetch_resource", lambda *_a, **_k: ([
         {"title": "ประกาศ ก", "date": "10/08/2569", "series": "ง"},   # 窗口内
         {"title": "ประกาศ ข", "date": "01/01/2568", "series": "ง"},   # 太旧
         {"title": "ประกาศ ค เครื่องราชอิสริยาภรณ์", "date": "10/08/2569", "series": "ง"},  # 红线
-    ])
+    ], "直连"))
     res = C.collect_source(C.SOURCES[0], C.Throttle(0), "2026-08-11T00:00:00+07:00",
                            C.date(2026, 8, 4), dry_run=False)
     assert res.status == "ok"
     assert len(res.records) == 1
     assert "跳过 2 条" in res.detail
+    assert "example.invalid" in res.detail and "直连" in res.detail, "成功时也要记下文件所在域名与途径"
 
 
 def test_throttle_enforces_minimum_interval():
@@ -193,3 +194,74 @@ def test_data_source_client_does_use_egress_proxy(monkeypatch):
     monkeypatch.setattr(C.httpx, "Client", spy)
     C.source_client({}).close()
     assert seen["proxy"] == "socks5://u:p@203.0.113.9:1080"
+
+
+
+# ─────────────── resource 下载:重试与直连兜底 ───────────────
+
+class _Flaky(httpx.BaseTransport):
+    """前 fail 次抛连接层错误,之后返回 JSON;calls 记录次数。"""
+    def __init__(self, fail: int, exc=None):
+        self.fail, self.calls = fail, 0
+        self.exc = exc or httpx.ProxyError("Malformed reply")
+
+    def handle_request(self, request):
+        self.calls += 1
+        if self.calls <= self.fail:
+            raise self.exc
+        return httpx.Response(200, json=[{"ok": 1}])
+
+
+@pytest.fixture
+def no_sleep(monkeypatch):
+    monkeypatch.setattr(C.time, "sleep", lambda s: None)
+
+
+def test_get_json_retries_connection_errors(no_sleep):
+    t = _Flaky(fail=2)
+    with httpx.Client(transport=t) as c:
+        assert C.get_json(c, "https://data.go.th/x.json", C.Throttle(0)) == [{"ok": 1}]
+    assert t.calls == 3
+
+
+def test_get_json_does_not_retry_http_status(no_sleep):
+    class T(httpx.BaseTransport):
+        calls = 0
+        def handle_request(self, request):
+            T.calls += 1
+            return httpx.Response(403)
+    with httpx.Client(transport=T()) as c, pytest.raises(httpx.HTTPStatusError):
+        C.get_json(c, "https://data.go.th/x", C.Throttle(0))
+    assert T.calls == 1, "403 之类的 HTTP 错误重试也没用,不能拖慢整轮"
+
+
+def test_resource_falls_back_to_direct_when_proxy_keeps_failing(no_sleep, monkeypatch):
+    from app.config import settings
+    monkeypatch.setattr(settings, "egress_proxy", "socks5h://u:p@h:1")
+    direct = _Flaky(fail=0)
+    monkeypatch.setattr(C, "direct_client", lambda h: httpx.Client(transport=direct))
+    with httpx.Client(transport=_Flaky(fail=99)) as proxied:
+        data, via = C.fetch_resource("https://files.example.go.th/2569.json", C.Throttle(0), proxied)
+    assert data == [{"ok": 1}] and "直连兜底" in via and direct.calls == 1
+
+
+def test_resource_error_names_host_and_both_paths(no_sleep, monkeypatch):
+    from app.config import settings
+    monkeypatch.setattr(settings, "egress_proxy", "socks5h://u:p@h:1")
+    monkeypatch.setattr(C, "direct_client",
+                        lambda h: httpx.Client(transport=_Flaky(99, httpx.ConnectError("refused"))))
+    with httpx.Client(transport=_Flaky(fail=99)) as proxied, pytest.raises(RuntimeError) as ei:
+        C.fetch_resource("https://files.example.go.th/2569.json", C.Throttle(0), proxied)
+    msg = str(ei.value)
+    assert "files.example.go.th" in msg and "经泰国出口" in msg and "直连" in msg and "Malformed" in msg
+    assert "u:p" not in msg, "错误信息不能带出代理凭据"
+
+
+def test_no_direct_fallback_without_proxy(no_sleep, monkeypatch):
+    from app.config import settings
+    monkeypatch.setattr(settings, "egress_proxy", "")
+    called = []
+    monkeypatch.setattr(C, "direct_client", lambda h: called.append(1))
+    with httpx.Client(transport=_Flaky(fail=99)) as c, pytest.raises(RuntimeError, match="files.example"):
+        C.fetch_resource("https://files.example.go.th/x.json", C.Throttle(0), c)
+    assert called == []
