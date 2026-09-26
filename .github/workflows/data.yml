@@ -1,0 +1,51 @@
+name: 数据校验与后端测试
+
+on:
+  push:
+    paths: ['data/**', 'tools/**', 'backend/**', 'config/**', '.github/workflows/data.yml']
+  pull_request:
+    paths: ['data/**', 'tools/**', 'backend/**', 'config/**']
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    env:
+      TZ: Asia/Bangkok
+      # 必须与 collect.yml 一致,否则落地页里的 canonical 链接会不同,漂移检查误报
+      SITE_URL: ${{ vars.SITE_URL || 'https://vsv1020.github.io/thai-policy-lineage' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+
+      # 纯标准库,不需要装任何东西 —— 数据本身先过一遍
+      - name: 校验事实层
+        run: python3 tools/validate.py
+
+      - name: 安装后端依赖
+        run: pip install -r backend/requirements.txt pytest
+
+      - name: 后端测试
+        working-directory: backend
+        run: python3 -m pytest tests -q
+
+      - name: 入库并重新导出派生数据
+        working-directory: backend
+        run: |
+          python3 -m app.ingest --reset
+          python3 -m app.export
+
+      - name: 确认派生产物与事实层一致
+        run: |
+          git add -N p/ 2>/dev/null || true   # 让新生成的落地页也参与比对
+          if ! git diff --quiet -- data/site/ p/ sitemap.xml robots.txt; then
+            echo "::error::data/site/ 与 data/policies/ 不一致 —— 说明有人手改了派生文件,"
+            echo "::error::或改了事实层但没重跑 app.ingest + app.export。差异:"
+            git --no-pager diff --stat -- data/site/ p/ sitemap.xml robots.txt
+            exit 1
+          fi
+          echo "data/site/ 与事实层一致"

@@ -1,0 +1,51 @@
+{
+ "_generated": "由 backend/app/export.py 从数据库导出,请勿手改;改 data/policies/*.jsonl → python3 -m app.ingest → python3 -m app.export",
+ "as_of": "2026-08-11T00:38:08+07:00",
+ "health": "degraded",
+ "failure_streak": 0,
+ "sources": [
+  {
+   "id": "gazette_json",
+   "name": "皇家公报官方月度 JSON 索引",
+   "url": "https://data.go.th/dataset/dataset_02_04",
+   "status": "error",
+   "last_ok": null,
+   "detail": "ProxyError: 403 Forbidden"
+  },
+  {
+   "id": "cabinet_json",
+   "name": "内阁决议年度 JSON",
+   "url": "https://data.go.th/dataset/dataset_02_03",
+   "status": "error",
+   "last_ok": null,
+   "detail": "ProxyError: 403 Forbidden"
+  },
+  {
+   "id": "websearch",
+   "name": "公开检索(律所/会计师事务所法规更新)",
+   "url": "",
+   "status": "ok",
+   "last_ok": "2026-08-10T23:53:23+07:00",
+   "detail": "二手信号源,用于发现线索;每条仍需回填官方文号与原文链接"
+  }
+ ],
+ "runs": [],
+ "corpus": {
+  "total_records": 15,
+  "presentable": 15,
+  "pending_translation": 0,
+  "skipped_irrelevant": 0,
+  "verified": 0,
+  "llm_enriched": 2,
+  "with_official_link": 0,
+  "by_pipeline": {
+   "manual": 2,
+   "research": 13
+  }
+ },
+ "freshness": {
+  "newest_document": "2026-08-01",
+  "days_since_newest": 10
+ },
+ "queue_sample": []
+}

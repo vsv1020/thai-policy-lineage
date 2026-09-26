@@ -1,0 +1,5 @@
+{"id":"pnd94","title_zh":"个人所得税半年申报(PND 94)截止","domain_ids":["tax"],"agency_ids":["rd"],"recurrence":{"type":"yearly","month":9,"day":30},"note":"纸质申报 9 月底;电子申报通常延至 10 月上旬,以税务厅当年公告为准","confidence":"med"}
+{"id":"pnd90_91","title_zh":"个人所得税年度申报(PND 90/91)截止","domain_ids":["tax"],"agency_ids":["rd"],"recurrence":{"type":"yearly","month":3,"day":31},"note":"电子申报通常延至 4 月上旬","confidence":"med"}
+{"id":"etda_platform_annual","title_zh":"数字平台服务向 ETDA 的年度通知","domain_ids":["digital"],"agency_ids":["etda"],"recurrence":{"type":"yearly","month":8,"day":21},"note":"《数字平台服务业务监管皇家法令》要求运营前及每年通知;此处按法令生效周年推算,实际截止以 ETDA 通知为准","confidence":"low"}
+{"id":"sso_ceiling_2029","title_zh":"社保投保工资上限升至 20,000 泰铢","domain_ids":["labor"],"agency_ids":["sso","mol"],"recurrence":{"type":"once","date":"2029-01-01"},"note":"已写入 2025-12-12 刊登的部令,无需再立新文件","confidence":"high"}
+{"id":"sso_ceiling_2032","title_zh":"社保投保工资上限升至 23,000 泰铢","domain_ids":["labor"],"agency_ids":["sso","mol"],"recurrence":{"type":"once","date":"2032-01-01"},"note":"同一部令已写明","confidence":"high"}

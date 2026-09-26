@@ -1,6 +1,11 @@
 const MONTHS = ['25-08','25-09','25-10','25-11','25-12','26-01','26-02','26-03','26-04','26-05','26-06','26-07'];
 const C = { ink:'#171a1c', ink2:'#55524b', muted:'#8b877c', line:'#dbd6c9', card:'#faf9f5',
   seal:'#b0332a', gold:'#c9973f', blue:'#5b7391', green:'#4f7a4f', gray:'#b9b3a4' };
+/* 由 js/data.js 从 data/site/trends.json 注入。usable=false(数据月份不足)时
+   下面的图继续用演示数组 —— 三四个点画不出趋势,只会误导。 */
+window.TRENDS = null;
+const DOMAIN_COLOR = { visa:C.blue, tax:C.seal, biz:C.green, labor:C.gold, land:'#8c3b2f',
+  customs:'#7a6a52', finance:'#4a6b78', digital:'#6b5b8c', education:'#7d8a5c', health:'#8a6a6a' };
 let inited = false;
 
 function go(v) {
@@ -8,46 +13,14 @@ function go(v) {
   document.getElementById('v-' + v).classList.add('active');
   document.querySelectorAll('.nav-item[data-v]').forEach(b => b.classList.toggle('active', b.dataset.v === v));
   window.scrollTo(0, 0);
+  // 单页切换记一次虚拟浏览;详情页由 openDetail 带着 uid 自己记
+  if (v !== 'detail') window.PolicyTrack && PolicyTrack.page(location.pathname.replace(/index\.html$/, '') + '#' + v);
   if (v === 'trends' && !inited) { inited = true; setTimeout(initCharts, 30); }
 }
 document.querySelectorAll('.nav-item[data-v]').forEach(b => b.addEventListener('click', () => go(b.dataset.v)));
 
-/* ── 维度一/二 矩阵渲染 ── */
-function cellTd(v, max, rgb, red) {
-  const frame = red ? ' red-frame' : '';
-  if (!v) return `<td class="cell${frame}" style="background:rgba(${rgb},0.06);color:var(--muted)">·</td>`;
-  const a = 0.10 + 0.80 * (v / max);
-  const txt = a > 0.55 ? '#fff' : 'var(--ink)';
-  return `<td class="cell${frame}" style="background:rgba(${rgb},${a.toFixed(2)});color:${txt}">${v}</td>`;
-}
-function renderGroup(id, rows, rgb) {
-  const max = Math.max(...rows.flatMap(r => r[1]));
-  document.getElementById(id).innerHTML = rows.map(r =>
-    `<tr><td class="rowname">${r[0]}</td>${r[1].map(v => cellTd(v, max, rgb)).join('')}</tr>`).join('');
-}
-const BLUE = '91,115,145', SEAL = '176,51,42', GOLD = '183,138,60';
-renderGroup('m1a', [['资金与预算投入',[6,8,11,14,9]], ['基础设施(充电网)',[2,5,12,18,13]], ['人才与技工培训',[1,1,2,3,2]]], BLUE);
-renderGroup('m1b', [['税收减免与追缴',[9,12,16,21,19]], ['标准与准入管制',[3,6,14,22,20]], ['本地化率考核',[0,2,7,15,17]]], SEAL);
-renderGroup('m1c', [['消费购置补贴',[14,18,12,6,3]], ['政府采购与公务车',[4,6,7,5,4]], ['进出口与贸易管制',[3,4,8,11,12]]], GOLD);
-(function renderM2() {
-  const cols = ['产业升级','投资吸引','绿色转型','就业与技能','区域均衡'];
-  const rows = [['供给型',[18,22,14,2,6],BLUE], ['环境型',[26,31,28,5,4],SEAL], ['需求型',[12,9,17,3,2],GOLD]];
-  const redCols = [3, 4];
-  let h = `<tr><th style="width:76px"></th>${cols.map(c => `<th>${c}</th>`).join('')}</tr>`;
-  h += rows.map(r => {
-    const max = Math.max(...r[1]);
-    return `<tr><td class="rowname" style="width:76px">${r[0]}</td>${r[1].map((v, i) => cellTd(v, max, r[2], redCols.includes(i))).join('')}</tr>`;
-  }).join('');
-  document.getElementById('m2').innerHTML = h;
-})();
-/* ── 维度四 双向条 ── */
-(function renderM4() {
-  const data = [['整车厂(含合资)',42,38], ['零部件与电池厂',36,14], ['进口商与经销商',9,31], ['消费者',22,4], ['外资投资者',34,17], ['府级与地方政府',12,26]];
-  const max = 42;
-  document.getElementById('m4').innerHTML = data.map(d =>
-    `<div class="bi-row"><div class="bi-head"><span class="n">${d[0]}</span><span class="v">支持 ${d[1]} / 约束 ${d[2]}</span></div>
-     <div class="bi-track"><div class="bi-l"><i style="width:${(d[1]/max*100).toFixed(0)}%"></i></div><div class="bi-r"><i style="width:${(d[2]/max*100).toFixed(0)}%"></i></div></div></div>`).join('');
-})();
+/* 维度页的矩阵/双向条渲染已移到 js/dims.js —— 那里的数据来自真实聚合,
+   不再是这里写死的 EV 演示数组。 */
 
 const ax = {
   axisLabel: { color: C.muted, fontSize: 11 },
@@ -59,7 +32,16 @@ const tip = { backgroundColor: C.card, borderColor: C.line, textStyle: { color: 
 
 function initCharts() {
   const charts = [];
-  const stack = echarts.init(document.getElementById('c-stack'));
+  const T = window.TRENDS && window.TRENDS.usable ? window.TRENDS : null;
+  const XM = T ? T.months : MONTHS;
+  /* 允许重复调用:真实数据到达得比首次渲染晚时,data.js 会再调一次 */
+  const mount = id => {
+    const dom = document.getElementById(id);
+    echarts.dispose(dom);
+    return echarts.init(dom);
+  };
+
+  const stack = mount('c-stack');
   const mk = (name, color, data) => ({
     name, type: 'line', stack: 't', smooth: 0.3, symbol: 'none',
     lineStyle: { width: 2, color: C.card },
@@ -73,19 +55,21 @@ function initCharts() {
     grid: { left: 40, right: 80, top: 34, bottom: 28 },
     legend: { top: 0, left: 0, icon: 'rect', itemWidth: 9, itemHeight: 9, textStyle: { color: C.ink2, fontSize: 11.5 } },
     tooltip: { ...tip, trigger: 'axis' },
-    xAxis: { type: 'category', boundaryGap: false, data: MONTHS, ...ax, splitLine: { show: false } },
+    xAxis: { type: 'category', boundaryGap: false, data: XM, ...ax, splitLine: { show: false } },
     yAxis: { type: 'value', name: '件', nameTextStyle: { color: C.muted }, ...ax },
-    series: [
-      mk('签证居留', C.blue,  [12,9,11,15,13,18,14,12,16,13,15,17]),
-      mk('税务',     C.seal,  [6,7,5,9,12,15,10,8,9,11,13,14]),
-      mk('公司投资', C.green, [10,12,14,11,13,12,16,18,15,17,19,21]),
-      mk('劳工用工', C.gold,  [5,4,6,8,5,7,6,9,7,8,12,10]),
-      mk('其他',     C.gray,  [14,16,13,17,15,19,16,14,18,16,17,18])
-    ]
+    series: T
+      ? T.volume_by_domain.map(s => mk(s.label, DOMAIN_COLOR[s.id] || C.gray, s.data))
+      : [
+        mk('签证居留', C.blue,  [12,9,11,15,13,18,14,12,16,13,15,17]),
+        mk('税务',     C.seal,  [6,7,5,9,12,15,10,8,9,11,13,14]),
+        mk('公司投资', C.green, [10,12,14,11,13,12,16,18,15,17,19,21]),
+        mk('劳工用工', C.gold,  [5,4,6,8,5,7,6,9,7,8,12,10]),
+        mk('其他',     C.gray,  [14,16,13,17,15,19,16,14,18,16,17,18])
+      ]
   });
   charts.push(stack);
 
-  const dir = echarts.init(document.getElementById('c-direction'));
+  const dir = mount('c-direction');
   const mkL = (name, color, data) => ({
     name, type: 'line', smooth: 0.35, symbol: 'circle', symbolSize: 5, showSymbol: false,
     lineStyle: { width: 2, color }, itemStyle: { color },
@@ -96,27 +80,34 @@ function initCharts() {
     grid: { left: 74, right: 80, top: 34, bottom: 28 },
     legend: { top: 0, left: 0, icon: 'rect', itemWidth: 9, itemHeight: 9, textStyle: { color: C.ink2, fontSize: 11.5 } },
     tooltip: { ...tip, trigger: 'axis' },
-    xAxis: { type: 'category', boundaryGap: false, data: MONTHS, ...ax, splitLine: { show: false } },
+    xAxis: { type: 'category', boundaryGap: false, data: XM, ...ax, splitLine: { show: false } },
     yAxis: { type: 'value', min: -1, max: 1, interval: 0.5, ...ax,
       axisLabel: { ...ax.axisLabel, formatter: v => v > 0 ? '+' + v + ' 放宽' : (v < 0 ? v + ' 收紧' : '0 中性') } },
-    series: [
-      { ...mkL('签证居留', C.blue, [0.2,0.1,-0.1,-0.3,-0.2,0.1,0.2,0.4,0.3,0.2,0.3,0.3]),
-        markLine: { silent: true, symbol: 'none', lineStyle: { color: C.muted, type: 'solid', width: 1.2 }, label: { show: false }, data: [{ yAxis: 0 }] } },
-      mkL('房产土地', C.seal, [0.1,0,-0.1,-0.2,-0.3,-0.2,-0.4,-0.3,-0.5,-0.4,-0.5,-0.4])
-    ]
+    series: (T
+      ? T.wind_by_domain.map(s => mkL(s.label, DOMAIN_COLOR[s.id] || C.gray, s.data))
+      : [
+        mkL('签证居留', C.blue, [0.2,0.1,-0.1,-0.3,-0.2,0.1,0.2,0.4,0.3,0.2,0.3,0.3]),
+        mkL('房产土地', C.seal, [0.1,0,-0.1,-0.2,-0.3,-0.2,-0.4,-0.3,-0.5,-0.4,-0.5,-0.4])
+      ]
+    ).map((s, i) => i ? s : { ...s, markLine: { silent: true, symbol: 'none',
+        lineStyle: { color: C.muted, type: 'solid', width: 1.2 }, label: { show: false },
+        data: [{ yAxis: 0 }] } })
   });
   charts.push(dir);
 
-  const heat = echarts.init(document.getElementById('c-heat'));
-  const ORGS = ['移民局','税务厅','BOI','劳工部','土地厅','DBD'];
-  const base = [[3,2,4,5,4,6,4,3,5,4,5,6],[2,3,2,4,5,6,4,3,3,4,5,5],[4,4,5,3,4,4,6,7,5,6,7,8],[2,1,2,3,2,3,2,4,3,3,5,4],[1,1,2,2,3,2,3,3,4,4,5,4],[3,4,4,3,4,3,5,6,4,5,6,7]];
+  const heat = mount('c-heat');
+  const ORGS = T ? T.activity_by_agency.map(s => s.label)
+                 : ['移民局','税务厅','BOI','劳工部','土地厅','DBD'];
+  const base = T ? T.activity_by_agency.map(s => s.data)
+    : [[3,2,4,5,4,6,4,3,5,4,5,6],[2,3,2,4,5,6,4,3,3,4,5,5],[4,4,5,3,4,4,6,7,5,6,7,8],[2,1,2,3,2,3,2,4,3,3,5,4],[1,1,2,2,3,2,3,3,4,4,5,4],[3,4,4,3,4,3,5,6,4,5,6,7]];
   const hd = []; base.forEach((row, y) => row.forEach((v, x) => hd.push([x, y, v])));
+  const hmax = Math.max(8, ...hd.map(p => p[2]));
   heat.setOption({
     grid: { left: 56, right: 14, top: 10, bottom: 54 },
-    tooltip: { ...tip, formatter: p => `${ORGS[p.value[1]]} · ${MONTHS[p.value[0]]}<br>发文 <b>${p.value[2]}</b> 件` },
-    xAxis: { type: 'category', data: MONTHS, ...ax, splitLine: { show: false }, axisLine: { show: false } },
+    tooltip: { ...tip, formatter: p => `${ORGS[p.value[1]]} · ${XM[p.value[0]]}<br>发文 <b>${p.value[2]}</b> 件` },
+    xAxis: { type: 'category', data: XM, ...ax, splitLine: { show: false }, axisLine: { show: false } },
     yAxis: { type: 'category', data: ORGS, ...ax, splitLine: { show: false }, axisLine: { show: false } },
-    visualMap: { min: 0, max: 8, orient: 'horizontal', left: 'center', bottom: 0,
+    visualMap: { min: 0, max: hmax, orient: 'horizontal', left: 'center', bottom: 0,
       itemHeight: 90, itemWidth: 10, textStyle: { color: C.muted, fontSize: 10.5 },
       inRange: { color: ['#e3e0d5', '#b9c2cd', '#8296ac', '#5b7391', '#3f556f'] } },
     series: [{ type: 'heatmap', data: hd,
@@ -125,7 +116,8 @@ function initCharts() {
   });
   charts.push(heat);
 
-  const topics = echarts.init(document.getElementById('c-topics'));
+  /* 上升话题榜暂无数据来源(需要关键词提取 + 环比),一直是演示数据 */
+  const topics = mount('c-topics');
   topics.setOption({
     grid: { left: 110, right: 66, top: 10, bottom: 26 },
     tooltip: { ...tip, formatter: p => `${p.name}<br>环比 <b>+${p.value}%</b>` },

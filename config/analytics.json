@@ -1,0 +1,18 @@
+{
+ "_comment": "站点统计配置。导出到 data/site/analytics.json 供 js/track.js 读取。说明见 docs/analytics.md",
+ "self_hosted": {
+  "_comment": "第一方统计:上报到后端 /api/t,在 /admin 查看。需要部署后端;endpoint 留空 = 与数据接口同一个后端",
+  "enabled": true,
+  "endpoint": ""
+ },
+ "cloudflare": {
+  "_comment": "Cloudflare Web Analytics(免费、无 Cookie)。纯 GitHub Pages 没有后端时用它。填 JS beacon 的 token",
+  "token": ""
+ },
+ "plausible": {
+  "_comment": "Plausible / 自托管 Plausible。填站点域名,例如 example.com",
+  "domain": "",
+  "src": "https://plausible.io/js/script.js"
+ },
+ "respect_dnt": true
+}

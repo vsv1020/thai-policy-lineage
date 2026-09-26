@@ -1,0 +1,156 @@
+{
+  "_comment": "受控词表 —— 一切 id 类字段必须取自这里。新增词条要连带更新 css/main.css 的 chip 配色和 tools/validate.py 无需改动(它从本文件读白名单)。",
+  "version": 1,
+
+  "domains": [
+    { "id": "visa",     "zh": "签证居留", "th": "วีซ่าและการพำนัก",   "en": "Visa & Residence",      "chip": "visa" },
+    { "id": "tax",      "zh": "税务",     "th": "ภาษี",              "en": "Taxation",              "chip": "tax" },
+    { "id": "biz",      "zh": "公司投资", "th": "ธุรกิจและการลงทุน",  "en": "Business & Investment", "chip": "biz" },
+    { "id": "labor",    "zh": "劳工用工", "th": "แรงงาน",            "en": "Labour",                "chip": "labor" },
+    { "id": "land",     "zh": "房产土地", "th": "ที่ดินและอสังหาริมทรัพย์", "en": "Land & Property",  "chip": "land" },
+    { "id": "customs",  "zh": "海关贸易", "th": "ศุลกากรและการค้า",   "en": "Customs & Trade",       "chip": "customs" },
+    { "id": "finance",  "zh": "金融外汇", "th": "การเงินและอัตราแลกเปลี่ยน", "en": "Finance & FX",   "chip": "finance" },
+    { "id": "digital",  "zh": "数字与数据", "th": "ดิจิทัลและข้อมูล", "en": "Digital & Data",        "chip": "digital" },
+    { "id": "education","zh": "教育",     "th": "การศึกษา",          "en": "Education",             "chip": "education" },
+    { "id": "health",   "zh": "医疗",     "th": "สาธารณสุข",         "en": "Health",                "chip": "health" }
+  ],
+
+  "agencies": [
+    { "id": "cabinet",  "zh": "内阁",       "th": "คณะรัฐมนตรี",           "abbr": "ครม.",   "ministry": null },
+    { "id": "rd",       "zh": "税务厅",     "th": "กรมสรรพากร",            "abbr": "RD",     "ministry": "mof" },
+    { "id": "excise",   "zh": "消费税厅",   "th": "กรมสรรพสามิต",          "abbr": "EXCISE", "ministry": "mof" },
+    { "id": "customs",  "zh": "海关厅",     "th": "กรมศุลกากร",            "abbr": "CUSTOMS","ministry": "mof" },
+    { "id": "mof",      "zh": "财政部",     "th": "กระทรวงการคลัง",        "abbr": "MOF",    "ministry": null },
+    { "id": "boi",      "zh": "投资促进委员会", "th": "สำนักงานคณะกรรมการส่งเสริมการลงทุน", "abbr": "BOI", "ministry": null },
+    { "id": "imm",      "zh": "移民局",     "th": "สำนักงานตรวจคนเข้าเมือง", "abbr": "IMM",  "ministry": "police" },
+    { "id": "moi",      "zh": "内政部",     "th": "กระทรวงมหาดไทย",        "abbr": "MOI",    "ministry": null },
+    { "id": "dol",      "zh": "土地厅",     "th": "กรมที่ดิน",             "abbr": "DOL",    "ministry": "moi" },
+    { "id": "mol",      "zh": "劳工部",     "th": "กระทรวงแรงงาน",         "abbr": "MOL",    "ministry": null },
+    { "id": "dbd",      "zh": "商业发展厅", "th": "กรมพัฒนาธุรกิจการค้า",   "abbr": "DBD",    "ministry": "moc" },
+    { "id": "moc",      "zh": "商务部",     "th": "กระทรวงพาณิชย์",        "abbr": "MOC",    "ministry": null },
+    { "id": "mdes",     "zh": "数字经济与社会部", "th": "กระทรวงดิจิทัลเพื่อเศรษฐกิจและสังคม", "abbr": "MDES", "ministry": null },
+    { "id": "etda",     "zh": "电子交易发展局", "th": "สพธอ.",            "abbr": "ETDA",   "ministry": "mdes" },
+    { "id": "bot",      "zh": "泰国央行",   "th": "ธนาคารแห่งประเทศไทย",   "abbr": "BOT",    "ministry": null },
+    { "id": "pdpc",     "zh": "个人资料保护委员会", "th": "คณะกรรมการคุ้มครองข้อมูลส่วนบุคคล", "abbr": "PDPC", "ministry": "mdes" },
+    { "id": "sso",      "zh": "社会保障办公室", "th": "สำนักงานประกันสังคม", "abbr": "SSO",   "ministry": "mol" },
+    { "id": "police",   "zh": "皇家警察总署", "th": "สำนักงานตำรวจแห่งชาติ", "abbr": "RTP",  "ministry": null },
+    { "id": "industry", "zh": "工业部",     "th": "กระทรวงอุตสาหกรรม",     "abbr": "MOI-IND","ministry": null },
+    { "id": "energy",   "zh": "能源部",     "th": "กระทรวงพลังงาน",        "abbr": "MOEN",   "ministry": null },
+    { "id": "erc",      "zh": "能源管理委员会", "th": "กกพ.",             "abbr": "ERC",    "ministry": "energy" },
+    { "id": "eec",      "zh": "东部经济走廊办公室", "th": "สกพอ.",         "abbr": "EEC",    "ministry": null }
+  ],
+
+  "legal_forms": [
+    { "id": "act",       "th": "พระราชบัญญัติ", "abbr": "พ.ร.บ.", "zh": "法律",     "stability": 5, "justiciable": true,  "note": "须经国会,最稳定" },
+    { "id": "emergency", "th": "พระราชกำหนด",   "abbr": "พ.ร.ก.", "zh": "紧急法令", "stability": 5, "justiciable": true,  "note": "内阁先行、事后追认" },
+    { "id": "decree",    "th": "พระราชกฤษฎีกา", "abbr": "พ.ร.ฎ.", "zh": "皇家法令", "stability": 4, "justiciable": true,  "note": "据法律授权,常用于税收减免" },
+    { "id": "ministerial","th": "กฎกระทรวง",    "abbr": "กฎ",     "zh": "部令",     "stability": 3, "justiciable": true,  "note": "部长签发,程序性约束" },
+    { "id": "prakat",    "th": "ประกาศ",        "abbr": "ประกาศ", "zh": "公告",     "stability": 2, "justiciable": false, "note": "调整最快,占比最高" },
+    { "id": "rabiap",    "th": "ระเบียบ",       "abbr": "ระเบียบ","zh": "规程/指令", "stability": 2, "justiciable": false, "note": "部门内部规程" },
+    { "id": "resolution","th": "มติคณะรัฐมนตรี","abbr": "มติ ครม.","zh": "内阁决议", "stability": 1, "justiciable": false, "note": "政策方向,需后续文件落地" },
+    { "id": "guidance",  "th": "แนวปฏิบัติ",    "abbr": "แนวปฏิบัติ","zh": "操作指引","stability": 1, "justiciable": false, "note": "执行层口径,最易变" }
+  ],
+
+  "statuses": [
+    { "id": "draft",           "zh": "草案听证中", "pill": "st-draft",  "in_force": false },
+    { "id": "pending_gazette", "zh": "待刊公报",   "pill": "st-draft",  "in_force": false },
+    { "id": "gazetted",        "zh": "已刊公报",   "pill": "st-soon",   "in_force": false },
+    { "id": "in_force",        "zh": "现行有效",   "pill": "st-active", "in_force": true },
+    { "id": "superseded",      "zh": "已被替代",   "pill": "st-draft",  "in_force": false },
+    { "id": "repealed",        "zh": "已废止",     "pill": "st-draft",  "in_force": false },
+    { "id": "expired",         "zh": "已失效",     "pill": "st-draft",  "in_force": false }
+  ],
+
+  "directions": [
+    { "id": "tight",   "zh": "收紧", "glyph": "▲", "sign": -1 },
+    { "id": "loose",   "zh": "放宽", "glyph": "▼", "sign": 1 },
+    { "id": "neutral", "zh": "中性", "glyph": "●", "sign": 0 }
+  ],
+
+  "relation_types": [
+    { "id": "supersedes",  "zh": "替代",     "inverse": "superseded_by" },
+    { "id": "superseded_by","zh": "被替代",  "inverse": "supersedes" },
+    { "id": "amends",      "zh": "修订",     "inverse": "amended_by" },
+    { "id": "amended_by",  "zh": "被修订",   "inverse": "amends" },
+    { "id": "implements",  "zh": "落实",     "inverse": "implemented_by" },
+    { "id": "implemented_by","zh": "被落实", "inverse": "implements" },
+    { "id": "repeals",     "zh": "废止",     "inverse": "repealed_by" },
+    { "id": "repealed_by", "zh": "被废止",   "inverse": "repeals" },
+    { "id": "related",     "zh": "相关",     "inverse": "related" }
+  ],
+
+  "parties": [
+    { "id": "foreign_resident", "zh": "外籍长居个人" },
+    { "id": "foreign_investor", "zh": "外资投资者" },
+    { "id": "foreign_company",  "zh": "外资企业" },
+    { "id": "thai_employer",    "zh": "本地雇主" },
+    { "id": "sme",              "zh": "中小企业" },
+    { "id": "importer",         "zh": "进口商与经销商" },
+    { "id": "consumer",         "zh": "消费者" },
+    { "id": "local_government", "zh": "府级与地方政府" },
+    { "id": "traveller",        "zh": "短期入境者" }
+  ],
+
+  "stances": [
+    { "id": "support",   "zh": "支持" },
+    { "id": "constrain", "zh": "约束" },
+    { "id": "neutral",   "zh": "中性" }
+  ],
+
+  "confidence_levels": [
+    { "id": "high", "zh": "官方原文核对" },
+    { "id": "med",  "zh": "官方引述/二手一致" },
+    { "id": "low",  "zh": "单一二手来源" },
+    { "id": "none", "zh": "未取得" }
+  ],
+
+  "_dimensions_comment": "以下三组支撑「政策维度」页的维度一/二/七。分类参照政策工具理论的供给型/环境型/需求型三分法。",
+
+  "instrument_classes": [
+    { "id": "supply",      "zh": "供给型", "desc": "政府直接投入",       "color": "blue" },
+    { "id": "environment", "zh": "环境型", "desc": "规则与激励塑造环境", "color": "seal" },
+    { "id": "demand",      "zh": "需求型", "desc": "直接拉动市场",       "color": "gold" }
+  ],
+
+  "instruments": [
+    { "id": "budget_funding",     "zh": "资金与预算投入",   "class": "supply" },
+    { "id": "infrastructure",     "zh": "基础设施建设",     "class": "supply" },
+    { "id": "training",           "zh": "人才与技能培训",   "class": "supply" },
+    { "id": "public_service",     "zh": "公共服务与系统供给", "class": "supply" },
+    { "id": "tax_incentive",      "zh": "税收减免与追缴",   "class": "environment" },
+    { "id": "standards_licensing","zh": "标准与准入管制",   "class": "environment" },
+    { "id": "local_content",      "zh": "本地化与合规考核", "class": "environment" },
+    { "id": "disclosure",         "zh": "申报、备案与披露", "class": "environment" },
+    { "id": "enforcement",        "zh": "执法、排查与处罚", "class": "environment" },
+    { "id": "subsidy",            "zh": "补贴与价格优惠",   "class": "demand" },
+    { "id": "public_procurement", "zh": "政府采购",         "class": "demand" },
+    { "id": "trade_control",      "zh": "进出口与贸易管制", "class": "demand" },
+    { "id": "price_control",      "zh": "价格与费率管制",   "class": "demand" }
+  ],
+
+  "goals": [
+    { "id": "industrial_upgrade",   "zh": "产业升级" },
+    { "id": "investment_attraction","zh": "投资吸引" },
+    { "id": "green_transition",     "zh": "绿色转型" },
+    { "id": "employment_skills",    "zh": "就业与技能" },
+    { "id": "regional_balance",     "zh": "区域均衡" },
+    { "id": "fiscal_revenue",       "zh": "财政收入" },
+    { "id": "order_security",       "zh": "秩序与安全" },
+    { "id": "consumer_protection",  "zh": "权益保护" }
+  ],
+
+  "implementation_stages": [
+    { "id": "national_plan",       "zh": "国家规划", "seq": 1 },
+    { "id": "legal_form",          "zh": "法律形式", "seq": 2 },
+    { "id": "cabinet_resolution",  "zh": "内阁决议", "seq": 3 },
+    { "id": "implementing_rule",   "zh": "实施细则", "seq": 4 },
+    { "id": "budget_execution",    "zh": "预算与执行", "seq": 5 },
+    { "id": "evaluation",          "zh": "评估与复盘", "seq": 6 }
+  ],
+
+  "severities": [
+    { "id": "high", "zh": "高危" },
+    { "id": "med",  "zh": "中" },
+    { "id": "low",  "zh": "低" }
+  ]
+}
