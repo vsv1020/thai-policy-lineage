@@ -8,6 +8,7 @@ services:
     network_mode: host
     environment:
       DOMAIN: ${DOMAIN:?请在 .env 里设置 DOMAIN}
+      ALT_DOMAIN: ${ALT_DOMAIN:-}
     volumes:
       - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data

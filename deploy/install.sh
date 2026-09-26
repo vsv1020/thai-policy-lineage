@@ -6,6 +6,7 @@
 #
 # 可选环境变量:
 #   DOMAIN=example.com   正式域名(先把 A 记录指到本机);不填则用 <IP>.sslip.io 临时域名,HTTPS 照样可用
+#                        填 www.example.com 时,example.com 自动 301 跳到 www;反之亦然
 #   BRANCH=main          跟踪的分支
 #
 # 可重复运行:已有的 .env 密钥会保留,只更新域名相关的行。
@@ -36,6 +37,14 @@ PUBLIC_IP=$(curl -fsS -m 8 https://api.ipify.org 2>/dev/null || curl -fsS -m 8 h
             || hostname -I | awk '{print $1}')
 COUNTRY=$(curl -fsS -m 8 "https://ipinfo.io/${PUBLIC_IP}/country" 2>/dev/null | tr -d '[:space:]' || true)
 DOMAIN="${DOMAIN:-${PUBLIC_IP//./-}.sslip.io}"
+DOMAIN="${DOMAIN#http://}"; DOMAIN="${DOMAIN#https://}"; DOMAIN="${DOMAIN%%/*}"   # 容错:误填了协议或路径
+# 另一种写法统一跳转到 DOMAIN;临时域名与多级子域名不处理
+case "$DOMAIN" in
+  *.sslip.io) ALT_DOMAIN="" ;;
+  www.*)      ALT_DOMAIN="${DOMAIN#www.}" ;;
+  *.*.*)      ALT_DOMAIN="" ;;
+  *)          ALT_DOMAIN="www.$DOMAIN" ;;
+esac
 echo "公网 IP:$PUBLIC_IP  所在地:${COUNTRY:-未知}  域名:$DOMAIN"
 
 if [ "$COUNTRY" = "CN" ]; then
@@ -84,6 +93,7 @@ setenv POSTGRES_PASSWORD "$(openssl rand -hex 16)" 1
 setenv ADMIN_TOKEN "$(openssl rand -hex 24)" 1
 setenv STATS_SECRET "$(openssl rand -hex 24)" 1
 setenv DOMAIN "$DOMAIN"
+setenv ALT_DOMAIN "$ALT_DOMAIN"
 setenv SITE_URL "https://$DOMAIN"
 setenv CORS_ORIGINS "https://$DOMAIN"
 # 采集由 GitHub Actions 负责并提交进仓库;服务器每小时同步,不自己采集,避免两个采集器各写各的
@@ -91,13 +101,14 @@ setenv ENABLE_SCHEDULER 0
 setenv BRANCH "$BRANCH"
 
 # ── 5. DNS 检查(sslip.io 自动解析,不用检查)──
-if [[ "$DOMAIN" != *.sslip.io ]]; then
-  RESOLVED=$(getent ahostsv4 "$DOMAIN" | awk 'NR==1{print $1}' || true)
+for H in $DOMAIN $ALT_DOMAIN; do
+  [[ "$H" == *.sslip.io ]] && continue
+  RESOLVED=$(getent ahostsv4 "$H" | awk 'NR==1{print $1}' || true)
   if [ "$RESOLVED" != "$PUBLIC_IP" ]; then
-    warn "$DOMAIN 当前解析到「${RESOLVED:-无}」,不是本机 $PUBLIC_IP。"
+    warn "$H 当前解析到「${RESOLVED:-无}」,不是本机 $PUBLIC_IP。"
     warn "先去域名注册商加 A 记录 → $PUBLIC_IP,生效后重跑本脚本;否则 HTTPS 证书会申请失败。"
   fi
-fi
+done
 
 # ── 6. 启动 ──
 say "构建并启动(首次约 3–5 分钟)"
@@ -143,7 +154,7 @@ cat <<DONE
 
 ────────────────────────────────────────────
   部署完成
-  网站        https://$DOMAIN
+  网站        https://$DOMAIN${ALT_DOMAIN:+(https://$ALT_DOMAIN 自动跳转过来)}
   统计后台    https://$DOMAIN/admin
   后台令牌    $ADMIN_TOKEN
               (保存在 $APP_DIR/.env,不要发给别人)

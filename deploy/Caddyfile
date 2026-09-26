@@ -1,5 +1,10 @@
-# Caddy 自动申请并续期 Let's Encrypt 证书。DOMAIN 来自仓库根目录的 .env
-{$DOMAIN} {
+# Caddy 自动申请并续期 Let's Encrypt 证书。DOMAIN / ALT_DOMAIN 来自仓库根目录的 .env
+# ALT_DOMAIN 是另一种写法(www.example.com ↔ example.com),统一 301 到 DOMAIN,
+# 避免同一内容两个网址、搜索引擎权重被拆开。ALT_DOMAIN 为空时这一项自然消失。
+{$DOMAIN} {$ALT_DOMAIN} {
+	@alt not host {$DOMAIN}
+	redir @alt https://{$DOMAIN}{uri} permanent
+
 	encode zstd gzip
 	reverse_proxy 127.0.0.1:8000
 	log {
