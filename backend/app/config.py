@@ -33,6 +33,10 @@ class Settings:
     http_timeout: int = int(os.getenv("HTTP_TIMEOUT", "30"))
     min_request_interval: float = float(os.getenv("MIN_REQUEST_INTERVAL", "1.0"))
 
+    # 泰国出口代理:data.go.th 拦截非泰国 IP。只用于访问泰国政府数据源,DeepSeek、GitHub 等不走它。
+    # 支持 http:// https:// socks5:// socks5h://(socks5h = 域名也交给代理端解析)
+    egress_proxy: str = os.getenv("THAI_EGRESS_PROXY", "").strip()
+
     # 采集后是否把 DB 导出成静态 JSON(给 GitHub Pages 降级用)
     export_after_collect: bool = _bool("EXPORT_AFTER_COLLECT", True)
 

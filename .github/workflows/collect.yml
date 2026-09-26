@@ -40,6 +40,9 @@ jobs:
       ENRICH_PROVIDER: ${{ vars.ENRICH_PROVIDER }}
       ENRICH_MODEL: ${{ vars.ENRICH_MODEL }}
       SITE_URL: ${{ vars.SITE_URL || 'https://www.thaipolicy.com' }}
+      # data.go.th 拦截非泰国 IP。在 Secrets 里配置泰国出口:http://user:pass@host:port 或
+      # socks5://user:pass@host:port。只用于访问泰国政府数据源;DeepSeek、git push 不走它
+      THAI_EGRESS_PROXY: ${{ secrets.THAI_EGRESS_PROXY }}
     steps:
       - uses: actions/checkout@v4
 
@@ -52,14 +55,6 @@ jobs:
       - name: 安装依赖
         run: pip install -r backend/requirements.txt
 
-      # 泰国政府站点若拦截海外 IP,在 Secrets 里配置 THAI_EGRESS_PROXY(http://user:pass@host:port)。
-      # 放在装依赖之后:pip 不需要、也不该走泰国出口。没配置就不设,避免空代理变量干扰。
-      - name: 配置泰国出口(可选)
-        env:
-          P: ${{ secrets.THAI_EGRESS_PROXY }}
-        run: |
-          if [ -n "$P" ]; then echo "HTTPS_PROXY=$P" >> "$GITHUB_ENV"; echo "已启用泰国出口代理"; fi
-
       - name: 载入现有事实层
         working-directory: backend
         run: python -m app.ingest --reset
@@ -70,7 +65,7 @@ jobs:
         # 先不用 --strict:即使全部源失败,也要把「失败」这一事实提交进仓库,
         # 页面才会诚实显示源状态。是否标红放到最后一步决定。
         run: |
-          python -m app.collect --trigger schedule | tee ../collect-result.json
+          python -m app.collect --trigger ${{ github.event_name == 'schedule' && 'schedule' || 'manual' }} | tee ../collect-result.json
           echo "status=$(python -c "import json;print(json.load(open('../collect-result.json'))['status'])")" >> "$GITHUB_OUTPUT"
 
       - name: 校验
@@ -102,7 +97,7 @@ jobs:
               print("## 采集未产出结果"); raise SystemExit
           print(f"## 采集结果:{r['status']}")
           print(f"- 新增写入事实层:{r.get('appended_to_jsonl', 0)} 条")
-          print(f"- 数据源:{r['sources_ok']}/{r['sources_total']} 可用")
+          print(f"- 数据源:{r['sources_ok']}/{r['sources_total']} 可用 · 出口:{r.get('egress', '直连')}")
           for s in r["sources"]:
               print(f"  - `{s['id']}` {s['status']} — {s['detail'][:160]}")
           e = r.get("enrich") or {}

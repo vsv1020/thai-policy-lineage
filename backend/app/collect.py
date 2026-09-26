@@ -82,12 +82,28 @@ class Throttle:
         self._last = time.monotonic()
 
 
+PROXY_SCHEMES = ("http://", "https://", "socks5://", "socks5h://")
+
+
+def egress_label() -> str:
+    """用于日志与运行记录的出口描述:只给协议,不暴露代理地址和密码(运行记录会提交进公开仓库)。"""
+    p = settings.egress_proxy
+    return f"泰国出口代理({p.split('://', 1)[0]})" if p else "直连"
+
+
+def source_client(headers: dict) -> httpx.Client:
+    """访问泰国政府数据源专用的客户端:配置了 THAI_EGRESS_PROXY 就经它出去。"""
+    proxy = settings.egress_proxy or None
+    if proxy and not proxy.startswith(PROXY_SCHEMES):
+        raise RuntimeError("THAI_EGRESS_PROXY 协议不支持,应以 http:// https:// socks5:// socks5h:// 开头")
+    return httpx.Client(timeout=settings.http_timeout, headers=headers,
+                        follow_redirects=True, proxy=proxy)
+
+
 def fetch_ckan(dataset: str, throttle: Throttle) -> list[dict]:
     """取 CKAN 数据集的 resource 列表。失败抛异常,由调用方记 error。"""
     throttle.wait()
-    with httpx.Client(timeout=settings.http_timeout,
-                      headers={"User-Agent": UA, "Accept": "application/json"},
-                      follow_redirects=True) as c:
+    with source_client({"User-Agent": UA, "Accept": "application/json"}) as c:
         r = c.get(f"{CKAN_BASE}/api/3/action/package_show", params={"id": dataset})
         r.raise_for_status()
         payload = r.json()
@@ -98,8 +114,7 @@ def fetch_ckan(dataset: str, throttle: Throttle) -> list[dict]:
 
 def fetch_resource(url: str, throttle: Throttle) -> Any:
     throttle.wait()
-    with httpx.Client(timeout=settings.http_timeout,
-                      headers={"User-Agent": UA}, follow_redirects=True) as c:
+    with source_client({"User-Agent": UA}) as c:
         r = c.get(url)
         r.raise_for_status()
         return r.json()
@@ -422,7 +437,7 @@ def run_collection(trigger: str = "manual", dry_run: bool = False) -> dict:
              status, added, updated, ok_count, len(results), duration)
     return {"run_id": run_id, "status": status, "added": added, "updated": updated,
             "appended_to_jsonl": appended, "sources_ok": ok_count, "enrich": enrich_result,
-            "sources_total": len(results), "duration_s": round(duration, 1),
+            "sources_total": len(results), "duration_s": round(duration, 1), "egress": egress_label(),
             "sources": [{"id": r.id, "status": r.status, "detail": r.detail} for r in results]}
 
 
