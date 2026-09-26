@@ -124,8 +124,108 @@ def test_request_uses_fallbacks_and_structured_output(isolated_jsonl):
 
 
 def test_no_credentials_skips_cleanly(isolated_jsonl, monkeypatch):
-    for k in ("ANTHROPIC_API_KEY", "ANTHROPIC_AUTH_TOKEN", "ANTHROPIC_PROFILE"):
+    for k in ("ANTHROPIC_API_KEY", "ANTHROPIC_AUTH_TOKEN", "ANTHROPIC_PROFILE", "DEEPSEEK_API_KEY"):
         monkeypatch.delenv(k, raising=False)
     (isolated_jsonl / "documents.jsonl").write_text(json.dumps(_raw(), ensure_ascii=False) + "\n")
     res = E.run_enrichment()
     assert res["status"] == "no_credentials" and res["pending"] == 1
+
+
+# ─────────────── DeepSeek ───────────────
+
+import httpx  # noqa: E402
+
+from app.config import settings  # noqa: E402
+
+
+def deepseek(payload=GOOD, finish="stop", status=200, content=None):
+    """DeepSeekClient + 假 HTTP 层;requests 记录每次请求体。"""
+    requests = []
+
+    def handler(req: httpx.Request) -> httpx.Response:
+        requests.append({"url": str(req.url), "auth": req.headers.get("authorization"),
+                         "body": json.loads(req.content)})
+        if status != 200:
+            return httpx.Response(status, json={"error": {"message": "x"}})
+        text = content if content is not None else json.dumps(payload, ensure_ascii=False)
+        return httpx.Response(200, json={"choices": [{"message": {"content": text},
+                                                      "finish_reason": finish}]})
+    c = E.DeepSeekClient("sk-test", "https://api.deepseek.com", "deepseek-chat",
+                         transport=httpx.MockTransport(handler))
+    return c, requests
+
+
+def _write(d, *recs):
+    (d / "documents.jsonl").write_text("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in recs))
+
+
+def test_provider_auto_selection(monkeypatch):
+    monkeypatch.setattr(settings, "enrich_provider", "")
+    monkeypatch.setattr(settings, "enrich_model_override", "")
+    monkeypatch.delenv("DEEPSEEK_API_KEY", raising=False)
+    assert E.provider() == "anthropic" and E.model_name() == "claude-opus-5"
+    monkeypatch.setenv("DEEPSEEK_API_KEY", "sk-x")
+    assert E.provider() == "deepseek" and E.model_name() == "deepseek-chat"
+    monkeypatch.setattr(settings, "enrich_provider", "anthropic")      # 显式配置优先
+    assert E.provider() == "anthropic"
+    monkeypatch.setattr(settings, "enrich_model_override", "deepseek-reasoner")
+    assert E.model_name("deepseek") == "deepseek-reasoner"
+
+
+def test_deepseek_request_shape_and_result(isolated_jsonl):
+    _write(isolated_jsonl, _raw())
+    client, reqs = deepseek()
+    res = E.run_enrichment(client=client)
+    assert res["enriched"] == 1 and res["provider"] == "deepseek" and res["model"] == "deepseek-chat"
+    r = reqs[0]
+    assert r["url"] == "https://api.deepseek.com/chat/completions"
+    assert r["auth"] == "Bearer sk-test"
+    assert r["body"]["response_format"] == {"type": "json_object"}
+    system = r["body"]["messages"][0]["content"]
+    assert "json" in system and '"enum"' in system, "JSON 模式要求提示词含 json 与格式说明"
+    row = json.loads((isolated_jsonl / "documents.jsonl").read_text().splitlines()[0])
+    assert row["titles"]["zh"] == GOOD["title_zh"]
+    assert row["provenance"]["enriched_by"] == "deepseek-chat"
+    assert row["provenance"]["verified"] is False
+
+
+def test_deepseek_royal_titles_never_sent(isolated_jsonl):
+    _write(isolated_jsonl, _raw(th="ประกาศ เรื่อง พระราชทานเครื่องราชอิสริยาภรณ์"))
+    client, reqs = deepseek()
+    assert E.run_enrichment(client=client)["skipped_red_line"] == 1
+    assert reqs == []
+
+
+@pytest.mark.parametrize("kw", [
+    {"finish": "length"},                                     # 截断
+    {"finish": "content_filter", "content": ""},              # 内容过滤
+    {"content": ""},                                          # 空内容
+    {"content": "这不是 JSON"},
+    {"payload": {k: v for k, v in GOOD.items() if k != "domain_ids"}},     # 缺字段
+    {"payload": dict(GOOD, legal_form_id="NOT_REAL")},                      # 必选枚举越界
+    {"payload": dict(GOOD, relevant="yes")},                                # 类型错
+    {"payload": dict(GOOD, title_zh="  ")},                                 # 空标题
+])
+def test_deepseek_bad_output_is_dropped_not_written(isolated_jsonl, kw):
+    _write(isolated_jsonl, _raw())
+    client, _ = deepseek(**kw)
+    res = E.run_enrichment(client=client)
+    assert res["failed"] == 1 and res["enriched"] == 0
+    row = json.loads((isolated_jsonl / "documents.jsonl").read_text().splitlines()[0])
+    assert row["titles"]["zh"] == "", "不合格输出不能写入任何内容"
+
+
+def test_deepseek_http_error_fails_one_item_not_the_run(isolated_jsonl, monkeypatch):
+    monkeypatch.setattr(E.time, "sleep", lambda s: None)
+    _write(isolated_jsonl, _raw(), _raw(uid="TH-GAZ-2"))
+    client, reqs = deepseek(status=503)
+    res = E.run_enrichment(client=client)
+    assert res["failed"] == 2 and res["status"] == "failed"
+    assert len(reqs) == 6, "每条 503 应重试到 3 次"
+
+
+def test_deepseek_irrelevant_needs_only_title(isolated_jsonl):
+    _write(isolated_jsonl, _raw())
+    client, _ = deepseek(payload={"relevant": False, "title_zh": "人事任免", "summary_zh": ""})
+    res = E.run_enrichment(client=client)
+    assert res["skipped_irrelevant"] == 1

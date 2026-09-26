@@ -50,8 +50,12 @@ class Settings:
     # 直接暴露在公网时必须为 0,否则客户端可伪造 IP 绕过限流
     trust_proxy: bool = _bool("TRUST_PROXY", False)
 
-    # LLM 翻译分类(app.enrich)。没有 ANTHROPIC_API_KEY 时自动跳过
-    enrich_model: str = os.getenv("ENRICH_MODEL", "claude-opus-5")
+    # LLM 翻译分类(app.enrich)。两家都没配 key 时自动跳过
+    # 服务商:deepseek / anthropic;留空 = 自动(配了 DEEPSEEK_API_KEY 用 DeepSeek,否则 Claude)
+    enrich_provider: str = os.getenv("ENRICH_PROVIDER", "").strip().lower()
+    # 模型名;留空 = 按服务商取默认(deepseek-chat / claude-opus-5)
+    enrich_model_override: str = os.getenv("ENRICH_MODEL", "").strip()
+    deepseek_base_url: str = os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com").rstrip("/")
     enrich_max_per_run: int = int(os.getenv("ENRICH_MAX_PER_RUN", "40"))
     enrich_after_collect: bool = _bool("ENRICH_AFTER_COLLECT", True)
 

@@ -91,7 +91,7 @@ python fetch_cabinet.py --limit 2   # 内阁决议年度数据 → data/processe
 ```
 GitHub Actions(每天曼谷 07:23)
   └─ app.collect   data.go.th 官方接口 → 佛历换算 → 红线过滤 → 追加 JSONL
-  └─ app.enrich    Claude 把泰文标题翻译分类成中文结构化记录(受词表约束,标「未经人工复核」)
+  └─ app.enrich    DeepSeek(或 Claude)把泰文标题翻译分类成中文结构化记录(受词表约束,标「未经人工复核」)
   └─ app.export    → data/site/*.json + p/*.html 落地页 + sitemap.xml
   └─ git commit    → GitHub Pages 自动呈现
 ```
@@ -102,7 +102,7 @@ GitHub Actions(每天曼谷 07:23)
   不会以空标题出现在首页。
 - **三条编辑红线机械执行**:王室相关标题连模型都不发;模型只能从词表枚举里选 id,返回后再校验一次;
   没有日期不入库,没有官方链接不编。全部有测试覆盖。
-- 没配 `ANTHROPIC_API_KEY` 时翻译步骤自动跳过,采集照常。
+- 翻译模型:配了 `DEEPSEEK_API_KEY` 用 DeepSeek,否则用 Claude(`ANTHROPIC_API_KEY`);都没配时翻译步骤自动跳过,采集照常。
 
 上线步骤见 [docs/deploy.md](docs/deploy.md),营收与广告位见 [docs/monetization.md](docs/monetization.md)。
 

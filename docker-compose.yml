@@ -34,6 +34,7 @@ services:
       CORS_ORIGINS: ${CORS_ORIGINS:-https://vsv1020.github.io}
       SITE_URL: ${SITE_URL:-https://vsv1020.github.io/thai-policy-lineage}
       TRUST_PROXY: "1"            # 前面有 Caddy/nginx;直接暴露公网请改为 0
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
       # 统计后台 /admin 的令牌(不设则后台关闭)与访客哈希密钥,生成:openssl rand -hex 24
       ADMIN_TOKEN: ${ADMIN_TOKEN:-}

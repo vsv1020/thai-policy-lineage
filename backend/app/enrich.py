@@ -16,7 +16,13 @@
 - 模型判定「与在泰外籍人士/企业无关」的条目(人事任免、地方工程招标等)
   标记为 skip,不会出现在首页,但保留在库里。
 
-没有 ANTHROPIC_API_KEY(或 ant 登录凭据)时整个步骤跳过,采集照常工作。
+服务商(ENRICH_PROVIDER,留空自动选):
+- deepseek:配了 DEEPSEEK_API_KEY 时默认用它。走官方 HTTP 接口(OpenAI 兼容格式)。
+  它的 JSON 模式只保证返回合法 JSON,不保证字段齐全、枚举合规 —— 所以 validate_output
+  逐字段检查,不合格的整条丢弃,和拒答一样处理。
+- anthropic:Claude,结构化输出由接口按 JSON schema 强制约束。
+
+两家都没配 key 时整个步骤跳过,采集照常工作。
 """
 from __future__ import annotations
 
@@ -24,7 +30,10 @@ import argparse
 import json
 import logging
 import os
+import time
 from datetime import datetime
+
+import httpx
 
 from .config import BKK, DATA_DIR, POLICIES_DIR, settings
 from .db import init_db, session_scope
@@ -102,21 +111,95 @@ def is_pending(rec: dict) -> bool:
     return not (rec.get("titles") or {}).get("zh") and not (rec.get("flags") or {}).get("skip")
 
 
-def has_credentials() -> bool:
+DEFAULT_MODELS = {"deepseek": "deepseek-chat", "anthropic": "claude-opus-5"}
+
+
+def provider() -> str:
+    """显式配置优先;否则有 DeepSeek key 就用 DeepSeek,再否则 Claude。"""
+    if settings.enrich_provider in DEFAULT_MODELS:
+        return settings.enrich_provider
+    return "deepseek" if os.getenv("DEEPSEEK_API_KEY") else "anthropic"
+
+
+def model_name(prov: str | None = None) -> str:
+    return settings.enrich_model_override or DEFAULT_MODELS[prov or provider()]
+
+
+def has_credentials(prov: str | None = None) -> bool:
+    if (prov or provider()) == "deepseek":
+        return bool(os.getenv("DEEPSEEK_API_KEY"))
     return bool(os.getenv("ANTHROPIC_API_KEY") or os.getenv("ANTHROPIC_AUTH_TOKEN")
                 or os.getenv("ANTHROPIC_PROFILE"))
 
 
-def call_model(client, v: dict, rec: dict) -> dict | None:
-    """单条调用。拒答或解析失败返回 None,调用方跳过该条。"""
+class DeepSeekClient:
+    """DeepSeek 官方接口的最小客户端:POST {base}/chat/completions,OpenAI 兼容格式。
+    用项目已有的 httpx,不为一个接口多引一个 SDK。transport 参数留给测试注入。"""
+
+    def __init__(self, api_key: str, base_url: str, model: str, transport=None):
+        self.model = model
+        self.http = httpx.Client(base_url=base_url, timeout=120, transport=transport,
+                                 headers={"Authorization": f"Bearer {api_key}"})
+
+    def complete(self, system: str, user: str) -> tuple[str, str]:
+        """返回 (文本, finish_reason)。429/5xx 退避重试两次,其余错误直接抛出。"""
+        body = {"model": self.model, "max_tokens": 2000, "temperature": 0.3,
+                "response_format": {"type": "json_object"},
+                "messages": [{"role": "system", "content": system},
+                             {"role": "user", "content": user}]}
+        for attempt in range(3):
+            r = self.http.post("/chat/completions", json=body)
+            if r.status_code == 429 or r.status_code >= 500:
+                if attempt < 2:
+                    time.sleep(3 * (attempt + 1))
+                    continue
+            r.raise_for_status()
+            choice = r.json()["choices"][0]
+            return (choice.get("message") or {}).get("content") or "", choice.get("finish_reason") or ""
+        raise RuntimeError("unreachable")
+
+
+def _user_message(rec: dict) -> str:
     th = (rec.get("titles") or {}).get("th", "")
     d = rec.get("dates") or {}
-    user = (f"泰文标题:{th}\n"
+    return (f"泰文标题:{th}\n"
             f"公报/文号:{rec.get('doc_no') or '无'}\n"
             f"日期:刊登 {d.get('published_at') or '—'} / 决议 {d.get('resolved_at') or '—'}\n"
             f"来源管线:{(rec.get('provenance') or {}).get('pipeline')}")
+
+
+def _parse(text: str, uid: str) -> dict | None:
+    try:
+        out = json.loads(text)
+    except json.JSONDecodeError:
+        log.warning("JSON 解析失败,跳过 %s", uid)
+        return None
+    return out if isinstance(out, dict) else None
+
+
+def call_deepseek(client: DeepSeekClient, v: dict, rec: dict) -> dict | None:
+    # JSON 模式要求提示词里出现 "json" 并给出格式;schema 放在 system 末尾,
+    # 整段 system 每条都一样,DeepSeek 会自动缓存这段前缀
+    system = (SYSTEM_PROMPT + "\n\n词表:\n" + vocab_brief(v)
+              + "\n\n只输出一个 json 对象,不要任何其他文字。字段、类型与可选值必须严格符合以下 JSON Schema:\n"
+              + json.dumps(output_schema(v), ensure_ascii=False))
+    text, finish = client.complete(system, _user_message(rec))
+    if finish == "length":
+        log.warning("输出被截断,跳过 %s", rec["uid"])
+        return None
+    if finish == "content_filter" or not text.strip():
+        log.warning("模型未返回内容(%s),跳过 %s", finish or "空", rec["uid"])
+        return None
+    return _parse(text, rec["uid"])
+
+
+def call_model(client, v: dict, rec: dict) -> dict | None:
+    """单条调用。拒答或解析失败返回 None,调用方跳过该条。"""
+    if isinstance(client, DeepSeekClient):
+        return call_deepseek(client, v, rec)
+    user = _user_message(rec)
     resp = client.beta.messages.create(
-        model=settings.enrich_model,
+        model=model_name("anthropic"),
         max_tokens=4000,
         # 拒答时由服务端按类别自动换备用模型重跑,不需要自己维护模型列表
         betas=["server-side-fallback-2026-07-01"],
@@ -134,11 +217,35 @@ def call_model(client, v: dict, rec: dict) -> dict | None:
         log.warning("输出被截断,跳过 %s", rec["uid"])
         return None
     text = next((b.text for b in resp.content if b.type == "text"), "")
-    try:
-        return json.loads(text)
-    except json.JSONDecodeError:
-        log.warning("JSON 解析失败,跳过 %s", rec["uid"])
-        return None
+    return _parse(text, rec["uid"])
+
+
+def validate_output(out: dict, v: dict) -> str | None:
+    """字段级检查,返回问题描述;None = 合格。Claude 的结构化输出本就满足这些,
+    DeepSeek 的 JSON 模式不保证 —— 缺字段、类型错、必选枚举不在词表里,整条丢弃。"""
+    if not isinstance(out.get("relevant"), bool):
+        return "relevant 不是布尔值"
+    for k in ("title_zh", "summary_zh"):
+        if not isinstance(out.get(k), str):
+            return f"{k} 缺失或不是字符串"
+    if out["relevant"] and not out["title_zh"].strip():
+        return "title_zh 为空"
+    if not out["relevant"]:
+        return None                    # 无关条目只用到 title_zh
+    for k in ("agency_ids", "domain_ids", "instrument_ids", "goal_ids", "affected_parties"):
+        if not isinstance(out.get(k), list):
+            return f"{k} 缺失或不是数组"
+    for k, vocab_key in (("legal_form_id", "legal_forms"),
+                         ("implementation_stage", "implementation_stages"),
+                         ("direction", "directions")):
+        if out.get(k) not in {e["id"] for e in v[vocab_key]}:
+            return f"{k}={out.get(k)!r} 不在词表里"
+    if out.get("direction_confidence") not in ("low", "med"):
+        return "direction_confidence 不合法"
+    if not isinstance(out.get("affected_parties"), list) or \
+            not all(isinstance(x, dict) for x in out["affected_parties"]):
+        return "affected_parties 格式不对"
+    return None
 
 
 def apply_enrichment(rec: dict, out: dict, v: dict, model: str) -> dict:
@@ -204,13 +311,22 @@ def run_enrichment(limit: int | None = None, dry_run: bool = False, client=None)
         result["status"] = "dry_run"
         result["queue"] = [r["uid"] for r in queue[:limit]]
         return result
+    prov = provider()
     if client is None:
-        if not has_credentials():
+        if not has_credentials(prov):
             result["status"] = "no_credentials"
-            log.info("没有 ANTHROPIC_API_KEY,跳过翻译分类(%d 条待处理)", len(queue))
+            log.info("没有 %s,跳过翻译分类(%d 条待处理)",
+                     "DEEPSEEK_API_KEY" if prov == "deepseek" else "ANTHROPIC_API_KEY", len(queue))
             return result
-        import anthropic
-        client = anthropic.Anthropic()
+        if prov == "deepseek":
+            client = DeepSeekClient(os.environ["DEEPSEEK_API_KEY"], settings.deepseek_base_url,
+                                    model_name(prov))
+        else:
+            import anthropic
+            client = anthropic.Anthropic()
+    model = client.model if isinstance(client, DeepSeekClient) else model_name("anthropic")
+    result["provider"], result["model"] = ("deepseek" if isinstance(client, DeepSeekClient)
+                                           else "anthropic"), model
 
     v = _vocab()
     updated: dict[str, dict] = {}
@@ -229,10 +345,13 @@ def run_enrichment(limit: int | None = None, dry_run: bool = False, client=None)
         except Exception as exc:               # 单条失败不能拖垮整轮
             log.warning("调用失败 %s: %s", rec["uid"], exc)
             out = None
-        if out is None:
+        problem = None if out is None else validate_output(out, v)
+        if problem:
+            log.warning("输出不合格,跳过 %s:%s", rec["uid"], problem)
+        if out is None or problem:
             result["failed"] += 1
             continue
-        new = apply_enrichment(rec, out, v, settings.enrich_model)
+        new = apply_enrichment(rec, out, v, model)
         updated[rec["uid"]] = new
         if (new.get("flags") or {}).get("skip"):
             result["skipped_irrelevant"] += 1

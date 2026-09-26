@@ -125,15 +125,23 @@ WantedBy=multi-user.target
 
 ## 翻译分类(app.enrich)
 
-官方接口采回的只有泰文标题 + 卷期 + 日期。`app.enrich` 把 `title_zh` 为空的条目交给 Claude
-(默认 `claude-opus-5`,结构化输出,枚举取自词表),补中文标题、摘要、领域、工具、目标、方向、作用对象。
+官方接口采回的只有泰文标题 + 卷期 + 日期。`app.enrich` 把 `title_zh` 为空的条目交给大模型,
+补中文标题、摘要、领域、工具、目标、方向、作用对象。支持两家:
+
+| 服务商 | 何时使用 | 默认模型 | 输出约束 |
+|---|---|---|---|
+| DeepSeek | 配了 `DEEPSEEK_API_KEY`(优先) | `deepseek-chat` | JSON 模式只保证是合法 JSON;`validate_output` 逐字段检查,不合格整条丢弃 |
+| Claude | 只配了 `ANTHROPIC_API_KEY` | `claude-opus-5` | 结构化输出按 JSON schema 强制约束;开启服务端拒答回退 |
+
+`ENRICH_PROVIDER` 可强制指定,`ENRICH_MODEL` 可换模型。两家的护栏完全相同:
 
 - 王室相关标题**不发给模型**,直接标 skip(红线一:翻译也是加工)
 - 模型判定与在泰外籍人士/企业无关的(人事任免、授勋、地方招标)标 skip,不上首页
 - 返回的 id 再按词表校验一次;拒答、截断、解析失败一律跳过、不写入
 - 产出一律 `verified=false`、`direction.method="llm"`
-- 已开启服务端 refusal fallback(`fallbacks: "default"`):主模型拒答时由服务端按类别换备用模型重跑
-- 没有 `ANTHROPIC_API_KEY` 时整步跳过
+- Claude 路径开启服务端 refusal fallback(`fallbacks: "default"`):主模型拒答时由服务端按类别换备用模型重跑
+- DeepSeek 路径 429/5xx 退避重试两次;截断、内容过滤、空返回、字段不合格一律跳过
+- 两个 key 都没有时整步跳过
 
 成本量级:每条约几千输入 token + 几百输出 token,每天几十条,**估计每天约 1 美元上下**,以 Console 实际用量为准。
 `ENRICH_MAX_PER_RUN` 限制单轮上限,防止积压一次性涌入。

@@ -16,7 +16,8 @@ A 方案下站点的全部页面都能用,唯一退化是检索页的分面下�
 1. **合并到 `main`**。GitHub 的定时触发器只在默认分支上运行,工作分支上的 `collect.yml` 不会自动跑。
 2. **开 Pages**:仓库 Settings → Pages → Source 选 `Deploy from a branch`,分支 `main`,目录 `/ (root)`。
 3. **配 Secrets**(Settings → Secrets and variables → Actions):
-   - `ANTHROPIC_API_KEY` —— 翻译分类用。不配也能跑,但官方接口采回的泰文条目不会上首页。
+   - `DEEPSEEK_API_KEY` —— 翻译分类用(DeepSeek 开放平台申请)。也可以改配 `ANTHROPIC_API_KEY` 用 Claude,
+     两个都配时默认 DeepSeek。都不配也能跑,但官方接口采回的泰文条目不会上首页。
    - `THAI_EGRESS_PROXY`(可选)—— 形如 `http://user:pass@host:port` 的泰国出口。先不配,看第一次运行结果再决定。
 4. **配 Variables**:`SITE_URL` = 你的正式域名(无结尾斜杠)。落地页 canonical 与 sitemap 都用它。
 5. **手动跑一次**:Actions → 每日政策采集 → Run workflow。看运行摘要:
@@ -85,6 +86,7 @@ DOMAIN=你的域名 bash /opt/thai-policy-lineage/deploy/install.sh        # 买
 
 - 每天看一眼「采集状态」页或 Actions 页面。连续红色 = 出口或数据源出了问题。
 - 每周看一次 `/admin` 的「零结果检索」:那是读者在找、站里还没有的主题。
-- 「待翻译」队列持续增长 = `ANTHROPIC_API_KEY` 没配或额度用完。
+- 「待翻译」队列持续增长 = 翻译 key(`DEEPSEEK_API_KEY` / `ANTHROPIC_API_KEY`)没配或余额用完。
+  Actions 运行摘要里「翻译分类」一行会显示用的是哪个模型、成功几条。
 - LLM 翻译的条目一律标「未经人工复核」。人工核对后,在 JSONL 里把 `provenance.verified` 改为 `true`
   并填 `verified_at`,提交即可 —— 这是把内容质量从「能看」变成「可信」的唯一途径。
