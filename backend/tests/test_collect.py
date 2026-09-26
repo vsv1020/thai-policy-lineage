@@ -265,3 +265,68 @@ def test_no_direct_fallback_without_proxy(no_sleep, monkeypatch):
     with httpx.Client(transport=_Flaky(fail=99)) as c, pytest.raises(RuntimeError, match="files.example"):
         C.fetch_resource("https://files.example.go.th/x.json", C.Throttle(0), c)
     assert called == []
+
+
+# ─────────────── 原始文件域名失效时:datastore 兜底 + 诊断信息 ───────────────
+
+DEAD = "https://soc.gdcatalog.go.th/dataset/x/resource/y/download/2569.json"   # run #3 的真实情况
+
+
+def test_permanent_errors_are_not_retried(no_sleep):
+    t = _Flaky(99, httpx.ConnectError("[Errno -3] Temporary failure in name resolution"))
+    with httpx.Client(transport=t) as c, pytest.raises(httpx.ConnectError):
+        C.get_json(c, DEAD, C.Throttle(0))
+    assert t.calls == 1, "域名解析不到,重试也没用"
+    t2 = _Flaky(99, httpx.ProxyError("Proxy Server could not connect: General SOCKS server failure."))
+    with httpx.Client(transport=t2) as c, pytest.raises(httpx.ProxyError):
+        C.get_json(c, DEAD, C.Throttle(0))
+    assert t2.calls == 1
+
+
+def test_direct_fallback_is_single_attempt(no_sleep, monkeypatch):
+    from app.config import settings
+    monkeypatch.setattr(settings, "egress_proxy", "socks5h://u:p@h:1")
+    direct = _Flaky(99, httpx.ReadTimeout("slow"))
+    monkeypatch.setattr(C, "direct_client", lambda h: httpx.Client(transport=direct))
+    with httpx.Client(transport=_Flaky(99)) as proxied, pytest.raises(RuntimeError):
+        C.fetch_resource(DEAD, C.Throttle(0), proxied)
+    assert direct.calls == 1
+
+
+def test_candidates_prefer_json_recent_and_datastore_first():
+    rs = [{"id": "old", "name": "old", "format": "JSON", "last_modified": "2025-01-01", "url": DEAD},
+          {"id": "csv", "name": "csv", "format": "CSV", "last_modified": "2026-09-01", "url": DEAD,
+           "datastore_active": True},
+          {"id": "new", "name": "new", "format": "JSON", "last_modified": "2026-09-01", "url": DEAD,
+           "datastore_active": True}]
+    assert [(k, r["id"]) for k, r in C.resource_candidates(rs)] == [
+        ("datastore", "new"), ("file", "new"), ("file", "old"), ("datastore", "csv"), ("file", "csv")]
+
+
+def _source_with(monkeypatch, resources, datastore=None):
+    monkeypatch.setattr(C, "fetch_ckan", lambda *_a, **_k: resources)
+    def dead(url, *_a, **_k):
+        raise RuntimeError("soc.gdcatalog.go.th:经泰国出口 ProxyError: General SOCKS server failure")
+    monkeypatch.setattr(C, "fetch_resource", dead)
+    if datastore is not None:
+        monkeypatch.setattr(C, "fetch_datastore", lambda *_a, **_k: datastore)
+    return C.collect_source(C.SOURCES[0], C.Throttle(0), "2026-08-11T00:00:00+07:00",
+                            C.date(2026, 8, 4), dry_run=False)
+
+
+def test_datastore_rescues_dead_file_host(monkeypatch):
+    res = _source_with(monkeypatch,
+                       [{"id": "r1", "name": "2569-08", "format": "JSON", "url": DEAD, "datastore_active": True}],
+                       datastore=[{"title": "ประกาศ ก", "date": "10/08/2569", "series": "ง"}])
+    assert res.status == "ok" and len(res.records) == 1
+    assert "data.go.th datastore" in res.detail
+
+
+def test_all_dead_reports_resource_structure(monkeypatch):
+    res = _source_with(monkeypatch, [
+        {"id": "r1", "name": "2569-09", "format": "JSON", "url": DEAD},
+        {"id": "r2", "name": "2569-08", "format": "CSV", "url": DEAD}])
+    assert res.status == "error"
+    # 下一次看运行记录就能知道:有哪些 resource、什么格式、放在哪、有没有 datastore
+    assert "soc.gdcatalog.go.th" in res.detail and "datastore=否" in res.detail
+    assert "2569-09[json" in res.detail and "2569-08[csv" in res.detail
