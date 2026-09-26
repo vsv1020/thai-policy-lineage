@@ -131,3 +131,65 @@ def test_iter_records_handles_wrapped_payloads():
     assert C.iter_records({"data": [{"a": 1}]}) == [{"a": 1}]
     assert C.iter_records({"records": [{"a": 1}]}) == [{"a": 1}]
     assert C.iter_records("nope") == []
+
+
+# ─────────────── 泰国出口代理 ───────────────
+
+def test_egress_label_never_leaks_proxy_credentials(monkeypatch):
+    """运行记录会提交进公开仓库:只能出现协议,不能出现代理地址和密码。"""
+    from app import collect as C
+    from app.config import settings
+    monkeypatch.setattr(settings, "egress_proxy", "socks5://thai:s3cret@203.0.113.9:1080")
+    label = C.egress_label()
+    assert "socks5" in label
+    assert "s3cret" not in label and "203.0.113.9" not in label and "thai:" not in label
+    monkeypatch.setattr(settings, "egress_proxy", "")
+    assert C.egress_label() == "直连"
+
+
+@pytest.mark.parametrize("proxy", ["http://u:p@h:1", "https://h:1", "socks5://u:p@h:1", "socks5h://h:1"])
+def test_source_client_accepts_supported_proxies(monkeypatch, proxy):
+    from app import collect as C
+    from app.config import settings
+    monkeypatch.setattr(settings, "egress_proxy", proxy)
+    with C.source_client({}) as c:          # 只建客户端,不联网
+        assert c is not None
+
+
+def test_source_client_rejects_unknown_scheme(monkeypatch):
+    from app import collect as C
+    from app.config import settings
+    monkeypatch.setattr(settings, "egress_proxy", "ftp://h:21")
+    with pytest.raises(RuntimeError, match="协议不支持"):
+        C.source_client({})
+
+
+def test_llm_client_does_not_use_egress_proxy(monkeypatch):
+    """泰国出口只给政府数据源用:DeepSeek 客户端创建时不能带上它。"""
+    from app import enrich as E
+    from app.config import settings
+    monkeypatch.setattr(settings, "egress_proxy", "socks5://u:p@203.0.113.9:1080")
+    seen = {}
+    real = httpx.Client
+
+    def spy(*a, **kw):
+        seen.update(kw)
+        return real(*a, **kw)
+    monkeypatch.setattr(E.httpx, "Client", spy)
+    E.DeepSeekClient("sk", "https://api.deepseek.com", "deepseek-chat")
+    assert not seen.get("proxy") and not seen.get("proxies")
+
+
+def test_data_source_client_does_use_egress_proxy(monkeypatch):
+    from app import collect as C
+    from app.config import settings
+    monkeypatch.setattr(settings, "egress_proxy", "socks5://u:p@203.0.113.9:1080")
+    seen = {}
+    real = httpx.Client
+
+    def spy(*a, **kw):
+        seen.update(kw)
+        return real(*a, **kw)
+    monkeypatch.setattr(C.httpx, "Client", spy)
+    C.source_client({}).close()
+    assert seen["proxy"] == "socks5://u:p@203.0.113.9:1080"

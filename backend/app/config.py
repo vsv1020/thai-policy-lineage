@@ -33,6 +33,10 @@ class Settings:
     http_timeout: int = int(os.getenv("HTTP_TIMEOUT", "30"))
     min_request_interval: float = float(os.getenv("MIN_REQUEST_INTERVAL", "1.0"))
 
+    # 泰国出口代理:data.go.th 拦截非泰国 IP。只用于访问泰国政府数据源,DeepSeek、GitHub 等不走它。
+    # 支持 http:// https:// socks5:// socks5h://(socks5h = 域名也交给代理端解析)
+    egress_proxy: str = os.getenv("THAI_EGRESS_PROXY", "").strip()
+
     # 采集后是否把 DB 导出成静态 JSON(给 GitHub Pages 降级用)
     export_after_collect: bool = _bool("EXPORT_AFTER_COLLECT", True)
 
@@ -40,7 +44,7 @@ class Settings:
     cors_origins: list[str] = [
         o.strip() for o in os.getenv(
             "CORS_ORIGINS",
-            "http://localhost:8000,http://127.0.0.1:8000,https://vsv1020.github.io"
+            "http://localhost:8000,http://127.0.0.1:8000,https://www.thaipolicy.com"
         ).split(",") if o.strip()
     ]
     api_prefix: str = os.getenv("API_PREFIX", "/api")
@@ -60,7 +64,7 @@ class Settings:
     enrich_after_collect: bool = _bool("ENRICH_AFTER_COLLECT", True)
 
     # 站点公开地址(用于 sitemap 与 SEO 落地页的 canonical 链接)
-    site_url: str = os.getenv("SITE_URL", "https://vsv1020.github.io/thai-policy-lineage").rstrip("/")
+    site_url: str = os.getenv("SITE_URL", "https://www.thaipolicy.com").rstrip("/")
 
     # 站点统计(第一方、无 Cookie、不存 IP,见 app/stats.py)
     stats_enabled: bool = _bool("STATS_ENABLED", True)

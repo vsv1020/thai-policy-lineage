@@ -3,4 +3,4 @@ Allow: /
 Disallow: /api/
 Disallow: /admin
 
-Sitemap: https://vsv1020.github.io/thai-policy-lineage/sitemap.xml
+Sitemap: https://www.thaipolicy.com/sitemap.xml

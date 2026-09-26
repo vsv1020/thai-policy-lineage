@@ -18,7 +18,9 @@ A 方案下站点的全部页面都能用,唯一退化是检索页的分面下�
 3. **配 Secrets**(Settings → Secrets and variables → Actions):
    - `DEEPSEEK_API_KEY` —— 翻译分类用(DeepSeek 开放平台申请)。也可以改配 `ANTHROPIC_API_KEY` 用 Claude,
      两个都配时默认 DeepSeek。都不配也能跑,但官方接口采回的泰文条目不会上首页。
-   - `THAI_EGRESS_PROXY`(可选)—— 形如 `http://user:pass@host:port` 的泰国出口。先不配,看第一次运行结果再决定。
+   - `THAI_EGRESS_PROXY` —— **data.go.th 只允许泰国 IP 访问**,GitHub Actions 在美国,必须配泰国出口。
+     支持 `http://user:pass@host:port`、`socks5://user:pass@host:port`、`socks5h://…`(域名由代理端解析)。
+     只用于访问泰国政府数据源,DeepSeek、git push 不走它。
 4. **配 Variables**:`SITE_URL` = 你的正式域名(无结尾斜杠)。落地页 canonical 与 sitemap 都用它。
 5. **手动跑一次**:Actions → 每日政策采集 → Run workflow。看运行摘要:
    - 数据源 `ok` → 出口没问题,之后每天曼谷时间 07:23 自动跑。
