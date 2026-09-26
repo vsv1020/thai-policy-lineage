@@ -39,7 +39,7 @@ jobs:
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
       ENRICH_PROVIDER: ${{ vars.ENRICH_PROVIDER }}
       ENRICH_MODEL: ${{ vars.ENRICH_MODEL }}
-      SITE_URL: ${{ vars.SITE_URL || 'https://vsv1020.github.io/thai-policy-lineage' }}
+      SITE_URL: ${{ vars.SITE_URL || 'https://www.thaipolicy.com' }}
     steps:
       - uses: actions/checkout@v4
 

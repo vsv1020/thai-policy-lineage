@@ -13,7 +13,7 @@ jobs:
     env:
       TZ: Asia/Bangkok
       # 必须与 collect.yml 一致,否则落地页里的 canonical 链接会不同,漂移检查误报
-      SITE_URL: ${{ vars.SITE_URL || 'https://vsv1020.github.io/thai-policy-lineage' }}
+      SITE_URL: ${{ vars.SITE_URL || 'https://www.thaipolicy.com' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

@@ -31,8 +31,8 @@ services:
       TZ: Asia/Bangkok
       COLLECT_HOUR: "7"
       COLLECT_MINUTE: "23"
-      CORS_ORIGINS: ${CORS_ORIGINS:-https://vsv1020.github.io}
-      SITE_URL: ${SITE_URL:-https://vsv1020.github.io/thai-policy-lineage}
+      CORS_ORIGINS: ${CORS_ORIGINS:-https://www.thaipolicy.com}
+      SITE_URL: ${SITE_URL:-https://www.thaipolicy.com}
       TRUST_PROXY: "1"            # 前面有 Caddy/nginx;直接暴露公网请改为 0
       DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
