@@ -1,5 +1,5 @@
 {
- "last_run_at": "2026-09-26T22:27:04+07:00",
+ "last_run_at": "2026-09-26T22:47:44+07:00",
  "sources": [
   {
    "id": "gazette_json",
@@ -7,7 +7,7 @@
    "url": "https://data.go.th/dataset/dataset_02_04",
    "status": "error",
    "last_ok": null,
-   "detail": "HTTPStatusError: Client error '403 Forbidden' for url 'https://data.go.th/api/3/action/package_show?id=dataset_02_04'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403"
+   "detail": "resource 下载失败 ProtocolError: Malformed reply"
   },
   {
    "id": "cabinet_json",
@@ -15,7 +15,7 @@
    "url": "https://data.go.th/dataset/dataset_02_03",
    "status": "error",
    "last_ok": null,
-   "detail": "HTTPStatusError: Client error '403 Forbidden' for url 'https://data.go.th/api/3/action/package_show?id=dataset_02_03'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403"
+   "detail": "resource 下载失败 ProtocolError: Malformed reply"
   },
   {
    "id": "websearch",
