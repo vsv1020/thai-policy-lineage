@@ -32,6 +32,30 @@ A 方案下站点的全部页面都能用,唯一退化是检索页的分面下�
 Pages → Custom domain 填域名,DNS 加 CNAME 指向 `vsv1020.github.io`,勾 Enforce HTTPS。
 然后把 Variables 里的 `SITE_URL` 改成新域名,手动跑一次采集工作流让落地页重新生成。
 
+## 方案 B0:一键脚本(推荐)
+
+一台全新的 Linux 服务器(Ubuntu / Debian / CentOS / Alibaba Cloud Linux),root 登录后:
+
+```bash
+git clone https://github.com/vsv1020/thai-policy-lineage.git /opt/thai-policy-lineage
+bash /opt/thai-policy-lineage/deploy/install.sh                       # 先用 <IP>.sslip.io 临时域名
+DOMAIN=你的域名 bash /opt/thai-policy-lineage/deploy/install.sh        # 买好域名、A 记录生效后重跑
+```
+
+脚本做的事:装 Docker → 拉代码 → 生成 `.env`(数据库密码、`ADMIN_TOKEN`、`STATS_SECRET` 随机生成,
+重跑不会覆盖)→ Postgres + 应用 + Caddy(自动 HTTPS)启动 → 装定时任务 → 自检。
+最后会打印网址、统计后台地址和后台令牌。
+
+- **云安全组要放行 80 和 443**(阿里云:ECS → 安全组 → 入方向),脚本改不了这个。
+- **服务器在中国大陆**:任何域名走 80/443 都需要 ICP 备案,脚本会提示。建议选曼谷/新加坡/香港地域。
+- **采集分工**:GitHub Actions 每天采集并提交;服务器每小时 17 分 `deploy/sync.sh` 同步 ——
+  只有数据变了就重新入库导出,代码变了就重建镜像。服务器不自己采集,避免两份数据各走各的。
+- **备份**:每天 03:40 `deploy/backup.sh` 导出 Postgres 到 `/opt/backups/thai-policy/`,保留 14 天。
+  统计数据只在数据库里,建议再定期拷到别处。
+- 自检会顺带测本机能否访问 data.go.th。能访问的话,这台机器可以作为 Actions 的泰国出口
+  (`THAI_EGRESS_PROXY`)。
+- 在 GitHub 仓库的 Variables 里把 `SITE_URL` 也设成同一个域名,Actions 导出的落地页 canonical 才一致。
+
 ## 方案 B:自托管后端
 
 见 [backend/README.md](../backend/README.md) 的部署一节。要点:
