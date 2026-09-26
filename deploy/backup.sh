@@ -4,6 +4,6 @@ set -eu
 cd "$(dirname "$0")/.."
 DIR=/opt/backups/thai-policy
 mkdir -p "$DIR"
-docker compose -f docker-compose.yml -f deploy/compose.caddy.yml exec -T db \
+docker compose -f docker-compose.yml exec -T db \
   pg_dump -U policy -d policy | gzip > "$DIR/policy-$(date +%F).sql.gz"
 find "$DIR" -name 'policy-*.sql.gz' -mtime +14 -delete

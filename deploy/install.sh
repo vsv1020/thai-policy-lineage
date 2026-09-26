@@ -4,12 +4,17 @@
 #   git clone https://github.com/vsv1020/thai-policy-lineage.git /opt/thai-policy-lineage
 #   bash /opt/thai-policy-lineage/deploy/install.sh
 #
+# HTTPS 由宿主机 nginx + certbot 负责(deploy/nginx-setup.sh):每个站点一个 conf.d 文件,
+# 不碰同机其他站点;应用容器只绑 127.0.0.1:8000。
+#
 # 可选环境变量:
-#   DOMAIN=example.com   正式域名(先把 A 记录指到本机);不填则用 <IP>.sslip.io 临时域名,HTTPS 照样可用
+#   DOMAIN=example.com   正式域名(先把 A 记录指到本机);不填则沿用 .env 里的,再没有就用
+#                        <IP>.sslip.io 临时域名(certbot 同样能签证书)
 #                        填 www.example.com 时,example.com 自动 301 跳到 www;反之亦然
 #   BRANCH=main          跟踪的分支
+#   CERTBOT_EMAIL=...    证书到期提醒邮箱(可不填)
 #
-# 可重复运行:已有的 .env 密钥会保留,只更新域名相关的行。
+# 可重复运行:已有的 .env 密钥会保留;已有的 nginx 站点配置不会被覆盖。
 set -euo pipefail
 
 REPO_URL="${REPO_URL:-https://github.com/vsv1020/thai-policy-lineage.git}"
@@ -36,6 +41,7 @@ fi
 PUBLIC_IP=$(curl -fsS -m 8 https://api.ipify.org 2>/dev/null || curl -fsS -m 8 https://ifconfig.me 2>/dev/null \
             || hostname -I | awk '{print $1}')
 COUNTRY=$(curl -fsS -m 8 "https://ipinfo.io/${PUBLIC_IP}/country" 2>/dev/null | tr -d '[:space:]' || true)
+[ -z "${DOMAIN:-}" ] && [ -f "$APP_DIR/.env" ] && DOMAIN=$(grep '^DOMAIN=' "$APP_DIR/.env" | cut -d= -f2 || true)
 DOMAIN="${DOMAIN:-${PUBLIC_IP//./-}.sslip.io}"
 DOMAIN="${DOMAIN#http://}"; DOMAIN="${DOMAIN#https://}"; DOMAIN="${DOMAIN%%/*}"   # 容错:误填了协议或路径
 # 另一种写法统一跳转到 DOMAIN;临时域名与多级子域名不处理
@@ -112,8 +118,9 @@ done
 
 # ── 6. 启动 ──
 say "构建并启动(首次约 3–5 分钟)"
-DC="docker compose -f docker-compose.yml -f deploy/compose.caddy.yml"
-$DC up -d --build
+DC="docker compose -f docker-compose.yml"
+# --remove-orphans:清掉旧版本留下的 caddy 容器(改用宿主机 nginx 之前的部署方式)
+$DC up -d --build --remove-orphans
 
 say "等待服务就绪"
 for i in $(seq 1 60); do
@@ -122,6 +129,12 @@ for i in $(seq 1 60); do
   [ "$i" = 60 ] && { $DC logs --tail 50 app; die "应用 3 分钟内没有起来,日志见上"; }
 done
 curl -fsS http://127.0.0.1:8000/api/health; echo
+
+# ── 6b. HTTPS:宿主机 nginx + Let's Encrypt ──
+# 失败不中断部署:应用已经在跑,修好 DNS/安全组后重跑本脚本即可接着完成
+DOMAIN="$DOMAIN" ALT_DOMAIN="$ALT_DOMAIN" CERTBOT_EMAIL="${CERTBOT_EMAIL:-}" \
+  bash "$APP_DIR/deploy/nginx-setup.sh" \
+  || warn "nginx / 证书这一步没有完成(原因见上),应用容器不受影响;修好后重跑本脚本"
 
 # ── 7. 定时任务:每小时同步、每天备份 ──
 say "安装定时任务"
@@ -144,7 +157,9 @@ if [ "$CODE" = 200 ]; then
 else
   warn "https://$DOMAIN 暂时不通(HTTP ${CODE:-000})。常见原因:"
   warn "  · 云控制台的安全组没放行 80 和 443 端口(阿里云:ECS → 安全组 → 入方向加 80、443)"
-  warn "  · 域名还没解析到本机;证书申请日志:$DC logs caddy"
+  warn "  · 域名还没解析到本机"
+  warn "  · nginx:nginx -t 检查配置;错误日志 /var/log/nginx/thaipolicy.error.log"
+  warn "  · 证书:/var/log/letsencrypt/letsencrypt.log"
 fi
 TH=$(curl -s -o /dev/null -m 15 -w '%{http_code}' https://data.go.th/ || true)
 echo "本机访问泰国政府开放数据 data.go.th:HTTP ${TH:-000}(200 = 这台机器可以当采集出口)"

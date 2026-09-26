@@ -44,10 +44,14 @@ DOMAIN=你的域名 bash /opt/thai-policy-lineage/deploy/install.sh        # 买
 ```
 
 脚本做的事:装 Docker → 拉代码 → 生成 `.env`(数据库密码、`ADMIN_TOKEN`、`STATS_SECRET` 随机生成,
-重跑不会覆盖)→ Postgres + 应用 + Caddy(自动 HTTPS)启动 → 装定时任务 → 自检。
+重跑不会覆盖)→ Postgres + 应用启动 → 宿主机 nginx 配置 + Let's Encrypt 证书 → 装定时任务 → 自检。
 最后会打印网址、统计后台地址和后台令牌。
 
 - **云安全组要放行 80 和 443**(阿里云:ECS → 安全组 → 入方向),脚本改不了这个。
+- **HTTPS 用宿主机 nginx**(`deploy/nginx-setup.sh`,模板 `deploy/nginx.conf.template`):
+  写 `/etc/nginx/conf.d/<裸域>.conf`,先只装 80 端口 → certbot 申请证书 → 再写 443;
+  每一步 `nginx -t`,失败自动回滚。**文件已存在就跳过**,不碰同机其他站点,不改 `nginx.conf`。
+  排查:`nginx -t`、`/var/log/nginx/thaipolicy.error.log`、`/var/log/letsencrypt/letsencrypt.log`。
 - **服务器在中国大陆**:任何域名走 80/443 都需要 ICP 备案,脚本会提示。建议选曼谷/新加坡/香港地域。
 - **采集分工**:GitHub Actions 每天采集并提交;服务器每小时 17 分 `deploy/sync.sh` 同步 ——
   只有数据变了就重新入库导出,代码变了就重建镜像。服务器不自己采集,避免两份数据各走各的。
@@ -61,12 +65,9 @@ DOMAIN=你的域名 bash /opt/thai-policy-lineage/deploy/install.sh        # 买
 
 见 [backend/README.md](../backend/README.md) 的部署一节。要点:
 
-- `docker compose up -d --build`,只绑 `127.0.0.1:8000`,前面用 Caddy 做 TLS:
-  ```
-  你的域名 {
-      reverse_proxy 127.0.0.1:8000
-  }
-  ```
+- `docker compose up -d --build`,只绑 `127.0.0.1:8000`,前面用宿主机 nginx 做 TLS,
+  配置照 `deploy/nginx.conf.template`(或直接跑 `deploy/nginx-setup.sh`)。
+  注意反代时 `X-Forwarded-For` 要设成 `$remote_addr`,不能用 `$proxy_add_x_forwarded_for`(可被伪造)。
 - 在反向代理后面时 `TRUST_PROXY=1`(限流才能认出真实 IP);直接暴露公网时必须是 `0`。
 - 服务器放在泰国(曼谷机房),或给容器配泰国出口,否则采集会一直 403。
 - `.env` 里设 `ADMIN_TOKEN` 与 `STATS_SECRET`,即可在 `https://你的域名/admin` 看站点统计,

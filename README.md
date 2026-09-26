@@ -24,7 +24,7 @@ config/ads.json       广告位配置(默认关闭,类别白名单)
 config/analytics.json 站点统计配置(自建 /admin 后台 + 可选 Cloudflare/Plausible)
 admin.html            站点统计后台(需 ADMIN_TOKEN)
 docs/deploy.md · docs/monetization.md · docs/analytics.md   上线手册 · 营收与广告位 · 站点统计
-deploy/install.sh     一键部署到 Linux 服务器(Docker + Postgres + Caddy 自动 HTTPS + 定时同步与备份)
+deploy/install.sh     一键部署到 Linux 服务器(Docker + Postgres + 宿主机 nginx/certbot HTTPS + 定时同步与备份)
 docs/research-report.md   完整调研报告
 ```
 

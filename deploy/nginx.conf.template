@@ -1,0 +1,62 @@
+# {{MARKER}}
+# 由 deploy/nginx-setup.sh 从 deploy/nginx.conf.template 生成。
+# 这份文件生成后,重跑 install.sh 不会再覆盖它 —— 可以放心手工调整。
+# 站点:https://{{DOMAIN}}  证书:{{LE_DIR}}/live/{{CERT_NAME}}/
+#
+# 不要在 listen 上加 http2,也不要用 `http2 on;`:前者会影响同机同一 443 地址上的其他站点,
+# 后者 nginx 1.25.1 才支持(Ubuntu 24.04 自带 1.24)。
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name {{SERVER_NAMES}};
+    location / { return 301 https://{{DOMAIN}}$request_uri; }
+}
+#@HTTPS_BEGIN
+#@ALT_BEGIN
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    server_name {{ALT_DOMAIN}};
+    ssl_certificate {{LE_DIR}}/live/{{CERT_NAME}}/fullchain.pem;
+    ssl_certificate_key {{LE_DIR}}/live/{{CERT_NAME}}/privkey.pem;
+    include {{LE_DIR}}/options-ssl-nginx.conf;
+    ssl_dhparam {{LE_DIR}}/ssl-dhparams.pem;
+    return 301 https://{{DOMAIN}}$request_uri;
+}
+#@ALT_END
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    server_name {{DOMAIN}};
+    ssl_certificate {{LE_DIR}}/live/{{CERT_NAME}}/fullchain.pem;
+    ssl_certificate_key {{LE_DIR}}/live/{{CERT_NAME}}/privkey.pem;
+    include {{LE_DIR}}/options-ssl-nginx.conf;
+    ssl_dhparam {{LE_DIR}}/ssl-dhparams.pem;
+
+    access_log /var/log/nginx/{{LOG_NAME}}.access.log;
+    error_log  /var/log/nginx/{{LOG_NAME}}.error.log;
+    server_tokens off;
+    client_max_body_size 5m;
+
+    gzip_types text/plain text/css application/javascript application/json image/svg+xml application/xml;
+    gzip_min_length 1024;
+    gzip_proxied any;
+    gzip_vary on;
+
+    location / {
+        proxy_pass http://127.0.0.1:{{APP_PORT}};
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        proxy_set_header Host $host;
+        # main.py 的 _client_ip 取 X-Forwarded-For 的第一个值做限流与统计;
+        # 不能用 $proxy_add_x_forwarded_for —— 客户端自带的 XFF 会排在前面,可以伪造 IP
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_read_timeout 120s;
+    }
+}
+#@HTTPS_END
