@@ -37,6 +37,16 @@ CONF_ZH = {"high": "官方原文核对", "med": "官方引述/二手一致", "lo
 e = lambda s: html.escape(str(s if s is not None else ""), quote=True)  # noqa: E731
 
 
+def clear_dir(path: Path) -> None:
+    """清空目录内容但保留目录本身(可能是挂载点)。"""
+    path.mkdir(parents=True, exist_ok=True)
+    for f in path.iterdir():
+        if f.is_dir() and not f.is_symlink():
+            shutil.rmtree(f)
+        else:
+            f.unlink()
+
+
 def slug(uid: str) -> str:
     return uid.lower()
 
@@ -184,10 +194,10 @@ def build(s: Session) -> dict[str, int]:
     docs = s.scalars(select(Document).order_by(Document.display_date.desc().nullslast())).all()
     titles = {d.uid: d.title_zh for d in docs}
 
-    # 整目录重建:已删除或被标 skip 的政策,其落地页也要消失
-    if PAGES_DIR.exists():
-        shutil.rmtree(PAGES_DIR)
-    PAGES_DIR.mkdir(parents=True)
+    # 整目录重建:已删除或被标 skip 的政策,其落地页也要消失。
+    # 只清空内容、不删目录本身 —— 生产环境 p/ 是 docker 挂载点,删挂载点会 EBUSY,
+    # 导出失败会让容器启动命令(ingest && export && uvicorn)永远起不来
+    clear_dir(PAGES_DIR)
 
     rows = []
     for doc in docs:

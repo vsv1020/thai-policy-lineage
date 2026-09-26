@@ -4,7 +4,7 @@
 set -eu
 cd "$(dirname "$0")/.."
 BRANCH="${BRANCH:-main}"
-DC="docker compose -f docker-compose.yml -f deploy/compose.caddy.yml"
+DC="docker compose -f docker-compose.yml"
 
 git fetch -q origin "$BRANCH"
 OLD=$(git rev-parse HEAD)
@@ -18,7 +18,7 @@ echo "$(date '+%F %T') 同步 ${OLD%"${OLD#???????}"} → ${NEW%"${NEW#???????}"
 
 if git diff --name-only "$OLD" "$NEW" | grep -qvE '^(data/|p/|sitemap\.xml$|robots\.txt$)'; then
   echo "代码有变动,重建镜像"
-  $DC up -d --build
+  $DC up -d --build --remove-orphans
 else
   echo "只有数据变动,重新入库并导出"
   $DC exec -T app sh -c "python -m app.ingest && python -m app.export"

@@ -94,3 +94,37 @@ def test_build_is_reproducible(built):
         seo.build(s)
     after = {p.name: p.read_bytes() for p in (root / "p").glob("*.html")}
     assert before == after, "同样的数据两次导出必须逐字节一致,否则 CI 漂移检查会误报"
+
+
+def test_clear_dir_keeps_directory_itself(tmp_path):
+    """生产环境 p/ 是 docker 挂载点:只能清内容,删目录本身会 EBUSY 让容器起不来。"""
+    d = tmp_path / "p"
+    (d / "sub").mkdir(parents=True)
+    (d / "stale.html").write_text("x")
+    (d / "sub" / "x.html").write_text("x")
+    ino = d.stat().st_ino
+    seo.clear_dir(d)
+    assert d.is_dir() and d.stat().st_ino == ino, "目录本身必须保留(同一个 inode)"
+    assert list(d.iterdir()) == []
+
+
+def test_build_never_removes_pages_dir(monkeypatch, tmp_path):
+    """build() 不得对 PAGES_DIR 本身调用 rmtree / rmdir。"""
+    import shutil
+    pages = tmp_path / "p"
+    pages.mkdir()
+    real = shutil.rmtree
+
+    def guarded(path, *a, **kw):
+        assert str(path) != str(pages), "不能删除挂载点目录本身"
+        return real(path, *a, **kw)
+    monkeypatch.setattr(seo.shutil, "rmtree", guarded)
+    monkeypatch.setattr(seo, "PAGES_DIR", pages)
+    monkeypatch.setattr(seo, "REPO_ROOT", tmp_path)
+    site = tmp_path / "site"; site.mkdir()
+    monkeypatch.setattr(seo, "SITE_DIR", site)
+    from app.db import session_scope
+    with session_scope() as s:
+        seo.build(s)
+        seo.build(s)                      # 第二次:目录里已有文件
+    assert any(pages.glob("*.html"))
