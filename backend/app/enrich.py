@@ -109,7 +109,10 @@ def vocab_brief(v: dict) -> str:
 
 
 def is_pending(rec: dict) -> bool:
-    return not (rec.get("titles") or {}).get("zh") and not (rec.get("flags") or {}).get("skip")
+    """待翻译:没有中文标题、未被跳过,且有可考证的官方原文 —— 没有原文的条目上不了前台,不花钱翻译。"""
+    from .ingest import official_sources
+    return (not (rec.get("titles") or {}).get("zh") and not (rec.get("flags") or {}).get("skip")
+            and bool(official_sources(rec)))
 
 
 DEFAULT_MODELS = {"deepseek": "deepseek-chat", "anthropic": "claude-opus-5"}

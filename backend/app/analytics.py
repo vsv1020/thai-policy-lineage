@@ -455,7 +455,12 @@ def dim6_conflicts(s: Session) -> dict:
     """维度六:一致性与冲突检测。"""
     order = {"high": 0, "med": 1, "low": 2}
     items = []
+    visible = set(s.scalars(select(Document.uid)).all())
     for c in s.scalars(select(Conflict)).all():
+        # 只展示所涉文件都已考证(在库里)的冲突;引用了未考证文件的冲突不上前台
+        uids = [x.get("uid") for x in json.loads(c.sides_json or "[]") if x.get("uid")]
+        if not uids or any(u not in visible for u in uids):
+            continue
         items.append({"id": c.id, "severity": c.severity, "title_zh": c.title_zh,
                       "domains": c.domains_csv.split(",") if c.domains_csv else [],
                       "impact_zh": c.impact_zh, "detected_by": c.detected_by,
@@ -509,6 +514,9 @@ def lineage(s: Session) -> dict:
     for it in s.scalars(select(Issue)).all():
         stages = []
         for st in json.loads(it.stages_json or "[]"):
+            # 指向未考证文件(不在库里)的阶段不展示;没有指向具体文件的背景说明保留
+            if st.get("uid") and st["uid"] not in docs:
+                continue
             doc = docs.get(st.get("uid")) if st.get("uid") else None
             meta = ""
             if doc:
@@ -517,7 +525,8 @@ def lineage(s: Session) -> dict:
                            "title": doc.title_zh if doc else st.get("label", ""),
                            "uid": st.get("uid"), "milestone": bool(st.get("milestone")),
                            "note": st.get("note", ""), "meta": meta})
-        if stages:
+        # 议题至少要有一份已考证的官方文件,才作为演进脉络展示
+        if any(x["uid"] for x in stages):
             out.append({"issue_id": it.issue_id, "title_zh": it.title_zh,
                         "summary_zh": it.summary_zh, "watch": it.watch,
                         "domains": [s.get(Domain, d).zh for d in it.domains_csv.split(",")
@@ -554,9 +563,12 @@ def ops(s: Session) -> dict:
         else:
             break
 
+    from .ingest import official_sources
     records = read_jsonl(POLICIES_DIR / "documents.jsonl")
     pending = [r for r in records if not (r.get("titles") or {}).get("zh")
-               and not (r.get("flags") or {}).get("skip")]
+               and not (r.get("flags") or {}).get("skip") and official_sources(r)]
+    # 缺官方原文:不上前台、也不翻译,等补上 *.go.th 原文链接后自动恢复
+    no_source = [r for r in records if not (r.get("flags") or {}).get("skip") and not official_sources(r)]
     skipped = [r for r in records if (r.get("flags") or {}).get("skip")]
     by_pipeline: dict[str, int] = defaultdict(int)
     for r in records:
@@ -589,6 +601,7 @@ def ops(s: Session) -> dict:
             "verified": verified,
             "llm_enriched": llm,
             "with_official_link": with_official,
+            "missing_official_source": len(no_source),
             "by_pipeline": dict(by_pipeline),
         },
         "freshness": {
@@ -597,6 +610,9 @@ def ops(s: Session) -> dict:
         },
         "queue_sample": [{"uid": r["uid"], "title_th": (r.get("titles") or {}).get("th", "")[:80]}
                          for r in pending[:10]],
+        "missing_source": [{"uid": r["uid"],
+                            "title": ((r.get("titles") or {}).get("zh") or (r.get("titles") or {}).get("th", ""))[:80],
+                            "doc_no": r.get("doc_no", "")} for r in no_source[:50]],
     }
 
 

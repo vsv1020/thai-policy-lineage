@@ -1,6 +1,10 @@
 {
  "_generated": "由 backend/app/export.py 从数据库导出,请勿手改;改 data/policies/*.jsonl → python3 -m app.ingest → python3 -m app.export",
  "months": [
+  "25-05",
+  "25-06",
+  "25-07",
+  "25-08",
   "25-09",
   "25-10",
   "25-11",
@@ -8,58 +12,18 @@
   "26-01",
   "26-02",
   "26-03",
-  "26-04",
-  "26-05",
-  "26-06",
-  "26-07",
-  "26-08"
+  "26-04"
  ],
- "months_covered": 5,
+ "months_covered": 1,
  "usable": false,
  "min_months_required": 6,
- "data_through": "2026-08",
+ "data_through": "2026-04",
  "gazette_through": "2026-04",
- "total_documents": 27,
+ "total_documents": 12,
  "volume_by_domain": [
   {
-   "id": "biz",
-   "label": "公司投资",
-   "data": [
-    0,
-    0,
-    0,
-    0,
-    2,
-    0,
-    0,
-    1,
-    0,
-    0,
-    0,
-    0
-   ]
-  },
-  {
-   "id": "digital",
-   "label": "数字与数据",
-   "data": [
-    0,
-    0,
-    0,
-    0,
-    1,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    1
-   ]
-  },
-  {
-   "id": "visa",
-   "label": "签证居留",
+   "id": "tax",
+   "label": "税务",
    "data": [
     0,
     0,
@@ -69,7 +33,7 @@
     0,
     0,
     0,
-    1,
+    0,
     0,
     0,
     1
@@ -83,50 +47,14 @@
     0,
     0,
     0,
-    1,
-    0,
-    0,
-    7,
-    0,
-    0,
-    0,
-    0
-   ]
-  },
-  {
-   "id": "tax",
-   "label": "税务",
-   "data": [
     0,
     0,
     0,
     0,
-    1,
-    0,
-    0,
-    1,
     0,
     0,
     0,
-    0
-   ]
-  },
-  {
-   "id": "land",
-   "label": "房产土地",
-   "data": [
-    0,
-    0,
-    0,
-    0,
-    1,
-    0,
-    0,
-    1,
-    0,
-    0,
-    0,
-    0
+    7
    ]
   },
   {
@@ -136,15 +64,15 @@
     0,
     0,
     0,
-    1,
     0,
     0,
     0,
-    3,
     0,
     0,
     0,
-    0
+    0,
+    0,
+    3
    ]
   },
   {
@@ -158,54 +86,18 @@
     0,
     0,
     0,
-    1,
     0,
     0,
     0,
-    0
+    0,
+    1
    ]
   }
  ],
  "wind_by_domain": [
   {
-   "id": "biz",
-   "label": "公司投资",
-   "data": [
-    null,
-    null,
-    null,
-    null,
-    -0.08,
-    null,
-    null,
-    -0.33,
-    null,
-    null,
-    null,
-    null
-   ]
-  },
-  {
-   "id": "digital",
-   "label": "数字与数据",
-   "data": [
-    null,
-    null,
-    null,
-    null,
-    0.26,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    0.0
-   ]
-  },
-  {
-   "id": "visa",
-   "label": "签证居留",
+   "id": "tax",
+   "label": "税务",
    "data": [
     null,
     null,
@@ -215,10 +107,10 @@
     null,
     null,
     null,
-    -0.26,
     null,
     null,
-    0.0
+    null,
+    -0.17
    ]
   },
   {
@@ -229,50 +121,14 @@
     null,
     null,
     null,
-    -0.33,
-    null,
-    null,
-    0.0,
-    null,
-    null,
-    null,
-    null
-   ]
-  },
-  {
-   "id": "tax",
-   "label": "税务",
-   "data": [
     null,
     null,
     null,
     null,
-    -0.33,
-    null,
-    null,
-    -0.17,
     null,
     null,
     null,
-    null
-   ]
-  },
-  {
-   "id": "land",
-   "label": "房产土地",
-   "data": [
-    null,
-    null,
-    null,
-    null,
-    -0.33,
-    null,
-    null,
-    -0.33,
-    null,
-    null,
-    null,
-    null
+    0.0
    ]
   },
   {
@@ -282,15 +138,15 @@
     null,
     null,
     null,
-    -0.33,
     null,
     null,
     null,
-    0.0,
     null,
     null,
     null,
-    null
+    null,
+    null,
+    0.0
    ]
   },
   {
@@ -304,141 +160,15 @@
     null,
     null,
     null,
-    0.0,
     null,
     null,
     null,
-    null
+    null,
+    0.0
    ]
   }
  ],
  "activity_by_agency": [
-  {
-   "id": "boi",
-   "label": "投资促进委员会",
-   "data": [
-    0,
-    0,
-    0,
-    0,
-    1,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ]
-  },
-  {
-   "id": "mof",
-   "label": "财政部",
-   "data": [
-    0,
-    0,
-    0,
-    0,
-    2,
-    0,
-    0,
-    2,
-    0,
-    0,
-    0,
-    0
-   ]
-  },
-  {
-   "id": "cabinet",
-   "label": "内阁",
-   "data": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    1,
-    0,
-    0,
-    0
-   ]
-  },
-  {
-   "id": "moi",
-   "label": "内政部",
-   "data": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    4,
-    1,
-    0,
-    0,
-    0
-   ]
-  },
-  {
-   "id": "customs",
-   "label": "海关厅",
-   "data": [
-    0,
-    0,
-    0,
-    0,
-    1,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ]
-  },
-  {
-   "id": "rd",
-   "label": "税务厅",
-   "data": [
-    0,
-    0,
-    0,
-    0,
-    1,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ]
-  },
-  {
-   "id": "dbd",
-   "label": "商业发展厅",
-   "data": [
-    0,
-    0,
-    0,
-    0,
-    1,
-    0,
-    0,
-    1,
-    0,
-    0,
-    0,
-    0
-   ]
-  },
   {
    "id": "excise",
    "label": "消费税厅",
@@ -450,11 +180,29 @@
     0,
     0,
     0,
-    1,
     0,
     0,
     0,
-    0
+    0,
+    1
+   ]
+  },
+  {
+   "id": "mof",
+   "label": "财政部",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2
    ]
   },
   {
@@ -468,11 +216,29 @@
     0,
     0,
     0,
-    3,
     0,
     0,
     0,
-    0
+    0,
+    3
+   ]
+  },
+  {
+   "id": "moi",
+   "label": "内政部",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    4
    ]
   },
   {
@@ -482,21 +248,6 @@
     0,
     0,
     0,
-    1,
-    0,
-    0,
-    0,
-    2,
-    0,
-    0,
-    0,
-    0
-   ]
-  },
-  {
-   "id": "imm",
-   "label": "移民局",
-   "data": [
     0,
     0,
     0,
@@ -505,34 +256,49 @@
     0,
     0,
     0,
-    0,
-    0,
-    0,
-    1
-   ]
-  },
-  {
-   "id": "mol",
-   "label": "劳工部",
-   "data": [
-    0,
-    0,
-    0,
-    1,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
+    2
    ]
   }
  ],
  "rising": [
   {
-   "label": "签证居留",
+   "label": "海关贸易",
+   "current": 7,
+   "previous": 0,
+   "growth_pct": null
+  },
+  {
+   "label": "标准与准入管制",
+   "current": 6,
+   "previous": 0,
+   "growth_pct": null
+  },
+  {
+   "label": "秩序与安全",
+   "current": 5,
+   "previous": 0,
+   "growth_pct": null
+  },
+  {
+   "label": "权益保护",
+   "current": 4,
+   "previous": 0,
+   "growth_pct": null
+  },
+  {
+   "label": "劳工用工",
+   "current": 3,
+   "previous": 0,
+   "growth_pct": null
+  },
+  {
+   "label": "税收减免与追缴",
+   "current": 2,
+   "previous": 0,
+   "growth_pct": null
+  },
+  {
+   "label": "财政收入",
    "current": 2,
    "previous": 0,
    "growth_pct": null

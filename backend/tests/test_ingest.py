@@ -98,6 +98,7 @@ def test_unknown_vocab_id_is_rejected_by_foreign_key(session):
         "dates": {"published_at": "2026-01-01"},
         "instrument_ids": ["NOT_A_REAL_INSTRUMENT"],
         "relations": [], "provenance": {"pipeline": "manual"}, "flags": {},
+        "sources": [{"role": "official", "url": "https://ratchakitcha.soc.go.th/documents/FIXTURE.pdf"}],
     }
     with pytest.raises(IntegrityError):
         load_documents(session, [bad])

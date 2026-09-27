@@ -17,7 +17,7 @@ on:
         default: false
       enrich_limit:
         description: '本轮最多翻译多少条(0 = 不翻译;回填时忽略此项)'
-        default: '40'
+        default: '300'
 
 permissions:
   contents: write               # 需要把采集结果提交回仓库
@@ -35,7 +35,7 @@ jobs:
       ENABLE_SCHEDULER: '0'
       EXPORT_AFTER_COLLECT: '1'
       ENRICH_AFTER_COLLECT: '1'
-      ENRICH_MAX_PER_RUN: ${{ github.event.inputs.backfill == 'true' && '3000' || github.event.inputs.enrich_limit || '40' }}
+      ENRICH_MAX_PER_RUN: ${{ github.event.inputs.backfill == 'true' && '3000' || github.event.inputs.enrich_limit || '300' }}
       # 在仓库 Settings → Secrets → Actions 里配置;没配置时翻译步骤自动跳过,采集照常
       # 翻译分类的模型服务商:配了 DEEPSEEK_API_KEY 就用 DeepSeek,否则用 Claude;
       # 想强制指定,在 Variables 里设 ENRICH_PROVIDER=deepseek 或 anthropic

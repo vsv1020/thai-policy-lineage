@@ -80,7 +80,14 @@ function lineageChain(issue) {
 
 function renderLineage(data) {
   const issues = (data.issues || []).filter(i => i.stages && i.stages.length);
-  if (!issues.length) return;
+  if (!issues.length) {
+    // 议题必须挂在已考证的官方文件上;还没有时明说,不留旧的占位内容
+    set('lineage-sub', '把同一议题的草案、决议、公报、修订串成一条可追溯的链。');
+    set('lineage-picker', ' ');
+    set('lineage', '<div class="reading">暂无可展示的议题脉络:每个议题至少要关联一份带官方原文(泰国政府网站)的文件才会在这里出现。'
+      + '随着公报每日入库与翻译,议题会陆续上线。</div>');
+    return;
+  }
   let current = issues[0].issue_id;
   const draw = () => {
     const it = issues.find(i => i.issue_id === current) || issues[0];
@@ -107,8 +114,10 @@ function renderOverview(d) {
   set('feed', policies.filter(p => p.featured).map(policyCard).join(''));
   if (window.PolicyAds) window.PolicyAds.injectFeed(document.getElementById('feed'));
   window.renderLib(policies);
-  set('wind', (d.wind || []).map(windRow).join(''));
-  set('calendar', (d.calendar || []).map(calRow).join(''));
+  set('wind', (d.wind || []).map(windRow).join('')
+    || '<div class="mod-sub">近 30 天暂无带方向标注的政策</div>');
+  set('calendar', (d.calendar || []).map(calRow).join('')
+    || '<div class="mod-sub">未来 90 天暂无已考证政策的生效或截止日期</div>');
   set('lib-count', `领域 × 机关 × 法律形式 × 状态 × 时间 五维过滤 · 当前库内 <b>${policies.length}</b> 条`);
 
   // 采集管道的运行状态只在管理后台(/admin)显示,前台只告诉读者数据更新到什么时候

@@ -121,13 +121,23 @@ def check_doc(d: dict, v: dict, rep: Report, all_uids: set[str], issue_ids: set[
     for iid in d.get("instrument_ids") or []:
         if iid not in ids(v, "instruments"):
             rep.err(where, f"未知 instrument_id: {iid}")
-    if not d.get("instrument_ids"):
+    translated = bool((d.get("titles") or {}).get("zh"))   # 待翻译的原始条目还没有分类,不必提醒
+    if translated and not d.get("instrument_ids"):
         rep.warn(where, "没有 instrument_ids,维度一/二的工具结构矩阵会漏掉这一条")
     for gid in d.get("goal_ids") or []:
         if gid not in ids(v, "goals"):
             rep.err(where, f"未知 goal_id: {gid}")
-    if not d.get("goal_ids"):
+    if translated and not d.get("goal_ids"):
         rep.warn(where, "没有 goal_ids,维度二的工具×目标矩阵会漏掉这一条")
+
+    # 前台只收录有官方原文(泰国政府域名 *.go.th)的条目;有中文标题却缺原文的,提醒补链接
+    from urllib.parse import urlsplit
+    has_official = any(
+        x.get("role") == "official" and str(x.get("url", "")).startswith(("https://", "http://"))
+        and (urlsplit(x["url"]).hostname or "").lower().endswith(".go.th")
+        for x in d.get("sources") or [])
+    if (d.get("titles") or {}).get("zh") and not (d.get("flags") or {}).get("skip") and not has_official:
+        rep.warn(where, "缺官方原文链接(*.go.th),不会上前台;在 sources 里补 {\"role\": \"official\", \"url\": …}")
     stage = d.get("implementation_stage")
     if stage is not None and stage not in ids(v, "implementation_stages"):
         rep.err(where, f"未知 implementation_stage: {stage}")

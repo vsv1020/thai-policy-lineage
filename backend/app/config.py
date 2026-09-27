@@ -11,7 +11,8 @@ BKK = timezone(timedelta(hours=7))
 # backend/app/config.py → 仓库根
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = REPO_ROOT / "data"
-POLICIES_DIR = DATA_DIR / "policies"
+# 事实层目录;测试用 POLICIES_DIR 指向固定样例数据(真实数据每天都在变,不适合当测试基准)
+POLICIES_DIR = Path(os.getenv("POLICIES_DIR", str(DATA_DIR / "policies")))
 SITE_DIR = DATA_DIR / "site"
 
 
@@ -65,7 +66,7 @@ class Settings:
     # 模型名;留空 = 按服务商取默认(deepseek-chat / claude-opus-5)
     enrich_model_override: str = os.getenv("ENRICH_MODEL", "").strip()
     deepseek_base_url: str = os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com").rstrip("/")
-    enrich_max_per_run: int = int(os.getenv("ENRICH_MAX_PER_RUN", "40"))
+    enrich_max_per_run: int = int(os.getenv("ENRICH_MAX_PER_RUN", "300"))
     enrich_after_collect: bool = _bool("ENRICH_AFTER_COLLECT", True)
     # 翻译并发数:回填历史数据时一次几百条,串行要一个多小时
     enrich_concurrency: int = int(os.getenv("ENRICH_CONCURRENCY", "6"))

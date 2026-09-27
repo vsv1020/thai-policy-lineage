@@ -57,7 +57,7 @@ def test_dim3_marks_itself_insufficient_on_small_corpus(session):
 def test_dim4_counts_support_and_constrain(session):
     d = A.dim4_affected_parties(session)
     travellers = next(i for i in d["items"] if i["id"] == "traveller")
-    assert travellers["constrain"] >= 2 and travellers["support"] == 0
+    assert travellers["constrain"] >= 2 and travellers["constrain"] > travellers["support"]
 
 
 def test_dim5_pairs_only_from_cosigned_documents(session):

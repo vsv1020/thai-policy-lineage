@@ -138,6 +138,9 @@
       </div>
       <div class="adm-grid"><div class="adm-card"><h3>最近运行</h3><div class="sub">每日定时采集 · 最近 30 次(柱高 = 新增条数)</div>
         <div class="chart" id="c-runs" style="height:170px"></div><div id="ops-runs"></div></div></div>
+      <div class="adm-grid"><div class="adm-card"><h3>缺官方原文 · 未上线</h3><div class="sub">前台只收录有泰国政府域名(*.go.th)原文链接的内容。
+        在 data/policies/documents.jsonl 里给这些条目的 sources 加上 {"role": "official", "url": "https://….go.th/…"} 并提交,下次同步后自动上线</div>
+        <div id="ops-missing"></div></div></div>
       <div class="adm-grid"><div class="adm-card"><h3>待翻译队列</h3><div class="sub">官方接口采回、尚无中文标题的条目(不会出现在前台)</div>
         <div id="ops-queue"></div></div></div>
     </div>
