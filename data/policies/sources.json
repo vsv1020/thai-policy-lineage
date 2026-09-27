@@ -1,21 +1,21 @@
 {
- "last_run_at": "2026-09-26T23:34:51+07:00",
+ "last_run_at": "2026-09-27T09:45:03+07:00",
  "sources": [
   {
    "id": "gazette_json",
    "name": "皇家公报官方月度 JSON 索引",
    "url": "https://data.go.th/dataset/dataset_02_04",
-   "status": "error",
-   "last_ok": null,
-   "detail": "resource 均不可用。尝试:ราชกิจจานุเบกษาเดือนมีนาคม 2569/file:soc.gdcatalog.go.th:经泰国出口 ProtocolError: Malformed reply;直连 ConnectError: [Errno -3] Temporary failure in name resolution;ราชกิจจานุเบกษาเดือนกุมภาพันธ์ 2569/file:soc.gdcatalog.go.th:经泰国出口 ProtocolError: Malformed reply;直连 ConnectError: [Errno -3] Temporary failure in name resolution;ราชกิจจานุเบกษาเดือนมกราคม 2569/file:soc.gdcatalog.go.th:经泰国出口 ProtocolError: Malformed reply;直连 ConnectError: [Errno -3] Temporary failure in name resolution | 数据集内 resource:คู่มือการใช้งาน Web Service ราชกิจจานุเบกษา[pdf·soc.gdcatalog.go.th·datastore=否], เรื่องสำคัญที่ประกาศในราชกิจจานุเบกษา[url·www.soc.go.th·datastore=否], ราชกิจจานุเบกษาเดือนมิถุนายน 2566[json·soc.gdcatalog.go.th·datastore=是], ราชกิจจานุเบกษาเดือนกรกฎาคม 2566[json·soc.gdcatalog.go.th·datastore=是], ราชกิจจานุเบกษาเดือนสิงหาคม 2566[json·soc.gdcatalog.go.th·datastore=是], ราชกิจจานุเบกษาที่ประกาศเดือนกันยายน 2566[json·soc.gdcatalog.go.th·datastore=是]"
+   "status": "ok",
+   "last_ok": "2026-09-27T09:45:03",
+   "detail": "ราชกิจจานุเบกษาเดือนมีนาคม 2569(soc.gdcatalog.go.th,经泰国出口):收 0 条,跳过 3545 条(含自然人姓名前缀×2745, 早于时间窗×132, 王室相关(พระบรมราชโองการ)×17, 王室相关(สมเด็จพระ)×4, 系列 ง พิเศษ 不在收录范围×647)"
   },
   {
    "id": "cabinet_json",
    "name": "内阁决议年度 JSON",
    "url": "https://data.go.th/dataset/dataset_02_03",
-   "status": "error",
-   "last_ok": null,
-   "detail": "resource 均不可用。尝试:มติคณะรัฐมนตรี ปี 2568/file:soc.gdcatalog.go.th:经泰国出口 ProxyError: Proxy Server could not connect: General SOCKS server failure.;直连 ConnectError: [Errno -3] Temporary failure in n;มติคณะรัฐมนตรี ปี 2569 /file:soc.gdcatalog.go.th:经泰国出口 ProtocolError: Malformed reply;直连 ConnectError: [Errno -3] Temporary failure in name resolution;มติคณะรัฐมนตรี ปี 2567/file:soc.gdcatalog.go.th:经泰国出口 ProtocolError: Malformed reply;直连 ConnectError: [Errno -3] Temporary failure in name resolution | 数据集内 resource:ค้นหาข้อมูลมติคณะรัฐมนตรี[url·resolution.soc.go.th·datastore=否], คู่มือการใช้งาน Web Service ค้นหามติคณะรัฐมนตรี[pdf·soc.gdcatalog.go.th·datastore=否], มติคณะรัฐมนตรีปี 2565[json·soc.gdcatalog.go.th·datastore=是], มติคณะรัฐมนตรี ปี 2566[json·soc.gdcatalog.go.th·datastore=否], มติคณะรัฐมนตรี ปี 2567[json·soc.gdcatalog.go.th·datastore=否], มติคณะรัฐมนตรี ปี 2568[json·soc.gdcatalog.go.th·datastore=否]"
+   "status": "ok",
+   "last_ok": "2026-09-27T09:45:03+07:00",
+   "detail": "มติคณะรัฐมนตรี ปี 2568(soc.gdcatalog.go.th,经泰国出口):收 0 条,跳过 100 条(无标题×100)"
   },
   {
    "id": "websearch",
