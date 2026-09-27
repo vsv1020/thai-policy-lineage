@@ -1,0 +1,18 @@
+{
+ "_comment": "SEO / GEO 配置。说明见 docs/seo.md。indexnow_key 是公开的(会以 <key>.txt 放在站点根目录供搜索引擎核验),不是密钥",
+ "indexnow_key": "830a87e7917cd80f5500b0a5d8f7a2dc",
+ "verification": {
+  "_comment": "搜索引擎站长平台的 HTML 标签验证码,只填 content 里的值;用 DNS 验证的话留空即可",
+  "google": "",
+  "bing": "",
+  "baidu": "",
+  "yandex": ""
+ },
+ "geo_questions": [
+  "泰国最新的签证政策有哪些变化?",
+  "泰国对境外所得汇入征税的规定是什么?",
+  "泰国外国人持有公司股份有什么限制?",
+  "泰国最低工资最新标准是多少?",
+  "在哪里可以查到泰国皇家公报的中文翻译?"
+ ]
+}

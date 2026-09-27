@@ -136,6 +136,8 @@
     try {
       if (tab === 'ops') {
         window.PolicyOps.render(await adminGet('/api/admin/ops'));   // 采集状态:js/ops.js 负责渲染
+      } else if (tab === 'seo') {
+        window.PolicySeo.render(await adminGet('/api/admin/seo?days=30'));   // SEO / GEO:js/seo-admin.js
       } else {
         render(await fetchStats());
       }
@@ -143,17 +145,19 @@
       charts.forEach(c => c.resize());
     } catch (e) {
       if (e.auth) { store('adm_token'); showLogin(e.message); }
-      else $(tab === 'ops' ? 'ops-sub' : 'range-note').textContent = '加载失败:' + e.message;
+      else $({ ops: 'ops-sub', seo: 'seo-sub' }[tab] || 'range-note').textContent = '加载失败:' + e.message;
     } finally { $('refresh').disabled = false; }
   }
 
-  /* 两个标签:站点统计 / 采集状态。地址栏 #ops 可直接打开采集状态 */
+  /* 三个标签:站点统计 / SEO·GEO / 采集状态。地址栏 #seo、#ops 可直接打开对应标签 */
   function showTab(t) {
     tab = t;
     $('tabs').querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.tab === t));
     $('panel-stats').hidden = t !== 'stats';
+    $('panel-seo').hidden = t !== 'seo';
     $('panel-ops').hidden = t !== 'ops';
-    history.replaceState(null, '', t === 'ops' ? '#ops' : location.pathname + location.search);
+    history.replaceState(null, '', t === 'stats' ? location.pathname + location.search : '#' + t);
+    if (t === 'seo' && window.PolicySeo) setTimeout(window.PolicySeo.resize, 0);
   }
   $('tabs').addEventListener('click', e => {
     const b = e.target.closest('button[data-tab]');
@@ -161,7 +165,7 @@
     showTab(b.dataset.tab);
     refresh();
   });
-  if (location.hash === '#ops') showTab('ops');
+  if (location.hash === '#ops' || location.hash === '#seo') showTab(location.hash.slice(1));
 
   function showLogin(msg) {
     $('dash').hidden = true; $('logout').hidden = true; $('login').hidden = false;

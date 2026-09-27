@@ -36,7 +36,8 @@ function policyCard(p) {
       ${p.verified ? '<span class="verified">已人工复核</span>' : ''}
       ${p.provenance === 'demo' ? '<span class="chip bare">示意</span>' : ''}
     </div>
-    <div class="pc-title">${esc(p.title_zh)}</div>
+    <a class="pc-title" href="p/${esc(String(p.uid).toLowerCase())}.html"
+      onclick="if (event.ctrlKey || event.metaKey || event.shiftKey || event.button === 1) { event.stopPropagation(); } else { event.preventDefault(); }">${esc(p.title_zh)}</a>
     <div class="pc-sum">${esc(p.summary_zh)}</div>
     <div class="pc-meta">${meta}</div>
   </div>`;

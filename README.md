@@ -23,7 +23,7 @@ p/                    每条政策的静态落地页(SEO,由 export 生成)
 config/ads.json       广告位配置(默认关闭,类别白名单)
 config/analytics.json 站点统计配置(自建 /admin 后台 + 可选 Cloudflare/Plausible)
 admin.html            站点统计后台(需 ADMIN_TOKEN)
-docs/deploy.md · docs/monetization.md · docs/analytics.md   上线手册 · 营收与广告位 · 站点统计
+docs/deploy.md · docs/monetization.md · docs/analytics.md · docs/seo.md   上线手册 · 营收与广告位 · 站点统计 · SEO/GEO 与每日监控
 deploy/install.sh     一键部署到 Linux 服务器(Docker + Postgres + 宿主机 nginx/certbot HTTPS + 定时同步与备份)
 docs/research-report.md   完整调研报告
 ```
@@ -105,7 +105,7 @@ GitHub Actions(每天曼谷 07:23)
   没有日期不入库,没有官方链接不编。全部有测试覆盖。
 - 翻译模型:配了 `DEEPSEEK_API_KEY` 用 DeepSeek,否则用 Claude(`ANTHROPIC_API_KEY`);都没配时翻译步骤自动跳过,采集照常。
 
-上线步骤见 [docs/deploy.md](docs/deploy.md),营收与广告位见 [docs/monetization.md](docs/monetization.md)。
+上线步骤见 [docs/deploy.md](docs/deploy.md),营收与广告位见 [docs/monetization.md](docs/monetization.md),SEO/GEO 与每天 03:00 的收录监控见 [docs/seo.md](docs/seo.md)。
 
 **注意**:泰国政府站点可能拦截海外 IP。GitHub Actions 跑在美国;第一次运行若数据源 403,
 在仓库 Secrets 里配 `THAI_EGRESS_PROXY`(泰国出口代理)后重跑。
