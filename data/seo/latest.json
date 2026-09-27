@@ -1,0 +1,411 @@
+{
+ "date": "2026-09-27",
+ "site": "https://www.thaipolicy.com",
+ "generated_at": "2026-09-27T21:28:55+07:00",
+ "metrics": {
+  "sitemap_urls": 19,
+  "pages_checked": 19,
+  "pages_with_problems": 0,
+  "thin_pages": 12,
+  "crawl_search_7d": 46,
+  "crawl_ai_7d": 0,
+  "googlebot_7d": 0,
+  "bingbot_7d": 2,
+  "baiduspider_7d": 0,
+  "crawl_coverage_pct": 0.0,
+  "visits_search_7d": 0,
+  "visits_ai_7d": 0,
+  "gsc_clicks_28d": 0,
+  "gsc_impressions_28d": 0,
+  "gsc_position": 0,
+  "gsc_indexed": 0,
+  "gsc_checked": 19,
+  "bing_impressions": 0,
+  "bing_clicks": 0,
+  "indexnow_submitted": 19,
+  "geo_asked": 0,
+  "geo_cited": 0
+ },
+ "issues": [
+  {
+   "level": "warn",
+   "code": "gsc_not_indexed",
+   "msg": "已检查 19 页,19 页未被 Google 收录",
+   "fix": "「已发现-尚未编入索引」多为权重/内链不足:加内链、丰富内容;「已抓取-尚未编入索引」多为内容单薄或重复",
+   "items": [
+    "https://www.thaipolicy.com/(Google 无法识别此网址)",
+    "https://www.thaipolicy.com/p/index.html(Google 无法识别此网址)",
+    "https://www.thaipolicy.com/p/th-gaz-20260401-2-2569.html(Google 无法识别此网址)",
+    "https://www.thaipolicy.com/p/th-gaz-20260401-2569-2569.html(Google 无法识别此网址)",
+    "https://www.thaipolicy.com/p/th-gaz-20260401-2569.html(Google 无法识别此网址)",
+    "https://www.thaipolicy.com/p/th-gaz-20260401-33-2569-1974-2.html(Google 无法识别此网址)",
+    "https://www.thaipolicy.com/p/th-gaz-20260401-33-39.html(Google 无法识别此网址)",
+    "https://www.thaipolicy.com/p/th-gaz-20260401-37-2569-ii-2-v.html(已发现 - 尚未编入索引)",
+    "https://www.thaipolicy.com/p/th-gaz-20260401-39-2569-revised-recommendations-for.html(Google 无法识别此网址)",
+    "https://www.thaipolicy.com/p/th-gaz-20260401-4-2569-14.html(已发现 - 尚未编入索引)",
+    "https://www.thaipolicy.com/p/th-gaz-20260401-4-2569.html(已发现 - 尚未编入索引)",
+    "https://www.thaipolicy.com/p/th-gaz-20260401-40-2568.html(已发现 - 尚未编入索引)",
+    "https://www.thaipolicy.com/p/th-gaz-20260401-40-2569-ii-2-19.html(已发现 - 尚未编入索引)",
+    "https://www.thaipolicy.com/p/th-gaz-20260401-41-2569-international-maritime-solid.html(已发现 - 尚未编入索引)",
+    "https://www.thaipolicy.com/p/topic/customs.html(已发现 - 尚未编入索引)",
+    "https://www.thaipolicy.com/p/topic/finance.html(已发现 - 尚未编入索引)",
+    "https://www.thaipolicy.com/p/topic/labor.html(已发现 - 尚未编入索引)",
+    "https://www.thaipolicy.com/p/topic/tax.html(已发现 - 尚未编入索引)",
+    "https://www.thaipolicy.com/privacy.html(已发现 - 尚未编入索引)"
+   ]
+  },
+  {
+   "level": "warn",
+   "code": "no_baiduspider",
+   "msg": "近 7 天没有 Baiduspider 抓取记录",
+   "fix": "在 百度 站长平台验证站点并提交 sitemap;新站通常需要 1–4 周才开始抓取",
+   "items": []
+  },
+  {
+   "level": "warn",
+   "code": "no_googlebot",
+   "msg": "近 7 天没有 Googlebot 抓取记录",
+   "fix": "在 Google 站长平台验证站点并提交 sitemap;新站通常需要 1–4 周才开始抓取",
+   "items": []
+  },
+  {
+   "level": "info",
+   "code": "never_crawled",
+   "msg": "17+ 个落地页近 7 天未被搜索爬虫抓取",
+   "fix": "增加站内链接(首页、专题页、同领域推荐)并通过 IndexNow / 百度提交",
+   "items": [
+    "/p/index.html",
+    "/p/th-gaz-20260401-2-2569.html",
+    "/p/th-gaz-20260401-2569-2569.html",
+    "/p/th-gaz-20260401-2569.html",
+    "/p/th-gaz-20260401-33-2569-1974-2.html",
+    "/p/th-gaz-20260401-33-39.html",
+    "/p/th-gaz-20260401-37-2569-ii-2-v.html",
+    "/p/th-gaz-20260401-39-2569-revised-recommendations-for.html",
+    "/p/th-gaz-20260401-4-2569-14.html",
+    "/p/th-gaz-20260401-4-2569.html",
+    "/p/th-gaz-20260401-40-2568.html",
+    "/p/th-gaz-20260401-40-2569-ii-2-19.html",
+    "/p/th-gaz-20260401-41-2569-international-maritime-solid.html",
+    "/p/topic/customs.html",
+    "/p/topic/finance.html",
+    "/p/topic/labor.html",
+    "/p/topic/tax.html"
+   ]
+  },
+  {
+   "level": "info",
+   "code": "thin_content",
+   "msg": "抽查的 19 页中有 12 页摘要只依据标题(内容单薄)",
+   "fix": "单薄页面难以获得排名与 AI 引用:给 enrich 增加读取公报 PDF 正文的步骤,生成有实质内容的摘要与要点",
+   "items": [
+    "https://www.thaipolicy.com/p/th-gaz-20260401-41-2569-international-maritime-solid.html",
+    "https://www.thaipolicy.com/p/th-gaz-20260401-40-2569-ii-2-19.html",
+    "https://www.thaipolicy.com/p/th-gaz-20260401-40-2568.html",
+    "https://www.thaipolicy.com/p/th-gaz-20260401-4-2569.html",
+    "https://www.thaipolicy.com/p/th-gaz-20260401-4-2569-14.html",
+    "https://www.thaipolicy.com/p/th-gaz-20260401-39-2569-revised-recommendations-for.html",
+    "https://www.thaipolicy.com/p/th-gaz-20260401-2-2569.html",
+    "https://www.thaipolicy.com/p/th-gaz-20260401-2569-2569.html",
+    "https://www.thaipolicy.com/p/th-gaz-20260401-2569.html",
+    "https://www.thaipolicy.com/p/th-gaz-20260401-33-2569-1974-2.html",
+    "https://www.thaipolicy.com/p/th-gaz-20260401-33-39.html",
+    "https://www.thaipolicy.com/p/th-gaz-20260401-37-2569-ii-2-v.html"
+   ]
+  }
+ ],
+ "sections": {
+  "site": {
+   "home": {
+    "status": 200,
+    "ms": 998,
+    "error": ""
+   },
+   "robots": true,
+   "sitemap_live": 19,
+   "sitemap_repo": 19,
+   "llms.txt": true,
+   "feed.xml": true,
+   "llms-full.txt": true,
+   "indexnow_key": true
+  },
+  "audit": {
+   "checked": 19,
+   "ok": 19,
+   "with_problems": 0,
+   "failed": 0,
+   "thin": 12
+  },
+  "server": {
+   "range": {
+    "days": 7,
+    "start": "2026-09-21",
+    "end": "2026-09-27"
+   },
+   "generated_at": "2026-09-27T21:26:53+07:00",
+   "crawlers": {
+    "bots": [
+     {
+      "bot": "Applebot",
+      "group": "search",
+      "hits": 44,
+      "pages": 22,
+      "last_seen": "2026-09-27"
+     },
+     {
+      "bot": "Bingbot",
+      "group": "search",
+      "hits": 2,
+      "pages": 2,
+      "last_seen": "2026-09-27"
+     }
+    ],
+    "series": [
+     {
+      "day": "2026-09-21",
+      "search": 0,
+      "ai": 0
+     },
+     {
+      "day": "2026-09-22",
+      "search": 0,
+      "ai": 0
+     },
+     {
+      "day": "2026-09-23",
+      "search": 0,
+      "ai": 0
+     },
+     {
+      "day": "2026-09-24",
+      "search": 0,
+      "ai": 0
+     },
+     {
+      "day": "2026-09-25",
+      "search": 0,
+      "ai": 0
+     },
+     {
+      "day": "2026-09-26",
+      "search": 0,
+      "ai": 0
+     },
+     {
+      "day": "2026-09-27",
+      "search": 46,
+      "ai": 0
+     }
+    ],
+    "errors": [],
+    "top_paths": [
+     {
+      "path": "/",
+      "n": 3
+     },
+     {
+      "path": "/robots.txt",
+      "n": 3
+     },
+     {
+      "path": "/css/main.css",
+      "n": 2
+     },
+     {
+      "path": "/data/site/ads.json",
+      "n": 2
+     },
+     {
+      "path": "/data/site/analytics.json",
+      "n": 2
+     },
+     {
+      "path": "/data/site/dimensions.json",
+      "n": 2
+     },
+     {
+      "path": "/data/site/lineage.json",
+      "n": 2
+     },
+     {
+      "path": "/data/site/policies.json",
+      "n": 2
+     },
+     {
+      "path": "/data/site/support.json",
+      "n": 2
+     },
+     {
+      "path": "/data/site/trends.json",
+      "n": 2
+     },
+     {
+      "path": "/js/ads.js",
+      "n": 2
+     },
+     {
+      "path": "/js/api.js",
+      "n": 2
+     },
+     {
+      "path": "/js/app.js",
+      "n": 2
+     },
+     {
+      "path": "/js/data.js",
+      "n": 2
+     },
+     {
+      "path": "/js/detail.js",
+      "n": 2
+     },
+     {
+      "path": "/js/dims.js",
+      "n": 2
+     },
+     {
+      "path": "/js/echarts.min.js",
+      "n": 2
+     },
+     {
+      "path": "/js/morph.js",
+      "n": 2
+     },
+     {
+      "path": "/js/promptpay.js",
+      "n": 2
+     },
+     {
+      "path": "/js/support.js",
+      "n": 2
+     }
+    ]
+   },
+   "coverage": {
+    "sitemap_landing": 17,
+    "crawled_by_search": 0,
+    "crawled_by_ai": 0,
+    "search_pct": 0.0,
+    "never_crawled_sample": [
+     "/p/index.html",
+     "/p/th-gaz-20260401-2-2569.html",
+     "/p/th-gaz-20260401-2569-2569.html",
+     "/p/th-gaz-20260401-2569.html",
+     "/p/th-gaz-20260401-33-2569-1974-2.html",
+     "/p/th-gaz-20260401-33-39.html",
+     "/p/th-gaz-20260401-37-2569-ii-2-v.html",
+     "/p/th-gaz-20260401-39-2569-revised-recommendations-for.html",
+     "/p/th-gaz-20260401-4-2569-14.html",
+     "/p/th-gaz-20260401-4-2569.html",
+     "/p/th-gaz-20260401-40-2568.html",
+     "/p/th-gaz-20260401-40-2569-ii-2-19.html",
+     "/p/th-gaz-20260401-41-2569-international-maritime-solid.html",
+     "/p/topic/customs.html",
+     "/p/topic/finance.html",
+     "/p/topic/labor.html",
+     "/p/topic/tax.html"
+    ]
+   },
+   "channels": {
+    "direct": 88
+   },
+   "search_sources": [],
+   "ai_sources": [],
+   "search_landings": [],
+   "ai_landings": []
+  },
+  "gsc": {
+   "property": "sc-domain:thaipolicy.com",
+   "totals_28d": {
+    "clicks": 0,
+    "impressions": 0,
+    "ctr": 0,
+    "position": 0
+   },
+   "top_queries": [],
+   "top_pages": [],
+   "sitemap_submitted": true,
+   "index": {
+    "checked": 19,
+    "indexed": 0,
+    "total": 19,
+    "coverage_states": {
+     "Google 无法识别此网址": 8,
+     "已发现 - 尚未编入索引": 11
+    }
+   }
+  },
+  "bing": {
+   "top_queries": []
+  },
+  "submit": {
+   "indexnow": {
+    "submitted": 19,
+    "status": 202
+   },
+   "baidu": null
+  },
+  "geo": {
+   "results": [
+    {
+     "q": "泰国最新的签证政策有哪些变化?",
+     "error": "Client error '403 Forbidden' for url 'https://api.perplexity.ai/chat/completions'\nFor more information check: https://de"
+    },
+    {
+     "q": "泰国对境外所得汇入征税的规定是什么?",
+     "error": "Client error '403 Forbidden' for url 'https://api.perplexity.ai/chat/completions'\nFor more information check: https://de"
+    },
+    {
+     "q": "泰国外国人持有公司股份有什么限制?",
+     "error": "Client error '403 Forbidden' for url 'https://api.perplexity.ai/chat/completions'\nFor more information check: https://de"
+    },
+    {
+     "q": "泰国最低工资最新标准是多少?",
+     "error": "Client error '403 Forbidden' for url 'https://api.perplexity.ai/chat/completions'\nFor more information check: https://de"
+    },
+    {
+     "q": "在哪里可以查到泰国皇家公报的中文翻译?",
+     "error": "Client error '403 Forbidden' for url 'https://api.perplexity.ai/chat/completions'\nFor more information check: https://de"
+    }
+   ],
+   "top_cited_domains": []
+  }
+ },
+ "disabled": [
+  "百度:没配置 BAIDU_PUSH_TOKEN,新页面不会主动推送给百度(中文用户多用百度)。在百度搜索资源平台验证站点后,「普通收录 → API 提交」里拿 token"
+ ],
+ "trend": [
+  {
+   "date": "2026-09-27",
+   "metrics": {
+    "sitemap_urls": 19,
+    "pages_checked": 19,
+    "pages_with_problems": 0,
+    "thin_pages": 12,
+    "crawl_search_7d": 46,
+    "crawl_ai_7d": 0,
+    "googlebot_7d": 0,
+    "bingbot_7d": 2,
+    "baiduspider_7d": 0,
+    "crawl_coverage_pct": 0.0,
+    "visits_search_7d": 0,
+    "visits_ai_7d": 0,
+    "gsc_clicks_28d": 0,
+    "gsc_impressions_28d": 0,
+    "gsc_position": 0,
+    "gsc_indexed": 0,
+    "gsc_checked": 19,
+    "bing_impressions": 0,
+    "bing_clicks": 0,
+    "indexnow_submitted": 19,
+    "geo_asked": 0,
+    "geo_cited": 0
+   },
+   "issues": {
+    "error": 0,
+    "warn": 3,
+    "info": 2
+   }
+  }
+ ]
+}
