@@ -19,7 +19,8 @@ def _raw(uid="TH-GAZ-20260901-ABC", th="ประกาศกรมสรรพ�
             "doc_no": "ง 1/2", "gazette": None,
             "dates": {"resolved_at": None, "published_at": "2026-09-01", "effective_from": None,
                       "effective_to": None, "comment_deadline": None},
-            "affected_parties": [], "relations": [], "sources": [],
+            "affected_parties": [], "relations": [],
+            "sources": [{"role": "official", "url": "https://ratchakitcha.soc.go.th/documents/FIXTURE.pdf"}],
             "provenance": {"pipeline": "gazette_json", "run_at": None, "verified": False,
                            "verified_at": None},
             "confidence": {"dates": "high", "doc_no": "high"}, "flags": {}, "note": ""}

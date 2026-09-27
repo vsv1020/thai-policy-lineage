@@ -12,6 +12,8 @@ from pathlib import Path
 
 _TMP = Path(tempfile.mkdtemp(prefix="policy-test-"))
 os.environ["DATABASE_URL"] = f"sqlite:///{_TMP / 'test.db'}"
+# 固定样例数据:真实数据每天被采集改写,不适合当测试基准
+os.environ["POLICIES_DIR"] = str(Path(__file__).resolve().parent / "fixtures" / "policies")
 os.environ["ENABLE_SCHEDULER"] = "0"
 os.environ["EXPORT_AFTER_COLLECT"] = "0"
 

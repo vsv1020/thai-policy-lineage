@@ -1,0 +1,29 @@
+{
+ "last_run_at": "2026-09-27T12:26:48+07:00",
+ "sources": [
+  {
+   "id": "gazette_json",
+   "name": "皇家公报官方月度 JSON 索引",
+   "url": "https://data.go.th/dataset/dataset_02_04",
+   "status": "ok",
+   "last_ok": "2026-09-27T12:26:48",
+   "detail": "同步 3 个文件,收 1269 条:ราชกิจจานุเบกษาเดือนเมษายน 2569(soc.gdcatalog.go.th,经泰国出口) 312 条;ราชกิจจานุเบกษาเดือนมีนาคม 2569(soc.gdcatalog.go.th,经泰国出口) 510 条;ราชกิจจานุเบกษาเดือนกุมภาพันธ์ 2569(soc.gdcatalog.go.th,经泰国出口) 447 条 | 跳过 7962 条(含自然人姓名前缀×7904, 王室相关(พระบรมราชโองการ)×37, 王室相关(สมเด็จพระ)×12, 王室相关(เครื่องราชอิสริยาภรณ์)×7, 系列 ข 不在收录范围×2)"
+  },
+  {
+   "id": "cabinet_json",
+   "name": "内阁决议年度 JSON",
+   "url": "https://data.go.th/dataset/dataset_02_03",
+   "status": "ok",
+   "last_ok": "2026-09-27T12:26:48+07:00",
+   "detail": "同步 3 个文件,收 0 条:มติคณะรัฐมนตรี ปี 2569 (soc.gdcatalog.go.th,经泰国出口) 0 条;มติคณะรัฐมนตรี ปี 2568(soc.gdcatalog.go.th,经泰国出口) 0 条;มติคณะรัฐมนตรี ปี 2567(soc.gdcatalog.go.th,经泰国出口) 0 条 | 跳过 300 条(无标题×300) | 字段样本:toP_SERLNO,toP_NAME,owner,meeT_DATE,docNews"
+  },
+  {
+   "id": "websearch",
+   "name": "公开检索(律所/会计师事务所法规更新)",
+   "url": "",
+   "status": "ok",
+   "last_ok": "2026-08-10T23:53:23",
+   "detail": "二手信号源,用于发现线索;每条仍需回填官方文号与原文链接"
+  }
+ ]
+}

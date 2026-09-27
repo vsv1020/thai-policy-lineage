@@ -259,8 +259,24 @@ def be_to_ce(year: int) -> int:
     return year - 543 if year > 2400 else year
 
 
+THAI_MONTH_ABBR = ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.",
+                   "พ.ย.", "ธ.ค."]
+
+
 def normalize_date(value: str) -> str | None:
     value = (value or "").strip()
+    # 「6 มกราคม 2569」「6 ม.ค. 2569」
+    m = re.match(r"^(\d{1,2})\s*(\S+?)\s*(\d{4})$", value)
+    if m and not m.group(2).isdigit():
+        mon = m.group(2)
+        idx = next((i for i, t in enumerate(THAI_MONTHS) if t == mon), None)
+        if idx is None:
+            idx = next((i for i, t in enumerate(THAI_MONTH_ABBR) if t == mon or t.replace(".", "") == mon.replace(".", "")), None)
+        if idx is not None:
+            try:
+                return date(be_to_ce(int(m.group(3))), idx + 1, int(m.group(1))).isoformat()
+            except ValueError:
+                return None
     m = re.match(r"^(\d{1,2})[/-](\d{1,2})[/-](\d{4})$", value)
     if m:
         d, mo, y = (int(x) for x in m.groups())
@@ -351,18 +367,21 @@ def normalize_gazette(rec: dict, run_at: str) -> tuple[dict | None, str]:
 
 
 def normalize_cabinet(rec: dict, run_at: str) -> tuple[dict | None, str]:
-    title = pick(rec, ["title", "เรื่อง", "ชื่อเรื่อง", "subject", "name", "หัวข้อ", "ชื่อมติ",
+    # 内阁秘书处决议库的真实字段(2026-09 运行记录):toP_SERLNO, toP_NAME, owner, meeT_DATE, docNews
+    title = pick(rec, ["toP_NAME", "title", "เรื่อง", "ชื่อเรื่อง", "subject", "name", "หัวข้อ", "ชื่อมติ",
                        "title_th", "topic", "เรื่องที่เสนอ"]).strip()
     if not title:
         return None, "无标题"
     ok, why = passes_red_lines(title)
     if not ok:
         return None, why
-    resolved = normalize_date(pick(rec, ["date", "วันที่มีมติ", "วันที่", "resolution_date",
+    resolved = normalize_date(pick(rec, ["meeT_DATE", "date", "วันที่มีมติ", "วันที่", "resolution_date",
                                          "วันที่ประชุม", "วันประชุม", "meeting_date"]))
     if not resolved:
         return None, "无可解析日期"
-    url = pick(rec, ["url", "link", "detail_url"])
+    url = pick(rec, ["docNews", "url", "link", "detail_url"]).strip()
+    serial = pick(rec, ["toP_SERLNO"]).strip()
+    owner = pick(rec, ["owner"]).strip()
     uid = f"TH-CABX-{resolved.replace('-', '')}-{slug(title)}"
     return {
         "uid": uid,
@@ -378,7 +397,7 @@ def normalize_cabinet(rec: dict, run_at: str) -> tuple[dict | None, str]:
         "legal_form_id": "resolution",
         "status_id": "pending_gazette",
         "direction": {"value": "neutral", "confidence": "none", "method": "none"},
-        "doc_no": "",
+        "doc_no": serial[:64],
         "gazette": None,
         "dates": {"resolved_at": resolved, "published_at": None, "effective_from": None,
                   "effective_to": None, "comment_deadline": None},
@@ -390,7 +409,8 @@ def normalize_cabinet(rec: dict, run_at: str) -> tuple[dict | None, str]:
                        "verified": False, "verified_at": None},
         "confidence": {"dates": "high", "doc_no": "none"},
         "flags": {"has_detail_page": False},
-        "note": "自官方决议库自动入库;中文标题与摘要待翻译环节补全",
+        "note": ("自官方决议库自动入库" + (f";提出部门:{owner[:80]}" if owner else "")
+                 + ";中文标题与摘要待翻译环节补全"),
     }, ""
 
 

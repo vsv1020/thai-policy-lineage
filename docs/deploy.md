@@ -96,5 +96,6 @@ DOMAIN=你的域名 bash /opt/thai-policy-lineage/deploy/install.sh        # 买
 - 每周看一次 `/admin` 的「零结果检索」:那是读者在找、站里还没有的主题。
 - 「待翻译」队列持续增长 = 翻译 key(`DEEPSEEK_API_KEY` / `ANTHROPIC_API_KEY`)没配或余额用完。
   Actions 运行摘要里「翻译分类」一行会显示用的是哪个模型、成功几条。
+- **前台只收录有官方原文的内容**:`sources` 里要有 `{"role": "official", "url": "https://….go.th/…"}`。后台 `/admin#ops`「缺官方原文 · 未上线」列出缺链接的条目,补上并提交后,下次同步自动上线。
 - LLM 翻译的条目在数据层记为 `verified=false`(前台不单独标注)。人工核对后,在 JSONL 里把 `provenance.verified` 改为 `true`
   并填 `verified_at`,提交即可 —— 这是把内容质量从「能看」变成「可信」的唯一途径。

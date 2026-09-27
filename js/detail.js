@@ -72,13 +72,11 @@ function renderDetail(d) {
         `<li>${E(REL_LABEL[r.type] || r.type)}:<a href="#" onclick="openDetail('${
           E(r.uid)}');return false">${E(r.uid)}</a></li>`).join('')}</ul>` : '';
 
-  /* 溯源块:有官方链接出链,没有就说清楚没有 —— 不留白让人以为有 */
+  /* 溯源块:前台只收录有官方原文的文件(入库规则保证),这里列出原文链接与公报卷期 */
   const official = (d.sources || []).filter(s => s.role === 'official' && s.url);
-  const origin = official.length
-    ? `<b>泰文原文</b> · ${official.map(s =>
-        `<a href="${E(s.url)}" target="_blank" rel="noopener">${E(s.url)} ↗</a>`).join(' · ')}`
-    : `<b>泰文原文</b> · <span style="color:var(--seal)">尚未取得官方原文链接</span>
-       —— 本条依二手来源整理,文号与日期可信度见下方标注;取得公报原件后回填。`;
+  const srcs = official.length ? official : (d.source_url ? [{ url: d.source_url }] : []);
+  const origin = `<b>泰文原文(官方)</b> · ${d.doc_no ? `${E(d.doc_no_label || '文号')} ${E(d.doc_no)} · ` : ''}`
+    + srcs.map(s => `<a href="${E(s.url)}" target="_blank" rel="noopener">${E(s.url)} ↗</a>`).join(' · ');
 
   const confNote = `字段可信度:日期 <b>${E(CONF_LABEL[conf.dates] || conf.dates || '未标注')}</b>`
     + (conf.doc_no ? ` · 文号 <b>${E(CONF_LABEL[conf.doc_no] || conf.doc_no)}</b>` : '');

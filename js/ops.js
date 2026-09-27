@@ -51,6 +51,7 @@
       + row('模型翻译分类', c.llm_enriched, '数据层记为 verified=false')
       + row('已人工复核', c.verified, '')
       + row('有官方原文链接', c.with_official_link, `共 ${c.presentable || 0} 条可呈现`)
+      + row('缺官方原文(未上线)', c.missing_official_source, c.missing_official_source ? '见下方清单,补上 *.go.th 原文链接后自动上线' : '')
       + row('最新一条政策', f.newest_document || '—',
             f.days_since_newest != null ? `距今 ${f.days_since_newest} 天` : ''));
 
@@ -77,6 +78,12 @@
       });
       window.addEventListener('resize', () => ch.resize());
     }
+
+    const ms = o.missing_source || [];
+    put('ops-missing', ms.length
+      ? ms.map(x => `<div class="lib-row"><span class="lib-date" style="font-size:11px">${E(x.uid)}</span>
+          <div class="lib-title" style="font-weight:400">${E(x.title)}${x.doc_no ? ` <span style="color:var(--muted)">${E(x.doc_no)}</span>` : ''}</div></div>`).join('')
+      : '<div class="mod-sub">没有缺原文的条目</div>');
 
     const q = o.queue_sample || [];
     put('ops-queue', q.length

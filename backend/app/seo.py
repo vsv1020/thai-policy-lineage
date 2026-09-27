@@ -115,11 +115,12 @@ def render_page(s: Session, doc: Document, today, titles: dict[str, str]) -> str
         f'<li>{e(REL_ZH.get(r.type, r.type))}:'
         f'<a href="{e(slug(r.dst_uid))}.html">{e(titles.get(r.dst_uid, r.dst_uid))}</a></li>'
         for r in doc.relations_out if r.dst_uid in titles)
+    # 能生成落地页的都已有官方原文(入库规则保证),这里只负责列出原文与公报卷期
     official = [x for x in doc.sources if x.role == "official" and x.url]
-    origin = ("泰文原文:" + " · ".join(
+    cite = f"{v['doc_no_label']} {v['doc_no']} · " if v["doc_no"] else ""
+    origin = ("泰文原文(官方):" + cite + " · ".join(
         f'<a href="{e(x.url)}" rel="nofollow noopener" target="_blank">{e(x.url)}</a>'
-        for x in official)) if official else \
-        '<span style="color:var(--seal)">尚未取得官方原文链接</span> —— 本条依二手来源整理,取得公报原件后回填。'
+        for x in official))
 
     timeline = [(d.get("resolved_at"), "内阁决议"), (d.get("comment_deadline"), "征求意见截止"),
                 (d.get("published_at"), "刊登皇家公报"), (d.get("effective_from"), "生效"),

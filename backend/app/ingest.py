@@ -13,6 +13,7 @@ import argparse
 import json
 from datetime import date, datetime
 from pathlib import Path
+from urllib.parse import urlsplit
 
 from sqlalchemy import delete, select
 from sqlalchemy.orm import Session
@@ -88,9 +89,28 @@ def display_date_of(dates: dict) -> date | None:
     return None
 
 
+# 可考证的官方来源:泰国政府域名(公报 ratchakitcha.soc.go.th、各部委 *.go.th)
+OFFICIAL_SUFFIX = ".go.th"
+
+
+def is_official_url(url: str | None) -> bool:
+    url = (url or "").strip()
+    if not url.lower().startswith(("https://", "http://")):
+        return False
+    host = (urlsplit(url).hostname or "").lower()
+    return host.endswith(OFFICIAL_SUFFIX)
+
+
+def official_sources(r: dict) -> list[dict]:
+    return [x for x in (r.get("sources") or [])
+            if x.get("role") == "official" and is_official_url(x.get("url"))]
+
+
 def presentable(r: dict) -> bool:
-    """有中文标题且未被标记跳过 —— 才进数据库、才会被呈现。"""
-    return bool((r.get("titles") or {}).get("zh")) and not (r.get("flags") or {}).get("skip")
+    """有中文标题、未被标记跳过、且有可考证的官方原文链接 —— 才进数据库、才会被呈现。
+    没有官方原文的条目(例如只有律所、媒体等二手引述)一律不上前台,只留在事实层里等补链接。"""
+    return (bool((r.get("titles") or {}).get("zh")) and not (r.get("flags") or {}).get("skip")
+            and bool(official_sources(r)))
 
 
 def load_documents(s: Session, records: list[dict], now: datetime | None = None) -> tuple[int, int]:
@@ -211,7 +231,15 @@ def load_conflicts(s: Session, records: list[dict]) -> int:
 
 
 def load_deadlines(s: Session, records: list[dict]) -> int:
+    """周期性法定截止日同样要有官方出处(source_url,*.go.th)才进库;没有的从库里移除。"""
+    n = 0
     for r in records:
+        if not is_official_url(r.get("source_url")):
+            stale = s.get(Deadline, r["id"])
+            if stale is not None:
+                s.delete(stale)
+            continue
+        n += 1
         obj = s.get(Deadline, r["id"]) or Deadline(id=r["id"])
         obj.title_zh = r["title_zh"]
         obj.domains_csv = ",".join(r.get("domain_ids") or [])
@@ -221,7 +249,7 @@ def load_deadlines(s: Session, records: list[dict]) -> int:
         obj.confidence = r.get("confidence", "med")
         s.add(obj)
     s.flush()
-    return len(records)
+    return n
 
 
 def load_source_health(s: Session, payload: dict) -> int:
