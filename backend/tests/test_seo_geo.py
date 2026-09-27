@@ -286,16 +286,34 @@ def test_geo_probe_stops_on_account_error_and_explains():
     assert len(calls) == 1, "账号问题只请求一次"
     assert out["results"][0]["error"].startswith("HTTP 403 insufficient quota")
     issue = next(i for i in rep.issues if i["code"] == "geo_api")
-    assert "insufficient quota" in issue["msg"] and "Billing" in issue["fix"]
+    assert "insufficient quota" in issue["msg"] and "额度" in issue["fix"]
     assert "geo_asked" in rep.metrics and rep.metrics["geo_asked"] == 0
     md = M.render_md({**rep.to_dict(), "sections": {"geo": out}}, None)
     assert "⚠️ q1" in md and "❌" not in md.split("## GEO")[1]
 
 
-def test_geo_probe_counts_citations():
-    body = {"citations": ["https://www.thaipolicy.com/p/x.html", "https://other.example/a"]}
-    client = httpx.Client(transport=httpx.MockTransport(lambda r: httpx.Response(200, json=body)))
+def test_geo_probe_uses_agent_api_and_reads_nested_citations():
+    """Agent API:来源在 output[] 里 type=search_results 的 results[].url,没有顶层 citations。"""
+    body = {"status": "completed", "output": [
+        {"type": "search_results", "results": [{"id": 1, "url": "https://www.thaipolicy.com/p/x.html"},
+                                                {"id": 2, "url": "https://other.example/a"}]},
+        {"type": "message", "content": [{"type": "output_text", "text": "答案 [1][2]"}]}]}
+    seen = []
+
+    def handler(req):
+        seen.append((str(req.url), json.loads(req.content)))
+        return httpx.Response(200, json=body)
     rep = M.Report(SITE, date(2026, 9, 27))
-    out = M.geo_probe(client, rep, "k", ["q1"])
+    out = M.geo_probe(httpx.Client(transport=httpx.MockTransport(handler)), rep, "k", ["q1"])
+    assert seen[0][0] == "https://api.perplexity.ai/v1/agent"
+    assert seen[0][1] == {"model": "perplexity/sonar", "input": "q1", "tools": [{"type": "web_search"}]}
     assert rep.metrics == {"geo_asked": 1, "geo_cited": 1}
     assert out["top_cited_domains"] == [("other.example", 1)]
+
+
+def test_geo_probe_failed_status_is_error_not_uncited():
+    client = httpx.Client(transport=httpx.MockTransport(
+        lambda r: httpx.Response(200, json={"status": "failed", "error": {"message": "boom"}})))
+    rep = M.Report(SITE, date(2026, 9, 27))
+    out = M.geo_probe(client, rep, "k", ["q1"])
+    assert "failed" in out["results"][0]["error"] and rep.metrics["geo_asked"] == 0

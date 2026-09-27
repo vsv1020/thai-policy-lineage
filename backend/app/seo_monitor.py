@@ -547,11 +547,34 @@ def baidu(client: httpx.Client, rep: Report, token: str, sitemap: dict, live: se
 
 # ─────────────────────────── 6. GEO:AI 回答是否引用本站 ───────────────────────────
 
+PPLX_URL = "https://api.perplexity.ai/v1/agent"
+PPLX_MODEL = "perplexity/sonar"
+
+
+def _urls(obj) -> list[str]:
+    """从 Agent API 响应里收集来源链接:output[] 中 type=search_results 的 results[].url,
+    以及回答里的引用注解。字段层级各版本不完全一致,这里递归收集所有 url / 引用字符串。"""
+    out: list[str] = []
+    if isinstance(obj, dict):
+        for k, v in obj.items():
+            if k in ("url", "uri") and isinstance(v, str) and v.startswith("http"):
+                out.append(v)
+            else:
+                out += _urls(v)
+    elif isinstance(obj, list):
+        for v in obj:
+            if isinstance(v, str) and v.startswith("http"):
+                out.append(v)            # 旧格式:citations 是字符串数组
+            else:
+                out += _urls(v)
+    return out
+
+
 PPLX_HINT = {
     401: "API Key 无效:到 perplexity.ai → Settings → API 重新生成,更新 GitHub Secret PERPLEXITY_API_KEY",
     402: "账户余额不足:在 perplexity.ai → Settings → API → Billing 充值",
-    403: "通常是 API 账户没有可用额度(没绑卡/没充值,或 Pro 会员自带的 API 额度未领取),"
-         "或 Key 已被停用:到 perplexity.ai → Settings → API 检查 Billing 与 Key 状态",
+    403: "按上面接口返回的原因处理。常见:账户没有可用额度(没绑卡/没充值)、Key 被停用,"
+         "或接口已变更(需要改 seo_monitor.py 里的 PPLX_URL / 请求格式)",
 }
 
 
@@ -576,9 +599,9 @@ def geo_probe(client: httpx.Client, rep: Report, key: str, questions: list[str])
     results, competitors = [], {}
     for q in questions[:8]:
         try:
-            r = client.post("https://api.perplexity.ai/chat/completions", timeout=60,
-                            headers={"Authorization": f"Bearer {key}"},
-                            json={"model": "sonar", "messages": [{"role": "user", "content": q}]})
+            # Sonar 的 chat/completions 已于 2026-09-27 下线,改用 Agent API;联网搜索要显式开
+            r = client.post(PPLX_URL, timeout=90, headers={"Authorization": f"Bearer {key}"},
+                            json={"model": PPLX_MODEL, "input": q, "tools": [{"type": "web_search"}]})
         except httpx.HTTPError as ex:
             results.append({"q": q, "error": f"{type(ex).__name__}: {ex}"[:160]})
             continue
@@ -596,8 +619,11 @@ def geo_probe(client: httpx.Client, rep: Report, key: str, questions: list[str])
         except ValueError:
             results.append({"q": q, "error": "返回不是 JSON"})
             continue
-        cites = list(d.get("citations") or []) + [x.get("url", "") for x in d.get("search_results") or []]
-        hosts = [_host(c) for c in cites if c]
+        if isinstance(d, dict) and d.get("status") in ("failed", "cancelled", "incomplete"):
+            results.append({"q": q, "error": f"回答未完成:{d.get('status')} {_api_error(r)}"[:200]})
+            continue
+        hosts = [_host(c) for c in _urls(d.get("output") if isinstance(d, dict) else d)
+                 + _urls({k: d.get(k) for k in ("citations", "search_results")} if isinstance(d, dict) else [])]
         for h in set(hosts):
             if not h.endswith(apex):
                 competitors[h] = competitors.get(h, 0) + 1
