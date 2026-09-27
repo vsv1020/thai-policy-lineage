@@ -57,7 +57,10 @@ jobs:
           cache-dependency-path: backend/requirements.txt
 
       - name: 安装依赖
-        run: pip install -r backend/requirements.txt
+        run: |
+          pip install -r backend/requirements.txt
+          # 扫描版公报 PDF 没有文字层,用 OCR 读正文(app/fulltext.py);装不上也不影响采集
+          sudo apt-get install -y -qq poppler-utils tesseract-ocr tesseract-ocr-tha > /dev/null || echo "::warning::OCR 工具安装失败,扫描件只能看标题"
 
       - name: 载入现有事实层
         working-directory: backend
@@ -107,6 +110,8 @@ jobs:
               print(f"  - `{s['id']}` {s['status']} — {s['detail'][:160]}")
           e = r.get("enrich") or {}
           print(f"- 翻译分类({e.get('model','—')}):{e.get('status','—')} · 处理 {e.get('processed',0)} · 成功 {e.get('enriched',0)}"
+                f" · 读到正文 {e.get('fulltext',0)}(其中 OCR {e.get('ocr',0)}) · 按正文重做旧摘要 {e.get('upgraded',0)}"
+                f"(重做前待办 {e.get('upgrade_pending',0)})"
                 f" · 判定无关 {e.get('skipped_irrelevant',0)} · 红线跳过 {e.get('skipped_red_line',0)}"
                 f" · 仍待处理 {e.get('pending_after', e.get('pending',0))}")
           PY

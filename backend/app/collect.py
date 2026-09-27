@@ -512,7 +512,11 @@ def merge_update(old: dict, new: dict) -> dict:
         merged.setdefault("titles", {})["th"] = th_new
         merged["titles"]["zh"] = ""
         merged["summary_zh"] = ""
+        merged["key_points_zh"] = []
         merged.setdefault("flags", {}).pop("skip", None)
+        prov = merged.setdefault("provenance", {})
+        for k in ("summary_basis", "fulltext_attempts", "enriched_by"):
+            prov.pop(k, None)
     return merged
 
 

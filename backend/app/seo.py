@@ -27,6 +27,7 @@ from sqlalchemy.orm import Session
 
 from . import analytics as A
 from .config import REPO_ROOT, SITE_DIR, settings
+from .ingest import split_summary
 from .models import Document, Domain
 
 PAGES_DIR = REPO_ROOT / "p"
@@ -254,6 +255,7 @@ def render_page(s: Session, doc: Document, today, titles: dict[str, str],
   </div>
   <div class="d-body">
     <h2 style="font-size:15px">中文摘要</h2><p>{e(v['summary_zh'])}</p>
+    {('<h2 style="font-size:15px">正文要点</h2><ul class="points">' + "".join(f"<li>{e(k)}</li>" for k in v["key_points"]) + "</ul>") if v["key_points"] else ""}
     <h2 style="font-size:15px">要点速览</h2><dl class="facts">{facts_html}</dl>
     {f'<h2 style="font-size:15px">生命周期</h2><div class="timeline">{tl}</div>' if tl else ''}
     {f'<h2 style="font-size:15px">关联文件</h2><ul>{rels}</ul>' if rels else ''}
@@ -404,7 +406,7 @@ def render_llms(entries: list[dict], topics: list[tuple[str, str, int]], full: b
                  f"- 日期:{x['date'] or '—'} · 领域:{x['domain'] or '—'} · 状态:{x['status']}",
                  *([f"- 发文机关:{x['org']}"] if x["org"] else []),
                  f"- 泰文原文(官方):{x['official']}", "",
-                 _md(x["summary"]), ""]
+                 _md(x["summary"]), *([""] + [f"- {_md(k)}" for k in x["points"]] if x["points"] else []), ""]
     return "\n".join(body) + "\n"
 
 
@@ -510,7 +512,8 @@ def build(s: Session) -> dict[str, int]:
         official = next((x.url for x in doc.sources if x.role == "official" and x.url), "")
         entries.append({"uid": doc.uid, "title": doc.title_zh, "title_th": doc.title_th or "",
                         "url": page_url(doc.uid), "date": date_s, "domain": dom[1] if dom[0] else "",
-                        "doc_no": doc.doc_no or "", "summary": doc.summary_zh or "",
+                        "doc_no": doc.doc_no or "", "summary": split_summary(doc.summary_zh)[0],
+                        "points": split_summary(doc.summary_zh)[1],
                         "status": doc.status.zh, "official": official,
                         "org": A.document_view(s, doc, today)["org"]})
 

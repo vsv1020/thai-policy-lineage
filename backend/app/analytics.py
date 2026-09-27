@@ -14,6 +14,7 @@ from sqlalchemy import func, select
 from sqlalchemy.orm import Session, aliased
 
 from .config import BKK, CONF_WEIGHT, settings
+from .ingest import split_summary
 from .models import (Agency, Conflict, Deadline, Document, DocumentAgency, DocumentDomain,
                      DocumentGoal, DocumentInstrument, DocumentParty, Domain, Goal,
                      ImplementationStage, Instrument, InstrumentClass, Issue, LegalForm,
@@ -92,7 +93,8 @@ def document_view(s: Session, doc: Document, today: date) -> dict:
         "direction": doc.direction,
         "title_zh": doc.title_zh,
         "title_th": doc.title_th,
-        "summary_zh": doc.summary_zh,
+        "summary_zh": split_summary(doc.summary_zh)[0],
+        "key_points": split_summary(doc.summary_zh)[1],
         "org": " · ".join(org_name(a.agency_id) for a in agencies),
         "doc_no": doc.doc_no,
         "doc_no_label": "公报" if doc.gazette_series else "文号",

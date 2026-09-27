@@ -106,6 +106,21 @@ def official_sources(r: dict) -> list[dict]:
             if x.get("role") == "official" and is_official_url(x.get("url"))]
 
 
+POINT_MARK = "\n· "
+
+
+def join_summary(summary: str, points: list[str] | None) -> str:
+    """要点并进摘要字段存库(免改表结构):摘要 + 每条要点一行「· 」开头。"""
+    points = [p.strip() for p in points or [] if p and p.strip()]
+    return (summary or "").strip() + "".join(POINT_MARK + p for p in points)
+
+
+def split_summary(text: str) -> tuple[str, list[str]]:
+    """join_summary 的逆操作:(摘要, 要点列表)。"""
+    head, *points = (text or "").split(POINT_MARK)
+    return head.strip(), [p.strip() for p in points if p.strip()]
+
+
 def presentable(r: dict) -> bool:
     """有中文标题、未被标记跳过、且有可考证的官方原文链接 —— 才进数据库、才会被呈现。
     没有官方原文的条目(例如只有律所、媒体等二手引述)一律不上前台,只留在事实层里等补链接。"""
@@ -143,7 +158,7 @@ def load_documents(s: Session, records: list[dict], now: datetime | None = None)
         doc.title_zh = titles.get("zh", "")
         doc.title_th = titles.get("th", "") or ""
         doc.title_en = titles.get("en", "") or ""
-        doc.summary_zh = r.get("summary_zh", "")
+        doc.summary_zh = join_summary(r.get("summary_zh", ""), r.get("key_points_zh"))
         doc.legal_form_id = r["legal_form_id"]
         doc.status_id = r["status_id"]
         doc.implementation_stage_id = r.get("implementation_stage")

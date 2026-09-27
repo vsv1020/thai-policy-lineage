@@ -131,7 +131,8 @@ def audit_html(url: str, html: str, headers: dict) -> dict:
     if m:
         summary = re.sub(r"<[^>]+>", "", m.group(1))
     return {"problems": probs, "title": title, "title_len": len(title),
-            "thin": bool(is_landing and (THIN_RE.search(summary) or len(summary) < 60)),
+            "thin": bool(is_landing and 'class="points"' not in html
+                         and (THIN_RE.search(summary) or len(summary) < 60)),
             "summary_len": len(summary)}
 
 

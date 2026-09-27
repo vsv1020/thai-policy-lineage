@@ -95,6 +95,7 @@ function renderDetail(d) {
     <div class="d-body">
       <h4>中文摘要</h4>
       <p>${E(d.summary_zh)}</p>
+      ${(d.key_points || []).length ? `<h4>正文要点</h4><ul class="points">${d.key_points.map(k => `<li>${E(k)}</li>`).join('')}</ul>` : ''}
       ${d.note ? `<h4>数据说明</h4><p style="color:var(--ink-2)">${E(d.note)}</p>` : ''}
       ${parties}
       ${rels}
