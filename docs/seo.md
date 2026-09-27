@@ -50,7 +50,7 @@
 | `GSC_SERVICE_ACCOUNT_JSON` | Secret | **直接查 Google 收录** | 见下文「接入 Search Console」 |
 | `GSC_PROPERTY` | Variable | GSC 资源名 | 网域资源不用填(默认 `sc-domain:thaipolicy.com`);网址前缀资源填 `https://www.thaipolicy.com/` |
 | `BING_WEBMASTER_API_KEY` | Secret | Bing 已收录数与搜索词 | Bing Webmaster Tools → 设置 → API 访问 |
-| `BAIDU_PUSH_TOKEN` | Secret | 主动推送新页面给百度 | 百度搜索资源平台 → 验证站点 → 普通收录 → API 提交里的 token |
+| `BAIDU_PUSH_TOKEN` | Secret | (可选,目前不用)主动推送新页面给百度;不配时日报不提百度 | 百度搜索资源平台 → 验证站点 → 普通收录 → API 提交里的 token |
 | `PERPLEXITY_API_KEY` | Secret | GEO 实测 | perplexity.ai → API,每天约 0.03 美元 |
 
 ### 接入 Search Console
