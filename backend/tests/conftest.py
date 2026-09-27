@@ -16,6 +16,7 @@ os.environ["DATABASE_URL"] = f"sqlite:///{_TMP / 'test.db'}"
 os.environ["POLICIES_DIR"] = str(Path(__file__).resolve().parent / "fixtures" / "policies")
 os.environ["ENABLE_SCHEDULER"] = "0"
 os.environ["EXPORT_AFTER_COLLECT"] = "0"
+os.environ["ENRICH_FULLTEXT"] = "0"          # 测试不下载官方 PDF
 
 import pytest  # noqa: E402
 

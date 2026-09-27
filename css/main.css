@@ -316,3 +316,4 @@ dl.facts dd { margin: 0; }
 a.pc-title { display: block; color: inherit; text-decoration: none; }
 a.pc-title:hover { text-decoration: underline; }
 @media (max-width: 600px) { dl.facts { grid-template-columns: 1fr; } dl.facts dd { margin-bottom: 6px; } }
+ul.points { margin: 4px 0 12px 20px; line-height: 1.85; font-size: 14px; }

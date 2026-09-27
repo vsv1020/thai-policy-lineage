@@ -70,6 +70,8 @@ class Settings:
     enrich_after_collect: bool = _bool("ENRICH_AFTER_COLLECT", True)
     # 翻译并发数:回填历史数据时一次几百条,串行要一个多小时
     enrich_concurrency: int = int(os.getenv("ENRICH_CONCURRENCY", "6"))
+    # 翻译前先下载官方 PDF、抽取正文,摘要才有实质内容(见 app/fulltext.py);0 = 只看标题
+    enrich_fulltext: bool = _bool("ENRICH_FULLTEXT", True)
 
     # 站点公开地址(用于 sitemap 与 SEO 落地页的 canonical 链接)
     site_url: str = os.getenv("SITE_URL", "https://www.thaipolicy.com").rstrip("/")
