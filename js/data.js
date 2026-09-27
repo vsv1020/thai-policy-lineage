@@ -111,32 +111,23 @@ function renderOverview(d) {
   set('calendar', (d.calendar || []).map(calRow).join(''));
   set('lib-count', `领域 × 机关 × 法律形式 × 状态 × 时间 五维过滤 · 当前库内 <b>${policies.length}</b> 条`);
 
-  const srcs = d.sources || [];
-  const ok = srcs.filter(s => s.status === 'ok').length;
-  const research = (d.stats || {}).research || 0;
-  const health = srcs.length
-    ? (ok ? ` · 源 ${ok}/${srcs.length} 可用` : ` · ${srcs.length} 个源均未接通`)
-    : '';
-  const mode = window.DATA_MODE === 'api' ? '实时接口' : '静态快照';
-  set('stamp', `${mode} · 数据更新 ${fmtStamp(d.updated_at)}${health}`
-    + (research ? ` · 实采 ${research} 条` : ' · 全部为示意数据'));
+  // 采集管道的运行状态只在管理后台(/admin)显示,前台只告诉读者数据更新到什么时候
+  set('stamp', `数据更新 ${fmtStamp(d.updated_at)}`);
 }
 
 getData('overview').then(renderOverview).catch(err => {
   console.warn('[overview] 未加载,页面保留静态示意数据:', err.message);
   window.DATA_MODE = 'inline';
-  set('stamp', '静态示意数据(未加载 overview)');
+  set('stamp', '');
 });
 
 getData('trends').then(t => {
   window.TRENDS = t;
-  set('trends-sub', t.usable
-    ? `基于全库结构化数据聚合 · 覆盖 ${t.months_covered} 个月`
-    : `发文量与风向由 <b>${t.months_covered}</b> 个月的真实数据算出,不足 `
-      + `${t.min_months_required} 个月,下方四图暂用演示数据`);
+  set('trends-sub', `基于库内 <b>${t.total_documents}</b> 条政策聚合 · 数据截至 <b>${t.data_through}</b>`
+    + (t.gazette_through ? ` · 泰国官方公报数据集目前更新至 ${t.gazette_through}` : ''));
   // 真实数据可能比首次进入趋势页更晚到达 —— initCharts 可重复调用
   if (typeof initCharts === 'function' && document.querySelector('#c-stack canvas')) initCharts();
-}).catch(err => console.warn('[trends] 未加载,图表用演示数据:', err.message));
+}).catch(err => console.warn('[trends] 未加载:', err.message));
 
 getData('lineage').then(renderLineage)
   .catch(err => console.warn('[lineage] 未加载,脉络页保留静态内容:', err.message));

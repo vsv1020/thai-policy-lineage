@@ -5,6 +5,8 @@
 """
 from __future__ import annotations
 
+import json
+
 import httpx
 import pytest
 
@@ -293,17 +295,98 @@ def test_direct_fallback_is_single_attempt(no_sleep, monkeypatch):
     assert direct.calls == 1
 
 
-def test_candidates_prefer_json_recent_and_datastore_first():
-    rs = [{"id": "old", "name": "old", "format": "JSON", "last_modified": "2025-01-01", "url": DEAD},
-          {"id": "csv", "name": "csv", "format": "CSV", "last_modified": "2026-09-01", "url": DEAD,
-           "datastore_active": True},
-          {"id": "new", "name": "new", "format": "JSON", "last_modified": "2026-09-01", "url": DEAD,
-           "datastore_active": True}]
-    assert [(k, r["id"]) for k, r in C.resource_candidates(rs)] == [
-        ("datastore", "new"), ("file", "new"), ("file", "old"), ("datastore", "csv"), ("file", "csv")]
+def test_resource_period_parses_thai_month_and_year():
+    assert C.resource_period({"name": "ราชกิจจานุเบกษาเดือนมีนาคม 2569"}) == (2026, 3)
+    assert C.resource_period({"name": "มติคณะรัฐมนตรี ปี 2568"}) == (2025, 12)
+    assert C.resource_period({"name": "x", "last_modified": "2026-05-02T00:00"}) == (2026, 5)
+
+
+MONTHS = [{"id": f"m{i}", "name": f"ราชกิจจานุเบกษาเดือน{C.THAI_MONTHS[i - 1]} 2569", "format": "JSON",
+           "url": DEAD} for i in range(1, 4)] + [
+          {"id": "old", "name": "ราชกิจจานุเบกษาเดือนมกราคม 2566", "format": "JSON", "url": DEAD},
+          {"id": "pdf", "name": "คู่มือ", "format": "PDF", "url": DEAD}]
+
+
+def test_daily_sync_takes_latest_months(monkeypatch):
+    from app.config import settings
+    monkeypatch.setattr(settings, "sync_resources", 2)
+    ids = [r["id"] for r in C.sync_targets(MONTHS, C.date(2024, 9, 1), backfill=False)]
+    assert ids == ["m3", "m2"], "最近两个月;PDF 不可解析,不下载"
+
+
+def test_backfill_takes_all_months_within_lookback():
+    ids = [r["id"] for r in C.sync_targets(MONTHS, C.date(2024, 9, 1), backfill=True)]
+    assert ids == ["m3", "m2", "m1"], "2566(2023)早于回溯期"
+
+
+def test_special_issue_series_is_kept():
+    rec = {"title": "ประกาศกระทรวงการคลัง เรื่อง ภาษี", "date": "01/03/2569", "series": "ง พิเศษ"}
+    norm, why = C.normalize_gazette(rec, "2026-09-27T00:00:00+07:00")
+    assert norm is not None, why
+    norm, why = C.normalize_gazette(dict(rec, series="ข"), "x")
+    assert norm is None and "ข" in why
+
+
+def _jsonl(tmp_path, monkeypatch, rows):
+    d = tmp_path / "policies"; d.mkdir()
+    monkeypatch.setattr(C, "POLICIES_DIR", d)
+    (d / "documents.jsonl").write_text("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in rows))
+    return d / "documents.jsonl"
+
+
+def _gz(uid, th="ประกาศ ก", doc_no="ง 1/2", pipeline="gazette_json", zh=""):
+    return {"uid": uid, "titles": {"zh": zh, "th": th, "en": ""}, "summary_zh": "摘要" if zh else "",
+            "doc_no": doc_no, "dates": {"published_at": "2026-03-01"}, "sources": [],
+            "provenance": {"pipeline": pipeline}, "flags": {}}
+
+
+def test_upsert_adds_updates_and_keeps_translation(tmp_path, monkeypatch):
+    path = _jsonl(tmp_path, monkeypatch, [_gz("A", zh="中文A"), _gz("M", pipeline="research", zh="人工")])
+    touched, added, updated = C.upsert_jsonl([
+        _gz("A", doc_no="ง 1/3"),           # 官方源改了卷期 → 更新,中文保留
+        _gz("M", doc_no="改过"),            # 人工整理的条目 → 不动
+        _gz("B")], "2026-09-27")            # 新条目 → 追加
+    assert (added, updated) == (1, 1)
+    rows = {r["uid"]: r for r in map(json.loads, path.read_text().splitlines())}
+    assert rows["A"]["doc_no"] == "ง 1/3" and rows["A"]["titles"]["zh"] == "中文A"
+    assert rows["A"]["provenance"]["updated_at"] == "2026-09-27"
+    assert rows["M"]["doc_no"] == "ง 1/2"
+    assert list(rows) == ["A", "M", "B"], "原位改写,保持顺序"
+
+
+def test_upsert_retitle_triggers_retranslation(tmp_path, monkeypatch):
+    path = _jsonl(tmp_path, monkeypatch, [_gz("A", zh="中文A")])
+    C.upsert_jsonl([_gz("A", th="ประกาศ ก (แก้ไข)")], "x")
+    row = json.loads(path.read_text())
+    assert row["titles"]["th"].endswith("(แก้ไข)") and row["titles"]["zh"] == "" and row["summary_zh"] == ""
+
+
+def test_upsert_unchanged_is_noop(tmp_path, monkeypatch):
+    path = _jsonl(tmp_path, monkeypatch, [_gz("A", zh="中文A")])
+    before = path.read_text()
+    assert C.upsert_jsonl([_gz("A")], "x")[1:] == (0, 0)
+    assert path.read_text() == before, "没有变化就不改写文件,避免每天无意义的提交"
+
+
+def test_multi_month_sync_and_field_sample(monkeypatch):
+    monkeypatch.setattr(C, "fetch_ckan", lambda *_a, **_k: MONTHS)
+    rows = {"m3": [{"title": "ประกาศ ก", "date": "01/03/2569", "series": "ง"}],
+            "m2": [{"title": "ประกาศ ข", "date": "01/02/2569", "series": "ง พิเศษ"}]}
+    monkeypatch.setattr(C, "download", lambda r, *_a: (rows.get(r["id"], []), "直连"))
+    res = C.collect_source(C.SOURCES[0], C.Throttle(0), "x", C.date(2024, 9, 1), dry_run=False, backfill=False)
+    assert res.status == "ok" and len(res.records) == 2
+    assert "同步 3 个文件" in res.detail
+
+
+def test_field_sample_reported_when_titles_missing(monkeypatch):
+    monkeypatch.setattr(C, "fetch_ckan", lambda *_a, **_k: MONTHS[:1])
+    monkeypatch.setattr(C, "download", lambda r, *_a: ([{"หัวข้อ": "x", "วันประชุม": "1"}], "直连"))
+    res = C.collect_source(C.SOURCES[1], C.Throttle(0), "x", C.date(2024, 9, 1), dry_run=False)
+    assert "字段样本:หัวข้อ,วันประชุม" in res.detail
 
 
 def _source_with(monkeypatch, resources, datastore=None):
+    resources = [dict(r, name=r.get("name", "") + " มีนาคม 2569") for r in resources]
     monkeypatch.setattr(C, "fetch_ckan", lambda *_a, **_k: resources)
     def dead(url, *_a, **_k):
         raise RuntimeError("soc.gdcatalog.go.th:经泰国出口 ProxyError: General SOCKS server failure")
@@ -329,4 +412,4 @@ def test_all_dead_reports_resource_structure(monkeypatch):
     assert res.status == "error"
     # 下一次看运行记录就能知道:有哪些 resource、什么格式、放在哪、有没有 datastore
     assert "soc.gdcatalog.go.th" in res.detail and "datastore=否" in res.detail
-    assert "2569-09[json" in res.detail and "2569-08[csv" in res.detail
+    assert "[json·soc.gdcatalog.go.th" in res.detail and "[csv·soc.gdcatalog.go.th" in res.detail

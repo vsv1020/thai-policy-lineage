@@ -1,8 +1,11 @@
-/* 采集状态看板:把自动化本身呈现出来。
-   存在的理由 —— 每日采集连续失败却没人看见,站点就会在「看起来正常」的状态下慢慢变旧。 */
+/* 采集状态看板(只在管理后台 /admin 显示,前台不展示)。
+   存在的理由 —— 每日采集连续失败却没人看见,站点就会在「看起来正常」的状态下慢慢变旧。
+   数据来自 GET /api/admin/ops;由 js/admin.js 取数后调用 PolicyOps.render(o)。 */
 
 (function () {
-  const { getData, esc: E, set: put } = window.PolicyData;
+  const E = s => String(s == null ? '' : s).replace(/[&<>"']/g,
+    c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const put = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html; };
 
   const STATUS = {
     ok:          { t: '正常', c: 'var(--green)' },
@@ -43,9 +46,9 @@
     put('ops-corpus',
       row('可呈现条目', c.presentable, '出现在首页与检索里的')
       + row('事实层总记录', c.total_records, 'JSONL 审计记录,含待翻译与已跳过')
-      + row('待翻译', c.pending_translation, c.pending_translation ? '需要 ANTHROPIC_API_KEY 才会自动处理' : '')
+      + row('待翻译', c.pending_translation, c.pending_translation ? '每日采集后自动翻译(DEEPSEEK_API_KEY)' : '')
       + row('判定无关已跳过', c.skipped_irrelevant, '人事任免、授勋等')
-      + row('LLM 翻译分类', c.llm_enriched, '未经人工复核')
+      + row('模型翻译分类', c.llm_enriched, '数据层记为 verified=false')
       + row('已人工复核', c.verified, '')
       + row('有官方原文链接', c.with_official_link, `共 ${c.presentable || 0} 条可呈现`)
       + row('最新一条政策', f.newest_document || '—',
@@ -82,9 +85,5 @@
       : '<div class="mod-sub">队列为空</div>');
   }
 
-  let loaded = false;
-  const load = () => { if (loaded) return; loaded = true;
-    getData('ops').then(render).catch(err => console.warn('[ops] 未加载:', err.message)); };
-  document.querySelectorAll('.nav-item[data-v="ops"]').forEach(b => b.addEventListener('click', load));
-  if (location.hash === '#ops') { go('ops'); load(); }
+  window.PolicyOps = { render };
 })();

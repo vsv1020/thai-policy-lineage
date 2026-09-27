@@ -11,8 +11,12 @@ on:
     - cron: '23 0 * * *'        # UTC 00:23 = 曼谷时间 07:23
   workflow_dispatch:
     inputs:
+      backfill:
+        description: '回填历史数据:下载回溯期(默认 2 年)内的全部月份,并把翻译上限提到 3000'
+        type: boolean
+        default: false
       enrich_limit:
-        description: '本轮最多翻译多少条(0 = 不翻译)'
+        description: '本轮最多翻译多少条(0 = 不翻译;回填时忽略此项)'
         default: '40'
 
 permissions:
@@ -25,13 +29,13 @@ concurrency:
 jobs:
   collect:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 120        # 回填历史数据时要下载几十个月份、翻译上千条
     env:
       TZ: Asia/Bangkok
       ENABLE_SCHEDULER: '0'
       EXPORT_AFTER_COLLECT: '1'
       ENRICH_AFTER_COLLECT: '1'
-      ENRICH_MAX_PER_RUN: ${{ github.event.inputs.enrich_limit || '40' }}
+      ENRICH_MAX_PER_RUN: ${{ github.event.inputs.backfill == 'true' && '3000' || github.event.inputs.enrich_limit || '40' }}
       # 在仓库 Settings → Secrets → Actions 里配置;没配置时翻译步骤自动跳过,采集照常
       # 翻译分类的模型服务商:配了 DEEPSEEK_API_KEY 就用 DeepSeek,否则用 Claude;
       # 想强制指定,在 Variables 里设 ENRICH_PROVIDER=deepseek 或 anthropic
@@ -65,7 +69,7 @@ jobs:
         # 先不用 --strict:即使全部源失败,也要把「失败」这一事实提交进仓库,
         # 页面才会诚实显示源状态。是否标红放到最后一步决定。
         run: |
-          python -m app.collect --trigger ${{ github.event_name == 'schedule' && 'schedule' || 'manual' }} | tee ../collect-result.json
+          python -m app.collect --trigger ${{ github.event_name == 'schedule' && 'schedule' || 'manual' }} ${{ github.event.inputs.backfill == 'true' && '--backfill' || '' }} | tee ../collect-result.json
           echo "status=$(python -c "import json;print(json.load(open('../collect-result.json'))['status'])")" >> "$GITHUB_OUTPUT"
 
       - name: 校验
@@ -96,7 +100,8 @@ jobs:
           except Exception:
               print("## 采集未产出结果"); raise SystemExit
           print(f"## 采集结果:{r['status']}")
-          print(f"- 新增写入事实层:{r.get('appended_to_jsonl', 0)} 条")
+          print(f"- {'回填历史数据' if r.get('backfill') else '日常同步'}(回溯至 {r.get('lookback_since', '—')}):"
+                f"新增 {r.get('added', 0)} 条 · 更新 {r.get('updated', 0)} 条")
           print(f"- 数据源:{r['sources_ok']}/{r['sources_total']} 可用 · 出口:{r.get('egress', '直连')}")
           for s in r["sources"]:
               print(f"  - `{s['id']}` {s['status']} — {s['detail'][:160]}")

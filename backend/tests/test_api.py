@@ -26,7 +26,8 @@ def test_health(client):
 def test_overview_shape_matches_static_export(client):
     """API 与静态文件必须同形状 —— 前端只有一份渲染代码。"""
     d = client.get("/api/overview").json()
-    for key in ("updated_at", "sources", "stats", "wind", "calendar", "policies"):
+    assert "sources" not in d, "采集状态只在后台可见"
+    for key in ("updated_at", "stats", "wind", "calendar", "policies"):
         assert key in d
     p = d["policies"][0]
     for key in ("uid", "date", "domain", "domain_label", "direction", "title_zh",
@@ -114,5 +115,17 @@ def test_vocab_endpoint(client):
     assert forms == sorted(forms, key=lambda f: -f["stability"])
 
 
-def test_runs_history(client):
-    assert "items" in client.get("/api/runs").json()
+def test_collection_status_is_admin_only(client, monkeypatch):
+    """采集状态只在后台:公开接口不再暴露运行历史与数据源状态。"""
+    from app.config import settings
+    assert client.get("/api/runs").status_code == 404
+    assert client.get("/api/ops").status_code == 404
+    assert "last_run" not in client.get("/api/health").json()
+    monkeypatch.setattr(settings, "admin_token", "t0ken-for-tests")
+    from app.main import app as full_app          # 后台接口挂在完整应用上
+    client = TestClient(full_app)
+    assert client.get("/api/admin/ops").status_code == 401
+    auth = {"authorization": "Bearer t0ken-for-tests"}
+    ops = client.get("/api/admin/ops", headers=auth)
+    assert ops.status_code == 200 and {"health", "sources", "runs", "corpus"} <= set(ops.json())
+    assert "items" in client.get("/api/admin/runs", headers=auth).json()

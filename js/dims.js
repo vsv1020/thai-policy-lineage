@@ -1,5 +1,5 @@
 /* 政策维度页:七个维度全部由 /api/dimensions(或 data/site/dimensions.json)渲染。
-   样本不足的维度显示提示条而不是硬画结论 —— 见 note()。 */
+   每个维度下标注样本量(真实计数),由读者自行判断分量 —— 见 note()。 */
 
 const { getData: getDim, esc: e, set: setEl, insufficientNote: note } = window.PolicyData;
 

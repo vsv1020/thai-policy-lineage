@@ -347,6 +347,28 @@ def admin_stats(response: Response, days: int = Query(30, ge=1, le=400),
     return report(s, days)
 
 
+@router.get("/admin/ops", include_in_schema=False, dependencies=[Depends(require_admin)])
+def admin_ops(response: Response, s: Session = Depends(get_session)) -> dict:
+    """采集状态:源健康、运行历史、翻译队列、数据新鲜度。只在后台看,前台不展示。"""
+    from . import analytics as A
+    response.headers["Cache-Control"] = "no-store"
+    response.headers["X-Robots-Tag"] = "noindex"
+    return A.ops(s)
+
+
+@router.get("/admin/runs", include_in_schema=False, dependencies=[Depends(require_admin)])
+def admin_runs(s: Session = Depends(get_session), limit: int = Query(20, ge=1, le=100)) -> dict:
+    from .analytics import iso_bkk
+    from .models import CollectRun
+    rows = s.scalars(select(CollectRun).order_by(CollectRun.started_at.desc()).limit(limit)).all()
+    return {"items": [{"id": r.id, "started_at": iso_bkk(r.started_at),
+                       "finished_at": iso_bkk(r.finished_at),
+                       "status": r.status, "trigger": r.trigger, "added": r.added,
+                       "updated": r.updated, "skipped": r.skipped,
+                       "duration_s": round(r.duration_s, 1), "detail": r.detail}
+                      for r in rows]}
+
+
 # ─────────────────────────── 命令行 ───────────────────────────
 
 def _fmt_change(x: dict) -> str:

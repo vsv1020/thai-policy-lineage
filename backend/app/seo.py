@@ -146,8 +146,7 @@ def render_page(s: Session, doc: Document, today, titles: dict[str, str]) -> str
 <article class="card" style="padding:26px 30px">
   <div class="pc-top"><span class="chip {e(v['domain'])}">{e(v['domain_label'])}</span>
     <span class="dir {e(v['direction'])}">{e(DIR_ZH.get(v['direction'], ''))}</span>
-    {'<span class="verified">已人工复核</span>' if v['verified'] else
-     '<span class="chip bare" style="color:var(--muted)">未经人工复核</span>'}</div>
+    {'<span class="verified">已人工复核</span>' if v['verified'] else ''}</div>
   <h1 class="d-title">{e(v['title_zh'])}</h1>
   {f'<div class="d-thai">泰文原题:{e(v["title_th"])}</div>' if v['title_th'] else ''}
   <div class="fields">

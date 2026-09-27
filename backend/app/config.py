@@ -29,7 +29,12 @@ class Settings:
     collect_cron_hour: int = int(os.getenv("COLLECT_HOUR", "7"))     # 曼谷时间每天几点
     collect_cron_minute: int = int(os.getenv("COLLECT_MINUTE", "23"))
     enable_scheduler: bool = _bool("ENABLE_SCHEDULER", True)
-    recency_days: int = int(os.getenv("RECENCY_DAYS", "7"))          # 只收多久之内的信号
+    # 回溯期:收录多少天之内的记录。官方公报数据集本身滞后数月(2026-09 时最新到 2026-03),
+    # 按「最近 7 天」过滤会把全部记录挡在外面
+    lookback_days: int = int(os.getenv("LOOKBACK_DAYS", "730"))
+    # 日常同步重新下载最近几个月份的文件 —— 已入库的记录在官方源里有改动时随之更新;
+    # 回填模式(python -m app.collect --backfill)下载回溯期内的全部月份
+    sync_resources: int = int(os.getenv("SYNC_RESOURCES", "3"))
     http_timeout: int = int(os.getenv("HTTP_TIMEOUT", "30"))
     min_request_interval: float = float(os.getenv("MIN_REQUEST_INTERVAL", "1.0"))
 
@@ -62,6 +67,8 @@ class Settings:
     deepseek_base_url: str = os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com").rstrip("/")
     enrich_max_per_run: int = int(os.getenv("ENRICH_MAX_PER_RUN", "40"))
     enrich_after_collect: bool = _bool("ENRICH_AFTER_COLLECT", True)
+    # 翻译并发数:回填历史数据时一次几百条,串行要一个多小时
+    enrich_concurrency: int = int(os.getenv("ENRICH_CONCURRENCY", "6"))
 
     # 站点公开地址(用于 sitemap 与 SEO 落地页的 canonical 链接)
     site_url: str = os.getenv("SITE_URL", "https://www.thaipolicy.com").rstrip("/")

@@ -2,32 +2,6 @@
  "_generated": "由 backend/app/export.py 从数据库导出,请勿手改;改 data/policies/*.jsonl → python3 -m app.ingest → python3 -m app.export",
  "schema_version": 3,
  "updated_at": "2026-09-27T09:45:03+07:00",
- "sources": [
-  {
-   "id": "gazette_json",
-   "name": "皇家公报官方月度 JSON 索引",
-   "url": "https://data.go.th/dataset/dataset_02_04",
-   "status": "ok",
-   "last_ok": "2026-09-27T09:45:03+07:00",
-   "detail": "ราชกิจจานุเบกษาเดือนมีนาคม 2569(soc.gdcatalog.go.th,经泰国出口):收 0 条,跳过 3545 条(含自然人姓名前缀×2745, 早于时间窗×132, 王室相关(พระบรมราชโองการ)×17, 王室相关(สมเด็จพระ)×4, 系列 ง พิเศษ 不在收录范围×647)"
-  },
-  {
-   "id": "cabinet_json",
-   "name": "内阁决议年度 JSON",
-   "url": "https://data.go.th/dataset/dataset_02_03",
-   "status": "ok",
-   "last_ok": "2026-09-27T09:45:03+07:00",
-   "detail": "มติคณะรัฐมนตรี ปี 2568(soc.gdcatalog.go.th,经泰国出口):收 0 条,跳过 100 条(无标题×100)"
-  },
-  {
-   "id": "websearch",
-   "name": "公开检索(律所/会计师事务所法规更新)",
-   "url": "",
-   "status": "stale",
-   "last_ok": "2026-08-10T23:53:23+07:00",
-   "detail": "二手信号源,用于发现线索;每条仍需回填官方文号与原文链接"
-  }
- ],
  "stats": {
   "total": 15,
   "research": 13,

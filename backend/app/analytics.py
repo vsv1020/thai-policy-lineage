@@ -199,11 +199,10 @@ def overview(s: Session) -> dict:
     views = [document_view(s, d, today) for d in docs]
     for i, v in enumerate(views):
         v["featured"] = i < settings.feed_size
-    last_run, sources = source_health(s)
+    last_run, _ = source_health(s)
     return {
         "schema_version": 3,
         "updated_at": last_run or datetime.now(BKK).replace(microsecond=0).isoformat(),
-        "sources": sources,
         "stats": {"total": len(views),
                   "research": sum(1 for v in views if v["provenance"] == "research"),
                   "demo": sum(1 for v in views if v["provenance"] == "demo")},
@@ -217,7 +216,11 @@ def overview(s: Session) -> dict:
 
 def trends(s: Session) -> dict:
     today = _today(s)
-    months = _months(settings.trend_months, today)
+    # 时间窗以「数据实际截止的月份」为终点,而不是今天:官方公报数据集滞后数月,
+    # 以今天为终点会在最近几个月画出一段假的「断崖」
+    latest = s.scalar(select(func.max(Document.display_date)).where(Document.display_date <= today))
+    anchor = latest or today
+    months = _months(settings.trend_months, anchor)
     mset = set(months)
 
     counts: dict[str, dict[str, int]] = defaultdict(lambda: defaultdict(int))
@@ -267,12 +270,48 @@ def trends(s: Session) -> dict:
         if any(p is not None for p in pts):
             wind.append({"id": did, "label": labels[did], "data": pts})
 
+    gazette_through = s.scalar(select(func.max(Document.published_at))
+                               .where(Document.pipeline == "gazette_json"))
     return {"months": months, "months_covered": len(covered),
             "usable": len(covered) >= settings.min_trend_months,
             "min_months_required": settings.min_trend_months,
+            "data_through": anchor.isoformat()[:7],
+            "gazette_through": gazette_through.isoformat()[:7] if gazette_through else None,
+            "total_documents": s.scalar(select(func.count(Document.uid))),
             "volume_by_domain": series(counts, labels),
             "wind_by_domain": wind,
-            "activity_by_agency": series(org, org_labels)}
+            "activity_by_agency": series(org, org_labels),
+            "rising": rising_topics(s, anchor)}
+
+
+RISING_WINDOW_DAYS = 90
+
+
+def rising_topics(s: Session, anchor: date, top: int = 8) -> list[dict]:
+    """上升话题:领域 / 政策工具 / 政策目标标签,在最近 90 天与前 90 天各被多少份文件提及,按增幅排序。
+    以数据截止日为基准(不是今天),否则官方数据集的发布滞后会让所有话题都显示为下降。"""
+    cur_from = anchor - timedelta(days=RISING_WINDOW_DAYS)
+    prev_from = cur_from - timedelta(days=RISING_WINDOW_DAYS)
+    cur: dict[str, int] = defaultdict(int)
+    prev: dict[str, int] = defaultdict(int)
+    for link, vocab, col in ((DocumentDomain, Domain, DocumentDomain.domain_id),
+                             (DocumentInstrument, Instrument, DocumentInstrument.instrument_id),
+                             (DocumentGoal, Goal, DocumentGoal.goal_id)):
+        for zh, dd in s.execute(
+                select(vocab.zh, Document.display_date)
+                .join(link, col == vocab.id).join(Document, Document.uid == link.uid)
+                .where(Document.display_date > prev_from, Document.display_date <= anchor)).all():
+            (cur if dd > cur_from else prev)[zh] += 1
+    rows = []
+    for label, n in cur.items():
+        if n < 2:                          # 只被一份文件提到,谈不上「上升」
+            continue
+        p = prev.get(label, 0)
+        rows.append({"label": label, "current": n, "previous": p,
+                     "growth_pct": round((n - p) / p * 100) if p else None})
+    # 前 90 天为 0 的「新出现」话题排最前,其余按增幅,再按提及次数
+    rows.sort(key=lambda r: (r["growth_pct"] is None, r["growth_pct"] or 0, r["current"]), reverse=True)
+    return [r for r in rows if r["growth_pct"] is None or r["growth_pct"] > 0][:top]
 
 
 # ─────────────────────── 政策维度 七维 ───────────────────────
@@ -559,3 +598,169 @@ def ops(s: Session) -> dict:
         "queue_sample": [{"uid": r["uid"], "title_th": (r.get("titles") or {}).get("th", "")[:80]}
                          for r in pending[:10]],
     }
+
+
+# ─────────────────────── 形态分析(政策形态画像)───────────────────────
+
+TIER_LABEL = {5: "法律", 4: "皇家法令", 3: "部令", 2: "公告 / 规程", 1: "决议 / 指引"}
+
+
+def _quarter(d: date) -> str:
+    return f"{d.year}Q{(d.month - 1) // 3 + 1}"
+
+
+def _pct(n: int, total: int) -> float:
+    return round(n / total * 100, 1) if total else 0.0
+
+
+def morphology(s: Session) -> dict:
+    """政策形态画像:每条政策按「法律层级 × 强制力 × 政策工具类型 × 生命周期状态」刻画,
+    再看各领域的形态差异与随时间的演变。全部从库里聚合,解读文字也由数据生成。"""
+    docs = s.scalars(select(Document)).all()
+    total = len(docs)
+    forms = {f.id: f for f in s.scalars(select(LegalForm)).all()}
+    statuses = s.scalars(select(Status)).all()
+    domains = {d.id: d for d in s.scalars(select(Domain)).all()}
+    instruments = {i.id: i for i in s.scalars(select(Instrument)).all()}
+    classes = {c.id: c for c in s.scalars(select(InstrumentClass)).all()}
+
+    def primary_domain(doc: Document) -> str | None:
+        return min(doc.domains, key=lambda x: x.seq).domain_id if doc.domains else None
+
+    form_n: dict[str, int] = defaultdict(int)
+    status_n: dict[str, int] = defaultdict(int)
+    class_n: dict[str, int] = defaultdict(int)
+    instr_n: dict[str, int] = defaultdict(int)
+    matrix: dict[str, dict[str, int]] = defaultdict(lambda: defaultdict(int))
+    prof: dict[str, dict] = defaultdict(lambda: {"n": 0, "stab": 0, "binding": 0, "forms": defaultdict(int),
+                                                 "classes": defaultdict(int), "tight": 0, "loose": 0})
+    evo: dict[str, dict[int, int]] = defaultdict(lambda: defaultdict(int))
+    binding = in_force = high_tier = stab_sum = tight = loose = 0
+
+    for d in docs:
+        f = forms.get(d.legal_form_id)
+        stab = f.stability if f else 1
+        form_n[d.legal_form_id] += 1
+        status_n[d.status_id] += 1
+        stab_sum += stab
+        binding += bool(f and f.justiciable)
+        in_force += bool(d.status and d.status.in_force)
+        high_tier += stab >= 4
+        tight += d.direction == "tight"
+        loose += d.direction == "loose"
+        cls_here = {instruments[x.instrument_id].class_id for x in d.instruments if x.instrument_id in instruments}
+        for c in cls_here:
+            class_n[c] += 1
+        for x in d.instruments:
+            instr_n[x.instrument_id] += 1
+        dom = primary_domain(d)
+        if dom:
+            matrix[dom][d.legal_form_id] += 1
+            p = prof[dom]
+            p["n"] += 1
+            p["stab"] += stab
+            p["binding"] += bool(f and f.justiciable)
+            p["forms"][d.legal_form_id] += 1
+            for c in cls_here:
+                p["classes"][c] += 1
+            p["tight"] += d.direction == "tight"
+            p["loose"] += d.direction == "loose"
+        if d.display_date:
+            evo[_quarter(d.display_date)][stab] += 1
+
+    form_rows = [{"id": fid, "zh": f.zh, "stability": f.stability, "justiciable": f.justiciable,
+                  "n": form_n.get(fid, 0), "pct": _pct(form_n.get(fid, 0), total)}
+                 for fid, f in sorted(forms.items(), key=lambda kv: -kv[1].stability)]
+    tiers = [{"stability": t, "label": TIER_LABEL[t],
+              "n": sum(r["n"] for r in form_rows if r["stability"] == t),
+              "pct": _pct(sum(r["n"] for r in form_rows if r["stability"] == t), total)}
+             for t in sorted(TIER_LABEL, reverse=True)]
+    used_forms = [r for r in form_rows if r["n"]]
+    dom_order = sorted(matrix, key=lambda k: -sum(matrix[k].values()))
+
+    profiles = []
+    for did in dom_order:
+        p = prof[did]
+        top_form = max(p["forms"], key=p["forms"].get)
+        top_cls = max(p["classes"], key=p["classes"].get) if p["classes"] else None
+        profiles.append({
+            "id": did, "zh": domains[did].zh if did in domains else did, "n": p["n"],
+            "avg_stability": round(p["stab"] / p["n"], 2),
+            "binding_pct": _pct(p["binding"], p["n"]),
+            "dominant_form": forms[top_form].zh if top_form in forms else top_form,
+            "dominant_form_pct": _pct(p["forms"][top_form], p["n"]),
+            "dominant_class": classes[top_cls].zh if top_cls in classes else None,
+            "tight": p["tight"], "loose": p["loose"]})
+
+    # 连续的最近 8 个季度(以数据截止季度为终点),没有政策的季度记 0,图上不会把空档悄悄跳过
+    quarters: list[str] = []
+    if evo:
+        y, q = (int(x) for x in max(evo).split("Q"))
+        for _ in range(8):
+            quarters.append(f"{y}Q{q}")
+            y, q = (y, q - 1) if q > 1 else (y - 1, 4)
+        quarters.reverse()
+    evolution = []
+    for q in quarters:
+        n = sum(evo[q].values()) if q in evo else 0
+        evolution.append({"quarter": q, "n": n,
+                          "avg_stability": round(sum(t * c for t, c in evo[q].items()) / n, 2) if n else None,
+                          "tiers": {TIER_LABEL[t]: evo[q].get(t, 0) if q in evo else 0
+                                    for t in sorted(TIER_LABEL, reverse=True)}})
+
+    k = {"total": total, "avg_stability": round(stab_sum / total, 2) if total else 0,
+         "binding_pct": _pct(binding, total), "in_force_pct": _pct(in_force, total),
+         "high_tier_pct": _pct(high_tier, total), "tight": tight, "loose": loose}
+    return {
+        "n": total,
+        "kpis": k,
+        "insights": morphology_insights(k, tiers, profiles, evolution),
+        "legal_forms": form_rows,
+        "tiers": tiers,
+        "instrument_classes": [{"id": cid, "zh": c.zh, "desc": c.desc, "n": class_n.get(cid, 0),
+                                "pct": _pct(class_n.get(cid, 0), total)} for cid, c in classes.items()],
+        "top_instruments": [{"zh": instruments[iid].zh, "class": classes[instruments[iid].class_id].zh, "n": n}
+                            for iid, n in sorted(instr_n.items(), key=lambda kv: -kv[1])[:8]
+                            if iid in instruments],
+        "statuses": [{"id": x.id, "zh": x.zh, "n": status_n.get(x.id, 0), "pct": _pct(status_n.get(x.id, 0), total)}
+                     for x in statuses],
+        "matrix": {"rows": [{"id": d, "zh": domains[d].zh if d in domains else d} for d in dom_order],
+                   "cols": [{"id": r["id"], "zh": r["zh"]} for r in used_forms],
+                   "cells": [[matrix[d].get(r["id"], 0) for r in used_forms] for d in dom_order]},
+        "domain_profiles": profiles,
+        "evolution": evolution,
+    }
+
+
+def morphology_insights(k: dict, tiers: list[dict], profiles: list[dict], evolution: list[dict]) -> list[str]:
+    """由数据生成的几句解读 —— 数字变了,结论跟着变,不写死任何判断。"""
+    out: list[str] = []
+    if not k["total"]:
+        return out
+    top = max(tiers, key=lambda t: t["n"])
+    out.append(f"库内 {k['total']} 条政策中,{top['label']}层级最多(占 {top['pct']}%);"
+               f"可诉、强制力较强的占 {k['binding_pct']}%,现行有效的占 {k['in_force_pct']}%。")
+    low = [p for p in profiles if p["n"] >= 2]
+    if len(low) >= 2:
+        strong = max(low, key=lambda p: p["avg_stability"])
+        weak = min(low, key=lambda p: p["avg_stability"])
+        if strong["id"] != weak["id"]:
+            out.append(f"「{strong['zh']}」的政策层级最高(平均稳定性 {strong['avg_stability']}),"
+                       f"多以{strong['dominant_form']}出台;「{weak['zh']}」最低(平均 {weak['avg_stability']}),"
+                       f"以{weak['dominant_form']}为主,规则更容易调整。")
+    if k["tight"] or k["loose"]:
+        lean = "收紧" if k["tight"] > k["loose"] else ("放宽" if k["loose"] > k["tight"] else "持平")
+        out.append(f"方向上,收紧 {k['tight']} 条、放宽 {k['loose']} 条,整体偏{lean}。")
+    # 前后两半各至少 10 条才比较 —— 单季一两条的差异只是噪声
+    half = len(evolution) // 2
+    early, late = evolution[:half], evolution[half:]
+    ne, nl = sum(e["n"] for e in early), sum(e["n"] for e in late)
+    if ne >= 10 and nl >= 10:
+        ae = sum((e["avg_stability"] or 0) * e["n"] for e in early) / ne
+        al = sum((e["avg_stability"] or 0) * e["n"] for e in late) / nl
+        diff = round(al - ae, 2)
+        if abs(diff) >= 0.2:
+            out.append(f"与 {early[0]['quarter']}–{early[-1]['quarter']} 相比,{late[0]['quarter']}–{late[-1]['quarter']} "
+                       f"新出台政策的平均层级{'上升' if diff > 0 else '下降'}了 {abs(diff)}(稳定性 1–5),"
+                       f"{'规则更趋向以高层级立法固定' if diff > 0 else '更多以公告、指引等灵活形式出台'}。")
+    return out
