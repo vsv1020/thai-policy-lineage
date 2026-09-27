@@ -603,6 +603,13 @@ def ops(s: Session) -> dict:
 # ─────────────────────── 形态分析(政策形态画像)───────────────────────
 
 TIER_LABEL = {5: "法律", 4: "皇家法令", 3: "部令", 2: "公告 / 规程", 1: "决议 / 指引"}
+STATUS_ORDER = ["draft", "pending_gazette", "gazetted", "in_force", "superseded", "repealed", "expired"]
+CLASS_ORDER = ["supply", "environment", "demand"]
+
+
+def _ordered(items, order: list[str]):
+    """按给定顺序排,不在列表里的按 id 排在后面 —— 顺序固定,导出可重复。"""
+    return sorted(items, key=lambda x: (order.index(x.id) if x.id in order else len(order), x.id))
 
 
 def _quarter(d: date) -> str:
@@ -616,13 +623,15 @@ def _pct(n: int, total: int) -> float:
 def morphology(s: Session) -> dict:
     """政策形态画像:每条政策按「法律层级 × 强制力 × 政策工具类型 × 生命周期状态」刻画,
     再看各领域的形态差异与随时间的演变。全部从库里聚合,解读文字也由数据生成。"""
-    docs = s.scalars(select(Document)).all()
+    # 全部显式排序:导出必须可重复(CI 会比对派生文件),不能依赖数据库返回顺序
+    docs = s.scalars(select(Document).order_by(Document.uid)).all()
     total = len(docs)
-    forms = {f.id: f for f in s.scalars(select(LegalForm)).all()}
-    statuses = s.scalars(select(Status)).all()
-    domains = {d.id: d for d in s.scalars(select(Domain)).all()}
-    instruments = {i.id: i for i in s.scalars(select(Instrument)).all()}
-    classes = {c.id: c for c in s.scalars(select(InstrumentClass)).all()}
+    forms = {f.id: f for f in s.scalars(select(LegalForm).order_by(LegalForm.id)).all()}
+    statuses = _ordered(s.scalars(select(Status)).all(), STATUS_ORDER)
+    domains = {d.id: d for d in s.scalars(select(Domain).order_by(Domain.id)).all()}
+    instruments = {i.id: i for i in s.scalars(select(Instrument).order_by(Instrument.id)).all()}
+    classes = {c.id: c for c in _ordered(s.scalars(select(InstrumentClass)).all(), CLASS_ORDER)}
+    top = lambda counts: max(sorted(counts), key=lambda k: counts[k]) if counts else None  # noqa: E731
 
     def primary_domain(doc: Document) -> str | None:
         return min(doc.domains, key=lambda x: x.seq).domain_id if doc.domains else None
@@ -670,19 +679,19 @@ def morphology(s: Session) -> dict:
 
     form_rows = [{"id": fid, "zh": f.zh, "stability": f.stability, "justiciable": f.justiciable,
                   "n": form_n.get(fid, 0), "pct": _pct(form_n.get(fid, 0), total)}
-                 for fid, f in sorted(forms.items(), key=lambda kv: -kv[1].stability)]
+                 for fid, f in sorted(forms.items(), key=lambda kv: (-kv[1].stability, kv[0]))]
     tiers = [{"stability": t, "label": TIER_LABEL[t],
               "n": sum(r["n"] for r in form_rows if r["stability"] == t),
               "pct": _pct(sum(r["n"] for r in form_rows if r["stability"] == t), total)}
              for t in sorted(TIER_LABEL, reverse=True)]
     used_forms = [r for r in form_rows if r["n"]]
-    dom_order = sorted(matrix, key=lambda k: -sum(matrix[k].values()))
+    dom_order = sorted(matrix, key=lambda k: (-sum(matrix[k].values()), k))
 
     profiles = []
     for did in dom_order:
         p = prof[did]
-        top_form = max(p["forms"], key=p["forms"].get)
-        top_cls = max(p["classes"], key=p["classes"].get) if p["classes"] else None
+        top_form = top(p["forms"])
+        top_cls = top(p["classes"])
         profiles.append({
             "id": did, "zh": domains[did].zh if did in domains else did, "n": p["n"],
             "avg_stability": round(p["stab"] / p["n"], 2),
@@ -720,7 +729,7 @@ def morphology(s: Session) -> dict:
         "instrument_classes": [{"id": cid, "zh": c.zh, "desc": c.desc, "n": class_n.get(cid, 0),
                                 "pct": _pct(class_n.get(cid, 0), total)} for cid, c in classes.items()],
         "top_instruments": [{"zh": instruments[iid].zh, "class": classes[instruments[iid].class_id].zh, "n": n}
-                            for iid, n in sorted(instr_n.items(), key=lambda kv: -kv[1])[:8]
+                            for iid, n in sorted(instr_n.items(), key=lambda kv: (-kv[1], kv[0]))[:8]
                             if iid in instruments],
         "statuses": [{"id": x.id, "zh": x.zh, "n": status_n.get(x.id, 0), "pct": _pct(status_n.get(x.id, 0), total)}
                      for x in statuses],

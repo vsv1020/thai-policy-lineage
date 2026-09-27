@@ -65,16 +65,16 @@
    "pct": 13.3
   },
   {
-   "id": "resolution",
-   "zh": "内阁决议",
+   "id": "guidance",
+   "zh": "操作指引",
    "stability": 1,
    "justiciable": false,
    "n": 1,
    "pct": 6.7
   },
   {
-   "id": "guidance",
-   "zh": "操作指引",
+   "id": "resolution",
+   "zh": "内阁决议",
    "stability": 1,
    "justiciable": false,
    "n": 1,
@@ -158,22 +158,22 @@
    "n": 3
   },
   {
-   "zh": "进出口与贸易管制",
-   "class": "需求型",
-   "n": 1
-  },
-  {
    "zh": "本地化与合规考核",
    "class": "环境型",
    "n": 1
   },
   {
-   "zh": "人才与技能培训",
+   "zh": "公共服务与系统供给",
    "class": "供给型",
    "n": 1
   },
   {
-   "zh": "公共服务与系统供给",
+   "zh": "进出口与贸易管制",
+   "class": "需求型",
+   "n": 1
+  },
+  {
+   "zh": "人才与技能培训",
    "class": "供给型",
    "n": 1
   }
@@ -229,12 +229,12 @@
     "zh": "税务"
    },
    {
-    "id": "digital",
-    "zh": "数字与数据"
-   },
-   {
     "id": "biz",
     "zh": "公司投资"
+   },
+   {
+    "id": "digital",
+    "zh": "数字与数据"
    },
    {
     "id": "labor",
@@ -267,12 +267,12 @@
     "zh": "规程/指令"
    },
    {
-    "id": "resolution",
-    "zh": "内阁决议"
-   },
-   {
     "id": "guidance",
     "zh": "操作指引"
+   },
+   {
+    "id": "resolution",
+    "zh": "内阁决议"
    }
   ],
   "cells": [
@@ -285,18 +285,18 @@
     0
    ],
    [
+    0,
+    0,
     1,
-    0,
     2,
-    0,
     0,
     0
    ],
    [
-    0,
-    0,
     1,
+    0,
     2,
+    0,
     0,
     0
    ],
@@ -340,18 +340,6 @@
    "loose": 3
   },
   {
-   "id": "digital",
-   "zh": "数字与数据",
-   "n": 3,
-   "avg_stability": 2.67,
-   "binding_pct": 33.3,
-   "dominant_form": "公告",
-   "dominant_form_pct": 66.7,
-   "dominant_class": "环境型",
-   "tight": 3,
-   "loose": 0
-  },
-  {
    "id": "biz",
    "zh": "公司投资",
    "n": 3,
@@ -364,12 +352,24 @@
    "loose": 1
   },
   {
+   "id": "digital",
+   "zh": "数字与数据",
+   "n": 3,
+   "avg_stability": 2.67,
+   "binding_pct": 33.3,
+   "dominant_form": "公告",
+   "dominant_form_pct": 66.7,
+   "dominant_class": "环境型",
+   "tight": 3,
+   "loose": 0
+  },
+  {
    "id": "labor",
    "zh": "劳工用工",
    "n": 2,
    "avg_stability": 2.5,
    "binding_pct": 50.0,
-   "dominant_form": "公告",
+   "dominant_form": "部令",
    "dominant_form_pct": 50.0,
    "dominant_class": "环境型",
    "tight": 1,
@@ -395,7 +395,7 @@
    "binding_pct": 0.0,
    "dominant_form": "公告",
    "dominant_form_pct": 100.0,
-   "dominant_class": "环境型",
+   "dominant_class": "需求型",
    "tight": 1,
    "loose": 0
   }
