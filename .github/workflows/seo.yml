@@ -5,11 +5,12 @@ name: SEO / GEO 每日监控
 # 日报里的「待处理问题」由随后运行的每日例行会话读取并修改站点(见 docs/seo.md)。
 #
 # 所有凭据都可选,缺哪个跳过哪一项,日报的「未启用的数据源」会写明。
-# 注意:GitHub 的 schedule 可能延迟几分钟到半小时;schedule 只在默认分支上生效。
+# 注意:GitHub 的 schedule 只是「尽量准时」,实测本仓库有延迟数小时的情况;schedule 只在默认分支上生效。
+# 所以每日修改会话排在 09:45,留足余量。
 
 on:
   schedule:
-    - cron: '0 20 * * *'        # UTC 20:00 = 曼谷时间 03:00
+    - cron: '7 20 * * *'        # UTC 20:07 = 曼谷时间 03:07(避开整点:整点排队最严重)
   workflow_dispatch:
     inputs:
       submit:
