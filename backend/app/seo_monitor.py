@@ -204,7 +204,7 @@ def check_site(client: httpx.Client, rep: Report, key: str, repo_sitemap: dict) 
         missing = sorted(set(repo_sitemap) - set(live))
         if missing:
             rep.issue("warn", "deploy_lag", f"仓库里有 {len(missing)} 个页面线上还没有(服务器未同步)",
-                      "服务器每小时跑 deploy/sync.sh;持续出现说明 cron 失效或导出报错,看 /var/log/thaipolicy-sync.log",
+                      "服务器每小时跑 deploy/sync.sh;持续出现说明 cron 失效或导出报错,看 /var/log/thai-policy-sync.log",
                       missing)
         foreign = [] if local else [u for u in live if _host(u) != host]
         if foreign:
