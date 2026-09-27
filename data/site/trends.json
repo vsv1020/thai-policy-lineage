@@ -18,8 +18,8 @@
  "usable": false,
  "min_months_required": 6,
  "data_through": "2026-08",
- "gazette_through": null,
- "total_documents": 15,
+ "gazette_through": "2026-04",
+ "total_documents": 27,
  "volume_by_domain": [
   {
    "id": "biz",
@@ -86,7 +86,7 @@
     1,
     0,
     0,
-    0,
+    7,
     0,
     0,
     0,
@@ -104,7 +104,7 @@
     1,
     0,
     0,
-    0,
+    1,
     0,
     0,
     0,
@@ -140,7 +140,25 @@
     0,
     0,
     0,
+    3,
     0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "finance",
+   "label": "金融外汇",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
     0,
     0,
     0,
@@ -214,7 +232,7 @@
     -0.33,
     null,
     null,
-    null,
+    0.0,
     null,
     null,
     null,
@@ -232,7 +250,7 @@
     -0.33,
     null,
     null,
-    null,
+    -0.17,
     null,
     null,
     null,
@@ -268,7 +286,25 @@
     null,
     null,
     null,
+    0.0,
     null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "id": "finance",
+   "label": "金融外汇",
+   "data": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    0.0,
     null,
     null,
     null,
@@ -306,7 +342,7 @@
     2,
     0,
     0,
-    0,
+    2,
     0,
     0,
     0,
@@ -342,7 +378,7 @@
     0,
     0,
     0,
-    0,
+    4,
     1,
     0,
     0,
@@ -404,6 +440,60 @@
    ]
   },
   {
+   "id": "excise",
+   "label": "消费税厅",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "moc",
+   "label": "商务部",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    3,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "sso",
+   "label": "社会保障办公室",
+   "data": [
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    2,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
    "id": "imm",
    "label": "移民局",
    "data": [
@@ -438,24 +528,6 @@
     0,
     0
    ]
-  },
-  {
-   "id": "sso",
-   "label": "社会保障办公室",
-   "data": [
-    0,
-    0,
-    0,
-    1,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ]
   }
  ],
  "rising": [
@@ -464,12 +536,6 @@
    "current": 2,
    "previous": 0,
    "growth_pct": null
-  },
-  {
-   "label": "秩序与安全",
-   "current": 2,
-   "previous": 1,
-   "growth_pct": 100
   }
  ]
 }

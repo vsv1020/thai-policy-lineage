@@ -1,9 +1,9 @@
 {
  "_generated": "由 backend/app/export.py 从数据库导出,请勿手改;改 data/policies/*.jsonl → python3 -m app.ingest → python3 -m app.export",
  "schema_version": 3,
- "updated_at": "2026-09-27T09:45:03+07:00",
+ "updated_at": "2026-09-27T12:26:48+07:00",
  "stats": {
-  "total": 15,
+  "total": 27,
   "research": 13,
   "demo": 0
  },
@@ -103,6 +103,426 @@
    "featured": true
   },
   {
+   "uid": "TH-GAZ-20260401-4-2569",
+   "issue_id": null,
+   "date": "2026-04-01",
+   "domain": "customs",
+   "domain_label": "海关贸易",
+   "direction": "tight",
+   "title_zh": "商品与服务价格中央委员会公告第4号（佛历2569年）关于新增管制商品的规定",
+   "title_th": "ประกาศคณะกรรมการกลางว่าด้วยราคาสินค้าและบริการ ฉบับที่ 4 พ.ศ. 2569 เรื่อง การกำหนดสินค้าควบคุมเพิ่มเติม",
+   "summary_zh": "据标题，本公告由商品与服务价格中央委员会发布，新增列入价格管制清单的商品；具体商品类别、管制措施及生效日期待原文核对。",
+   "org": "商务部 (MOC)",
+   "doc_no": "ง พิเศษ 143/88",
+   "doc_no_label": "公报",
+   "legal_form": "公告 · ประกาศ 层级",
+   "stability": 2,
+   "effective_label": "已刊公报",
+   "status": "soon",
+   "status_label": "已刊公报",
+   "source_url": "https://ratchakitcha.soc.go.th/documents/111303.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "gazette_json",
+   "dates": {
+    "resolved_at": null,
+    "published_at": "2026-04-01",
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "featured": true
+  },
+  {
+   "uid": "TH-GAZ-20260401-4-2569-14",
+   "issue_id": null,
+   "date": "2026-04-01",
+   "domain": "finance",
+   "domain_label": "金融外汇",
+   "direction": "neutral",
+   "title_zh": "泰国证券交易委员会办公室公告第 สน. 4/2569 号：关于面向普通投资者、非散户投资者及机构投资者的共同基金管理规则、条件与方法（第14版）",
+   "title_th": "ประกาศสำนักงานคณะกรรมการกำกับหลักทรัพย์และตลาดหลักทรัพย์ ที่ สน. 4/2569 เรื่อง หลักเกณฑ์ เงื่อนไข และวิธีการจัดการกองทุนรวมเพื่อผู้ลงทุนทั่วไป กองทุนรวมเพื่อผู้ลงทุนที่มิใช่รายย่อย และกองทุนรวมเพื่อผู้ลงทุนประเภทสถาบัน (ฉบับที่ 14)",
+   "summary_zh": "据标题，本文件涉及泰国证券交易委员会办公室对共同基金（面向普通投资者、非散户投资者及机构投资者）管理规则、条件与方法的修订（第14版）；具体条款待原文核对。",
+   "org": "财政部 (MOF)",
+   "doc_no": "ง พิเศษ 143/88",
+   "doc_no_label": "公报",
+   "legal_form": "公告 · ประกาศ 层级",
+   "stability": 2,
+   "effective_label": "已刊公报",
+   "status": "soon",
+   "status_label": "已刊公报",
+   "source_url": "https://ratchakitcha.soc.go.th/documents/110823.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "gazette_json",
+   "dates": {
+    "resolved_at": null,
+    "published_at": "2026-04-01",
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "featured": true
+  },
+  {
+   "uid": "TH-GAZ-20260401-40-2568",
+   "issue_id": null,
+   "date": "2026-04-01",
+   "domain": "labor",
+   "domain_label": "劳工用工",
+   "direction": "neutral",
+   "title_zh": "社会保障办公室公告：关于确定第40条参保人2025年度老年抚恤金（一次性补助）收益标准",
+   "title_th": "ประกาศสำนักงานประกันสังคม เรื่อง กำหนดผลประโยชน์ตอบแทนเงินบำเหน็จชราภาพของผู้ประกันตนตามมาตรา 40 ประจำปี พ.ศ. 2568",
+   "summary_zh": "据标题，本公告由社会保障办公室发布，涉及第40条参保人2025年度老年抚恤金（บำเหน็จชราภาพ）的收益标准；具体利率与计算方式待原文核对。",
+   "org": "社会保障办公室 (SSO)",
+   "doc_no": "ง พิเศษ 143/88",
+   "doc_no_label": "公报",
+   "legal_form": "公告 · ประกาศ 层级",
+   "stability": 2,
+   "effective_label": "已刊公报",
+   "status": "soon",
+   "status_label": "已刊公报",
+   "source_url": "https://ratchakitcha.soc.go.th/documents/109597.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "gazette_json",
+   "dates": {
+    "resolved_at": null,
+    "published_at": "2026-04-01",
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "featured": true
+  },
+  {
+   "uid": "TH-GAZ-20260401-33-39",
+   "issue_id": null,
+   "date": "2026-04-01",
+   "domain": "labor",
+   "domain_label": "劳工用工",
+   "direction": "neutral",
+   "title_zh": "社会保障办公室公告：关于第33条和第39条参保人老年退休金（一次性抚恤金）收益率的确定",
+   "title_th": "ประกาศสำนักงานประกันสังคม เรื่อง กำหนดผลประโยชน์ตอบแทนเงินบำเหน็จชราภาพของผู้ประกันตนตามมาตรา 33 และมาตรา 39",
+   "summary_zh": "据标题，本公告由社会保障办公室发布，涉及第33条和第39条参保人老年退休金（一次性抚恤金）的收益率规定；具体条款待原文核对。",
+   "org": "社会保障办公室 (SSO)",
+   "doc_no": "ง พิเศษ 143/88",
+   "doc_no_label": "公报",
+   "legal_form": "公告 · ประกาศ 层级",
+   "stability": 2,
+   "effective_label": "已刊公报",
+   "status": "soon",
+   "status_label": "已刊公报",
+   "source_url": "https://ratchakitcha.soc.go.th/documents/109596.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "gazette_json",
+   "dates": {
+    "resolved_at": null,
+    "published_at": "2026-04-01",
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "featured": true
+  },
+  {
+   "uid": "TH-GAZ-20260401-2569-2569",
+   "issue_id": null,
+   "date": "2026-04-01",
+   "domain": "customs",
+   "domain_label": "海关贸易",
+   "direction": "neutral",
+   "title_zh": "对外贸易厅公告：关于签发泰国与日本经济伙伴关系协定项下新鲜香蕉、新鲜菠萝及加工猪肉出口配额免税或部分免税权利证明书，2569出口年度，佛历2569年",
+   "title_th": "ประกาศกรมการค้าต่างประเทศ เรื่อง การออกหนังสือรับรองแสดงการได้รับสิทธิในการยกเว้นภาษีทั้งหมดหรือบางส่วนสำหรับกล้วยสด สับปะรดสด และเนื้อสุกรปรุงแต่ง ที่มีโควตาส่งออกตามความตกลงระหว่างราชอาณาจักรไทยและญี่ปุ่นสำหรับความเป็นหุ้นส่วนทางเศรษฐกิจ ปีการส่งออก 2569 พ.ศ. 2569",
+   "summary_zh": "据标题，本公告涉及泰国—日本经济伙伴关系协定（JTEPA）项下新鲜香蕉、新鲜菠萝及加工猪肉的出口配额，由对外贸易厅签发免税或部分免税权利证明书，适用于2569出口年度。从事上述产品对日出口的进口商与经销商需按此办理权利证明；具体配额数量与申领条件待原文核对。",
+   "org": "商务部 (MOC)",
+   "doc_no": "ง พิเศษ 143/88",
+   "doc_no_label": "公报",
+   "legal_form": "公告 · ประกาศ 层级",
+   "stability": 2,
+   "effective_label": "已刊公报",
+   "status": "soon",
+   "status_label": "已刊公报",
+   "source_url": "https://ratchakitcha.soc.go.th/documents/111366.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "gazette_json",
+   "dates": {
+    "resolved_at": null,
+    "published_at": "2026-04-01",
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "featured": false
+  },
+  {
+   "uid": "TH-GAZ-20260401-41-2569-INTERNATIONAL-MARITIME-SOLID",
+   "issue_id": null,
+   "date": "2026-04-01",
+   "domain": "customs",
+   "domain_label": "海关贸易",
+   "direction": "neutral",
+   "title_zh": "海事厅公告第41/2569号：国际海上固体散装货物运输规则（IMSBC规则）",
+   "title_th": "ประกาศกรมเจ้าท่า ที่ 41/2569 เรื่อง ประมวลข้อบังคับว่าด้วยการขนส่งสินค้าเทกองที่เป็นของแข็งในระวางทางทะเลระหว่างประเทศ (International Maritime Solid Bulk Cargoes Code (IMSBC Code))",
+   "summary_zh": "据标题，本公告由海事厅发布，涉及国际海上固体散装货物运输的规则汇编（IMSBC规则），可能对从事散货进出口运输的货主、船运及代理企业提出合规要求；具体条款待原文核对。",
+   "org": "商务部 (MOC)",
+   "doc_no": "ง พิเศษ 143/88",
+   "doc_no_label": "公报",
+   "legal_form": "公告 · ประกาศ 层级",
+   "stability": 2,
+   "effective_label": "已刊公报",
+   "status": "soon",
+   "status_label": "已刊公报",
+   "source_url": "https://ratchakitcha.soc.go.th/documents/108132.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "gazette_json",
+   "dates": {
+    "resolved_at": null,
+    "published_at": "2026-04-01",
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "featured": false
+  },
+  {
+   "uid": "TH-GAZ-20260401-40-2569-II-2-19",
+   "issue_id": null,
+   "date": "2026-04-01",
+   "domain": "customs",
+   "domain_label": "海关贸易",
+   "direction": "neutral",
+   "title_zh": "海事厅公告第40/2569号：关于《1974年国际海上人命安全公约》第II-2/19条危险品货物运输船舶特殊要求合规证书",
+   "title_th": "ประกาศกรมเจ้าท่า ที่ 40/2569 เรื่อง หนังสือรับรองการปฏิบัติตามข้อกำหนดพิเศษสำหรับเรือบรรทุกสินค้าอันตรายภายใต้ข้อบทที่ II-2/19 ของอนุสัญญาระหว่างประเทศว่าด้วยความปลอดภัยแห่งชีวิตในทะเล ค.ศ. 1974 (Document of Compliance with the Special Requirements for Ships Carrying Dangerous Goods under the Provisions of Regulation II-2/19 of the 1974 SOLAS Convention)",
+   "summary_zh": "据标题，本公告涉及海事厅对载运危险品船舶依据《1974年国际海上人命安全公约》第II-2/19条签发合规证书的相关事项；具体条款待原文核对。",
+   "org": "内政部 (MOI)",
+   "doc_no": "ง พิเศษ 143/88",
+   "doc_no_label": "公报",
+   "legal_form": "公告 · ประกาศ 层级",
+   "stability": 2,
+   "effective_label": "已刊公报",
+   "status": "soon",
+   "status_label": "已刊公报",
+   "source_url": "https://ratchakitcha.soc.go.th/documents/108341.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "gazette_json",
+   "dates": {
+    "resolved_at": null,
+    "published_at": "2026-04-01",
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "featured": false
+  },
+  {
+   "uid": "TH-GAZ-20260401-39-2569-REVISED-RECOMMENDATIONS-FOR",
+   "issue_id": null,
+   "date": "2026-04-01",
+   "domain": "labor",
+   "domain_label": "劳工用工",
+   "direction": "neutral",
+   "title_zh": "海事厅公告第39/2569号:关于进入船上密闭空间的建议(修订版)",
+   "title_th": "ประกาศกรมเจ้าท่า ที่ 39/2569 เรื่อง ข้อแนะนำสำหรับการเข้าพื้นที่อับอากาศบนเรือ ฉบับปรับปรุง (Revised Recommendations for Entering Enclosed Spaces Aboard Ships)",
+   "summary_zh": "据标题,本文件为海事厅发布的关于进入船上密闭空间的安全建议修订版,涉及船上作业人员的安全操作规范;具体条款待原文核对。",
+   "org": "内政部 (MOI)",
+   "doc_no": "ง พิเศษ 143/88",
+   "doc_no_label": "公报",
+   "legal_form": "公告 · ประกาศ 层级",
+   "stability": 2,
+   "effective_label": "已刊公报",
+   "status": "soon",
+   "status_label": "已刊公报",
+   "source_url": "https://ratchakitcha.soc.go.th/documents/108340.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "gazette_json",
+   "dates": {
+    "resolved_at": null,
+    "published_at": "2026-04-01",
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "featured": false
+  },
+  {
+   "uid": "TH-GAZ-20260401-37-2569-II-2-V",
+   "issue_id": null,
+   "date": "2026-04-01",
+   "domain": "customs",
+   "domain_label": "海关贸易",
+   "direction": "neutral",
+   "title_zh": "海事厅公告第37/2569号：关于1974年《国际海上人命安全公约》第II-2章和第V章修正案",
+   "title_th": "ประกาศกรมเจ้าท่า ที่ 37/2569 เรื่อง ข้อแก้ไขเพิ่มเติมบทที่ II-2 และบทที่ V ของอนุสัญญาระหว่างประเทศว่าด้วยความปลอดภัยแห่งชีวิตในทะเล ค.ศ. 1974 (Amendments to Chapters II-2 and V of the International Convention for the Safety of Life at Sea, 1974)",
+   "summary_zh": "据标题，本文件涉及泰国海事厅对1974年《国际海上人命安全公约》第II-2章及第V章修正案的公告；具体条款及对船舶运营方的影响待原文核对。",
+   "org": "内政部 (MOI)",
+   "doc_no": "ง พิเศษ 143/88",
+   "doc_no_label": "公报",
+   "legal_form": "公告 · ประกาศ 层级",
+   "stability": 2,
+   "effective_label": "已刊公报",
+   "status": "soon",
+   "status_label": "已刊公报",
+   "source_url": "https://ratchakitcha.soc.go.th/documents/108337.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "gazette_json",
+   "dates": {
+    "resolved_at": null,
+    "published_at": "2026-04-01",
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "featured": false
+  },
+  {
+   "uid": "TH-GAZ-20260401-33-2569-1974-2",
+   "issue_id": null,
+   "date": "2026-04-01",
+   "domain": "customs",
+   "domain_label": "海关贸易",
+   "direction": "neutral",
+   "title_zh": "海事厅公告第33/2569号:关于依据1974年国际海上人命安全公约及其修正案对船上设备的处理(第2号)",
+   "title_th": "ประกาศกรมเจ้าท่า ที่ 33/2569 เรื่อง การดำเนินการเกี่ยวกับอุปกรณ์บนเรือตามอนุสัญญาระหว่างประเทศว่าด้วยความปลอดภัยแห่งชีวิตในทะเล ค.ศ. 1974 และที่แก้ไขเพิ่มเติม (ฉบับที่ 2)",
+   "summary_zh": "据标题,本文件涉及海事厅依据《1974年国际海上人命安全公约》及其修正案对船上设备提出的要求;具体适用范围与条款待原文核对。",
+   "org": "内政部 (MOI)",
+   "doc_no": "ง พิเศษ 143/88",
+   "doc_no_label": "公报",
+   "legal_form": "公告 · ประกาศ 层级",
+   "stability": 2,
+   "effective_label": "已刊公报",
+   "status": "soon",
+   "status_label": "已刊公报",
+   "source_url": "https://ratchakitcha.soc.go.th/documents/108135.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "gazette_json",
+   "dates": {
+    "resolved_at": null,
+    "published_at": "2026-04-01",
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "featured": false
+  },
+  {
+   "uid": "TH-GAZ-20260401-2-2569",
+   "issue_id": null,
+   "date": "2026-04-01",
+   "domain": "tax",
+   "domain_label": "税务",
+   "direction": "tight",
+   "title_zh": "消费税厅关于通过扣押、冻结及拍卖财产强制执行欠缴税款的规定（第2号）佛历2569年",
+   "title_th": "ระเบียบกรมสรรพสามิต ว่าด้วยการปฏิบัติเกี่ยวกับการบังคับชำระภาษีค้างโดยการยึด การอายัด และการขายทอดตลาดทรัพย์สิน (ฉบับที่ 2) พ.ศ. 2569",
+   "summary_zh": "据标题，本文件为消费税厅关于对欠缴税款采取扣押、冻结及拍卖财产等强制征收措施的操作规程（第2号），涉及应缴消费税的经营者与纳税人；具体条款待原文核对。",
+   "org": "消费税厅 (EXCISE)",
+   "doc_no": "ง พิเศษ 143/88",
+   "doc_no_label": "公报",
+   "legal_form": "规程/指令 · ระเบียบ 层级",
+   "stability": 2,
+   "effective_label": "已刊公报",
+   "status": "soon",
+   "status_label": "已刊公报",
+   "source_url": "https://ratchakitcha.soc.go.th/documents/109402.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "gazette_json",
+   "dates": {
+    "resolved_at": null,
+    "published_at": "2026-04-01",
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "featured": false
+  },
+  {
+   "uid": "TH-GAZ-20260401-2569",
+   "issue_id": null,
+   "date": "2026-04-01",
+   "domain": "customs",
+   "domain_label": "海关贸易",
+   "direction": "loose",
+   "title_zh": "关于在特定期限内免征7号、9号和81号高速公路车辆通行费的部令（佛历2569年）",
+   "title_th": "กฎกระทรวงยกเว้นค่าธรรมเนียมการใช้ยานยนตร์บนทางหลวงพิเศษหมายเลข ๗ ทางหลวงพิเศษหมายเลข ๙ และทางหลวงพิเศษหมายเลข ๘๑ ภานในระยะเวลาที่กำหนด พ.ศ. 2569",
+   "summary_zh": "据标题，本文件为部令，规定在指定期限内免征7号、9号和81号高速公路的车辆通行费；具体免征期限、适用车辆范围及条件待原文核对。",
+   "org": "财政部 (MOF)",
+   "doc_no": "ก 143/24",
+   "doc_no_label": "公报",
+   "legal_form": "部令 · กฎ 层级",
+   "stability": 3,
+   "effective_label": "已刊公报",
+   "status": "soon",
+   "status_label": "已刊公报",
+   "source_url": "https://ratchakitcha.soc.go.th/documents/111315.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "gazette_json",
+   "dates": {
+    "resolved_at": null,
+    "published_at": "2026-04-01",
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "featured": false
+  },
+  {
    "uid": "TH-DBD-2569-ORDER-1",
    "issue_id": "nominee-crackdown",
    "date": "2026-04-01",
@@ -135,7 +555,7 @@
     "dates": "med",
     "doc_no": "high"
    },
-   "featured": true
+   "featured": false
   },
   {
    "uid": "TH-BOI-20260115-MEASURES-2026",
@@ -170,7 +590,7 @@
     "dates": "med",
     "doc_no": "none"
    },
-   "featured": true
+   "featured": false
   },
   {
    "uid": "TH-CUSTOMS-20260101-DEMINIMIS",
@@ -205,7 +625,7 @@
     "dates": "high",
     "doc_no": "none"
    },
-   "featured": true
+   "featured": false
   },
   {
    "uid": "TH-DBD-2568-ORDER-2",
@@ -240,7 +660,7 @@
     "dates": "med",
     "doc_no": "high"
    },
-   "featured": true
+   "featured": false
   },
   {
    "uid": "TH-MOL-20251212-SSO-CEILING",
