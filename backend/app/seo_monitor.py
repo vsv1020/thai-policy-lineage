@@ -376,7 +376,9 @@ def gsc(client: httpx.Client, rep: Report, env: dict, urls: list[str], sitemap_u
                              "pos": round(x["position"], 1)} for x in (q(["page"]).json().get("rows") or [])]
         rep.metrics.update({"gsc_clicks_28d": out["totals_28d"]["clicks"],
                             "gsc_impressions_28d": out["totals_28d"]["impressions"],
-                            "gsc_position": round(out["totals_28d"]["position"] or 0, 1)})
+                            # 没有曝光时没有排名可言,不要显示成 0
+                            "gsc_position": (round(out["totals_28d"]["position"], 1)
+                                             if out["totals_28d"]["impressions"] else None)})
         # 高曝光低点击:标题/描述需要改写的候选
         low_ctr = [p for p in out["top_pages"] if p["impr"] >= 50 and p["clicks"] / p["impr"] < 0.01]
         if low_ctr:
@@ -545,6 +547,26 @@ def baidu(client: httpx.Client, rep: Report, token: str, sitemap: dict, live: se
 
 # ─────────────────────────── 6. GEO:AI 回答是否引用本站 ───────────────────────────
 
+PPLX_HINT = {
+    401: "API Key 无效:到 perplexity.ai → Settings → API 重新生成,更新 GitHub Secret PERPLEXITY_API_KEY",
+    402: "账户余额不足:在 perplexity.ai → Settings → API → Billing 充值",
+    403: "通常是 API 账户没有可用额度(没绑卡/没充值,或 Pro 会员自带的 API 额度未领取),"
+         "或 Key 已被停用:到 perplexity.ai → Settings → API 检查 Billing 与 Key 状态",
+}
+
+
+def _api_error(r: httpx.Response) -> str:
+    """从错误响应里取出人能看懂的原因(JSON 的 error.message,或 HTML/纯文本的前 120 字)。"""
+    try:
+        d = r.json()
+        err = d.get("error") if isinstance(d, dict) else None
+        msg = (err.get("message") if isinstance(err, dict) else err) or d.get("detail") or d.get("message")
+        return str(msg)[:160] if msg else ""
+    except ValueError:
+        text = re.sub(r"<[^>]+>", " ", r.text or "")
+        return re.sub(r"\s+", " ", text).strip()[:120]
+
+
 def geo_probe(client: httpx.Client, rep: Report, key: str, questions: list[str]) -> dict | None:
     if not key:
         rep.disabled.append("GEO 实测:没配置 PERPLEXITY_API_KEY,无法实测 AI 搜索回答是否引用本站"
@@ -557,10 +579,22 @@ def geo_probe(client: httpx.Client, rep: Report, key: str, questions: list[str])
             r = client.post("https://api.perplexity.ai/chat/completions", timeout=60,
                             headers={"Authorization": f"Bearer {key}"},
                             json={"model": "sonar", "messages": [{"role": "user", "content": q}]})
-            r.raise_for_status()
+        except httpx.HTTPError as ex:
+            results.append({"q": q, "error": f"{type(ex).__name__}: {ex}"[:160]})
+            continue
+        if r.status_code != 200:
+            detail = _api_error(r)
+            results.append({"q": q, "error": f"HTTP {r.status_code} {detail}"[:200]})
+            if r.status_code in (401, 402, 403):
+                # 账号问题,后面的问题问了也一样,别浪费请求
+                rep.issue("warn", "geo_api", f"Perplexity 接口返回 {r.status_code}:{detail or '无详情'}"[:300],
+                          PPLX_HINT.get(r.status_code, ""))
+                break
+            continue
+        try:
             d = r.json()
-        except (httpx.HTTPError, ValueError) as ex:
-            results.append({"q": q, "error": str(ex)[:120]})
+        except ValueError:
+            results.append({"q": q, "error": "返回不是 JSON"})
             continue
         cites = list(d.get("citations") or []) + [x.get("url", "") for x in d.get("search_results") or []]
         hosts = [_host(c) for c in cites if c]
@@ -656,7 +690,7 @@ def render_md(d: dict, prev: dict | None) -> str:
     geo = sec.get("geo") or {}
     if geo.get("results"):
         out += ["", "## GEO 实测(Perplexity)", ""]
-        out += [f"- {'✅' if x.get('cited') else '❌'} {x['q']}" + (f" —— 引用:{', '.join(x.get('sources', [])[:5])}"
+        out += [f"- {'⚠️' if x.get('error') else '✅' if x.get('cited') else '❌'} {x['q']}" + (f" —— 引用:{', '.join(x.get('sources', [])[:5])}"
                                                                    if x.get("sources") else f" —— {x.get('error', '')}")
                 for x in geo["results"]]
         if geo.get("top_cited_domains"):
