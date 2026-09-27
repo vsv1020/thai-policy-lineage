@@ -17,14 +17,17 @@
     return (q !== null ? q : load('adm_api') || '').replace(/\/$/, '');
   };
 
-  async function fetchStats() {
-    const r = await fetch(`${apiBase()}/api/admin/stats?days=${days}`, {
+  let tab = 'stats';
+
+  async function adminGet(path) {
+    const r = await fetch(`${apiBase()}${path}`, {
       headers: { Authorization: 'Bearer ' + (load('adm_token') || '') }, cache: 'no-store' });
     if (r.status === 401) throw Object.assign(new Error('令牌不对'), { auth: true });
     if (r.status === 404) throw Object.assign(new Error('后台未启用:服务器没有设置 ADMIN_TOKEN,或后端地址不对'), { auth: true });
     if (!r.ok) throw new Error('HTTP ' + r.status);
     return r.json();
   }
+  const fetchStats = () => adminGet(`/api/admin/stats?days=${days}`);
 
   function bars(rows, opts = {}) {
     if (!rows || !rows.length) return `<div class="empty">${opts.empty || '暂无数据'}</div>`;
@@ -131,14 +134,34 @@
   async function refresh() {
     $('refresh').disabled = true;
     try {
-      render(await fetchStats());
+      if (tab === 'ops') {
+        window.PolicyOps.render(await adminGet('/api/admin/ops'));   // 采集状态:js/ops.js 负责渲染
+      } else {
+        render(await fetchStats());
+      }
       $('login').hidden = true; $('dash').hidden = false; $('logout').hidden = false;
       charts.forEach(c => c.resize());
     } catch (e) {
       if (e.auth) { store('adm_token'); showLogin(e.message); }
-      else $('range-note').textContent = '加载失败:' + e.message;
+      else $(tab === 'ops' ? 'ops-sub' : 'range-note').textContent = '加载失败:' + e.message;
     } finally { $('refresh').disabled = false; }
   }
+
+  /* 两个标签:站点统计 / 采集状态。地址栏 #ops 可直接打开采集状态 */
+  function showTab(t) {
+    tab = t;
+    $('tabs').querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.tab === t));
+    $('panel-stats').hidden = t !== 'stats';
+    $('panel-ops').hidden = t !== 'ops';
+    history.replaceState(null, '', t === 'ops' ? '#ops' : location.pathname + location.search);
+  }
+  $('tabs').addEventListener('click', e => {
+    const b = e.target.closest('button[data-tab]');
+    if (!b) return;
+    showTab(b.dataset.tab);
+    refresh();
+  });
+  if (location.hash === '#ops') showTab('ops');
 
   function showLogin(msg) {
     $('dash').hidden = true; $('logout').hidden = true; $('login').hidden = false;

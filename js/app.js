@@ -1,8 +1,6 @@
-const MONTHS = ['25-08','25-09','25-10','25-11','25-12','26-01','26-02','26-03','26-04','26-05','26-06','26-07'];
 const C = { ink:'#171a1c', ink2:'#55524b', muted:'#8b877c', line:'#dbd6c9', card:'#faf9f5',
   seal:'#b0332a', gold:'#c9973f', blue:'#5b7391', green:'#4f7a4f', gray:'#b9b3a4' };
-/* 由 js/data.js 从 data/site/trends.json 注入。usable=false(数据月份不足)时
-   下面的图继续用演示数组 —— 三四个点画不出趋势,只会误导。 */
+/* 由 js/data.js 从 data/site/trends.json 注入。四张图全部来自真实数据,没有演示数组 */
 window.TRENDS = null;
 const DOMAIN_COLOR = { visa:C.blue, tax:C.seal, biz:C.green, labor:C.gold, land:'#8c3b2f',
   customs:'#7a6a52', finance:'#4a6b78', digital:'#6b5b8c', education:'#7d8a5c', health:'#8a6a6a' };
@@ -31,107 +29,107 @@ const ax = {
 const tip = { backgroundColor: C.card, borderColor: C.line, textStyle: { color: C.ink, fontSize: 12 } };
 
 function initCharts() {
+  const T = window.TRENDS;
+  if (!T) return;                  // 数据未到时不画;data.js 取到 trends 后会再调用一次
   const charts = [];
-  const T = window.TRENDS && window.TRENDS.usable ? window.TRENDS : null;
-  const XM = T ? T.months : MONTHS;
+  const XM = T.months;
   /* 允许重复调用:真实数据到达得比首次渲染晚时,data.js 会再调一次 */
   const mount = id => {
     const dom = document.getElementById(id);
     echarts.dispose(dom);
     return echarts.init(dom);
   };
+  const empty = (id, msg) => { const el = document.getElementById(id);
+    echarts.dispose(el); el.innerHTML = `<div class="mod-sub" style="padding:40px 0;text-align:center">${msg}</div>`; };
 
-  const stack = mount('c-stack');
-  const mk = (name, color, data) => ({
-    name, type: 'line', stack: 't', smooth: 0.3, symbol: 'none',
-    lineStyle: { width: 2, color: C.card },
-    areaStyle: { color, opacity: 0.95 },
-    emphasis: { focus: 'series' },
-    endLabel: { show: true, formatter: '{a}', fontSize: 11, color: C.ink2, distance: 6 },
-    labelLayout: { moveOverlap: 'shiftY' }, data
-  });
-  stack.setOption({
-    color: [C.blue, C.seal, C.green, C.gold, C.gray],
-    grid: { left: 40, right: 80, top: 34, bottom: 28 },
-    legend: { top: 0, left: 0, icon: 'rect', itemWidth: 9, itemHeight: 9, textStyle: { color: C.ink2, fontSize: 11.5 } },
-    tooltip: { ...tip, trigger: 'axis' },
-    xAxis: { type: 'category', boundaryGap: false, data: XM, ...ax, splitLine: { show: false } },
-    yAxis: { type: 'value', name: '件', nameTextStyle: { color: C.muted }, ...ax },
-    series: T
-      ? T.volume_by_domain.map(s => mk(s.label, DOMAIN_COLOR[s.id] || C.gray, s.data))
-      : [
-        mk('签证居留', C.blue,  [12,9,11,15,13,18,14,12,16,13,15,17]),
-        mk('税务',     C.seal,  [6,7,5,9,12,15,10,8,9,11,13,14]),
-        mk('公司投资', C.green, [10,12,14,11,13,12,16,18,15,17,19,21]),
-        mk('劳工用工', C.gold,  [5,4,6,8,5,7,6,9,7,8,12,10]),
-        mk('其他',     C.gray,  [14,16,13,17,15,19,16,14,18,16,17,18])
-      ]
-  });
-  charts.push(stack);
+  if (T.volume_by_domain.length) {
+    const stack = mount('c-stack');
+    const mk = (name, color, data) => ({
+      name, type: 'line', stack: 't', smooth: 0.3, symbol: 'none',
+      lineStyle: { width: 2, color: C.card },
+      areaStyle: { color, opacity: 0.95 },
+      emphasis: { focus: 'series' },
+      endLabel: { show: true, formatter: '{a}', fontSize: 11, color: C.ink2, distance: 6 },
+      labelLayout: { moveOverlap: 'shiftY' }, data
+    });
+    stack.setOption({
+      grid: { left: 40, right: 80, top: 34, bottom: 28 },
+      legend: { top: 0, left: 0, icon: 'rect', itemWidth: 9, itemHeight: 9, textStyle: { color: C.ink2, fontSize: 11.5 } },
+      tooltip: { ...tip, trigger: 'axis' },
+      xAxis: { type: 'category', boundaryGap: false, data: XM, ...ax, splitLine: { show: false } },
+      yAxis: { type: 'value', name: '件', minInterval: 1, nameTextStyle: { color: C.muted }, ...ax },
+      series: T.volume_by_domain.map(s => mk(s.label, DOMAIN_COLOR[s.id] || C.gray, s.data))
+    });
+    charts.push(stack);
+  } else empty('c-stack', '暂无发文数据');
 
-  const dir = mount('c-direction');
   const mkL = (name, color, data) => ({
-    name, type: 'line', smooth: 0.35, symbol: 'circle', symbolSize: 5, showSymbol: false,
+    name, type: 'line', smooth: 0.35, symbol: 'circle', symbolSize: 5, showSymbol: false, connectNulls: true,
     lineStyle: { width: 2, color }, itemStyle: { color },
     endLabel: { show: true, formatter: '{a}', fontSize: 11, color: C.ink2, distance: 6 },
     labelLayout: { moveOverlap: 'shiftY' }, emphasis: { focus: 'series' }, data
   });
-  dir.setOption({
-    grid: { left: 74, right: 80, top: 34, bottom: 28 },
-    legend: { top: 0, left: 0, icon: 'rect', itemWidth: 9, itemHeight: 9, textStyle: { color: C.ink2, fontSize: 11.5 } },
-    tooltip: { ...tip, trigger: 'axis' },
-    xAxis: { type: 'category', boundaryGap: false, data: XM, ...ax, splitLine: { show: false } },
-    yAxis: { type: 'value', min: -1, max: 1, interval: 0.5, ...ax,
-      axisLabel: { ...ax.axisLabel, formatter: v => v > 0 ? '+' + v + ' 放宽' : (v < 0 ? v + ' 收紧' : '0 中性') } },
-    series: (T
-      ? T.wind_by_domain.map(s => mkL(s.label, DOMAIN_COLOR[s.id] || C.gray, s.data))
-      : [
-        mkL('签证居留', C.blue, [0.2,0.1,-0.1,-0.3,-0.2,0.1,0.2,0.4,0.3,0.2,0.3,0.3]),
-        mkL('房产土地', C.seal, [0.1,0,-0.1,-0.2,-0.3,-0.2,-0.4,-0.3,-0.5,-0.4,-0.5,-0.4])
-      ]
-    ).map((s, i) => i ? s : { ...s, markLine: { silent: true, symbol: 'none',
-        lineStyle: { color: C.muted, type: 'solid', width: 1.2 }, label: { show: false },
-        data: [{ yAxis: 0 }] } })
-  });
-  charts.push(dir);
+  if (T.wind_by_domain.length) {
+    const dir = mount('c-direction');
+    dir.setOption({
+      grid: { left: 74, right: 80, top: 34, bottom: 28 },
+      legend: { top: 0, left: 0, icon: 'rect', itemWidth: 9, itemHeight: 9, textStyle: { color: C.ink2, fontSize: 11.5 } },
+      tooltip: { ...tip, trigger: 'axis' },
+      xAxis: { type: 'category', boundaryGap: false, data: XM, ...ax, splitLine: { show: false } },
+      yAxis: { type: 'value', min: -1, max: 1, interval: 0.5, ...ax,
+        axisLabel: { ...ax.axisLabel, formatter: v => v > 0 ? '+' + v + ' 放宽' : (v < 0 ? v + ' 收紧' : '0 中性') } },
+      series: T.wind_by_domain.map(s => mkL(s.label, DOMAIN_COLOR[s.id] || C.gray, s.data))
+        .map((s, i) => i ? s : { ...s, markLine: { silent: true, symbol: 'none',
+          lineStyle: { color: C.muted, type: 'solid', width: 1.2 }, label: { show: false },
+          data: [{ yAxis: 0 }] } })
+    });
+    charts.push(dir);
+  } else empty('c-direction', '暂无带方向标注的政策');
 
-  const heat = mount('c-heat');
-  const ORGS = T ? T.activity_by_agency.map(s => s.label)
-                 : ['移民局','税务厅','BOI','劳工部','土地厅','DBD'];
-  const base = T ? T.activity_by_agency.map(s => s.data)
-    : [[3,2,4,5,4,6,4,3,5,4,5,6],[2,3,2,4,5,6,4,3,3,4,5,5],[4,4,5,3,4,4,6,7,5,6,7,8],[2,1,2,3,2,3,2,4,3,3,5,4],[1,1,2,2,3,2,3,3,4,4,5,4],[3,4,4,3,4,3,5,6,4,5,6,7]];
-  const hd = []; base.forEach((row, y) => row.forEach((v, x) => hd.push([x, y, v])));
-  const hmax = Math.max(8, ...hd.map(p => p[2]));
-  heat.setOption({
-    grid: { left: 56, right: 14, top: 10, bottom: 54 },
-    tooltip: { ...tip, formatter: p => `${ORGS[p.value[1]]} · ${XM[p.value[0]]}<br>发文 <b>${p.value[2]}</b> 件` },
-    xAxis: { type: 'category', data: XM, ...ax, splitLine: { show: false }, axisLine: { show: false } },
-    yAxis: { type: 'category', data: ORGS, ...ax, splitLine: { show: false }, axisLine: { show: false } },
-    visualMap: { min: 0, max: hmax, orient: 'horizontal', left: 'center', bottom: 0,
-      itemHeight: 90, itemWidth: 10, textStyle: { color: C.muted, fontSize: 10.5 },
-      inRange: { color: ['#e3e0d5', '#b9c2cd', '#8296ac', '#5b7391', '#3f556f'] } },
-    series: [{ type: 'heatmap', data: hd,
-      itemStyle: { borderColor: C.card, borderWidth: 2 },
-      emphasis: { itemStyle: { shadowBlur: 6, shadowColor: 'rgba(23,26,28,.3)' } } }]
-  });
-  charts.push(heat);
+  /* 机关太多时只画发文最多的 10 个,热力图才看得清 */
+  const orgs = T.activity_by_agency.slice()
+    .sort((a, b) => b.data.reduce((x, y) => x + y, 0) - a.data.reduce((x, y) => x + y, 0)).slice(0, 10);
+  if (orgs.length) {
+    const heat = mount('c-heat');
+    const ORGS = orgs.map(s => s.label);
+    const hd = []; orgs.forEach((row, y) => row.data.forEach((v, x) => hd.push([x, y, v])));
+    const hmax = Math.max(1, ...hd.map(p => p[2]));
+    heat.setOption({
+      grid: { left: 96, right: 14, top: 10, bottom: 54 },
+      tooltip: { ...tip, formatter: p => `${ORGS[p.value[1]]} · ${XM[p.value[0]]}<br>发文 <b>${p.value[2]}</b> 件` },
+      xAxis: { type: 'category', data: XM, ...ax, splitLine: { show: false }, axisLine: { show: false } },
+      yAxis: { type: 'category', data: ORGS, ...ax, splitLine: { show: false }, axisLine: { show: false } },
+      visualMap: { min: 0, max: hmax, orient: 'horizontal', left: 'center', bottom: 0,
+        itemHeight: 90, itemWidth: 10, textStyle: { color: C.muted, fontSize: 10.5 },
+        inRange: { color: ['#e3e0d5', '#b9c2cd', '#8296ac', '#5b7391', '#3f556f'] } },
+      series: [{ type: 'heatmap', data: hd,
+        itemStyle: { borderColor: C.card, borderWidth: 2 },
+        emphasis: { itemStyle: { shadowBlur: 6, shadowColor: 'rgba(23,26,28,.3)' } } }]
+    });
+    charts.push(heat);
+  } else empty('c-heat', '暂无机关发文数据');
 
-  /* 上升话题榜暂无数据来源(需要关键词提取 + 环比),一直是演示数据 */
-  const topics = mount('c-topics');
-  topics.setOption({
-    grid: { left: 110, right: 66, top: 10, bottom: 26 },
-    tooltip: { ...tip, formatter: p => `${p.name}<br>环比 <b>+${p.value}%</b>` },
-    xAxis: { type: 'value', ...ax, axisLabel: { ...ax.axisLabel, formatter: '{value}%' } },
-    yAxis: { type: 'category', inverse: true,
-      data: ['代持排查','境外所得课税','半导体激励','DTV 签证','最低工资'],
-      ...ax, splitLine: { show: false }, axisLine: { show: false },
-      axisLabel: { color: C.ink2, fontSize: 12 } },
-    series: [{ type: 'bar', barWidth: 13,
-      itemStyle: { color: C.seal },
-      label: { show: true, position: 'right', formatter: '+{c}%', color: C.ink2, fontSize: 11.5 },
-      data: [186,142,95,67,41] }]
-  });
-  charts.push(topics);
+  /* 上升话题:领域 / 政策工具 / 政策目标标签,近 90 天 vs 前 90 天被提及的文件数 */
+  const R = T.rising || [];
+  if (R.length) {
+    const topics = mount('c-topics');
+    const val = r => r.growth_pct == null ? 100 : Math.min(r.growth_pct, 300);
+    topics.setOption({
+      grid: { left: 110, right: 90, top: 10, bottom: 26 },
+      tooltip: { ...tip, formatter: p => { const r = R[p.dataIndex];
+        return `${r.label}<br>近 90 天 <b>${r.current}</b> 份 · 前 90 天 ${r.previous} 份`; } },
+      xAxis: { type: 'value', ...ax, axisLabel: { ...ax.axisLabel, formatter: '{value}%' } },
+      yAxis: { type: 'category', inverse: true, data: R.map(r => r.label),
+        ...ax, splitLine: { show: false }, axisLine: { show: false },
+        axisLabel: { color: C.ink2, fontSize: 12 } },
+      series: [{ type: 'bar', barWidth: 13, itemStyle: { color: C.seal },
+        label: { show: true, position: 'right', color: C.ink2, fontSize: 11.5,
+          formatter: p => { const r = R[p.dataIndex];
+            return r.growth_pct == null ? `新出现 · ${r.current} 份` : `+${r.growth_pct}%`; } },
+        data: R.map(val) }]
+    });
+    charts.push(topics);
+  } else empty('c-topics', '近 90 天没有明显上升的话题');
 
   window.addEventListener('resize', () => charts.forEach(c => c.resize()));
 }

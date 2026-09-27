@@ -89,8 +89,7 @@ function renderDetail(d) {
       <span class="chip ${E(d.domain)}">${E(d.domain_label)}</span>
       <span class="chip bare">${E(d.legal_form)}</span>
       <span class="dir ${E(d.direction)}">${E({ tight: '▲ 收紧', loose: '▼ 放宽', neutral: '● 中性' }[d.direction] || '')}</span>
-      ${d.verified ? '<span class="verified">已人工复核</span>'
-        : '<span class="chip bare" style="color:var(--muted)">未经人工复核</span>'}
+      ${d.verified ? '<span class="verified">已人工复核</span>' : ''}
     </div>
     <div class="d-title">${E(d.title_zh)}</div>
     ${d.title_th ? `<div class="d-thai">泰文原题:${E(d.title_th)}</div>` : ''}

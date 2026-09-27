@@ -12,7 +12,7 @@
     trends:     { api: 'trends',     file: 'data/site/trends.json' },
     lineage:    { api: 'lineage',    file: 'data/site/lineage.json' },
     dimensions: { api: 'dimensions', file: 'data/site/dimensions.json' },
-    ops:        { api: 'ops',        file: 'data/site/ops.json' },
+    morphology: { api: 'morphology', file: 'data/site/morphology.json' },
   };
 
   const API_BASE = (() => {
@@ -63,14 +63,10 @@
     if (el && html) el.innerHTML = html;
   }
 
-  /* 样本不足时统一的提示条,而不是画一张看起来很确定的图 */
+  /* 每个维度下的样本量小字:数字都是真实计数,样本少时读者自己能判断分量 */
   function insufficientNote(d, what) {
-    if (d.sufficient === false) {
-      return `<div class="reading" style="border-color:var(--gold-deep)">
-        数据不足:当前仅 <b>${esc(d.n)}</b> 条${esc(what)}样本(建议 ≥${esc(d.min_n)} 条再据此判断)。
-        下方数字是真实计数,但不足以支撑结论。</div>`;
-    }
-    return '';
+    if (d.n == null) return '';
+    return `<div class="mod-sub" style="margin:2px 0 10px">基于 ${esc(d.n)} 条${esc(what)}样本</div>`;
   }
 
   /* ready:探测完成后 resolve,值为是否走 API。

@@ -124,3 +124,54 @@ def test_iso_bkk_attaches_timezone(session):
     naive = datetime(2026, 8, 11, 0, 38, 8)
     assert A.iso_bkk(naive).endswith("+07:00")
     assert A.iso_bkk(None) is None
+
+
+def test_trends_window_ends_at_latest_data_not_today(session):
+    """官方公报滞后数月:时间窗必须以数据截止月为终点,否则最近几个月是假的「断崖」。"""
+    from sqlalchemy import func, select
+    from app import analytics as A
+    from app.models import Document
+    t = A.trends(session)
+    latest = session.scalar(select(func.max(Document.display_date)))
+    assert t["data_through"] == latest.isoformat()[:7]
+    assert t["months"][-1] == f"{latest.year % 100:02d}-{latest.month:02d}"
+    assert t["total_documents"] >= 1
+
+
+def test_rising_topics_are_real_counts(session):
+    from datetime import timedelta
+    from sqlalchemy import func, select
+    from app import analytics as A
+    from app.models import Document
+    latest = session.scalar(select(func.max(Document.display_date)))
+    rows = A.rising_topics(session, latest)
+    for r in rows:
+        assert r["current"] >= 2
+        assert r["growth_pct"] is None or r["growth_pct"] > 0
+    # 窗口外(未来)的锚点不会凭空产生话题
+    assert A.rising_topics(session, latest + timedelta(days=400)) == []
+
+
+def test_morphology_counts_are_consistent(session):
+    from sqlalchemy import func, select
+    from app import analytics as A
+    from app.models import Document
+    m = A.morphology(session)
+    total = session.scalar(select(func.count(Document.uid)))
+    assert m["n"] == total == m["kpis"]["total"]
+    assert sum(f["n"] for f in m["legal_forms"]) == total
+    assert sum(t["n"] for t in m["tiers"]) == total
+    assert sum(st["n"] for st in m["statuses"]) == total
+    assert sum(sum(r) for r in m["matrix"]["cells"]) == sum(p["n"] for p in m["domain_profiles"])
+    assert len(m["evolution"]) == 8, "连续 8 个季度,空季度记 0"
+    assert all(1 <= p["avg_stability"] <= 5 for p in m["domain_profiles"])
+
+
+def test_morphology_insights_come_from_numbers(session):
+    from app import analytics as A
+    m = A.morphology(session)
+    assert m["insights"] and str(m["kpis"]["total"]) in m["insights"][0]
+    # 小样本时不做「前后对比」的结论
+    k = dict(m["kpis"])
+    ev = [{"quarter": f"2026Q{i}", "n": 1, "avg_stability": 5 - i, "tiers": {}} for i in range(1, 5)]
+    assert not any("平均层级" in t and "相比" in t for t in A.morphology_insights(k, m["tiers"], [], ev))

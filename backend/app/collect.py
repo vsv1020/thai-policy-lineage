@@ -110,8 +110,11 @@ RETRY_WAITS = (3, 8)        # 连接层失败时的退避(秒);HTTP 4xx/5xx 不�
 # 重试也不会好的连接错误:域名解析不到、代理明确回复连不上目标
 PERMANENT_ERRORS = ("name resolution", "Name or service not known", "nodename nor servname",
                     "could not connect", "No address associated")
-MAX_RESOURCES = 3           # 每个数据集最多尝试最近的几个 resource
-DATASTORE_LIMIT = 5000
+DATASTORE_PAGE = 5000
+DATASTORE_MAX = 40000       # 单个 resource 最多取这么多行(公报一个月约 3500 行)
+MAX_BACKFILL_RESOURCES = 36
+THAI_MONTHS = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม",
+               "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"]
 
 
 def _err(exc: Exception) -> str:
@@ -169,11 +172,45 @@ def fetch_resource(url: str, throttle: Throttle, client: httpx.Client) -> tuple[
 def fetch_datastore(resource_id: str, throttle: Throttle, client: httpx.Client) -> list[dict]:
     """CKAN datastore:数据直接存在 data.go.th 上,不依赖 resource 原始文件地址。
     公报数据集的原始文件放在 soc.gdcatalog.go.th,该域名公网解析不到,只能走这条路。"""
-    payload = get_json(client, f"{CKAN_BASE}/api/3/action/datastore_search", throttle,
-                       {"resource_id": resource_id, "limit": DATASTORE_LIMIT, "sort": "_id desc"})
-    if not payload.get("success"):
-        raise RuntimeError("datastore_search 返回 success=false")
-    return payload["result"].get("records", [])
+    rows: list[dict] = []
+    while len(rows) < DATASTORE_MAX:
+        payload = get_json(client, f"{CKAN_BASE}/api/3/action/datastore_search", throttle,
+                           {"resource_id": resource_id, "limit": DATASTORE_PAGE, "offset": len(rows)})
+        if not payload.get("success"):
+            raise RuntimeError("datastore_search 返回 success=false")
+        page = payload["result"].get("records", [])
+        rows += page
+        if len(page) < DATASTORE_PAGE or len(rows) >= (payload["result"].get("total") or 0):
+            break
+    return rows
+
+
+def resource_period(r: dict) -> tuple[int, int]:
+    """从 resource 名称解析 (公元年, 月):「ราชกิจจานุเบกษาเดือนมีนาคม 2569」→ (2026, 3);
+    「มติคณะรัฐมนตรี ปี 2568」→ (2025, 12)。解析不出来就用 last_modified。"""
+    name = r.get("name") or ""
+    m = re.search(r"(25\d\d|20\d\d)", name)
+    if m:
+        year = be_to_ce(int(m.group(1)))
+        month = next((i + 1 for i, t in enumerate(THAI_MONTHS) if t in name), 12)
+        return year, month
+    stamp = r.get("last_modified") or r.get("created") or ""
+    m = re.match(r"(\d{4})-(\d{2})", stamp)
+    return (int(m.group(1)), int(m.group(2))) if m else (0, 0)
+
+
+def sync_targets(resources: list[dict], cutoff: date, backfill: bool) -> list[dict]:
+    """要下载的 resource:能解析的(JSON 或有 datastore),按月份从新到旧。
+    日常同步取最近 SYNC_RESOURCES 个 —— 已入库记录在官方源有改动时随之更新;
+    回填取回溯期内的全部月份。"""
+    usable = [r for r in resources
+              if r.get("datastore_active") or (r.get("format") or "").lower() == "json"]
+    usable.sort(key=resource_period, reverse=True)
+    if not backfill:
+        return usable[:max(1, settings.sync_resources)]
+    out = [r for r in usable if resource_period(r) >= (cutoff.year, cutoff.month)
+           or resource_period(r) == (0, 0)]
+    return out[:MAX_BACKFILL_RESOURCES]
 
 
 def describe_resource(r: dict) -> str:
@@ -183,18 +220,20 @@ def describe_resource(r: dict) -> str:
             f"·datastore={'是' if r.get('datastore_active') else '否'}]")
 
 
-def resource_candidates(resources: list[dict]) -> list[tuple[str, dict]]:
-    """按「JSON 优先、越新越先」排序,取前 MAX_RESOURCES 个;每个先试 datastore,再试原始文件。"""
-    ordered = sorted(resources, key=lambda r: ((r.get("format") or "").lower() == "json",
-                                               r.get("last_modified") or r.get("created") or ""),
-                     reverse=True)
-    out: list[tuple[str, dict]] = []
-    for r in ordered[:MAX_RESOURCES]:
-        if r.get("datastore_active") and r.get("id"):
-            out.append(("datastore", r))
-        if r.get("url"):
-            out.append(("file", r))
-    return out
+def download(r: dict, throttle: Throttle, client: httpx.Client) -> tuple[Any, str]:
+    """下载一个 resource:先试 data.go.th 的 datastore(不依赖原始文件地址),再试原始文件。"""
+    errors = []
+    if r.get("datastore_active") and r.get("id"):
+        try:
+            return fetch_datastore(r["id"], throttle, client), "data.go.th datastore"
+        except Exception as exc:
+            errors.append(f"datastore:{str(exc)[:150]}")
+    if r.get("url"):
+        try:
+            return fetch_resource(r["url"], throttle, client)
+        except Exception as exc:
+            errors.append(f"file:{str(exc)[:200]}")
+    raise RuntimeError(";".join(errors) or "没有可用的下载途径")
 
 
 def iter_records(payload: Any) -> list[dict]:
@@ -270,8 +309,9 @@ def normalize_gazette(rec: dict, run_at: str) -> tuple[dict | None, str]:
     if not published:
         return None, "无可解析日期"      # 红线三:没有日期不入库
 
-    series = pick(rec, ["series", "ประเภท", "type", "category"]).strip()[:8]
-    if series and series not in SERIES_KEEP:
+    series = pick(rec, ["series", "ประเภท", "type", "category"]).strip()[:16]
+    # 「ง พิเศษ」「ก ฉบับพิเศษ」是同一系列的特刊 —— 大量法规就刊在特刊上,按基础系列判断
+    if series and series.split()[0] not in SERIES_KEEP:
         return None, f"系列 {series} 不在收录范围"
 
     volume = pick(rec, ["volume", "เล่ม", "book"])
@@ -311,13 +351,15 @@ def normalize_gazette(rec: dict, run_at: str) -> tuple[dict | None, str]:
 
 
 def normalize_cabinet(rec: dict, run_at: str) -> tuple[dict | None, str]:
-    title = pick(rec, ["title", "เรื่อง", "ชื่อเรื่อง", "subject", "name"]).strip()
+    title = pick(rec, ["title", "เรื่อง", "ชื่อเรื่อง", "subject", "name", "หัวข้อ", "ชื่อมติ",
+                       "title_th", "topic", "เรื่องที่เสนอ"]).strip()
     if not title:
         return None, "无标题"
     ok, why = passes_red_lines(title)
     if not ok:
         return None, why
-    resolved = normalize_date(pick(rec, ["date", "วันที่มีมติ", "วันที่", "resolution_date"]))
+    resolved = normalize_date(pick(rec, ["date", "วันที่มีมติ", "วันที่", "resolution_date",
+                                         "วันที่ประชุม", "วันประชุม", "meeting_date"]))
     if not resolved:
         return None, "无可解析日期"
     url = pick(rec, ["url", "link", "detail_url"])
@@ -353,15 +395,15 @@ def normalize_cabinet(rec: dict, run_at: str) -> tuple[dict | None, str]:
 
 
 def collect_source(src: dict, throttle: Throttle, run_at: str, cutoff: date,
-                   dry_run: bool) -> SourceResult:
+                   dry_run: bool, backfill: bool = False) -> SourceResult:
     res = SourceResult(id=src["id"], name=src["name"], url=src["url"])
     # 同一个客户端贯穿 package_show 与 resource 下载:同域名时复用已建立的代理连接,少一次握手
     with source_client({"User-Agent": UA, "Accept": "application/json"}) as client:
-        return _collect_with(src, res, client, throttle, run_at, cutoff, dry_run)
+        return _collect_with(src, res, client, throttle, run_at, cutoff, dry_run, backfill)
 
 
 def _collect_with(src: dict, res: SourceResult, client: httpx.Client, throttle: Throttle,
-                  run_at: str, cutoff: date, dry_run: bool) -> SourceResult:
+                  run_at: str, cutoff: date, dry_run: bool, backfill: bool = False) -> SourceResult:
     try:
         resources = fetch_ckan(src["dataset"], throttle, client)
     except Exception as exc:
@@ -369,71 +411,122 @@ def _collect_with(src: dict, res: SourceResult, client: httpx.Client, throttle: 
         res.detail = f"{type(exc).__name__}: {exc}"[:400]
         return res
 
-    candidates = resource_candidates(resources)
-    if not candidates:
+    targets = sync_targets(resources, cutoff, backfill)
+    if not targets:
         res.status = "error"
-        res.detail = "数据集里没有可用 resource"
+        res.detail = ("数据集里没有可解析的 resource | 数据集内 resource:"
+                      + ", ".join(describe_resource(r) for r in resources[:6]))[:1200]
         return res
     if dry_run:
         res.status = "ok"
-        res.detail = f"可达,{len(resources)} 个 resource(dry-run 未下载)"
+        res.detail = f"可达,{len(resources)} 个 resource,将同步 {len(targets)} 个(dry-run 未下载)"
         return res
 
     normalize = normalize_gazette if src["id"] == "gazette_json" else normalize_cabinet
     skipped: dict[str, int] = {}
-    attempts: list[str] = []
-    payload = used = None
-    via = ""
-    for kind, r in candidates:
+    done: list[str] = []
+    failed: list[str] = []
+    fields = ""
+    seen: set[str] = set()
+    for r in targets:
+        name = r.get("name") or r.get("id", "?")
         try:
-            if kind == "datastore":
-                payload, via = fetch_datastore(r["id"], throttle, client), "data.go.th datastore"
-            else:
-                payload, via = fetch_resource(r["url"], throttle, client)
-            used = r
-            break
+            payload, via = download(r, throttle, client)
         except Exception as exc:
-            attempts.append(f"{r.get('name') or r.get('id', '?')}/{kind}:{str(exc)[:150]}")
-    if used is None:
+            failed.append(f"{name}:{str(exc)[:200]}")
+            continue
+        rows = iter_records(payload)
+        if rows and not fields:
+            # 字段样本写进运行记录:字段名对不上(例如全部「无标题」)时,看这一行就知道该怎么改
+            fields = ",".join(k for k in list(rows[0])[:14] if not k.startswith("_"))
+        got = 0
+        for rec in rows:
+            norm, why = normalize(rec, run_at)
+            if norm is None:
+                skipped[why] = skipped.get(why, 0) + 1
+                continue
+            d = norm["dates"]
+            stamp = d.get("published_at") or d.get("resolved_at")
+            if stamp and date.fromisoformat(stamp) < cutoff:
+                skipped["早于回溯期"] = skipped.get("早于回溯期", 0) + 1
+                continue
+            if norm["uid"] in seen:
+                continue
+            seen.add(norm["uid"])
+            res.records.append(norm)
+            got += 1
+        done.append(f"{name}({urlsplit(r.get('url') or '').hostname},{via}) {got} 条")
+
+    if not done:
         res.status = "error"
-        res.detail = ("resource 均不可用。尝试:" + ";".join(attempts)
+        res.detail = ("resource 均不可用:" + ";".join(failed)
                       + " | 数据集内 resource:" + ", ".join(describe_resource(r) for r in resources[:6]))[:1200]
         return res
-    url = used.get("url") or ""
-
-    for rec in iter_records(payload):
-        norm, why = normalize(rec, run_at)
-        if norm is None:
-            skipped[why] = skipped.get(why, 0) + 1
-            continue
-        d = norm["dates"]
-        stamp = d.get("published_at") or d.get("resolved_at")
-        if stamp and date.fromisoformat(stamp) < cutoff:
-            skipped["早于时间窗"] = skipped.get("早于时间窗", 0) + 1
-            continue
-        res.records.append(norm)
-
     res.status = "ok"
-    res.detail = (f"{used.get('name', 'resource')}({urlsplit(url).hostname},{via}):"
-                  f"收 {len(res.records)} 条"
-                  + (f",跳过 {sum(skipped.values())} 条(" +
-                     ", ".join(f"{k}×{v}" for k, v in sorted(skipped.items())) + ")"
-                     if skipped else ""))
+    parts = [f"同步 {len(done)} 个文件,收 {len(res.records)} 条:" + ";".join(done)]
+    if skipped:
+        parts.append(f"跳过 {sum(skipped.values())} 条(" +
+                     ", ".join(f"{k}×{v}" for k, v in sorted(skipped.items())) + ")")
+    if failed:
+        parts.append(f"{len(failed)} 个文件失败:" + ";".join(failed))
+    if fields and (not res.records or skipped.get("无标题") or skipped.get("无可解析日期")):
+        parts.append(f"字段样本:{fields}")
+    res.detail = " | ".join(parts)[:1500]
     return res
 
 
-def append_jsonl(records: list[dict]) -> int:
-    """新记录追加到 documents.jsonl —— git 里保留可 review 的事实记录。"""
+AUTO_PIPELINES = {"gazette_json", "cabinet_json"}
+# 同步时以官方源为准覆盖的字段;中文标题、摘要、分类是翻译环节的产物,不在其中
+RAW_FIELDS = ("doc_no", "gazette", "dates", "sources", "status_id")
+
+
+def merge_update(old: dict, new: dict) -> dict:
+    """官方源里已入库记录的更新:原始字段以官方为准;泰文标题变了则清空中文结果,交给翻译环节重做。"""
+    merged = json.loads(json.dumps(old))
+    for k in RAW_FIELDS:
+        if k in new:
+            merged[k] = new[k]
+    th_old = (old.get("titles") or {}).get("th", "")
+    th_new = (new.get("titles") or {}).get("th", "")
+    if th_new and th_new != th_old:
+        merged.setdefault("titles", {})["th"] = th_new
+        merged["titles"]["zh"] = ""
+        merged["summary_zh"] = ""
+        merged.setdefault("flags", {}).pop("skip", None)
+    return merged
+
+
+def upsert_jsonl(records: list[dict], run_at: str) -> tuple[list[dict], int, int]:
+    """新记录追加、已有记录按官方源更新,原位改写 documents.jsonl(保持顺序,diff 只出现改动的行)。
+    人工整理的条目(pipeline 不是官方接口)永远不被覆盖。返回 (新增或变动的记录, 新增数, 更新数)。"""
     if not records:
-        return 0
+        return [], 0, 0
     path = POLICIES_DIR / "documents.jsonl"
-    existing = {r["uid"] for r in read_jsonl(path)}
-    fresh = [r for r in records if r["uid"] not in existing]
-    if fresh:
-        with path.open("a", encoding="utf-8") as fh:
-            for r in fresh:
-                fh.write(json.dumps(r, ensure_ascii=False) + "\n")
-    return len(fresh)
+    rows = read_jsonl(path)
+    index = {r["uid"]: i for i, r in enumerate(rows)}
+    touched: list[dict] = []
+    added = updated = 0
+    for rec in records:
+        i = index.get(rec["uid"])
+        if i is None:
+            index[rec["uid"]] = len(rows)
+            rows.append(rec)
+            touched.append(rec)
+            added += 1
+            continue
+        old = rows[i]
+        if (old.get("provenance") or {}).get("pipeline") not in AUTO_PIPELINES:
+            continue
+        merged = merge_update(old, rec)
+        if merged != old:
+            merged.setdefault("provenance", {})["updated_at"] = run_at
+            rows[i] = merged
+            touched.append(merged)
+            updated += 1
+    if touched:
+        path.write_text("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in rows),
+                        encoding="utf-8")
+    return touched, added, updated
 
 
 def append_run(entry: dict) -> None:
@@ -462,12 +555,11 @@ def write_source_health(results: list[SourceResult], run_at: datetime) -> None:
         json.dumps(payload, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
 
 
-def run_collection(trigger: str = "manual", dry_run: bool = False) -> dict:
+def run_collection(trigger: str = "manual", dry_run: bool = False, backfill: bool = False) -> dict:
     init_db()
     started = datetime.now(BKK)
     t0 = time.monotonic()
-    cutoff = (started.date().toordinal() - settings.recency_days)
-    cutoff_date = date.fromordinal(cutoff)
+    cutoff_date = date.fromordinal(started.date().toordinal() - settings.lookback_days)
     run_at_iso = started.replace(microsecond=0).isoformat()
     throttle = Throttle(settings.min_request_interval)
 
@@ -479,16 +571,17 @@ def run_collection(trigger: str = "manual", dry_run: bool = False) -> dict:
             s.flush()
             run_id = run.id
 
-    results = [collect_source(src, throttle, run_at_iso, cutoff_date, dry_run)
+    results = [collect_source(src, throttle, run_at_iso, cutoff_date, dry_run, backfill)
                for src in SOURCES]
     all_records = [r for res in results for r in res.records]
     ok_count = sum(1 for r in results if r.status == "ok")
 
     added = updated = appended = 0
     if not dry_run:
-        appended = append_jsonl(all_records)
+        # 新记录追加,已入库记录按官方源更新;只把有变动的记录写库
+        touched, appended, updated = upsert_jsonl(all_records, run_at_iso)
         with session_scope() as s:
-            added, updated = load_documents(s, all_records, now=started)
+            added, _ = load_documents(s, touched, now=started)
 
     if not dry_run:
         write_source_health(results, started)
@@ -503,7 +596,7 @@ def run_collection(trigger: str = "manual", dry_run: bool = False) -> dict:
             run = s.get(CollectRun, run_id)
             run.finished_at = finished
             run.status = status
-            run.added, run.updated = max(added, appended), updated
+            run.added, run.updated = appended, updated
             run.skipped = len(all_records) - added - updated
             run.duration_s = duration
             run.detail = detail[:4000]
@@ -512,7 +605,7 @@ def run_collection(trigger: str = "manual", dry_run: bool = False) -> dict:
         append_run({"started_at": started.replace(microsecond=0).isoformat(),
                     "finished_at": finished.replace(microsecond=0).isoformat(),
                     "status": status, "trigger": trigger,
-                    "added": max(added, appended), "updated": updated,
+                    "added": appended, "updated": updated, "backfill": backfill,
                     "duration_s": round(duration, 1), "detail": detail[:1000]})
 
     enrich_result = None
@@ -531,7 +624,8 @@ def run_collection(trigger: str = "manual", dry_run: bool = False) -> dict:
 
     log.info("采集完成 status=%s 新增=%d 更新=%d 源=%d/%d 耗时=%.1fs",
              status, added, updated, ok_count, len(results), duration)
-    return {"run_id": run_id, "status": status, "added": added, "updated": updated,
+    return {"run_id": run_id, "status": status, "added": appended, "updated": updated,
+            "backfill": backfill, "lookback_since": cutoff_date.isoformat(),
             "appended_to_jsonl": appended, "sources_ok": ok_count, "enrich": enrich_result,
             "sources_total": len(results), "duration_s": round(duration, 1), "egress": egress_label(),
             "sources": [{"id": r.id, "status": r.status, "detail": r.detail} for r in results]}
@@ -541,10 +635,12 @@ def main() -> None:
     ap = argparse.ArgumentParser(description="每日政策数据采集")
     ap.add_argument("--dry-run", action="store_true", help="只探测源可达性,不写库不写文件")
     ap.add_argument("--trigger", default="manual")
+    ap.add_argument("--backfill", action="store_true",
+                    help=f"回填:下载回溯期(LOOKBACK_DAYS,当前 {settings.lookback_days} 天)内的全部月份")
     ap.add_argument("--strict", action="store_true",
                     help="所有源都失败时以退出码 2 结束 —— 给 CI 用,让失败变红、触发通知")
     args = ap.parse_args()
-    out = run_collection(trigger=args.trigger, dry_run=args.dry_run)
+    out = run_collection(trigger=args.trigger, dry_run=args.dry_run, backfill=args.backfill)
     print(json.dumps(out, ensure_ascii=False, indent=1))
     if args.strict and out["status"] == "failed":
         raise SystemExit(2)

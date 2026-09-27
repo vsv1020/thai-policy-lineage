@@ -25,23 +25,13 @@ from .models import (Agency, CollectRun, Document, DocumentAgency, DocumentDomai
 router = APIRouter(prefix=settings.api_prefix)
 
 
-@router.get("/health", summary="存活与数据概况")
+@router.get("/health", summary="存活探测(前端据此判断走接口还是静态文件)")
 def health(s: Session = Depends(get_session)) -> dict:
-    last = s.scalars(select(CollectRun).order_by(CollectRun.started_at.desc()).limit(1)).first()
-    return {
-        "ok": True,
-        "documents": s.scalar(select(func.count(Document.uid))),
-        "issues": s.scalar(select(func.count(Issue.issue_id))),
-        "last_run": {
-            "started_at": iso_bkk(last.started_at) if last else None,
-            "status": last.status if last else None,
-            "added": last.added if last else 0,
-            "updated": last.updated if last else 0,
-        } if last else None,
-    }
+    # 采集运行状态不在这里给出 —— 那是后台 /api/admin/ops 的内容
+    return {"ok": True, "documents": s.scalar(select(func.count(Document.uid)))}
 
 
-@router.get("/overview", summary="首页:政策流 + 风向 + 生效日历 + 源状态")
+@router.get("/overview", summary="首页:政策流 + 风向 + 生效日历")
 def overview(s: Session = Depends(get_session)) -> dict:
     return A.overview(s)
 
@@ -51,14 +41,14 @@ def trends(s: Session = Depends(get_session)) -> dict:
     return A.trends(s)
 
 
+@router.get("/morphology", summary="形态分析:法律层级 × 强制力 × 工具类型 × 生命周期的政策画像")
+def morphology(s: Session = Depends(get_session)) -> dict:
+    return A.morphology(s)
+
+
 @router.get("/dimensions", summary="政策维度七维分析")
 def dimensions(s: Session = Depends(get_session)) -> dict:
     return A.dimensions(s)
-
-
-@router.get("/ops", summary="采集运行状态:源健康、运行历史、翻译队列、数据新鲜度")
-def ops(s: Session = Depends(get_session)) -> dict:
-    return A.ops(s)
 
 
 @router.get("/lineage", summary="议题演进脉络")
@@ -162,15 +152,3 @@ def get_document(uid: str, s: Session = Depends(get_session)) -> dict:
     view["implementation_stage"] = doc.implementation_stage_id
     view["note"] = doc.note
     return view
-
-
-@router.get("/runs", summary="采集运行历史")
-def runs(s: Session = Depends(get_session), limit: int = Query(20, ge=1, le=100)) -> dict:
-    rows = s.scalars(
-        select(CollectRun).order_by(CollectRun.started_at.desc()).limit(limit)).all()
-    return {"items": [{"id": r.id, "started_at": iso_bkk(r.started_at),
-                       "finished_at": iso_bkk(r.finished_at),
-                       "status": r.status, "trigger": r.trigger, "added": r.added,
-                       "updated": r.updated, "skipped": r.skipped,
-                       "duration_s": round(r.duration_s, 1), "detail": r.detail}
-                      for r in rows]}

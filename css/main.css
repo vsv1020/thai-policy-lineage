@@ -285,3 +285,18 @@
 .support-img { object-fit: contain; }
 .support-hint, .support-note { font-size: 11.5px; color: var(--muted); margin-top: 8px; }
 .support-note { margin-top: 16px; }
+
+  /* ── 形态分析 ── */
+  .morph-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 6px 0 16px; }
+  .morph-kpis .k { background: var(--card); border: 1px solid var(--line); padding: 12px 14px; }
+  .morph-kpis .k-l { font-size: 12px; color: var(--ink-2); }
+  .morph-kpis .k-v { font-family: var(--serif); font-size: 24px; font-weight: 700; line-height: 1.35; }
+  .morph-kpis .k-s { font-size: 11.5px; color: var(--muted); }
+  .morph-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .morph-table th, .morph-table td { padding: 7px 6px; border-bottom: 1px solid var(--line); text-align: left; }
+  .morph-table th { font-weight: 500; color: var(--ink-2); font-size: 12px; }
+  .morph-table td.n { text-align: right; font-variant-numeric: tabular-nums; }
+  .stab-bar { display: inline-block; height: 8px; background: var(--blue); vertical-align: middle; margin-right: 6px; }
+  @media (max-width: 700px) { .morph-table .hide-sm { display: none; } }
+  /* 手机上顶栏放不下副标题,会撑出横向滚动 */
+  @media (max-width: 600px) { header .brand-sub { display: none; } }

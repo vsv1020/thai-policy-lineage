@@ -9,7 +9,16 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 HTML = (ROOT / "index.html").read_text(encoding="utf-8")
-JS = {p.name: p.read_text(encoding="utf-8") for p in (ROOT / "js").glob("*.js")}
+ADMIN = (ROOT / "admin.html").read_text(encoding="utf-8")
+
+
+def scripts_of(html: str) -> dict[str, str]:
+    """页面实际加载的脚本(vendor 与 echarts 之类的第三方库除外)。"""
+    out = {}
+    for src in re.findall(r'<script src="([^"]+)"', html):
+        if src.startswith("js/") and "vendor" not in src and "echarts" not in src:
+            out[src] = (ROOT / src).read_text(encoding="utf-8")
+    return out
 
 
 class Balance(HTMLParser):
@@ -49,23 +58,40 @@ def test_every_nav_item_has_a_view():
 
 
 def test_expected_views_present():
-    for v in ("today", "search", "detail", "lineage", "dims", "trends", "ops"):
+    for v in ("today", "search", "detail", "lineage", "dims", "trends", "morph"):
         assert f'id="v-{v}"' in HTML, f"视图 v-{v} 丢失"
 
 
-def test_every_container_js_writes_exists():
-    """JS 里 set('xxx', ...) / put('xxx', ...) / getElementById('xxx') 写入的容器必须在页面里。"""
+def test_morphology_is_live():
+    assert 'data-v="morph"' in HTML and "js/morph.js" in HTML
+    nav = re.search(r'<div class="nav-item[^"]*"[^>]*>.*?形态分析.*?</div>', HTML).group(0)
+    assert "规划中" not in nav and "soon" not in nav
+
+
+def test_collection_status_only_in_admin():
+    """采集状态只放在管理后台,前台不显示。"""
+    assert 'id="v-ops"' not in HTML and 'data-v="ops"' not in HTML and "js/ops.js" not in HTML
+    assert "采集状态" not in HTML
+    assert "js/ops.js" in ADMIN and 'id="ops-sources"' in ADMIN
+
+
+def _missing_containers(html: str) -> list[str]:
     wanted, dynamic = set(), set()
-    for src in JS.values():
+    for src in scripts_of(html).values():
         # 只认我们自己的 set/put/setEl(前面不能是「.」—— 排除 URLSearchParams.set 之类)
         wanted |= set(re.findall(r"(?<![.\w])(?:set|put|setEl)\('([a-z0-9-]+)'", src))
         wanted |= set(re.findall(r"getElementById\('([a-z0-9-]+)'\)", src))
         # JS 模板里自己生成的元素(如分面里的输入框)不要求出现在静态 HTML 中
         dynamic |= set(re.findall(r'id="([a-z0-9-]+)"', src))
         dynamic |= set(re.findall(r"\.id = '([a-z0-9-]+)'", src))
-    ids = set(re.findall(r'id="([^"]+)"', HTML))
-    missing = sorted(wanted - ids - dynamic)
-    assert not missing, f"JS 写入但页面里不存在的容器: {missing}"
+    ids = set(re.findall(r'id="([^"]+)"', html))
+    return sorted(wanted - ids - dynamic)
+
+
+def test_every_container_js_writes_exists():
+    """页面加载的 JS 里 set/put/getElementById 写入的容器,必须在该页面里存在。"""
+    assert not _missing_containers(HTML), f"首页缺容器: {_missing_containers(HTML)}"
+    assert not _missing_containers(ADMIN), f"后台缺容器: {_missing_containers(ADMIN)}"
 
 
 def test_all_seven_dimensions_have_containers():
@@ -74,8 +100,9 @@ def test_all_seven_dimensions_have_containers():
 
 
 def test_scripts_exist_on_disk():
-    for src in re.findall(r'<script src="([^"]+)"', HTML):
-        assert (ROOT / src).is_file(), f"引用了不存在的脚本 {src}"
+    for html in (HTML, ADMIN):
+        for src in re.findall(r'<script src="([^"]+)"', html):
+            assert (ROOT / src).is_file(), f"引用了不存在的脚本 {src}"
 
 
 def test_no_fabricated_demo_content_in_html():

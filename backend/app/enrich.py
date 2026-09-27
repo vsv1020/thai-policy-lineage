@@ -12,7 +12,8 @@
 安全边界(与 collect 相同的三条红线,在这里再机械执行一遍):
 - 王室相关标题**不发给模型**,直接跳过 —— 红线一要求零加工,翻译也是加工。
 - 模型只能从词表里选 id(JSON schema 里的 enum),返回后再按词表校验一次。
-- 产出一律 verified=false、direction.method="llm";前端显示「未经人工复核」。
+- 产出一律 verified=false、direction.method="llm"(数据层保留,便于日后人工复核);
+  前台不单独标注,由全站「非官方翻译,以泰文原文为准」的免责声明覆盖。
 - 模型判定「与在泰外籍人士/企业无关」的条目(人事任免、地方工程招标等)
   标记为 skip,不会出现在首页,但保留在库里。
 
@@ -285,8 +286,9 @@ def apply_enrichment(rec: dict, out: dict, v: dict, model: str) -> dict:
     prov["verified_at"] = None
     prov["enriched_by"] = model
     prov["enriched_at"] = now
-    rec["note"] = (rec.get("note", "") + " | 中文标题、摘要与分类由 LLM 依泰文标题生成,"
-                   "未经人工复核").strip(" |")
+    # 替换采集时「待翻译」的占位说明;详情页「数据说明」展示的就是这一句
+    src = {"gazette_json": "官方公报索引", "cabinet_json": "内阁决议数据"}.get(prov.get("pipeline"), "官方来源")
+    rec["note"] = f"自{src}自动收录;中文标题、摘要与分类依泰文原题整理,以泰文原文为准"
     return rec
 
 
@@ -330,6 +332,7 @@ def run_enrichment(limit: int | None = None, dry_run: bool = False, client=None)
 
     v = _vocab()
     updated: dict[str, dict] = {}
+    todo = []
     for rec in queue[:limit]:
         result["processed"] += 1
         th = (rec.get("titles") or {}).get("th", "")
@@ -340,11 +343,21 @@ def run_enrichment(limit: int | None = None, dry_run: bool = False, client=None)
             updated[rec["uid"]] = rec
             result["skipped_red_line"] += 1
             continue
+        todo.append(rec)
+
+    def call(rec: dict) -> dict | None:
         try:
-            out = call_model(client, v, rec)
+            return call_model(client, v, rec)
         except Exception as exc:               # 单条失败不能拖垮整轮
             log.warning("调用失败 %s: %s", rec["uid"], exc)
-            out = None
+            return None
+
+    # 并发调用模型:回填历史数据时一次几百条,串行要一个多小时。结果按原顺序合并
+    from concurrent.futures import ThreadPoolExecutor
+    with ThreadPoolExecutor(max_workers=max(1, settings.enrich_concurrency)) as pool:
+        outputs = list(pool.map(call, todo))
+
+    for rec, out in zip(todo, outputs):
         problem = None if out is None else validate_output(out, v)
         if problem:
             log.warning("输出不合格,跳过 %s:%s", rec["uid"], problem)

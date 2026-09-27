@@ -58,7 +58,7 @@ python3 ../tools/validate.py     # 校验 JSONL(纯标准库,无依赖)
 
 | 路径 | 说明 |
 |---|---|
-| `GET /api/health` | 存活 + 文件数 + 上次采集结果 |
+| `GET /api/health` | 存活探测 + 文件数 |
 | `GET /api/overview` | 首页:政策流、风向、生效日历、源状态 |
 | `GET /api/trends` | 趋势看板聚合(按月 × 领域 / 机关) |
 | `GET /api/dimensions` | 政策维度七维 |
@@ -66,8 +66,7 @@ python3 ../tools/validate.py     # 校验 JSONL(纯标准库,无依赖)
 | `GET /api/documents` | 分面检索:`q` `domain` `agency` `legal_form` `status` `direction` `date_from` `date_to` `pending_gazette` `limit` `offset` |
 | `GET /api/documents/{uid}` | 单件全字段(四类日期、关系、逐字段可信度) |
 | `GET /api/vocab` | 受控词表(前端下拉与配色) |
-| `GET /api/runs` | 采集运行历史 |
-| `GET /api/ops` | 采集状态:源健康(含过期判定)、运行历史、翻译队列、数据新鲜度 |
+| `GET /api/admin/ops`、`/api/admin/runs` | 采集状态与运行历史(需 `ADMIN_TOKEN`;前台不显示) |
 | `POST /api/t` | 站点统计上报(js/track.js 用 sendBeacon 发,204) |
 | `GET /api/admin/stats?days=` | 统计后台数据,需 `Authorization: Bearer $ADMIN_TOKEN`;未设令牌时 404 |
 

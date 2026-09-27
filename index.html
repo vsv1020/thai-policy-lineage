@@ -29,14 +29,13 @@
 <div class="layout">
   <aside>
     <div class="side-label">界面</div>
-    <div class="nav-item soon"><span class="glyph">析</span>形态分析<span class="soon-tag">规划中</span></div>
+    <div class="nav-item" data-v="morph"><span class="glyph">析</span>形态分析</div>
     <div class="nav-item active" data-v="today"><span class="glyph">今</span>首页 · 今日</div>
     <div class="nav-item" data-v="search"><span class="glyph">检</span>检索结果</div>
     <div class="nav-item" data-v="lineage"><span class="glyph">脉</span>演进脉络</div>
     <div class="nav-item" data-v="dims"><span class="glyph">维</span>政策维度</div>
     <div class="nav-item" data-v="trends"><span class="glyph">势</span>趋势看板</div>
     <div class="nav-item" data-v="detail"><span class="glyph">文</span>政策详情</div>
-    <div class="nav-item" data-v="ops"><span class="glyph">采</span>采集状态</div>
     <div class="nav-item soon"><span class="glyph">问</span>政策助手<span class="soon-tag">规划中</span></div>
     <div class="side-div"></div>
     <div class="side-label">关于本站</div>
@@ -53,12 +52,12 @@
       <div class="page-sub">官方源自动监测 · 重要政策 24–48 小时内出中文 · 每条均附泰文原文与公报编号</div>
       <div class="home-grid">
         <div id="feed">
-          <div class="card"><div class="pc-sum">政策流加载中……未加载成功时此处不显示任何条目(旧版本的虚构演示数据已移除)。</div></div>
+          <div class="card"><div class="pc-sum">政策流加载中……</div></div>
         </div>
         <div>
           <div class="card">
             <h3 class="mod">本月政策风向</h3>
-            <div class="mod-sub">近 30 天 · LLM 标注 + 人工复核</div>
+            <div class="mod-sub">近 30 天 · 按政策收紧 / 放宽方向加权</div>
             <div id="wind">
             <div class="mod-sub">加载中……</div>
             </div>
@@ -135,7 +134,7 @@
           <div class="mod-sub">格子深浅 = 该年该工具的使用件数占比</div></div>
           <div style="font-size:12px;color:var(--muted);max-width:420px">供给型＝政府直接投入;环境型＝规则与激励塑造环境;需求型＝直接拉动市场</div>
         </div>
-        <div id="dim1"><div class="reading" id="dim1-ph">维度数据加载中…… 未加载成功时此处不显示任何数字(旧版本的演示数值已移除,避免把示意数据当结论)。</div></div>
+        <div id="dim1"><div class="reading" id="dim1-ph">维度数据加载中……</div></div>
       </div>
 
       <div class="dim-grid2">
@@ -143,12 +142,12 @@
           <div class="card">
             <h3 class="mod">维度二 · 政策工具 × 政策目标</h3>
             <div class="mod-sub">红框 = 该目标缺少对应工具,是政策空白,也是提意见和抢先布局的位置</div>
-            <div id="dim2"><div class="reading" id="dim2-ph">维度数据加载中…… 未加载成功时此处不显示任何数字(旧版本的演示数值已移除,避免把示意数据当结论)。</div></div>
+            <div id="dim2"><div class="reading" id="dim2-ph">维度数据加载中……</div></div>
           </div>
           <div class="card">
             <h3 class="mod">维度四 · 作用对象:谁被支持,谁被约束</h3>
             <div class="mod-sub">左 = 支持性条款件数,右 = 约束性条款件数</div>
-            <div id="dim4"><div class="reading" id="dim4-ph">维度数据加载中…… 未加载成功时此处不显示任何数字(旧版本的演示数值已移除,避免把示意数据当结论)。</div></div>
+            <div id="dim4"><div class="reading" id="dim4-ph">维度数据加载中……</div></div>
             <div class="legend"><span><i style="background:var(--green)"></i>支持</span><span><i style="background:var(--seal)"></i>约束</span></div>
           </div>
         </div>
@@ -156,12 +155,12 @@
           <div class="card">
             <h3 class="mod">维度三 · 法律形式与强制力</h3>
             <div class="mod-sub">泰国的法律形式本身就是力度信号,也是"能不能被起诉"的分界线</div>
-            <div id="dim3"><div class="reading" id="dim3-ph">维度数据加载中…… 未加载成功时此处不显示任何数字(旧版本的演示数值已移除,避免把示意数据当结论)。</div></div>
+            <div id="dim3"><div class="reading" id="dim3-ph">维度数据加载中……</div></div>
           </div>
           <div class="card">
             <h3 class="mod">维度五 · 发文机构协同</h3>
             <div class="mod-sub">联署强度 = 两机构共同署名或互相引用的件数</div>
-            <div id="dim5"><div class="reading" id="dim5-ph">维度数据加载中…… 未加载成功时此处不显示任何数字(旧版本的演示数值已移除,避免把示意数据当结论)。</div></div>
+            <div id="dim5"><div class="reading" id="dim5-ph">维度数据加载中……</div></div>
           </div>
         </div>
       </div>
@@ -169,45 +168,44 @@
       <div class="card">
         <h3 class="mod">维度六 · 一致性与冲突检测</h3>
         <div class="mod-sub">同一事项在不同文件中给出不同口径时自动标出,附双方原文定位</div>
-        <div id="dim6"><div class="reading" id="dim6-ph">维度数据加载中…… 未加载成功时此处不显示任何数字(旧版本的演示数值已移除,避免把示意数据当结论)。</div></div>
+        <div id="dim6"><div class="reading" id="dim6-ph">维度数据加载中……</div></div>
       </div>
 
       <div class="card">
         <h3 class="mod">维度七 · 执行完整度(从规划到评估)</h3>
         <div class="mod-sub">同一议题在六个环节各有多少文件,缺环 = 落地风险</div>
-        <div id="dim7"><div class="reading" id="dim7-ph">维度数据加载中…… 未加载成功时此处不显示任何数字(旧版本的演示数值已移除,避免把示意数据当结论)。</div></div>
+        <div id="dim7"><div class="reading" id="dim7-ph">维度数据加载中……</div></div>
+      </div>
+    </section>
+
+    <!-- ═══════ 形态分析 ═══════ -->
+    <section class="view" id="v-morph">
+      <h1 class="page">形态分析</h1>
+      <div class="page-sub" id="morph-sub">政策形态画像:每条政策按法律层级、强制力、政策工具类型与生命周期状态刻画 · 加载中……</div>
+      <div class="morph-kpis" id="morph-kpis"></div>
+      <div class="reading" id="morph-insights" style="margin-bottom:18px">加载中……</div>
+      <div class="trend-grid">
+        <div class="card"><h3 class="mod">法律层级分布</h3><div class="mod-sub">稳定性 5 = 法律,1 = 决议 / 指引 · 深色为可诉(强制力强)</div><div class="chart" id="c-morph-forms"></div></div>
+        <div class="card"><h3 class="mod">政策工具类型</h3><div class="mod-sub">供给型:政府直接投入 · 环境型:规则与激励 · 需求型:直接拉动市场</div><div class="chart" id="c-morph-class"></div><div id="morph-instr"></div></div>
+        <div class="card"><h3 class="mod">领域 × 法律形式</h3><div class="mod-sub">每个领域的政策都以什么形式出台</div><div class="chart" id="c-morph-matrix"></div></div>
+        <div class="card"><h3 class="mod">生命周期状态</h3><div class="mod-sub">草案 → 待刊 → 已刊 → 现行 → 被替代 / 废止</div><div class="chart" id="c-morph-status"></div></div>
+        <div class="card" style="grid-column:1/-1"><h3 class="mod">形态演变</h3><div class="mod-sub">最近 8 个季度新出台政策的层级构成 · 折线为平均稳定性</div><div class="chart" id="c-morph-evo"></div></div>
+        <div class="card" style="grid-column:1/-1"><h3 class="mod">各领域形态指纹</h3><div class="mod-sub">同一领域的政策「长什么样」—— 层级高低、是否可诉、以什么工具为主、收紧还是放宽</div><div id="morph-profile"></div></div>
       </div>
     </section>
 
     <!-- ═══════ 趋势 ═══════ -->
     <section class="view" id="v-trends">
       <h1 class="page">趋势看板</h1>
-      <div class="page-sub" id="trends-sub">基于全库结构化数据聚合 · 发文量回答"多不多",<a href="#" onclick="go('dims');return false">政策维度</a>回答"是什么样的政策" · 演示数据</div>
-      <div class="facets">
-        <div class="facet">时间:<b>近 12 个月</b> ▾</div>
-        <div class="facet">领域:<b>全部</b> ▾</div>
-        <div class="facet">口径:<b>公报 + 内阁决议</b> ▾</div>
-      </div>
+      <div class="page-sub" id="trends-sub">基于全库结构化数据聚合 · 发文量回答"多不多",<a href="#" onclick="go('dims');return false">政策维度</a>回答"是什么样的政策"</div>
       <div class="trend-grid">
         <div class="card"><h3 class="mod">各领域政策发文量</h3><div class="mod-sub">按月 · 堆叠 · 悬停查看明细</div><div class="chart tall" id="c-stack"></div></div>
-        <div class="card"><h3 class="mod">政策风向指数</h3><div class="mod-sub">LLM 标注收紧(−)/放宽(+)后按月聚合 · 0 为中性</div><div class="chart tall" id="c-direction"></div></div>
+        <div class="card"><h3 class="mod">政策风向指数</h3><div class="mod-sub">按政策收紧(−)/放宽(+)方向逐月聚合 · 0 为中性</div><div class="chart tall" id="c-direction"></div></div>
         <div class="card"><h3 class="mod">部委发文活跃度</h3><div class="mod-sub">机关 × 月份 · 颜色深浅 = 发文量</div><div class="chart" id="c-heat"></div></div>
-        <div class="card"><h3 class="mod">上升话题榜</h3><div class="mod-sub">近 30 天关键词提及次数环比增幅</div><div class="chart" id="c-topics"></div></div>
+        <div class="card"><h3 class="mod">上升话题榜</h3><div class="mod-sub">领域 / 政策工具 / 政策目标标签 · 近 90 天对比前 90 天</div><div class="chart" id="c-topics"></div></div>
       </div>
     </section>
 
-    <!-- ═══════ 采集状态 ═══════ -->
-    <section class="view" id="v-ops">
-      <h1 class="page">采集状态</h1>
-      <div class="page-sub" id="ops-sub">自动采集管道是否还活着 —— 源健康、每日运行记录、翻译队列、数据新鲜度。</div>
-      <div id="ops-banner"></div>
-      <div class="trend-grid">
-        <div class="card"><h3 class="mod">数据源</h3><div class="mod-sub">上次成功超过 3 天即判为过期</div><div id="ops-sources"><div class="mod-sub">加载中……</div></div></div>
-        <div class="card"><h3 class="mod">库存与队列</h3><div class="mod-sub">事实层全部记录 vs 可呈现条目</div><div id="ops-corpus"><div class="mod-sub">加载中……</div></div></div>
-        <div class="card" style="grid-column:1/-1"><h3 class="mod">最近运行</h3><div class="mod-sub">每日定时采集 · 最近 30 次</div><div class="chart" id="c-runs" style="height:160px"></div><div id="ops-runs"></div></div>
-        <div class="card" style="grid-column:1/-1"><h3 class="mod">待翻译队列</h3><div class="mod-sub">官方接口采回、尚无中文标题的条目(不会出现在首页)</div><div id="ops-queue"><div class="mod-sub">加载中……</div></div></div>
-      </div>
-    </section>
 
   </main>
 </div>
@@ -222,8 +220,8 @@
 <script src="js/app.js"></script>
 <script src="js/data.js"></script>
 <script src="js/dims.js"></script>
+<script src="js/morph.js"></script>
 <script src="js/detail.js"></script>
-<script src="js/ops.js"></script>
 <script src="js/ads.js"></script>
 <script src="js/vendor/qrcode-generator-1.4.4.js"></script>
 <script src="js/promptpay.js"></script>

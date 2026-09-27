@@ -27,7 +27,7 @@ def export_all() -> dict[str, int]:
             "trends.json": A.trends(s),
             "lineage.json": A.lineage(s),
             "dimensions.json": A.dimensions(s),
-            "ops.json": A.ops(s),
+            "morphology.json": A.morphology(s),
         }
         from .seo import build as build_seo
         seo = build_seo(s)

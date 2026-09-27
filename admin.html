@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>站点统计 · 政策脉络</title>
+<title>管理后台 · 政策脉络</title>
 <link rel="stylesheet" href="css/main.css">
 <style>
   .adm { max-width: 1180px; margin: 0 auto; padding: 24px 20px 60px; }
@@ -29,6 +29,10 @@
   .bar-n small { display: block; color: var(--muted); font-size: 11px; }
   .tag { display: inline-block; font-size: 11px; padding: 0 5px; border: 1px solid var(--line); margin-left: 4px; color: var(--ink-2); }
   .tag.seal { border-color: var(--seal); color: var(--seal); } .tag.ok { border-color: var(--green); color: var(--green); }
+  .tabs { display: flex; gap: 0; margin-bottom: 14px; border-bottom: 1px solid var(--line); }
+  .tabs button { background: none; border: 0; border-bottom: 2px solid transparent; padding: 8px 16px;
+                 font: inherit; font-size: 14px; color: var(--ink-2); cursor: pointer; margin-bottom: -1px; }
+  .tabs button.on { color: var(--ink); border-bottom-color: var(--seal); font-weight: 600; }
   .toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
   .toolbar .sp { flex: 1; }
   .rng button, .tool { background: var(--card); border: 1px solid var(--line); padding: 5px 12px; font: inherit; font-size: 13px; cursor: pointer; }
@@ -54,7 +58,7 @@
 <header>
   <div class="brand"><a href="index.html" style="display:flex;align-items:center;gap:14px;color:inherit;text-decoration:none">
     <div class="seal">脉</div><div class="brand-name">政策脉络 · 泰国</div></a>
-    <div class="brand-sub">站点统计后台</div></div>
+    <div class="brand-sub">管理后台</div></div>
   <div class="header-right"><button class="tool" id="logout" hidden style="color:var(--ink)">退出</button></div>
 </header>
 
@@ -71,6 +75,10 @@
   </form>
 
   <div id="dash" hidden>
+    <div class="tabs" id="tabs">
+      <button data-tab="stats" class="on">站点统计</button><button data-tab="ops">采集状态</button>
+    </div>
+    <div id="panel-stats">
     <div class="toolbar">
       <div class="rng" id="rng">
         <button data-d="1">今天</button><button data-d="7">7 天</button><button data-d="30" class="on">30 天</button><button data-d="90">90 天</button>
@@ -118,10 +126,26 @@
       <div class="sub">发推送、发社媒的最佳时间参考</div><div class="chart" id="c-hours" style="height:220px"></div></div></div>
 
     <div class="note" id="note"></div>
+    </div>
+
+    <!-- 采集状态:只在后台显示,前台不展示。数据来自 /api/admin/ops -->
+    <div id="panel-ops" hidden>
+      <div class="sub" id="ops-sub" style="margin:4px 0 10px;color:var(--muted);font-size:12px">加载中……</div>
+      <div id="ops-banner"></div>
+      <div class="adm-grid g2">
+        <div class="adm-card"><h3>数据源</h3><div class="sub">上次成功超过 3 天即判为过期</div><div id="ops-sources"></div></div>
+        <div class="adm-card"><h3>库存与队列</h3><div class="sub">事实层全部记录 vs 前台可呈现条目</div><div id="ops-corpus"></div></div>
+      </div>
+      <div class="adm-grid"><div class="adm-card"><h3>最近运行</h3><div class="sub">每日定时采集 · 最近 30 次(柱高 = 新增条数)</div>
+        <div class="chart" id="c-runs" style="height:170px"></div><div id="ops-runs"></div></div></div>
+      <div class="adm-grid"><div class="adm-card"><h3>待翻译队列</h3><div class="sub">官方接口采回、尚无中文标题的条目(不会出现在前台)</div>
+        <div id="ops-queue"></div></div></div>
+    </div>
   </div>
 </div>
 
 <script src="js/echarts.min.js"></script>
+<script src="js/ops.js"></script>
 <script src="js/admin.js"></script>
 </body>
 </html>

@@ -57,7 +57,8 @@ def test_pages_never_claim_unverified_as_verified(built):
     root, _ = built
     for p in (root / "p").glob("th-*.html"):
         t = p.read_text(encoding="utf-8")
-        assert "未经人工复核" in t or "已人工复核" in t
+        assert "未经人工复核" not in t, "前台不再单独标注复核状态"
+        assert "非官方翻译" in t, "免责声明必须在每个落地页上"
 
 
 def test_sitemap_lists_every_page(built):

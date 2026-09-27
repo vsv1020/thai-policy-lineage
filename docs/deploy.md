@@ -82,14 +82,19 @@ DOMAIN=你的域名 bash /opt/thai-policy-lineage/deploy/install.sh        # 买
 - [ ] `https://你的域名/robots.txt` 里的 Sitemap 地址是正式域名
 - [ ] `config/ads.json` 的 `enabled` 是你想要的值(默认 false)
 - [ ] `/admin` 能用令牌登录;勾上「不统计本机的访问」;没设 `ADMIN_TOKEN` 时 `/api/admin/stats` 返回 404
-- [ ] 首页右上角时间戳、「采集状态」页的源状态与你的预期一致
+- [ ] 首页右上角的数据更新时间、后台 `/admin` →「采集状态」的源状态与你的预期一致
 - [ ] 免责声明在首页页脚、详情页、每个落地页都在
 
 ## 日常运维
 
-- 每天看一眼「采集状态」页或 Actions 页面。连续红色 = 出口或数据源出了问题。
+- 每天看一眼后台 `/admin` →「采集状态」或 Actions 页面。连续红色 = 出口或数据源出了问题。
+- **历史数据**:日常同步每天重新下载最近 3 个月份的官方文件(`SYNC_RESOURCES`),已入库记录在官方源里有改动时随之更新;
+  泰文标题变了会自动重新翻译,人工整理的条目不会被覆盖。
+  **第一次上线或想补齐历史**:Actions → 每日政策采集 → Run workflow,勾选 **backfill**,会下载回溯期
+  (`LOOKBACK_DAYS`,默认 730 天)内的全部月份并翻译,可能要跑一两个小时。
+- 泰国官方公报数据集本身滞后数月(2026-09 时最新到 2026-03),趋势页会注明「数据截至 X 月」。
 - 每周看一次 `/admin` 的「零结果检索」:那是读者在找、站里还没有的主题。
 - 「待翻译」队列持续增长 = 翻译 key(`DEEPSEEK_API_KEY` / `ANTHROPIC_API_KEY`)没配或余额用完。
   Actions 运行摘要里「翻译分类」一行会显示用的是哪个模型、成功几条。
-- LLM 翻译的条目一律标「未经人工复核」。人工核对后,在 JSONL 里把 `provenance.verified` 改为 `true`
+- LLM 翻译的条目在数据层记为 `verified=false`(前台不单独标注)。人工核对后,在 JSONL 里把 `provenance.verified` 改为 `true`
   并填 `verified_at`,提交即可 —— 这是把内容质量从「能看」变成「可信」的唯一途径。
