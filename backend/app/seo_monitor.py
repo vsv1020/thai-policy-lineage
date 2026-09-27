@@ -278,7 +278,7 @@ def audit_pages(client: httpx.Client, rep: Report, urls: list[str], state: dict)
 
 # ─────────────────────────── 2. 服务器侧:爬虫与来源 ───────────────────────────
 
-def server_stats(client: httpx.Client, rep: Report, token: str) -> dict | None:
+def server_stats(client: httpx.Client, rep: Report, token: str, baidu_on: bool = False) -> dict | None:
     if not token:
         rep.disabled.append("ADMIN_TOKEN:没配置,拿不到服务器记录的爬虫抓取与搜索/AI 来源访问。"
                             "在 GitHub Secrets 里加 ADMIN_TOKEN(与服务器 .env 相同)")
@@ -306,7 +306,9 @@ def server_stats(client: httpx.Client, rep: Report, token: str) -> dict | None:
         "visits_search_7d": d["channels"].get("search", 0),
         "visits_ai_7d": d["channels"].get("ai", 0),
     })
-    for b, name in (("Googlebot", "Google"), ("Bingbot", "Bing"), ("Baiduspider", "百度")):
+    # 百度默认不追踪(不做百度推送时,蜘蛛来不来不是需要处理的问题);配了 BAIDU_PUSH_TOKEN 才提醒
+    watch = [("Googlebot", "Google"), ("Bingbot", "Bing")] + ([("Baiduspider", "百度")] if baidu_on else [])
+    for b, name in watch:
         if not bots.get(b):
             rep.issue("warn", f"no_{b.lower()}", f"近 7 天没有 {b} 抓取记录",
                       f"在 {name} 站长平台验证站点并提交 sitemap;新站通常需要 1–4 周才开始抓取")
@@ -317,7 +319,7 @@ def server_stats(client: httpx.Client, rep: Report, token: str) -> dict | None:
     never = d["coverage"].get("never_crawled_sample") or []
     if d["coverage"].get("sitemap_landing") and never:
         rep.issue("info", "never_crawled", f"{len(never)}+ 个落地页近 7 天未被搜索爬虫抓取",
-                  "增加站内链接(首页、专题页、同领域推荐)并通过 IndexNow / 百度提交", never)
+                  "增加站内链接(首页、专题页、同领域推荐);新页面已通过 IndexNow 与 GSC sitemap 提交", never)
     return d
 
 
@@ -520,9 +522,7 @@ def indexnow(client: httpx.Client, rep: Report, key: str, sitemap: dict, live: s
 def baidu(client: httpx.Client, rep: Report, token: str, sitemap: dict, live: set[str],
           state: dict) -> dict | None:
     if not token:
-        rep.disabled.append("百度:没配置 BAIDU_PUSH_TOKEN,新页面不会主动推送给百度(中文用户多用百度)。"
-                            "在百度搜索资源平台验证站点后,「普通收录 → API 提交」里拿 token")
-        return None
+        return None                     # 百度是可选项,不配就静默跳过,日报里不提
     done = state.setdefault("baidu", {})
     quota = int(state.get("baidu_remain", 10) or 10)
     todo = [u for u in changed_urls(sitemap, done) if u in live][:max(quota, 1)]
@@ -698,7 +698,7 @@ def render_md(d: dict, prev: dict | None) -> str:
     sub = sec.get("submit") or {}
     out += ["", "## 今日提交", "",
             f"- IndexNow:{(sub.get('indexnow') or {}).get('submitted', 0)} 个 URL",
-            f"- 百度:{(sub.get('baidu') or {}).get('submitted', '未启用') if sub.get('baidu') is not None else '未启用'}",
+            *([f"- 百度:{sub['baidu'].get('submitted', 0)} 个 URL"] if sub.get("baidu") else []),
             f"- GSC sitemap:{'已提交' if (g or {}).get('sitemap_submitted') else ('已存在' if g.get('sitemap') else '—')}"]
     if d["disabled"]:
         out += ["", "## 未启用的数据源", ""] + [f"- {x}" for x in d["disabled"]]
@@ -752,7 +752,7 @@ def run(client: httpx.Client, site: str, env: dict, today: date, out_dir: Path,
     rep.metrics.update({"pages_checked": a["checked"], "pages_with_problems": a["with_problems"] + a["failed"],
                         "thin_pages": a["thin"]})
 
-    srv = server_stats(client, rep, env.get("ADMIN_TOKEN", ""))
+    srv = server_stats(client, rep, env.get("ADMIN_TOKEN", ""), baidu_on=bool(env.get("BAIDU_PUSH_TOKEN")))
     if srv:
         srv.pop("monitor", None)
         rep.sections["server"] = srv
