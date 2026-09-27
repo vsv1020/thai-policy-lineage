@@ -20,6 +20,7 @@ from fastapi.staticfiles import StaticFiles
 
 from .api import router
 from .stats import router as stats_router
+from .seo_track import classify_bot, record_crawl, router as seo_router
 from .config import REPO_ROOT, SITE_DIR, settings
 from .db import init_db
 
@@ -36,7 +37,21 @@ PUBLIC_DIRS = {
     "/assets": REPO_ROOT / "assets",  # 打赏收款码等静态图片
 }
 # 根目录下允许单独访问的文件
-PUBLIC_FILES = {"index.html", "privacy.html", "robots.txt", "sitemap.xml", "favicon.ico", "ads.txt"}
+PUBLIC_FILES = {"index.html", "privacy.html", "robots.txt", "sitemap.xml", "favicon.ico", "favicon.svg",
+                "ads.txt", "feed.xml", "llms.txt", "llms-full.txt"}
+
+def _indexnow_file() -> str:
+    """config/seo.json 里的 IndexNow key → 站点根目录的 <key>.txt(搜索引擎用它核验提交者)。"""
+    import json
+    import re
+    try:
+        key = json.loads((REPO_ROOT / "config" / "seo.json").read_text(encoding="utf-8")).get("indexnow_key", "")
+    except (OSError, ValueError):
+        return ""
+    return f"{key}.txt" if re.fullmatch(r"[A-Za-z0-9-]{8,128}", key or "") else ""
+
+
+INDEXNOW_KEY_FILE = _indexnow_file()
 
 SECURITY_HEADERS = {
     "X-Content-Type-Options": "nosniff",
@@ -101,6 +116,11 @@ async def guard(request: Request, call_next):
                                 headers={"Retry-After": "60"})
         q.append(now)
     response = await call_next(request)
+    # 搜索引擎 / AI 爬虫的抓取记录(不跑 JS,前端统计看不到);只识别已知爬虫,普通访问零开销
+    ua = request.headers.get("user-agent", "")
+    if request.method in ("GET", "HEAD") and classify_bot(ua):
+        from starlette.concurrency import run_in_threadpool
+        await run_in_threadpool(record_crawl, ua, request.url.path, response.status_code)
     for k, v in SECURITY_HEADERS.items():
         response.headers.setdefault(k, v)
     if request.url.path.startswith("/data/site/"):
@@ -111,6 +131,7 @@ async def guard(request: Request, call_next):
 
 app.include_router(router)
 app.include_router(stats_router)
+app.include_router(seo_router)
 
 
 @app.get("/", include_in_schema=False)
@@ -130,6 +151,8 @@ def root_file(name: str):
     path = REPO_ROOT / name
     if name in PUBLIC_FILES and path.is_file():
         return FileResponse(path)
+    if name == INDEXNOW_KEY_FILE:    # IndexNow 核验文件:内容就是 key 本身
+        return PlainTextResponse(INDEXNOW_KEY_FILE[:-4])
     if name == "robots.txt":        # 没生成过也给一个合理默认
         return PlainTextResponse("User-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /admin\n")
     return JSONResponse({"detail": "Not Found"}, status_code=404)

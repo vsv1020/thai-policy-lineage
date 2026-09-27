@@ -16,10 +16,19 @@ NEW=$(git rev-parse "origin/$BRANCH")
 git reset -q --hard "origin/$BRANCH"
 echo "$(date '+%F %T') 同步 ${OLD%"${OLD#???????}"} → ${NEW%"${NEW#???????}"}"
 
-if git diff --name-only "$OLD" "$NEW" | grep -qvE '^(data/|p/|sitemap\.xml$|robots\.txt$)'; then
+CHANGED=$(git diff --name-only "$OLD" "$NEW")
+# 只有每日 SEO 日报(data/seo/)变了:文件已随 data/ 挂载进容器,后台直接能读,不用重新导出
+if ! echo "$CHANGED" | grep -qv '^data/seo/'; then
+  echo "只有 SEO 日报变动,无需处理"
+  exit 0
+fi
+
+if echo "$CHANGED" | grep -qvE '^(data/|p/|sitemap\.xml$|robots\.txt$|feed\.xml$|llms(-full)?\.txt$|index\.html$|privacy\.html$)'; then
   echo "代码有变动,重建镜像"
   $DC up -d --build --remove-orphans
 else
   echo "只有数据变动,重新入库并导出"
+  # index.html / privacy.html 打在镜像里、没挂载:先拷进容器,导出会重写其中的 SEO 受管区块
+  $DC cp index.html app:/srv/index.html && $DC cp privacy.html app:/srv/privacy.html
   $DC exec -T app sh -c "python -m app.ingest && python -m app.export"
 fi

@@ -323,3 +323,20 @@ class PageHit(Base):
     device: Mapped[str] = mapped_column(String(8), default="")     # mobile / tablet / desktop
     lang: Mapped[str] = mapped_column(String(8), default="")
     country: Mapped[str] = mapped_column(String(2), default="")    # 仅在 Cloudflare 等代理提供时
+
+
+class CrawlHit(Base):
+    """搜索引擎与 AI 爬虫的抓取记录:用来判断「有没有被抓取 / 收录」和 GEO 效果。
+
+    爬虫不跑 JS,前端统计看不到它们,所以在服务端中间件里按 User-Agent 识别后记一行。
+    只存爬虫名、路径、状态码,不存 IP 与完整 UA。UA 可以伪造,数字只作趋势参考。
+    与事实层无关,ingest --reset 不会清它;保留期同 STATS_RETENTION_DAYS。
+    """
+    __tablename__ = "crawl_hits"
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    ts: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
+    day: Mapped[date] = mapped_column(Date, index=True)            # 曼谷日期
+    bot: Mapped[str] = mapped_column(String(32), default="", index=True)   # Googlebot / GPTBot …
+    group: Mapped[str] = mapped_column(String(8), default="")      # search / ai / other
+    path: Mapped[str] = mapped_column(String(255), default="")
+    status: Mapped[int] = mapped_column(Integer, default=200)

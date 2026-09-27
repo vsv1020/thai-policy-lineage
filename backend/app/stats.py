@@ -165,7 +165,8 @@ async def track(request: Request) -> Response:
         with session_scope() as s:
             s.add(hit)
             if _last_purge != at.date():   # 每天顺手清一次过期记录,不依赖定时器
-                n = purge(s, today=at.date())
+                from .seo_track import purge_crawls
+                n = purge(s, today=at.date()) + purge_crawls(s, today=at.date())
                 _last_purge = at.date()
                 if n:
                     log.info("统计:清理过期记录 %d 条", n)
