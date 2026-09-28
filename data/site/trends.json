@@ -14,13 +14,49 @@
   "26-03",
   "26-04"
  ],
- "months_covered": 1,
+ "months_covered": 2,
  "usable": false,
  "min_months_required": 6,
  "data_through": "2026-04",
  "gazette_through": "2026-04",
- "total_documents": 12,
+ "total_documents": 92,
  "volume_by_domain": [
+  {
+   "id": "finance",
+   "label": "金融外汇",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2,
+    13
+   ]
+  },
+  {
+   "id": "health",
+   "label": "医疗",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2,
+    16
+   ]
+  },
   {
    "id": "tax",
    "label": "税务",
@@ -35,8 +71,8 @@
     0,
     0,
     0,
-    0,
-    1
+    2,
+    3
    ]
   },
   {
@@ -54,7 +90,7 @@
     0,
     0,
     0,
-    7
+    29
    ]
   },
   {
@@ -72,12 +108,84 @@
     0,
     0,
     0,
+    7
+   ]
+  },
+  {
+   "id": "biz",
+   "label": "公司投资",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    14
+   ]
+  },
+  {
+   "id": "education",
+   "label": "教育",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1
+   ]
+  },
+  {
+   "id": "land",
+   "label": "房产土地",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
     3
    ]
   },
   {
-   "id": "finance",
-   "label": "金融外汇",
+   "id": "visa",
+   "label": "签证居留",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    3
+   ]
+  },
+  {
+   "id": "digital",
+   "label": "数字与数据",
    "data": [
     0,
     0,
@@ -96,6 +204,42 @@
  ],
  "wind_by_domain": [
   {
+   "id": "finance",
+   "label": "金融外汇",
+   "data": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    0.0,
+    0.18
+   ]
+  },
+  {
+   "id": "health",
+   "label": "医疗",
+   "data": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    0.0,
+    0.12
+   ]
+  },
+  {
    "id": "tax",
    "label": "税务",
    "data": [
@@ -109,8 +253,8 @@
     null,
     null,
     null,
-    null,
-    -0.17
+    0.0,
+    0.0
    ]
   },
   {
@@ -128,7 +272,7 @@
     null,
     null,
     null,
-    0.0
+    -0.1
    ]
   },
   {
@@ -150,8 +294,80 @@
    ]
   },
   {
-   "id": "finance",
-   "label": "金融外汇",
+   "id": "biz",
+   "label": "公司投资",
+   "data": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    0.01
+   ]
+  },
+  {
+   "id": "education",
+   "label": "教育",
+   "data": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    0.0
+   ]
+  },
+  {
+   "id": "land",
+   "label": "房产土地",
+   "data": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    0.0
+   ]
+  },
+  {
+   "id": "visa",
+   "label": "签证居留",
+   "data": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    -0.25
+   ]
+  },
+  {
+   "id": "digital",
+   "label": "数字与数据",
    "data": [
     null,
     null,
@@ -170,6 +386,60 @@
  ],
  "activity_by_agency": [
   {
+   "id": "moc",
+   "label": "商务部",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2,
+    12
+   ]
+  },
+  {
+   "id": "mdes",
+   "label": "数字经济与社会部",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2,
+    3
+   ]
+  },
+  {
+   "id": "rd",
+   "label": "税务厅",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2,
+    1
+   ]
+  },
+  {
    "id": "excise",
    "label": "消费税厅",
    "data": [
@@ -184,7 +454,7 @@
     0,
     0,
     0,
-    1
+    6
    ]
   },
   {
@@ -202,25 +472,7 @@
     0,
     0,
     0,
-    2
-   ]
-  },
-  {
-   "id": "moc",
-   "label": "商务部",
-   "data": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    3
+    12
    ]
   },
   {
@@ -238,7 +490,7 @@
     0,
     0,
     0,
-    4
+    8
    ]
   },
   {
@@ -256,50 +508,218 @@
     0,
     0,
     0,
+    3
+   ]
+  },
+  {
+   "id": "cabinet",
+   "label": "内阁",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    11
+   ]
+  },
+  {
+   "id": "police",
+   "label": "皇家警察总署",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    6
+   ]
+  },
+  {
+   "id": "industry",
+   "label": "工业部",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    17
+   ]
+  },
+  {
+   "id": "mol",
+   "label": "劳工部",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
     2
+   ]
+  },
+  {
+   "id": "energy",
+   "label": "能源部",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1
+   ]
+  },
+  {
+   "id": "erc",
+   "label": "能源管理委员会",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1
+   ]
+  },
+  {
+   "id": "pdpc",
+   "label": "个人资料保护委员会",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1
+   ]
+  },
+  {
+   "id": "bot",
+   "label": "泰国央行",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2
+   ]
+  },
+  {
+   "id": "dol",
+   "label": "土地厅",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1
    ]
   }
  ],
  "rising": [
   {
-   "label": "海关贸易",
-   "current": 7,
-   "previous": 0,
-   "growth_pct": null
-  },
-  {
    "label": "标准与准入管制",
-   "current": 6,
+   "current": 38,
    "previous": 0,
    "growth_pct": null
   },
   {
-   "label": "秩序与安全",
-   "current": 5,
+   "label": "海关贸易",
+   "current": 29,
    "previous": 0,
    "growth_pct": null
   },
   {
    "label": "权益保护",
-   "current": 4,
+   "current": 29,
    "previous": 0,
    "growth_pct": null
   },
   {
-   "label": "劳工用工",
-   "current": 3,
+   "label": "秩序与安全",
+   "current": 22,
    "previous": 0,
    "growth_pct": null
   },
   {
-   "label": "税收减免与追缴",
-   "current": 2,
+   "label": "医疗",
+   "current": 18,
    "previous": 0,
    "growth_pct": null
   },
   {
-   "label": "财政收入",
-   "current": 2,
+   "label": "金融外汇",
+   "current": 15,
+   "previous": 0,
+   "growth_pct": null
+  },
+  {
+   "label": "公司投资",
+   "current": 14,
+   "previous": 0,
+   "growth_pct": null
+  },
+  {
+   "label": "价格与费率管制",
+   "current": 11,
    "previous": 0,
    "growth_pct": null
   }
