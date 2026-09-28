@@ -407,7 +407,8 @@ def normalize_cabinet(rec: dict, run_at: str) -> tuple[dict | None, str]:
                    if url.startswith("http") else [],
         "provenance": {"pipeline": "cabinet_json", "run_at": run_at,
                        "verified": False, "verified_at": None},
-        "confidence": {"dates": "high", "doc_no": "none"},
+        # 决议编号来自内阁秘书处接口本身(toP_SERLNO),与日期同样是官方数据
+        "confidence": {"dates": "high", "doc_no": "high" if serial else "none"},
         "flags": {"has_detail_page": False},
         "note": ("自官方决议库自动入库" + (f";提出部门:{owner[:80]}" if owner else "")
                  + ";中文标题与摘要待翻译环节补全"),

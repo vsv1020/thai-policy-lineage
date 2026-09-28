@@ -105,7 +105,8 @@ jobs:
 
       - name: 校验
         run: |
-          python tools/validate.py
+          # --quiet:只输出错误(几百条「提醒」会把错误淹没);错误也写进运行摘要
+          python tools/validate.py --quiet 2> validate-errors.txt || { cat validate-errors.txt; exit 1; }
           cd backend && python -m app.ingest --reset > /dev/null && python -m app.export > /dev/null
 
       - name: 提交采集结果
@@ -143,6 +144,9 @@ jobs:
                 f" · 判定无关 {e.get('skipped_irrelevant',0)} · 红线跳过 {e.get('skipped_red_line',0)}"
                 f" · 仍待处理 {e.get('pending_after', e.get('pending',0))}")
           PY
+          if [ -s validate-errors.txt ]; then
+            echo "## 校验失败,本轮结果没有提交"; echo '```'; head -40 validate-errors.txt; echo '```'
+          fi >> "$GITHUB_STEP_SUMMARY"
 
       # 失败必须响:所有源都失败时让这次运行变红,GitHub 会给仓库所有者发邮件。
       # 结果已经在上一步提交,页面上会显示「采集管道中断」。
