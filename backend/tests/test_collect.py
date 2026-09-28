@@ -90,6 +90,17 @@ def test_normalize_cabinet_sets_pending_gazette():
     assert rec["implementation_stage"] == "cabinet_resolution"
 
 
+def test_normalize_cabinet_real_fields_pass_validation_rules():
+    """真实接口字段(2026-09):带决议编号时必须给出文号可信度,否则 validate.py 拒收整轮结果。"""
+    rec, _ = C.normalize_cabinet(
+        {"toP_NAME": "เรื่อง ขอความเห็นชอบ", "meeT_DATE": "2026-04-21T00:00:00", "toP_SERLNO": "12",
+         "docNews": "https://resolution.soc.go.th/?prep_id=1", "owner": "กระทรวงการคลัง"},
+        "2026-09-28T00:00:00+07:00")
+    assert rec["doc_no"] == "12" and rec["confidence"]["doc_no"] == "high"
+    rec2, _ = C.normalize_cabinet({"toP_NAME": "เรื่อง มติ", "meeT_DATE": "2026-04-21"}, "2026-09-28T00:00:00+07:00")
+    assert not rec2["doc_no"] and rec2["confidence"]["doc_no"] == "none"
+
+
 # ── 失败路径 ──
 
 def test_collect_source_records_error_without_raising(monkeypatch):

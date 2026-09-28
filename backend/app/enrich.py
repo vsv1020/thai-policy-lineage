@@ -49,6 +49,9 @@ log = logging.getLogger("policy.enrich")
 
 ROYAL_TERMS = ("พระบรมราชโองการ", "สมเด็จพระ", "พระบาทสมเด็จ", "ราชวงศ์",
                "เครื่องราชอิสริยาภรณ์", "พระราชทาน")
+# 模型输出里也不得出现王室相关表述(与 tools/validate.py 的红线一保持一致)。
+# 读正文后模型可能写出「经国王御准」之类的话 —— 命中就按红线一整条跳过,不写入任何译文
+ROYAL_OUTPUT_TERMS = ROYAL_TERMS + ("王室", "国王", "王后", "御准", "冒犯君主")
 
 SYSTEM_PROMPT = """你是泰国政策数据库的编辑助手,把泰国皇家公报/内阁决议整理成中文结构化记录,
 读者是在泰国生活和经商的华人(长居个人、中资企业、投资者)。输入有泰文标题,多数还附有正文(从官方 PDF 抽取,
@@ -61,6 +64,7 @@ SYSTEM_PROMPT = """你是泰国政策数据库的编辑助手,把泰国皇家公
     只写正文里明确写着的内容,不推测、不评论。
   · 没有正文时:1-2 句,只写标题能推出的内容;推不出就写「据标题,本文件涉及……;具体条款待原文核对」。
   · 任何情况下都不编造条款、金额、日期。
+  · 不要提及国王、王室、御准、签署颁布的程序性内容(如「经国王御准颁布」),只写政策本身。
 - key_points:仅在有正文时填写,3-5 条,每条一句中文(不超过 60 字),列出最实用的信息:
   适用对象、具体义务或权利、金额/比例、期限、办理机关。正文里没有的信息不要写;没有正文时给空数组。
 - effective_rule:正文如何规定生效。day_after_publication = 「自公报刊登次日起施行」
@@ -435,7 +439,7 @@ def run_enrichment(limit: int | None = None, dry_run: bool = False, client=None,
         if any(t in th for t in ROYAL_TERMS):
             rec = json.loads(json.dumps(rec))
             rec.setdefault("flags", {})["skip"] = True
-            rec["note"] = (rec.get("note", "") + " | 王室相关,按红线一不做任何加工").strip(" |")
+            rec["note"] = (rec.get("note", "") + " | 触及红线一,不做任何加工").strip(" |")
             updated[rec["uid"]] = rec
             result["skipped_red_line"] += 1
             continue
@@ -477,6 +481,18 @@ def run_enrichment(limit: int | None = None, dry_run: bool = False, client=None,
             log.warning("输出不合格,跳过 %s:%s", rec["uid"], problem)
         if out is None or problem:
             result["failed"] += 1
+            continue
+        text_out = json.dumps([out.get("title_zh"), out.get("summary_zh"), out.get("key_points")],
+                              ensure_ascii=False)
+        hit = next((t for t in ROYAL_OUTPUT_TERMS if t in text_out), None)
+        if hit:
+            # 红线一:不写入任何模型输出,标记跳过,留给人工判断
+            rec = json.loads(json.dumps(rec))
+            rec.setdefault("flags", {})["skip"] = True
+            # 说明里不能再写出命中的词,否则整条记录又会被 validate.py 的红线检查拒收
+            rec["note"] = (rec.get("note", "") + " | 译文触及红线一,不做加工,待人工处理").strip(" |")
+            updated[rec["uid"]] = rec
+            result["skipped_red_line"] += 1
             continue
         if is_upgrade and not out.get("relevant", True):
             # 重做时不推翻早先的「相关」判定,只更新内容

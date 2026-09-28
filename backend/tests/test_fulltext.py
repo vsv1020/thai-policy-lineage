@@ -205,3 +205,20 @@ def test_landing_page_and_api_show_points(session):
     assert '<ul class="points"><li>适用对象:税务居民</li>' in html
     doc.summary_zh = orig
     session.rollback()
+
+
+def test_royal_wording_in_model_output_is_red_lined(jsonl):
+    """读正文后模型可能写出「经国王御准」:整条按红线一跳过,不写入任何译文(validate.py 也会拒收)。"""
+    _write(jsonl, _raw())
+    E.run_enrichment(client=FakeClient({**FULL, "summary_zh": "本法令经国王御准颁布,调整个税税率。"}),
+                     fetch_text=lambda rec: (THAI, "text"))
+    row = _rows(jsonl)[0]
+    assert row["flags"]["skip"] is True and row["titles"]["zh"] == "" and row["summary_zh"] == ""
+    assert "红线一" in row["note"]
+    blob = json.dumps(row, ensure_ascii=False)
+    assert not any(t in blob for t in E.ROYAL_OUTPUT_TERMS if t not in rec_terms(row)), "记录里不能残留红线词"
+
+
+def rec_terms(row):
+    """泰文原题本身带的词(采集阶段已过滤王室标题,这里只排除原题)。"""
+    return [t for t in E.ROYAL_OUTPUT_TERMS if t in (row.get("titles") or {}).get("th", "")]
