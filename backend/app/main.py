@@ -15,7 +15,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
-from fastapi.responses import FileResponse, JSONResponse, PlainTextResponse
+from fastapi.responses import FileResponse, JSONResponse, PlainTextResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
 from .api import router
@@ -144,6 +144,29 @@ def admin_page() -> FileResponse:
     """统计后台页面。页面本身不含数据,数据接口 /api/admin/stats 另需 ADMIN_TOKEN。"""
     return FileResponse(REPO_ROOT / "admin.html",
                         headers={"X-Robots-Tag": "noindex, nofollow", "Cache-Control": "no-store"})
+
+
+# 爬虫按惯例会探测的地址:给它们指到真实文件,而不是在抓取报告里留一串 404
+# (/favicon.ico 是浏览器与 Google 的默认图标地址;/feed 是 WordPress 等博客的订阅地址)
+CONVENTIONAL_REDIRECTS = {"/favicon.ico": "/favicon.svg", "/feed": "/feed.xml", "/feed/": "/feed.xml",
+                          "/rss": "/feed.xml", "/rss.xml": "/feed.xml", "/atom.xml": "/feed.xml"}
+
+
+@app.get("/favicon.ico", include_in_schema=False)
+@app.get("/feed", include_in_schema=False)
+@app.get("/feed/", include_in_schema=False)
+@app.get("/rss", include_in_schema=False)
+@app.get("/rss.xml", include_in_schema=False)
+@app.get("/atom.xml", include_in_schema=False)
+def conventional_redirect(request: Request) -> RedirectResponse:
+    return RedirectResponse(CONVENTIONAL_REDIRECTS[request.url.path], status_code=301)
+
+
+@app.get("/comments/feed/", include_in_schema=False)
+@app.get("/comments/feed", include_in_schema=False)
+def gone() -> PlainTextResponse:
+    """本站没有评论订阅;410 告诉爬虫「永久没有」,比 404 更快停止重试。"""
+    return PlainTextResponse("Gone", status_code=410)
 
 
 @app.get("/{name}", include_in_schema=False)
