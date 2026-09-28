@@ -317,3 +317,13 @@ def test_geo_probe_failed_status_is_error_not_uncited():
     rep = M.Report(SITE, date(2026, 9, 27))
     out = M.geo_probe(client, rep, "k", ["q1"])
     assert "failed" in out["results"][0]["error"] and rep.metrics["geo_asked"] == 0
+
+
+def test_conventional_crawler_paths_redirect_instead_of_404():
+    from app.main import app
+    with TestClient(app) as c:
+        for path, dst in (("/favicon.ico", "/favicon.svg"), ("/feed", "/feed.xml"), ("/feed/", "/feed.xml"),
+                          ("/rss.xml", "/feed.xml")):
+            r = c.get(path, follow_redirects=False)
+            assert r.status_code == 301 and r.headers["location"] == dst, path
+        assert c.get("/comments/feed/", follow_redirects=False).status_code == 410

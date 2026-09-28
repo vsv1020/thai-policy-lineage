@@ -79,7 +79,7 @@ GitHub Actions 自带的定时只是「尽量准时」,实测会延迟 5 小时�
    cd /opt/thai-policy-lineage
    echo 'GH_DISPATCH_TOKEN=github_pat_xxx' >> .env      # 换成刚生成的令牌
    bash deploy/install.sh                                # 重跑一次,装上 cron(已有配置与密钥都会保留)
-   deploy/dispatch.sh seo.yml && tail -1 /var/log/thai-policy-dispatch.log   # 手动试一次,看到「已触发」即成功
+   deploy/dispatch.sh seo.yml       # 手动试一次,输出「已触发 seo.yml」即成功(定时运行的记录在 /var/log/thai-policy-dispatch.log)
    ```
 
 ## 五、手动运行
