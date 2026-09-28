@@ -66,6 +66,22 @@
 - **Bing Webmaster**:可以直接「从 Google Search Console 导入」站点,省去验证。Bing 同时是 ChatGPT 搜索与 Copilot 的检索来源,对 GEO 很重要。IndexNow 不需要任何账号,已自动提交。
 - **百度搜索资源平台**:添加站点,用 HTML 标签验证时把值填进 `config/seo.json` 的 `verification.baidu`。新站每天推送配额很小(约 10 条),监控会优先推最新页面。
 
+### 准时触发(推荐)
+
+GitHub Actions 自带的定时只是「尽量准时」,实测会延迟 5 小时甚至整晚不触发。服务器的 cron 是准时的,由它每天准点触发工作流:03 点触发 SEO 监控,07 点触发采集。GitHub 的定时保留作备份,当天已经由服务器触发过的,备份那次会自动跳过。
+
+1. GitHub → 右上角头像 → Settings → Developer settings → Personal access tokens → **Fine-grained tokens** → Generate new token:
+   - Repository access:Only select repositories → `thai-policy-lineage`
+   - Permissions → Repository permissions → **Actions: Read and write**,其余不用勾
+   - 有效期选最长,到期前记得换
+2. 在服务器上执行:
+   ```bash
+   cd /opt/thai-policy-lineage
+   echo 'GH_DISPATCH_TOKEN=github_pat_xxx' >> .env      # 换成刚生成的令牌
+   bash deploy/install.sh                                # 重跑一次,装上 cron(已有配置与密钥都会保留)
+   deploy/dispatch.sh seo.yml && tail -1 /var/log/thai-policy-dispatch.log   # 手动试一次,看到「已触发」即成功
+   ```
+
 ## 五、手动运行
 
 ```bash

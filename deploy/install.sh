@@ -145,6 +145,9 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 17 * * * * root BRANCH=$BRANCH $APP_DIR/deploy/sync.sh >> /var/log/thai-policy-sync.log 2>&1
 # 每天 03:40 备份数据库,保留 14 天
 40 3 * * * root $APP_DIR/deploy/backup.sh >> /var/log/thai-policy-backup.log 2>&1
+# 准时触发 GitHub 工作流(03 点 SEO 监控、07 点采集;GitHub 自带的定时常延迟数小时)。
+# 需要 .env 里的 GH_DISPATCH_TOKEN,没配则什么都不做
+7 * * * * root BRANCH=$BRANCH $APP_DIR/deploy/dispatch.sh >> /var/log/thai-policy-dispatch.log 2>&1
 CRON
 chmod 644 /etc/cron.d/thai-policy
 
