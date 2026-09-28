@@ -174,7 +174,10 @@ def render_page(s: Session, doc: Document, today, titles: dict[str, str],
     v = A.document_view(s, doc, today)
     d = v["dates"]
     title = page_title(v["title_zh"])
-    desc = (v["summary_zh"] or v["title_zh"])[:150]
+    desc = v["summary_zh"] or v["title_zh"]
+    if len(desc) < 80:                 # 摘要太短(搜索结果里几乎没信息),补上一句话结论
+        desc = f"{desc} {_lede(v)}".strip()
+    desc = desc[:150]
     canonical = page_url(doc.uid)
 
     rels = "".join(

@@ -68,6 +68,26 @@ class _Throttle:
 
 _throttle = _Throttle(settings.min_request_interval)
 
+# 本轮没拿到正文的原因统计 {原因: [次数, 示例链接]},写进采集运行摘要,便于针对性改进
+_misses: dict[str, list] = {}
+_misses_lock = threading.Lock()
+
+
+def _miss(reason: str, url: str = "") -> None:
+    with _misses_lock:
+        m = _misses.setdefault(reason, [0, url])
+        m[0] += 1
+
+
+def reset_misses() -> None:
+    with _misses_lock:
+        _misses.clear()
+
+
+def misses() -> dict[str, dict]:
+    with _misses_lock:
+        return {k: {"n": v[0], "example": v[1]} for k, v in sorted(_misses.items(), key=lambda kv: -kv[1][0])}
+
 
 def pdf_url(rec: dict) -> str:
     """记录里第一个可下载的官方 PDF 原文链接;没有返回空串。"""
@@ -151,17 +171,23 @@ def download(url: str, client: httpx.Client) -> bytes | None:
         with client.stream("GET", url) as r:
             if r.status_code != 200:
                 log.info("下载原文 %s → HTTP %s", url, r.status_code)
+                _miss(f"HTTP {r.status_code}", url)
                 return None
             buf = bytearray()
             for chunk in r.iter_bytes():
                 buf += chunk
                 if len(buf) > MAX_BYTES:
                     log.info("原文超过 %d MB,放弃:%s", MAX_BYTES // 2**20, url)
+                    _miss("文件过大", url)
                     return None
     except httpx.HTTPError as exc:
         log.info("下载原文失败 %s:%s", url, exc)
+        _miss(f"网络错误 {type(exc).__name__}", url)
         return None
-    return bytes(buf) if buf[:5] == b"%PDF-" else None
+    if buf[:5] != b"%PDF-":
+        _miss("返回的不是 PDF", url)
+        return None
+    return bytes(buf)
 
 
 _ocr: bool | None = None
@@ -172,6 +198,7 @@ def fetch_fulltext(rec: dict, client: httpx.Client) -> tuple[str, str]:
     global _ocr
     url = pdf_url(rec)
     if not url:
+        _miss("没有官方 PDF 链接", next((s.get("url", "") for s in rec.get("sources") or []), ""))
         return "", ""
     data = download(url, client)
     if not data:
@@ -186,4 +213,5 @@ def fetch_fulltext(rec: dict, client: httpx.Client) -> tuple[str, str]:
         if good_enough(text):
             return text[:MAX_CHARS], "ocr"
     log.info("正文质量不足(%d 字,泰文占比 %.2f),退回只看标题:%s", len(text), thai_ratio(text), rec.get("uid"))
+    _miss("抽不出可用正文(OCR 也不行)" if _ocr else "抽不出可用正文(没有 OCR)", url)
     return "", ""

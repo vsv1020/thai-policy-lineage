@@ -312,10 +312,13 @@ def server_stats(client: httpx.Client, rep: Report, token: str, baidu_on: bool =
         if not bots.get(b):
             rep.issue("warn", f"no_{b.lower()}", f"近 7 天没有 {b} 抓取记录",
                       f"在 {name} 站长平台验证站点并提交 sitemap;新站通常需要 1–4 周才开始抓取")
-    if d["crawlers"]["errors"]:
-        rep.issue("warn", "crawl_errors", f"爬虫遇到 {len(d['crawlers']['errors'])} 个报错路径",
+    # 只报近两天仍在发生的:已经修好的路径,7 天窗口里的旧记录不再天天提醒
+    since = (rep.today - timedelta(days=1)).isoformat()
+    recent = [e for e in d["crawlers"]["errors"] if (e.get("last_seen") or since) >= since]
+    if recent:
+        rep.issue("warn", "crawl_errors", f"爬虫近两天遇到 {len(recent)} 个报错路径",
                   "404 通常是删掉的旧页面(可在 nginx 加 301)或错误链接;5xx 查服务器日志",
-                  [f"{e['status']} {e['path']}({e['bots']})" for e in d["crawlers"]["errors"]])
+                  [f"{e['status']} {e['path']}({e['bots']},最近 {e.get('last_seen') or '—'})" for e in recent])
     never = d["coverage"].get("never_crawled_sample") or []
     if d["coverage"].get("sitemap_landing") and never:
         rep.issue("info", "never_crawled", f"{len(never)}+ 个落地页近 7 天未被搜索爬虫抓取",

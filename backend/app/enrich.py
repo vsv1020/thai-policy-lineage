@@ -413,6 +413,8 @@ def run_enrichment(limit: int | None = None, dry_run: bool = False, client=None,
         return result
     if fetch_text is None:
         fetch_text = _default_fetcher()
+    from . import fulltext as FT
+    FT.reset_misses()
     prov = provider()
     if client is None:
         if not has_credentials(prov):
@@ -516,6 +518,7 @@ def run_enrichment(limit: int | None = None, dry_run: bool = False, client=None,
     if result["failed"] and not (result["enriched"] or result["upgraded"]):
         result["status"] = "failed"
     result["pending_after"] = len(pending) - sum(1 for r in pending if r["uid"] in updated)
+    result["fulltext_misses"] = FT.misses()
     return result
 
 

@@ -327,3 +327,30 @@ def test_conventional_crawler_paths_redirect_instead_of_404():
             r = c.get(path, follow_redirects=False)
             assert r.status_code == 301 and r.headers["location"] == dst, path
         assert c.get("/comments/feed/", follow_redirects=False).status_code == 410
+
+
+def test_only_recent_crawl_errors_are_reported():
+    rep = M.Report(SITE, date(2026, 9, 29))
+    data = {"crawlers": {"bots": [{"bot": "Googlebot", "group": "search", "hits": 1, "pages": 1, "last_seen": "2026-09-29"},
+                                  {"bot": "Bingbot", "group": "search", "hits": 1, "pages": 1, "last_seen": "2026-09-29"}],
+                         "errors": [{"path": "/feed", "status": 404, "n": 3, "bots": "Googlebot", "last_seen": "2026-09-27"},
+                                    {"path": "/gone.html", "status": 404, "n": 1, "bots": "Googlebot", "last_seen": "2026-09-29"}]},
+            "coverage": {}, "channels": {}}
+    client = httpx.Client(transport=httpx.MockTransport(lambda r: httpx.Response(200, json=data)))
+    M.server_stats(client, rep, "tok")
+    issue = next(i for i in rep.issues if i["code"] == "crawl_errors")
+    assert len(issue["items"]) == 1 and "/gone.html" in issue["items"][0], "已修好的旧 404 不再提醒"
+
+
+def test_short_summary_gets_lede_in_description(session):
+    from sqlalchemy import select
+    from app import analytics as A
+    from app.models import Document
+    doc = session.scalars(select(Document).order_by(Document.uid)).first()
+    orig = doc.summary_zh
+    doc.summary_zh = "短摘要。"
+    html = seo.render_page(session, doc, A._today(session), {})
+    desc = __import__("re").search(r'<meta name="description" content="([^"]*)"', html).group(1)
+    assert desc.startswith("短摘要。") and "当前状态" in desc and len(desc) >= 40
+    doc.summary_zh = orig
+    session.rollback()

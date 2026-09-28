@@ -172,9 +172,11 @@ def report(s: Session, days: int = 30, now: datetime | None = None) -> dict:
     series = [{"day": (start + timedelta(days=i)).isoformat(),
                "search": by_day.get((start + timedelta(days=i), "search"), 0),
                "ai": by_day.get((start + timedelta(days=i), "ai"), 0)} for i in range(days)]
-    errors = [{"path": p, "status": st, "n": n, "bots": b} for p, st, n, b in s.execute(
+    errors = [{"path": p, "status": st, "n": n, "bots": b, "last_seen": last.isoformat() if last else None}
+              for p, st, n, b, last in s.execute(
         select(CrawlHit.path, CrawlHit.status, func.count(), func.group_concat(distinct(CrawlHit.bot))
-               if settings.is_sqlite else func.string_agg(distinct(CrawlHit.bot), ","))
+               if settings.is_sqlite else func.string_agg(distinct(CrawlHit.bot), ","),
+               func.max(CrawlHit.day))
         .where(rng, CrawlHit.status >= 400).group_by(CrawlHit.path, CrawlHit.status)
         .order_by(func.count().desc()).limit(30)).all()]
 

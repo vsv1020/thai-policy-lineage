@@ -222,3 +222,16 @@ def test_royal_wording_in_model_output_is_red_lined(jsonl):
 def rec_terms(row):
     """泰文原题本身带的词(采集阶段已过滤王室标题,这里只排除原题)。"""
     return [t for t in E.ROYAL_OUTPUT_TERMS if t in (row.get("titles") or {}).get("th", "")]
+
+
+def test_fulltext_misses_are_counted_by_reason(monkeypatch):
+    monkeypatch.setattr(F._throttle, "min_interval", 0)
+    F.reset_misses()
+    rec = {"uid": "U", "sources": [{"role": "official", "url": "https://ratchakitcha.soc.go.th/d/1.pdf"}]}
+    F.fetch_fulltext(rec, _client(lambda r: httpx.Response(403)))
+    F.fetch_fulltext(rec, _client(lambda r: httpx.Response(403)))
+    F.fetch_fulltext({"uid": "V", "sources": [{"role": "official", "url": "https://x.go.th/page"}]}, None)
+    m = F.misses()
+    assert m["HTTP 403"]["n"] == 2 and m["HTTP 403"]["example"].endswith("1.pdf")
+    assert m["没有官方 PDF 链接"]["n"] == 1
+    assert list(m)[0] == "HTTP 403", "按次数从多到少排"

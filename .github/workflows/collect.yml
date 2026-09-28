@@ -143,6 +143,8 @@ jobs:
                 f"(重做前待办 {e.get('upgrade_pending',0)})"
                 f" · 判定无关 {e.get('skipped_irrelevant',0)} · 红线跳过 {e.get('skipped_red_line',0)}"
                 f" · 仍待处理 {e.get('pending_after', e.get('pending',0))}")
+          for why, m in (e.get("fulltext_misses") or {}).items():
+              print(f"  - 没读到正文:{why} × {m['n']}(例:{m['example']})")
           PY
           if [ -s validate-errors.txt ]; then
             echo "## 校验失败,本轮结果没有提交"; echo '```'; head -40 validate-errors.txt; echo '```'
