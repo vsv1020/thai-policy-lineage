@@ -19,7 +19,7 @@
  "min_months_required": 6,
  "data_through": "2026-04",
  "gazette_through": "2026-04",
- "total_documents": 92,
+ "total_documents": 181,
  "volume_by_domain": [
   {
    "id": "finance",
@@ -35,7 +35,7 @@
     0,
     0,
     0,
-    2,
+    5,
     13
    ]
   },
@@ -53,7 +53,7 @@
     0,
     0,
     0,
-    2,
+    7,
     16
    ]
   },
@@ -71,8 +71,44 @@
     0,
     0,
     0,
-    2,
+    9,
     3
+   ]
+  },
+  {
+   "id": "biz",
+   "label": "公司投资",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    26,
+    14
+   ]
+  },
+  {
+   "id": "digital",
+   "label": "数字与数据",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    17,
+    1
    ]
   },
   {
@@ -89,7 +125,7 @@
     0,
     0,
     0,
-    0,
+    13,
     29
    ]
   },
@@ -107,62 +143,8 @@
     0,
     0,
     0,
-    0,
+    4,
     7
-   ]
-  },
-  {
-   "id": "biz",
-   "label": "公司投资",
-   "data": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    14
-   ]
-  },
-  {
-   "id": "education",
-   "label": "教育",
-   "data": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    1
-   ]
-  },
-  {
-   "id": "land",
-   "label": "房产土地",
-   "data": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    3
    ]
   },
   {
@@ -179,13 +161,31 @@
     0,
     0,
     0,
-    0,
+    3,
     3
    ]
   },
   {
-   "id": "digital",
-   "label": "数字与数据",
+   "id": "land",
+   "label": "房产土地",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    12,
+    3
+   ]
+  },
+  {
+   "id": "education",
+   "label": "教育",
    "data": [
     0,
     0,
@@ -217,7 +217,7 @@
     null,
     null,
     null,
-    0.0,
+    -0.1,
     0.18
    ]
   },
@@ -253,6 +253,42 @@
     null,
     null,
     null,
+    0.2,
+    0.0
+   ]
+  },
+  {
+   "id": "biz",
+   "label": "公司投资",
+   "data": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    -0.15,
+    0.01
+   ]
+  },
+  {
+   "id": "digital",
+   "label": "数字与数据",
+   "data": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
     0.0,
     0.0
    ]
@@ -271,7 +307,7 @@
     null,
     null,
     null,
-    null,
+    -0.04,
     -0.1
    ]
   },
@@ -289,61 +325,7 @@
     null,
     null,
     null,
-    null,
-    0.0
-   ]
-  },
-  {
-   "id": "biz",
-   "label": "公司投资",
-   "data": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    0.01
-   ]
-  },
-  {
-   "id": "education",
-   "label": "教育",
-   "data": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    0.0
-   ]
-  },
-  {
-   "id": "land",
-   "label": "房产土地",
-   "data": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
+    0.0,
     0.0
    ]
   },
@@ -361,13 +343,31 @@
     null,
     null,
     null,
-    null,
+    0.0,
     -0.25
    ]
   },
   {
-   "id": "digital",
-   "label": "数字与数据",
+   "id": "land",
+   "label": "房产土地",
+   "data": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    0.41,
+    0.0
+   ]
+  },
+  {
+   "id": "education",
+   "label": "教育",
    "data": [
     null,
     null,
@@ -399,7 +399,7 @@
     0,
     0,
     0,
-    2,
+    5,
     12
    ]
   },
@@ -417,7 +417,7 @@
     0,
     0,
     0,
-    2,
+    4,
     3
    ]
   },
@@ -435,13 +435,13 @@
     0,
     0,
     0,
-    2,
+    3,
     1
    ]
   },
   {
-   "id": "excise",
-   "label": "消费税厅",
+   "id": "industry",
+   "label": "工业部",
    "data": [
     0,
     0,
@@ -453,13 +453,13 @@
     0,
     0,
     0,
-    0,
-    6
+    51,
+    17
    ]
   },
   {
-   "id": "mof",
-   "label": "财政部",
+   "id": "mol",
+   "label": "劳工部",
    "data": [
     0,
     0,
@@ -471,8 +471,8 @@
     0,
     0,
     0,
-    0,
-    12
+    2,
+    2
    ]
   },
   {
@@ -489,8 +489,152 @@
     0,
     0,
     0,
-    0,
+    5,
     8
+   ]
+  },
+  {
+   "id": "cabinet",
+   "label": "内阁",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    11
+   ]
+  },
+  {
+   "id": "mof",
+   "label": "财政部",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    8,
+    12
+   ]
+  },
+  {
+   "id": "excise",
+   "label": "消费税厅",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    6
+   ]
+  },
+  {
+   "id": "energy",
+   "label": "能源部",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2,
+    1
+   ]
+  },
+  {
+   "id": "bot",
+   "label": "泰国央行",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    2
+   ]
+  },
+  {
+   "id": "customs",
+   "label": "海关厅",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    3,
+    0
+   ]
+  },
+  {
+   "id": "dol",
+   "label": "土地厅",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    9,
+    1
+   ]
+  },
+  {
+   "id": "police",
+   "label": "皇家警察总署",
+   "data": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    6
    ]
   },
   {
@@ -509,96 +653,6 @@
     0,
     0,
     3
-   ]
-  },
-  {
-   "id": "cabinet",
-   "label": "内阁",
-   "data": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    11
-   ]
-  },
-  {
-   "id": "police",
-   "label": "皇家警察总署",
-   "data": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    6
-   ]
-  },
-  {
-   "id": "industry",
-   "label": "工业部",
-   "data": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    17
-   ]
-  },
-  {
-   "id": "mol",
-   "label": "劳工部",
-   "data": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    2
-   ]
-  },
-  {
-   "id": "energy",
-   "label": "能源部",
-   "data": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    1
    ]
   },
   {
@@ -636,90 +690,54 @@
     0,
     1
    ]
-  },
-  {
-   "id": "bot",
-   "label": "泰国央行",
-   "data": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    2
-   ]
-  },
-  {
-   "id": "dol",
-   "label": "土地厅",
-   "data": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    1
-   ]
   }
  ],
  "rising": [
   {
    "label": "标准与准入管制",
-   "current": 38,
-   "previous": 0,
-   "growth_pct": null
-  },
-  {
-   "label": "海关贸易",
-   "current": 29,
+   "current": 94,
    "previous": 0,
    "growth_pct": null
   },
   {
    "label": "权益保护",
-   "current": 29,
+   "current": 51,
    "previous": 0,
    "growth_pct": null
   },
   {
-   "label": "秩序与安全",
-   "current": 22,
-   "previous": 0,
-   "growth_pct": null
-  },
-  {
-   "label": "医疗",
-   "current": 18,
-   "previous": 0,
-   "growth_pct": null
-  },
-  {
-   "label": "金融外汇",
-   "current": 15,
+   "label": "海关贸易",
+   "current": 42,
    "previous": 0,
    "growth_pct": null
   },
   {
    "label": "公司投资",
-   "current": 14,
+   "current": 40,
    "previous": 0,
    "growth_pct": null
   },
   {
-   "label": "价格与费率管制",
-   "current": 11,
+   "label": "秩序与安全",
+   "current": 33,
+   "previous": 0,
+   "growth_pct": null
+  },
+  {
+   "label": "医疗",
+   "current": 23,
+   "previous": 0,
+   "growth_pct": null
+  },
+  {
+   "label": "产业升级",
+   "current": 21,
+   "previous": 0,
+   "growth_pct": null
+  },
+  {
+   "label": "金融外汇",
+   "current": 18,
    "previous": 0,
    "growth_pct": null
   }
