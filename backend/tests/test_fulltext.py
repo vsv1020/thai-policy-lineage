@@ -235,3 +235,37 @@ def test_fulltext_misses_are_counted_by_reason(monkeypatch):
     assert m["HTTP 403"]["n"] == 2 and m["HTTP 403"]["example"].endswith("1.pdf")
     assert m["没有官方 PDF 链接"]["n"] == 1
     assert list(m)[0] == "HTTP 403", "按次数从多到少排"
+
+
+def test_tis620_mojibake_is_repaired():
+    thai = "ประกาศกระทรวงการคลัง เรื่อง ภาษีเงินได้"
+    garbled = "".join(chr(ord(c) - 0x0E01 + 0xA1) if "\u0e01" <= c <= "\u0e5b" else c for c in thai)
+    assert F.normalize(garbled) == thai
+    assert F.normalize("Café résumé naïve") == "Café résumé naïve", "正常的西文重音字母不能被误转"
+
+
+def test_english_gazette_text_is_accepted():
+    eng = ("Amendments to the International Convention for the Safety of Life at Sea, 1974, "
+           "chapter II-2 regulation 19 on ships carrying dangerous goods. ") * 3
+    assert F.good_enough(eng)
+
+
+def test_pdftotext_fallback_and_detailed_miss_reason(monkeypatch):
+    rec = {"uid": "U", "sources": [{"role": "official", "url": "https://ratchakitcha.soc.go.th/d/9.pdf"}]}
+    monkeypatch.setattr(F, "download", lambda url, c: b"%PDF-")
+    monkeypatch.setattr(F, "extract_pdf_text", lambda data: "@@##" * 50)
+    monkeypatch.setattr(F, "extract_pdftotext", lambda data: THAI)
+    assert F.fetch_fulltext(rec, None) == (THAI[:F.MAX_CHARS], "text"), "pypdf 乱码时改用 pdftotext"
+
+    F.reset_misses()
+    monkeypatch.setattr(F, "extract_pdftotext", lambda data: "")
+    monkeypatch.setattr(F, "_ocr", True)
+
+    def slow_ocr(data):
+        F._ocr_err.value = "超时"
+        return ""
+    monkeypatch.setattr(F, "ocr_pdf", slow_ocr)
+    assert F.fetch_fulltext(rec, None) == ("", "")
+    (why, m), = F.misses().items()
+    assert why == "文字层不可读,OCR 超时"
+    assert "9.pdf" in m["example"] and "pypdf 200 字" in m["example"]
