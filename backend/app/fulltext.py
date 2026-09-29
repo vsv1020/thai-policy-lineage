@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import io
 import logging
+import os
 import re
 import shutil
 import subprocess
@@ -99,7 +100,21 @@ def pdf_url(rec: dict) -> str:
     return ""
 
 
+def fix_tis620_mojibake(text: str) -> str:
+    """老式泰文字体把 TIS-620 字节当 Latin-1 输出(「¡ÒÃ」这类乱码):按 TIS-620 的固定偏移还原。
+    只有在 Latin-1 补充区字符明显多、泰文几乎没有时才转换,避免误伤正常文本。"""
+    chars = [c for c in text if not c.isspace()]
+    if not chars:
+        return text
+    latin1 = sum(1 for c in chars if "\u00a1" <= c <= "\u00fb")
+    # 真正的 TIS-620 乱码几乎全是这一区的字符;西文里偶尔的 é ï 远达不到一半
+    if latin1 / len(chars) < 0.5 or thai_ratio(text) > 0.1:
+        return text
+    return "".join(chr(ord(c) - 0xA1 + 0x0E01) if "\u00a1" <= c <= "\u00fb" else c for c in text)
+
+
 def normalize(text: str) -> str:
+    text = fix_tis620_mojibake(text)
     text = text.translate(PUA)
     text = text.replace("ํา", "ำ")          # ํ + า → ำ(抽取时 SARA AM 常被拆开)
     text = re.sub(r"[​﻿\x00]", "", text)
@@ -115,8 +130,44 @@ def thai_ratio(text: str) -> float:
     return sum(1 for c in chars if "฀" <= c <= "๿") / len(chars)
 
 
+def english_ratio(text: str) -> float:
+    chars = [c for c in text if not c.isspace()]
+    if not chars:
+        return 0.0
+    # 夹着 Latin-1 补充区字符(Ã Â ¸ 之类)的是乱码,不算英文
+    if sum(1 for c in chars if "\u00a0" <= c <= "\u00ff") / len(chars) > 0.02:
+        return 0.0
+    return sum(1 for c in chars if c.isascii() and c.isalpha()) / len(chars)
+
+
 def good_enough(text: str) -> bool:
-    return len(text) >= MIN_CHARS and thai_ratio(text) >= MIN_THAI_RATIO
+    """够长,且是可读的泰文;或是可读的英文(海事公约修正案等部分公报就是英文原文)。"""
+    if len(text) < MIN_CHARS:
+        return False
+    return thai_ratio(text) >= MIN_THAI_RATIO or english_ratio(text) >= 0.6
+
+
+def describe(text: str) -> str:
+    """一段抽取结果的简况,写进「没读到正文」的示例里便于排查。"""
+    if not text:
+        return "为空"
+    return f"{len(text)} 字/泰文 {thai_ratio(text):.0%}"
+
+
+def extract_pdftotext(data: bytes, max_pages: int = MAX_PAGES) -> str:
+    """poppler 的 pdftotext:对嵌入字体的编码处理比 pypdf 稳,pypdf 读出乱码时再试它。"""
+    if not shutil.which("pdftotext"):
+        return ""
+    with tempfile.TemporaryDirectory() as tmp:
+        pdf = Path(tmp) / "doc.pdf"
+        pdf.write_bytes(data)
+        try:
+            r = subprocess.run(["pdftotext", "-enc", "UTF-8", "-l", str(max_pages), str(pdf), "-"],
+                               capture_output=True, timeout=60)
+        except (OSError, subprocess.SubprocessError) as exc:
+            log.info("pdftotext 失败:%s", exc)
+            return ""
+    return normalize(r.stdout.decode("utf-8", "replace"))
 
 
 def extract_pdf_text(data: bytes, max_pages: int = MAX_PAGES) -> str:
@@ -146,20 +197,31 @@ def ocr_available() -> bool:
         return False
 
 
+_ocr_err = threading.local()
+
+
 def ocr_pdf(data: bytes, max_pages: int = 3) -> str:
-    """扫描件:渲染前几页为图片,用 tesseract 泰文 + 英文模型识别。"""
+    """扫描件:渲染前几页为图片,用 tesseract 泰文 + 英文模型识别。
+    OMP_THREAD_LIMIT=1:翻译是 6 路并发,tesseract 默认多线程会互相抢 CPU、拖到超时。"""
+    _ocr_err.value = ""
+    env = {**os.environ, "OMP_THREAD_LIMIT": "1"}
     with tempfile.TemporaryDirectory() as tmp:
         pdf = Path(tmp) / "doc.pdf"
         pdf.write_bytes(data)
         try:
             subprocess.run(["pdftoppm", "-r", "200", "-l", str(max_pages), "-png", str(pdf),
-                            str(Path(tmp) / "p")], check=True, capture_output=True, timeout=120)
+                            str(Path(tmp) / "p")], check=True, capture_output=True, timeout=180)
             texts = []
             for img in sorted(Path(tmp).glob("p-*.png")):
                 r = subprocess.run(["tesseract", str(img), "stdout", "-l", "tha+eng"],
-                                   capture_output=True, text=True, timeout=120)
+                                   capture_output=True, text=True, timeout=240, env=env)
                 texts.append(r.stdout)
+        except subprocess.TimeoutExpired:
+            _ocr_err.value = "超时"
+            log.info("OCR 超时")
+            return ""
         except (OSError, subprocess.SubprocessError) as exc:
+            _ocr_err.value = type(exc).__name__
             log.info("OCR 失败:%s", exc)
             return ""
     return normalize("\n".join(texts))
@@ -206,12 +268,20 @@ def fetch_fulltext(rec: dict, client: httpx.Client) -> tuple[str, str]:
     text = extract_pdf_text(data)
     if good_enough(text):
         return text[:MAX_CHARS], "text"
+    alt = extract_pdftotext(data)
+    if good_enough(alt):
+        return alt[:MAX_CHARS], "text"
     if _ocr is None:
         _ocr = ocr_available()
+    ocr_text = ""
     if _ocr:
-        text = ocr_pdf(data)
-        if good_enough(text):
-            return text[:MAX_CHARS], "ocr"
-    log.info("正文质量不足(%d 字,泰文占比 %.2f),退回只看标题:%s", len(text), thai_ratio(text), rec.get("uid"))
-    _miss("抽不出可用正文(OCR 也不行)" if _ocr else "抽不出可用正文(没有 OCR)", url)
+        ocr_text = ocr_pdf(data)
+        if good_enough(ocr_text):
+            return ocr_text[:MAX_CHARS], "ocr"
+    # 原因按阶段归类(便于统计),具体数字放在示例里
+    layer = "文字层为空" if not (text or alt) else "文字层不可读"
+    ocr = ("无 OCR" if not _ocr else f"OCR {getattr(_ocr_err, 'value', '') or '质量不足'}")
+    detail = f"{url}(pypdf {describe(text)};pdftotext {describe(alt)};OCR {describe(ocr_text)})"
+    log.info("读不出正文,退回只看标题:%s %s", rec.get("uid"), detail)
+    _miss(f"{layer},{ocr}", detail)
     return "", ""
