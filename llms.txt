@@ -10,16 +10,16 @@
 
 ## 按领域浏览
 
-- [泰国海关贸易政策](https://www.thaipolicy.com/p/topic/customs.html): 42 条
-- [泰国公司投资政策](https://www.thaipolicy.com/p/topic/biz.html): 38 条
-- [泰国医疗政策](https://www.thaipolicy.com/p/topic/health.html): 22 条
-- [泰国数字与数据政策](https://www.thaipolicy.com/p/topic/digital.html): 18 条
-- [泰国金融外汇政策](https://www.thaipolicy.com/p/topic/finance.html): 18 条
-- [泰国房产土地政策](https://www.thaipolicy.com/p/topic/land.html): 14 条
-- [泰国税务政策](https://www.thaipolicy.com/p/topic/tax.html): 12 条
-- [泰国劳工用工政策](https://www.thaipolicy.com/p/topic/labor.html): 10 条
-- [泰国签证居留政策](https://www.thaipolicy.com/p/topic/visa.html): 6 条
-- [泰国教育政策](https://www.thaipolicy.com/p/topic/education.html): 1 条
+- [泰国公司投资政策](https://www.thaipolicy.com/p/topic/biz.html): 78 条
+- [泰国海关贸易政策](https://www.thaipolicy.com/p/topic/customs.html): 60 条
+- [泰国医疗政策](https://www.thaipolicy.com/p/topic/health.html): 41 条
+- [泰国房产土地政策](https://www.thaipolicy.com/p/topic/land.html): 32 条
+- [泰国金融外汇政策](https://www.thaipolicy.com/p/topic/finance.html): 24 条
+- [泰国数字与数据政策](https://www.thaipolicy.com/p/topic/digital.html): 21 条
+- [泰国税务政策](https://www.thaipolicy.com/p/topic/tax.html): 19 条
+- [泰国劳工用工政策](https://www.thaipolicy.com/p/topic/labor.html): 16 条
+- [泰国签证居留政策](https://www.thaipolicy.com/p/topic/visa.html): 8 条
+- [泰国教育政策](https://www.thaipolicy.com/p/topic/education.html): 2 条
 
 ## 最新政策
 

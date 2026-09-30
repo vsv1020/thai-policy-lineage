@@ -14,66 +14,42 @@
     "zh": "环境型",
     "desc": "规则与激励塑造环境",
     "color": "seal",
-    "share": 72,
-    "count": 116,
+    "share": 73,
+    "count": 271,
     "rows": [
      {
       "id": "disclosure",
       "label": "申报、备案与披露",
       "data": [
-       6
+       33
       ]
      },
      {
       "id": "enforcement",
       "label": "执法、排查与处罚",
       "data": [
-       7
+       32
+      ]
+     },
+     {
+      "id": "local_content",
+      "label": "本地化与合规考核",
+      "data": [
+       1
       ]
      },
      {
       "id": "standards_licensing",
       "label": "标准与准入管制",
       "data": [
-       94
+       183
       ]
      },
      {
       "id": "tax_incentive",
       "label": "税收减免与追缴",
       "data": [
-       9
-      ]
-     }
-    ]
-   },
-   {
-    "id": "demand",
-    "zh": "需求型",
-    "desc": "直接拉动市场",
-    "color": "gold",
-    "share": 17,
-    "count": 27,
-    "rows": [
-     {
-      "id": "price_control",
-      "label": "价格与费率管制",
-      "data": [
-       12
-      ]
-     },
-     {
-      "id": "subsidy",
-      "label": "补贴与价格优惠",
-      "data": [
-       1
-      ]
-     },
-     {
-      "id": "trade_control",
-      "label": "进出口与贸易管制",
-      "data": [
-       14
+       22
       ]
      }
     ]
@@ -83,12 +59,19 @@
     "zh": "供给型",
     "desc": "政府直接投入",
     "color": "blue",
-    "share": 12,
-    "count": 19,
+    "share": 14,
+    "count": 52,
     "rows": [
      {
       "id": "budget_funding",
       "label": "资金与预算投入",
+      "data": [
+       3
+      ]
+     },
+     {
+      "id": "infrastructure",
+      "label": "基础设施建设",
       "data": [
        1
       ]
@@ -97,20 +80,51 @@
       "id": "public_service",
       "label": "公共服务与系统供给",
       "data": [
-       16
+       42
       ]
      },
      {
       "id": "training",
       "label": "人才与技能培训",
       "data": [
-       2
+       6
+      ]
+     }
+    ]
+   },
+   {
+    "id": "demand",
+    "zh": "需求型",
+    "desc": "直接拉动市场",
+    "color": "gold",
+    "share": 12,
+    "count": 46,
+    "rows": [
+     {
+      "id": "price_control",
+      "label": "价格与费率管制",
+      "data": [
+       19
+      ]
+     },
+     {
+      "id": "subsidy",
+      "label": "补贴与价格优惠",
+      "data": [
+       4
+      ]
+     },
+     {
+      "id": "trade_control",
+      "label": "进出口与贸易管制",
+      "data": [
+       23
       ]
      }
     ]
    }
   ],
-  "n": 162,
+  "n": 369,
   "sufficient": true,
   "min_n": 12
  },
@@ -143,6 +157,10 @@
    {
     "id": "order_security",
     "label": "秩序与安全"
+   },
+   {
+    "id": "regional_balance",
+    "label": "区域均衡"
    }
   ],
   "matrix": [
@@ -151,13 +169,14 @@
     "label": "需求型",
     "color": "gold",
     "data": [
-     7,
+     15,
      1,
-     2,
-     0,
-     0,
-     0,
-     3
+     3,
+     1,
+     3,
+     3,
+     11,
+     0
     ]
    },
    {
@@ -165,13 +184,14 @@
     "label": "环境型",
     "color": "seal",
     "data": [
-     41,
-     2,
-     3,
-     1,
-     21,
-     1,
-     28
+     79,
+     8,
+     8,
+     10,
+     38,
+     12,
+     72,
+     1
     ]
    },
    {
@@ -179,28 +199,21 @@
     "label": "供给型",
     "color": "blue",
     "data": [
-     5,
+     11,
+     8,
+     0,
+     0,
      3,
-     0,
-     0,
      1,
-     0,
-     0
+     7,
+     1
     ]
    }
   ],
   "gaps": [
    {
     "class": "需求型",
-    "goal": "绿色转型"
-   },
-   {
-    "class": "需求型",
-    "goal": "产业升级"
-   },
-   {
-    "class": "需求型",
-    "goal": "投资吸引"
+    "goal": "区域均衡"
    },
    {
     "class": "供给型",
@@ -209,17 +222,9 @@
    {
     "class": "供给型",
     "goal": "绿色转型"
-   },
-   {
-    "class": "供给型",
-    "goal": "投资吸引"
-   },
-   {
-    "class": "供给型",
-    "goal": "秩序与安全"
    }
   ],
-  "n": 119,
+  "n": 296,
   "sufficient": true,
   "min_n": 12
  },
@@ -233,7 +238,7 @@
     "stability": 5,
     "justiciable": true,
     "note": "须经国会,最稳定",
-    "count": 0,
+    "count": 1,
     "pct": 0
    },
    {
@@ -255,8 +260,8 @@
     "stability": 4,
     "justiciable": true,
     "note": "据法律授权,常用于税收减免",
-    "count": 2,
-    "pct": 1
+    "count": 5,
+    "pct": 2
    },
    {
     "id": "ministerial",
@@ -266,8 +271,8 @@
     "stability": 3,
     "justiciable": true,
     "note": "部长签发,程序性约束",
-    "count": 6,
-    "pct": 3
+    "count": 15,
+    "pct": 5
    },
    {
     "id": "prakat",
@@ -277,8 +282,8 @@
     "stability": 2,
     "justiciable": false,
     "note": "调整最快,占比最高",
-    "count": 154,
-    "pct": 85
+    "count": 246,
+    "pct": 82
    },
    {
     "id": "rabiap",
@@ -288,8 +293,8 @@
     "stability": 2,
     "justiciable": false,
     "note": "部门内部规程",
-    "count": 14,
-    "pct": 8
+    "count": 28,
+    "pct": 9
    },
    {
     "id": "guidance",
@@ -299,8 +304,8 @@
     "stability": 1,
     "justiciable": false,
     "note": "执行层口径,最易变",
-    "count": 5,
-    "pct": 3
+    "count": 6,
+    "pct": 2
    },
    {
     "id": "resolution",
@@ -314,88 +319,103 @@
     "pct": 0
    }
   ],
-  "total": 181,
-  "fragile_pct": 96,
+  "total": 301,
+  "fragile_pct": 93,
   "fragile_note": "承载在公告与内阁决议层的比例 —— 调整快、可诉性弱,投资测算应按可撤回处理",
-  "n": 181,
+  "n": 301,
   "sufficient": true,
   "min_n": 20
  },
  "dim4_parties": {
   "items": [
    {
-    "id": "consumer",
-    "label": "消费者",
-    "support": 35,
-    "constrain": 1,
-    "neutral": 12
-   },
-   {
     "id": "foreign_company",
     "label": "外资企业",
-    "support": 7,
-    "constrain": 28,
-    "neutral": 63
+    "support": 26,
+    "constrain": 63,
+    "neutral": 103
+   },
+   {
+    "id": "consumer",
+    "label": "消费者",
+    "support": 59,
+    "constrain": 2,
+    "neutral": 13
    },
    {
     "id": "importer",
     "label": "进口商与经销商",
-    "support": 1,
-    "constrain": 23,
-    "neutral": 25
+    "support": 2,
+    "constrain": 40,
+    "neutral": 31
    },
    {
     "id": "foreign_resident",
     "label": "外籍长居个人",
-    "support": 3,
+    "support": 16,
+    "constrain": 11,
+    "neutral": 39
+   },
+   {
+    "id": "thai_employer",
+    "label": "本地雇主",
+    "support": 4,
+    "constrain": 22,
+    "neutral": 31
+   },
+   {
+    "id": "foreign_investor",
+    "label": "外资投资者",
+    "support": 18,
+    "constrain": 6,
+    "neutral": 39
+   },
+   {
+    "id": "sme",
+    "label": "中小企业",
+    "support": 9,
     "constrain": 5,
-    "neutral": 28
+    "neutral": 11
    },
    {
     "id": "traveller",
     "label": "短期入境者",
     "support": 1,
-    "constrain": 5,
-    "neutral": 1
-   },
-   {
-    "id": "sme",
-    "label": "中小企业",
-    "support": 2,
-    "constrain": 3,
-    "neutral": 6
-   },
-   {
-    "id": "thai_employer",
-    "label": "本地雇主",
-    "support": 0,
-    "constrain": 5,
-    "neutral": 13
-   },
-   {
-    "id": "foreign_investor",
-    "label": "外资投资者",
-    "support": 1,
-    "constrain": 0,
-    "neutral": 28
+    "constrain": 9,
+    "neutral": 4
    },
    {
     "id": "local_government",
     "label": "府级与地方政府",
-    "support": 0,
-    "constrain": 0,
-    "neutral": 2
+    "support": 1,
+    "constrain": 1,
+    "neutral": 11
    }
   ],
-  "max": 35,
-  "n": 298,
+  "max": 63,
+  "n": 577,
   "sufficient": true,
   "min_n": 10
  },
  "dim5_cooperation": {
   "pairs": [
    {
+    "a": "土地厅",
+    "b": "内政部",
+    "n": 5
+   },
+   {
+    "a": "泰国央行",
+    "b": "财政部",
+    "n": 3
+   },
+   {
     "a": "海关厅",
+    "b": "财政部",
+    "n": 1
+   },
+   {
+    "a": "消费税厅",
     "b": "财政部",
     "n": 1
    },
@@ -403,13 +423,18 @@
     "a": "能源部",
     "b": "能源管理委员会",
     "n": 1
+   },
+   {
+    "a": "财政部",
+    "b": "税务厅",
+    "n": 1
    }
   ],
-  "max": 1,
-  "solo_documents": 179,
+  "max": 5,
+  "solo_documents": 289,
   "note": "联署少而各自单独规定同一事项,是维度六冲突的来源",
-  "n": 2,
-  "sufficient": false,
+  "n": 12,
+  "sufficient": true,
   "min_n": 8
  },
  "dim6_conflicts": {
@@ -435,7 +460,7 @@
     "id": "legal_form",
     "label": "法律形式",
     "seq": 2,
-    "count": 3,
+    "count": 7,
     "hot": false,
     "weak": true
    },
@@ -451,7 +476,7 @@
     "id": "implementing_rule",
     "label": "实施细则",
     "seq": 4,
-    "count": 178,
+    "count": 293,
     "hot": true,
     "weak": false
    },
@@ -459,7 +484,7 @@
     "id": "budget_execution",
     "label": "预算与执行",
     "seq": 5,
-    "count": 0,
+    "count": 1,
     "hot": false,
     "weak": true
    },
@@ -472,15 +497,14 @@
     "weak": true
    }
   ],
-  "total": 181,
-  "peak": 178,
+  "total": 301,
+  "peak": 293,
   "missing": [
    "国家规划",
    "内阁决议",
-   "预算与执行",
    "评估与复盘"
   ],
-  "n": 181,
+  "n": 301,
   "sufficient": true,
   "min_n": 12
  }
