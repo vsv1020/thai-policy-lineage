@@ -240,6 +240,11 @@ def overview(s: Session) -> dict:
                   "with_points": sum(1 for v in views if v["key_points"]),
                   "date_from": dates[0] if dates else None,
                   "date_to": dates[-1] if dates else None,
+                  # 公报数据集自身收录到哪天(开放数据平台断更时,部门官网来源仍会让 date_to 向前走)
+                  "gazette_to": max((v["date"] for v in views
+                                     if v["provenance"] == "gazette_json" and v["date"]
+                                     and v["date"] <= today.isoformat()), default=None),
+                  "agency_n": sum(1 for v in views if v["provenance"] in ("rd_web", "boi_web")),
                   "by_domain": sorted(by_domain.values(), key=lambda e: (-e["n"], e["id"]))},
         "wind": wind_now(s, today),
         "calendar": calendar(s, today),

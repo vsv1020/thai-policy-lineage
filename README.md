@@ -93,7 +93,8 @@ python fetch_cabinet.py --limit 2   # 内阁决议年度数据 → data/processe
 
 ```
 GitHub Actions(每天曼谷 07:23)
-  └─ app.collect   data.go.th 官方接口 → 佛历换算 → 红线过滤 → 追加 JSONL
+  └─ app.collect   data.go.th 官方接口(公报、内阁决议)+ 税务厅「新法」RSS + BOI 公告列表
+                   → 佛历换算 → 红线过滤 → 跨来源去重 → 追加 JSONL
   └─ app.enrich    DeepSeek(或 Claude)把泰文标题翻译分类成中文结构化记录(受词表约束)
   └─ app.export    → data/site/*.json + p/*.html 落地页 + sitemap.xml
   └─ git commit    → GitHub Pages 自动呈现
@@ -110,7 +111,20 @@ GitHub Actions(每天曼谷 07:23)
 上线步骤见 [docs/deploy.md](docs/deploy.md),营收与广告位见 [docs/monetization.md](docs/monetization.md),SEO/GEO 与每天 03:00 的收录监控见 [docs/seo.md](docs/seo.md)。
 
 **注意**:泰国政府站点可能拦截海外 IP。GitHub Actions 跑在美国;第一次运行若数据源 403,
-在仓库 Secrets 里配 `THAI_EGRESS_PROXY`(泰国出口代理)后重跑。
+在仓库 Secrets 里配 `THAI_EGRESS_PROXY`(泰国出口代理)后重跑。只有 `THAI_EGRESS_HOSTS`
+(默认 `data.go.th,soc.go.th,gdcatalog.go.th`)走代理,税务厅、BOI 官网直连。
+
+**数据来源与更新节奏**
+
+| 来源 | 内容 | 说明 |
+|---|---|---|
+| data.go.th `dataset_02_04` | 皇家公报月度索引 | 内阁秘书处维护;2026-04 之后未再更新 |
+| data.go.th `dataset_02_03` | 内阁决议年度数据 | 附决议确认函 PDF(扫描件,OCR 读正文);同上 |
+| rd.go.th `rss.xml` | 税务厅「新法」(皇家法令、财政部公告、税务厅公告) | 只收链接到新法 PDF 的条目;日期为官网发布日 |
+| boi.go.th 公告列表 | BOI / 投资促进委员会公告、办公室公告、说明 | 列表页内嵌 JSON;按「ยกเลิก…ที่ X」建立替代关系 |
+
+部门官网发布的文件之后若也出现在公报数据里,按泰文标题(且日期相差 90 天内)认作同一份,只补原文链接、不重复入库。
+公报官网 ratchakitcha.soc.go.th 与 resolution.soc.go.th 的网页有人机验证,不抓取。
 
 ## 设计原则(合规红线,见调研报告第七章)
 

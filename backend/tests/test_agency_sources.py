@@ -54,7 +54,7 @@ def test_boi_embedded_json():
     rec, why = AS.normalize_boi(objs[0], RUN)
     assert why == "" and rec["uid"] == "TH-BOI-20260916-139362"
     assert rec["titles"]["th"].startswith("ประกาศ สกท.ที่ ป.11/2569 เรื่อง หลักเกณฑ์")
-    assert rec["doc_no"] == "ป.11/2569" and rec["dates"]["published_at"] == "2026-09-16"
+    assert rec["doc_no"] == "สกท. ป.11/2569" and rec["dates"]["published_at"] == "2026-09-16"
     assert rec["sources"][0]["url"] == "https://www.boi.go.th/upload/content/por11_2569_6aab52aeeedbb.pdf"
     assert "ยกเลิกประกาศ" in rec["note"] and rec["status_id"] == "in_force"
     rec2, _ = AS.normalize_boi(objs[1], RUN)
@@ -83,3 +83,20 @@ def test_twin_only_across_agency_and_gazette():
     assert C.find_twin(rows, [0], same_src) is None
     far = {**gazette, "dates": {"published_at": "2027-06-01"}}
     assert C.find_twin(rows, [0], far) is None
+
+
+def test_boi_doc_no_and_supersede_links():
+    assert AS.boi_doc_key("ประกาศ สกท.ที่ ป.11/2569") == "สกท. ป.11/2569"
+    assert AS.boi_doc_key("ประกาศ กกท. ที่ ๙/๒๕๖๙") == "กกท. 9/2569"
+    assert AS.boi_doc_key("ประกาศสำนักนายกรัฐมนตรี") == ""
+    assert AS.boi_repealed_keys(
+        "ยกเลิกประกาศสำนักงานคณะกรรมการส่งเสริมการลงทุน ที่ ป.1/2569 ลงวันที่ 8 มกราคม 2569") == ["สกท. ป.1/2569"]
+    new, _ = AS.normalize_boi(AS.parse_boi(BOI_HTML)[0], RUN)
+    old, _ = AS.normalize_boi({"topic_id": 138403, "topic_name": "ประกาศ สกท.ที่ ป.1/2569",
+                               "topic_preview": "หลักเกณฑ์การเข้าสู่ระบบเร่งรัดโครงการลงทุน (Thailand FastPass)",
+                               "topic_date": "2026-01-08 00:00:00.000", "file_path": "upload/content/por1.pdf"}, RUN)
+    assert AS.link_boi([new, old]) == 1
+    assert new["relations"] == [{"type": "supersedes", "uid": old["uid"]}]
+    assert old["relations"] == [{"type": "superseded_by", "uid": new["uid"]}]
+    assert old["status_id"] == "superseded"
+    assert "_repeals" not in new and "_repeals" not in old

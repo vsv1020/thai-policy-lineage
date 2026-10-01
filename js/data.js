@@ -113,11 +113,13 @@ function renderOverview(d) {
   if (window.PolicyAds) window.PolicyAds.injectFeed(document.getElementById('feed'));
   set('today-sub', `最近收录的 <b>${total}</b> 条公报,读过原文、有要点的排在前面。`);
   set('feed-more', `查看全部 ${total} 条 →`);
-  set('lag-note', `泰国官方公报数据集(data.go.th)通常比刊登日晚几个月开放。本站现已收录到 <b>${esc(monthDay(st.date_to))}</b> 刊登的公报,`
-    + `最近一次采集 ${esc(updated)}。不是停更,是官方数据集的节奏。`);
+  const gz = st.gazette_to || st.date_to;
+  set('lag-note', `泰国官方公报数据集(data.go.th)通常比刊登日晚几个月开放,目前收录到 <b>${esc(monthDay(gz))}</b> 刊登的公报。`
+    + (st.agency_n ? `更新的规定来自税务厅、BOI 官网(已收 ${st.agency_n} 条,每日同步)。` : '')
+    + `最近一次采集 ${esc(updated)}。`);
   set('coverage', `<div class="cov-row"><span>收录</span><b>${total} 条</b></div>`
     + `<div class="cov-row"><span>已读原文、有要点</span><b>${st.with_points || 0} 条</b></div>`
-    + `<div class="cov-row"><span>公报日期</span><b>${esc(st.date_from || '—')} 至 ${esc(st.date_to || '—')}</b></div>`
+    + `<div class="cov-row"><span>文件日期</span><b>${esc(st.date_from || '—')} 至 ${esc(st.date_to || '—')}</b></div>`
     + `<div class="cov-row"><span>最近采集</span><b>${esc(updated)}</b></div>`);
   set('domain-counts', (st.by_domain || []).map(x =>
     `<a class="cov-row dom-count" href="#search?domain=${esc(x.id)}" data-domain="${esc(x.id)}">`

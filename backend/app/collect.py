@@ -574,6 +574,9 @@ def _collect_agency(src: dict, res: SourceResult, client: httpx.Client, throttle
         if norm["uid"] not in seen:
             seen.add(norm["uid"])
             res.records.append(norm)
+    linked = AS.link_boi(res.records) if src["id"] == "boi_web" else 0
+    if linked:
+        info += f";按废止说明建立替代关系 {linked} 条"
     res.status = "ok"
     res.detail = (f"{info};收 {len(res.records)} 条" + (
         f" | 跳过 {sum(skipped.values())} 条(" + ", ".join(f"{k}×{v}" for k, v in sorted(skipped.items())) + ")"
@@ -604,6 +607,9 @@ def merge_update(old: dict, new: dict) -> dict:
             merged[k] = d
         else:
             merged[k] = new[k]
+    # 部门官网来源按官方废止说明推出的替代关系,随官方数据更新(公报、决议来源不产生关系,不动已有的)
+    if (new.get("provenance") or {}).get("pipeline") in AGENCY_PIPELINES and "relations" in new:
+        merged["relations"] = new["relations"]
     th_old = (old.get("titles") or {}).get("th", "")
     th_new = (new.get("titles") or {}).get("th", "")
     if th_new and th_new != th_old:

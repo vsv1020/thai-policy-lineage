@@ -82,8 +82,8 @@ def _record(uid: str, title: str, published: str, pdf: str, pipeline: str, run_a
         "relations": [],
         "sources": [{"role": "official", "url": pdf, "note": source_note}],
         "provenance": {"pipeline": pipeline, "run_at": run_at, "verified": False, "verified_at": None},
-        # 日期是部门官网的发布日;文号取自官网列表
-        "confidence": {"dates": "medium", "doc_no": "high" if doc_no else "none"},
+        # 日期、文号都取自部门官网自己的列表(官方数据);日期含义是官网发布日,note 里写明
+        "confidence": {"dates": "high", "doc_no": "high" if doc_no else "none"},
         "flags": {"has_detail_page": False},
         "note": note,
     }
@@ -174,6 +174,51 @@ def parse_boi(html: str) -> list[dict]:
 
 
 _BOI_REPEALED = ("ยกเลิกแล้ว", "ถูกยกเลิก", "repealed", "cancel")
+# BOI 公告的发文方:编号只有加上发文方才唯一(「ที่ 9/2569」在 กกท. 和 สกท. 各有一份)
+_BOI_ISSUERS = (("สำนักงานคณะกรรมการส่งเสริมการลงทุน", "สกท."), ("คณะกรรมการส่งเสริมการลงทุน", "กกท."),
+                ("สกท", "สกท."), ("กกท", "กกท."), ("คสดช", "คสดช."))
+_NUM = r"([ก-ฮ]?\.?\s?\d+/\d{4})"
+
+
+def boi_key(issuer_text: str, num: str) -> str:
+    """「สกท.」+「ป.11/2569」→ 统一键,用于在废止说明里找到被废止的那一份。"""
+    abbr = next((a for full, a in _BOI_ISSUERS if full in issuer_text), "")
+    num = re.sub(r"\s+", "", num)
+    return f"{abbr} {num}" if abbr else ""
+
+
+def boi_doc_key(name: str) -> str:
+    m = re.search(r"^(.*?)ที่\s*" + _NUM, name.translate(THAI_DIGITS))
+    return boi_key(m.group(1), m.group(2)) if m else ""
+
+
+def boi_repealed_keys(basis: str) -> list[str]:
+    """「ยกเลิกประกาศสำนักงานคณะกรรมการส่งเสริมการลงทุน ที่ ป.1/2569 ลงวันที่ …」→ ["สกท. ป.1/2569"]"""
+    out = []
+    for m in re.finditer(r"ยกเลิก(.{0,80}?)ที่\s*" + _NUM, basis.translate(THAI_DIGITS)):
+        key = boi_key(m.group(1), m.group(2))
+        if key:
+            out.append(key)
+    return out
+
+
+def link_boi(records: list[dict]) -> int:
+    """按废止说明在同批 BOI 记录之间建立替代关系;被替代的一份状态改为 superseded。返回建立的关系数。"""
+    by_key = {r["doc_no"]: r for r in records if r.get("doc_no")}
+    n = 0
+    for r in records:
+        for key in r.pop("_repeals", []):
+            old = by_key.get(key)
+            if old is None or old is r:
+                continue
+            r["relations"].append({"type": "supersedes", "uid": old["uid"]})
+            old["relations"].append({"type": "superseded_by", "uid": r["uid"]})
+            old["status_id"] = "superseded"
+            n += 1
+    for r in records:
+        r.pop("_repeals", None)
+        r["relations"].sort(key=lambda x: (x["type"], x["uid"]))
+    return n
 
 
 def normalize_boi(obj: dict, run_at: str) -> tuple[dict | None, str]:
@@ -194,18 +239,19 @@ def normalize_boi(obj: dict, run_at: str) -> tuple[dict | None, str]:
     if not path.lower().endswith(".pdf"):
         return None, "没有官方 PDF"
     pdf = urljoin(BOI_BASE, quote(path, safe="/:._-?=&%"))
-    num = re.search(r"ที่\s*(\S+/\d{4})", name.translate(THAI_DIGITS))
     status_text = str(obj.get("topic_status") or "").lower()
     basis = _clean(str(obj.get("topic_source") or ""))
     agency = "boi"
-    return _record(
+    rec = _record(
         f"TH-BOI-{day.replace('-', '')}-{obj['topic_id']}", title, day, pdf, "boi_web", run_at,
         agency=agency, domain="biz", legal_form=legal_form_of(title),
         status="repealed" if any(k in status_text for k in _BOI_REPEALED) else "in_force",
-        doc_no=num.group(1) if num else "",
+        doc_no=boi_doc_key(name),
         note=("自 BOI 官网公告列表自动入库;日期为公告日期" + (f";依据/说明:{basis[:160]}" if basis else "")
               + ";中文标题与摘要待翻译环节补全"),
-        source_note="BOI 官网原文 PDF"), ""
+        source_note="BOI 官网原文 PDF")
+    rec["_repeals"] = boi_repealed_keys(basis)        # link_boi 用完即删,不写入事实层
+    return rec, ""
 
 
 def fetch_boi(client: httpx.Client) -> tuple[list[dict], str]:
