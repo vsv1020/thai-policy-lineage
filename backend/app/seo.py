@@ -355,7 +355,7 @@ def topic_matches(x: dict, match: dict) -> bool:
 
 
 def render_collection(url: str, title: str, h1: str, scope: str, items: list[dict], crumb: str,
-                      party: str | None = None) -> str:
+                      party: str | None = None, related: str = "") -> str:
     """汇编页:逐条列出已收录条目的日期、机关、标题、摘要、要点与泰文原文链接。
     刻意不写任何综述 —— 页面上的每一句都来自某一条有官方原文的条目。"""
     items = sorted(items, key=lambda x: (x["date"] or "", x["uid"]), reverse=True)
@@ -384,39 +384,49 @@ def render_collection(url: str, title: str, h1: str, scope: str, items: list[dic
             f'<h1 class="page">{e(h1)}</h1>'
             f'<div class="page-sub">{e(scope)}<br>共 <b>{len(items)}</b> 条' + (f",最新 {e(latest)}" if latest else "")
             + "。以下逐条摘录本站已收录条目的中文摘要,一切以泰文原文为准。</div>"
-            + "".join(rows))
+            + "".join(rows) + related)
     return _head(title, desc, url, ld, up="../../") + body + _foot("../../")
 
 
 def build_collections(entries: list[dict], parties_zh: dict[str, str]) -> tuple[list[dict], list[dict]]:
-    """生成 p/who/*.html 与 p/t/*.html,返回 (影响对象页, 专题页) 的索引 [{id, zh, n, href, date}]。"""
-    who, topics = [], []
+    """生成 p/who/*.html 与 p/t/*.html,返回 (影响对象页, 专题页) 的索引 [{id, zh, n, href, date}]。
+    先算出全部页面再渲染:每页页尾互相链接(相关专题、按影响对象),给读者和爬虫多一条路。"""
     (PAGES_DIR / "who").mkdir(exist_ok=True)
     (PAGES_DIR / "t").mkdir(exist_ok=True)
+    pages = []          # (kind, id, zh, items, extra)
     for pid in sorted(parties_zh):
         items = [x for x in entries if any(p["id"] == pid for p in x["parties"])]
-        if len(items) < MIN_COLLECTION:
-            continue
-        zh = parties_zh[pid]
-        url = f"{settings.site_url}/p/who/{pid}.html"
-        (PAGES_DIR / "who" / f"{pid}.html").write_text(render_collection(
-            url, f"影响{zh}的泰国政策汇总 | {SITE_NAME}", f"影响「{zh}」的泰国政策",
-            f"收录本站标注为影响「{zh}」的公报与决议(含约束与利好)。", items, f"影响对象 / {zh}", party=pid),
-            encoding="utf-8")
-        who.append({"id": pid, "zh": zh, "n": len(items), "href": f"p/who/{pid}.html",
-                    "date": max((x["date"] for x in items if x["date"]), default="")})
+        if len(items) >= MIN_COLLECTION:
+            pages.append(("who", pid, parties_zh[pid], items, None))
     cfg = json.loads(TOPICS_CONFIG.read_text(encoding="utf-8")) if TOPICS_CONFIG.exists() else {}
     for t in cfg.get("topics") or []:
         items = [x for x in entries if topic_matches(x, t.get("match") or {})]
-        if len(items) < MIN_COLLECTION:
-            continue
-        url = f"{settings.site_url}/p/t/{t['id']}.html"
-        (PAGES_DIR / "t" / f"{t['id']}.html").write_text(render_collection(
-            url, f"泰国{t['title_zh']}:历次公报汇总 | {SITE_NAME}", f"泰国{t['title_zh']}:历次公报汇总",
-            t["scope_zh"], items, f"专题 / {t['title_zh']}"), encoding="utf-8")
-        topics.append({"id": t["id"], "zh": t["title_zh"], "n": len(items), "href": f"p/t/{t['id']}.html",
-                       "date": max((x["date"] for x in items if x["date"]), default="")})
-    return who, topics
+        if len(items) >= MIN_COLLECTION:
+            pages.append(("t", t["id"], t["title_zh"], items, t))
+    index = [{"kind": k, "id": i, "zh": zh, "n": len(items), "href": f"p/{k}/{i}.html",
+              "date": max((x["date"] for x in items if x["date"]), default="")} for k, i, zh, items, _ in pages]
+
+    def related(kind: str, pid: str) -> str:
+        links = lambda k: " · ".join(f'<a href="../{e(x["kind"])}/{e(x["id"])}.html">{e(x["zh"])}</a>'  # noqa: E731
+                                     for x in index if x["kind"] == k and not (x["kind"] == kind and x["id"] == pid))
+        t, w = links("t"), links("who")
+        return ('<nav class="coll-related">' + (f"<div><b>相关专题</b> {t}</div>" if t else "")
+                + (f"<div><b>按影响对象</b> {w}</div>" if w else "")
+                + '<div><a href="../week/index.html">按周汇总</a> · <a href="../index.html">全部政策</a></div></nav>')
+
+    for kind, pid, zh, items, t in pages:
+        if kind == "who":
+            html = render_collection(
+                f"{settings.site_url}/p/who/{pid}.html", f"影响{zh}的泰国政策汇总 | {SITE_NAME}",
+                f"影响「{zh}」的泰国政策", f"收录本站标注为影响「{zh}」的公报与决议(含约束与利好)。",
+                items, f"影响对象 / {zh}", party=pid, related=related(kind, pid))
+        else:
+            html = render_collection(
+                f"{settings.site_url}/p/t/{pid}.html", f"泰国{zh}:历次公报汇总 | {SITE_NAME}",
+                f"泰国{zh}:历次公报汇总", t["scope_zh"], items, f"专题 / {zh}", related=related(kind, pid))
+        (PAGES_DIR / kind / f"{pid}.html").write_text(html, encoding="utf-8")
+    strip = lambda x: {k: v for k, v in x.items() if k != "kind"}  # noqa: E731
+    return ([strip(x) for x in index if x["kind"] == "who"], [strip(x) for x in index if x["kind"] == "t"])
 
 
 def week_id(d: str) -> str:
@@ -745,7 +755,7 @@ def build(s: Session) -> dict[str, int]:
         "telegram_channel_url": url if url.startswith("https://t.me/") else "",
         "feeds": [{"id": i, "zh": zh, "href": f"feed/{i}.xml"} for i, zh, _ in topics],
         "weeks": [{"id": w, "from": week_range(w)[0], "to": week_range(w)[1], "n": len(by_week[w]),
-                   "href": f"p/week/{w}.html"} for w in week_ids[:6]],
+                   "href": f"p/week/{w}.html"} for w in [w for w in week_ids if len(by_week[w]) >= 5][:6]],
     }, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     support = (json.loads(SUPPORT_CONFIG.read_text(encoding="utf-8"))
                if SUPPORT_CONFIG.exists() else {"enabled": False})
