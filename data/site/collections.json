@@ -10,7 +10,7 @@
   {
    "id": "import-control",
    "zh": "进口管制、配额与贸易救济",
-   "n": 38,
+   "n": 40,
    "href": "p/t/import-control.html",
    "date": "2026-04-22"
   },
@@ -31,7 +31,7 @@
   {
    "id": "financial-regulation",
    "zh": "金融监管:央行与证监会",
-   "n": 14,
+   "n": 18,
    "href": "p/t/financial-regulation.html",
    "date": "2026-04-01"
   },
@@ -52,7 +52,7 @@
   {
    "id": "social-security",
    "zh": "社会保障与劳工",
-   "n": 6,
+   "n": 7,
    "href": "p/t/social-security.html",
    "date": "2026-04-22"
   },
@@ -68,63 +68,63 @@
   {
    "id": "consumer",
    "zh": "消费者",
-   "n": 109,
+   "n": 129,
    "href": "p/who/consumer.html",
-   "date": "2026-04-21"
+   "date": "2026-04-22"
   },
   {
    "id": "foreign_company",
    "zh": "外资企业",
-   "n": 272,
+   "n": 322,
    "href": "p/who/foreign_company.html",
    "date": "2026-04-22"
   },
   {
    "id": "foreign_investor",
    "zh": "外资投资者",
-   "n": 83,
+   "n": 90,
    "href": "p/who/foreign_investor.html",
-   "date": "2026-04-21"
+   "date": "2026-04-22"
   },
   {
    "id": "foreign_resident",
    "zh": "外籍长居个人",
-   "n": 81,
+   "n": 90,
    "href": "p/who/foreign_resident.html",
-   "date": "2026-04-22"
+   "date": "2026-04-21"
   },
   {
    "id": "importer",
    "zh": "进口商与经销商",
-   "n": 102,
+   "n": 105,
    "href": "p/who/importer.html",
    "date": "2026-04-22"
   },
   {
    "id": "local_government",
    "zh": "府级与地方政府",
-   "n": 24,
+   "n": 30,
    "href": "p/who/local_government.html",
-   "date": "2026-04-21"
+   "date": "2026-04-22"
   },
   {
    "id": "sme",
    "zh": "中小企业",
    "n": 30,
    "href": "p/who/sme.html",
-   "date": "2026-04-10"
+   "date": "2026-04-20"
   },
   {
    "id": "thai_employer",
    "zh": "本地雇主",
-   "n": 68,
+   "n": 82,
    "href": "p/who/thai_employer.html",
    "date": "2026-04-22"
   },
   {
    "id": "traveller",
    "zh": "短期入境者",
-   "n": 15,
+   "n": 17,
    "href": "p/who/traveller.html",
    "date": "2026-04-10"
   }

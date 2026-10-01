@@ -14,21 +14,21 @@
     "zh": "环境型",
     "desc": "规则与激励塑造环境",
     "color": "seal",
-    "share": 77,
-    "count": 416,
+    "share": 78,
+    "count": 510,
     "rows": [
      {
       "id": "disclosure",
       "label": "申报、备案与披露",
       "data": [
-       64
+       94
       ]
      },
      {
       "id": "enforcement",
       "label": "执法、排查与处罚",
       "data": [
-       47
+       62
       ]
      },
      {
@@ -42,14 +42,14 @@
       "id": "standards_licensing",
       "label": "标准与准入管制",
       "data": [
-       257
+       305
       ]
      },
      {
       "id": "tax_incentive",
       "label": "税收减免与追缴",
       "data": [
-       42
+       43
       ]
      }
     ]
@@ -59,28 +59,28 @@
     "zh": "需求型",
     "desc": "直接拉动市场",
     "color": "gold",
-    "share": 12,
-    "count": 64,
+    "share": 11,
+    "count": 71,
     "rows": [
      {
       "id": "price_control",
       "label": "价格与费率管制",
       "data": [
-       27
+       28
       ]
      },
      {
       "id": "subsidy",
       "label": "补贴与价格优惠",
       "data": [
-       4
+       5
       ]
      },
      {
       "id": "trade_control",
       "label": "进出口与贸易管制",
       "data": [
-       33
+       38
       ]
      }
     ]
@@ -91,13 +91,13 @@
     "desc": "政府直接投入",
     "color": "blue",
     "share": 11,
-    "count": 60,
+    "count": 69,
     "rows": [
      {
       "id": "budget_funding",
       "label": "资金与预算投入",
       "data": [
-       5
+       6
       ]
      },
      {
@@ -111,20 +111,20 @@
       "id": "public_service",
       "label": "公共服务与系统供给",
       "data": [
-       47
+       56
       ]
      },
      {
       "id": "training",
       "label": "人才与技能培训",
       "data": [
-       6
+       5
       ]
      }
     ]
    }
   ],
-  "n": 540,
+  "n": 650,
   "sufficient": true,
   "min_n": 12
  },
@@ -169,13 +169,13 @@
     "label": "需求型",
     "color": "gold",
     "data": [
-     23,
-     1,
-     5,
+     31,
+     2,
+     6,
      2,
      3,
      6,
-     19,
+     29,
      0
     ]
    },
@@ -184,13 +184,13 @@
     "label": "环境型",
     "color": "seal",
     "data": [
-     106,
-     10,
-     18,
-     22,
-     50,
-     18,
-     115,
+     131,
+     12,
+     25,
+     25,
+     51,
+     20,
+     143,
      2
     ]
    },
@@ -199,13 +199,13 @@
     "label": "供给型",
     "color": "blue",
     "data": [
-     12,
+     17,
      8,
-     0,
+     1,
      0,
      4,
      2,
-     8,
+     12,
      2
     ]
    }
@@ -217,14 +217,10 @@
    },
    {
     "class": "供给型",
-    "goal": "财政收入"
-   },
-   {
-    "class": "供给型",
     "goal": "绿色转型"
    }
   ],
-  "n": 436,
+  "n": 534,
   "sufficient": true,
   "min_n": 12
  },
@@ -271,7 +267,7 @@
     "stability": 3,
     "justiciable": true,
     "note": "部长签发,程序性约束",
-    "count": 19,
+    "count": 22,
     "pct": 5
    },
    {
@@ -282,8 +278,8 @@
     "stability": 2,
     "justiciable": false,
     "note": "调整最快,占比最高",
-    "count": 321,
-    "pct": 81
+    "count": 334,
+    "pct": 82
    },
    {
     "id": "rabiap",
@@ -304,8 +300,8 @@
     "stability": 1,
     "justiciable": false,
     "note": "执行层口径,最易变",
-    "count": 6,
-    "pct": 2
+    "count": 2,
+    "pct": 0
    },
    {
     "id": "resolution",
@@ -319,10 +315,10 @@
     "pct": 0
    }
   ],
-  "total": 396,
-  "fragile_pct": 93,
+  "total": 408,
+  "fragile_pct": 92,
   "fragile_note": "承载在公告与内阁决议层的比例 —— 调整快、可诉性弱,投资测算应按可撤回处理",
-  "n": 396,
+  "n": 408,
   "sufficient": true,
   "min_n": 20
  },
@@ -331,44 +327,44 @@
    {
     "id": "foreign_company",
     "label": "外资企业",
-    "support": 45,
-    "constrain": 97,
-    "neutral": 130
+    "support": 63,
+    "constrain": 120,
+    "neutral": 139
    },
    {
     "id": "consumer",
     "label": "消费者",
-    "support": 76,
-    "constrain": 3,
-    "neutral": 30
+    "support": 86,
+    "constrain": 5,
+    "neutral": 38
    },
    {
     "id": "importer",
     "label": "进口商与经销商",
-    "support": 11,
-    "constrain": 54,
-    "neutral": 37
+    "support": 10,
+    "constrain": 65,
+    "neutral": 30
    },
    {
     "id": "foreign_resident",
     "label": "外籍长居个人",
-    "support": 16,
-    "constrain": 19,
-    "neutral": 46
+    "support": 28,
+    "constrain": 23,
+    "neutral": 39
    },
    {
     "id": "thai_employer",
     "label": "本地雇主",
-    "support": 8,
-    "constrain": 26,
-    "neutral": 34
+    "support": 16,
+    "constrain": 33,
+    "neutral": 33
    },
    {
     "id": "foreign_investor",
     "label": "外资投资者",
-    "support": 23,
-    "constrain": 10,
-    "neutral": 50
+    "support": 33,
+    "constrain": 13,
+    "neutral": 44
    },
    {
     "id": "sme",
@@ -381,19 +377,19 @@
     "id": "traveller",
     "label": "短期入境者",
     "support": 1,
-    "constrain": 9,
-    "neutral": 5
+    "constrain": 10,
+    "neutral": 6
    },
    {
     "id": "local_government",
     "label": "府级与地方政府",
     "support": 3,
-    "constrain": 1,
-    "neutral": 20
+    "constrain": 2,
+    "neutral": 25
    }
   ],
-  "max": 97,
-  "n": 784,
+  "max": 120,
+  "n": 895,
   "sufficient": true,
   "min_n": 10
  },
@@ -402,6 +398,11 @@
    {
     "a": "土地厅",
     "b": "内政部",
+    "n": 11
+   },
+   {
+    "a": "财政部",
+    "b": "税务厅",
     "n": 6
    },
    {
@@ -410,9 +411,9 @@
     "n": 4
    },
    {
-    "a": "财政部",
-    "b": "税务厅",
-    "n": 3
+    "a": "海关厅",
+    "b": "财政部",
+    "n": 2
    },
    {
     "a": "投资促进委员会",
@@ -426,7 +427,7 @@
    },
    {
     "a": "海关厅",
-    "b": "财政部",
+    "b": "消费税厅",
     "n": 1
    },
    {
@@ -445,10 +446,10 @@
     "n": 1
    }
   ],
-  "max": 6,
-  "solo_documents": 379,
+  "max": 11,
+  "solo_documents": 381,
   "note": "联署少而各自单独规定同一事项,是维度六冲突的来源",
-  "n": 19,
+  "n": 29,
   "sufficient": true,
   "min_n": 8
  },
@@ -491,7 +492,7 @@
     "id": "implementing_rule",
     "label": "实施细则",
     "seq": 4,
-    "count": 386,
+    "count": 398,
     "hot": true,
     "weak": false
    },
@@ -512,14 +513,14 @@
     "weak": true
    }
   ],
-  "total": 396,
-  "peak": 386,
+  "total": 408,
+  "peak": 398,
   "missing": [
    "国家规划",
    "内阁决议",
    "评估与复盘"
   ],
-  "n": 396,
+  "n": 408,
   "sufficient": true,
   "min_n": 12
  }
