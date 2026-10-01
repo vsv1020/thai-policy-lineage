@@ -1,0 +1,30 @@
+name: probe (temporary)
+on:
+  push:
+    branches: [claude/code-review-loop-autoresearch-pisrof]
+    paths: [tools/probe_sources.py, .github/workflows/probe.yml]
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      TZ: Asia/Bangkok
+      THAI_EGRESS_PROXY: ${{ secrets.THAI_EGRESS_PROXY }}
+      DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+      ENRICH_AFTER_COLLECT: '0'
+      EXPORT_AFTER_COLLECT: '0'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: |
+          pip install -q -r backend/requirements.txt
+          sudo apt-get install -y -qq poppler-utils tesseract-ocr tesseract-ocr-tha > /dev/null
+      - run: cd backend && python -m app.ingest --reset > /dev/null
+      - name: 采集(不提交)
+        run: cd backend && python -m app.collect --trigger manual | python -c "import json,sys;r=json.load(sys.stdin);print(r['status'],'added',r['added'],'updated',r['updated']);[print(' ',s['id'],s['status'],s['detail'][:300]) for s in r['sources']]"
+      - name: 抽样翻译(不提交)
+        run: python tools/probe_sources.py
+      - run: python tools/validate.py --quiet
