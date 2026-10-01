@@ -466,16 +466,18 @@ def update_index_html(entries: list[dict], topics: list[tuple[str, str, int]], c
     if new != old:
         path.write_text(new, encoding="utf-8")
 
-    # 隐私政策页:canonical + WebPage 结构化数据(页面本身是手写的静态页)
-    priv = REPO_ROOT / "privacy.html"
-    if priv.exists():
-        ld = {"@context": "https://schema.org", "@type": "WebPage", "name": "隐私政策",
-              "url": f"{site}/privacy.html", "inLanguage": "zh-CN",
+    # 手写的静态页(隐私政策、怎么用本站):canonical + WebPage 结构化数据
+    for fname, name in (("privacy.html", "隐私政策"), ("about.html", "怎么用本站")):
+        page = REPO_ROOT / fname
+        if not page.exists():
+            continue
+        ld = {"@context": "https://schema.org", "@type": "WebPage", "name": name,
+              "url": f"{site}/{fname}", "inLanguage": "zh-CN",
               "isPartOf": {"@type": "WebSite", "name": SITE_NAME, "url": f"{site}/"}}
-        old = priv.read_text(encoding="utf-8")
-        new = _replace_block(old, "head", f'<link rel="canonical" href="{e(site)}/privacy.html">\n{_ld(ld)}')
+        old = page.read_text(encoding="utf-8")
+        new = _replace_block(old, "head", f'<link rel="canonical" href="{e(site)}/{fname}">\n{_ld(ld)}')
         if new != old:
-            priv.write_text(new, encoding="utf-8")
+            page.write_text(new, encoding="utf-8")
     return True
 
 
@@ -530,7 +532,7 @@ def build(s: Session) -> dict[str, int]:
     # sitemap:lastmod 用数据自身的日期,保证导出可重复
     newest = entries[0]["date"] if entries else None
     urls = [(f"{settings.site_url}/", newest), (f"{settings.site_url}/p/index.html", newest),
-            (f"{settings.site_url}/privacy.html", None)]
+            (f"{settings.site_url}/about.html", None), (f"{settings.site_url}/privacy.html", None)]
     urls += [(topic_url(i), by_dom[i][0][0] or None) for i, _, _ in topics]
     urls += [(x["url"], x["date"] or None) for x in entries]
     (REPO_ROOT / "sitemap.xml").write_text(render_sitemap(urls), encoding="utf-8")

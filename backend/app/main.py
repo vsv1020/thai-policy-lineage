@@ -37,7 +37,7 @@ PUBLIC_DIRS = {
     "/assets": REPO_ROOT / "assets",  # 打赏收款码等静态图片
 }
 # 根目录下允许单独访问的文件
-PUBLIC_FILES = {"index.html", "privacy.html", "robots.txt", "sitemap.xml", "favicon.ico", "favicon.svg",
+PUBLIC_FILES = {"index.html", "privacy.html", "about.html", "robots.txt", "sitemap.xml", "favicon.ico", "favicon.svg",
                 "ads.txt", "feed.xml", "llms.txt", "llms-full.txt"}
 
 def _indexnow_file() -> str:

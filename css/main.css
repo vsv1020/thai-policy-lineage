@@ -317,3 +317,66 @@ a.pc-title { display: block; color: inherit; text-decoration: none; }
 a.pc-title:hover { text-decoration: underline; }
 @media (max-width: 600px) { dl.facts { grid-template-columns: 1fr; } dl.facts dd { margin-bottom: 6px; } }
 ul.points { margin: 4px 0 12px 20px; line-height: 1.85; font-size: 14px; }
+
+/* ── 首页:简介、搜索、领域按钮、数据覆盖(改版 2026-10) ── */
+.intro { display: flex; align-items: center; gap: 14px; background: var(--card); border: 1px solid var(--line);
+  border-left: 3px solid var(--seal); padding: 12px 16px; margin-bottom: 16px; font-size: 14px; }
+.intro p { flex: 1; color: var(--ink); line-height: 1.7; }
+.intro a { white-space: nowrap; font-size: 13px; }
+.intro-close { background: none; border: 0; font-size: 18px; color: var(--muted); cursor: pointer; line-height: 1; padding: 2px 4px; }
+.intro[hidden] { display: none; }
+.search-box { display: flex; gap: 0; margin-bottom: 12px; max-width: 760px; }
+.search-box input { flex: 1; min-width: 0; font: inherit; font-size: 15px; padding: 10px 14px; border: 1px solid var(--line);
+  border-right: 0; background: #fff; color: var(--ink); outline: none; }
+.search-box input:focus { border-color: var(--seal); }
+.search-box .btn-solid { padding: 10px 20px; font-size: 14px; }
+.dom-btns { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
+.dom-btn { cursor: pointer; font: inherit; font-size: 13px; padding: 4px 11px; }
+.dom-btn:hover { border-color: var(--seal); color: var(--seal); }
+.lag-note { font-size: 12.5px; color: var(--ink-2); background: var(--panel); padding: 9px 14px; margin: -14px 0 22px; line-height: 1.7; }
+.feed-more { text-align: center; margin: 4px 0 10px; font-size: 13.5px; }
+.cov-row { display: flex; justify-content: space-between; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--line); font-size: 13px; color: var(--ink-2); }
+.cov-row:last-child { border-bottom: 0; }
+.cov-row > span { white-space: nowrap; }
+.cov-row b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; text-align: right; }
+a.cov-row:hover b { color: var(--seal); }
+.party { font-size: 11.5px; padding: 0 7px; border: 1px solid var(--line); color: var(--ink-2); white-space: nowrap; }
+.party.constrain { color: var(--seal); border-color: rgba(176,51,42,.35); }
+.party.support { color: var(--green); border-color: rgba(79,122,79,.4); }
+ul.pc-points { margin: -4px 0 10px 18px; font-size: 13px; color: var(--ink); line-height: 1.75; }
+.thin-tag { font-size: 11px; color: var(--muted); border: 1px solid var(--line); padding: 0 5px; margin-right: 6px; background: var(--panel); }
+.lib-count { font-size: 13px; color: var(--ink-2); margin-bottom: 10px; }
+.empty-hint { color: var(--ink-2); line-height: 1.8; }
+.facet select { border: 0; background: transparent; font: inherit; color: var(--seal); cursor: pointer; max-width: 180px; }
+.facet-reset { font: inherit; }
+.nav-link { display: flex; align-items: center; gap: 13px; padding: 10px 20px; color: var(--ink-2); }
+.nav-link:hover { background: var(--paper); color: var(--ink); }
+.nav-link .glyph { font-family: var(--serif); font-size: 17px; font-weight: 600; color: var(--muted); width: 20px; text-align: center; }
+.side-note { color: var(--muted); font-size: 12.5px; line-height: 1.7; padding: 8px 20px 0; }
+aside .side-label + .nav-item { margin-top: 0; }
+aside .side-label { margin-top: 10px; }
+
+/* ── 手机端(≤700px):顶栏只留品牌名;导航变成顶栏下的横向标签条 ── */
+@media (max-width: 700px) {
+  header { padding: 10px 16px; gap: 10px; }
+  header .brand-sub, #stamp { display: none; }
+  .brand-name { white-space: normal; font-size: 17px; }
+  aside { position: sticky; top: 52px; z-index: 40; display: flex; flex-wrap: nowrap; overflow-x: auto;
+    padding: 0; border-right: 0; border-bottom: 1px solid var(--line); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  aside::-webkit-scrollbar { display: none; }
+  aside .side-label, aside .side-extra { display: none; }
+  aside .nav-item { flex: 0 0 auto; padding: 10px 14px; border-left: 0; border-bottom: 3px solid transparent; white-space: nowrap; }
+  aside .nav-item.active { border-left-color: transparent; border-bottom-color: var(--seal); }
+  aside .nav-item .glyph { display: none; }
+  main { padding: 18px 16px 36px; }
+  .intro { flex-wrap: wrap; font-size: 13.5px; }
+  .search-box { max-width: none; }
+  .dom-btns { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+  .dom-btns::-webkit-scrollbar { display: none; }
+  .dom-btn { flex: 0 0 auto; }
+  .card { padding: 16px; }
+  ul.pc-points { font-size: 13px; }
+  .lib-row { grid-template-columns: 1fr; gap: 4px; padding: 12px 14px; }
+  .chart { height: 240px; }
+  h1.page, h2.page { font-size: 26px; }
+}

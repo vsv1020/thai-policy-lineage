@@ -118,6 +118,11 @@ def document_view(s: Session, doc: Document, today: date) -> dict:
                                  if doc.comment_deadline else None),
         },
         "confidence": {"dates": doc.confidence_dates, "doc_no": doc.confidence_doc_no},
+        # 影响对象(卡片与「找政策」的筛选用)。按 party_id 排序:自增主键在增量入库与
+        # 全新建库时顺序可能不同,用它排序会让导出漂移
+        "parties": [{"id": x.party_id, "party_id": x.party_id, "stance": x.stance,
+                     "label": (p.zh if (p := s.get(Party, x.party_id)) else x.party_id)}
+                    for x in sorted(doc.parties, key=lambda x: x.party_id)],
     }
 
 
@@ -195,19 +200,46 @@ def source_health(s: Session) -> tuple[str | None, list[dict]]:
     return iso_bkk(last), out
 
 
+def _neg_date(d: str) -> str:
+    """把 YYYY-MM-DD 变成可升序排列的「倒序键」;空日期排最后。"""
+    return "".join(chr(ord("9") - int(c) + ord("0")) if c.isdigit() else c for c in d) if d else "~"
+
+
 def overview(s: Session) -> dict:
     today = _today(s)
-    docs = s.scalars(select(Document).order_by(Document.display_date.desc().nullslast())).all()
+    docs = s.scalars(select(Document).order_by(Document.display_date.desc().nullslast(),
+                                               Document.uid)).all()
     views = [document_view(s, d, today) for d in docs]
-    for i, v in enumerate(views):
-        v["featured"] = i < settings.feed_size
+    # 首页排序:读过原文、有要点的排前面;同组内日期倒序,再按 uid —— 导出必须确定
+    views.sort(key=lambda v: (not v["key_points"], _neg_date(v["date"]), v["uid"]))
+    # 首页精选:同一发文机关最多 2 条,超出的顺延给后面的条目,避免一家机关刷屏;
+    # policies 数组本身的顺序不变
+    per_org: dict[str, int] = defaultdict(int)
+    picked = 0
+    for v in views:
+        v["featured"] = False
+        if picked < settings.feed_size and per_org[v["org"]] < 2:
+            v["featured"] = True
+            per_org[v["org"]] += 1
+            picked += 1
     last_run, _ = source_health(s)
+    dates = sorted(v["date"] for v in views if v["date"] and v["date"] <= today.isoformat())
+    by_domain: dict[str, dict] = {}
+    for v in views:
+        key = v["domain"] or "other"
+        e = by_domain.setdefault(key, {"id": key, "zh": v["domain_label"] or "其他", "n": 0})
+        e["n"] += 1
     return {
-        "schema_version": 3,
+        "schema_version": 4,
         "updated_at": last_run or datetime.now(BKK).replace(microsecond=0).isoformat(),
         "stats": {"total": len(views),
                   "research": sum(1 for v in views if v["provenance"] == "research"),
-                  "demo": sum(1 for v in views if v["provenance"] == "demo")},
+                  "demo": sum(1 for v in views if v["provenance"] == "demo"),
+                  # 首页「数据覆盖」:有要点的条数、公报日期范围(到数据截止日为止)、各领域条数
+                  "with_points": sum(1 for v in views if v["key_points"]),
+                  "date_from": dates[0] if dates else None,
+                  "date_to": dates[-1] if dates else None,
+                  "by_domain": sorted(by_domain.values(), key=lambda e: (-e["n"], e["id"]))},
         "wind": wind_now(s, today),
         "calendar": calendar(s, today),
         "policies": views,

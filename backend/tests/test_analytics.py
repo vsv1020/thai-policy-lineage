@@ -106,10 +106,27 @@ def test_trends_refuses_to_be_usable_without_enough_months(session):
 
 def test_overview_featured_is_derived_not_stored(session):
     o = A.overview(session)
+    from app.config import settings
     featured = [p for p in o["policies"] if p["featured"]]
-    assert len(featured) == min(6, len(o["policies"]))
-    dates = [p["date"] for p in featured]
-    assert dates == sorted(dates, reverse=True), "featured 应是按日期取前 N 条"
+    assert len(featured) <= settings.feed_size
+    from collections import Counter
+    assert max(Counter(p["org"] for p in featured).values()) <= 2, "同一机关在首页最多 2 条"
+    # 有要点的排前面,同组内日期倒序
+    keys = [(not p["key_points"], p["date"]) for p in o["policies"]]
+    groups = [k[0] for k in keys]
+    assert groups == sorted(groups)
+    for g in (False, True):
+        ds = [d for k, d in keys if k == g]
+        assert ds == sorted(ds, reverse=True)
+
+
+def test_overview_stats_cover_the_front_page(session):
+    o = A.overview(session)
+    st = o["stats"]
+    assert sum(d["n"] for d in st["by_domain"]) == st["total"], "各领域条数之和要等于总数"
+    assert st["with_points"] == sum(1 for p in o["policies"] if p["key_points"])
+    assert st["date_from"] <= st["date_to"]
+    assert all({"id", "label", "stance"} <= set(x) for p in o["policies"] for x in p["parties"])
 
 
 def test_research_documents_never_claim_human_review(session):
