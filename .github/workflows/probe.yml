@@ -15,6 +15,6 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
-      - run: pip install -q -r backend/requirements.txt
+      - run: pip install -q -r backend/requirements.txt && sudo apt-get install -y -qq poppler-utils tesseract-ocr tesseract-ocr-tha > /dev/null
       - run: |
           python tools/probe_sources.py
