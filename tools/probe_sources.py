@@ -1,33 +1,41 @@
-"""临时探测:税务厅 RSS 全部条目、BOI 公告列表结构(直连)。只打印,不写数据。"""
+"""临时探测:税务厅「新法」列表页、BOI 公告数据接口(直连)。只打印,不写数据。"""
 import re
 import httpx
 
 c = httpx.Client(headers={"User-Agent": "ThaiPolicyLineage/0.3 (+https://github.com/vsv1020/thai-policy-lineage)"},
                  timeout=60, follow_redirects=True)
 
-r = c.get("https://www.rd.go.th/rss.xml")
-items = re.findall(r"<item>(.*?)</item>", r.text, re.S)
-print("RD RSS items", len(items))
-for it in items:
-    g = lambda tag: (re.search(rf"<{tag}[^>]*>(.*?)</{tag}>", it, re.S) or [None, ""])[1].strip()
-    print(" |", g("pubDate")[:16], "|", g("link"), "|", re.sub(r"\s+", " ", g("title"))[:90])
-
-for u in ["https://www.rd.go.th/26/9877.html"]:
-    p = c.get(u)
-    t = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", re.sub(r"<script.*?</script>|<style.*?</style>", " ", p.text, flags=re.S)))
-    print("\nRD PAGE", u, p.status_code, t[:600])
-    print("  pdf links:", re.findall(r'href="([^"]+\.pdf)"', p.text)[:5])
-
-for u in ["https://www.boi.go.th/index.php?page=boi_announcements", "https://www.boi.go.th/un/boi_announcements",
-          "https://www.boi.go.th/index.php?page=boi_announcements&language=th"]:
-    p = c.get(u)
-    print("\n=== BOI", u, p.status_code, len(p.text), p.url)
-    rows = re.findall(r'<a[^>]+href="([^"#]+)"[^>]*>(.*?)</a>', p.text, re.S)
+def links(html, pat):
     out = []
-    for href, txt in rows:
+    for href, txt in re.findall(r'<a[^>]+href="([^"#]+)"[^>]*>(.*?)</a>', html, re.S):
         t = re.sub(r"<[^>]+>|\s+", " ", txt).strip()
-        if re.search(r"announce|ประกาศ|upload|\.pdf|topic_id", href + t, re.I) and len(t) > 8:
-            out.append(f"{t[:90]} -> {href[:140]}")
-    print("\n".join(out[:40]))
-    dates = re.findall(r"\d{1,2}\s+(?:[A-Z][a-z]{2,8}|[ก-๙\.]{3,12})\s+\d{4}", p.text)
-    print("DATES sample:", dates[:10])
+        if re.search(pat, href + " " + t, re.I):
+            out.append(f"{t[:80]} -> {href[:150]}")
+    return sorted(set(out))
+
+# 1. 税务厅:找「กฎหมายใหม่ / newlaw」列表页
+seen = set()
+for u in ["https://www.rd.go.th/landing.html", "https://www.rd.go.th/26/9877.html"]:
+    p = c.get(u)
+    for l in links(p.text, r"กฎหมาย|newlaw|law"):
+        if l not in seen:
+            seen.add(l); print("RD", l)
+for cand in [l.split(" -> ")[1] for l in seen if "กฎหมายใหม่" in l or "newlaw" in l.lower()][:3]:
+    u = cand if cand.startswith("http") else "https://www.rd.go.th/" + cand.lstrip("/")
+    p = c.get(u)
+    print("\n=== RD LIST", u, p.status_code, len(p.text))
+    pdfs = re.findall(r'<a[^>]+href="([^"]*newlaw[^"]*\.pdf)"[^>]*>(.*?)</a>', p.text, re.S)
+    print("newlaw pdfs:", len(pdfs))
+    for href, t in pdfs[:25]:
+        print("  ", re.sub(r"<[^>]+>|\s+", " ", t).strip()[:100], "->", href)
+    i = p.text.find("newlaw")
+    print("CONTEXT:", re.sub(r"\s+", " ", p.text[max(0, i - 1200):i + 300]))
+
+# 2. BOI:dataLaw 的数据来自哪里
+p = c.get("https://www.boi.go.th/index.php?page=boi_announcements")
+for key in ("dataLaw", "axios", "fetch(", "$.ajax", "$.get", "$.post", ".json", "api/"):
+    for m in list(re.finditer(re.escape(key), p.text))[:3]:
+        print(f"\nBOI [{key}]", re.sub(r"\s+", " ", p.text[max(0, m.start() - 250):m.start() + 350]))
+m = re.search(r"8 มกราคม 2569", p.text)
+if m:
+    print("\nBOI DATE CONTEXT", re.sub(r"\s+", " ", p.text[max(0, m.start() - 900):m.start() + 300]))
