@@ -153,7 +153,7 @@ fetch('data/site/subscribe.json', { cache: 'no-store' }).then(r => r.ok ? r.json
       ? `<a class="btn-solid sub-tg" href="${esc(sub.telegram_channel_url)}" target="_blank" rel="noopener">Telegram 频道 · 新政策推送</a>` : '')
     + `<div class="sub-line"><a href="feed.xml">RSS 订阅全站更新</a></div>`
     + (feeds ? `<details class="sub-more"><summary>按领域订阅 RSS</summary><div>${feeds}</div></details>` : '')
-    + (weeks ? `<div class="mod-sub" style="margin-top:10px">按周汇总(按公报刊登日)</div>${weeks}`
+    + (weeks ? `<div class="mod-sub" style="margin-top:10px">按周汇总(按公报刊登日,只列 5 条以上的周)</div>${weeks}`
       + `<div style="margin-top:6px;font-size:12.5px"><a href="p/week/index.html">全部周汇总 →</a></div>` : ''));
 }).catch(() => { /* 订阅卡片保留静态的 RSS 链接 */ });
 

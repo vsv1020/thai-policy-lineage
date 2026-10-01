@@ -322,6 +322,39 @@ def effective_from(rule: str, explicit: str, published: str | None) -> str | Non
     return None
 
 
+def agency_rules(v: dict) -> list[tuple[str, str]]:
+    """词表里机关的泰文名(含别名)→ id,长名在前:「สำนักงานคณะกรรมการ…」不会被它包含的短名抢先。"""
+    rules = []
+    for a in v["agencies"]:
+        for name in [a.get("th") or ""] + list(a.get("th_aliases") or []):
+            if len(name) >= 4:
+                rules.append((name, a["id"]))
+    return sorted(rules, key=lambda r: -len(r[0]))
+
+
+def issuer_agency(title_th: str, v: dict) -> str | None:
+    """从泰文标题的发文机关段(「เรื่อง」或「ว่าด้วย」之前)认出词表里的机关;认不出返回 None。
+    公报标题都是「ประกาศ/คำสั่ง/ระเบียบ + 机关 + เรื่อง …」,机关写在标题里,不需要模型猜。"""
+    head = re.split(r"เรื่อง|ว่าด้วย", title_th or "")[0][:160]
+    best = None
+    for name, aid in agency_rules(v):
+        pos = head.find(name)
+        if pos >= 0 and (best is None or pos < best[0] or (pos == best[0] and len(name) > best[1])):
+            best = (pos, len(name), aid)
+    return best[2] if best else None
+
+
+def fix_agency(rec: dict, v: dict) -> bool:
+    """公报条目的发文机关以标题为准(模型在词表里找不到时会退而选上级部委)。返回是否改动。"""
+    if (rec.get("provenance") or {}).get("pipeline") != "gazette_json":
+        return False
+    aid = issuer_agency((rec.get("titles") or {}).get("th", ""), v)
+    if not aid or (rec.get("agency_ids") or [None])[0] == aid:
+        return False
+    rec["agency_ids"] = [aid]
+    return True
+
+
 def apply_enrichment(rec: dict, out: dict, v: dict, model: str, basis: str = "title") -> dict:
     """把模型输出合并进记录。再按词表过一遍 —— schema 约束之外的第二道闸。"""
     valid = {k: {e["id"] for e in v[k]} for k in
@@ -347,6 +380,7 @@ def apply_enrichment(rec: dict, out: dict, v: dict, model: str, basis: str = "ti
     if eff and not dates.get("effective_from"):
         dates["effective_from"] = eff
     rec["agency_ids"] = keep(out["agency_ids"], "agencies") or rec.get("agency_ids") or ["cabinet"]
+    fix_agency(rec, v)
     rec["domain_ids"] = keep(out["domain_ids"], "domains") or rec.get("domain_ids")
     if out["legal_form_id"] in valid["legal_forms"]:
         rec["legal_form_id"] = out["legal_form_id"]
@@ -522,11 +556,30 @@ def run_enrichment(limit: int | None = None, dry_run: bool = False, client=None,
     return result
 
 
+def fix_agencies(dry_run: bool = False) -> dict:
+    """已入库条目按标题重定发文机关(词表扩充后跑一次)。不调用模型。"""
+    v = _vocab()
+    changed: dict[str, dict] = {}
+    for rec in read_jsonl(POLICIES_DIR / "documents.jsonl"):
+        before = list(rec.get("agency_ids") or [])
+        if fix_agency(rec, v):
+            changed[rec["uid"]] = rec
+            if dry_run and len(changed) <= 10:
+                print(rec["uid"], before, "→", rec["agency_ids"], rec["titles"].get("th", "")[:50])
+    if changed and not dry_run:
+        rewrite_jsonl(changed)
+    return {"changed": len(changed)}
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description="LLM 翻译分类")
     ap.add_argument("--limit", type=int, default=None)
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--fix-agencies", action="store_true", help="按泰文标题重定已入库条目的发文机关")
     args = ap.parse_args()
+    if args.fix_agencies:
+        print(json.dumps(fix_agencies(args.dry_run), ensure_ascii=False))
+        return
     print(json.dumps(run_enrichment(args.limit, args.dry_run), ensure_ascii=False, indent=1))
 
 

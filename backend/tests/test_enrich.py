@@ -230,3 +230,25 @@ def test_deepseek_irrelevant_needs_only_title(isolated_jsonl):
     client, _ = deepseek(payload={"relevant": False, "title_zh": "人事任免", "summary_zh": ""})
     res = E.run_enrichment(client=client)
     assert res["skipped_irrelevant"] == 1
+
+
+@pytest.mark.parametrize("th,expect", [
+    ("ประกาศธนาคารออมสิน เรื่อง อัตราดอกเบี้ยเงินฝาก", "gsb"),
+    ("ประกาศกระทรวงการคลัง เรื่อง ผลการกู้เงินของธนาคารออมสิน", "mof"),        # 发文机关在前,正文里提到的不算
+    ("ประกาศกรมเจ้าท่า ที่ 19/2569 เรื่อง คำแนะนำ", "md"),
+    ("ข้อบังคับหัวหน้าเจ้าพนักงานจราจรในเขตกรุงเทพมหานคร ว่าด้วยการห้ามรถ", "police"),
+    ("ข้อบัญญัติองค์การบริหารส่วนตำบลบางพลี เรื่อง ค่าธรรมเนียม", "local"),
+    ("ประกาศสำนักงานคณะกรรมการกำกับหลักทรัพย์และตลาดหลักทรัพย์ ที่ สธ. 2/2569 เรื่อง", "sec"),
+    ("ประกาศคณะกรรมการบางอย่าง เรื่อง ไม่มีในคำศัพท์", None),
+])
+def test_issuer_agency_from_thai_title(th, expect):
+    assert E.issuer_agency(th, E._vocab()) == expect
+
+
+def test_fix_agency_only_touches_gazette_records():
+    v = E._vocab()
+    rec = _raw(th="ประกาศธนาคารออมสิน เรื่อง เงินฝาก"); rec["agency_ids"] = ["mof"]
+    assert E.fix_agency(rec, v) and rec["agency_ids"] == ["gsb"]
+    manual = _raw(th="ประกาศธนาคารออมสิน เรื่อง เงินฝาก"); manual["provenance"]["pipeline"] = "manual"
+    manual["agency_ids"] = ["mof"]
+    assert not E.fix_agency(manual, v) and manual["agency_ids"] == ["mof"]

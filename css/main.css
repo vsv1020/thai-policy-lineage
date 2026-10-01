@@ -393,3 +393,5 @@ aside .side-label { margin-top: 10px; }
 .coll-item { background: var(--card); border: 1px solid var(--line); padding: 16px 20px; margin-bottom: 12px; }
 .coll-title { font-family: var(--serif); font-size: 16px; margin: 4px 0 6px; line-height: 1.5; }
 .coll-item p { font-size: 13.5px; color: var(--ink-2); margin-bottom: 6px; }
+.coll-related { margin-top: 24px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 13px; line-height: 2; }
+.coll-related b { color: var(--ink-2); margin-right: 6px; }

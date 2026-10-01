@@ -61,7 +61,7 @@ def test_week_pages_list_items_of_that_week_with_official_links(site):
 def test_subscribe_json_only_accepts_telegram_links(site, tmp_path, monkeypatch):
     sub = json.loads((site / "data" / "site" / "subscribe.json").read_text())
     assert sub["telegram_channel_url"] == "https://t.me/demo"
-    assert sub["weeks"] and all(w["href"].startswith("p/week/") for w in sub["weeks"])
+    assert all(w["href"].startswith("p/week/") and w["n"] >= 5 for w in sub["weeks"]), "首页只列 5 条以上的周"
 
 
 def test_week_id_is_iso_week():
