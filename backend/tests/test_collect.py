@@ -424,3 +424,15 @@ def test_all_dead_reports_resource_structure(monkeypatch):
     # 下一次看运行记录就能知道:有哪些 resource、什么格式、放在哪、有没有 datastore
     assert "soc.gdcatalog.go.th" in res.detail and "datastore=否" in res.detail
     assert "[json·soc.gdcatalog.go.th" in res.detail and "[csv·soc.gdcatalog.go.th" in res.detail
+
+
+def test_merge_update_keeps_derived_effective_date():
+    """官方同步只覆盖它有值的日期;翻译时按正文推算的生效日不能被官方的空值冲掉(2026-10-01 回归)。"""
+    old = {"uid": "U", "titles": {"zh": "中文", "th": "เรื่อง ก"},
+           "dates": {"published_at": "2026-04-01", "effective_from": "2026-04-02", "resolved_at": None},
+           "doc_no": "ง 1", "sources": [], "status_id": "gazetted"}
+    new = {"titles": {"th": "เรื่อง ก"}, "doc_no": "ง 2",
+           "dates": {"published_at": "2026-04-03", "effective_from": None, "resolved_at": None}}
+    m = C.merge_update(old, new)
+    assert m["dates"] == {"published_at": "2026-04-03", "effective_from": "2026-04-02", "resolved_at": None}
+    assert m["doc_no"] == "ง 2" and m["titles"]["zh"] == "中文"
