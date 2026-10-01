@@ -21,7 +21,6 @@ jobs:
             https://ratchakitcha.soc.go.th/ \
             "https://resolution.soc.go.th/?prep_id=415303" \
             https://resolution.soc.go.th/ \
-            
             https://www.soc.go.th/
           python - <<'PY'
           import sys, json; sys.path.insert(0, "backend")
