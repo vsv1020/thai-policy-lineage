@@ -7,6 +7,7 @@
 from __future__ import annotations
 
 import json
+import re
 from collections import defaultdict
 from datetime import date, datetime, timedelta
 
@@ -565,9 +566,73 @@ def lineage(s: Session) -> dict:
                         "summary_zh": it.summary_zh, "watch": it.watch,
                         "domains": [s.get(Domain, d).zh for d in it.domains_csv.split(",")
                                     if d and s.get(Domain, d)],
-                        "stages": stages})
-    out.sort(key=lambda x: -len(x["stages"]))
-    return {"issues": out}
+                        "kind": "issue", "stages": stages})
+    out.sort(key=lambda x: (-len(x["stages"]), x["issue_id"]))
+    return {"issues": out + series_lineage(s)}
+
+
+# 同一机关以同一泰文标题陆续刊登的文件(「(ฉบับที่ 14)」「(ฉบับที่ 15)」、多次调整的利率公告……)。
+# 只看官方标题的字面,不做语义推断:去掉期号与佛历年份后完全相同才算一个系列。
+# 不声称后一份取代前一份 —— 同名的免税皇家法令各管各的,是否替代要看原文。
+_SERIES_NO = re.compile(r"\(\s*ฉบับที่\s*([\d๐-๙]+)\s*\)")
+_SERIES_STRIP = re.compile(r"\(\s*ฉบับที่\s*[\d๐-๙]+\s*\)|พ\.\s*ศ\.\s*[\d๐-๙]{4}|พุทธศักราช\s*[\d๐-๙]{4}")
+_ZH_STRIP = re.compile(r"[(（]\s*第\s*\d+\s*号\s*[)）]|佛历\s*\d{4}\s*年?|\s+$")
+SERIES_MIN_STEM = 20        # 去掉期号后太短的标题(只剩「ประกาศ」之类)不成系列
+SERIES_MAX = 40
+
+
+def series_stem(title_th: str) -> str:
+    return re.sub(r"\s+", " ", _SERIES_STRIP.sub("", title_th or "")).strip()
+
+
+def _thai_int(text: str) -> int:
+    return int(text.translate(str.maketrans("๐๑๒๓๔๕๖๗๘๙", "0123456789")))
+
+
+def series_lineage(s: Session) -> list[dict]:
+    groups: dict[str, list[Document]] = defaultdict(list)
+    for d in s.scalars(select(Document)).all():
+        stem = series_stem(d.title_th)
+        if len(stem) >= SERIES_MIN_STEM:
+            groups[stem].append(d)
+    out = []
+    for stem, docs in groups.items():
+        # 同一天刊登的一批(如分片区的多份公告)是并列文件,不是先后版本;至少跨两个刊登日才算系列
+        if len({d.display_date for d in docs}) < 2:
+            continue
+
+        def no(d: Document) -> int | None:
+            m = _SERIES_NO.search(d.title_th or "")
+            return _thai_int(m.group(1)) if m else None
+
+        docs.sort(key=lambda d: (d.display_date or date.min, no(d) or 0, d.uid))
+        latest = docs[-1]
+        nums = [n for n in (no(d) for d in docs) if n is not None]
+        title = _ZH_STRIP.sub("", latest.title_zh).strip(" ,，、") or latest.title_zh
+        span = f"第 {min(nums)}–{max(nums)} 号," if len(nums) >= 2 else ""
+        first, last = docs[0].display_date, latest.display_date
+        stages = []
+        for i, d in enumerate(docs):
+            n = no(d)
+            stages.append({
+                "stage": (d.display_date.isoformat() if d.display_date else "日期不详")
+                         + (f" · 第 {n} 号" if n is not None else ""),
+                "title": d.title_zh, "uid": d.uid, "milestone": i == len(docs) - 1,
+                "note": "最近刊登的一份" if i == len(docs) - 1 else "",
+                "meta": f"{d.legal_form.abbr} 层级" + (f" · {d.doc_no}" if d.doc_no else "")})
+        domains = sorted(latest.domains, key=lambda x: x.seq)
+        out.append({
+            "issue_id": "series-" + latest.uid.lower(),
+            "title_zh": title,
+            "summary_zh": (f"同一机关以同一标题先后刊登 {len(docs)} 份({span}"
+                           f"{first.isoformat() if first else '—'} 至 {last.isoformat() if last else '—'}),"
+                           "按刊登日期排列。后一份是否取代前一份,以各份原文为准。"),
+            "watch": "",
+            "domains": [s.get(Domain, x.domain_id).zh for x in domains[:1] if s.get(Domain, x.domain_id)],
+            "kind": "series", "stem_th": stem, "stages": stages})
+    # 版本多的在前;同样多时最近有新版的在前
+    out.sort(key=lambda x: (-len(x["stages"]), _neg_date(x["stages"][-1]["stage"][:10]), x["issue_id"]))
+    return out[:SERIES_MAX]
 
 
 # ─────────────────────── 采集运行状态(运维看板) ───────────────────────

@@ -63,7 +63,9 @@ function lineageChain(issue) {
   return issue.stages.map(s => `<div class="ln-item${s.milestone ? ' milestone' : ''}">
     <div class="ln-stage">${esc(s.stage)}</div>
     <div class="ln-card"${s.uid ? '' : ' style="border-style:dashed"'}>
-      <div class="ln-title">${esc(s.title)}</div>
+      <div class="ln-title">${s.uid
+        ? `<a href="p/${esc(String(s.uid).toLowerCase())}.html" onclick="openDetail('${esc(s.uid)}');return false">${esc(s.title)}</a>`
+        : esc(s.title)}</div>
       ${s.meta ? `<div class="ln-meta">${esc(s.meta)}</div>` : ''}
       ${s.note ? `<div class="ln-note">${esc(s.note)}</div>` : ''}
     </div></div>`).join('');
@@ -73,7 +75,7 @@ function renderLineage(data) {
   const issues = (data.issues || []).filter(i => i.stages && i.stages.length);
   if (!issues.length) {
     // 议题必须挂在已考证的官方文件上;还没有时明说,不留旧的占位内容
-    set('lineage-sub', '把同一议题的草案、决议、公报、修订串成一条可追溯的链。');
+    set('lineage-sub', '把同一议题的草案、决议、公报、修订,以及同一标题先后刊登的公告串成一条可追溯的链。');
     set('lineage-picker', ' ');
     set('lineage', '<div class="reading">暂无可展示的议题脉络:每个议题至少要关联一份带官方原文(泰国政府网站)的文件才会在这里出现。'
       + '随着公报每日入库与翻译,议题会陆续上线。</div>');
@@ -84,9 +86,9 @@ function renderLineage(data) {
     const it = issues.find(i => i.issue_id === current) || issues[0];
     set('lineage-picker', issues.map(i =>
       `<div class="facet" data-issue="${esc(i.issue_id)}"${i.issue_id === current
-        ? ' style="border-color:var(--seal);color:var(--seal)"' : ''}>${esc(i.title_zh)}
+        ? ' style="border-color:var(--seal);color:var(--seal)"' : ''}>${i.kind === 'series' ? '<span style="color:var(--muted)">同名系列 · </span>' : ''}${esc(cut(i.title_zh, 36))}
        <span style="color:var(--muted)">${i.stages.length}</span></div>`).join(''));
-    set('lineage-sub', `当前议题:<b>${esc(it.title_zh)}</b> · ${esc(it.summary_zh)}`
+    set('lineage-sub', `${it.kind === 'series' ? '同名系列' : '当前议题'}:<b>${esc(it.title_zh)}</b> · ${esc(it.summary_zh)}`
       + (it.watch ? ` <span style="color:var(--muted)">前瞻:${esc(it.watch)}</span>` : ''));
     set('lineage', lineageChain(it));
     document.querySelectorAll('#lineage-picker .facet').forEach(el =>

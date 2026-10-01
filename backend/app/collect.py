@@ -366,6 +366,39 @@ def normalize_gazette(rec: dict, run_at: str) -> tuple[dict | None, str]:
     }, ""
 
 
+# 决议附件里的两类官方文件:内阁秘书处发给各部门的「决议确认函」写着决议内容,排在前面;
+# 「新提交事项」是部门的提案原件。只收 *.go.th 上的链接。
+CABINET_DOC_KINDS = (("ยืนยันมติ", "决议确认函"), ("เรื่องเข้าใหม่", "提案原件"))
+CABINET_MAX_LINKS = 3
+
+
+def cabinet_sources(rec: dict) -> list[dict]:
+    """决议库的 docNews 是附件列表 [{file_link, file_name}](2026-10 实测);旧格式是单个链接字符串。"""
+    raw = next((v for k, v in rec.items() if k.strip().lower() == "docnews"), None)
+    if raw in (None, ""):
+        raw = pick(rec, ["url", "link", "detail_url"])
+    items = raw if isinstance(raw, list) else [{"file_link": raw}] if isinstance(raw, str) else []
+    found = []
+    for it in items:
+        if not isinstance(it, dict):
+            continue
+        url = str(it.get("file_link") or "").strip()
+        name = re.sub(r"\s+", " ", str(it.get("file_name") or "")).strip()
+        host = (urlsplit(url).hostname or "").lower()
+        if not url.startswith("https://") or not host.endswith(".go.th"):
+            continue
+        rank, label = next(((i, zh) for i, (th, zh) in enumerate(CABINET_DOC_KINDS) if name.startswith(th)),
+                           (len(CABINET_DOC_KINDS), "决议附件"))
+        found.append((rank, len(found), url, f"{label}:{name}"[:120] if name else "决议详情"))
+    found.sort()
+    seen, out = set(), []
+    for _, _, url, note in found:
+        if url not in seen:
+            seen.add(url)
+            out.append({"role": "official", "url": url, "note": note})
+    return out[:CABINET_MAX_LINKS]
+
+
 def normalize_cabinet(rec: dict, run_at: str) -> tuple[dict | None, str]:
     # 内阁秘书处决议库的真实字段(2026-09 运行记录):toP_SERLNO, toP_NAME, owner, meeT_DATE, docNews
     title = pick(rec, ["toP_NAME", "title", "เรื่อง", "ชื่อเรื่อง", "subject", "name", "หัวข้อ", "ชื่อมติ",
@@ -379,8 +412,9 @@ def normalize_cabinet(rec: dict, run_at: str) -> tuple[dict | None, str]:
                                          "วันที่ประชุม", "วันประชุม", "meeting_date"]))
     if not resolved:
         return None, "无可解析日期"
-    url = pick(rec, ["docNews", "url", "link", "detail_url"]).strip()
     serial = pick(rec, ["toP_SERLNO"]).strip()
+    if serial.endswith(".0"):          # 接口把编号存成浮点数:415303.0
+        serial = serial[:-2]
     owner = pick(rec, ["owner"]).strip()
     uid = f"TH-CABX-{resolved.replace('-', '')}-{slug(title)}"
     return {
@@ -403,8 +437,7 @@ def normalize_cabinet(rec: dict, run_at: str) -> tuple[dict | None, str]:
                   "effective_to": None, "comment_deadline": None},
         "affected_parties": [],
         "relations": [],
-        "sources": [{"role": "official", "url": url, "note": "决议详情"}]
-                   if url.startswith("http") else [],
+        "sources": cabinet_sources(rec),
         "provenance": {"pipeline": "cabinet_json", "run_at": run_at,
                        "verified": False, "verified_at": None},
         # 决议编号来自内阁秘书处接口本身(toP_SERLNO),与日期同样是官方数据

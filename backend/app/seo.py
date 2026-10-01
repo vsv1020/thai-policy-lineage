@@ -172,8 +172,10 @@ def _lede(v: dict) -> str:
 
 
 def render_page(s: Session, doc: Document, today, titles: dict[str, str],
-                dom: tuple[str, str] = ("", ""), related: list[tuple[str, str, str]] = ()) -> str:
-    """dom = (领域 id, 领域中文名);related = 同领域相邻政策 [(uid, 日期, 标题)],做站内链接。"""
+                dom: tuple[str, str] = ("", ""), related: list[tuple[str, str, str]] = (),
+                series: list[tuple[str, str, str]] = ()) -> str:
+    """dom = (领域 id, 领域中文名);related = 同领域相邻政策 [(uid, 日期, 标题)],做站内链接;
+    series = 同一标题先后刊登的其他文件 [(uid, 日期, 标题)],按日期排列。"""
     v = A.document_view(s, doc, today)
     d = v["dates"]
     title = page_title(v["title_zh"])
@@ -189,6 +191,8 @@ def render_page(s: Session, doc: Document, today, titles: dict[str, str],
         for r in doc.relations_out if r.dst_uid in titles)
     near = "".join(f'<li><a href="{e(slug(u))}.html">{e(t)}</a> <span class="lib-date">{e(dt)}</span></li>'
                    for u, dt, t in related)
+    same = "".join(f'<li><a href="{e(slug(u))}.html">{e(t)}</a> <span class="lib-date">{e(dt)}</span></li>'
+                   for u, dt, t in series)
     # 能生成落地页的都已有官方原文(入库规则保证),这里只负责列出原文与公报卷期
     official = [x for x in doc.sources if x.role == "official" and x.url]
     cite = f"{v['doc_no_label']} {v['doc_no']} · " if v["doc_no"] else ""
@@ -272,7 +276,7 @@ def render_page(s: Session, doc: Document, today, titles: dict[str, str],
   <div class="disclaim">免责声明:本页为非官方翻译,仅供参考,如与泰文原文有出入,以泰文原文为准;
     本内容不构成法律或税务意见。本站与泰国政府无隶属关系。</div>
 </article>
-{f'<section class="related"><h2 class="mod">同领域政策 · {e(dom[1])}</h2><ul>{near}</ul><a href="topic/{e(dom[0])}.html">查看{e(dom[1])}全部政策 →</a></section>' if near else ''}
+{f'<section class="related"><h2 class="mod">同名系列</h2><p class="lib-date">同一机关以同一标题先后刊登的文件;后一份是否取代前一份,以各份原文为准。</p><ul>{same}</ul></section>{chr(10)}' if same else ''}{f'<section class="related"><h2 class="mod">同领域政策 · {e(dom[1])}</h2><ul>{near}</ul><a href="topic/{e(dom[0])}.html">查看{e(dom[1])}全部政策 →</a></section>' if near else ''}
 <div class="support-slot"></div>
 <div class="ad-slot" data-slot="landing_bottom" style="margin-top:18px"></div>
 <p style="margin-top:18px"><a href="../index.html">← 返回政策脉络首页(检索、趋势、七维分析)</a></p>
@@ -671,6 +675,13 @@ def build(s: Session) -> dict[str, int]:
         by_dom.setdefault(dom[0], []).append(
             (doc.display_date.isoformat() if doc.display_date else "", doc.uid, doc.title_zh))
 
+    # 同名系列:与「脉络」页同一口径(A.series_lineage),落地页之间互相链接
+    in_series: dict[str, list[tuple[str, str, str]]] = {}
+    for it in A.series_lineage(s):
+        members = [(st["uid"], st["stage"][:10], st["title"]) for st in it["stages"]]
+        for u, _, _ in members:
+            in_series[u] = [m for m in members if m[0] != u]
+
     rows, entries = [], []
     for doc in docs:
         dom = dom_of(doc)
@@ -678,7 +689,8 @@ def build(s: Session) -> dict[str, int]:
         i = next(k for k, x in enumerate(peers) if x[1] == doc.uid)
         related = [(u, dt, t) for dt, u, t in (peers[max(0, i - 3):i] + peers[i + 1:i + 4])][:6]
         (PAGES_DIR / f"{slug(doc.uid)}.html").write_text(
-            render_page(s, doc, today, titles, dom if dom[0] else ("", ""), related), encoding="utf-8")
+            render_page(s, doc, today, titles, dom if dom[0] else ("", ""), related,
+                        in_series.get(doc.uid, [])), encoding="utf-8")
         date_s = doc.display_date.isoformat() if doc.display_date else ""
         rows.append((dom[1], date_s, doc.uid, doc.title_zh))
         official = next((x.url for x in doc.sources if x.role == "official" and x.url), "")

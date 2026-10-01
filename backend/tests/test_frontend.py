@@ -3,6 +3,7 @@
 把「演进脉络」和「政策维度」两个整视图删掉 —— 测试全绿、没人发现。这组测试防它再来。"""
 from __future__ import annotations
 
+import json
 import re
 from html.parser import HTMLParser
 from pathlib import Path
@@ -111,11 +112,13 @@ def test_no_fabricated_demo_content_in_html():
 
 
 def test_nav_speaks_plain_language():
-    """导航只放有内容、看得懂的入口:没有「规划中」,没有空的演进脉络,也没有只能从卡片进入的详情页。"""
+    """导航只放有内容、看得懂的入口:没有「规划中」,没有空的脉络页,也没有只能从卡片进入的详情页。"""
     navs = re.findall(r'class="nav-item[^"]*" data-v="([^"]+)"', HTML)
-    assert navs == ["today", "search", "trends", "morph", "dims"]
+    assert navs == ["today", "search", "lineage", "trends", "morph", "dims"]
     assert "规划中" not in HTML and "政策助手" not in HTML
-    assert 'id="v-lineage"' in HTML, "演进脉络视图保留(详情页的议题链接还要用),只是不放进导航"
+    # 脉络页进了导航,就必须有内容(同名系列由官方标题推导,随数据自动增减)
+    lineage = json.loads((ROOT / "data/site/lineage.json").read_text(encoding="utf-8"))
+    assert lineage["issues"], "脉络为空时不要把它放进导航"
     assert 'href="about.html"' in HTML
 
 

@@ -101,6 +101,34 @@ def test_normalize_cabinet_real_fields_pass_validation_rules():
     assert not rec2["doc_no"] and rec2["confidence"]["doc_no"] == "none"
 
 
+def test_normalize_cabinet_attachment_list():
+    """决议库 docNews 实际是附件列表(2026-10 实测):确认函排前,只收 *.go.th,编号去掉浮点尾巴。"""
+    rec, why = C.normalize_cabinet(
+        {"toP_SERLNO": 415301.0, "toP_NAME": "มาตรการป้องกันการทุจริตกรณีการรับและให้สินบน",
+         "owner": "คณะกรรมการ ป.ป.ช.", "meeT_DATE": "21/04/2569",
+         "docNews": [
+             {"file_link": "https://resolution.soc.go.th/PDF_UPLOAD/2569/P_415301_4.pdf",
+              "file_name": "เรื่องเข้าใหม่ (สายครม.) (นร 0011/0027)"},
+             {"file_link": "https://resolution.soc.go.th/PDF_UPLOAD/2569/P_415301_1.pdf",
+              "file_name": "ยืนยันมติ (สำเนา) (นร 0505/7927)"},
+             {"file_link": "https://resolution.soc.go.th/PDF_UPLOAD/2569/P_415301_1.pdf",
+              "file_name": "ยืนยันมติ (สำเนา) (นร 0505/7927)"},
+             {"file_link": "http://example.com/x.pdf", "file_name": "ยืนยันมติ"},
+             "junk"]},
+        "2026-10-01T00:00:00+07:00")
+    assert why == "" and rec["doc_no"] == "415301"
+    urls = [x["url"] for x in rec["sources"]]
+    assert urls == ["https://resolution.soc.go.th/PDF_UPLOAD/2569/P_415301_1.pdf",
+                    "https://resolution.soc.go.th/PDF_UPLOAD/2569/P_415301_4.pdf"]
+    assert rec["sources"][0]["note"].startswith("决议确认函")
+    assert rec["sources"][1]["note"].startswith("提案原件")
+    from app.fulltext import pdf_url
+    assert pdf_url(rec) == urls[0]
+    empty, _ = C.normalize_cabinet({"toP_NAME": "เรื่อง ก", "meeT_DATE": "21/04/2569", "docNews": []},
+                                   "2026-10-01T00:00:00+07:00")
+    assert empty["sources"] == []
+
+
 # ── 失败路径 ──
 
 def test_collect_source_records_error_without_raising(monkeypatch):
