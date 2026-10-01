@@ -170,7 +170,7 @@ def check_doc(d: dict, v: dict, rep: Report, all_uids: set[str], issue_ids: set[
 
     # 溯源
     prov = d.get("provenance") or {}
-    if prov.get("pipeline") not in ("gazette_json", "cabinet_json", "research", "manual", "demo"):
+    if prov.get("pipeline") not in ("gazette_json", "cabinet_json", "rd_web", "boi_web", "research", "manual", "demo"):
         rep.err(where, f"未知 provenance.pipeline: {prov.get('pipeline')}")
     if prov.get("verified") is True and not prov.get("verified_at"):
         rep.err(where, "verified=true 必须同时填 verified_at")
@@ -200,7 +200,7 @@ def check_doc(d: dict, v: dict, rep: Report, all_uids: set[str], issue_ids: set[
 
     # 红线二:不建人名索引。规则与采集、翻译共用(backend/app/persons.py,纯标准库)。
     # 自动采集的条目必须过关;人工条目只提醒(可能在说明里引用了公开职务)
-    auto = (d.get("provenance") or {}).get("pipeline") in ("gazette_json", "cabinet_json")
+    auto = (d.get("provenance") or {}).get("pipeline") in ("gazette_json", "cabinet_json", "rd_web", "boi_web")
     why = title_person_reason((d.get("titles") or {}).get("th", ""))
     out = output_person_reason(json.dumps([(d.get("titles") or {}).get("zh"), d.get("summary_zh"),
                                            d.get("key_points_zh")], ensure_ascii=False))

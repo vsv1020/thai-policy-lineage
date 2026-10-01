@@ -54,7 +54,7 @@ ROYAL_TERMS = ("พระบรมราชโองการ", "สมเด็
 # 读正文后模型可能写出「经国王御准」之类的话 —— 命中就按红线一整条跳过,不写入任何译文
 ROYAL_OUTPUT_TERMS = ROYAL_TERMS + ("王室", "国王", "王后", "御准", "冒犯君主")
 
-SYSTEM_PROMPT = """你是泰国政策数据库的编辑助手,把泰国皇家公报/内阁决议整理成中文结构化记录,
+SYSTEM_PROMPT = """你是泰国政策数据库的编辑助手,把泰国皇家公报/内阁决议/部门公告(税务厅、BOI)整理成中文结构化记录,
 读者是在泰国生活和经商的华人(长居个人、中资企业、投资者)。输入有泰文标题,多数还附有正文(从官方 PDF 抽取,
 可能有少量识别错字,按上下文理解即可)。
 
@@ -405,7 +405,8 @@ def apply_enrichment(rec: dict, out: dict, v: dict, model: str, basis: str = "ti
     prov["enriched_at"] = now
     prov["summary_basis"] = basis
     # 替换采集时「待翻译」的占位说明;详情页「数据说明」展示的就是这一句
-    src = {"gazette_json": "官方公报索引", "cabinet_json": "内阁决议数据"}.get(prov.get("pipeline"), "官方来源")
+    src = {"gazette_json": "官方公报索引", "cabinet_json": "内阁决议数据", "rd_web": "税务厅官网",
+           "boi_web": "BOI 官网"}.get(prov.get("pipeline"), "官方来源")
     what = "泰文原文正文" if basis == "fulltext" else "泰文原题"
     rec["note"] = f"自{src}自动收录;中文标题、摘要与分类依{what}整理,以泰文原文为准"
     return rec
@@ -424,10 +425,12 @@ def _default_fetcher():
     """真实的正文获取器:经泰国出口下载官方 PDF。ENRICH_FULLTEXT=0 时关闭(测试、离线)。"""
     if not settings.enrich_fulltext:
         return None
-    from .collect import source_client
-    from .fulltext import fetch_fulltext
-    client = source_client({"User-Agent": "ThaiPolicyLineage/1.0 (+https://www.thaipolicy.com)"})
-    return lambda rec: fetch_fulltext(rec, client)
+    from .collect import direct_client, needs_egress, source_client
+    from .fulltext import fetch_fulltext, pdf_url
+    headers = {"User-Agent": "ThaiPolicyLineage/1.0 (+https://www.thaipolicy.com)"}
+    proxied, direct = source_client(headers), direct_client(headers)
+    # 公报、决议的 PDF 经泰国出口;税务厅、BOI 的 PDF 直连
+    return lambda rec: fetch_fulltext(rec, proxied if needs_egress(pdf_url(rec)) else direct)
 
 
 def run_enrichment(limit: int | None = None, dry_run: bool = False, client=None,

@@ -49,6 +49,10 @@ SOURCES = [
      "dataset": "dataset_02_04", "url": f"{CKAN_BASE}/dataset/dataset_02_04"},
     {"id": "cabinet_json", "name": "内阁决议年度 JSON",
      "dataset": "dataset_02_03", "url": f"{CKAN_BASE}/dataset/dataset_02_03"},
+    # 部门官网(app.agency_sources):开放数据平台断更期间的新规来源,直连
+    {"id": "rd_web", "name": "税务厅官网「新法」", "kind": "agency", "url": "https://www.rd.go.th/rss.xml"},
+    {"id": "boi_web", "name": "BOI 官网公告", "kind": "agency",
+     "url": "https://www.boi.go.th/index.php?page=boi_announcements"},
 ]
 
 # 红线一:王室相关一律不自动入库
@@ -100,6 +104,13 @@ def source_client(headers: dict) -> httpx.Client:
         raise RuntimeError("THAI_EGRESS_PROXY 协议不支持,应以 http:// https:// socks5:// socks5h:// 开头")
     return httpx.Client(timeout=settings.http_timeout, headers=headers,
                         follow_redirects=True, proxy=proxy)
+
+
+def needs_egress(url: str) -> bool:
+    """这个地址是否要走泰国出口(只对 THAI_EGRESS_HOSTS 里的域名)。"""
+    host = (urlsplit(url).hostname or "").lower()
+    return bool(settings.egress_proxy) and any(host == h or host.endswith("." + h)
+                                               for h in settings.egress_hosts)
 
 
 def direct_client(headers: dict) -> httpx.Client:
@@ -453,6 +464,9 @@ def normalize_cabinet(rec: dict, run_at: str) -> tuple[dict | None, str]:
 def collect_source(src: dict, throttle: Throttle, run_at: str, cutoff: date,
                    dry_run: bool, backfill: bool = False) -> SourceResult:
     res = SourceResult(id=src["id"], name=src["name"], url=src["url"])
+    if src.get("kind") == "agency":
+        with direct_client({"User-Agent": UA}) as client:
+            return _collect_agency(src, res, client, throttle, run_at, cutoff, dry_run)
     # 同一个客户端贯穿 package_show 与 resource 下载:同域名时复用已建立的代理连接,少一次握手
     with source_client({"User-Agent": UA, "Accept": "application/json"}) as client:
         return _collect_with(src, res, client, throttle, run_at, cutoff, dry_run, backfill)
@@ -531,7 +545,45 @@ def _collect_with(src: dict, res: SourceResult, client: httpx.Client, throttle: 
     return res
 
 
-AUTO_PIPELINES = {"gazette_json", "cabinet_json"}
+def _collect_agency(src: dict, res: SourceResult, client: httpx.Client, throttle: Throttle,
+                    run_at: str, cutoff: date, dry_run: bool) -> SourceResult:
+    from . import agency_sources as AS
+    fetch, normalize = {"rd_web": (AS.fetch_rd, AS.normalize_rd),
+                        "boi_web": (AS.fetch_boi, AS.normalize_boi)}[src["id"]]
+    throttle.wait()
+    try:
+        items, info = fetch(client)
+    except Exception as exc:
+        res.status = "error"
+        res.detail = _err(exc)[:400]
+        return res
+    if dry_run:
+        res.status = "ok"
+        res.detail = f"可达,{info}(dry-run 未入库)"
+        return res
+    skipped: dict[str, int] = {}
+    seen: set[str] = set()
+    for item in items:
+        norm, why = normalize(item, run_at)
+        if norm is None:
+            skipped[why] = skipped.get(why, 0) + 1
+            continue
+        if not AS.in_window(norm["dates"]["published_at"], cutoff):
+            skipped["早于回溯期"] = skipped.get("早于回溯期", 0) + 1
+            continue
+        if norm["uid"] not in seen:
+            seen.add(norm["uid"])
+            res.records.append(norm)
+    res.status = "ok"
+    res.detail = (f"{info};收 {len(res.records)} 条" + (
+        f" | 跳过 {sum(skipped.values())} 条(" + ", ".join(f"{k}×{v}" for k, v in sorted(skipped.items())) + ")"
+        if skipped else ""))[:1500]
+    return res
+
+
+AUTO_PIPELINES = {"gazette_json", "cabinet_json", "rd_web", "boi_web"}
+# 部门官网发布的文件之后通常也会刊登公报(开放数据恢复后):按泰文标题认作同一份,不重复入库
+AGENCY_PIPELINES = {"rd_web", "boi_web"}
 # 同步时以官方源为准覆盖的字段;中文标题、摘要、分类是翻译环节的产物,不在其中
 RAW_FIELDS = ("doc_no", "gazette", "dates", "sources", "status_id")
 
@@ -566,6 +618,30 @@ def merge_update(old: dict, new: dict) -> dict:
     return merged
 
 
+TWIN_DAYS = 90
+
+
+def _day(rec: dict) -> date | None:
+    d = rec.get("dates") or {}
+    v = d.get("published_at") or d.get("resolved_at")
+    return date.fromisoformat(v) if v else None
+
+
+def find_twin(rows: list[dict], candidates: list[int], rec: dict) -> int | None:
+    """部门官网与公报之间的同一份文件:泰文标题相同、一边是部门官网一边不是、日期相差不超过 90 天。
+    同一来源里标题相同的(储蓄银行多次调整利率的公告)是不同文件,不算。"""
+    mine = (rec.get("provenance") or {}).get("pipeline")
+    day = _day(rec)
+    for k in candidates:
+        other = (rows[k].get("provenance") or {}).get("pipeline")
+        if (mine in AGENCY_PIPELINES) == (other in AGENCY_PIPELINES):
+            continue
+        od = _day(rows[k])
+        if day and od and abs((day - od).days) <= TWIN_DAYS:
+            return k
+    return None
+
+
 def upsert_jsonl(records: list[dict], run_at: str) -> tuple[list[dict], int, int]:
     """新记录追加、已有记录按官方源更新,原位改写 documents.jsonl(保持顺序,diff 只出现改动的行)。
     人工整理的条目(pipeline 不是官方接口)永远不被覆盖。返回 (新增或变动的记录, 新增数, 更新数)。"""
@@ -574,12 +650,34 @@ def upsert_jsonl(records: list[dict], run_at: str) -> tuple[list[dict], int, int
     path = POLICIES_DIR / "documents.jsonl"
     rows = read_jsonl(path)
     index = {r["uid"]: i for i, r in enumerate(rows)}
+    from .agency_sources import title_key
+    by_title: dict[str, list[int]] = {}
+    for k, r in enumerate(rows):
+        if (r.get("provenance") or {}).get("pipeline") in AUTO_PIPELINES:
+            by_title.setdefault(title_key((r.get("titles") or {}).get("th", "")), []).append(k)
     touched: list[dict] = []
     added = updated = 0
     for rec in records:
         i = index.get(rec["uid"])
+        twin = find_twin(rows, by_title.get(title_key(rec["titles"]["th"]), []), rec) if i is None else None
+        if twin is not None:
+            # 同一份文件已从另一个来源入库:不新建(网址不变),只把这边的官方原文链接补进去
+            old = rows[twin]
+            have = {x.get("url") for x in old.get("sources") or []}
+            extra = [x for x in rec.get("sources") or [] if x.get("url") and x["url"] not in have]
+            if extra:
+                merged = json.loads(json.dumps(old))
+                merged["sources"] = (merged.get("sources") or []) + extra
+                if not merged.get("gazette") and rec.get("gazette"):
+                    merged["gazette"] = rec["gazette"]
+                merged.setdefault("provenance", {})["updated_at"] = run_at
+                rows[twin] = merged
+                touched.append(merged)
+                updated += 1
+            continue
         if i is None:
             index[rec["uid"]] = len(rows)
+            by_title.setdefault(title_key(rec["titles"]["th"]), []).append(len(rows))
             rows.append(rec)
             touched.append(rec)
             added += 1
