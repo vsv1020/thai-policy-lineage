@@ -1,7 +1,7 @@
 {
  "_generated": "由 backend/app/export.py 从数据库导出,请勿手改;改 data/policies/*.jsonl → python3 -m app.ingest → python3 -m app.export",
  "schema_version": 4,
- "updated_at": "2026-10-01T13:09:08+07:00",
+ "updated_at": "2026-10-01T14:46:20+07:00",
  "stats": {
   "total": 408,
   "research": 0,
@@ -63,26 +63,7 @@
   ]
  },
  "wind": [],
- "calendar": [
-  {
-   "date": "2026-10-25",
-   "text": "税务厅厅长关于所得税的公告（第467号）：规定公司或法人合伙企业在国 · 生效",
-   "uid": "TH-GAZ-20260223-467",
-   "kind": "document"
-  },
-  {
-   "date": "2026-12-04",
-   "text": "海事厅公告第8/2569号：关于油轮货油舱防火焰进入装置的设计、测试 · 生效",
-   "uid": "TH-GAZ-20260216-8-2569",
-   "kind": "document"
-  },
-  {
-   "date": "2026-12-20",
-   "text": "财政部关于所得税与增值税的公告（第863号）：依据《税法典》第47条 · 生效",
-   "uid": "TH-GAZ-20260311-863-47-7-3-4",
-   "kind": "document"
-  }
- ],
+ "calendar": [],
  "policies": [
   {
    "uid": "TH-GAZ-20260422-2569",
@@ -106,7 +87,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/112914.pdf",
@@ -116,7 +97,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-22",
-    "effective_from": "2026-04-23",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -162,7 +143,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/112738.pdf",
@@ -172,7 +153,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-22",
-    "effective_from": "2026-04-25",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -218,7 +199,7 @@
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/100621.pdf",
@@ -228,7 +209,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-22",
-    "effective_from": "2026-04-23",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -280,7 +261,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/113294.pdf",
@@ -290,7 +271,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-22",
-    "effective_from": "2026-04-22",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -616,7 +597,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/112560.pdf",
@@ -626,7 +607,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-21",
-    "effective_from": "2026-04-21",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -678,7 +659,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110491.pdf",
@@ -688,7 +669,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-21",
-    "effective_from": "2026-05-01",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -739,7 +720,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/112037.pdf",
@@ -749,7 +730,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-21",
-    "effective_from": "2026-04-22",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -857,7 +838,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/112577.pdf",
@@ -867,7 +848,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-21",
-    "effective_from": "2026-01-01",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -913,7 +894,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/112576.pdf",
@@ -923,7 +904,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-21",
-    "effective_from": "2026-01-01",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -969,7 +950,7 @@
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/112573.pdf",
@@ -979,7 +960,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-21",
-    "effective_from": "2026-01-01",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -1075,7 +1056,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/111823.pdf",
@@ -1085,7 +1066,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-20",
-    "effective_from": "2026-04-20",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -1131,7 +1112,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/111483.pdf",
@@ -1141,7 +1122,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-20",
-    "effective_from": "2026-04-21",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -1193,7 +1174,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110708.pdf",
@@ -1203,7 +1184,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-20",
-    "effective_from": "2026-06-02",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -1254,7 +1235,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/111484.pdf",
@@ -1264,7 +1245,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-20",
-    "effective_from": "2026-04-21",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -1309,7 +1290,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/111485.pdf",
@@ -1319,7 +1300,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-20",
-    "effective_from": "2026-04-21",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -1365,7 +1346,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/111487.pdf",
@@ -1375,7 +1356,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-20",
-    "effective_from": "2026-04-21",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -1476,7 +1457,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/111942.pdf",
@@ -1486,7 +1467,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-16",
-    "effective_from": "2025-04-01",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -1532,7 +1513,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/111943.pdf",
@@ -1542,7 +1523,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-16",
-    "effective_from": "2026-04-01",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -1649,7 +1630,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/112854.pdf",
@@ -1659,7 +1640,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-11",
-    "effective_from": "2026-04-20",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -1692,7 +1673,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/111163.pdf",
@@ -1702,7 +1683,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-10",
-    "effective_from": "2026-04-11",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -1754,7 +1735,7 @@
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/112697.pdf",
@@ -1764,7 +1745,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-10",
-    "effective_from": "2026-04-12",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -2106,7 +2087,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108332.pdf",
@@ -2116,7 +2097,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-09",
-    "effective_from": "2026-04-09",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -2160,7 +2141,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108333.pdf",
@@ -2170,7 +2151,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-09",
-    "effective_from": "2026-04-09",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -2269,7 +2250,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108335.pdf",
@@ -2279,7 +2260,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-09",
-    "effective_from": "2026-04-09",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -2324,7 +2305,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108336.pdf",
@@ -2334,7 +2315,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-09",
-    "effective_from": "2026-04-09",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -2433,7 +2414,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/111797.pdf",
@@ -2443,7 +2424,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-09",
-    "effective_from": "2026-04-09",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -2489,7 +2470,7 @@
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/112505.pdf",
@@ -2499,7 +2480,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-09",
-    "effective_from": "2026-04-15",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -2773,7 +2754,7 @@
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/112224.pdf",
@@ -2783,7 +2764,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-08",
-    "effective_from": "2026-04-08",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -2829,7 +2810,7 @@
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
    "stability": 3,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108848.pdf",
@@ -2839,7 +2820,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-08",
-    "effective_from": "2026-04-09",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -3106,7 +3087,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/112482.pdf",
@@ -3116,7 +3097,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-08",
-    "effective_from": "2026-04-09",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -3502,7 +3483,7 @@
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/112004.pdf",
@@ -3512,7 +3493,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-07",
-    "effective_from": "2026-04-11",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -3563,7 +3544,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/111314.pdf",
@@ -3573,7 +3554,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-03",
-    "effective_from": "2026-04-03",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -3625,7 +3606,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/111784.pdf",
@@ -3635,7 +3616,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-03",
-    "effective_from": "2026-04-03",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -3737,7 +3718,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/111313.pdf",
@@ -3747,7 +3728,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-03",
-    "effective_from": "2026-04-04",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -3799,7 +3780,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110851.pdf",
@@ -3809,7 +3790,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-03",
-    "effective_from": "2026-04-04",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -3855,7 +3836,7 @@
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/111047.pdf",
@@ -3865,7 +3846,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-03",
-    "effective_from": "2026-04-04",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -3917,7 +3898,7 @@
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108959.pdf",
@@ -3927,7 +3908,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-02",
-    "effective_from": "2026-04-03",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -4140,7 +4121,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110857.pdf",
@@ -4150,7 +4131,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-02",
-    "effective_from": "2026-04-03",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -4308,7 +4289,7 @@
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/109402.pdf",
@@ -4318,7 +4299,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-01",
-    "effective_from": "2026-04-02",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -4370,7 +4351,7 @@
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
    "stability": 3,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/111315.pdf",
@@ -4380,7 +4361,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-01",
-    "effective_from": "2026-04-10",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -4426,7 +4407,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/111366.pdf",
@@ -4436,7 +4417,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-01",
-    "effective_from": "2026-04-01",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -4531,7 +4512,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/109596.pdf",
@@ -4541,7 +4522,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-01",
-    "effective_from": "2026-04-02",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -4697,7 +4678,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/111303.pdf",
@@ -4707,7 +4688,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-01",
-    "effective_from": "2026-04-01",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -4759,7 +4740,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110823.pdf",
@@ -4769,7 +4750,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-01",
-    "effective_from": "2026-04-01",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -4814,7 +4795,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/109597.pdf",
@@ -4824,7 +4805,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-01",
-    "effective_from": "2026-04-02",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -4918,7 +4899,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108132.pdf",
@@ -4928,7 +4909,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-04-01",
-    "effective_from": "2026-04-02",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -4974,7 +4955,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/105059.pdf",
@@ -4984,7 +4965,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-31",
-    "effective_from": "2025-11-15",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -5147,7 +5128,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/105039.pdf",
@@ -5157,7 +5138,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-31",
-    "effective_from": "2025-02-01",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -5201,7 +5182,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/105041.pdf",
@@ -5211,7 +5192,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-31",
-    "effective_from": "2026-03-31",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -5249,7 +5230,7 @@
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110995.pdf",
@@ -5259,7 +5240,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-31",
-    "effective_from": "2026-04-13",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -5668,7 +5649,7 @@
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110862.pdf",
@@ -5678,7 +5659,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-30",
-    "effective_from": "2026-04-01",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -5730,7 +5711,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110438.pdf",
@@ -5740,7 +5721,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-30",
-    "effective_from": "2026-03-30",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -5854,7 +5835,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110412.pdf",
@@ -5864,7 +5845,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-30",
-    "effective_from": "2026-03-30",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -5916,7 +5897,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110241.pdf",
@@ -5926,7 +5907,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-30",
-    "effective_from": "2026-09-26",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -6089,7 +6070,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110451.pdf",
@@ -6099,7 +6080,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-30",
-    "effective_from": "2026-03-30",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -6145,7 +6126,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110442.pdf",
@@ -6155,7 +6136,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-30",
-    "effective_from": "2026-03-30",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -6201,7 +6182,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110446.pdf",
@@ -6211,7 +6192,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-30",
-    "effective_from": "2026-03-30",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -6257,7 +6238,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110437.pdf",
@@ -6267,7 +6248,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-30",
-    "effective_from": "2026-03-30",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -6319,7 +6300,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110434.pdf",
@@ -6329,7 +6310,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-30",
-    "effective_from": "2026-03-31",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -6380,7 +6361,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110440.pdf",
@@ -6390,7 +6371,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-30",
-    "effective_from": "2026-03-30",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -6436,7 +6417,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110447.pdf",
@@ -6446,7 +6427,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-30",
-    "effective_from": "2026-03-30",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -6547,7 +6528,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110444.pdf",
@@ -6557,7 +6538,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-30",
-    "effective_from": "2026-03-30",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -6608,7 +6589,7 @@
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110791.pdf",
@@ -6618,7 +6599,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-30",
-    "effective_from": "2026-04-01",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -6664,7 +6645,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110443.pdf",
@@ -6674,7 +6655,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-30",
-    "effective_from": "2026-03-30",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -6719,7 +6700,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110439.pdf",
@@ -6729,7 +6710,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-30",
-    "effective_from": "2026-03-30",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -6781,7 +6762,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110452.pdf",
@@ -6791,7 +6772,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-30",
-    "effective_from": "2026-03-30",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -6836,7 +6817,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110634.pdf",
@@ -6846,7 +6827,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-28",
-    "effective_from": "2026-04-10",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -6892,7 +6873,7 @@
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
    "stability": 3,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110008.pdf",
@@ -6902,7 +6883,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-28",
-    "effective_from": "2026-03-29",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -6948,7 +6929,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110009.pdf",
@@ -6958,7 +6939,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-28",
-    "effective_from": "2026-03-29",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -7003,7 +6984,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110010.pdf",
@@ -7013,7 +6994,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-28",
-    "effective_from": "2026-03-29",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -7059,7 +7040,7 @@
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
    "stability": 3,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/109993.pdf",
@@ -7069,7 +7050,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-28",
-    "effective_from": "2026-03-29",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -7114,7 +7095,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110002.pdf",
@@ -7124,7 +7105,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-28",
-    "effective_from": "2026-03-28",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -7163,7 +7144,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110001.pdf",
@@ -7173,7 +7154,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-28",
-    "effective_from": "2026-03-28",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -7219,7 +7200,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110011.pdf",
@@ -7229,7 +7210,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-28",
-    "effective_from": "2026-03-29",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -7275,7 +7256,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110003.pdf",
@@ -7285,7 +7266,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-28",
-    "effective_from": "2026-03-28",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -7331,7 +7312,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/109998.pdf",
@@ -7341,7 +7322,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-28",
-    "effective_from": "2026-03-28",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -7387,7 +7368,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110004.pdf",
@@ -7397,7 +7378,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-28",
-    "effective_from": "2026-03-29",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -7447,7 +7428,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110635.pdf",
@@ -7457,7 +7438,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-28",
-    "effective_from": "2026-04-10",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -7497,7 +7478,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108888.pdf",
@@ -7507,7 +7488,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-27",
-    "effective_from": "2026-01-13",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -7558,7 +7539,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/109416.pdf",
@@ -7568,7 +7549,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-27",
-    "effective_from": "2026-03-15",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -7613,7 +7594,7 @@
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
    "stability": 3,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110724.pdf",
@@ -7623,7 +7604,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-27",
-    "effective_from": "2026-05-26",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -7675,7 +7656,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108913.pdf",
@@ -7685,7 +7666,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-27",
-    "effective_from": "2026-03-28",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -7731,7 +7712,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108894.pdf",
@@ -7741,7 +7722,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-27",
-    "effective_from": "2026-01-13",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -7792,7 +7773,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108131.pdf",
@@ -7802,7 +7783,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-27",
-    "effective_from": "2026-03-28",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -7848,7 +7829,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108889.pdf",
@@ -7858,7 +7839,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-27",
-    "effective_from": "2026-01-13",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -7971,7 +7952,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108887.pdf",
@@ -7981,7 +7962,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-27",
-    "effective_from": "2026-01-13",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -8033,7 +8014,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108884.pdf",
@@ -8043,7 +8024,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-27",
-    "effective_from": "2026-01-13",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -8095,7 +8076,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108890.pdf",
@@ -8105,7 +8086,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-27",
-    "effective_from": "2026-01-13",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -8157,7 +8138,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108895.pdf",
@@ -8167,7 +8148,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-27",
-    "effective_from": "2026-01-13",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -8219,7 +8200,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108892.pdf",
@@ -8229,7 +8210,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-27",
-    "effective_from": "2026-01-13",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -8281,7 +8262,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108893.pdf",
@@ -8291,7 +8272,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-27",
-    "effective_from": "2025-01-13",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -8343,7 +8324,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108885.pdf",
@@ -8353,7 +8334,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-27",
-    "effective_from": "2026-01-13",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -8405,7 +8386,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108891.pdf",
@@ -8415,7 +8396,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-27",
-    "effective_from": "2026-01-13",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -8467,7 +8448,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108897.pdf",
@@ -8477,7 +8458,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-27",
-    "effective_from": "2026-01-13",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -8529,7 +8510,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108886.pdf",
@@ -8539,7 +8520,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-27",
-    "effective_from": "2026-01-13",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -8591,7 +8572,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/109426.pdf",
@@ -8601,7 +8582,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-26",
-    "effective_from": "2026-03-27",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -8714,7 +8695,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/109427.pdf",
@@ -8724,7 +8705,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-26",
-    "effective_from": "2026-03-26",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -8770,7 +8751,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/109316.pdf",
@@ -8780,7 +8761,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-26",
-    "effective_from": "2026-03-27",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -8881,7 +8862,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110331.pdf",
@@ -8891,7 +8872,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-26",
-    "effective_from": "2026-03-27",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -8937,7 +8918,7 @@
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/94765.pdf",
@@ -8947,7 +8928,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-26",
-    "effective_from": "2026-03-27",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -8993,7 +8974,7 @@
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/104746.pdf",
@@ -9003,7 +8984,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-26",
-    "effective_from": "2026-03-27",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -9049,7 +9030,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/111046.pdf",
@@ -9059,7 +9040,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-26",
-    "effective_from": "2026-03-26",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -9104,7 +9085,7 @@
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110372.pdf",
@@ -9114,7 +9095,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-26",
-    "effective_from": "2026-03-27",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -9160,7 +9141,7 @@
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
    "stability": 3,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110453.pdf",
@@ -9170,7 +9151,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-26",
-    "effective_from": "2026-03-27",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -9216,7 +9197,7 @@
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
    "stability": 3,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110012.pdf",
@@ -9226,7 +9207,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-26",
-    "effective_from": "2026-04-25",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -9340,7 +9321,7 @@
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/95442.pdf",
@@ -9350,7 +9331,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-26",
-    "effective_from": "2026-03-27",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -9402,7 +9383,7 @@
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110587.pdf",
@@ -9412,7 +9393,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-26",
-    "effective_from": "2026-03-27",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -9458,7 +9439,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/109584.pdf",
@@ -9468,7 +9449,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-25",
-    "effective_from": "2026-03-25",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -9514,7 +9495,7 @@
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110649.pdf",
@@ -9524,7 +9505,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-25",
-    "effective_from": "2026-03-26",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -9618,7 +9599,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110381.pdf",
@@ -9628,7 +9609,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-24",
-    "effective_from": "2026-06-22",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -9730,7 +9711,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/109664.pdf",
@@ -9740,7 +9721,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-24",
-    "effective_from": "2026-03-25",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -9785,7 +9766,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/109595.pdf",
@@ -9795,7 +9776,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-24",
-    "effective_from": "2026-03-25",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -9846,7 +9827,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/109747.pdf",
@@ -9856,7 +9837,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-23",
-    "effective_from": "2026-04-01",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -9902,7 +9883,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110339.pdf",
@@ -9912,7 +9893,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-20",
-    "effective_from": "2026-03-20",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -10237,7 +10218,7 @@
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110270.pdf",
@@ -10247,7 +10228,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-20",
-    "effective_from": "2026-03-20",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -10293,7 +10274,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110037.pdf",
@@ -10303,7 +10284,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-20",
-    "effective_from": "2026-01-01",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -10523,7 +10504,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/110053.pdf",
@@ -10533,7 +10514,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-19",
-    "effective_from": "2026-03-20",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -10584,7 +10565,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108115.pdf",
@@ -10594,7 +10575,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-19",
-    "effective_from": "2026-03-15",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -10640,7 +10621,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108861.pdf",
@@ -10650,7 +10631,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-19",
-    "effective_from": "2026-03-10",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -10757,7 +10738,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108862.pdf",
@@ -10767,7 +10748,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-19",
-    "effective_from": "2026-03-10",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -10819,7 +10800,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108863.pdf",
@@ -10829,7 +10810,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-19",
-    "effective_from": "2026-03-10",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -10881,7 +10862,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108865.pdf",
@@ -10891,7 +10872,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-19",
-    "effective_from": "2026-03-10",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -10943,7 +10924,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108866.pdf",
@@ -10953,7 +10934,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-19",
-    "effective_from": "2026-03-10",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -11005,7 +10986,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108860.pdf",
@@ -11015,7 +10996,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-19",
-    "effective_from": "2026-03-10",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -11067,7 +11048,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108858.pdf",
@@ -11077,7 +11058,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-19",
-    "effective_from": "2026-03-10",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -11129,7 +11110,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108852.pdf",
@@ -11139,7 +11120,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-19",
-    "effective_from": "2025-02-13",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -11179,7 +11160,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108859.pdf",
@@ -11189,7 +11170,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-19",
-    "effective_from": "2026-03-10",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -11898,7 +11879,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108073.pdf",
@@ -11908,7 +11889,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-17",
-    "effective_from": "2026-03-18",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -12119,7 +12100,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/109059.pdf",
@@ -12129,7 +12110,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-17",
-    "effective_from": "2026-03-17",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -12169,7 +12150,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108683.pdf",
@@ -12179,7 +12160,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-16",
-    "effective_from": "2025-01-01",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -12225,7 +12206,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108682.pdf",
@@ -12235,7 +12216,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-16",
-    "effective_from": "2025-01-01",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -12337,7 +12318,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/109017.pdf",
@@ -12347,7 +12328,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-13",
-    "effective_from": "2025-02-25",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -12719,7 +12700,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/109403.pdf",
@@ -12729,7 +12710,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-12",
-    "effective_from": "2026-03-15",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -12775,7 +12756,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/109096.pdf",
@@ -12785,7 +12766,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-12",
-    "effective_from": "2026-04-01",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -13158,7 +13139,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/106783.pdf",
@@ -13168,7 +13149,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-11",
-    "effective_from": "2026-03-12",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -13219,7 +13200,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/107029.pdf",
@@ -13229,7 +13210,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-11",
-    "effective_from": "2026-03-12",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -13280,7 +13261,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/104615.pdf",
@@ -13290,7 +13271,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-11",
-    "effective_from": "2026-03-12",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -13336,7 +13317,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/107030.pdf",
@@ -13346,7 +13327,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-11",
-    "effective_from": "2026-03-12",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -13390,9 +13371,9 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "生效 2026-12-20",
+   "effective_label": "已刊公报",
    "status": "soon",
-   "status_label": "12-20 起施行",
+   "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/106781.pdf",
    "verified": false,
    "detail_ready": false,
@@ -13400,7 +13381,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-11",
-    "effective_from": "2026-12-20",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -13439,7 +13420,7 @@
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
    "stability": 3,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/106966.pdf",
@@ -13449,7 +13430,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-11",
-    "effective_from": "2026-05-01",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -13489,7 +13470,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/106437.pdf",
@@ -13499,7 +13480,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-10",
-    "effective_from": "2026-03-11",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -13544,7 +13525,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/106630.pdf",
@@ -13554,7 +13535,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-10",
-    "effective_from": "2026-03-11",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -13594,7 +13575,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/106935.pdf",
@@ -13604,7 +13585,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-10",
-    "effective_from": "2026-03-11",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -13649,7 +13630,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/105044.pdf",
@@ -13659,7 +13640,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-10",
-    "effective_from": "2026-03-10",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -13705,7 +13686,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108229.pdf",
@@ -13715,7 +13696,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-10",
-    "effective_from": "2026-03-11",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -13873,7 +13854,7 @@
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
    "stability": 3,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/107176.pdf",
@@ -13883,7 +13864,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-06",
-    "effective_from": "2026-06-04",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -14150,7 +14131,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108233.pdf",
@@ -14160,7 +14141,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-06",
-    "effective_from": "2026-01-01",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -14318,7 +14299,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/108215.pdf",
@@ -14328,7 +14309,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-05",
-    "effective_from": "2026-03-06",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -14796,7 +14777,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/107846.pdf",
@@ -14806,7 +14787,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-02",
-    "effective_from": "2026-03-05",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -14851,7 +14832,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/103764.pdf",
@@ -14861,7 +14842,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-02",
-    "effective_from": "2026-03-03",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -14907,7 +14888,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/103766.pdf",
@@ -14917,7 +14898,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-02",
-    "effective_from": "2026-03-03",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -14967,7 +14948,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/107847.pdf",
@@ -14977,7 +14958,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-02",
-    "effective_from": "2026-03-05",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -15023,7 +15004,7 @@
    "doc_no_label": "公报",
    "legal_form": "皇家法令 · พ.ร.ฎ. 层级",
    "stability": 4,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/104276.pdf",
@@ -15033,7 +15014,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-02",
-    "effective_from": "2026-03-03",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -15079,7 +15060,7 @@
    "doc_no_label": "公报",
    "legal_form": "皇家法令 · พ.ร.ฎ. 层级",
    "stability": 4,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/104277.pdf",
@@ -15089,7 +15070,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-03-02",
-    "effective_from": "2026-03-03",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -15139,7 +15120,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/105545.pdf",
@@ -15149,7 +15130,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-27",
-    "effective_from": "2026-03-01",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -15189,7 +15170,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/105543.pdf",
@@ -15199,7 +15180,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-27",
-    "effective_from": "2026-03-01",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -15245,7 +15226,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/105544.pdf",
@@ -15255,7 +15236,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-27",
-    "effective_from": "2026-03-01",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -15301,7 +15282,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/106015.pdf",
@@ -15311,7 +15292,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-27",
-    "effective_from": "2026-02-28",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -15363,7 +15344,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/106339.pdf",
@@ -15373,7 +15354,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-27",
-    "effective_from": "2026-02-28",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -15419,7 +15400,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/107704.pdf",
@@ -15429,7 +15410,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-27",
-    "effective_from": "2026-01-01",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -15469,7 +15450,7 @@
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/105806.pdf",
@@ -15479,7 +15460,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-26",
-    "effective_from": "2026-04-01",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -15531,7 +15512,7 @@
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/107370.pdf",
@@ -15541,7 +15522,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-26",
-    "effective_from": "2026-01-01",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -15586,7 +15567,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/105276.pdf",
@@ -15596,7 +15577,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-25",
-    "effective_from": "2026-02-25",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -15697,7 +15678,7 @@
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/107314.pdf",
@@ -15707,7 +15688,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-25",
-    "effective_from": "2026-02-20",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -15801,7 +15782,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/105746.pdf",
@@ -15811,7 +15792,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-24",
-    "effective_from": "2026-02-25",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -15856,7 +15837,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/105747.pdf",
@@ -15866,7 +15847,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-24",
-    "effective_from": "2026-02-25",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -15912,7 +15893,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/106022.pdf",
@@ -15922,7 +15903,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-24",
-    "effective_from": "2026-02-24",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -15955,7 +15936,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/105739.pdf",
@@ -15965,7 +15946,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-24",
-    "effective_from": "2026-02-25",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -16005,7 +15986,7 @@
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
    "stability": 3,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/107154.pdf",
@@ -16015,7 +15996,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-24",
-    "effective_from": "2026-05-25",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -16065,7 +16046,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/105740.pdf",
@@ -16075,7 +16056,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-24",
-    "effective_from": "2026-02-25",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -16114,7 +16095,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/105741.pdf",
@@ -16124,7 +16105,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-24",
-    "effective_from": "2026-02-25",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -16164,7 +16145,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/105742.pdf",
@@ -16174,7 +16155,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-24",
-    "effective_from": "2026-02-25",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -16219,7 +16200,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/105743.pdf",
@@ -16229,7 +16210,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-24",
-    "effective_from": "2026-02-25",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -16269,7 +16250,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/105744.pdf",
@@ -16279,7 +16260,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-24",
-    "effective_from": "2026-02-25",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -16319,7 +16300,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/105745.pdf",
@@ -16329,7 +16310,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-24",
-    "effective_from": "2026-02-25",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -16547,9 +16528,9 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "生效 2026-10-25",
+   "effective_label": "已刊公报",
    "status": "soon",
-   "status_label": "10-25 起施行",
+   "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/104821.pdf",
    "verified": false,
    "detail_ready": false,
@@ -16557,7 +16538,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-23",
-    "effective_from": "2026-10-25",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -16721,7 +16702,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/105799.pdf",
@@ -16731,7 +16712,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-20",
-    "effective_from": "2026-02-21",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -16776,7 +16757,7 @@
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
    "stability": 3,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/105887.pdf",
@@ -16786,7 +16767,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-20",
-    "effective_from": "2026-02-21",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -16831,7 +16812,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/104947.pdf",
@@ -16841,7 +16822,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-19",
-    "effective_from": "2026-02-19",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -16886,7 +16867,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/105884.pdf",
@@ -16896,7 +16877,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-19",
-    "effective_from": "2026-02-20",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -16942,7 +16923,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/104713.pdf",
@@ -16952,7 +16933,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-19",
-    "effective_from": "2026-02-20",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -17003,7 +16984,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/106443.pdf",
@@ -17013,7 +16994,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-19",
-    "effective_from": "2026-02-20",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -17058,7 +17039,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/106222.pdf",
@@ -17068,7 +17049,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-19",
-    "effective_from": "2026-02-20",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -17168,7 +17149,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/104948.pdf",
@@ -17178,7 +17159,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-19",
-    "effective_from": "2026-02-19",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -17223,7 +17204,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/104688.pdf",
@@ -17233,7 +17214,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-19",
-    "effective_from": "2026-02-20",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -17277,7 +17258,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/105398.pdf",
@@ -17287,7 +17268,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-19",
-    "effective_from": "2026-02-20",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -17327,7 +17308,7 @@
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/99006.pdf",
@@ -17337,7 +17318,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-19",
-    "effective_from": "2026-02-20",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -17389,7 +17370,7 @@
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/105054.pdf",
@@ -17399,7 +17380,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-19",
-    "effective_from": "2026-02-20",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -17451,7 +17432,7 @@
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/88804.pdf",
@@ -17461,7 +17442,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-19",
-    "effective_from": "2026-02-20",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -17513,7 +17494,7 @@
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/105830.pdf",
@@ -17523,7 +17504,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-18",
-    "effective_from": "2026-02-19",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -17569,7 +17550,7 @@
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/105840.pdf",
@@ -17579,7 +17560,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-18",
-    "effective_from": "2026-02-19",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -17624,7 +17605,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/105727.pdf",
@@ -17634,7 +17615,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-18",
-    "effective_from": "2026-02-18",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -17674,7 +17655,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/105728.pdf",
@@ -17684,7 +17665,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-18",
-    "effective_from": "2026-02-18",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -17724,7 +17705,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/101392.pdf",
@@ -17734,7 +17715,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-17",
-    "effective_from": "2025-12-22",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -17780,7 +17761,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/104663.pdf",
@@ -17790,7 +17771,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-17",
-    "effective_from": "2026-01-01",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -17953,7 +17934,7 @@
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/103274.pdf",
@@ -17963,7 +17944,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-17",
-    "effective_from": "2026-02-17",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -18015,7 +17996,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/101394.pdf",
@@ -18025,7 +18006,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-17",
-    "effective_from": "2025-12-22",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -18063,7 +18044,7 @@
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/102254.pdf",
@@ -18073,7 +18054,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-17",
-    "effective_from": "2026-02-17",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -18113,7 +18094,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/101387.pdf",
@@ -18123,7 +18104,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-17",
-    "effective_from": "2025-12-22",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -18169,7 +18150,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/101393.pdf",
@@ -18179,7 +18160,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-17",
-    "effective_from": "2026-01-05",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -18225,7 +18206,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/104659.pdf",
@@ -18235,7 +18216,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-17",
-    "effective_from": "2025-01-01",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -18281,7 +18262,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/101386.pdf",
@@ -18291,7 +18272,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-17",
-    "effective_from": "2026-02-17",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -18331,7 +18312,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/104270.pdf",
@@ -18341,7 +18322,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-16",
-    "effective_from": "2026-02-17",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -18387,7 +18368,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/104272.pdf",
@@ -18397,7 +18378,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-16",
-    "effective_from": "2026-02-17",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -18442,7 +18423,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/105878.pdf",
@@ -18452,7 +18433,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-16",
-    "effective_from": "2026-03-01",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -18497,7 +18478,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/104791.pdf",
@@ -18507,7 +18488,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-16",
-    "effective_from": "2026-01-15",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -18595,7 +18576,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/104452.pdf",
@@ -18605,7 +18586,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-16",
-    "effective_from": "2026-02-17",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -18656,9 +18637,9 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "生效 2026-12-04",
+   "effective_label": "已刊公报",
    "status": "soon",
-   "status_label": "12-04 起施行",
+   "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/104559.pdf",
    "verified": false,
    "detail_ready": false,
@@ -18666,7 +18647,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-16",
-    "effective_from": "2026-12-04",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -18712,7 +18693,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/104271.pdf",
@@ -18722,7 +18703,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-16",
-    "effective_from": "2026-02-17",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -18954,7 +18935,7 @@
    "doc_no_label": "公报",
    "legal_form": "法律 · พ.ร.บ. 层级",
    "stability": 5,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/91225.pdf",
@@ -18964,7 +18945,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-13",
-    "effective_from": "2026-02-14",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -19016,7 +18997,7 @@
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
    "stability": 3,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/91870.pdf",
@@ -19026,7 +19007,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-13",
-    "effective_from": "2025-10-06",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -19127,7 +19108,7 @@
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/103951.pdf",
@@ -19137,7 +19118,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-12",
-    "effective_from": "2025-11-15",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -19183,7 +19164,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/104949.pdf",
@@ -19193,7 +19174,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-12",
-    "effective_from": "2026-02-13",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -19239,7 +19220,7 @@
    "doc_no_label": "公报",
    "legal_form": "法律 · พ.ร.บ. 层级",
    "stability": 5,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/104814.pdf",
@@ -19249,7 +19230,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-12",
-    "effective_from": "2026-02-13",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -19460,7 +19441,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/103740.pdf",
@@ -19470,7 +19451,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-11",
-    "effective_from": "2026-02-12",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -19521,7 +19502,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/103979.pdf",
@@ -19531,7 +19512,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-11",
-    "effective_from": "2026-02-12",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -19633,7 +19614,7 @@
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/92273.pdf",
@@ -19643,7 +19624,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-11",
-    "effective_from": "2026-02-12",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -19881,7 +19862,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/102325.pdf",
@@ -19891,7 +19872,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-10",
-    "effective_from": "2026-02-11",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -19943,7 +19924,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/102328.pdf",
@@ -19953,7 +19934,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-10",
-    "effective_from": "2026-02-11",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -20308,7 +20289,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/102320.pdf",
@@ -20318,7 +20299,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-10",
-    "effective_from": "2026-01-01",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -20494,7 +20475,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/102319.pdf",
@@ -20504,7 +20485,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-10",
-    "effective_from": "2026-02-11",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -20618,7 +20599,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/102330.pdf",
@@ -20628,7 +20609,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-10",
-    "effective_from": "2026-03-01",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -20741,7 +20722,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/104085.pdf",
@@ -20751,7 +20732,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-09",
-    "effective_from": "2026-02-10",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -20795,7 +20776,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/104135.pdf",
@@ -20805,7 +20786,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-09",
-    "effective_from": "2026-02-10",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -20850,7 +20831,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/103749.pdf",
@@ -20860,7 +20841,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-09",
-    "effective_from": "2026-02-10",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -20905,7 +20886,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/104265.pdf",
@@ -20915,7 +20896,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-09",
-    "effective_from": "2026-02-10",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -21017,7 +20998,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/104079.pdf",
@@ -21027,7 +21008,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-09",
-    "effective_from": "2026-02-15",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -21073,7 +21054,7 @@
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/104122.pdf",
@@ -21083,7 +21064,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-06",
-    "effective_from": "2026-02-06",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -21135,7 +21116,7 @@
    "doc_no_label": "公报",
    "legal_form": "皇家法令 · พ.ร.ฎ. 层级",
    "stability": 4,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/101574.pdf",
@@ -21145,7 +21126,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-06",
-    "effective_from": "2026-02-07",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -21294,7 +21275,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/103991.pdf",
@@ -21304,7 +21285,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-06",
-    "effective_from": "2026-02-07",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -21350,7 +21331,7 @@
    "doc_no_label": "公报",
    "legal_form": "皇家法令 · พ.ร.ฎ. 层级",
    "stability": 4,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/101575.pdf",
@@ -21360,7 +21341,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-06",
-    "effective_from": "2026-02-07",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -21406,7 +21387,7 @@
    "doc_no_label": "公报",
    "legal_form": "皇家法令 · พ.ร.ฎ. 层级",
    "stability": 4,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/101576.pdf",
@@ -21416,7 +21397,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-06",
-    "effective_from": "2026-02-07",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -21517,7 +21498,7 @@
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
    "stability": 3,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/104644.pdf",
@@ -21527,7 +21508,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-06",
-    "effective_from": "2026-01-01",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -21573,7 +21554,7 @@
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/104643.pdf",
@@ -21583,7 +21564,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-06",
-    "effective_from": "2026-01-01",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -21629,7 +21610,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/103873.pdf",
@@ -21639,7 +21620,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-05",
-    "effective_from": "2026-02-06",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -21685,7 +21666,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/102772.pdf",
@@ -21695,7 +21676,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-05",
-    "effective_from": "2026-02-06",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -21746,7 +21727,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/104105.pdf",
@@ -21756,7 +21737,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-05",
-    "effective_from": "2026-02-06",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -21801,7 +21782,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/104102.pdf",
@@ -21811,7 +21792,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-05",
-    "effective_from": "2026-02-06",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -21857,7 +21838,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/104129.pdf",
@@ -21867,7 +21848,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-05",
-    "effective_from": "2026-02-06",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -21912,7 +21893,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/104103.pdf",
@@ -21922,7 +21903,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-05",
-    "effective_from": "2026-02-06",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -21961,7 +21942,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/104104.pdf",
@@ -21971,7 +21952,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-05",
-    "effective_from": "2026-02-06",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -22017,7 +21998,7 @@
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/103117.pdf",
@@ -22027,7 +22008,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-05",
-    "effective_from": "2026-02-06",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -22078,7 +22059,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/104106.pdf",
@@ -22088,7 +22069,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-05",
-    "effective_from": "2026-02-06",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -22128,7 +22109,7 @@
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
    "stability": 3,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/104127.pdf",
@@ -22138,7 +22119,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-05",
-    "effective_from": "2026-02-06",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -22189,7 +22170,7 @@
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
    "stability": 3,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/104128.pdf",
@@ -22199,7 +22180,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-05",
-    "effective_from": "2026-02-06",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -22245,7 +22226,7 @@
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/94069.pdf",
@@ -22255,7 +22236,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-04",
-    "effective_from": "2026-02-05",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -22307,7 +22288,7 @@
    "doc_no_label": "公报",
    "legal_form": "法律 · พ.ร.บ. 层级",
    "stability": 5,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/90799.pdf",
@@ -22317,7 +22298,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-04",
-    "effective_from": "2026-02-05",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -22368,7 +22349,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/103169.pdf",
@@ -22378,7 +22359,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-04",
-    "effective_from": "2026-02-19",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -22424,7 +22405,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/101718.pdf",
@@ -22434,7 +22415,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-03",
-    "effective_from": "2026-02-04",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -22548,7 +22529,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/102570.pdf",
@@ -22558,7 +22539,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-03",
-    "effective_from": "2026-02-04",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -22610,7 +22591,7 @@
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/104170.pdf",
@@ -22620,7 +22601,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-03",
-    "effective_from": "2026-02-04",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -22666,7 +22647,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/101716.pdf",
@@ -22676,7 +22657,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-03",
-    "effective_from": "2026-02-04",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -22722,7 +22703,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/102381.pdf",
@@ -22732,7 +22713,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-03",
-    "effective_from": "2026-01-01",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -22778,7 +22759,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/102373.pdf",
@@ -22788,7 +22769,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-03",
-    "effective_from": "2025-01-01",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -22896,7 +22877,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/103492.pdf",
@@ -22906,7 +22887,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-02",
-    "effective_from": "2026-02-03",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -22950,7 +22931,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/103834.pdf",
@@ -22960,7 +22941,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-02",
-    "effective_from": "2026-02-03",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -23062,7 +23043,7 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/103491.pdf",
@@ -23072,7 +23053,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-02",
-    "effective_from": "2026-02-03",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
@@ -23112,7 +23093,7 @@
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
    "stability": 3,
-   "effective_label": "已生效",
+   "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/103770.pdf",
@@ -23122,7 +23103,7 @@
    "dates": {
     "resolved_at": null,
     "published_at": "2026-02-02",
-    "effective_from": "2026-02-03",
+    "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
    },
