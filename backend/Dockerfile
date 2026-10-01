@@ -19,7 +19,7 @@ COPY js /srv/js
 COPY data /srv/data
 COPY config /srv/config
 COPY p /srv/p
-COPY sitemap.xml robots.txt privacy.html admin.html favicon.svg feed.xml llms.txt llms-full.txt /srv/
+COPY sitemap.xml robots.txt privacy.html about.html admin.html favicon.svg feed.xml llms.txt llms-full.txt /srv/
 COPY assets /srv/assets
 COPY tools /srv/tools
 COPY backend /srv/backend

@@ -35,73 +35,99 @@
 
 <div class="layout">
   <aside>
-    <div class="side-label">界面</div>
-    <div class="nav-item" data-v="morph"><span class="glyph">析</span>形态分析</div>
-    <div class="nav-item active" data-v="today"><span class="glyph">今</span>首页 · 今日</div>
-    <div class="nav-item" data-v="search"><span class="glyph">检</span>检索结果</div>
-    <div class="nav-item" data-v="lineage"><span class="glyph">脉</span>演进脉络</div>
-    <div class="nav-item" data-v="dims"><span class="glyph">维</span>政策维度</div>
-    <div class="nav-item" data-v="trends"><span class="glyph">势</span>趋势看板</div>
-    <div class="nav-item" data-v="detail"><span class="glyph">文</span>政策详情</div>
-    <div class="nav-item soon"><span class="glyph">问</span>政策助手<span class="soon-tag">规划中</span></div>
-    <div class="side-div"></div>
-    <div class="side-label">关于本站</div>
-    <div style="color:var(--muted);font-size:12.5px;line-height:1.7;padding:0 20px">免费 · 不接中介推广 · 每条附原文溯源。靠广告与读者打赏运营。
-      <div style="margin-top:6px"><a href="privacy.html">隐私政策</a></div></div>
-    <div class="ad-slot" data-slot="home_sidebar_nav" style="margin-top:12px"></div>
+    <div class="side-label">读政策</div>
+    <div class="nav-item active" data-v="today"><span class="glyph">新</span>最新收录</div>
+    <div class="nav-item" data-v="search"><span class="glyph">找</span>找政策</div>
+    <div class="side-label">看趋势</div>
+    <div class="nav-item" data-v="trends"><span class="glyph">势</span>发文趋势</div>
+    <div class="nav-item" data-v="morph"><span class="glyph">形</span>政策形态</div>
+    <div class="nav-item" data-v="dims"><span class="glyph">维</span>七维分析</div>
+    <div class="side-div side-extra"></div>
+    <div class="side-label side-extra">关于</div>
+    <a class="nav-link side-extra" href="about.html"><span class="glyph">?</span>怎么用本站</a>
+    <a class="nav-link side-extra" href="privacy.html"><span class="glyph">私</span>隐私政策</a>
+    <div class="side-note side-extra">免费 · 不接中介推广 · 每条附原文溯源。靠广告与读者打赏运营。</div>
+    <div class="ad-slot side-extra" data-slot="home_sidebar_nav" style="margin-top:12px"></div>
   </aside>
 
   <main>
 
-    <!-- ═══════ 今日 ═══════ -->
+    <!-- ═══════ 首页 · 最新收录 ═══════ -->
     <section class="view active" id="v-today">
-      <h1 class="page">今日政策</h1>
-      <div class="page-sub">官方源自动监测 · 重要政策 24–48 小时内出中文 · 每条均附泰文原文与公报编号</div>
+      <div class="intro" id="intro">
+        <p>把泰国皇家公报和内阁决议翻成中文,按领域整理,每条都附泰文原文。给在泰国生活、经商、投资的华人用。</p>
+        <a href="about.html">怎么用 →</a>
+        <button type="button" class="intro-close" id="intro-close" aria-label="关闭说明">×</button>
+      </div>
+      <form class="search-box" id="home-search" role="search">
+        <input id="home-q" type="search" placeholder="搜政策:如 土地、进口、利率、BOI、公报编号" aria-label="搜索政策" autocomplete="off">
+        <button class="btn-solid" type="submit">搜索</button>
+      </form>
+      <div class="dom-btns" id="dom-btns" aria-label="按领域浏览">
+        <button type="button" class="dom-btn chip visa" data-domain="visa">签证居留</button>
+        <button type="button" class="dom-btn chip tax" data-domain="tax">税务</button>
+        <button type="button" class="dom-btn chip biz" data-domain="biz">公司投资</button>
+        <button type="button" class="dom-btn chip labor" data-domain="labor">劳工用工</button>
+        <button type="button" class="dom-btn chip land" data-domain="land">房产土地</button>
+        <button type="button" class="dom-btn chip customs" data-domain="customs">海关贸易</button>
+        <button type="button" class="dom-btn chip finance" data-domain="finance">金融外汇</button>
+        <button type="button" class="dom-btn chip digital" data-domain="digital">数字与数据</button>
+        <button type="button" class="dom-btn chip education" data-domain="education">教育</button>
+        <button type="button" class="dom-btn chip health" data-domain="health">医疗</button>
+      </div>
+
+      <h1 class="page">最新收录</h1>
+      <div class="page-sub" id="today-sub">最近收录的公报,读过原文、有要点的排在前面。</div>
+      <div class="lag-note" id="lag-note">泰国官方公报数据集(data.go.th)通常比刊登日晚几个月开放。不是停更,是官方数据集的节奏。</div>
       <div class="home-grid">
-        <div id="feed">
-          <div class="card"><div class="pc-sum">政策流加载中……</div></div>
+        <div>
+          <div id="feed">
+            <div class="card"><div class="pc-sum">政策加载中……</div></div>
+          </div>
+          <div class="feed-more"><a href="#search" id="feed-more">查看全部政策 →</a></div>
         </div>
         <div>
           <div class="card">
-            <h3 class="mod">本月政策风向</h3>
-            <div class="mod-sub">近 30 天 · 按政策收紧 / 放宽方向加权</div>
-            <div id="wind">
-            <div class="mod-sub">加载中……</div>
-            </div>
-            <div style="text-align:right;margin-top:8px"><a href="#" onclick="go('trends');return false" style="font-size:12.5px">查看趋势看板 →</a></div>
+            <h3 class="mod">数据覆盖</h3>
+            <div id="coverage"><div class="mod-sub">加载中……</div></div>
+            <div style="margin-top:8px;font-size:12.5px"><a href="about.html#source">数据从哪来 →</a></div>
           </div>
           <div class="card">
-            <h3 class="mod">生效日历</h3>
-            <div class="mod-sub">未来 90 天</div>
-            <div id="calendar">
-            <div class="mod-sub">加载中……</div>
-            </div>
+            <h3 class="mod">各领域条数</h3>
+            <div class="mod-sub">点击查看该领域全部政策</div>
+            <div id="domain-counts"><div class="mod-sub">加载中……</div></div>
+          </div>
+          <div class="card">
+            <h3 class="mod">订阅更新</h3>
+            <div id="subscribe"><a href="feed.xml">RSS 订阅全站更新</a></div>
           </div>
           <div class="ad-slot" data-slot="home_sidebar"></div>
         </div>
       </div>
     </section>
 
-    <!-- ═══════ 检索 ═══════ -->
+    <!-- ═══════ 找政策(前端本地检索,API 与静态模式一致,见 js/search.js) ═══════ -->
     <section class="view" id="v-search">
-      <h2 class="page">政策检索</h2>
-      <div class="page-sub" id="lib-count">领域 × 法律形式 × 状态 × 方向 × 关键词 分面检索</div>
-      <div class="facets" id="facets">
-        <div class="facet" style="color:var(--muted)">分面检索加载中……</div>
-      </div>
+      <h2 class="page">找政策</h2>
+      <div class="page-sub">按关键词、领域、影响对象筛选全部政策。多个关键词用空格隔开。</div>
+      <form class="search-box" id="search-form" role="search">
+        <input id="sq" type="search" placeholder="搜政策:如 土地、进口、利率、BOI、公报编号" aria-label="搜索政策" autocomplete="off">
+        <button class="btn-solid" type="submit">搜索</button>
+      </form>
+      <div class="facets" id="facets"></div>
+      <div class="lib-count" id="lib-count">加载中……</div>
       <div class="lib-wrap" id="lib">
-        <div class="lib-row"><div style="color:var(--muted)">检索结果加载中……</div></div>
+        <div class="lib-row"><div style="color:var(--muted)">政策加载中……</div></div>
       </div>
-      <div style="text-align:center;color:var(--muted);font-size:12.5px;margin-top:16px">← 上一页 · 第 1 页 · 下一页 →</div>
     </section>
 
     <!-- ═══════ 详情 ═══════ -->
     <section class="view" id="v-detail">
-      <div class="crumb" id="detail-crumb">检索 / 政策详情</div>
+      <div class="crumb" id="detail-crumb">找政策 / 政策详情</div>
       <div class="detail-grid">
         <div>
           <div class="card" style="padding:26px 30px" id="detail-body">
-            <div class="d-body"><p>从「今日」或「检索」页点任一条政策进入详情。</p></div>
+            <div class="d-body"><p>从「最新收录」或「找政策」点任一条政策进入详情。</p></div>
           </div>
           <div class="support-slot"></div>
         </div>
@@ -132,8 +158,8 @@
 
     <!-- ═══════ 政策维度(重建自设计稿) ═══════ -->
     <section class="view" id="v-dims">
-      <h2 class="page">政策维度分析</h2>
-      <div class="page-sub" id="dims-sub">当前切片:<b>EV 与汽车产业 · 全国＋府级 · 2565—2569(2022—2026)</b>。发文量回答"多不多",这一页回答"是什么样的政策"。</div>
+      <h2 class="page">七维分析</h2>
+      <div class="page-sub" id="dims-sub">政策工具、目标、作用对象的结构分析,给研究者。加载中……</div>
 
       <div class="card">
         <div style="display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap">
@@ -187,7 +213,7 @@
 
     <!-- ═══════ 形态分析 ═══════ -->
     <section class="view" id="v-morph">
-      <h2 class="page">形态分析</h2>
+      <h2 class="page">政策形态</h2>
       <div class="page-sub" id="morph-sub">政策形态画像:每条政策按法律层级、强制力、政策工具类型与生命周期状态刻画 · 加载中……</div>
       <div class="morph-kpis" id="morph-kpis"></div>
       <div class="reading" id="morph-insights" style="margin-bottom:18px">加载中……</div>
@@ -203,8 +229,8 @@
 
     <!-- ═══════ 趋势 ═══════ -->
     <section class="view" id="v-trends">
-      <h2 class="page">趋势看板</h2>
-      <div class="page-sub" id="trends-sub">基于全库结构化数据聚合 · 发文量回答"多不多",<a href="#" onclick="go('dims');return false">政策维度</a>回答"是什么样的政策"</div>
+      <h2 class="page">发文趋势</h2>
+      <div class="page-sub" id="trends-sub">基于全库结构化数据聚合 · 发文量回答"多不多",<a href="#" onclick="go('dims');return false">七维分析</a>回答"是什么样的政策"</div>
       <div class="trend-grid">
         <div class="card"><h3 class="mod">各领域政策发文量</h3><div class="mod-sub">按月 · 堆叠 · 悬停查看明细</div><div class="chart tall" id="c-stack"></div></div>
         <div class="card"><h3 class="mod">政策风向指数</h3><div class="mod-sub">按政策收紧(−)/放宽(+)方向逐月聚合 · 0 为中性</div><div class="chart tall" id="c-direction"></div></div>
@@ -218,7 +244,7 @@
 </div>
 
 <footer>
-  政策脉络 · 泰国(整合原型)—— 官方源自动监测 · 全部内容可溯源 · 零带货中立平台。本站译文均为非官方翻译,仅供参考,以泰文原文为准;不构成法律意见。数据来源:皇家公报 · 内阁决议库 · 各部委官网 · data.go.th。<a href="privacy.html">隐私政策</a> · <a href="p/index.html">全部政策</a> · <a href="feed.xml">订阅</a>
+  政策脉络 · 泰国 —— 泰国皇家公报与内阁决议的中文整理 · 每条附泰文原文 · 零带货中立平台。本站译文均为非官方翻译,仅供参考,以泰文原文为准;不构成法律意见。数据来源:data.go.th 皇家公报与内阁决议数据集。<a href="about.html">怎么用本站</a> · <a href="privacy.html">隐私政策</a> · <a href="p/index.html">全部政策</a> · <a href="feed.xml">RSS 订阅</a>
   <!-- seo:links 由 backend/app/seo.py 生成,勿手改 -->
 <nav class="seo-nav" aria-label="站内导航"><div><b>按领域浏览</b> <a href="p/topic/biz.html">公司投资</a> · <a href="p/topic/customs.html">海关贸易</a> · <a href="p/topic/land.html">房产土地</a> · <a href="p/topic/health.html">医疗</a> · <a href="p/topic/tax.html">税务</a> · <a href="p/topic/finance.html">金融外汇</a> · <a href="p/topic/digital.html">数字与数据</a> · <a href="p/topic/labor.html">劳工用工</a> · <a href="p/topic/visa.html">签证居留</a> · <a href="p/topic/education.html">教育</a></div><div><b>最新收录</b> <a href="p/th-gaz-20260422-2569.html">畜牧厅公告：暂缓自台湾进口或过境泰王国的禽类或禽类尸体，佛历2569年</a> · <a href="p/th-gaz-20260422-5-2569.html">食品药品监督管理局公告：关于申请修改第5类毒品（仅限大麻或汉麻植物提取物）生产、进口或出口计划的标准与条件，佛历2569年</a> · <a href="p/th-gaz-20260422-9-2568.html">巴凯镇行政组织条例：关于规定土地法第9条许可证持有人年度报酬的方式与标准（佛历2568年）</a> · <a href="p/th-gaz-20260422-fd1263e0ac.html">劳工基金管委会公告：关于缓解中东冲突及泰柬边境冲突经济危机贷款项目</a> · <a href="p/th-gaz-20260421-1-629.html">政府储蓄银行公告：1年期特别储蓄彩票第629期存款业务</a> · <a href="p/th-gaz-20260421-1-630-digital-salak-on.html">政府储蓄银行公告：1年期数字特别储蓄彩票（Digital Salak on MyMo）第630期通过MyMo手机银行服务办理存款</a> · <a href="p/th-gaz-20260421-13-special.html">政府储蓄银行公告：13个月特别活期存款（Special）</a> · <a href="p/th-gaz-20260421-2-273-digital-salak-on.html">政府储蓄银行公告：2年期数字特别储蓄彩票存款（第273期，MyMo数字彩票）通过手机银行服务</a> · <a href="p/th-gaz-20260421-256.html">政府储蓄银行公告：各类服务费率（第256次修订）</a> · <a href="p/th-gaz-20260421-2569.html">对外贸易厅公告：对原产于中华人民共和国的天然橡胶或合成橡胶手套启动反倾销调查（2026年）</a> · <a href="p/th-gaz-20260421-2f8e72f000.html">社会保障法医疗委员会公告：非因工受伤或患病的补偿待遇标准与费率</a> · <a href="p/th-gaz-20260421-36b0072452.html">交通部公告：规定曼谷地铁橙线（泰国文化中心—民武里（素温他翁）段）项目轨道交通安全保护区，涉及曼谷三森诺、汇权、邦甲必、华目、沙攀松、叻帕塔纳、民武里、讪沙艾等区</a></div></nav>  <!-- /seo:links -->
 </footer>
@@ -228,6 +254,7 @@
 <script src="js/track.js"></script>
 <script src="js/app.js"></script>
 <script src="js/data.js"></script>
+<script src="js/search.js"></script>
 <script src="js/dims.js"></script>
 <script src="js/morph.js"></script>
 <script src="js/detail.js"></script>

@@ -28,6 +28,7 @@ def site(tmp_path_factory):
     (root / "index.html").write_text(head + "<footer>\n<!-- seo:links x -->\n<!-- /seo:links -->\n</footer>",
                                      encoding="utf-8")
     (root / "privacy.html").write_text(head, encoding="utf-8")
+    (root / "about.html").write_text(head, encoding="utf-8")
     mp = pytest.MonkeyPatch()
     mp.setattr(seo, "PAGES_DIR", root / "p")
     mp.setattr(seo, "REPO_ROOT", root)

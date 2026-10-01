@@ -2,9 +2,9 @@ name: 数据校验与后端测试
 
 on:
   push:
-    paths: ['data/**', 'tools/**', 'backend/**', 'config/**', 'index.html', 'privacy.html', '.github/workflows/data.yml']
+    paths: ['data/**', 'tools/**', 'backend/**', 'config/**', 'index.html', 'privacy.html', 'about.html', '.github/workflows/data.yml']
   pull_request:
-    paths: ['data/**', 'tools/**', 'backend/**', 'config/**', 'index.html', 'privacy.html']
+    paths: ['data/**', 'tools/**', 'backend/**', 'config/**', 'index.html', 'privacy.html', 'about.html']
   workflow_dispatch:
 
 jobs:
@@ -41,7 +41,7 @@ jobs:
 
       - name: 确认派生产物与事实层一致
         env:
-          DERIVED: data/site/ p/ sitemap.xml robots.txt feed.xml llms.txt llms-full.txt index.html privacy.html
+          DERIVED: data/site/ p/ sitemap.xml robots.txt feed.xml llms.txt llms-full.txt index.html privacy.html about.html
         run: |
           git add -N p/ 2>/dev/null || true   # 让新生成的落地页也参与比对
           if ! git diff --quiet -- $DERIVED; then

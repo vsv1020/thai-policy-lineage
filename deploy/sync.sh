@@ -23,12 +23,12 @@ if ! echo "$CHANGED" | grep -qv '^data/seo/'; then
   exit 0
 fi
 
-if echo "$CHANGED" | grep -qvE '^(data/|p/|sitemap\.xml$|robots\.txt$|feed\.xml$|llms(-full)?\.txt$|index\.html$|privacy\.html$)'; then
+if echo "$CHANGED" | grep -qvE '^(data/|p/|sitemap\.xml$|robots\.txt$|feed\.xml$|llms(-full)?\.txt$|index\.html$|privacy\.html$|about\.html$)'; then
   echo "代码有变动,重建镜像"
   $DC up -d --build --remove-orphans
 else
   echo "只有数据变动,重新入库并导出"
   # index.html / privacy.html 打在镜像里、没挂载:先拷进容器,导出会重写其中的 SEO 受管区块
-  $DC cp index.html app:/srv/index.html && $DC cp privacy.html app:/srv/privacy.html
+  $DC cp index.html app:/srv/index.html && $DC cp privacy.html app:/srv/privacy.html && $DC cp about.html app:/srv/about.html
   $DC exec -T app sh -c "python -m app.ingest && python -m app.export"
 fi

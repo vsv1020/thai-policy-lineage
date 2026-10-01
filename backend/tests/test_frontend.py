@@ -64,7 +64,7 @@ def test_expected_views_present():
 
 def test_morphology_is_live():
     assert 'data-v="morph"' in HTML and "js/morph.js" in HTML
-    nav = re.search(r'<div class="nav-item[^"]*"[^>]*>.*?形态分析.*?</div>', HTML).group(0)
+    nav = re.search(r'<div class="nav-item[^"]*"[^>]*>.*?政策形态.*?</div>', HTML).group(0)
     assert "规划中" not in nav and "soon" not in nav
 
 
@@ -108,3 +108,21 @@ def test_scripts_exist_on_disk():
 def test_no_fabricated_demo_content_in_html():
     for fake in ("ง 143/58ก", "2569/12", "No. 8/2569", "EV 产业激励"):
         assert fake not in HTML, f"虚构演示内容回来了: {fake}"
+
+
+def test_nav_speaks_plain_language():
+    """导航只放有内容、看得懂的入口:没有「规划中」,没有空的演进脉络,也没有只能从卡片进入的详情页。"""
+    navs = re.findall(r'class="nav-item[^"]*" data-v="([^"]+)"', HTML)
+    assert navs == ["today", "search", "trends", "morph", "dims"]
+    assert "规划中" not in HTML and "政策助手" not in HTML
+    assert 'id="v-lineage"' in HTML, "演进脉络视图保留(详情页的议题链接还要用),只是不放进导航"
+    assert 'href="about.html"' in HTML
+
+
+def test_front_page_explains_itself_and_has_search():
+    assert 'id="intro"' in HTML and "给在泰国生活、经商、投资的华人用" in HTML
+    assert 'id="home-q"' in HTML and 'type="search"' in HTML and 'id="sq"' in HTML
+    assert HTML.count('class="dom-btn chip') == 10
+    assert "24–48" not in HTML, "做不到的时效承诺不能写在首页"
+    assert "最新收录" in HTML and "今日政策" not in HTML
+    assert (ROOT / "about.html").is_file()

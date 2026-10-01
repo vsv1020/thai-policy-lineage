@@ -1,10 +1,9 @@
-/* 政策详情页 + 检索页分面。
+/* 政策详情页(「找政策」的检索在 js/search.js)。
    详情页原来永远显示同一份写死的文件;现在按 uid 从 /api/documents/{uid} 取,
    降级时从 overview 已有的列表数据拼一个简版(静态站没有单件接口)。 */
 
 const { esc: E, set: put, API_BASE, ready } = window.PolicyData;
 
-const FORM_LABEL = {};      // legal_form_id → 中文,由 /api/vocab 填充(仅 API 模式)
 const REL_LABEL = {
   supersedes: '替代', superseded_by: '被替代', amends: '修订', amended_by: '被修订',
   implements: '落实', implemented_by: '被落实', repeals: '废止', repealed_by: '被废止',
@@ -81,7 +80,7 @@ function renderDetail(d) {
   const confNote = `字段可信度:日期 <b>${E(CONF_LABEL[conf.dates] || conf.dates || '未标注')}</b>`
     + (conf.doc_no ? ` · 文号 <b>${E(CONF_LABEL[conf.doc_no] || conf.doc_no)}</b>` : '');
 
-  put('detail-crumb', `检索 / ${E(d.domain_label)} / ${E(d.legal_form)}`);
+  put('detail-crumb', `<a href="#search">找政策</a> / ${E(d.domain_label)} / ${E(d.legal_form)}`);
   put('detail-body', `
     <div class="pc-top">
       <span class="chip ${E(d.domain)}">${E(d.domain_label)}</span>
@@ -125,83 +124,3 @@ function renderDetail(d) {
     ? `<a href="#" onclick="go('lineage');return false">查看「${E(d.issue_id)}」完整演进脉络 →</a>`
     : '<span style="color:var(--muted)">该文件尚未归入议题</span>');
 }
-
-/* ── 检索页分面:接 /api/documents 的过滤参数 ── */
-const state = { q: '', domain: '', legal_form: '', status: '', direction: '', pending_gazette: false };
-
-function facet(label, key, options, current) {
-  const opts = [['', '全部']].concat(options);
-  return `<div class="facet">${E(label)}:<select data-key="${E(key)}"
-    style="border:0;background:transparent;font:inherit;color:var(--seal);cursor:pointer">
-    ${opts.map(([v, t]) =>
-      `<option value="${E(v)}"${v === current ? ' selected' : ''}>${E(t)}</option>`).join('')}
-  </select></div>`;
-}
-
-async function buildFacets() {
-  await ready();          // 必须等探测结束,否则 DATA_MODE 还是初始值
-  if (window.DATA_MODE !== 'api') {
-    put('facets', '<div class="facet" style="color:var(--muted)">静态快照模式:分面检索需要后端接口'
-      + '(部署后端后此处变为可用下拉)</div>');
-    return;
-  }
-  let v;
-  try {
-    v = await (await fetch(`${API_BASE}/api/vocab`, { cache: 'no-store' })).json();
-  } catch (err) { console.warn('[facets] 词表加载失败:', err.message); return; }
-  v.legal_forms.forEach(f => { FORM_LABEL[f.id] = f.zh; });
-
-  const draw = () => {
-    put('facets',
-      `<div class="facet"><input id="fq" placeholder="关键词(中/泰文)" value="${E(state.q)}"
-         style="border:0;background:transparent;font:inherit;width:150px;outline:none"></div>`
-      + facet('领域', 'domain', v.domains.map(d => [d.id, d.zh]), state.domain)
-      + facet('法律形式', 'legal_form',
-          v.legal_forms.map(f => [f.id, `${f.zh}(稳定性 ${f.stability})`]), state.legal_form)
-      + facet('状态', 'status', v.statuses.map(s => [s.id, s.zh]), state.status)
-      + facet('方向', 'direction',
-          [['tight', '收紧'], ['loose', '放宽'], ['neutral', '中性']], state.direction)
-      + `<div class="facet" style="cursor:pointer;${state.pending_gazette
-          ? 'border-color:var(--seal);color:var(--seal)' : ''}" id="fpg">
-         ${state.pending_gazette ? '✓ ' : '+ '}只看待刊公报窗口期</div>`);
-    document.querySelectorAll('#facets select').forEach(el =>
-      el.addEventListener('change', () => { state[el.dataset.key] = el.value; run(); }));
-    const q = document.getElementById('fq');
-    if (q) {
-      let t;
-      q.addEventListener('input', () => {
-        clearTimeout(t);
-        t = setTimeout(() => { state.q = q.value.trim(); run(); }, 300);
-      });
-    }
-    const pg = document.getElementById('fpg');
-    if (pg) pg.addEventListener('click', () => {
-      state.pending_gazette = !state.pending_gazette; draw(); run();
-    });
-  };
-
-  const run = async () => {
-    const p = new URLSearchParams();
-    Object.entries(state).forEach(([k, val]) => {
-      if (val === '' || val === false) return;
-      p.set(k, val === true ? 'true' : val);
-    });
-    p.set('limit', '50');
-    try {
-      const r = await fetch(`${API_BASE}/api/documents?${p}`, { cache: 'no-store' });
-      const d = await r.json();
-      window.renderLib(d.items);
-      if (state.q) window.PolicyTrack && PolicyTrack.search(state.q, d.total);
-      put('lib-count', `领域 × 法律形式 × 状态 × 方向 × 关键词 分面检索 · 命中 <b>${d.total}</b> 条`
-        + (d.total > d.items.length ? `(显示前 ${d.items.length} 条)` : ''));
-      if (!d.items.length) {
-        put('lib', '<div class="lib-row"><div style="color:var(--muted)">没有命中的条目。'
-          + '试着放宽某个分面。</div></div>');
-      }
-    } catch (err) { console.warn('[facets] 检索失败:', err.message); }
-  };
-
-  draw();
-}
-
-buildFacets();

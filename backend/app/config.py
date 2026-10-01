@@ -89,7 +89,7 @@ class Settings:
     trend_months: int = int(os.getenv("TREND_MONTHS", "12"))
     min_trend_months: int = int(os.getenv("MIN_TREND_MONTHS", "6"))
     calendar_days: int = int(os.getenv("CALENDAR_DAYS", "90"))
-    feed_size: int = int(os.getenv("FEED_SIZE", "6"))
+    feed_size: int = int(os.getenv("FEED_SIZE", "10"))
 
     @property
     def is_sqlite(self) -> bool:
