@@ -22,3 +22,4 @@ for r in rows[:4]:
         print("\n##", r["toP_SERLNO"], d["file_name"], "->", how, len(text))
         print(text[:500].replace("\n", " "))
 print("misses", json.dumps(F.misses(), ensure_ascii=False)[:600])
+# retrigger
