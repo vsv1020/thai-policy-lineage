@@ -42,6 +42,9 @@ class Settings:
     # 泰国出口代理:data.go.th 拦截非泰国 IP。只用于访问泰国政府数据源,DeepSeek、GitHub 等不走它。
     # 支持 http:// https:// socks5:// socks5h://(socks5h = 域名也交给代理端解析)
     egress_proxy: str = os.getenv("THAI_EGRESS_PROXY", "").strip()
+    # 只有这些域名(及其子域)走泰国出口;税务厅、BOI 等部门官网直连即可,而代理可能只放行指定目标
+    egress_hosts: tuple = tuple(h.strip().lower() for h in os.getenv(
+        "THAI_EGRESS_HOSTS", "data.go.th,soc.go.th,gdcatalog.go.th").split(",") if h.strip())
 
     # 采集后是否把 DB 导出成静态 JSON(给 GitHub Pages 降级用)
     export_after_collect: bool = _bool("EXPORT_AFTER_COLLECT", True)

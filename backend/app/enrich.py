@@ -44,6 +44,7 @@ import httpx
 from .config import BKK, DATA_DIR, POLICIES_DIR, settings
 from .db import init_db, session_scope
 from .ingest import load_documents, read_jsonl
+from .persons import output_person_reason, redact as redact_persons
 
 log = logging.getLogger("policy.enrich")
 
@@ -53,7 +54,7 @@ ROYAL_TERMS = ("พระบรมราชโองการ", "สมเด็
 # 读正文后模型可能写出「经国王御准」之类的话 —— 命中就按红线一整条跳过,不写入任何译文
 ROYAL_OUTPUT_TERMS = ROYAL_TERMS + ("王室", "国王", "王后", "御准", "冒犯君主")
 
-SYSTEM_PROMPT = """你是泰国政策数据库的编辑助手,把泰国皇家公报/内阁决议整理成中文结构化记录,
+SYSTEM_PROMPT = """你是泰国政策数据库的编辑助手,把泰国皇家公报/内阁决议/部门公告(税务厅、BOI)整理成中文结构化记录,
 读者是在泰国生活和经商的华人(长居个人、中资企业、投资者)。输入有泰文标题,多数还附有正文(从官方 PDF 抽取,
 可能有少量识别错字,按上下文理解即可)。
 
@@ -75,7 +76,9 @@ SYSTEM_PROMPT = """你是泰国政策数据库的编辑助手,把泰国皇家公
   单个企业登记、宗教事务等一律 false。
 - 所有 id 字段只能从给定枚举里选;拿不准就选最保守的值(direction 选 neutral,
   confidence 选 low)。
-- 涉及王室的内容不在你的处理范围内(上游已过滤),若仍遇到,relevant 设为 false。"""
+- 涉及王室的内容不在你的处理范围内(上游已过滤),若仍遇到,relevant 设为 false。
+- 不写任何自然人的姓名(包括部长、官员、当事人),只写职务或机关,如「副总理兼财政部长」「税务厅厅长」;
+  正文里的姓名已替换为[人名略],不要猜测或还原。不用「先生/女士」等称谓。"""
 
 
 def _vocab() -> dict:
@@ -402,7 +405,8 @@ def apply_enrichment(rec: dict, out: dict, v: dict, model: str, basis: str = "ti
     prov["enriched_at"] = now
     prov["summary_basis"] = basis
     # 替换采集时「待翻译」的占位说明;详情页「数据说明」展示的就是这一句
-    src = {"gazette_json": "官方公报索引", "cabinet_json": "内阁决议数据"}.get(prov.get("pipeline"), "官方来源")
+    src = {"gazette_json": "官方公报索引", "cabinet_json": "内阁决议数据", "rd_web": "税务厅官网",
+           "boi_web": "BOI 官网"}.get(prov.get("pipeline"), "官方来源")
     what = "泰文原文正文" if basis == "fulltext" else "泰文原题"
     rec["note"] = f"自{src}自动收录;中文标题、摘要与分类依{what}整理,以泰文原文为准"
     return rec
@@ -421,10 +425,12 @@ def _default_fetcher():
     """真实的正文获取器:经泰国出口下载官方 PDF。ENRICH_FULLTEXT=0 时关闭(测试、离线)。"""
     if not settings.enrich_fulltext:
         return None
-    from .collect import source_client
-    from .fulltext import fetch_fulltext
-    client = source_client({"User-Agent": "ThaiPolicyLineage/1.0 (+https://www.thaipolicy.com)"})
-    return lambda rec: fetch_fulltext(rec, client)
+    from .collect import direct_client, needs_egress, source_client
+    from .fulltext import fetch_fulltext, pdf_url
+    headers = {"User-Agent": "ThaiPolicyLineage/1.0 (+https://www.thaipolicy.com)"}
+    proxied, direct = source_client(headers), direct_client(headers)
+    # 公报、决议的 PDF 经泰国出口;税务厅、BOI 的 PDF 直连
+    return lambda rec: fetch_fulltext(rec, proxied if needs_egress(pdf_url(rec)) else direct)
 
 
 def run_enrichment(limit: int | None = None, dry_run: bool = False, client=None,
@@ -490,6 +496,8 @@ def run_enrichment(limit: int | None = None, dry_run: bool = False, client=None,
                 text, how = fetch_text(rec)
             except Exception as exc:           # noqa: BLE001 —— 取正文失败就只看标题
                 log.info("取正文失败 %s: %s", rec["uid"], exc)
+        # 红线二:姓名在送模型之前就去掉(决议确认函的收件人、署名都是具体的部长和官员)
+        text, _ = redact_persons(text)
         if rec["uid"] in upgrade_ids and not text:
             return None, "no_text"             # 重做的意义就在正文;没拿到就留到下一轮
         try:
@@ -520,6 +528,13 @@ def run_enrichment(limit: int | None = None, dry_run: bool = False, client=None,
             continue
         text_out = json.dumps([out.get("title_zh"), out.get("summary_zh"), out.get("key_points")],
                               ensure_ascii=False)
+        person = output_person_reason(text_out)
+        if person:
+            # 红线二:作废这条输出,不写入;下一轮会重试(送模型前已去姓名,重复命中的概率很低)
+            log.warning("译文含人名痕迹(%s),作废 %s", person, rec["uid"])
+            result["failed"] += 1
+            result["person_rejected"] = result.get("person_rejected", 0) + 1
+            continue
         hit = next((t for t in ROYAL_OUTPUT_TERMS if t in text_out), None)
         if hit:
             # 红线一:不写入任何模型输出,标记跳过,留给人工判断

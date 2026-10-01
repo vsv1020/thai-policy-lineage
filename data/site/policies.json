@@ -9,6 +9,8 @@
   "with_points": 406,
   "date_from": "2026-02-02",
   "date_to": "2026-04-22",
+  "gazette_to": "2026-04-22",
+  "agency_n": 0,
   "by_domain": [
    {
     "id": "biz",

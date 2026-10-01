@@ -32,6 +32,7 @@ from urllib.parse import urlsplit
 import httpx
 from sqlalchemy import select
 
+from .persons import title_person_reason
 from .config import BKK, POLICIES_DIR, settings
 from .db import init_db, session_scope
 from .ingest import load_documents, read_jsonl
@@ -48,12 +49,16 @@ SOURCES = [
      "dataset": "dataset_02_04", "url": f"{CKAN_BASE}/dataset/dataset_02_04"},
     {"id": "cabinet_json", "name": "内阁决议年度 JSON",
      "dataset": "dataset_02_03", "url": f"{CKAN_BASE}/dataset/dataset_02_03"},
+    # 部门官网(app.agency_sources):开放数据平台断更期间的新规来源,直连
+    {"id": "rd_web", "name": "税务厅官网「新法」", "kind": "agency", "url": "https://www.rd.go.th/rss.xml"},
+    {"id": "boi_web", "name": "BOI 官网公告", "kind": "agency",
+     "url": "https://www.boi.go.th/index.php?page=boi_announcements"},
 ]
 
 # 红线一:王室相关一律不自动入库
 ROYAL_TERMS = ("พระบรมราชโองการ", "สมเด็จพระ", "พระบาทสมเด็จ", "ราชวงศ์", "เครื่องราชอิสริยาภรณ์")
-# 红线二:人名前缀出现即跳过(叙勋、归化名单等)
-PERSON_PREFIX = re.compile(r"(นาย|นาง|นางสาว)\s*\S")
+# 红线二:人名前缀出现即跳过(叙勋、归化名单等)。规则在 app.persons,与翻译环节共用
+PERSON_PREFIX = re.compile(r"(นาย|นาง|นางสาว)\s*\S")     # 旧规则,仅为兼容保留;判断用 persons
 
 # 公报系列 → 领域的粗分类。只用于给候选打初值,不确定就留给人工。
 SERIES_KEEP = {"ก", "ง"}   # ก 法律法规、ง 一般公告;ข 皇家任命、ค 商业登记不收
@@ -99,6 +104,13 @@ def source_client(headers: dict) -> httpx.Client:
         raise RuntimeError("THAI_EGRESS_PROXY 协议不支持,应以 http:// https:// socks5:// socks5h:// 开头")
     return httpx.Client(timeout=settings.http_timeout, headers=headers,
                         follow_redirects=True, proxy=proxy)
+
+
+def needs_egress(url: str) -> bool:
+    """这个地址是否要走泰国出口(只对 THAI_EGRESS_HOSTS 里的域名)。"""
+    host = (urlsplit(url).hostname or "").lower()
+    return bool(settings.egress_proxy) and any(host == h or host.endswith("." + h)
+                                               for h in settings.egress_hosts)
 
 
 def direct_client(headers: dict) -> httpx.Client:
@@ -307,8 +319,9 @@ def passes_red_lines(title: str) -> tuple[bool, str]:
     for t in ROYAL_TERMS:
         if t in title:
             return False, f"王室相关({t})"
-    if PERSON_PREFIX.search(title):
-        return False, "含自然人姓名前缀"
+    why = title_person_reason(title)
+    if why:
+        return False, f"指向个人({why})"
     return True, ""
 
 
@@ -451,6 +464,9 @@ def normalize_cabinet(rec: dict, run_at: str) -> tuple[dict | None, str]:
 def collect_source(src: dict, throttle: Throttle, run_at: str, cutoff: date,
                    dry_run: bool, backfill: bool = False) -> SourceResult:
     res = SourceResult(id=src["id"], name=src["name"], url=src["url"])
+    if src.get("kind") == "agency":
+        with direct_client({"User-Agent": UA}) as client:
+            return _collect_agency(src, res, client, throttle, run_at, cutoff, dry_run)
     # 同一个客户端贯穿 package_show 与 resource 下载:同域名时复用已建立的代理连接,少一次握手
     with source_client({"User-Agent": UA, "Accept": "application/json"}) as client:
         return _collect_with(src, res, client, throttle, run_at, cutoff, dry_run, backfill)
@@ -529,7 +545,48 @@ def _collect_with(src: dict, res: SourceResult, client: httpx.Client, throttle: 
     return res
 
 
-AUTO_PIPELINES = {"gazette_json", "cabinet_json"}
+def _collect_agency(src: dict, res: SourceResult, client: httpx.Client, throttle: Throttle,
+                    run_at: str, cutoff: date, dry_run: bool) -> SourceResult:
+    from . import agency_sources as AS
+    fetch, normalize = {"rd_web": (AS.fetch_rd, AS.normalize_rd),
+                        "boi_web": (AS.fetch_boi, AS.normalize_boi)}[src["id"]]
+    throttle.wait()
+    try:
+        items, info = fetch(client)
+    except Exception as exc:
+        res.status = "error"
+        res.detail = _err(exc)[:400]
+        return res
+    if dry_run:
+        res.status = "ok"
+        res.detail = f"可达,{info}(dry-run 未入库)"
+        return res
+    skipped: dict[str, int] = {}
+    seen: set[str] = set()
+    for item in items:
+        norm, why = normalize(item, run_at)
+        if norm is None:
+            skipped[why] = skipped.get(why, 0) + 1
+            continue
+        if not AS.in_window(norm["dates"]["published_at"], cutoff):
+            skipped["早于回溯期"] = skipped.get("早于回溯期", 0) + 1
+            continue
+        if norm["uid"] not in seen:
+            seen.add(norm["uid"])
+            res.records.append(norm)
+    linked = AS.link_boi(res.records) if src["id"] == "boi_web" else 0
+    if linked:
+        info += f";按废止说明建立替代关系 {linked} 条"
+    res.status = "ok"
+    res.detail = (f"{info};收 {len(res.records)} 条" + (
+        f" | 跳过 {sum(skipped.values())} 条(" + ", ".join(f"{k}×{v}" for k, v in sorted(skipped.items())) + ")"
+        if skipped else ""))[:1500]
+    return res
+
+
+AUTO_PIPELINES = {"gazette_json", "cabinet_json", "rd_web", "boi_web"}
+# 部门官网发布的文件之后通常也会刊登公报(开放数据恢复后):按泰文标题认作同一份,不重复入库
+AGENCY_PIPELINES = {"rd_web", "boi_web"}
 # 同步时以官方源为准覆盖的字段;中文标题、摘要、分类是翻译环节的产物,不在其中
 RAW_FIELDS = ("doc_no", "gazette", "dates", "sources", "status_id")
 
@@ -550,6 +607,9 @@ def merge_update(old: dict, new: dict) -> dict:
             merged[k] = d
         else:
             merged[k] = new[k]
+    # 部门官网来源按官方废止说明推出的替代关系,随官方数据更新(公报、决议来源不产生关系,不动已有的)
+    if (new.get("provenance") or {}).get("pipeline") in AGENCY_PIPELINES and "relations" in new:
+        merged["relations"] = new["relations"]
     th_old = (old.get("titles") or {}).get("th", "")
     th_new = (new.get("titles") or {}).get("th", "")
     if th_new and th_new != th_old:
@@ -564,6 +624,30 @@ def merge_update(old: dict, new: dict) -> dict:
     return merged
 
 
+TWIN_DAYS = 90
+
+
+def _day(rec: dict) -> date | None:
+    d = rec.get("dates") or {}
+    v = d.get("published_at") or d.get("resolved_at")
+    return date.fromisoformat(v) if v else None
+
+
+def find_twin(rows: list[dict], candidates: list[int], rec: dict) -> int | None:
+    """部门官网与公报之间的同一份文件:泰文标题相同、一边是部门官网一边不是、日期相差不超过 90 天。
+    同一来源里标题相同的(储蓄银行多次调整利率的公告)是不同文件,不算。"""
+    mine = (rec.get("provenance") or {}).get("pipeline")
+    day = _day(rec)
+    for k in candidates:
+        other = (rows[k].get("provenance") or {}).get("pipeline")
+        if (mine in AGENCY_PIPELINES) == (other in AGENCY_PIPELINES):
+            continue
+        od = _day(rows[k])
+        if day and od and abs((day - od).days) <= TWIN_DAYS:
+            return k
+    return None
+
+
 def upsert_jsonl(records: list[dict], run_at: str) -> tuple[list[dict], int, int]:
     """新记录追加、已有记录按官方源更新,原位改写 documents.jsonl(保持顺序,diff 只出现改动的行)。
     人工整理的条目(pipeline 不是官方接口)永远不被覆盖。返回 (新增或变动的记录, 新增数, 更新数)。"""
@@ -572,12 +656,34 @@ def upsert_jsonl(records: list[dict], run_at: str) -> tuple[list[dict], int, int
     path = POLICIES_DIR / "documents.jsonl"
     rows = read_jsonl(path)
     index = {r["uid"]: i for i, r in enumerate(rows)}
+    from .agency_sources import title_key
+    by_title: dict[str, list[int]] = {}
+    for k, r in enumerate(rows):
+        if (r.get("provenance") or {}).get("pipeline") in AUTO_PIPELINES:
+            by_title.setdefault(title_key((r.get("titles") or {}).get("th", "")), []).append(k)
     touched: list[dict] = []
     added = updated = 0
     for rec in records:
         i = index.get(rec["uid"])
+        twin = find_twin(rows, by_title.get(title_key(rec["titles"]["th"]), []), rec) if i is None else None
+        if twin is not None:
+            # 同一份文件已从另一个来源入库:不新建(网址不变),只把这边的官方原文链接补进去
+            old = rows[twin]
+            have = {x.get("url") for x in old.get("sources") or []}
+            extra = [x for x in rec.get("sources") or [] if x.get("url") and x["url"] not in have]
+            if extra:
+                merged = json.loads(json.dumps(old))
+                merged["sources"] = (merged.get("sources") or []) + extra
+                if not merged.get("gazette") and rec.get("gazette"):
+                    merged["gazette"] = rec["gazette"]
+                merged.setdefault("provenance", {})["updated_at"] = run_at
+                rows[twin] = merged
+                touched.append(merged)
+                updated += 1
+            continue
         if i is None:
             index[rec["uid"]] = len(rows)
+            by_title.setdefault(title_key(rec["titles"]["th"]), []).append(len(rows))
             rows.append(rec)
             touched.append(rec)
             added += 1
@@ -595,6 +701,23 @@ def upsert_jsonl(records: list[dict], run_at: str) -> tuple[list[dict], int, int
         path.write_text("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in rows),
                         encoding="utf-8")
     return touched, added, updated
+
+
+def purge_red_lines(dry_run: bool = False) -> list[tuple[str, str]]:
+    """规则收紧后清理事实层:自动采集进来、按现行红线不该收的条目整条删除(人工条目不动)。
+    返回 [(uid, 原因)]。删除写回 documents.jsonl;历史版本仍在 git 里,需要时可查。"""
+    path = POLICIES_DIR / "documents.jsonl"
+    rows = read_jsonl(path)
+    keep, dropped = [], []
+    for r in rows:
+        ok, why = passes_red_lines((r.get("titles") or {}).get("th", ""))
+        if not ok and (r.get("provenance") or {}).get("pipeline") in AUTO_PIPELINES:
+            dropped.append((r["uid"], why))
+        else:
+            keep.append(r)
+    if dropped and not dry_run:
+        path.write_text("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in keep), encoding="utf-8")
+    return dropped
 
 
 def append_run(entry: dict) -> None:
@@ -645,7 +768,10 @@ def run_collection(trigger: str = "manual", dry_run: bool = False, backfill: boo
     ok_count = sum(1 for r in results if r.status == "ok")
 
     added = updated = appended = 0
+    purged: list[tuple[str, str]] = []
     if not dry_run:
+        # 红线规则收紧后,早先收进来的不合规条目先清掉(否则它们永远留在公开的事实层里)
+        purged = purge_red_lines()
         # 新记录追加,已入库记录按官方源更新;只把有变动的记录写库
         touched, appended, updated = upsert_jsonl(all_records, run_at_iso)
         with session_scope() as s:
@@ -674,6 +800,7 @@ def run_collection(trigger: str = "manual", dry_run: bool = False, backfill: boo
                     "finished_at": finished.replace(microsecond=0).isoformat(),
                     "status": status, "trigger": trigger,
                     "added": appended, "updated": updated, "backfill": backfill,
+                    **({"purged": len(purged)} if purged else {}),
                     "duration_s": round(duration, 1), "detail": detail[:1000]})
 
     enrich_result = None
@@ -707,7 +834,17 @@ def main() -> None:
                     help=f"回填:下载回溯期(LOOKBACK_DAYS,当前 {settings.lookback_days} 天)内的全部月份")
     ap.add_argument("--strict", action="store_true",
                     help="所有源都失败时以退出码 2 结束 —— 给 CI 用,让失败变红、触发通知")
+    ap.add_argument("--purge-red-lines", action="store_true",
+                    help="不采集,只按现行红线清理事实层里早先收进来的不合规条目")
     args = ap.parse_args()
+    if args.purge_red_lines:
+        dropped = purge_red_lines(dry_run=args.dry_run)
+        reasons: dict[str, int] = {}
+        for _, why in dropped:
+            reasons[why] = reasons.get(why, 0) + 1
+        print(json.dumps({"dropped": len(dropped), "reasons": reasons, "dry_run": args.dry_run},
+                         ensure_ascii=False))
+        return
     out = run_collection(trigger=args.trigger, dry_run=args.dry_run, backfill=args.backfill)
     print(json.dumps(out, ensure_ascii=False, indent=1))
     if args.strict and out["status"] == "failed":
