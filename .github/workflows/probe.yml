@@ -26,5 +26,5 @@ jobs:
       - name: 采集(不提交)
         run: cd backend && python -m app.collect --trigger manual | python -c "import json,sys;r=json.load(sys.stdin);print(r['status'],'added',r['added'],'updated',r['updated']);[print(' ',s['id'],s['status'],s['detail'][:300]) for s in r['sources']]"
       - name: 新放行标题(不提交)
-        run: python tools/probe_sources.py
+        run: python tools/probe_sources.py | head -60
       - run: python tools/validate.py --quiet
