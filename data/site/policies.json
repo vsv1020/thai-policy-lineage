@@ -176,16 +176,16 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
-     "stance": "neutral",
-     "label": "外籍长居个人"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
      "label": "消费者"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "neutral",
+     "label": "外籍长居个人"
     }
    ],
    "featured": true
@@ -232,19 +232,19 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
-     "stance": "neutral",
-     "label": "外籍长居个人"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
      "label": "消费者"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "neutral",
+     "label": "外籍长居个人"
     }
    ],
-   "featured": true
+   "featured": false
   },
   {
    "uid": "TH-GAZ-20260421-2-273-DIGITAL-SALAK-ON",
@@ -288,19 +288,19 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
-     "stance": "neutral",
-     "label": "外籍长居个人"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
      "label": "消费者"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "neutral",
+     "label": "外籍长居个人"
     }
    ],
-   "featured": true
+   "featured": false
   },
   {
    "uid": "TH-GAZ-20260421-256",
@@ -456,16 +456,16 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "constrain",
-     "label": "进口商与经销商"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
      "label": "消费者"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "constrain",
+     "label": "进口商与经销商"
     }
    ],
    "featured": true
@@ -511,16 +511,16 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
-     "stance": "neutral",
-     "label": "外籍长居个人"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "neutral",
      "label": "消费者"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "neutral",
+     "label": "外籍长居个人"
     }
    ],
    "featured": true
@@ -573,16 +573,16 @@
      "label": "消费者"
     },
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "neutral",
-     "label": "进口商与经销商"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "neutral",
      "label": "外资企业"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "neutral",
+     "label": "进口商与经销商"
     }
    ],
    "featured": true
@@ -685,16 +685,16 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "constrain",
-     "label": "进口商与经销商"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
      "label": "消费者"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "constrain",
+     "label": "进口商与经销商"
     }
    ],
    "featured": false
@@ -740,12 +740,6 @@
    },
    "parties": [
     {
-     "id": "traveller",
-     "party_id": "traveller",
-     "stance": "constrain",
-     "label": "短期入境者"
-    },
-    {
      "id": "foreign_resident",
      "party_id": "foreign_resident",
      "stance": "constrain",
@@ -756,9 +750,15 @@
      "party_id": "local_government",
      "stance": "neutral",
      "label": "府级与地方政府"
+    },
+    {
+     "id": "traveller",
+     "party_id": "traveller",
+     "stance": "constrain",
+     "label": "短期入境者"
     }
    ],
-   "featured": false
+   "featured": true
   },
   {
    "uid": "TH-GAZ-20260408-11-2569",
@@ -857,16 +857,16 @@
    },
    "parties": [
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
-     "stance": "neutral",
-     "label": "外资企业"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
      "label": "消费者"
+    },
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
     }
    ],
    "featured": false
@@ -1136,6 +1136,12 @@
    },
    "parties": [
     {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "support",
+     "label": "消费者"
+    },
+    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "neutral",
@@ -1146,12 +1152,6 @@
      "party_id": "importer",
      "stance": "neutral",
      "label": "进口商与经销商"
-    },
-    {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "support",
-     "label": "消费者"
     }
    ],
    "featured": false
@@ -1252,16 +1252,16 @@
    },
    "parties": [
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
-     "stance": "neutral",
-     "label": "外资企业"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
      "label": "消费者"
+    },
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
     }
    ],
    "featured": false
@@ -1307,16 +1307,16 @@
    },
    "parties": [
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
-     "stance": "neutral",
-     "label": "外资企业"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
      "label": "消费者"
+    },
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
     }
    ],
    "featured": false
@@ -1363,6 +1363,12 @@
    },
    "parties": [
     {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "support",
+     "label": "消费者"
+    },
+    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "neutral",
@@ -1373,12 +1379,6 @@
      "party_id": "thai_employer",
      "stance": "neutral",
      "label": "本地雇主"
-    },
-    {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "support",
-     "label": "消费者"
     }
    ],
    "featured": false
@@ -1425,16 +1425,16 @@
    },
    "parties": [
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
-     "stance": "neutral",
-     "label": "外资企业"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
      "label": "消费者"
+    },
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
     }
    ],
    "featured": false
@@ -1537,16 +1537,16 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "neutral",
-     "label": "进口商与经销商"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
      "label": "消费者"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "neutral",
+     "label": "进口商与经销商"
     }
    ],
    "featured": false
@@ -1593,19 +1593,19 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
-     "stance": "neutral",
-     "label": "外籍长居个人"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "neutral",
      "label": "外资企业"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "neutral",
+     "label": "外籍长居个人"
     }
    ],
-   "featured": false
+   "featured": true
   },
   {
    "uid": "TH-GAZ-20260402-2-270",
@@ -1649,16 +1649,16 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
-     "stance": "neutral",
-     "label": "外籍长居个人"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "neutral",
      "label": "消费者"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "neutral",
+     "label": "外籍长居个人"
     }
    ],
    "featured": false
@@ -1761,16 +1761,16 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
-     "stance": "support",
-     "label": "外籍长居个人"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "support",
      "label": "外资企业"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "support",
+     "label": "外籍长居个人"
     }
    ],
    "featured": false
@@ -1817,16 +1817,16 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
-     "stance": "neutral",
-     "label": "外籍长居个人"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "neutral",
      "label": "外资企业"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "neutral",
+     "label": "外籍长居个人"
     }
    ],
    "featured": false
@@ -1873,16 +1873,16 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
-     "stance": "neutral",
-     "label": "外籍长居个人"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "neutral",
      "label": "外资企业"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "neutral",
+     "label": "外籍长居个人"
     }
    ],
    "featured": false
@@ -1929,16 +1929,16 @@
    },
    "parties": [
     {
-     "id": "foreign_investor",
-     "party_id": "foreign_investor",
-     "stance": "support",
-     "label": "外资投资者"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "support",
      "label": "外资企业"
+    },
+    {
+     "id": "foreign_investor",
+     "party_id": "foreign_investor",
+     "stance": "support",
+     "label": "外资投资者"
     },
     {
      "id": "sme",
@@ -2047,16 +2047,16 @@
    },
    "parties": [
     {
-     "id": "foreign_investor",
-     "party_id": "foreign_investor",
-     "stance": "support",
-     "label": "外资投资者"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "support",
      "label": "外资企业"
+    },
+    {
+     "id": "foreign_investor",
+     "party_id": "foreign_investor",
+     "stance": "support",
+     "label": "外资投资者"
     }
    ],
    "featured": false
@@ -2210,16 +2210,16 @@
      "label": "外籍长居个人"
     },
     {
-     "id": "traveller",
-     "party_id": "traveller",
-     "stance": "constrain",
-     "label": "短期入境者"
-    },
-    {
      "id": "local_government",
      "party_id": "local_government",
      "stance": "neutral",
      "label": "府级与地方政府"
+    },
+    {
+     "id": "traveller",
+     "party_id": "traveller",
+     "stance": "constrain",
+     "label": "短期入境者"
     }
    ],
    "featured": false
@@ -2264,16 +2264,16 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "constrain",
-     "label": "进口商与经销商"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "neutral",
      "label": "外资企业"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "constrain",
+     "label": "进口商与经销商"
     }
    ],
    "featured": false
@@ -2382,16 +2382,16 @@
    },
    "parties": [
     {
-     "id": "foreign_investor",
-     "party_id": "foreign_investor",
-     "stance": "support",
-     "label": "外资投资者"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "support",
      "label": "外资企业"
+    },
+    {
+     "id": "foreign_investor",
+     "party_id": "foreign_investor",
+     "stance": "support",
+     "label": "外资投资者"
     }
    ],
    "featured": false
@@ -2500,16 +2500,16 @@
    },
    "parties": [
     {
-     "id": "foreign_investor",
-     "party_id": "foreign_investor",
-     "stance": "support",
-     "label": "外资投资者"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "support",
      "label": "外资企业"
+    },
+    {
+     "id": "foreign_investor",
+     "party_id": "foreign_investor",
+     "stance": "support",
+     "label": "外资投资者"
     },
     {
      "id": "thai_employer",
@@ -2629,16 +2629,16 @@
      "label": "外资企业"
     },
     {
-     "id": "thai_employer",
-     "party_id": "thai_employer",
-     "stance": "constrain",
-     "label": "本地雇主"
-    },
-    {
      "id": "importer",
      "party_id": "importer",
      "stance": "constrain",
      "label": "进口商与经销商"
+    },
+    {
+     "id": "thai_employer",
+     "party_id": "thai_employer",
+     "stance": "constrain",
+     "label": "本地雇主"
     }
    ],
    "featured": false
@@ -2685,6 +2685,12 @@
    },
    "parties": [
     {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "support",
+     "label": "消费者"
+    },
+    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "neutral",
@@ -2695,12 +2701,6 @@
      "party_id": "thai_employer",
      "stance": "neutral",
      "label": "本地雇主"
-    },
-    {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "support",
-     "label": "消费者"
     }
    ],
    "featured": false
@@ -2747,6 +2747,12 @@
    },
    "parties": [
     {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "support",
+     "label": "消费者"
+    },
+    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "constrain",
@@ -2757,12 +2763,6 @@
      "party_id": "foreign_resident",
      "stance": "constrain",
      "label": "外籍长居个人"
-    },
-    {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "support",
-     "label": "消费者"
     }
    ],
    "featured": false
@@ -2809,6 +2809,12 @@
    },
    "parties": [
     {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "support",
+     "label": "消费者"
+    },
+    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "neutral",
@@ -2819,12 +2825,6 @@
      "party_id": "thai_employer",
      "stance": "neutral",
      "label": "本地雇主"
-    },
-    {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "support",
-     "label": "消费者"
     }
    ],
    "featured": false
@@ -2877,16 +2877,16 @@
      "label": "外资企业"
     },
     {
-     "id": "thai_employer",
-     "party_id": "thai_employer",
-     "stance": "constrain",
-     "label": "本地雇主"
-    },
-    {
      "id": "foreign_resident",
      "party_id": "foreign_resident",
      "stance": "neutral",
      "label": "外籍长居个人"
+    },
+    {
+     "id": "thai_employer",
+     "party_id": "thai_employer",
+     "stance": "constrain",
+     "label": "本地雇主"
     }
    ],
    "featured": false
@@ -2932,16 +2932,16 @@
    },
    "parties": [
     {
-     "id": "thai_employer",
-     "party_id": "thai_employer",
-     "stance": "constrain",
-     "label": "本地雇主"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "constrain",
      "label": "外资企业"
+    },
+    {
+     "id": "thai_employer",
+     "party_id": "thai_employer",
+     "stance": "constrain",
+     "label": "本地雇主"
     }
    ],
    "featured": false
@@ -3156,16 +3156,16 @@
    },
    "parties": [
     {
-     "id": "thai_employer",
-     "party_id": "thai_employer",
-     "stance": "neutral",
-     "label": "本地雇主"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "neutral",
      "label": "外资企业"
+    },
+    {
+     "id": "thai_employer",
+     "party_id": "thai_employer",
+     "stance": "neutral",
+     "label": "本地雇主"
     }
    ],
    "featured": false
@@ -3218,16 +3218,16 @@
      "label": "外资企业"
     },
     {
-     "id": "thai_employer",
-     "party_id": "thai_employer",
-     "stance": "constrain",
-     "label": "本地雇主"
-    },
-    {
      "id": "sme",
      "party_id": "sme",
      "stance": "constrain",
      "label": "中小企业"
+    },
+    {
+     "id": "thai_employer",
+     "party_id": "thai_employer",
+     "stance": "constrain",
+     "label": "本地雇主"
     }
    ],
    "featured": false
@@ -3274,6 +3274,12 @@
    },
    "parties": [
     {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "neutral",
+     "label": "消费者"
+    },
+    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "constrain",
@@ -3284,12 +3290,6 @@
      "party_id": "importer",
      "stance": "constrain",
      "label": "进口商与经销商"
-    },
-    {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "neutral",
-     "label": "消费者"
     }
    ],
    "featured": false
@@ -3391,12 +3391,6 @@
    },
    "parties": [
     {
-     "id": "thai_employer",
-     "party_id": "thai_employer",
-     "stance": "support",
-     "label": "本地雇主"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "support",
@@ -3407,6 +3401,12 @@
      "party_id": "foreign_resident",
      "stance": "support",
      "label": "外籍长居个人"
+    },
+    {
+     "id": "thai_employer",
+     "party_id": "thai_employer",
+     "stance": "support",
+     "label": "本地雇主"
     }
    ],
    "featured": false
@@ -3508,16 +3508,16 @@
      "label": "外资企业"
     },
     {
-     "id": "thai_employer",
-     "party_id": "thai_employer",
-     "stance": "neutral",
-     "label": "本地雇主"
-    },
-    {
      "id": "sme",
      "party_id": "sme",
      "stance": "neutral",
      "label": "中小企业"
+    },
+    {
+     "id": "thai_employer",
+     "party_id": "thai_employer",
+     "stance": "neutral",
+     "label": "本地雇主"
     }
    ],
    "featured": false
@@ -3680,16 +3680,16 @@
      "label": "外资企业"
     },
     {
-     "id": "thai_employer",
-     "party_id": "thai_employer",
-     "stance": "neutral",
-     "label": "本地雇主"
-    },
-    {
      "id": "sme",
      "party_id": "sme",
      "stance": "neutral",
      "label": "中小企业"
+    },
+    {
+     "id": "thai_employer",
+     "party_id": "thai_employer",
+     "stance": "neutral",
+     "label": "本地雇主"
     }
    ],
    "featured": false
@@ -3791,16 +3791,16 @@
    },
    "parties": [
     {
-     "id": "traveller",
-     "party_id": "traveller",
-     "stance": "neutral",
-     "label": "短期入境者"
-    },
-    {
      "id": "foreign_resident",
      "party_id": "foreign_resident",
      "stance": "neutral",
      "label": "外籍长居个人"
+    },
+    {
+     "id": "traveller",
+     "party_id": "traveller",
+     "stance": "neutral",
+     "label": "短期入境者"
     }
    ],
    "featured": false
@@ -4286,16 +4286,16 @@
    },
    "parties": [
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
-     "stance": "constrain",
-     "label": "外资企业"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
      "label": "消费者"
+    },
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "constrain",
+     "label": "外资企业"
     }
    ],
    "featured": false
@@ -4342,6 +4342,12 @@
    },
    "parties": [
     {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "support",
+     "label": "消费者"
+    },
+    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "constrain",
@@ -4352,12 +4358,6 @@
      "party_id": "importer",
      "stance": "constrain",
      "label": "进口商与经销商"
-    },
-    {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "support",
-     "label": "消费者"
     }
    ],
    "featured": false
@@ -4452,16 +4452,16 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
-     "stance": "support",
-     "label": "外籍长居个人"
-    },
-    {
      "id": "foreign_investor",
      "party_id": "foreign_investor",
      "stance": "support",
      "label": "外资投资者"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "support",
+     "label": "外籍长居个人"
     },
     {
      "id": "local_government",
@@ -4513,16 +4513,16 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "neutral",
-     "label": "进口商与经销商"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "neutral",
      "label": "外资企业"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "neutral",
+     "label": "进口商与经销商"
     }
    ],
    "featured": false
@@ -4568,6 +4568,12 @@
    },
    "parties": [
     {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "support",
+     "label": "消费者"
+    },
+    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "constrain",
@@ -4578,12 +4584,6 @@
      "party_id": "thai_employer",
      "stance": "constrain",
      "label": "本地雇主"
-    },
-    {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "support",
-     "label": "消费者"
     }
    ],
    "featured": false
@@ -4686,10 +4686,10 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
+     "id": "foreign_company",
+     "party_id": "foreign_company",
      "stance": "neutral",
-     "label": "外籍长居个人"
+     "label": "外资企业"
     },
     {
      "id": "foreign_investor",
@@ -4698,10 +4698,10 @@
      "label": "外资投资者"
     },
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
      "stance": "neutral",
-     "label": "外资企业"
+     "label": "外籍长居个人"
     }
    ],
    "featured": false
@@ -4803,10 +4803,10 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
+     "id": "foreign_company",
+     "party_id": "foreign_company",
      "stance": "neutral",
-     "label": "外籍长居个人"
+     "label": "外资企业"
     },
     {
      "id": "foreign_investor",
@@ -4815,10 +4815,10 @@
      "label": "外资投资者"
     },
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
      "stance": "neutral",
-     "label": "外资企业"
+     "label": "外籍长居个人"
     }
    ],
    "featured": false
@@ -4864,10 +4864,10 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
+     "id": "foreign_company",
+     "party_id": "foreign_company",
      "stance": "neutral",
-     "label": "外籍长居个人"
+     "label": "外资企业"
     },
     {
      "id": "foreign_investor",
@@ -4876,10 +4876,10 @@
      "label": "外资投资者"
     },
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
      "stance": "neutral",
-     "label": "外资企业"
+     "label": "外籍长居个人"
     }
    ],
    "featured": false
@@ -4926,10 +4926,10 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
+     "id": "foreign_company",
+     "party_id": "foreign_company",
      "stance": "support",
-     "label": "外籍长居个人"
+     "label": "外资企业"
     },
     {
      "id": "foreign_investor",
@@ -4938,10 +4938,10 @@
      "label": "外资投资者"
     },
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
      "stance": "support",
-     "label": "外资企业"
+     "label": "外籍长居个人"
     }
    ],
    "featured": false
@@ -4988,10 +4988,10 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
+     "id": "foreign_company",
+     "party_id": "foreign_company",
      "stance": "support",
-     "label": "外籍长居个人"
+     "label": "外资企业"
     },
     {
      "id": "foreign_investor",
@@ -5000,10 +5000,10 @@
      "label": "外资投资者"
     },
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
      "stance": "support",
-     "label": "外资企业"
+     "label": "外籍长居个人"
     }
    ],
    "featured": false
@@ -5050,10 +5050,10 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
+     "id": "foreign_company",
+     "party_id": "foreign_company",
      "stance": "neutral",
-     "label": "外籍长居个人"
+     "label": "外资企业"
     },
     {
      "id": "foreign_investor",
@@ -5062,10 +5062,10 @@
      "label": "外资投资者"
     },
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
      "stance": "neutral",
-     "label": "外资企业"
+     "label": "外籍长居个人"
     }
    ],
    "featured": false
@@ -5112,16 +5112,16 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
-     "stance": "support",
-     "label": "外籍长居个人"
-    },
-    {
      "id": "foreign_investor",
      "party_id": "foreign_investor",
      "stance": "support",
      "label": "外资投资者"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "support",
+     "label": "外籍长居个人"
     },
     {
      "id": "local_government",
@@ -5174,10 +5174,10 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
+     "id": "foreign_company",
+     "party_id": "foreign_company",
      "stance": "support",
-     "label": "外籍长居个人"
+     "label": "外资企业"
     },
     {
      "id": "foreign_investor",
@@ -5186,10 +5186,10 @@
      "label": "外资投资者"
     },
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
      "stance": "support",
-     "label": "外资企业"
+     "label": "外籍长居个人"
     }
    ],
    "featured": false
@@ -5236,16 +5236,16 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
-     "stance": "neutral",
-     "label": "外籍长居个人"
-    },
-    {
      "id": "foreign_investor",
      "party_id": "foreign_investor",
      "stance": "neutral",
      "label": "外资投资者"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "neutral",
+     "label": "外籍长居个人"
     },
     {
      "id": "local_government",
@@ -5298,10 +5298,10 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
+     "id": "foreign_company",
+     "party_id": "foreign_company",
      "stance": "support",
-     "label": "外籍长居个人"
+     "label": "外资企业"
     },
     {
      "id": "foreign_investor",
@@ -5310,10 +5310,10 @@
      "label": "外资投资者"
     },
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
      "stance": "support",
-     "label": "外资企业"
+     "label": "外籍长居个人"
     }
    ],
    "featured": false
@@ -5360,10 +5360,10 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
+     "id": "foreign_company",
+     "party_id": "foreign_company",
      "stance": "support",
-     "label": "外籍长居个人"
+     "label": "外资企业"
     },
     {
      "id": "foreign_investor",
@@ -5372,10 +5372,10 @@
      "label": "外资投资者"
     },
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
      "stance": "support",
-     "label": "外资企业"
+     "label": "外籍长居个人"
     }
    ],
    "featured": false
@@ -5422,10 +5422,10 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
+     "id": "foreign_company",
+     "party_id": "foreign_company",
      "stance": "support",
-     "label": "外籍长居个人"
+     "label": "外资企业"
     },
     {
      "id": "foreign_investor",
@@ -5434,10 +5434,10 @@
      "label": "外资投资者"
     },
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
      "stance": "support",
-     "label": "外资企业"
+     "label": "外籍长居个人"
     }
    ],
    "featured": false
@@ -5484,10 +5484,10 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
+     "id": "foreign_company",
+     "party_id": "foreign_company",
      "stance": "support",
-     "label": "外籍长居个人"
+     "label": "外资企业"
     },
     {
      "id": "foreign_investor",
@@ -5496,10 +5496,10 @@
      "label": "外资投资者"
     },
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
      "stance": "support",
-     "label": "外资企业"
+     "label": "外籍长居个人"
     }
    ],
    "featured": false
@@ -5546,6 +5546,12 @@
    },
    "parties": [
     {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "support",
+     "label": "消费者"
+    },
+    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "constrain",
@@ -5556,12 +5562,6 @@
      "party_id": "importer",
      "stance": "constrain",
      "label": "进口商与经销商"
-    },
-    {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "support",
-     "label": "消费者"
     }
    ],
    "featured": false
@@ -5614,16 +5614,16 @@
      "label": "外资企业"
     },
     {
-     "id": "thai_employer",
-     "party_id": "thai_employer",
-     "stance": "constrain",
-     "label": "本地雇主"
-    },
-    {
      "id": "importer",
      "party_id": "importer",
      "stance": "constrain",
      "label": "进口商与经销商"
+    },
+    {
+     "id": "thai_employer",
+     "party_id": "thai_employer",
+     "stance": "constrain",
+     "label": "本地雇主"
     }
    ],
    "featured": false
@@ -5725,16 +5725,16 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
-     "stance": "neutral",
-     "label": "外籍长居个人"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "neutral",
      "label": "外资企业"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "neutral",
+     "label": "外籍长居个人"
     }
    ],
    "featured": false
@@ -5836,16 +5836,16 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "constrain",
-     "label": "进口商与经销商"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "neutral",
      "label": "外资企业"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "constrain",
+     "label": "进口商与经销商"
     }
    ],
    "featured": false
@@ -5948,16 +5948,16 @@
    },
    "parties": [
     {
-     "id": "thai_employer",
-     "party_id": "thai_employer",
-     "stance": "constrain",
-     "label": "本地雇主"
-    },
-    {
      "id": "local_government",
      "party_id": "local_government",
      "stance": "neutral",
      "label": "府级与地方政府"
+    },
+    {
+     "id": "thai_employer",
+     "party_id": "thai_employer",
+     "stance": "constrain",
+     "label": "本地雇主"
     }
    ],
    "featured": false
@@ -6004,16 +6004,16 @@
    },
    "parties": [
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
-     "stance": "constrain",
-     "label": "外资企业"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
      "label": "消费者"
+    },
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "constrain",
+     "label": "外资企业"
     }
    ],
    "featured": false
@@ -6059,16 +6059,16 @@
    },
    "parties": [
     {
-     "id": "traveller",
-     "party_id": "traveller",
-     "stance": "constrain",
-     "label": "短期入境者"
-    },
-    {
      "id": "foreign_resident",
      "party_id": "foreign_resident",
      "stance": "constrain",
      "label": "外籍长居个人"
+    },
+    {
+     "id": "traveller",
+     "party_id": "traveller",
+     "stance": "constrain",
+     "label": "短期入境者"
     }
    ],
    "featured": false
@@ -6115,16 +6115,16 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "neutral",
-     "label": "进口商与经销商"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "neutral",
      "label": "外资企业"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "neutral",
+     "label": "进口商与经销商"
     }
    ],
    "featured": false
@@ -6233,6 +6233,12 @@
    },
    "parties": [
     {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "constrain",
+     "label": "外资企业"
+    },
+    {
      "id": "foreign_resident",
      "party_id": "foreign_resident",
      "stance": "constrain",
@@ -6243,12 +6249,6 @@
      "party_id": "traveller",
      "stance": "constrain",
      "label": "短期入境者"
-    },
-    {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
-     "stance": "constrain",
-     "label": "外资企业"
     }
    ],
    "featured": false
@@ -6357,16 +6357,16 @@
    },
    "parties": [
     {
-     "id": "traveller",
-     "party_id": "traveller",
-     "stance": "constrain",
-     "label": "短期入境者"
-    },
-    {
      "id": "local_government",
      "party_id": "local_government",
      "stance": "neutral",
      "label": "府级与地方政府"
+    },
+    {
+     "id": "traveller",
+     "party_id": "traveller",
+     "stance": "constrain",
+     "label": "短期入境者"
     }
    ],
    "featured": false
@@ -6469,16 +6469,16 @@
    },
    "parties": [
     {
-     "id": "thai_employer",
-     "party_id": "thai_employer",
-     "stance": "constrain",
-     "label": "本地雇主"
-    },
-    {
      "id": "foreign_resident",
      "party_id": "foreign_resident",
      "stance": "neutral",
      "label": "外籍长居个人"
+    },
+    {
+     "id": "thai_employer",
+     "party_id": "thai_employer",
+     "stance": "constrain",
+     "label": "本地雇主"
     }
    ],
    "featured": false
@@ -6970,16 +6970,16 @@
    },
    "parties": [
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
-     "stance": "constrain",
-     "label": "外资企业"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
      "label": "消费者"
+    },
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "constrain",
+     "label": "外资企业"
     }
    ],
    "featured": false
@@ -7026,16 +7026,16 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "constrain",
-     "label": "进口商与经销商"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "constrain",
      "label": "外资企业"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "constrain",
+     "label": "进口商与经销商"
     }
    ],
    "featured": false
@@ -7082,10 +7082,10 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "constrain",
-     "label": "进口商与经销商"
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "support",
+     "label": "消费者"
     },
     {
      "id": "foreign_company",
@@ -7094,10 +7094,10 @@
      "label": "外资企业"
     },
     {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "support",
-     "label": "消费者"
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "constrain",
+     "label": "进口商与经销商"
     }
    ],
    "featured": false
@@ -7200,6 +7200,12 @@
    },
    "parties": [
     {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "support",
+     "label": "消费者"
+    },
+    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "constrain",
@@ -7210,12 +7216,6 @@
      "party_id": "foreign_investor",
      "stance": "neutral",
      "label": "外资投资者"
-    },
-    {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "support",
-     "label": "消费者"
     }
    ],
    "featured": false
@@ -7261,16 +7261,16 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "neutral",
-     "label": "进口商与经销商"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "neutral",
      "label": "消费者"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "neutral",
+     "label": "进口商与经销商"
     }
    ],
    "featured": false
@@ -7697,6 +7697,12 @@
    },
    "parties": [
     {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "support",
+     "label": "消费者"
+    },
+    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "constrain",
@@ -7707,12 +7713,6 @@
      "party_id": "importer",
      "stance": "constrain",
      "label": "进口商与经销商"
-    },
-    {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "support",
-     "label": "消费者"
     }
    ],
    "featured": false
@@ -7759,16 +7759,16 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "constrain",
-     "label": "进口商与经销商"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
      "label": "消费者"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "constrain",
+     "label": "进口商与经销商"
     }
    ],
    "featured": false
@@ -7815,16 +7815,16 @@
    },
    "parties": [
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
-     "stance": "constrain",
-     "label": "外资企业"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
      "label": "消费者"
+    },
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "constrain",
+     "label": "外资企业"
     }
    ],
    "featured": false
@@ -7871,6 +7871,12 @@
    },
    "parties": [
     {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "support",
+     "label": "消费者"
+    },
+    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "constrain",
@@ -7881,12 +7887,6 @@
      "party_id": "importer",
      "stance": "constrain",
      "label": "进口商与经销商"
-    },
-    {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "support",
-     "label": "消费者"
     }
    ],
    "featured": false
@@ -8641,16 +8641,16 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "constrain",
-     "label": "进口商与经销商"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "neutral",
      "label": "外资企业"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "constrain",
+     "label": "进口商与经销商"
     }
    ],
    "featured": false
@@ -8808,16 +8808,16 @@
    },
    "parties": [
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
-     "stance": "constrain",
-     "label": "外资企业"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
      "label": "消费者"
+    },
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "constrain",
+     "label": "外资企业"
     }
    ],
    "featured": false
@@ -8864,16 +8864,16 @@
    },
    "parties": [
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
-     "stance": "constrain",
-     "label": "外资企业"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
      "label": "消费者"
+    },
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "constrain",
+     "label": "外资企业"
     }
    ],
    "featured": false
@@ -8920,16 +8920,16 @@
    },
    "parties": [
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
-     "stance": "constrain",
-     "label": "外资企业"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
      "label": "消费者"
+    },
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "constrain",
+     "label": "外资企业"
     }
    ],
    "featured": false
@@ -9031,16 +9031,16 @@
    },
    "parties": [
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
-     "stance": "constrain",
-     "label": "外资企业"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
      "label": "消费者"
+    },
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "constrain",
+     "label": "外资企业"
     }
    ],
    "featured": false
@@ -9086,16 +9086,16 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "neutral",
-     "label": "进口商与经销商"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
      "label": "消费者"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "neutral",
+     "label": "进口商与经销商"
     }
    ],
    "featured": false
@@ -9310,6 +9310,12 @@
    },
    "parties": [
     {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "support",
+     "label": "消费者"
+    },
+    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "constrain",
@@ -9320,12 +9326,6 @@
      "party_id": "thai_employer",
      "stance": "constrain",
      "label": "本地雇主"
-    },
-    {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "support",
-     "label": "消费者"
     }
    ],
    "featured": false
@@ -9434,16 +9434,16 @@
    },
    "parties": [
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
-     "stance": "constrain",
-     "label": "外资企业"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
      "label": "消费者"
+    },
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "constrain",
+     "label": "外资企业"
     }
    ],
    "featured": false
@@ -9490,6 +9490,12 @@
    },
    "parties": [
     {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "support",
+     "label": "消费者"
+    },
+    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "constrain",
@@ -9500,12 +9506,6 @@
      "party_id": "importer",
      "stance": "constrain",
      "label": "进口商与经销商"
-    },
-    {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "support",
-     "label": "消费者"
     }
    ],
    "featured": false
@@ -9608,6 +9608,12 @@
    },
    "parties": [
     {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "support",
+     "label": "消费者"
+    },
+    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "constrain",
@@ -9618,12 +9624,6 @@
      "party_id": "importer",
      "stance": "constrain",
      "label": "进口商与经销商"
-    },
-    {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "support",
-     "label": "消费者"
     }
    ],
    "featured": false
@@ -9668,16 +9668,16 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "neutral",
-     "label": "进口商与经销商"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
      "label": "消费者"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "neutral",
+     "label": "进口商与经销商"
     }
    ],
    "featured": false
@@ -9928,10 +9928,10 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "constrain",
-     "label": "进口商与经销商"
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "support",
+     "label": "消费者"
     },
     {
      "id": "foreign_company",
@@ -9940,10 +9940,10 @@
      "label": "外资企业"
     },
     {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "support",
-     "label": "消费者"
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "constrain",
+     "label": "进口商与经销商"
     }
    ],
    "featured": false
@@ -10470,16 +10470,16 @@
    },
    "parties": [
     {
-     "id": "thai_employer",
-     "party_id": "thai_employer",
-     "stance": "support",
-     "label": "本地雇主"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "support",
      "label": "外资企业"
+    },
+    {
+     "id": "thai_employer",
+     "party_id": "thai_employer",
+     "stance": "support",
+     "label": "本地雇主"
     }
    ],
    "featured": false
@@ -10526,6 +10526,12 @@
    },
    "parties": [
     {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "support",
+     "label": "消费者"
+    },
+    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "constrain",
@@ -10536,12 +10542,6 @@
      "party_id": "foreign_investor",
      "stance": "neutral",
      "label": "外资投资者"
-    },
-    {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "support",
-     "label": "消费者"
     }
    ],
    "featured": false
@@ -10588,16 +10588,16 @@
    },
    "parties": [
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
-     "stance": "neutral",
-     "label": "外资企业"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
      "label": "消费者"
+    },
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
     }
    ],
    "featured": false
@@ -10644,16 +10644,16 @@
    },
    "parties": [
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
-     "stance": "constrain",
-     "label": "外资企业"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "neutral",
      "label": "消费者"
+    },
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "constrain",
+     "label": "外资企业"
     }
    ],
    "featured": false
@@ -10754,16 +10754,16 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "support",
-     "label": "进口商与经销商"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "support",
      "label": "外资企业"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "support",
+     "label": "进口商与经销商"
     }
    ],
    "featured": false
@@ -10810,10 +10810,10 @@
    },
    "parties": [
     {
-     "id": "thai_employer",
-     "party_id": "thai_employer",
+     "id": "foreign_company",
+     "party_id": "foreign_company",
      "stance": "support",
-     "label": "本地雇主"
+     "label": "外资企业"
     },
     {
      "id": "sme",
@@ -10822,10 +10822,10 @@
      "label": "中小企业"
     },
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
+     "id": "thai_employer",
+     "party_id": "thai_employer",
      "stance": "support",
-     "label": "外资企业"
+     "label": "本地雇主"
     }
    ],
    "featured": false
@@ -10871,16 +10871,16 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "support",
-     "label": "进口商与经销商"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "support",
      "label": "外资企业"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "support",
+     "label": "进口商与经销商"
     }
    ],
    "featured": false
@@ -10926,16 +10926,16 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "support",
-     "label": "进口商与经销商"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "support",
      "label": "外资企业"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "support",
+     "label": "进口商与经销商"
     }
    ],
    "featured": false
@@ -11036,16 +11036,16 @@
    },
    "parties": [
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
-     "stance": "support",
-     "label": "外资企业"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "neutral",
      "label": "消费者"
+    },
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "support",
+     "label": "外资企业"
     }
    ],
    "featured": false
@@ -11209,16 +11209,16 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "constrain",
-     "label": "进口商与经销商"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "neutral",
      "label": "外资企业"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "constrain",
+     "label": "进口商与经销商"
     },
     {
      "id": "thai_employer",
@@ -11271,6 +11271,12 @@
    },
    "parties": [
     {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "constrain",
+     "label": "消费者"
+    },
+    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "constrain",
@@ -11281,12 +11287,6 @@
      "party_id": "thai_employer",
      "stance": "constrain",
      "label": "本地雇主"
-    },
-    {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "constrain",
-     "label": "消费者"
     }
    ],
    "featured": false
@@ -11333,16 +11333,16 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
-     "stance": "constrain",
-     "label": "外籍长居个人"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "constrain",
      "label": "外资企业"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "constrain",
+     "label": "外籍长居个人"
     }
    ],
    "featured": false
@@ -11544,16 +11544,16 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
-     "stance": "neutral",
-     "label": "外籍长居个人"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "neutral",
      "label": "消费者"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "neutral",
+     "label": "外籍长居个人"
     }
    ],
    "featured": false
@@ -11600,12 +11600,6 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
-     "stance": "neutral",
-     "label": "外籍长居个人"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
@@ -11616,6 +11610,12 @@
      "party_id": "foreign_company",
      "stance": "neutral",
      "label": "外资企业"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "neutral",
+     "label": "外籍长居个人"
     }
    ],
    "featured": false
@@ -11773,6 +11773,12 @@
    },
    "parties": [
     {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "support",
+     "label": "消费者"
+    },
+    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "constrain",
@@ -11783,12 +11789,6 @@
      "party_id": "foreign_investor",
      "stance": "neutral",
      "label": "外资投资者"
-    },
-    {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "support",
-     "label": "消费者"
     }
    ],
    "featured": false
@@ -11989,16 +11989,16 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
-     "stance": "neutral",
-     "label": "外籍长居个人"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "neutral",
      "label": "外资企业"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "neutral",
+     "label": "外籍长居个人"
     }
    ],
    "featured": false
@@ -12045,16 +12045,16 @@
    },
    "parties": [
     {
-     "id": "thai_employer",
-     "party_id": "thai_employer",
-     "stance": "neutral",
-     "label": "本地雇主"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
      "label": "消费者"
+    },
+    {
+     "id": "thai_employer",
+     "party_id": "thai_employer",
+     "stance": "neutral",
+     "label": "本地雇主"
     }
    ],
    "featured": false
@@ -12415,16 +12415,16 @@
    },
    "parties": [
     {
-     "id": "foreign_investor",
-     "party_id": "foreign_investor",
-     "stance": "support",
-     "label": "外资投资者"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "support",
      "label": "外资企业"
+    },
+    {
+     "id": "foreign_investor",
+     "party_id": "foreign_investor",
+     "stance": "support",
+     "label": "外资投资者"
     },
     {
      "id": "local_government",
@@ -12532,16 +12532,16 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "constrain",
-     "label": "进口商与经销商"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "constrain",
      "label": "外资企业"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "constrain",
+     "label": "进口商与经销商"
     },
     {
      "id": "thai_employer",
@@ -12774,10 +12774,10 @@
    },
    "parties": [
     {
-     "id": "thai_employer",
-     "party_id": "thai_employer",
-     "stance": "constrain",
-     "label": "本地雇主"
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "support",
+     "label": "消费者"
     },
     {
      "id": "sme",
@@ -12786,10 +12786,10 @@
      "label": "中小企业"
     },
     {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "support",
-     "label": "消费者"
+     "id": "thai_employer",
+     "party_id": "thai_employer",
+     "stance": "constrain",
+     "label": "本地雇主"
     }
    ],
    "featured": false
@@ -12836,16 +12836,16 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
-     "stance": "constrain",
-     "label": "外籍长居个人"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "constrain",
      "label": "外资企业"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "constrain",
+     "label": "外籍长居个人"
     }
    ],
    "featured": false
@@ -12891,16 +12891,16 @@
    },
    "parties": [
     {
-     "id": "thai_employer",
-     "party_id": "thai_employer",
-     "stance": "support",
-     "label": "本地雇主"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "support",
      "label": "外资企业"
+    },
+    {
+     "id": "thai_employer",
+     "party_id": "thai_employer",
+     "stance": "support",
+     "label": "本地雇主"
     }
    ],
    "featured": false
@@ -12947,16 +12947,16 @@
    },
    "parties": [
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
-     "stance": "neutral",
-     "label": "外资企业"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
      "label": "消费者"
+    },
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
     }
    ],
    "featured": false
@@ -13059,16 +13059,16 @@
    },
    "parties": [
     {
-     "id": "local_government",
-     "party_id": "local_government",
-     "stance": "neutral",
-     "label": "府级与地方政府"
-    },
-    {
      "id": "foreign_resident",
      "party_id": "foreign_resident",
      "stance": "neutral",
      "label": "外籍长居个人"
+    },
+    {
+     "id": "local_government",
+     "party_id": "local_government",
+     "stance": "neutral",
+     "label": "府级与地方政府"
     }
    ],
    "featured": false
@@ -13114,16 +13114,16 @@
    },
    "parties": [
     {
-     "id": "traveller",
-     "party_id": "traveller",
-     "stance": "neutral",
-     "label": "短期入境者"
-    },
-    {
      "id": "foreign_resident",
      "party_id": "foreign_resident",
      "stance": "neutral",
      "label": "外籍长居个人"
+    },
+    {
+     "id": "traveller",
+     "party_id": "traveller",
+     "stance": "neutral",
+     "label": "短期入境者"
     }
    ],
    "featured": false
@@ -13218,10 +13218,10 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "constrain",
-     "label": "进口商与经销商"
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "neutral",
+     "label": "消费者"
     },
     {
      "id": "foreign_company",
@@ -13230,10 +13230,10 @@
      "label": "外资企业"
     },
     {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "neutral",
-     "label": "消费者"
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "constrain",
+     "label": "进口商与经销商"
     }
    ],
    "featured": false
@@ -13341,16 +13341,16 @@
    },
    "parties": [
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
-     "stance": "neutral",
-     "label": "外资企业"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
      "label": "消费者"
+    },
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
     }
    ],
    "featured": false
@@ -13515,10 +13515,10 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "constrain",
-     "label": "进口商与经销商"
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "support",
+     "label": "消费者"
     },
     {
      "id": "foreign_company",
@@ -13527,10 +13527,10 @@
      "label": "外资企业"
     },
     {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "support",
-     "label": "消费者"
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "constrain",
+     "label": "进口商与经销商"
     }
    ],
    "featured": false
@@ -13577,6 +13577,12 @@
    },
    "parties": [
     {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "neutral",
+     "label": "消费者"
+    },
+    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "support",
@@ -13587,12 +13593,6 @@
      "party_id": "importer",
      "stance": "support",
      "label": "进口商与经销商"
-    },
-    {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "neutral",
-     "label": "消费者"
     }
    ],
    "featured": false
@@ -13639,6 +13639,12 @@
    },
    "parties": [
     {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "neutral",
+     "label": "消费者"
+    },
+    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "support",
@@ -13649,12 +13655,6 @@
      "party_id": "foreign_investor",
      "stance": "support",
      "label": "外资投资者"
-    },
-    {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "neutral",
-     "label": "消费者"
     }
    ],
    "featured": false
@@ -13701,6 +13701,12 @@
    },
    "parties": [
     {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "support",
+     "label": "消费者"
+    },
+    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "support",
@@ -13711,12 +13717,6 @@
      "party_id": "importer",
      "stance": "support",
      "label": "进口商与经销商"
-    },
-    {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "support",
-     "label": "消费者"
     }
    ],
    "featured": false
@@ -13763,10 +13763,10 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "constrain",
-     "label": "进口商与经销商"
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "support",
+     "label": "消费者"
     },
     {
      "id": "foreign_company",
@@ -13775,10 +13775,10 @@
      "label": "外资企业"
     },
     {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "support",
-     "label": "消费者"
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "constrain",
+     "label": "进口商与经销商"
     }
    ],
    "featured": false
@@ -13825,6 +13825,12 @@
    },
    "parties": [
     {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "neutral",
+     "label": "消费者"
+    },
+    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "constrain",
@@ -13835,12 +13841,6 @@
      "party_id": "importer",
      "stance": "constrain",
      "label": "进口商与经销商"
-    },
-    {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "neutral",
-     "label": "消费者"
     }
    ],
    "featured": false
@@ -13942,6 +13942,12 @@
    },
    "parties": [
     {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "neutral",
+     "label": "消费者"
+    },
+    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "neutral",
@@ -13952,12 +13958,6 @@
      "party_id": "importer",
      "stance": "neutral",
      "label": "进口商与经销商"
-    },
-    {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "neutral",
-     "label": "消费者"
     }
    ],
    "featured": false
@@ -14004,6 +14004,12 @@
    },
    "parties": [
     {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "neutral",
+     "label": "消费者"
+    },
+    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "support",
@@ -14014,12 +14020,6 @@
      "party_id": "importer",
      "stance": "support",
      "label": "进口商与经销商"
-    },
-    {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "neutral",
-     "label": "消费者"
     }
    ],
    "featured": false
@@ -14066,6 +14066,12 @@
    },
    "parties": [
     {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "support",
+     "label": "消费者"
+    },
+    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "support",
@@ -14076,12 +14082,6 @@
      "party_id": "importer",
      "stance": "constrain",
      "label": "进口商与经销商"
-    },
-    {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "support",
-     "label": "消费者"
     }
    ],
    "featured": false
@@ -14128,6 +14128,12 @@
    },
    "parties": [
     {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "support",
+     "label": "消费者"
+    },
+    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "constrain",
@@ -14138,12 +14144,6 @@
      "party_id": "importer",
      "stance": "constrain",
      "label": "进口商与经销商"
-    },
-    {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "support",
-     "label": "消费者"
     }
    ],
    "featured": false
@@ -14190,6 +14190,12 @@
    },
    "parties": [
     {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "support",
+     "label": "消费者"
+    },
+    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "constrain",
@@ -14200,12 +14206,6 @@
      "party_id": "importer",
      "stance": "constrain",
      "label": "进口商与经销商"
-    },
-    {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "support",
-     "label": "消费者"
     }
    ],
    "featured": false
@@ -14252,6 +14252,12 @@
    },
    "parties": [
     {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "neutral",
+     "label": "消费者"
+    },
+    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "support",
@@ -14262,12 +14268,6 @@
      "party_id": "importer",
      "stance": "support",
      "label": "进口商与经销商"
-    },
-    {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "neutral",
-     "label": "消费者"
     }
    ],
    "featured": false
@@ -14376,6 +14376,12 @@
    },
    "parties": [
     {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "neutral",
+     "label": "消费者"
+    },
+    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "support",
@@ -14386,12 +14392,6 @@
      "party_id": "importer",
      "stance": "support",
      "label": "进口商与经销商"
-    },
-    {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "neutral",
-     "label": "消费者"
     }
    ],
    "featured": false
@@ -14438,12 +14438,6 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "neutral",
-     "label": "进口商与经销商"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
@@ -14454,6 +14448,12 @@
      "party_id": "foreign_company",
      "stance": "neutral",
      "label": "外资企业"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "neutral",
+     "label": "进口商与经销商"
     }
    ],
    "featured": false
@@ -14500,6 +14500,12 @@
    },
    "parties": [
     {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "neutral",
+     "label": "消费者"
+    },
+    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "support",
@@ -14510,12 +14516,6 @@
      "party_id": "importer",
      "stance": "support",
      "label": "进口商与经销商"
-    },
-    {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "neutral",
-     "label": "消费者"
     }
    ],
    "featured": false
@@ -14561,16 +14561,16 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "constrain",
-     "label": "进口商与经销商"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "constrain",
      "label": "外资企业"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "constrain",
+     "label": "进口商与经销商"
     }
    ],
    "featured": false
@@ -14781,16 +14781,16 @@
    },
    "parties": [
     {
-     "id": "foreign_investor",
-     "party_id": "foreign_investor",
-     "stance": "support",
-     "label": "外资投资者"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "support",
      "label": "外资企业"
+    },
+    {
+     "id": "foreign_investor",
+     "party_id": "foreign_investor",
+     "stance": "support",
+     "label": "外资投资者"
     }
    ],
    "featured": false
@@ -14837,16 +14837,16 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "constrain",
-     "label": "进口商与经销商"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "constrain",
      "label": "外资企业"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "constrain",
+     "label": "进口商与经销商"
     }
    ],
    "featured": false
@@ -14893,16 +14893,16 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
-     "stance": "constrain",
-     "label": "外籍长居个人"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "constrain",
      "label": "外资企业"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "constrain",
+     "label": "外籍长居个人"
     },
     {
      "id": "local_government",
@@ -14955,16 +14955,16 @@
    },
    "parties": [
     {
-     "id": "foreign_investor",
-     "party_id": "foreign_investor",
-     "stance": "neutral",
-     "label": "外资投资者"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "neutral",
      "label": "外资企业"
+    },
+    {
+     "id": "foreign_investor",
+     "party_id": "foreign_investor",
+     "stance": "neutral",
+     "label": "外资投资者"
     }
    ],
    "featured": false
@@ -15059,16 +15059,16 @@
    },
    "parties": [
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
-     "stance": "neutral",
-     "label": "外资企业"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
      "label": "消费者"
+    },
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
     }
    ],
    "featured": false
@@ -15114,16 +15114,16 @@
    },
    "parties": [
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
-     "stance": "neutral",
-     "label": "外资企业"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
      "label": "消费者"
+    },
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
     }
    ],
    "featured": false
@@ -15170,16 +15170,16 @@
    },
    "parties": [
     {
-     "id": "sme",
-     "party_id": "sme",
-     "stance": "support",
-     "label": "中小企业"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "support",
      "label": "外资企业"
+    },
+    {
+     "id": "sme",
+     "party_id": "sme",
+     "stance": "support",
+     "label": "中小企业"
     }
    ],
    "featured": false
@@ -15226,16 +15226,16 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
-     "stance": "support",
-     "label": "外籍长居个人"
-    },
-    {
      "id": "foreign_investor",
      "party_id": "foreign_investor",
      "stance": "neutral",
      "label": "外资投资者"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "support",
+     "label": "外籍长居个人"
     }
    ],
    "featured": false
@@ -15281,16 +15281,16 @@
    },
    "parties": [
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
-     "stance": "neutral",
-     "label": "外资企业"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
      "label": "消费者"
+    },
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
     }
    ],
    "featured": false
@@ -15337,16 +15337,16 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "neutral",
-     "label": "进口商与经销商"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "neutral",
      "label": "外资企业"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "neutral",
+     "label": "进口商与经销商"
     }
    ],
    "featured": false
@@ -15393,16 +15393,16 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "neutral",
-     "label": "进口商与经销商"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "neutral",
      "label": "外资企业"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "neutral",
+     "label": "进口商与经销商"
     }
    ],
    "featured": false
@@ -15449,16 +15449,16 @@
    },
    "parties": [
     {
-     "id": "sme",
-     "party_id": "sme",
-     "stance": "support",
-     "label": "中小企业"
-    },
-    {
      "id": "local_government",
      "party_id": "local_government",
      "stance": "neutral",
      "label": "府级与地方政府"
+    },
+    {
+     "id": "sme",
+     "party_id": "sme",
+     "stance": "support",
+     "label": "中小企业"
     }
    ],
    "featured": false
@@ -15505,16 +15505,16 @@
    },
    "parties": [
     {
-     "id": "foreign_investor",
-     "party_id": "foreign_investor",
-     "stance": "constrain",
-     "label": "外资投资者"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "constrain",
      "label": "外资企业"
+    },
+    {
+     "id": "foreign_investor",
+     "party_id": "foreign_investor",
+     "stance": "constrain",
+     "label": "外资投资者"
     },
     {
      "id": "local_government",
@@ -15566,16 +15566,16 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "constrain",
-     "label": "进口商与经销商"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
      "label": "消费者"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "constrain",
+     "label": "进口商与经销商"
     }
    ],
    "featured": false
@@ -15621,16 +15621,16 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "constrain",
-     "label": "进口商与经销商"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "constrain",
      "label": "外资企业"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "constrain",
+     "label": "进口商与经销商"
     }
    ],
    "featured": false
@@ -15781,16 +15781,16 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "constrain",
-     "label": "进口商与经销商"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
      "label": "消费者"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "constrain",
+     "label": "进口商与经销商"
     }
    ],
    "featured": false
@@ -15837,6 +15837,12 @@
    },
    "parties": [
     {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "support",
+     "label": "消费者"
+    },
+    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "constrain",
@@ -15847,12 +15853,6 @@
      "party_id": "foreign_investor",
      "stance": "constrain",
      "label": "外资投资者"
-    },
-    {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "support",
-     "label": "消费者"
     }
    ],
    "featured": false
@@ -15948,16 +15948,16 @@
    },
    "parties": [
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
-     "stance": "constrain",
-     "label": "外资企业"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
      "label": "消费者"
+    },
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "constrain",
+     "label": "外资企业"
     },
     {
      "id": "importer",
@@ -16009,16 +16009,16 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "constrain",
-     "label": "进口商与经销商"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
      "label": "消费者"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "constrain",
+     "label": "进口商与经销商"
     }
    ],
    "featured": false
@@ -16127,6 +16127,12 @@
    },
    "parties": [
     {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "constrain",
+     "label": "消费者"
+    },
+    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "constrain",
@@ -16137,12 +16143,6 @@
      "party_id": "thai_employer",
      "stance": "constrain",
      "label": "本地雇主"
-    },
-    {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "constrain",
-     "label": "消费者"
     }
    ],
    "featured": false
@@ -16188,16 +16188,16 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "neutral",
-     "label": "进口商与经销商"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "neutral",
      "label": "外资企业"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "neutral",
+     "label": "进口商与经销商"
     }
    ],
    "featured": false
@@ -16244,6 +16244,12 @@
    },
    "parties": [
     {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "support",
+     "label": "消费者"
+    },
+    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "support",
@@ -16254,12 +16260,6 @@
      "party_id": "importer",
      "stance": "support",
      "label": "进口商与经销商"
-    },
-    {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "support",
-     "label": "消费者"
     }
    ],
    "featured": false
@@ -16306,6 +16306,12 @@
    },
    "parties": [
     {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "support",
+     "label": "消费者"
+    },
+    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "neutral",
@@ -16316,12 +16322,6 @@
      "party_id": "foreign_investor",
      "stance": "neutral",
      "label": "外资投资者"
-    },
-    {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "support",
-     "label": "消费者"
     }
    ],
    "featured": false
@@ -16368,16 +16368,16 @@
    },
    "parties": [
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
-     "stance": "constrain",
-     "label": "外资企业"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
      "label": "消费者"
+    },
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "constrain",
+     "label": "外资企业"
     },
     {
      "id": "sme",
@@ -16598,6 +16598,12 @@
    },
    "parties": [
     {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "support",
+     "label": "消费者"
+    },
+    {
      "id": "foreign_resident",
      "party_id": "foreign_resident",
      "stance": "support",
@@ -16608,12 +16614,6 @@
      "party_id": "thai_employer",
      "stance": "neutral",
      "label": "本地雇主"
-    },
-    {
-     "id": "consumer",
-     "party_id": "consumer",
-     "stance": "support",
-     "label": "消费者"
     }
    ],
    "featured": false
@@ -16660,16 +16660,16 @@
    },
    "parties": [
     {
-     "id": "foreign_investor",
-     "party_id": "foreign_investor",
-     "stance": "neutral",
-     "label": "外资投资者"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "neutral",
      "label": "外资企业"
+    },
+    {
+     "id": "foreign_investor",
+     "party_id": "foreign_investor",
+     "stance": "neutral",
+     "label": "外资投资者"
     }
    ],
    "featured": false
@@ -16716,16 +16716,16 @@
    },
    "parties": [
     {
-     "id": "thai_employer",
-     "party_id": "thai_employer",
-     "stance": "neutral",
-     "label": "本地雇主"
-    },
-    {
      "id": "foreign_resident",
      "party_id": "foreign_resident",
      "stance": "neutral",
      "label": "外籍长居个人"
+    },
+    {
+     "id": "thai_employer",
+     "party_id": "thai_employer",
+     "stance": "neutral",
+     "label": "本地雇主"
     }
    ],
    "featured": false
@@ -16770,16 +16770,16 @@
    },
    "parties": [
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
-     "stance": "neutral",
-     "label": "外资企业"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
      "label": "消费者"
+    },
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
     }
    ],
    "featured": false
@@ -16826,16 +16826,16 @@
    },
    "parties": [
     {
-     "id": "thai_employer",
-     "party_id": "thai_employer",
-     "stance": "neutral",
-     "label": "本地雇主"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "neutral",
      "label": "外资企业"
+    },
+    {
+     "id": "thai_employer",
+     "party_id": "thai_employer",
+     "stance": "neutral",
+     "label": "本地雇主"
     }
    ],
    "featured": false
@@ -16938,16 +16938,16 @@
      "label": "消费者"
     },
     {
-     "id": "sme",
-     "party_id": "sme",
-     "stance": "neutral",
-     "label": "中小企业"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "neutral",
      "label": "外资企业"
+    },
+    {
+     "id": "sme",
+     "party_id": "sme",
+     "stance": "neutral",
+     "label": "中小企业"
     }
    ],
    "featured": false
@@ -17069,16 +17069,16 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
-     "stance": "neutral",
-     "label": "外籍长居个人"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "neutral",
      "label": "外资企业"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "neutral",
+     "label": "外籍长居个人"
     }
    ],
    "featured": false
@@ -17163,16 +17163,16 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "constrain",
-     "label": "进口商与经销商"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "constrain",
      "label": "外资企业"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "constrain",
+     "label": "进口商与经销商"
     }
    ],
    "featured": false
@@ -17263,16 +17263,16 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
-     "stance": "neutral",
-     "label": "外籍长居个人"
-    },
-    {
      "id": "foreign_investor",
      "party_id": "foreign_investor",
      "stance": "neutral",
      "label": "外资投资者"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "neutral",
+     "label": "外籍长居个人"
     },
     {
      "id": "local_government",
@@ -17771,16 +17771,16 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "neutral",
-     "label": "进口商与经销商"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "neutral",
      "label": "外资企业"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "neutral",
+     "label": "进口商与经销商"
     }
    ],
    "featured": false
@@ -17945,16 +17945,16 @@
    },
    "parties": [
     {
-     "id": "traveller",
-     "party_id": "traveller",
-     "stance": "constrain",
-     "label": "短期入境者"
-    },
-    {
      "id": "foreign_resident",
      "party_id": "foreign_resident",
      "stance": "constrain",
      "label": "外籍长居个人"
+    },
+    {
+     "id": "traveller",
+     "party_id": "traveller",
+     "stance": "constrain",
+     "label": "短期入境者"
     }
    ],
    "featured": false
@@ -17995,16 +17995,16 @@
    },
    "parties": [
     {
-     "id": "traveller",
-     "party_id": "traveller",
-     "stance": "constrain",
-     "label": "短期入境者"
-    },
-    {
      "id": "foreign_resident",
      "party_id": "foreign_resident",
      "stance": "constrain",
      "label": "外籍长居个人"
+    },
+    {
+     "id": "traveller",
+     "party_id": "traveller",
+     "stance": "constrain",
+     "label": "短期入境者"
     }
    ],
    "featured": false
@@ -18265,16 +18265,16 @@
    },
    "parties": [
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
-     "stance": "support",
-     "label": "外资企业"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "neutral",
      "label": "消费者"
+    },
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "support",
+     "label": "外资企业"
     }
    ],
    "featured": false
@@ -18315,16 +18315,16 @@
    },
    "parties": [
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
-     "stance": "support",
-     "label": "外资企业"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "neutral",
      "label": "消费者"
+    },
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "support",
+     "label": "外资企业"
     }
    ],
    "featured": false
@@ -18365,16 +18365,16 @@
    },
    "parties": [
     {
-     "id": "traveller",
-     "party_id": "traveller",
-     "stance": "constrain",
-     "label": "短期入境者"
-    },
-    {
      "id": "foreign_resident",
      "party_id": "foreign_resident",
      "stance": "constrain",
      "label": "外籍长居个人"
+    },
+    {
+     "id": "traveller",
+     "party_id": "traveller",
+     "stance": "constrain",
+     "label": "短期入境者"
     }
    ],
    "featured": false
@@ -18946,16 +18946,16 @@
    },
    "parties": [
     {
-     "id": "traveller",
-     "party_id": "traveller",
-     "stance": "support",
-     "label": "短期入境者"
-    },
-    {
      "id": "foreign_resident",
      "party_id": "foreign_resident",
      "stance": "support",
      "label": "外籍长居个人"
+    },
+    {
+     "id": "traveller",
+     "party_id": "traveller",
+     "stance": "support",
+     "label": "短期入境者"
     }
    ],
    "featured": false
@@ -18996,16 +18996,16 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "neutral",
-     "label": "进口商与经销商"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "neutral",
      "label": "外资企业"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "neutral",
+     "label": "进口商与经销商"
     }
    ],
    "featured": false
@@ -19228,16 +19228,16 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "constrain",
-     "label": "进口商与经销商"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "support",
      "label": "消费者"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "constrain",
+     "label": "进口商与经销商"
     }
    ],
    "featured": false
@@ -19278,16 +19278,16 @@
    },
    "parties": [
     {
-     "id": "foreign_investor",
-     "party_id": "foreign_investor",
-     "stance": "neutral",
-     "label": "外资投资者"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "neutral",
      "label": "外资企业"
+    },
+    {
+     "id": "foreign_investor",
+     "party_id": "foreign_investor",
+     "stance": "neutral",
+     "label": "外资投资者"
     }
    ],
    "featured": false
@@ -19422,16 +19422,16 @@
    },
    "parties": [
     {
-     "id": "importer",
-     "party_id": "importer",
-     "stance": "neutral",
-     "label": "进口商与经销商"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "neutral",
      "label": "外资企业"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "neutral",
+     "label": "进口商与经销商"
     }
    ],
    "featured": false
@@ -19729,16 +19729,16 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
-     "stance": "neutral",
-     "label": "外籍长居个人"
-    },
-    {
      "id": "foreign_investor",
      "party_id": "foreign_investor",
      "stance": "neutral",
      "label": "外资投资者"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "neutral",
+     "label": "外籍长居个人"
     }
    ],
    "featured": false
@@ -19779,16 +19779,16 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
-     "stance": "neutral",
-     "label": "外籍长居个人"
-    },
-    {
      "id": "foreign_investor",
      "party_id": "foreign_investor",
      "stance": "neutral",
      "label": "外资投资者"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "neutral",
+     "label": "外籍长居个人"
     }
    ],
    "featured": false
@@ -19829,16 +19829,16 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
-     "stance": "neutral",
-     "label": "外籍长居个人"
-    },
-    {
      "id": "foreign_investor",
      "party_id": "foreign_investor",
      "stance": "neutral",
      "label": "外资投资者"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "neutral",
+     "label": "外籍长居个人"
     }
    ],
    "featured": false
@@ -19879,16 +19879,16 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
-     "stance": "neutral",
-     "label": "外籍长居个人"
-    },
-    {
      "id": "foreign_investor",
      "party_id": "foreign_investor",
      "stance": "neutral",
      "label": "外资投资者"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "neutral",
+     "label": "外籍长居个人"
     }
    ],
    "featured": false
@@ -19929,16 +19929,16 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
-     "stance": "neutral",
-     "label": "外籍长居个人"
-    },
-    {
      "id": "foreign_investor",
      "party_id": "foreign_investor",
      "stance": "neutral",
      "label": "外资投资者"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "neutral",
+     "label": "外籍长居个人"
     }
    ],
    "featured": false
@@ -19979,16 +19979,16 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
-     "stance": "neutral",
-     "label": "外籍长居个人"
-    },
-    {
      "id": "foreign_investor",
      "party_id": "foreign_investor",
      "stance": "neutral",
      "label": "外资投资者"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "neutral",
+     "label": "外籍长居个人"
     }
    ],
    "featured": false
@@ -20029,16 +20029,16 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
-     "stance": "neutral",
-     "label": "外籍长居个人"
-    },
-    {
      "id": "foreign_investor",
      "party_id": "foreign_investor",
      "stance": "neutral",
      "label": "外资投资者"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "neutral",
+     "label": "外籍长居个人"
     }
    ],
    "featured": false
@@ -20079,16 +20079,16 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
-     "stance": "neutral",
-     "label": "外籍长居个人"
-    },
-    {
      "id": "foreign_investor",
      "party_id": "foreign_investor",
      "stance": "neutral",
      "label": "外资投资者"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "neutral",
+     "label": "外籍长居个人"
     }
    ],
    "featured": false
@@ -20129,16 +20129,16 @@
    },
    "parties": [
     {
-     "id": "foreign_resident",
-     "party_id": "foreign_resident",
-     "stance": "neutral",
-     "label": "外籍长居个人"
-    },
-    {
      "id": "foreign_investor",
      "party_id": "foreign_investor",
      "stance": "neutral",
      "label": "外资投资者"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "neutral",
+     "label": "外籍长居个人"
     }
    ],
    "featured": false
@@ -20652,16 +20652,16 @@
    },
    "parties": [
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
-     "stance": "neutral",
-     "label": "外资企业"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "neutral",
      "label": "消费者"
+    },
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
     }
    ],
    "featured": false
@@ -21164,16 +21164,16 @@
    },
    "parties": [
     {
-     "id": "foreign_investor",
-     "party_id": "foreign_investor",
-     "stance": "neutral",
-     "label": "外资投资者"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "neutral",
      "label": "外资企业"
+    },
+    {
+     "id": "foreign_investor",
+     "party_id": "foreign_investor",
+     "stance": "neutral",
+     "label": "外资投资者"
     }
    ],
    "featured": false
@@ -21258,16 +21258,16 @@
    },
    "parties": [
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
-     "stance": "neutral",
-     "label": "外资企业"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "neutral",
      "label": "消费者"
+    },
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
     }
    ],
    "featured": false
@@ -21308,16 +21308,16 @@
    },
    "parties": [
     {
-     "id": "foreign_investor",
-     "party_id": "foreign_investor",
-     "stance": "neutral",
-     "label": "外资投资者"
-    },
-    {
      "id": "foreign_company",
      "party_id": "foreign_company",
      "stance": "neutral",
      "label": "外资企业"
+    },
+    {
+     "id": "foreign_investor",
+     "party_id": "foreign_investor",
+     "stance": "neutral",
+     "label": "外资投资者"
     }
    ],
    "featured": false
@@ -21432,16 +21432,16 @@
    },
    "parties": [
     {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
-     "stance": "neutral",
-     "label": "外资企业"
-    },
-    {
      "id": "consumer",
      "party_id": "consumer",
      "stance": "neutral",
      "label": "消费者"
+    },
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
     }
    ],
    "featured": false

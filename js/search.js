@@ -74,7 +74,12 @@
     if (!ready) return;
     const P = window.POLICIES || [];
     const terms = norm(state.q).split(/\s+/).filter(Boolean);
-    const hits = P.filter(p => matches(p, terms));
+    // 排序:标题命中 > 其他字段命中;再有要点 > 日期倒序 > uid
+    const titleHit = p => terms.length && terms.every(t => norm(p.title_zh + ' ' + p.title_th).includes(t)) ? 0 : 1;
+    const hits = P.filter(p => matches(p, terms)).map(p => [titleHit(p), (p.key_points || []).length ? 0 : 1, p])
+      .sort((a, b) => a[0] - b[0] || a[1] - b[1] || String(b[2].date).localeCompare(String(a[2].date))
+        || String(a[2].uid).localeCompare(String(b[2].uid)))
+      .map(x => x[2]);
     const st = window.OVERVIEW_STATS || {};
     syncHash();
     const cond = [state.q && `含「${esc(state.q)}」`,

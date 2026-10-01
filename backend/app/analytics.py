@@ -118,10 +118,11 @@ def document_view(s: Session, doc: Document, today: date) -> dict:
                                  if doc.comment_deadline else None),
         },
         "confidence": {"dates": doc.confidence_dates, "doc_no": doc.confidence_doc_no},
-        # 影响对象(卡片与「找政策」的筛选用);顺序按入库顺序,保证导出稳定
+        # 影响对象(卡片与「找政策」的筛选用)。按 party_id 排序:自增主键在增量入库与
+        # 全新建库时顺序可能不同,用它排序会让导出漂移
         "parties": [{"id": x.party_id, "party_id": x.party_id, "stance": x.stance,
                      "label": (p.zh if (p := s.get(Party, x.party_id)) else x.party_id)}
-                    for x in sorted(doc.parties, key=lambda x: x.id)],
+                    for x in sorted(doc.parties, key=lambda x: x.party_id)],
     }
 
 
@@ -211,8 +212,16 @@ def overview(s: Session) -> dict:
     views = [document_view(s, d, today) for d in docs]
     # 首页排序:读过原文、有要点的排前面;同组内日期倒序,再按 uid —— 导出必须确定
     views.sort(key=lambda v: (not v["key_points"], _neg_date(v["date"]), v["uid"]))
-    for i, v in enumerate(views):
-        v["featured"] = i < settings.feed_size
+    # 首页精选:同一发文机关最多 2 条,超出的顺延给后面的条目,避免一家机关刷屏;
+    # policies 数组本身的顺序不变
+    per_org: dict[str, int] = defaultdict(int)
+    picked = 0
+    for v in views:
+        v["featured"] = False
+        if picked < settings.feed_size and per_org[v["org"]] < 2:
+            v["featured"] = True
+            per_org[v["org"]] += 1
+            picked += 1
     last_run, _ = source_health(s)
     dates = sorted(v["date"] for v in views if v["date"] and v["date"] <= today.isoformat())
     by_domain: dict[str, dict] = {}

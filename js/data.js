@@ -95,7 +95,7 @@ function renderLineage(data) {
   draw();
 }
 
-function monthDay(d) { return d ? d.replace(/^(\d{4})-(\d{2})-(\d{2}).*/, '$1 年 $2 月 $3 日') : '—'; }
+function monthDay(d) { return d ? String(d).slice(0, 10) : '—'; }
 
 function renderOverview(d) {
   // 顺序以后端为准(有要点的在前,同组日期倒序),前后端同一规则

@@ -108,8 +108,9 @@ def test_overview_featured_is_derived_not_stored(session):
     o = A.overview(session)
     from app.config import settings
     featured = [p for p in o["policies"] if p["featured"]]
-    assert len(featured) == min(settings.feed_size, len(o["policies"]))
-    assert o["policies"][:len(featured)] == featured, "featured 是排序后的前 N 条"
+    assert len(featured) <= settings.feed_size
+    from collections import Counter
+    assert max(Counter(p["org"] for p in featured).values()) <= 2, "同一机关在首页最多 2 条"
     # 有要点的排前面,同组内日期倒序
     keys = [(not p["key_points"], p["date"]) for p in o["policies"]]
     groups = [k[0] for k in keys]
