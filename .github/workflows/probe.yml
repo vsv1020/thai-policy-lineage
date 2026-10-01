@@ -17,24 +17,4 @@ jobs:
         with: {python-version: '3.12'}
       - run: pip install -q -r backend/requirements.txt
       - run: |
-          python tools/probe_sources.py \
-            https://ratchakitcha.soc.go.th/ \
-            "https://resolution.soc.go.th/?prep_id=415303" \
-            https://resolution.soc.go.th/ \
-            https://www.soc.go.th/
-          python - <<'PY'
-          import sys, json; sys.path.insert(0, "backend")
-          from app.collect import source_client
-          c = source_client({"User-Agent": "Mozilla/5.0"})
-          for ds in ("dataset_02_03", "dataset_02_04"):
-              p = c.get("https://data.go.th/api/3/action/package_show", params={"id": ds}).json()["result"]
-              rs = p["resources"]
-              print("\n##", ds, len(rs), "resources; metadata_modified", p.get("metadata_modified"))
-              for r in sorted(rs, key=lambda r: r.get("last_modified") or r.get("created") or "")[-4:]:
-                  print("  ", r["id"], r.get("name"), r.get("last_modified"), r.get("datastore_active"), r.get("url","")[:120])
-              last = sorted(rs, key=lambda r: r.get("last_modified") or r.get("created") or "")[-1]
-              d = c.get("https://data.go.th/api/3/action/datastore_search", params={"resource_id": last["id"], "limit": 2, "sort": "_id desc"}).json()
-              print("  total", d["result"].get("total"))
-              for rec in d["result"]["records"]:
-                  print("  REC", json.dumps(rec, ensure_ascii=False)[:1200])
-          PY
+          python tools/probe_sources.py
