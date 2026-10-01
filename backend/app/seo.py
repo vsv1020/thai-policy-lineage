@@ -34,6 +34,8 @@ PAGES_DIR = REPO_ROOT / "p"
 ADS_CONFIG = REPO_ROOT / "config" / "ads.json"
 SUPPORT_CONFIG = REPO_ROOT / "config" / "support.json"
 SUBSCRIBE_CONFIG = REPO_ROOT / "config" / "subscribe.json"
+TOPICS_CONFIG = REPO_ROOT / "config" / "topics.json"
+MIN_COLLECTION = 3          # 专题 / 影响对象页少于这么多条就不生成(太薄,不值得一页)
 ANALYTICS_CONFIG = REPO_ROOT / "config" / "analytics.json"
 SEO_CONFIG = REPO_ROOT / "config" / "seo.json"
 SITE_NAME = "政策脉络 · 泰国"
@@ -284,14 +286,20 @@ def _rows_html(items, up: str = "") -> str:
                    for dt, uid, t in items)
 
 
-def render_index(rows: list[tuple[str, str, str, str]], topics: list[tuple[str, str, int]] = ()) -> str:
+def render_index(rows: list[tuple[str, str, str, str]], topics: list[tuple[str, str, int]] = (),
+                 collections: list[dict] = (), who: list[dict] = ()) -> str:
     """rows: (领域中文名, 日期, uid, 标题),已按日期倒序。按领域分组的纯 HTML 目录,给爬虫一个入口。"""
     groups: dict[str, list] = {}
     for dom, date, uid, title in rows:
         groups.setdefault(dom, []).append((date, uid, title))
     nav = " · ".join(f'<a href="topic/{e(i)}.html">{e(zh)}({n})</a>' for i, zh, n in topics)
+    coll = " · ".join(f'<a href="{e(x["href"][2:])}">{e(x["zh"])}({x["n"]})</a>' for x in collections)
+    whos = " · ".join(f'<a href="{e(x["href"][2:])}">{e(x["zh"])}({x["n"]})</a>' for x in who)
     body = ('<h1 class="page">全部政策</h1><div class="page-sub">按领域分组 · 每条均附泰文原文(官方)溯源'
-            + (f"<br>按领域浏览:{nav}" if nav else "") + "</div>")
+            + (f"<br>按领域浏览:{nav}" if nav else "")
+            + (f"<br>专题汇总:{coll}" if coll else "")
+            + (f"<br>按影响对象:{whos}" if whos else "")
+            + '<br><a href="week/index.html">按周汇总</a></div>')
     for dom in sorted(groups):
         body += f'<h2 class="mod" style="margin-top:24px">{e(dom)}</h2><div class="lib-wrap">{_rows_html(groups[dom])}</div>'
     ld = {"@context": "https://schema.org", "@type": "CollectionPage", "name": "全部政策",
@@ -326,6 +334,89 @@ def render_topic(dom_id: str, zh: str, en: str, items: list[tuple[str, str, str]
             f'<div class="page-sub">{e(desc)}</div>'
             f'<div class="lib-wrap">{_rows_html(items, "../")}</div>')
     return _head(title, desc, url, ld, up="../../") + body + _foot("../../")
+
+
+# ───────────────────── 专题汇总:影响对象页 p/who/、配置专题 p/t/ ─────────────────────
+
+STANCE_ZH = {"constrain": "约束", "support": "利好", "neutral": ""}
+
+
+def topic_matches(x: dict, match: dict) -> bool:
+    """配置专题的匹配规则:标题含任一关键词或 uid 在名单里;再与领域 / 影响对象取交集。"""
+    kws = match.get("title_keywords") or []
+    uids = set(match.get("uids") or [])
+    if not (any(k and k in x["title"] for k in kws) or x["uid"] in uids):
+        return False
+    if match.get("domains") and x["domain_id"] not in match["domains"]:
+        return False
+    if match.get("parties") and not ({p["id"] for p in x["parties"]} & set(match["parties"])):
+        return False
+    return True
+
+
+def render_collection(url: str, title: str, h1: str, scope: str, items: list[dict], crumb: str,
+                      party: str | None = None) -> str:
+    """汇编页:逐条列出已收录条目的日期、机关、标题、摘要、要点与泰文原文链接。
+    刻意不写任何综述 —— 页面上的每一句都来自某一条有官方原文的条目。"""
+    items = sorted(items, key=lambda x: (x["date"] or "", x["uid"]), reverse=True)
+    latest = items[0]["date"] if items else ""
+    desc = f"{scope} 共 {len(items)} 条" + (f",最新 {latest}" if latest else "") + ";每条附泰文原文链接。"
+    rows = []
+    for x in items:
+        stance = ""
+        if party:
+            st = next((p["stance"] for p in x["parties"] if p["id"] == party), "")
+            stance = f'<span class="party {e(st)}">{e(STANCE_ZH.get(st, ""))}</span> ' if STANCE_ZH.get(st) else ""
+        pts = "".join(f"<li>{e(k)}</li>" for k in x["points"][:3])
+        rows.append(
+            f'<div class="coll-item"><div class="lib-sub">{e(x["date"] or "—")} · {e(x["org"] or "")}'
+            + (f" · {e(x['doc_no'])}" if x["doc_no"] else "") + f"</div>"
+            f'<h2 class="coll-title">{stance}<a href="../{e(slug(x["uid"]))}.html">{e(x["title"])}</a></h2>'
+            f'<p>{e(x["summary"])}</p>' + (f'<ul class="points">{pts}</ul>' if pts else "")
+            + (f'<div class="lib-sub"><a href="{e(x["official"])}" rel="nofollow noopener" target="_blank">泰文原文 ↗</a></div>'
+               if x["official"] else "") + "</div>")
+    ld = {"@context": "https://schema.org", "@type": "CollectionPage", "name": h1, "url": url,
+          "inLanguage": "zh-CN", "description": scope,
+          "mainEntity": {"@type": "ItemList", "numberOfItems": len(items),
+                         "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": x["url"],
+                                              "name": x["title"]} for i, x in enumerate(items[:50])]}}
+    body = (f'<div class="crumb"><a href="../index.html">全部政策</a> / {e(crumb)}</div>'
+            f'<h1 class="page">{e(h1)}</h1>'
+            f'<div class="page-sub">{e(scope)}<br>共 <b>{len(items)}</b> 条' + (f",最新 {e(latest)}" if latest else "")
+            + "。以下逐条摘录本站已收录条目的中文摘要,一切以泰文原文为准。</div>"
+            + "".join(rows))
+    return _head(title, desc, url, ld, up="../../") + body + _foot("../../")
+
+
+def build_collections(entries: list[dict], parties_zh: dict[str, str]) -> tuple[list[dict], list[dict]]:
+    """生成 p/who/*.html 与 p/t/*.html,返回 (影响对象页, 专题页) 的索引 [{id, zh, n, href, date}]。"""
+    who, topics = [], []
+    (PAGES_DIR / "who").mkdir(exist_ok=True)
+    (PAGES_DIR / "t").mkdir(exist_ok=True)
+    for pid in sorted(parties_zh):
+        items = [x for x in entries if any(p["id"] == pid for p in x["parties"])]
+        if len(items) < MIN_COLLECTION:
+            continue
+        zh = parties_zh[pid]
+        url = f"{settings.site_url}/p/who/{pid}.html"
+        (PAGES_DIR / "who" / f"{pid}.html").write_text(render_collection(
+            url, f"影响{zh}的泰国政策汇总 | {SITE_NAME}", f"影响「{zh}」的泰国政策",
+            f"收录本站标注为影响「{zh}」的公报与决议(含约束与利好)。", items, f"影响对象 / {zh}", party=pid),
+            encoding="utf-8")
+        who.append({"id": pid, "zh": zh, "n": len(items), "href": f"p/who/{pid}.html",
+                    "date": max((x["date"] for x in items if x["date"]), default="")})
+    cfg = json.loads(TOPICS_CONFIG.read_text(encoding="utf-8")) if TOPICS_CONFIG.exists() else {}
+    for t in cfg.get("topics") or []:
+        items = [x for x in entries if topic_matches(x, t.get("match") or {})]
+        if len(items) < MIN_COLLECTION:
+            continue
+        url = f"{settings.site_url}/p/t/{t['id']}.html"
+        (PAGES_DIR / "t" / f"{t['id']}.html").write_text(render_collection(
+            url, f"泰国{t['title_zh']}:历次公报汇总 | {SITE_NAME}", f"泰国{t['title_zh']}:历次公报汇总",
+            t["scope_zh"], items, f"专题 / {t['title_zh']}"), encoding="utf-8")
+        topics.append({"id": t["id"], "zh": t["title_zh"], "n": len(items), "href": f"p/t/{t['id']}.html",
+                       "date": max((x["date"] for x in items if x["date"]), default="")})
+    return who, topics
 
 
 def week_id(d: str) -> str:
@@ -433,7 +524,8 @@ def _md(t: str) -> str:
     return re.sub(r"\s+", " ", str(t or "")).strip()
 
 
-def render_llms(entries: list[dict], topics: list[tuple[str, str, int]], full: bool = False) -> str:
+def render_llms(entries: list[dict], topics: list[tuple[str, str, int]], full: bool = False,
+                collections: list[dict] = ()) -> str:
     """llms.txt(llmstxt.org 约定):给大模型的站点说明 + 索引;llms-full.txt 带全部条目正文。"""
     site = settings.site_url
     head = [f"# {SITE_NAME}(Thai Policy Lineage)", "",
@@ -448,6 +540,9 @@ def render_llms(entries: list[dict], topics: list[tuple[str, str, int]], full: b
     if not full:
         head += ["## 按领域浏览", ""]
         head += [f"- [泰国{zh}政策]({topic_url(i)}): {n} 条" for i, zh, n in topics]
+        if collections:
+            head += ["", "## 专题汇总(逐条摘录,附泰文原文链接)", ""]
+            head += [f"- [泰国{x['zh']}]({site}/{x['href']}): {x['n']} 条" for x in collections]
         head += ["", "## 最新政策", ""]
         head += [f"- [{_md(x['title'])}]({x['url']}): {x['date']}"
                  + (f" · {x['doc_no']}" if x["doc_no"] else "") + f" · {_md(x['summary'])[:80]}"
@@ -480,7 +575,8 @@ def _replace_block(text: str, name: str, content: str) -> str:
     return pat.sub(lambda m: m.group(1) + content + m.group(2), text, count=1)
 
 
-def update_index_html(entries: list[dict], topics: list[tuple[str, str, int]], cfg: dict) -> bool:
+def update_index_html(entries: list[dict], topics: list[tuple[str, str, int]], cfg: dict,
+                      collections: list[dict] = ()) -> bool:
     path = REPO_ROOT / "index.html"
     if not path.exists():
         return False
@@ -517,8 +613,10 @@ def update_index_html(entries: list[dict], topics: list[tuple[str, str, int]], c
         _ld(graph)])
     nav = " · ".join(f'<a href="p/topic/{e(i)}.html">{e(zh)}</a>' for i, zh, _ in topics)
     latest = " · ".join(f'<a href="p/{e(slug(x["uid"]))}.html">{e(x["title"])}</a>' for x in entries[:12])
+    coll = " · ".join(f'<a href="{e(x["href"])}">{e(x["zh"])}</a>' for x in collections)
     links = (f'<nav class="seo-nav" aria-label="站内导航">'
              + (f"<div><b>按领域浏览</b> {nav}</div>" if nav else "")
+             + (f"<div><b>专题汇总</b> {coll}</div>" if coll else "")
              + (f"<div><b>最新收录</b> {latest}</div>" if latest else "") + "</nav>")
     old = path.read_text(encoding="utf-8")
     new = _replace_block(_replace_block(old, "head", head), "links", links)
@@ -577,6 +675,8 @@ def build(s: Session) -> dict[str, int]:
         entries.append({"uid": doc.uid, "title": doc.title_zh, "title_th": doc.title_th or "",
                         "url": page_url(doc.uid), "date": date_s, "domain": dom[1] if dom[0] else "",
                         "domain_id": dom[0],
+                        "parties": [{"id": x.party_id, "stance": x.stance}
+                                    for x in sorted(doc.parties, key=lambda x: x.party_id)],
                         "doc_no": doc.doc_no or "", "summary": split_summary(doc.summary_zh)[0],
                         "points": split_summary(doc.summary_zh)[1],
                         "status": doc.status.zh, "official": official,
@@ -587,7 +687,15 @@ def build(s: Session) -> dict[str, int]:
     for i, zh, _ in topics:
         (PAGES_DIR / "topic" / f"{i}.html").write_text(
             render_topic(i, zh, domains[i].en or "", by_dom[i]), encoding="utf-8")
-    (PAGES_DIR / "index.html").write_text(render_index(rows, topics), encoding="utf-8")
+    (PAGES_DIR / "index.html").write_text(render_index(rows, topics), encoding="utf-8")  # 专题链接在后面补
+
+    # 专题汇总:影响对象页 + 配置专题(只汇编已收录条目,不写综述)
+    from .models import Party
+    parties_zh = {p.id: p.zh for p in s.scalars(select(Party)).all()}
+    who_pages, topic_pages = build_collections(entries, parties_zh)
+    (PAGES_DIR / "index.html").write_text(render_index(rows, topics, topic_pages, who_pages), encoding="utf-8")
+    (SITE_DIR / "collections.json").write_text(json.dumps(
+        {"topics": topic_pages, "who": who_pages}, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
 
     # 周汇总:p/week/<YYYY-Www>.html,按公报刊登日分周
     (PAGES_DIR / "week").mkdir()
@@ -609,6 +717,7 @@ def build(s: Session) -> dict[str, int]:
     urls = [(f"{settings.site_url}/", newest), (f"{settings.site_url}/p/index.html", newest),
             (f"{settings.site_url}/about.html", None), (f"{settings.site_url}/privacy.html", None)]
     urls += [(topic_url(i), by_dom[i][0][0] or None) for i, _, _ in topics]
+    urls += [(f"{settings.site_url}/{x['href']}", x["date"] or None) for x in topic_pages + who_pages]
     urls += [(f"{settings.site_url}/p/week/index.html", newest)]
     urls += [(f"{settings.site_url}/p/week/{w}.html", by_week[w][0]["date"]) for w in week_ids]
     urls += [(x["url"], x["date"] or None) for x in entries]
@@ -622,9 +731,9 @@ def build(s: Session) -> dict[str, int]:
         (feed_dir / f"{i}.xml").write_text(
             render_feed([x for x in entries if x["domain_id"] == i], f"{zh} · 最新政策", f"feed/{i}.xml",
                         topic_url(i)), encoding="utf-8")
-    (REPO_ROOT / "llms.txt").write_text(render_llms(entries, topics), encoding="utf-8")
+    (REPO_ROOT / "llms.txt").write_text(render_llms(entries, topics, collections=topic_pages), encoding="utf-8")
     (REPO_ROOT / "llms-full.txt").write_text(render_llms(entries, topics, full=True), encoding="utf-8")
-    update_index_html(entries, topics, seo_config())
+    update_index_html(entries, topics, seo_config(), topic_pages)
 
     # 广告配置:config/ads.json → data/site/ads.json;启用 AdSense 时生成 ads.txt
     ads = json.loads(ADS_CONFIG.read_text(encoding="utf-8")) if ADS_CONFIG.exists() else {"enabled": False}

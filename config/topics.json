@@ -1,0 +1,23 @@
+{
+ "_comment": "专题汇总页(p/t/<id>.html)。只汇编已收录条目的摘要并逐条附泰文原文链接,不写综述。匹配:标题含任一 title_keywords,或 uid 在 uids 里;再与 domains / parties 取交集(填了才限制)。命中少于 3 条的不生成。scope_zh 只描述收录范围,不下结论。改完先 python -m app.export 看命中清单。",
+ "topics": [
+  {"id": "land-property", "title_zh": "土地与房产", "scope_zh": "收录标题涉及土地、地契、公寓的公报,包括土地办公室业务、土地使用费率与地方土地规定。",
+   "match": {"title_keywords": ["土地", "地契", "公寓"]}},
+  {"id": "import-control", "title_zh": "进口管制、配额与贸易救济", "scope_zh": "收录标题涉及进口、配额、关税与反倾销的公报。",
+   "match": {"title_keywords": ["进口", "配额", "关税", "反倾销"]}},
+  {"id": "boi", "title_zh": "投资促进(BOI)", "scope_zh": "收录投资促进委员会及其办公室发布的公告。",
+   "match": {"title_keywords": ["投资促进"]}},
+  {"id": "excise", "title_zh": "消费税", "scope_zh": "收录消费税厅与消费税相关的公报,包括酒类、烟草等商品的征管规定。",
+   "match": {"title_keywords": ["消费税"]}},
+  {"id": "financial-regulation", "title_zh": "金融监管:央行与证监会", "scope_zh": "收录泰国央行、证券交易委员会及金融机构监管相关的公告。",
+   "match": {"title_keywords": ["央行", "证券交易委员会", "金融机构"]}},
+  {"id": "gsb-savings", "title_zh": "政府储蓄银行存款与储蓄彩票", "scope_zh": "收录政府储蓄银行发布的存款产品、储蓄彩票与服务费率公告。",
+   "match": {"title_keywords": ["政府储蓄银行"]}},
+  {"id": "food-drug", "title_zh": "食品与药品监管", "scope_zh": "收录食品药品管理局及药品、食品管制相关的公报。",
+   "match": {"title_keywords": ["食品药品", "药品", "食品安全", "食品链", "食品与动物饲料", "清真食品"]}},
+  {"id": "social-security", "title_zh": "社会保障与劳工", "scope_zh": "收录社会保障办公室、劳工部门及工资相关的公报。",
+   "match": {"title_keywords": ["社会保障", "劳工", "工资"]}},
+  {"id": "data-protection", "title_zh": "个人资料保护与网络安全", "scope_zh": "收录标题涉及个人资料保护、网络安全与数字平台的公报。",
+   "match": {"title_keywords": ["个人资料", "网络安全", "数字平台"]}}
+ ]
+}

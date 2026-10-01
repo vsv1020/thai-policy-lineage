@@ -356,6 +356,45 @@ def check_site_config(rep: Report) -> None:
                 rep.err(where, f"未知渠道类型 {t!r}")
 
 
+def check_topics_config(rep: Report, vocab: dict) -> None:
+    """config/topics.json:专题页只汇编已收录条目。说明文字不得触碰红线,id 必须能当文件名。"""
+    path = ROOT / "config" / "topics.json"
+    if not path.exists():
+        return
+    try:
+        cfg = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        rep.err("config/topics.json", f"JSON 解析失败: {exc}")
+        return
+    seen = set()
+    domains = ids(vocab, "domains")
+    parties = ids(vocab, "parties")
+    for i, t in enumerate(cfg.get("topics") or []):
+        where = f"config/topics.json#{i}"
+        tid = t.get("id") or ""
+        if not re.fullmatch(r"[a-z0-9][a-z0-9-]{1,40}", tid):
+            rep.err(where, f"id 只能是小写字母、数字、连字符: {tid!r}")
+        if tid in seen:
+            rep.err(where, f"id 重复: {tid}")
+        seen.add(tid)
+        for f in ("title_zh", "scope_zh"):
+            if not str(t.get(f) or "").strip():
+                rep.err(where, f"缺少 {f}")
+        m = t.get("match") or {}
+        if not (m.get("title_keywords") or m.get("uids")):
+            rep.err(where, "match 至少要有 title_keywords 或 uids")
+        for d in m.get("domains") or []:
+            if d not in domains:
+                rep.err(where, f"未知 domain_id: {d}")
+        for pid in m.get("parties") or []:
+            if pid not in parties:
+                rep.err(where, f"未知 party_id: {pid}")
+        blob = json.dumps(t, ensure_ascii=False)
+        for term in ROYAL_TERMS:
+            if term in blob:
+                rep.err(where, f"命中王室相关词 {term!r} —— 专题不得涉及王室内容")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="政策数据校验")
     ap.add_argument("--quiet", action="store_true")
@@ -386,6 +425,7 @@ def main() -> int:
     check_relation_symmetry(docs, vocab, rep)
     check_site_config(rep)
     check_analytics_config(rep)
+    check_topics_config(rep, vocab)
 
     for w in rep.warnings:
         if not args.quiet:
