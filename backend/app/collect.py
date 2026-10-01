@@ -505,7 +505,17 @@ def merge_update(old: dict, new: dict) -> dict:
     """官方源里已入库记录的更新:原始字段以官方为准;泰文标题变了则清空中文结果,交给翻译环节重做。"""
     merged = json.loads(json.dumps(old))
     for k in RAW_FIELDS:
-        if k in new:
+        if k not in new:
+            continue
+        if k == "dates" and isinstance(new[k], dict):
+            # 逐项合并:官方有值的以官方为准;官方留空的(如生效日),保留已有的 ——
+            # 那是翻译时按公报正文「自刊登次日起施行」推算出来的,整体覆盖会把它冲掉
+            d = dict(merged.get("dates") or {})
+            d.update({f: v for f, v in new[k].items() if v is not None})
+            for f in new[k]:
+                d.setdefault(f, None)
+            merged[k] = d
+        else:
             merged[k] = new[k]
     th_old = (old.get("titles") or {}).get("th", "")
     th_new = (new.get("titles") or {}).get("th", "")
