@@ -109,12 +109,21 @@ jobs:
           python tools/validate.py --quiet 2> validate-errors.txt || { cat validate-errors.txt; exit 1; }
           cd backend && python -m app.ingest --reset > /dev/null && python -m app.export > /dev/null
 
+      # 可选:新上线的政策推送到 Telegram 频道。没配置就跳过;推送失败不影响采集结果提交
+      - name: 推送 Telegram 频道(可选)
+        working-directory: backend
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHANNEL: ${{ vars.TELEGRAM_CHANNEL }}
+        run: python -m app.notify || echo "::warning::Telegram 推送失败,不影响采集结果"
+
       - name: 提交采集结果
         run: |
           git config user.name  "policy-collector[bot]"
           git config user.email "policy-collector[bot]@users.noreply.github.com"
-          git add data/policies data/site p sitemap.xml robots.txt feed.xml llms.txt llms-full.txt index.html privacy.html about.html
+          git add data/policies data/site p feed sitemap.xml robots.txt feed.xml llms.txt llms-full.txt index.html privacy.html about.html
           [ -f ads.txt ] && git add ads.txt || true
+          [ -d data/notify ] && git add data/notify || true
           if git diff --cached --quiet; then
             echo "无变化,不提交"
           else

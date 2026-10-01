@@ -33,6 +33,7 @@ from .models import Document, Domain
 PAGES_DIR = REPO_ROOT / "p"
 ADS_CONFIG = REPO_ROOT / "config" / "ads.json"
 SUPPORT_CONFIG = REPO_ROOT / "config" / "support.json"
+SUBSCRIBE_CONFIG = REPO_ROOT / "config" / "subscribe.json"
 ANALYTICS_CONFIG = REPO_ROOT / "config" / "analytics.json"
 SEO_CONFIG = REPO_ROOT / "config" / "seo.json"
 SITE_NAME = "政策脉络 · 泰国"
@@ -327,6 +328,60 @@ def render_topic(dom_id: str, zh: str, en: str, items: list[tuple[str, str, str]
     return _head(title, desc, url, ld, up="../../") + body + _foot("../../")
 
 
+def week_id(d: str) -> str:
+    """YYYY-MM-DD → ISO 周编号 2026-W17(按公报刊登日分周,与采集时间无关,导出确定)。"""
+    from datetime import date as _date
+    y, w, _ = _date.fromisoformat(d).isocalendar()
+    return f"{y}-W{w:02d}"
+
+
+def week_range(wid: str) -> tuple[str, str]:
+    from datetime import date as _date
+    y, w = wid.split("-W")
+    mon = _date.fromisocalendar(int(y), int(w), 1)
+    sun = _date.fromisocalendar(int(y), int(w), 7)
+    return mon.isoformat(), sun.isoformat()
+
+
+def render_week(wid: str, items: list[dict], prev_id: str | None, next_id: str | None) -> str:
+    """某一周刊登的全部政策(按刊登日分周)。只列已收录条目的标题、摘要与原文链接,不写综述。"""
+    a, b = week_range(wid)
+    y, w = wid.split("-W")
+    url = f"{settings.site_url}/p/week/{wid}.html"
+    title = f"泰国政策周汇总:{y} 年第 {int(w)} 周({a[5:]} 至 {b[5:]})"
+    desc = f"{a} 至 {b} 在泰国皇家公报刊登、本站已收录的 {len(items)} 条政策,每条附中文摘要与泰文原文链接。"
+    rows = "".join(
+        f'<div class="lib-row"><span class="lib-date">{e(x["date"])}</span><div>'
+        f'<div class="lib-title"><a href="../{e(slug(x["uid"]))}.html">{e(x["title"])}</a></div>'
+        f'<div class="lib-sub">{e(x["domain"] or "其他")}'
+        + (f' · <a href="{e(x["official"])}" rel="nofollow noopener" target="_blank">泰文原文 ↗</a>' if x["official"] else "")
+        + f'</div></div></div>' for x in items)
+    nav = " · ".join(t for t in (
+        f'<a href="{e(prev_id)}.html">← 上一周</a>' if prev_id else "",
+        '<a href="index.html">全部周汇总</a>',
+        f'<a href="{e(next_id)}.html">下一周 →</a>' if next_id else "") if t)
+    ld = {"@context": "https://schema.org", "@type": "CollectionPage", "name": title, "url": url,
+          "inLanguage": "zh-CN", "temporalCoverage": f"{a}/{b}"}
+    body = (f'<div class="crumb"><a href="../index.html">全部政策</a> / 周汇总</div>'
+            f'<h1 class="page">{e(title)}</h1><div class="page-sub">{e(desc)}<br>按皇家公报刊登日分周;'
+            f'官方数据集通常比刊登日晚几个月开放,新内容会补进对应的周。</div>'
+            f'<div class="lib-wrap">{rows}</div><p style="margin-top:16px">{nav}</p>')
+    return _head(title, desc, url, ld, up="../../") + body + _foot("../../")
+
+
+def render_week_index(weeks: list[tuple[str, int]]) -> str:
+    url = f"{settings.site_url}/p/week/index.html"
+    rows = "".join(f'<div class="lib-row"><span class="lib-date">{e(week_range(w)[0])}</span>'
+                   f'<div class="lib-title"><a href="{e(w)}.html">{e(w.replace("-W", " 年第 "))} 周</a></div>'
+                   f'<span class="pill st-draft">{n} 条</span></div>' for w, n in weeks)
+    body = ('<div class="crumb"><a href="../index.html">全部政策</a> / 周汇总</div>'
+            '<h1 class="page">泰国政策周汇总</h1><div class="page-sub">按皇家公报刊登日分周,每周一页。'
+            '也可以用 <a href="../../feed.xml">RSS</a> 订阅更新。</div>'
+            f'<div class="lib-wrap">{rows}</div>')
+    return (_head("泰国政策周汇总 | 政策脉络 · 泰国", "按皇家公报刊登日分周的泰国政策中文汇总,每条附泰文原文链接。",
+                  url, None, up="../../") + body + _foot("../../"))
+
+
 # ───────────────────── 站点级文件:robots / sitemap / feed / llms ─────────────────────
 
 def render_robots() -> str:
@@ -349,16 +404,20 @@ def render_sitemap(urls: list[tuple[str, str | None]]) -> str:
     return "\n".join(sm) + "\n"
 
 
-def render_feed(entries: list[dict]) -> str:
-    """Atom 订阅:最新 50 条。updated 取数据自身日期,保证导出可重复。"""
-    upd = (entries[0]["date"] if entries else "2026-01-01") + "T00:00:00+07:00"
+def render_feed(entries: list[dict], title: str = "最新政策", self_path: str = "feed.xml",
+                alt_url: str | None = None) -> str:
+    """Atom 订阅:最新 50 条。updated 取数据自身日期,保证导出可重复。
+    全站一份(feed.xml),每个领域一份(feed/<领域>.xml)。"""
+    entries = sorted(entries, key=lambda x: (x["date"] or "", x["uid"]), reverse=True)
+    upd = (entries[0]["date"] if entries and entries[0]["date"] else "2026-01-01") + "T00:00:00+07:00"
+    alt = alt_url or f"{settings.site_url}/"
     out = ['<?xml version="1.0" encoding="UTF-8"?>',
            '<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">',
-           f"  <title>{SITE_NAME} · 最新政策</title>",
+           f"  <title>{SITE_NAME} · {e(title)}</title>",
            f"  <subtitle>{e(SITE_DESC)}</subtitle>",
-           f'  <link href="{e(settings.site_url)}/feed.xml" rel="self"/>',
-           f'  <link href="{e(settings.site_url)}/"/>',
-           f"  <id>{e(settings.site_url)}/</id>", f"  <updated>{upd}</updated>",
+           f'  <link href="{e(settings.site_url)}/{e(self_path)}" rel="self"/>',
+           f'  <link href="{e(alt)}"/>',
+           f"  <id>{e(settings.site_url)}/{e(self_path)}</id>", f"  <updated>{upd}</updated>",
            f"  <author><name>{SITE_NAME}</name></author>"]
     for x in entries[:50]:
         out += ["  <entry>", f"    <title>{e(x['title'])}</title>",
@@ -517,6 +576,7 @@ def build(s: Session) -> dict[str, int]:
         official = next((x.url for x in doc.sources if x.role == "official" and x.url), "")
         entries.append({"uid": doc.uid, "title": doc.title_zh, "title_th": doc.title_th or "",
                         "url": page_url(doc.uid), "date": date_s, "domain": dom[1] if dom[0] else "",
+                        "domain_id": dom[0],
                         "doc_no": doc.doc_no or "", "summary": split_summary(doc.summary_zh)[0],
                         "points": split_summary(doc.summary_zh)[1],
                         "status": doc.status.zh, "official": official,
@@ -529,15 +589,39 @@ def build(s: Session) -> dict[str, int]:
             render_topic(i, zh, domains[i].en or "", by_dom[i]), encoding="utf-8")
     (PAGES_DIR / "index.html").write_text(render_index(rows, topics), encoding="utf-8")
 
+    # 周汇总:p/week/<YYYY-Www>.html,按公报刊登日分周
+    (PAGES_DIR / "week").mkdir()
+    by_week: dict[str, list[dict]] = {}
+    for x in entries:
+        if x["date"]:
+            by_week.setdefault(week_id(x["date"]), []).append(x)
+    week_ids = sorted(by_week, reverse=True)
+    for k, wid in enumerate(week_ids):
+        items = sorted(by_week[wid], key=lambda x: (x["date"], x["uid"]), reverse=True)
+        (PAGES_DIR / "week" / f"{wid}.html").write_text(
+            render_week(wid, items, week_ids[k + 1] if k + 1 < len(week_ids) else None,
+                        week_ids[k - 1] if k > 0 else None), encoding="utf-8")
+    (PAGES_DIR / "week" / "index.html").write_text(
+        render_week_index([(w, len(by_week[w])) for w in week_ids]), encoding="utf-8")
+
     # sitemap:lastmod 用数据自身的日期,保证导出可重复
     newest = entries[0]["date"] if entries else None
     urls = [(f"{settings.site_url}/", newest), (f"{settings.site_url}/p/index.html", newest),
             (f"{settings.site_url}/about.html", None), (f"{settings.site_url}/privacy.html", None)]
     urls += [(topic_url(i), by_dom[i][0][0] or None) for i, _, _ in topics]
+    urls += [(f"{settings.site_url}/p/week/index.html", newest)]
+    urls += [(f"{settings.site_url}/p/week/{w}.html", by_week[w][0]["date"]) for w in week_ids]
     urls += [(x["url"], x["date"] or None) for x in entries]
     (REPO_ROOT / "sitemap.xml").write_text(render_sitemap(urls), encoding="utf-8")
     (REPO_ROOT / "robots.txt").write_text(render_robots(), encoding="utf-8")
     (REPO_ROOT / "feed.xml").write_text(render_feed(entries), encoding="utf-8")
+    # 按领域订阅:feed/<领域>.xml,整目录重建(领域没有条目了,订阅文件也要消失)
+    feed_dir = REPO_ROOT / "feed"
+    clear_dir(feed_dir)
+    for i, zh, _ in topics:
+        (feed_dir / f"{i}.xml").write_text(
+            render_feed([x for x in entries if x["domain_id"] == i], f"{zh} · 最新政策", f"feed/{i}.xml",
+                        topic_url(i)), encoding="utf-8")
     (REPO_ROOT / "llms.txt").write_text(render_llms(entries, topics), encoding="utf-8")
     (REPO_ROOT / "llms-full.txt").write_text(render_llms(entries, topics, full=True), encoding="utf-8")
     update_index_html(entries, topics, seo_config())
@@ -546,6 +630,14 @@ def build(s: Session) -> dict[str, int]:
     ads = json.loads(ADS_CONFIG.read_text(encoding="utf-8")) if ADS_CONFIG.exists() else {"enabled": False}
     (SITE_DIR / "ads.json").write_text(json.dumps(ads, ensure_ascii=False, indent=1) + "\n",
                                        encoding="utf-8")
+    sub = json.loads(SUBSCRIBE_CONFIG.read_text(encoding="utf-8")) if SUBSCRIBE_CONFIG.exists() else {}
+    url = str(sub.get("telegram_channel_url") or "")
+    (SITE_DIR / "subscribe.json").write_text(json.dumps({
+        "telegram_channel_url": url if url.startswith("https://t.me/") else "",
+        "feeds": [{"id": i, "zh": zh, "href": f"feed/{i}.xml"} for i, zh, _ in topics],
+        "weeks": [{"id": w, "from": week_range(w)[0], "to": week_range(w)[1], "n": len(by_week[w]),
+                   "href": f"p/week/{w}.html"} for w in week_ids[:6]],
+    }, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     support = (json.loads(SUPPORT_CONFIG.read_text(encoding="utf-8"))
                if SUPPORT_CONFIG.exists() else {"enabled": False})
     (SITE_DIR / "support.json").write_text(json.dumps(support, ensure_ascii=False, indent=1) + "\n",

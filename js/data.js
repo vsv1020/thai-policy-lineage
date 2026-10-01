@@ -133,6 +133,21 @@ getData('overview').then(renderOverview).catch(err => {
   set('stamp', '');
 });
 
+/* 订阅卡片:全站 RSS、按领域 RSS、Telegram 频道(配置了才显示)、按周汇总 */
+fetch('data/site/subscribe.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then(sub => {
+  if (!sub) return;
+  const feeds = (sub.feeds || []).map(f => `<a href="${esc(f.href)}">${esc(f.zh)}</a>`).join(' · ');
+  const weeks = (sub.weeks || []).map(w =>
+    `<a class="cov-row" href="${esc(w.href)}"><span>${esc(w.from.slice(5))} 至 ${esc(w.to.slice(5))}</span><b>${w.n} 条</b></a>`).join('');
+  set('subscribe',
+    (sub.telegram_channel_url
+      ? `<a class="btn-solid sub-tg" href="${esc(sub.telegram_channel_url)}" target="_blank" rel="noopener">Telegram 频道 · 新政策推送</a>` : '')
+    + `<div class="sub-line"><a href="feed.xml">RSS 订阅全站更新</a></div>`
+    + (feeds ? `<details class="sub-more"><summary>按领域订阅 RSS</summary><div>${feeds}</div></details>` : '')
+    + (weeks ? `<div class="mod-sub" style="margin-top:10px">按周汇总(按公报刊登日)</div>${weeks}`
+      + `<div style="margin-top:6px;font-size:12.5px"><a href="p/week/index.html">全部周汇总 →</a></div>` : ''));
+}).catch(() => { /* 订阅卡片保留静态的 RSS 链接 */ });
+
 getData('trends').then(t => {
   window.TRENDS = t;
   set('trends-sub', `基于库内 <b>${t.total_documents}</b> 条政策聚合 · 数据截至 <b>${t.data_through}</b>`

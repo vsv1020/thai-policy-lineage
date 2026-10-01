@@ -23,7 +23,7 @@ if ! echo "$CHANGED" | grep -qv '^data/seo/'; then
   exit 0
 fi
 
-if echo "$CHANGED" | grep -qvE '^(data/|p/|sitemap\.xml$|robots\.txt$|feed\.xml$|llms(-full)?\.txt$|index\.html$|privacy\.html$|about\.html$)'; then
+if echo "$CHANGED" | grep -qvE '^(data/|p/|feed/|sitemap\.xml$|robots\.txt$|feed\.xml$|llms(-full)?\.txt$|index\.html$|privacy\.html$|about\.html$)'; then
   echo "代码有变动,重建镜像"
   $DC up -d --build --remove-orphans
 else

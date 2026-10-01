@@ -1,0 +1,4 @@
+{
+ "_comment": "订阅渠道。telegram_channel_url 填公开频道链接(https://t.me/xxx),填了首页才显示 Telegram 按钮;自动推送另需在 GitHub Secrets 配置 TELEGRAM_BOT_TOKEN,Variables 配置 TELEGRAM_CHANNEL(@频道名)。说明见 docs/subscribe.md",
+ "telegram_channel_url": ""
+}

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
+  <title>政策脉络 · 泰国 · 教育 · 最新政策</title>
+  <subtitle>泰国皇家公报、内阁决议与各部委政策的中文结构化数据库:每条附泰文原文(泰国政府网站)溯源,含演进脉络、七维政策分析与趋势看板。非官方翻译,以泰文原文为准。</subtitle>
+  <link href="https://www.thaipolicy.com/feed/education.xml" rel="self"/>
+  <link href="https://www.thaipolicy.com/p/topic/education.html"/>
+  <id>https://www.thaipolicy.com/feed/education.xml</id>
+  <updated>2026-04-03T00:00:00+07:00</updated>
+  <author><name>政策脉络 · 泰国</name></author>
+  <entry>
+    <title>高等教育、科学、研究与创新部公告：未来食品、环境与可持续发展、数字与人工智能领域人才所需技能标准（佛历2569年）</title>
+    <link href="https://www.thaipolicy.com/p/th-gaz-20260403-2569.html"/>
+    <id>https://www.thaipolicy.com/p/th-gaz-20260403-2569.html</id>
+    <updated>2026-04-03T00:00:00+07:00</updated>
+    <category term="教育"/>
+    <summary>该公告由高等教育、科学、研究与创新部依据《高等教育法》相关条款发布，规定了未来食品（Future Food）、环境与可持续发展、数字与人工智能三大领域人才所需的具体技能标准。公告以未来食品领域的食品创新专家（Food Innovator）为例，列出技术技能与通用技能两大类别及各级别要求，如食品科学技能需达到5级、食品准备技能2-3级、食品设计摆盘4级等，并要求专家具备至少5年食品领域工作经验。公告自刊登次日起施行，适用于相关教育机构、技能评估与人才培养体系。</summary>
+  </entry>
+  <entry>
+    <title>私立教育促进委员会关于私立学校教师、教育人员、职员及学生登记册编制的规程 佛历2569年</title>
+    <link href="https://www.thaipolicy.com/p/th-gaz-20260325-2569.html"/>
+    <id>https://www.thaipolicy.com/p/th-gaz-20260325-2569.html</id>
+    <updated>2026-03-25T00:00:00+07:00</updated>
+    <category term="教育"/>
+    <summary>本规程依据《私立学校法》佛历2550年制定，废止佛历2563年的旧规程，允许系统内私立学校以电子方式编制教师、教育人员、职员及学生登记册，并设立中央电子登记系统。学校校长或受指派登记员须负责登记册的录入、核查、更新，确保准确完整及时；个人资料的处理须遵守个人资料保护法。登记册须包含姓名、身份证号、性别、国籍、出生日期、住址、学历、职务、薪金等法定项目，学生登记册另须含家长及监护人信息、入学与离校记录。登记对象有权查阅本人记录并须确认所提交信息的准确性。</summary>
+  </entry>
+</feed>

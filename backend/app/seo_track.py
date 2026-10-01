@@ -142,7 +142,8 @@ def purge_crawls(s: Session, today: date | None = None) -> int:
 
 
 def _is_landing(path: str) -> bool:
-    return path.startswith("/p/") and path.endswith(".html")
+    """单条政策落地页 /p/<uid>.html;汇总页(专题、周汇总等)在子目录里,不计入覆盖率。"""
+    return bool(re.fullmatch(r"/p/(?!index\.html)[^/]+\.html", path))
 
 
 def latest_monitor() -> dict | None:

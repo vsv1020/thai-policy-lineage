@@ -41,9 +41,9 @@ jobs:
 
       - name: 确认派生产物与事实层一致
         env:
-          DERIVED: data/site/ p/ sitemap.xml robots.txt feed.xml llms.txt llms-full.txt index.html privacy.html about.html
+          DERIVED: data/site/ p/ feed/ sitemap.xml robots.txt feed.xml llms.txt llms-full.txt index.html privacy.html about.html
         run: |
-          git add -N p/ 2>/dev/null || true   # 让新生成的落地页也参与比对
+          git add -N p/ feed/ 2>/dev/null || true   # 让新生成的落地页也参与比对
           if ! git diff --quiet -- $DERIVED; then
             echo "::error::data/site/ 与 data/policies/ 不一致 —— 说明有人手改了派生文件,"
             echo "::error::或改了事实层但没重跑 app.ingest + app.export。差异:"
