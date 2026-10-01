@@ -44,6 +44,7 @@ import httpx
 from .config import BKK, DATA_DIR, POLICIES_DIR, settings
 from .db import init_db, session_scope
 from .ingest import load_documents, read_jsonl
+from .persons import output_person_reason, redact as redact_persons
 
 log = logging.getLogger("policy.enrich")
 
@@ -75,7 +76,9 @@ SYSTEM_PROMPT = """你是泰国政策数据库的编辑助手,把泰国皇家公
   单个企业登记、宗教事务等一律 false。
 - 所有 id 字段只能从给定枚举里选;拿不准就选最保守的值(direction 选 neutral,
   confidence 选 low)。
-- 涉及王室的内容不在你的处理范围内(上游已过滤),若仍遇到,relevant 设为 false。"""
+- 涉及王室的内容不在你的处理范围内(上游已过滤),若仍遇到,relevant 设为 false。
+- 不写任何自然人的姓名(包括部长、官员、当事人),只写职务或机关,如「副总理兼财政部长」「税务厅厅长」;
+  正文里的姓名已替换为[人名略],不要猜测或还原。不用「先生/女士」等称谓。"""
 
 
 def _vocab() -> dict:
@@ -490,6 +493,8 @@ def run_enrichment(limit: int | None = None, dry_run: bool = False, client=None,
                 text, how = fetch_text(rec)
             except Exception as exc:           # noqa: BLE001 —— 取正文失败就只看标题
                 log.info("取正文失败 %s: %s", rec["uid"], exc)
+        # 红线二:姓名在送模型之前就去掉(决议确认函的收件人、署名都是具体的部长和官员)
+        text, _ = redact_persons(text)
         if rec["uid"] in upgrade_ids and not text:
             return None, "no_text"             # 重做的意义就在正文;没拿到就留到下一轮
         try:
@@ -520,6 +525,13 @@ def run_enrichment(limit: int | None = None, dry_run: bool = False, client=None,
             continue
         text_out = json.dumps([out.get("title_zh"), out.get("summary_zh"), out.get("key_points")],
                               ensure_ascii=False)
+        person = output_person_reason(text_out)
+        if person:
+            # 红线二:作废这条输出,不写入;下一轮会重试(送模型前已去姓名,重复命中的概率很低)
+            log.warning("译文含人名痕迹(%s),作废 %s", person, rec["uid"])
+            result["failed"] += 1
+            result["person_rejected"] = result.get("person_rejected", 0) + 1
+            continue
         hit = next((t for t in ROYAL_OUTPUT_TERMS if t in text_out), None)
         if hit:
             # 红线一:不写入任何模型输出,标记跳过,留给人工判断

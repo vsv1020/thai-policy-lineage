@@ -17,6 +17,9 @@ import re
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "backend"))
+from app.persons import output_person_reason, title_person_reason  # noqa: E402  纯标准库
+
 ROOT = Path(__file__).resolve().parent.parent
 VOCAB = ROOT / "data" / "vocab.json"
 DOCS = ROOT / "data" / "policies" / "documents.jsonl"
@@ -195,9 +198,15 @@ def check_doc(d: dict, v: dict, rep: Report, all_uids: set[str], issue_ids: set[
         if t in blob:
             rep.err(where, f"命中王室相关词 {t!r} —— 自动流程不得加工王室内容,需人工处理")
 
-    # 红线二:名单类不建人名索引(启发式:泰文人名前缀 / 中文姓名字段)
-    if re.search(r"(นาย|นาง|นางสาว)\s*\S", blob):
-        rep.warn(where, "文本中出现泰文人名前缀(นาย/นาง/นางสาว),确认没有写入自然人姓名")
+    # 红线二:不建人名索引。规则与采集、翻译共用(backend/app/persons.py,纯标准库)。
+    # 自动采集的条目必须过关;人工条目只提醒(可能在说明里引用了公开职务)
+    auto = (d.get("provenance") or {}).get("pipeline") in ("gazette_json", "cabinet_json")
+    why = title_person_reason((d.get("titles") or {}).get("th", ""))
+    out = output_person_reason(json.dumps([(d.get("titles") or {}).get("zh"), d.get("summary_zh"),
+                                           d.get("key_points_zh")], ensure_ascii=False))
+    if why or out:
+        (rep.err if auto else rep.warn)(
+            where, f"指向具体个人或译文含人名({why or out}) —— 运行 python -m app.collect --purge-red-lines")
 
     # 关系
     for rel in d.get("relations") or []:

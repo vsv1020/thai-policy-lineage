@@ -32,6 +32,7 @@ from urllib.parse import urlsplit
 import httpx
 from sqlalchemy import select
 
+from .persons import title_person_reason
 from .config import BKK, POLICIES_DIR, settings
 from .db import init_db, session_scope
 from .ingest import load_documents, read_jsonl
@@ -52,8 +53,8 @@ SOURCES = [
 
 # 红线一:王室相关一律不自动入库
 ROYAL_TERMS = ("พระบรมราชโองการ", "สมเด็จพระ", "พระบาทสมเด็จ", "ราชวงศ์", "เครื่องราชอิสริยาภรณ์")
-# 红线二:人名前缀出现即跳过(叙勋、归化名单等)
-PERSON_PREFIX = re.compile(r"(นาย|นาง|นางสาว)\s*\S")
+# 红线二:人名前缀出现即跳过(叙勋、归化名单等)。规则在 app.persons,与翻译环节共用
+PERSON_PREFIX = re.compile(r"(นาย|นาง|นางสาว)\s*\S")     # 旧规则,仅为兼容保留;判断用 persons
 
 # 公报系列 → 领域的粗分类。只用于给候选打初值,不确定就留给人工。
 SERIES_KEEP = {"ก", "ง"}   # ก 法律法规、ง 一般公告;ข 皇家任命、ค 商业登记不收
@@ -307,8 +308,9 @@ def passes_red_lines(title: str) -> tuple[bool, str]:
     for t in ROYAL_TERMS:
         if t in title:
             return False, f"王室相关({t})"
-    if PERSON_PREFIX.search(title):
-        return False, "含自然人姓名前缀"
+    why = title_person_reason(title)
+    if why:
+        return False, f"指向个人({why})"
     return True, ""
 
 
@@ -597,6 +599,23 @@ def upsert_jsonl(records: list[dict], run_at: str) -> tuple[list[dict], int, int
     return touched, added, updated
 
 
+def purge_red_lines(dry_run: bool = False) -> list[tuple[str, str]]:
+    """规则收紧后清理事实层:自动采集进来、按现行红线不该收的条目整条删除(人工条目不动)。
+    返回 [(uid, 原因)]。删除写回 documents.jsonl;历史版本仍在 git 里,需要时可查。"""
+    path = POLICIES_DIR / "documents.jsonl"
+    rows = read_jsonl(path)
+    keep, dropped = [], []
+    for r in rows:
+        ok, why = passes_red_lines((r.get("titles") or {}).get("th", ""))
+        if not ok and (r.get("provenance") or {}).get("pipeline") in AUTO_PIPELINES:
+            dropped.append((r["uid"], why))
+        else:
+            keep.append(r)
+    if dropped and not dry_run:
+        path.write_text("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in keep), encoding="utf-8")
+    return dropped
+
+
 def append_run(entry: dict) -> None:
     with (POLICIES_DIR / "runs.jsonl").open("a", encoding="utf-8") as fh:
         fh.write(json.dumps(entry, ensure_ascii=False) + "\n")
@@ -645,7 +664,10 @@ def run_collection(trigger: str = "manual", dry_run: bool = False, backfill: boo
     ok_count = sum(1 for r in results if r.status == "ok")
 
     added = updated = appended = 0
+    purged: list[tuple[str, str]] = []
     if not dry_run:
+        # 红线规则收紧后,早先收进来的不合规条目先清掉(否则它们永远留在公开的事实层里)
+        purged = purge_red_lines()
         # 新记录追加,已入库记录按官方源更新;只把有变动的记录写库
         touched, appended, updated = upsert_jsonl(all_records, run_at_iso)
         with session_scope() as s:
@@ -674,6 +696,7 @@ def run_collection(trigger: str = "manual", dry_run: bool = False, backfill: boo
                     "finished_at": finished.replace(microsecond=0).isoformat(),
                     "status": status, "trigger": trigger,
                     "added": appended, "updated": updated, "backfill": backfill,
+                    **({"purged": len(purged)} if purged else {}),
                     "duration_s": round(duration, 1), "detail": detail[:1000]})
 
     enrich_result = None
@@ -707,7 +730,17 @@ def main() -> None:
                     help=f"回填:下载回溯期(LOOKBACK_DAYS,当前 {settings.lookback_days} 天)内的全部月份")
     ap.add_argument("--strict", action="store_true",
                     help="所有源都失败时以退出码 2 结束 —— 给 CI 用,让失败变红、触发通知")
+    ap.add_argument("--purge-red-lines", action="store_true",
+                    help="不采集,只按现行红线清理事实层里早先收进来的不合规条目")
     args = ap.parse_args()
+    if args.purge_red_lines:
+        dropped = purge_red_lines(dry_run=args.dry_run)
+        reasons: dict[str, int] = {}
+        for _, why in dropped:
+            reasons[why] = reasons.get(why, 0) + 1
+        print(json.dumps({"dropped": len(dropped), "reasons": reasons, "dry_run": args.dry_run},
+                         ensure_ascii=False))
+        return
     out = run_collection(trigger=args.trigger, dry_run=args.dry_run, backfill=args.backfill)
     print(json.dumps(out, ensure_ascii=False, indent=1))
     if args.strict and out["status"] == "failed":
