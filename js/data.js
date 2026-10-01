@@ -133,6 +133,15 @@ getData('overview').then(renderOverview).catch(err => {
   set('stamp', '');
 });
 
+/* 专题汇总卡片:配置专题 + 影响对象页(由 app.export 生成 data/site/collections.json) */
+fetch('data/site/collections.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then(c => {
+  if (!c) return;
+  const row = x => `<a class="cov-row" href="${esc(x.href)}"><span>${esc(x.zh)}</span><b>${x.n} 条</b></a>`;
+  set('collections', (c.topics || []).map(row).join('')
+    + ((c.who || []).length ? `<details class="sub-more"><summary>按影响对象查看</summary>${c.who.map(row).join('')}</details>` : '')
+    || '<div class="mod-sub">专题会随收录增加陆续上线。</div>');
+}).catch(() => set('collections', '<div class="mod-sub">专题会随收录增加陆续上线。</div>'));
+
 /* 订阅卡片:全站 RSS、按领域 RSS、Telegram 频道(配置了才显示)、按周汇总 */
 fetch('data/site/subscribe.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then(sub => {
   if (!sub) return;

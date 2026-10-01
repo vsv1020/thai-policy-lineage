@@ -1,0 +1,132 @@
+{
+ "topics": [
+  {
+   "id": "land-property",
+   "zh": "土地与房产",
+   "n": 30,
+   "href": "p/t/land-property.html",
+   "date": "2026-04-22"
+  },
+  {
+   "id": "import-control",
+   "zh": "进口管制、配额与贸易救济",
+   "n": 38,
+   "href": "p/t/import-control.html",
+   "date": "2026-04-22"
+  },
+  {
+   "id": "boi",
+   "zh": "投资促进(BOI)",
+   "n": 10,
+   "href": "p/t/boi.html",
+   "date": "2026-03-31"
+  },
+  {
+   "id": "excise",
+   "zh": "消费税",
+   "n": 29,
+   "href": "p/t/excise.html",
+   "date": "2026-04-20"
+  },
+  {
+   "id": "financial-regulation",
+   "zh": "金融监管:央行与证监会",
+   "n": 14,
+   "href": "p/t/financial-regulation.html",
+   "date": "2026-04-01"
+  },
+  {
+   "id": "gsb-savings",
+   "zh": "政府储蓄银行存款与储蓄彩票",
+   "n": 16,
+   "href": "p/t/gsb-savings.html",
+   "date": "2026-04-21"
+  },
+  {
+   "id": "food-drug",
+   "zh": "食品与药品监管",
+   "n": 20,
+   "href": "p/t/food-drug.html",
+   "date": "2026-04-22"
+  },
+  {
+   "id": "social-security",
+   "zh": "社会保障与劳工",
+   "n": 6,
+   "href": "p/t/social-security.html",
+   "date": "2026-04-22"
+  },
+  {
+   "id": "data-protection",
+   "zh": "个人资料保护与网络安全",
+   "n": 3,
+   "href": "p/t/data-protection.html",
+   "date": "2026-03-24"
+  }
+ ],
+ "who": [
+  {
+   "id": "consumer",
+   "zh": "消费者",
+   "n": 109,
+   "href": "p/who/consumer.html",
+   "date": "2026-04-21"
+  },
+  {
+   "id": "foreign_company",
+   "zh": "外资企业",
+   "n": 272,
+   "href": "p/who/foreign_company.html",
+   "date": "2026-04-22"
+  },
+  {
+   "id": "foreign_investor",
+   "zh": "外资投资者",
+   "n": 83,
+   "href": "p/who/foreign_investor.html",
+   "date": "2026-04-21"
+  },
+  {
+   "id": "foreign_resident",
+   "zh": "外籍长居个人",
+   "n": 81,
+   "href": "p/who/foreign_resident.html",
+   "date": "2026-04-22"
+  },
+  {
+   "id": "importer",
+   "zh": "进口商与经销商",
+   "n": 102,
+   "href": "p/who/importer.html",
+   "date": "2026-04-22"
+  },
+  {
+   "id": "local_government",
+   "zh": "府级与地方政府",
+   "n": 24,
+   "href": "p/who/local_government.html",
+   "date": "2026-04-21"
+  },
+  {
+   "id": "sme",
+   "zh": "中小企业",
+   "n": 30,
+   "href": "p/who/sme.html",
+   "date": "2026-04-10"
+  },
+  {
+   "id": "thai_employer",
+   "zh": "本地雇主",
+   "n": 68,
+   "href": "p/who/thai_employer.html",
+   "date": "2026-04-22"
+  },
+  {
+   "id": "traveller",
+   "zh": "短期入境者",
+   "n": 15,
+   "href": "p/who/traveller.html",
+   "date": "2026-04-10"
+  }
+ ]
+}

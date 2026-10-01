@@ -388,3 +388,8 @@ aside .side-label { margin-top: 10px; }
 .sub-more { font-size: 13px; padding: 4px 0; }
 .sub-more summary { cursor: pointer; color: var(--blue-deep); }
 .sub-more div { line-height: 2; margin-top: 4px; }
+
+/* 专题汇总页 */
+.coll-item { background: var(--card); border: 1px solid var(--line); padding: 16px 20px; margin-bottom: 12px; }
+.coll-title { font-family: var(--serif); font-size: 16px; margin: 4px 0 6px; line-height: 1.5; }
+.coll-item p { font-size: 13.5px; color: var(--ink-2); margin-bottom: 6px; }
