@@ -123,7 +123,8 @@ def audit_html(url: str, html: str, headers: dict) -> dict:
             probs.append("结构化数据 JSON 解析失败")
     if not lds:
         probs.append("缺结构化数据")
-    is_landing = "/p/" in url and "/p/topic/" not in url and not url.endswith("/p/index.html")
+    # 单条政策的落地页:/p/<uid>.html(专题、周汇总、影响对象等汇总页在子目录里,不算)
+    is_landing = bool(re.search(r"/p/(?!index\.html)[^/]+\.html$", url))
     if is_landing and not re.search(r'href="https?://[^"/]*\.go\.th/', html):
         probs.append("缺官方原文(.go.th)链接")
     summary = ""

@@ -1,0 +1,99 @@
+{
+ "telegram_channel_url": "",
+ "feeds": [
+  {
+   "id": "biz",
+   "zh": "公司投资",
+   "href": "feed/biz.xml"
+  },
+  {
+   "id": "customs",
+   "zh": "海关贸易",
+   "href": "feed/customs.xml"
+  },
+  {
+   "id": "land",
+   "zh": "房产土地",
+   "href": "feed/land.xml"
+  },
+  {
+   "id": "health",
+   "zh": "医疗",
+   "href": "feed/health.xml"
+  },
+  {
+   "id": "tax",
+   "zh": "税务",
+   "href": "feed/tax.xml"
+  },
+  {
+   "id": "finance",
+   "zh": "金融外汇",
+   "href": "feed/finance.xml"
+  },
+  {
+   "id": "digital",
+   "zh": "数字与数据",
+   "href": "feed/digital.xml"
+  },
+  {
+   "id": "labor",
+   "zh": "劳工用工",
+   "href": "feed/labor.xml"
+  },
+  {
+   "id": "visa",
+   "zh": "签证居留",
+   "href": "feed/visa.xml"
+  },
+  {
+   "id": "education",
+   "zh": "教育",
+   "href": "feed/education.xml"
+  }
+ ],
+ "weeks": [
+  {
+   "id": "2026-W17",
+   "from": "2026-04-20",
+   "to": "2026-04-26",
+   "n": 23,
+   "href": "p/week/2026-W17.html"
+  },
+  {
+   "id": "2026-W16",
+   "from": "2026-04-13",
+   "to": "2026-04-19",
+   "n": 3,
+   "href": "p/week/2026-W16.html"
+  },
+  {
+   "id": "2026-W15",
+   "from": "2026-04-06",
+   "to": "2026-04-12",
+   "n": 35,
+   "href": "p/week/2026-W15.html"
+  },
+  {
+   "id": "2026-W14",
+   "from": "2026-03-30",
+   "to": "2026-04-05",
+   "n": 57,
+   "href": "p/week/2026-W14.html"
+  },
+  {
+   "id": "2026-W13",
+   "from": "2026-03-23",
+   "to": "2026-03-29",
+   "n": 53,
+   "href": "p/week/2026-W13.html"
+  },
+  {
+   "id": "2026-W12",
+   "from": "2026-03-16",
+   "to": "2026-03-22",
+   "n": 43,
+   "href": "p/week/2026-W12.html"
+  }
+ ]
+}

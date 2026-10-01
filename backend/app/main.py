@@ -35,6 +35,7 @@ PUBLIC_DIRS = {
     "/data/site": SITE_DIR,
     "/p": REPO_ROOT / "p",          # 每条政策的静态落地页(SEO),由 app.export 生成
     "/assets": REPO_ROOT / "assets",  # 打赏收款码等静态图片
+    "/feed": REPO_ROOT / "feed",      # 按领域的 Atom 订阅,由 app.export 生成
 }
 # 根目录下允许单独访问的文件
 PUBLIC_FILES = {"index.html", "privacy.html", "about.html", "robots.txt", "sitemap.xml", "favicon.ico", "favicon.svg",
