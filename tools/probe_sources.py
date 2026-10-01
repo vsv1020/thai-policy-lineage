@@ -1,46 +1,33 @@
-"""临时探测:税务厅、BOI 官网结构(robots、RSS、公告列表)。只打印,不写数据。"""
-import re, sys
-sys.path.insert(0, "backend")
+"""临时探测:税务厅 RSS 全部条目、BOI 公告列表结构(直连)。只打印,不写数据。"""
+import re
 import httpx
-from app.collect import source_client
 
-H = {"User-Agent": "ThaiPolicyLineage/0.3 (+https://github.com/vsv1020/thai-policy-lineage)"}
-proxied = source_client(H); proxied.timeout = httpx.Timeout(60)
-direct = httpx.Client(headers=H, timeout=60, follow_redirects=True)
-c = proxied
-print("## 对照:经代理访问 data.go.th")
-try:
-    print(proxied.get("https://data.go.th/api/3/action/package_show", params={"id": "dataset_02_04"}).status_code)
-except Exception as e:
-    print("ERR", type(e).__name__, str(e)[:120])
-KW = re.compile(r"ประกาศ|คำสั่ง|กฎหมาย|ระเบียบ|announce|notification|law|regulat|rss|feed|news|ข่าว|policy|นโยบาย|มาตรการ", re.I)
+c = httpx.Client(headers={"User-Agent": "ThaiPolicyLineage/0.3 (+https://github.com/vsv1020/thai-policy-lineage)"},
+                 timeout=60, follow_redirects=True)
 
-def get(u):
-    try:
-        r = c.get(u)
-        cf = "Just a moment" in r.text[:3000]
-        print(f"\n=== {u} -> {r.status_code} {r.headers.get('content-type','')} len={len(r.content)} final={r.url} cloudflare={cf}")
-        return r
-    except Exception as e:
-        print(f"\n=== {u} -> ERR {type(e).__name__}: {str(e)[:150]}")
+r = c.get("https://www.rd.go.th/rss.xml")
+items = re.findall(r"<item>(.*?)</item>", r.text, re.S)
+print("RD RSS items", len(items))
+for it in items:
+    g = lambda tag: (re.search(rf"<{tag}[^>]*>(.*?)</{tag}>", it, re.S) or [None, ""])[1].strip()
+    print(" |", g("pubDate")[:16], "|", g("link"), "|", re.sub(r"\s+", " ", g("title"))[:90])
 
-import sys as _s
-for c in (proxied, direct):
-  print("\n######## 经代理" if c is proxied else "\n######## 直连(GitHub 美国机房)")
-  for u in ["https://www.rd.go.th/robots.txt", "https://www.boi.go.th/robots.txt"]:
-      r = get(u)
-      if r is not None and r.status_code == 200: print(r.text[:800])
+for u in ["https://www.rd.go.th/26/9877.html"]:
+    p = c.get(u)
+    t = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", re.sub(r"<script.*?</script>|<style.*?</style>", " ", p.text, flags=re.S)))
+    print("\nRD PAGE", u, p.status_code, t[:600])
+    print("  pdf links:", re.findall(r'href="([^"]+\.pdf)"', p.text)[:5])
 
-  for u in ["https://www.rd.go.th/", "https://www.rd.go.th/rss.xml", "https://www.boi.go.th/", "https://www.boi.go.th/en/index/",
-            "https://www.boi.go.th/index.php?page=announcement", "https://www.boi.go.th/rss"]:
-      r = get(u)
-      if r is None or r.status_code != 200 or "html" not in r.headers.get("content-type", ""): 
-          if r is not None and "xml" in r.headers.get("content-type", ""): print(r.text[:1500])
-          continue
-      print("FEEDS", re.findall(r'<link[^>]+(?:rss|atom)[^>]*>', r.text, re.I)[:5])
-      links = []
-      for href, txt in re.findall(r'<a[^>]+href="([^"#]+)"[^>]*>(.*?)</a>', r.text, re.S):
-          t = re.sub(r"<[^>]+>|\s+", " ", txt).strip()
-          if KW.search(href) or KW.search(t):
-              links.append(f"{t[:50]} -> {href[:120]}")
-      print("LINKS", len(links)); print("\n".join(sorted(set(links))[:70]))
+for u in ["https://www.boi.go.th/index.php?page=boi_announcements", "https://www.boi.go.th/un/boi_announcements",
+          "https://www.boi.go.th/index.php?page=boi_announcements&language=th"]:
+    p = c.get(u)
+    print("\n=== BOI", u, p.status_code, len(p.text), p.url)
+    rows = re.findall(r'<a[^>]+href="([^"#]+)"[^>]*>(.*?)</a>', p.text, re.S)
+    out = []
+    for href, txt in rows:
+        t = re.sub(r"<[^>]+>|\s+", " ", txt).strip()
+        if re.search(r"announce|ประกาศ|upload|\.pdf|topic_id", href + t, re.I) and len(t) > 8:
+            out.append(f"{t[:90]} -> {href[:140]}")
+    print("\n".join(out[:40]))
+    dates = re.findall(r"\d{1,2}\s+(?:[A-Z][a-z]{2,8}|[ก-๙\.]{3,12})\s+\d{4}", p.text)
+    print("DATES sample:", dates[:10])
