@@ -483,8 +483,12 @@ def render_week_index(weeks: list[tuple[str, int]]) -> str:
             '<h1 class="page">泰国政策周汇总</h1><div class="page-sub">按皇家公报刊登日分周,每周一页。'
             '也可以用 <a href="../../feed.xml">RSS</a> 订阅更新。</div>'
             f'<div class="lib-wrap">{rows}</div>')
-    return (_head("泰国政策周汇总 | 政策脉络 · 泰国", "按皇家公报刊登日分周的泰国政策中文汇总,每条附泰文原文链接。",
-                  url, None, up="../../") + body + _foot("../../"))
+    title = "泰国政策周汇总 | 政策脉络 · 泰国"
+    desc = (f"按泰国皇家公报刊登日分周整理的政策中文汇总,目前共 {len(weeks)} 周、"
+            f"{sum(n for _, n in weeks)} 条,每周一页,每条附中文摘要与泰文原文链接,可用 RSS 订阅更新。")
+    ld = {"@context": "https://schema.org", "@type": "CollectionPage", "name": "泰国政策周汇总",
+          "url": url, "inLanguage": "zh-CN", "description": desc}
+    return _head(title, desc, url, ld, up="../../") + body + _foot("../../")
 
 
 # ───────────────────── 站点级文件:robots / sitemap / feed / llms ─────────────────────
