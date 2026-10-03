@@ -1,16 +1,27 @@
-# SEO / GEO 日报 · 2026-10-03
+# SEO / GEO 日报 · 2026-10-04
 
-站点 https://www.thaipolicy.com · 生成于 2026-10-03T03:15:40+07:00(曼谷时间)。本文件由 `python -m app.seo_monitor` 生成,每日例行会话据此修改站点。
+站点 https://www.thaipolicy.com · 生成于 2026-10-04T03:15:21+07:00(曼谷时间)。本文件由 `python -m app.seo_monitor` 生成,每日例行会话据此修改站点。
 
 ## 结论
 
-- 严重问题 0 个,需处理 1 个,建议 2 个。
-- Google 收录:已检查 372 页,确认收录 97 页(sitemap 共 453 页)。
-- 近 7 天抓取:Googlebot 740 · Bingbot 540 · 百度 36 · AI 爬虫 95;来访:搜索 1 · AI 0。
+- 严重问题 0 个,需处理 2 个,建议 2 个。
+- Google 收录:已检查 432 页,确认收录 156 页(sitemap 共 453 页)。
+- 近 7 天抓取:Googlebot 719 · Bingbot 717 · 百度 36 · AI 爬虫 460;来访:搜索 1 · AI 0。
 
 ## 待处理问题
 
-- **🟠 需处理** `gsc_not_indexed` 已检查 372 页,275 页未被 Google 收录
+- **🟠 需处理** `crawl_errors` 爬虫近两天遇到 9 个报错路径
+  - 建议:404 通常是删掉的旧页面(可在 nginx 加 301)或错误链接;5xx 查服务器日志
+  - 404 /p/th-gaz-20260421-1-629.html((Amazonbot,最近 2026-10-03)
+  - 404 /p/th-gaz-20260421-1-630-digital-salak-on.html((Amazonbot,最近 2026-10-03)
+  - 404 /p/th-gaz-20260421-2-273-digital-salak-on.html((Amazonbot,最近 2026-10-03)
+  - 404 /p/th-gaz-20260421-256.html((Amazonbot,最近 2026-10-03)
+  - 404 /p/th-gaz-20260421-2569.html((Amazonbot,最近 2026-10-03)
+  - 404 /p/th-gaz-20260421-2f8e72f000.html((Amazonbot,最近 2026-10-03)
+  - 404 /p/th-gaz-20260421-36b0072452.html((Amazonbot,最近 2026-10-03)
+  - 404 /p/th-gaz-20260422-2569.html((Amazonbot,最近 2026-10-03)
+  - ……共 9 项,完整列表见 latest.json
+- **🟠 需处理** `gsc_not_indexed` 已检查 432 页,276 页未被 Google 收录
   - 建议:「已发现-尚未编入索引」多为权重/内链不足:加内链、丰富内容;「已抓取-尚未编入索引」多为内容单薄或重复
   - https://www.thaipolicy.com/about.html(已发现 - 尚未编入索引)
   - https://www.thaipolicy.com/p/t/boi.html(已发现 - 尚未编入索引)
@@ -33,14 +44,14 @@
   - 在哪里可以查到泰国皇家公报政策的中文翻译和官方原文链接?
 - **🔵 建议** `never_crawled` 20+ 个落地页近 7 天未被搜索爬虫抓取
   - 建议:增加站内链接(首页、专题页、同领域推荐);新页面已通过 IndexNow 与 GSC sitemap 提交
-  - /p/th-gaz-20260203-4.html
-  - /p/th-gaz-20260206-227-2569.html
-  - /p/th-gaz-20260209-13.html
-  - /p/th-gaz-20260211-59-2569.html
-  - /p/th-gaz-20260213-2564.html
   - /p/th-gaz-20260213-2567.html
   - /p/th-gaz-20260217-1-627.html
   - /p/th-gaz-20260217-2-2568.html
+  - /p/th-gaz-20260217-22-2568-4-1-2.html
+  - /p/th-gaz-20260217-48706f0540.html
+  - /p/th-gaz-20260217-4affbcd198.html
+  - /p/th-gaz-20260217-7f0d72dfe8.html
+  - /p/th-gaz-20260219-2559-2569.html
   - ……共 20 项,完整列表见 latest.json
 
 ## 关键指标(括号内为较前一日变化)
@@ -49,29 +60,29 @@
 |---|---|
 | sitemap 页面数 | 453  |
 | 今日抽查页数 | 40  |
-| 抽查有问题页数 | 0 (-1) |
-| 内容单薄页数(抽查) | 0 (-1) |
-| Google 已确认收录 | 97 (+32) |
-| Google 已检查 | 372 (+59) |
-| Google 曝光(28 天) | 1 (+1) |
+| 抽查有问题页数 | 0  |
+| 内容单薄页数(抽查) | 0  |
+| Google 已确认收录 | 156 (+59) |
+| Google 已检查 | 432 (+60) |
+| Google 曝光(28 天) | 1  |
 | Google 点击(28 天) | 0  |
 | Google 平均排名 | 6  |
 | Bing 曝光 | 0  |
-| Googlebot 抓取(7 天) | 740 (+202) |
-| Bingbot 抓取(7 天) | 540 (+178) |
+| Googlebot 抓取(7 天) | 719 (-21) |
+| Bingbot 抓取(7 天) | 717 (+177) |
 | 百度蜘蛛抓取(7 天) | 36  |
-| AI 爬虫抓取(7 天) | 95 (+88) |
-| 落地页被搜索爬虫抓取占比 % | 89.7 (+12.5) |
+| AI 爬虫抓取(7 天) | 460 (+365) |
+| 落地页被搜索爬虫抓取占比 % | 92.2 (+2.5) |
 | 搜索来源访问(7 天) | 1  |
 | AI 来源访问(7 天) | 0  |
 | AI 实测引用本站(题) | 0  |
-| 今日 IndexNow 提交 | 0 (-140) |
+| 今日 IndexNow 提交 | 0  |
 
 ## Google 收录状态分布(已检查页面)
 
-- 已发现 - 尚未编入索引:170
+- 已发现 - 尚未编入索引:171
+- 已提交，且已编入索引:156
 - Google 无法识别此网址:98
-- 已提交，且已编入索引:97
 - 已抓取 - 尚未编入索引:6
 - 服务器错误 (5xx):1
 
@@ -79,14 +90,14 @@
 
 | 爬虫 | 类型 | 次数 | 页面数 | 最近 |
 |---|---|---|---|---|
-| Googlebot | 搜索 | 740 | 305 | 2026-10-02 |
-| Bingbot | 搜索 | 540 | 290 | 2026-10-03 |
-| Applebot | 搜索 | 294 | 46 | 2026-10-02 |
+| Googlebot | 搜索 | 719 | 305 | 2026-10-04 |
+| Bingbot | 搜索 | 717 | 324 | 2026-10-04 |
+| Applebot | 搜索 | 386 | 65 | 2026-10-03 |
+| Amazonbot | AI | 362 | 361 | 2026-10-04 |
+| OAI-SearchBot | AI | 95 | 53 | 2026-10-03 |
 | YandexBot | 搜索 | 70 | 57 | 2026-10-02 |
-| OAI-SearchBot | AI | 69 | 44 | 2026-10-03 |
 | Baiduspider | 搜索 | 36 | 20 | 2026-09-30 |
-| Amazonbot | AI | 24 | 23 | 2026-10-03 |
-| ChatGPT-User | AI | 2 | 2 | 2026-10-02 |
+| ChatGPT-User | AI | 3 | 3 | 2026-10-03 |
 
 ## 来访渠道(近 7 天)
 
@@ -94,15 +105,15 @@
 
 ## GEO 实测(Perplexity)
 
-- ❌ 泰国免签停留期最近有什么调整?内阁决议和公报是否一致? —— 引用:en.vietnamplus.vn, tdac.info, thailand.go.th, thailand.prd.go.th, www.bbc.com
-- ❌ 泰国境外所得汇入课税新规有哪些豁免措施? —— 引用:flytorelocation.com, rumavi.com, www.bdo-japan.jp, www.bdo.global, www.bdo.th
-- ❌ 泰国代持股(Nominee)公司如何被排查?外国人买公寓的外资配额是多少? —— 引用:asterofasia.com, globaladvisoryexperts.com, globallawexperts.com, rba-asia.com, stanbrinkman.com
-- ❌ 泰国 PDPA 个人资料跨境传输有什么要求? —— 引用:chambers.com, cookieinformation.com, law.asia, pdpathailand.com, practiceguides.chambers.com
-- ❌ 泰国 LTR 长期居留签证的税务待遇是什么? —— 引用:assets.kpmg.com, khonsulegal.com, kpmg.com, layanre.com, ltr.boi.go.th
-- ❌ 泰国 BOI 2026 投资促进措施有哪些?数据中心有什么税收激励? —— 引用:en.thairath.co.th, english.news.cn, osos.boi.go.th, www.boi.go.th, www.tilleke.com
-- ❌ 泰国个人所得税 PND 90/91 和半年申报 PND 94 的截止日期是什么时候? —— 引用:denpyo.com, phuketexpatguide.com, rd.go.th, sherrings.com, taxsummaries.pwc.com
-- ❌ 在哪里可以查到泰国皇家公报政策的中文翻译和官方原文链接? —— 引用:lib-km.hcu.ac.th, ratchakitcha.soc.go.th, ratchakitcha2-uat.soc.go.th, soc.gdcatalog.go.th, th.wikipedia.org
-- 被引用最多的其他站点:thailand.go.th(2)、www.thailand.go.th(2)、www.bdo.th(2)、www.chiangraitimes.com(2)、www.nishimura.com(2)、www.bdo.global(2)、www.rd.go.th(2)、www.juslaws.com(2)
+- ❌ 泰国免签停留期最近有什么调整?内阁决议和公报是否一致? —— 引用:consular.mfa.go.th, english.news.cn, moscow.thaiembassy.org, thailand.go.th, thailand.prd.go.th
+- ❌ 泰国境外所得汇入课税新规有哪些豁免措施? —— 引用:assets.kpmg.com, pattayavisahelp.com, rumavi.com, taxsummaries.pwc.com, thailand.acclime.com
+- ❌ 泰国代持股(Nominee)公司如何被排查?外国人买公寓的外资配额是多少? —— 引用:en.thairath.co.th, khonsulegal.com, oneasia.legal, stanbrinkman.com, thai.estate
+- ❌ 泰国 PDPA 个人资料跨境传输有什么要求? —— 引用:assets.kpmg.com, resourcehub.bakermckenzie.com, www.dlapiperdataprotection.com, www.globalcompliancenews.com, www.hsfkramer.com
+- ❌ 泰国 LTR 长期居留签证的税务待遇是什么? —— 引用:assets.kpmg.com, houseviser.com, khonsulegal.com, ltr.boi.go.th, notary.co.th
+- ❌ 泰国 BOI 2026 投资促进措施有哪些?数据中心有什么税收激励? —— 引用:emerhub.com, en.thairath.co.th, osos.boi.go.th, www.boi.go.th, www.tilleke.com
+- ❌ 泰国个人所得税 PND 90/91 和半年申报 PND 94 的截止日期是什么时候? —— 引用:en.thairath.co.th, mbmg-group.com, movetothai.land, taxsummaries.pwc.com, www.cero.agency
+- ❌ 在哪里可以查到泰国皇家公报政策的中文翻译和官方原文链接? —— 引用:dbpedia.org, de.wikipedia.org, en.wikipedia-on-ipfs.org, libguides.nus.edu.sg, pattayavisahelp.com
+- 被引用最多的其他站点:thailand.go.th(3)、assets.kpmg.com(3)、www.thailawonline.com(3)、en.thairath.co.th(3)、www.nationthailand.com(2)、www.thailand.go.th(2)、www.chiangraitimes.com(2)、www.rd.go.th(2)
 
 ## 今日提交
 
