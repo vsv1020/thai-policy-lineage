@@ -3,42 +3,42 @@
   {
    "id": "land-property",
    "zh": "土地与房产",
-   "n": 30,
+   "n": 32,
    "href": "p/t/land-property.html",
    "date": "2026-04-22"
   },
   {
    "id": "import-control",
    "zh": "进口管制、配额与贸易救济",
-   "n": 40,
+   "n": 42,
    "href": "p/t/import-control.html",
    "date": "2026-04-22"
   },
   {
    "id": "boi",
    "zh": "投资促进(BOI)",
-   "n": 10,
+   "n": 89,
    "href": "p/t/boi.html",
-   "date": "2026-03-31"
+   "date": "2026-09-30"
   },
   {
    "id": "excise",
    "zh": "消费税",
-   "n": 29,
+   "n": 30,
    "href": "p/t/excise.html",
    "date": "2026-04-20"
   },
   {
    "id": "financial-regulation",
    "zh": "金融监管:央行与证监会",
-   "n": 18,
+   "n": 19,
    "href": "p/t/financial-regulation.html",
    "date": "2026-04-01"
   },
   {
    "id": "gsb-savings",
    "zh": "政府储蓄银行存款与储蓄彩票",
-   "n": 16,
+   "n": 17,
    "href": "p/t/gsb-savings.html",
    "date": "2026-04-21"
   },
@@ -68,63 +68,63 @@
   {
    "id": "consumer",
    "zh": "消费者",
-   "n": 129,
+   "n": 136,
    "href": "p/who/consumer.html",
-   "date": "2026-04-22"
+   "date": "2026-10-02"
   },
   {
    "id": "foreign_company",
    "zh": "外资企业",
-   "n": 322,
+   "n": 430,
    "href": "p/who/foreign_company.html",
-   "date": "2026-04-22"
+   "date": "2026-10-06"
   },
   {
    "id": "foreign_investor",
    "zh": "外资投资者",
-   "n": 90,
+   "n": 193,
    "href": "p/who/foreign_investor.html",
-   "date": "2026-04-22"
+   "date": "2026-10-06"
   },
   {
    "id": "foreign_resident",
    "zh": "外籍长居个人",
-   "n": 90,
+   "n": 104,
    "href": "p/who/foreign_resident.html",
-   "date": "2026-04-21"
+   "date": "2026-10-02"
   },
   {
    "id": "importer",
    "zh": "进口商与经销商",
-   "n": 105,
+   "n": 111,
    "href": "p/who/importer.html",
    "date": "2026-04-22"
   },
   {
    "id": "local_government",
    "zh": "府级与地方政府",
-   "n": 30,
+   "n": 31,
    "href": "p/who/local_government.html",
    "date": "2026-04-22"
   },
   {
    "id": "sme",
    "zh": "中小企业",
-   "n": 30,
+   "n": 41,
    "href": "p/who/sme.html",
-   "date": "2026-04-20"
+   "date": "2026-10-02"
   },
   {
    "id": "thai_employer",
    "zh": "本地雇主",
-   "n": 82,
+   "n": 93,
    "href": "p/who/thai_employer.html",
-   "date": "2026-04-22"
+   "date": "2026-10-02"
   },
   {
    "id": "traveller",
    "zh": "短期入境者",
-   "n": 17,
+   "n": 19,
    "href": "p/who/traveller.html",
    "date": "2026-04-10"
   }

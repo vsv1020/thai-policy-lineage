@@ -1,54 +1,128 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://www.thaipolicy.com/</loc><lastmod>2026-04-22</lastmod></url>
-  <url><loc>https://www.thaipolicy.com/p/index.html</loc><lastmod>2026-04-22</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/</loc><lastmod>2026-10-06</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/index.html</loc><lastmod>2026-10-06</lastmod></url>
   <url><loc>https://www.thaipolicy.com/about.html</loc></url>
   <url><loc>https://www.thaipolicy.com/privacy.html</loc></url>
-  <url><loc>https://www.thaipolicy.com/p/topic/biz.html</loc><lastmod>2026-04-11</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/topic/biz.html</loc><lastmod>2026-10-06</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/topic/customs.html</loc><lastmod>2026-04-22</lastmod></url>
-  <url><loc>https://www.thaipolicy.com/p/topic/land.html</loc><lastmod>2026-04-22</lastmod></url>
-  <url><loc>https://www.thaipolicy.com/p/topic/health.html</loc><lastmod>2026-04-22</lastmod></url>
-  <url><loc>https://www.thaipolicy.com/p/topic/tax.html</loc><lastmod>2026-04-20</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/topic/finance.html</loc><lastmod>2026-04-21</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/topic/land.html</loc><lastmod>2026-04-22</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/topic/tax.html</loc><lastmod>2026-10-02</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/topic/health.html</loc><lastmod>2026-09-30</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/topic/digital.html</loc><lastmod>2026-04-20</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/topic/visa.html</loc><lastmod>2026-05-07</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/topic/labor.html</loc><lastmod>2026-04-22</lastmod></url>
-  <url><loc>https://www.thaipolicy.com/p/topic/visa.html</loc><lastmod>2026-04-11</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/topic/education.html</loc><lastmod>2026-04-03</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/t/land-property.html</loc><lastmod>2026-04-22</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/t/import-control.html</loc><lastmod>2026-04-22</lastmod></url>
-  <url><loc>https://www.thaipolicy.com/p/t/boi.html</loc><lastmod>2026-03-31</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/t/boi.html</loc><lastmod>2026-09-30</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/t/excise.html</loc><lastmod>2026-04-20</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/t/financial-regulation.html</loc><lastmod>2026-04-01</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/t/gsb-savings.html</loc><lastmod>2026-04-21</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/t/food-drug.html</loc><lastmod>2026-04-22</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/t/social-security.html</loc><lastmod>2026-04-22</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/t/data-protection.html</loc><lastmod>2026-03-24</lastmod></url>
-  <url><loc>https://www.thaipolicy.com/p/who/consumer.html</loc><lastmod>2026-04-22</lastmod></url>
-  <url><loc>https://www.thaipolicy.com/p/who/foreign_company.html</loc><lastmod>2026-04-22</lastmod></url>
-  <url><loc>https://www.thaipolicy.com/p/who/foreign_investor.html</loc><lastmod>2026-04-22</lastmod></url>
-  <url><loc>https://www.thaipolicy.com/p/who/foreign_resident.html</loc><lastmod>2026-04-21</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/who/consumer.html</loc><lastmod>2026-10-02</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/who/foreign_company.html</loc><lastmod>2026-10-06</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/who/foreign_investor.html</loc><lastmod>2026-10-06</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/who/foreign_resident.html</loc><lastmod>2026-10-02</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/who/importer.html</loc><lastmod>2026-04-22</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/who/local_government.html</loc><lastmod>2026-04-22</lastmod></url>
-  <url><loc>https://www.thaipolicy.com/p/who/sme.html</loc><lastmod>2026-04-20</lastmod></url>
-  <url><loc>https://www.thaipolicy.com/p/who/thai_employer.html</loc><lastmod>2026-04-22</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/who/sme.html</loc><lastmod>2026-10-02</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/who/thai_employer.html</loc><lastmod>2026-10-02</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/who/traveller.html</loc><lastmod>2026-04-10</lastmod></url>
-  <url><loc>https://www.thaipolicy.com/p/week/index.html</loc><lastmod>2026-04-22</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/index.html</loc><lastmod>2026-10-06</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2026-W41.html</loc><lastmod>2026-10-06</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2026-W40.html</loc><lastmod>2026-10-02</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2026-W39.html</loc><lastmod>2026-09-23</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2026-W38.html</loc><lastmod>2026-09-16</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2026-W29.html</loc><lastmod>2026-07-15</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2026-W26.html</loc><lastmod>2026-06-23</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2026-W21.html</loc><lastmod>2026-05-21</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2026-W19.html</loc><lastmod>2026-05-07</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2026-W18.html</loc><lastmod>2026-05-01</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/week/2026-W17.html</loc><lastmod>2026-04-22</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/week/2026-W16.html</loc><lastmod>2026-04-16</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/week/2026-W15.html</loc><lastmod>2026-04-11</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/week/2026-W14.html</loc><lastmod>2026-04-03</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/week/2026-W13.html</loc><lastmod>2026-03-28</lastmod></url>
-  <url><loc>https://www.thaipolicy.com/p/week/2026-W12.html</loc><lastmod>2026-03-20</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2026-W12.html</loc><lastmod>2026-03-21</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/week/2026-W11.html</loc><lastmod>2026-03-13</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/week/2026-W10.html</loc><lastmod>2026-03-06</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/week/2026-W09.html</loc><lastmod>2026-02-27</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/week/2026-W08.html</loc><lastmod>2026-02-20</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/week/2026-W07.html</loc><lastmod>2026-02-13</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/week/2026-W06.html</loc><lastmod>2026-02-06</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2026-W05.html</loc><lastmod>2026-01-27</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2026-W04.html</loc><lastmod>2026-01-20</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2026-W03.html</loc><lastmod>2026-01-15</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2026-W02.html</loc><lastmod>2026-01-08</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2025-W52.html</loc><lastmod>2025-12-25</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2025-W50.html</loc><lastmod>2025-12-09</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2025-W49.html</loc><lastmod>2025-12-02</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2025-W46.html</loc><lastmod>2025-11-14</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2025-W45.html</loc><lastmod>2025-11-04</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2025-W43.html</loc><lastmod>2025-10-22</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2025-W42.html</loc><lastmod>2025-10-17</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2025-W33.html</loc><lastmod>2025-08-15</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2025-W32.html</loc><lastmod>2025-08-08</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2025-W30.html</loc><lastmod>2025-07-22</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2025-W29.html</loc><lastmod>2025-07-18</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2025-W23.html</loc><lastmod>2025-06-05</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2025-W19.html</loc><lastmod>2025-05-06</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2025-W18.html</loc><lastmod>2025-04-29</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2025-W15.html</loc><lastmod>2025-04-09</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2025-W14.html</loc><lastmod>2025-04-01</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2025-W13.html</loc><lastmod>2025-03-27</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2025-W12.html</loc><lastmod>2025-03-18</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2025-W11.html</loc><lastmod>2025-03-11</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2025-W09.html</loc><lastmod>2025-02-28</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2025-W08.html</loc><lastmod>2025-02-18</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2025-W07.html</loc><lastmod>2025-02-14</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2025-W06.html</loc><lastmod>2025-02-04</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2025-W05.html</loc><lastmod>2025-01-31</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2025-W04.html</loc><lastmod>2025-01-21</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2025-W03.html</loc><lastmod>2025-01-17</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2025-W02.html</loc><lastmod>2025-01-07</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2025-W01.html</loc><lastmod>2025-01-02</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2024-W51.html</loc><lastmod>2024-12-20</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2024-W50.html</loc><lastmod>2024-12-09</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2024-W48.html</loc><lastmod>2024-11-25</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2024-W47.html</loc><lastmod>2024-11-18</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2024-W45.html</loc><lastmod>2024-11-04</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2024-W44.html</loc><lastmod>2024-11-01</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/week/2024-W43.html</loc><lastmod>2024-10-25</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20261006-139502.html</loc><lastmod>2026-10-06</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20261006-139503.html</loc><lastmod>2026-10-06</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20261006-139504.html</loc><lastmod>2026-10-06</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-rd-20261002-dg469a.html</loc><lastmod>2026-10-02</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-rd-20261002-dg470a.html</loc><lastmod>2026-10-02</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-rd-20261002-dg471a.html</loc><lastmod>2026-10-02</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-rd-20261001-dc806.html</loc><lastmod>2026-10-01</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260930-139500.html</loc><lastmod>2026-09-30</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260930-139501.html</loc><lastmod>2026-09-30</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-rd-20260923-mofcrsm31a.html</loc><lastmod>2026-09-23</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260916-139362.html</loc><lastmod>2026-09-16</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260715-139048.html</loc><lastmod>2026-07-15</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260715-139050.html</loc><lastmod>2026-07-15</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260715-139067.html</loc><lastmod>2026-07-15</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260715-139068.html</loc><lastmod>2026-07-15</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260623-123602.html</loc><lastmod>2026-06-23</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260521-138875.html</loc><lastmod>2026-05-21</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260521-138876.html</loc><lastmod>2026-05-21</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260521-138877.html</loc><lastmod>2026-05-21</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260521-138884.html</loc><lastmod>2026-05-21</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260521-138885.html</loc><lastmod>2026-05-21</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260520-138870.html</loc><lastmod>2026-05-20</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260507-138823.html</loc><lastmod>2026-05-07</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260507-138824.html</loc><lastmod>2026-05-07</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260501-138800.html</loc><lastmod>2026-05-01</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260422-2569.html</loc><lastmod>2026-04-22</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260422-5-2569.html</loc><lastmod>2026-04-22</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260422-9-2568.html</loc><lastmod>2026-04-22</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260422-fd1263e0ac.html</loc><lastmod>2026-04-22</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20260421-d3a8d0a769.html</loc><lastmod>2026-04-21</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260421-1-629.html</loc><lastmod>2026-04-21</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260421-1-630-digital-salak-on.html</loc><lastmod>2026-04-21</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260421-13-special.html</loc><lastmod>2026-04-21</lastmod></url>
@@ -61,6 +135,7 @@
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260421-wto-2569-1-2569.html</loc><lastmod>2026-04-21</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260421-wto-2569-2569.html</loc><lastmod>2026-04-21</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260421-wto-2569-2571-2569.html</loc><lastmod>2026-04-21</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260420-138754.html</loc><lastmod>2026-04-20</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260420-0cddb33e38.html</loc><lastmod>2026-04-20</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260420-2-2568.html</loc><lastmod>2026-04-20</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260420-339e3a9971.html</loc><lastmod>2026-04-20</lastmod></url>
@@ -71,6 +146,9 @@
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260416-3-2569-145-2-26.html</loc><lastmod>2026-04-16</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260416-ca8f20f4ac.html</loc><lastmod>2026-04-16</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260416-d548194a6a.html</loc><lastmod>2026-04-16</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20260411-17f81b1092.html</loc><lastmod>2026-04-11</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20260411-2569-1-458-92.html</loc><lastmod>2026-04-11</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-gaz-20260411-0bed790b1b.html</loc><lastmod>2026-04-11</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260411-510df1da11.html</loc><lastmod>2026-04-11</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260411-afc7f5dae3.html</loc><lastmod>2026-04-11</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260410-2560-2.html</loc><lastmod>2026-04-10</lastmod></url>
@@ -78,6 +156,7 @@
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260410-escherichia-coli-o157-2569.html</loc><lastmod>2026-04-10</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260410-lc-ms-ms-2569.html</loc><lastmod>2026-04-10</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260410-pcr-a-b-e-f.html</loc><lastmod>2026-04-10</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260409-138733.html</loc><lastmod>2026-04-09</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260409-113-2569.html</loc><lastmod>2026-04-09</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260409-202.html</loc><lastmod>2026-04-09</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260409-3-2569-uvc.html</loc><lastmod>2026-04-09</lastmod></url>
@@ -124,6 +203,7 @@
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260401-2569-2569.html</loc><lastmod>2026-04-01</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260401-33-2569-1974-2.html</loc><lastmod>2026-04-01</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260401-33-39.html</loc><lastmod>2026-04-01</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-gaz-20260401-36-2569.html</loc><lastmod>2026-04-01</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260401-37-2569-ii-2-v.html</loc><lastmod>2026-04-01</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260401-39-2569-revised-recommendations-for.html</loc><lastmod>2026-04-01</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260401-4-2569.html</loc><lastmod>2026-04-01</lastmod></url>
@@ -142,7 +222,13 @@
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260331-3-2569.html</loc><lastmod>2026-03-31</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260331-4-2569.html</loc><lastmod>2026-03-31</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260331-5-2569.html</loc><lastmod>2026-03-31</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-gaz-20260331-5ea2574d95.html</loc><lastmod>2026-03-31</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260331-6-2569.html</loc><lastmod>2026-03-31</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-gaz-20260331-fd611049fe.html</loc><lastmod>2026-03-31</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260330-138692.html</loc><lastmod>2026-03-30</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260330-138693.html</loc><lastmod>2026-03-30</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260330-138694.html</loc><lastmod>2026-03-30</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260330-138731.html</loc><lastmod>2026-03-30</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260330-1-2569-10.html</loc><lastmod>2026-03-30</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260330-100.html</loc><lastmod>2026-03-30</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260330-18-2569.html</loc><lastmod>2026-03-30</lastmod></url>
@@ -193,6 +279,8 @@
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260327-cbf3b1de63.html</loc><lastmod>2026-03-27</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260327-eadaee7803.html</loc><lastmod>2026-03-27</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260327-fdce028708.html</loc><lastmod>2026-03-27</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20260326-7-9-81-2569.html</loc><lastmod>2026-03-26</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20260326-8be7ef714f.html</loc><lastmod>2026-03-26</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260326-1-2569.html</loc><lastmod>2026-03-26</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260326-10-2569-2569.html</loc><lastmod>2026-03-26</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260326-11-2569.html</loc><lastmod>2026-03-26</lastmod></url>
@@ -201,7 +289,6 @@
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260326-2560-7.html</loc><lastmod>2026-03-26</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260326-2566.html</loc><lastmod>2026-03-26</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260326-2567.html</loc><lastmod>2026-03-26</lastmod></url>
-  <url><loc>https://www.thaipolicy.com/p/th-gaz-20260326-2569.html</loc><lastmod>2026-03-26</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260326-2569-2569.html</loc><lastmod>2026-03-26</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260326-3-2569.html</loc><lastmod>2026-03-26</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260326-5-2569.html</loc><lastmod>2026-03-26</lastmod></url>
@@ -214,13 +301,16 @@
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260324-2-2569.html</loc><lastmod>2026-03-24</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260324-2568.html</loc><lastmod>2026-03-24</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260324-2569.html</loc><lastmod>2026-03-24</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-gaz-20260324-2570.html</loc><lastmod>2026-03-24</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260324-multi-sided-platform-e-commerce.html</loc><lastmod>2026-03-24</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260323-22-2569-2.html</loc><lastmod>2026-03-23</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-gaz-20260321-a6db57c754.html</loc><lastmod>2026-03-21</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260320-17266db5ad.html</loc><lastmod>2026-03-20</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260320-2-1-2569.html</loc><lastmod>2026-03-20</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260320-2-104-2569.html</loc><lastmod>2026-03-20</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260320-2-2-2569.html</loc><lastmod>2026-03-20</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260320-2569.html</loc><lastmod>2026-03-20</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-gaz-20260320-3-2569-2569.html</loc><lastmod>2026-03-20</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260320-4-2569.html</loc><lastmod>2026-03-20</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260320-4c5d2ee51a.html</loc><lastmod>2026-03-20</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260320-6.html</loc><lastmod>2026-03-20</lastmod></url>
@@ -242,6 +332,9 @@
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260318-1-2569.html</loc><lastmod>2026-03-18</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260318-18-2569.html</loc><lastmod>2026-03-18</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260318-4-2569.html</loc><lastmod>2026-03-18</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20260317-11721c1055.html</loc><lastmod>2026-03-17</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20260317-330e08aef6.html</loc><lastmod>2026-03-17</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20260317-65be84cc73.html</loc><lastmod>2026-03-17</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260317-1-2569.html</loc><lastmod>2026-03-17</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260317-11-2569.html</loc><lastmod>2026-03-17</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260317-2-2569.html</loc><lastmod>2026-03-17</lastmod></url>
@@ -274,6 +367,7 @@
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260312-hplc-2569.html</loc><lastmod>2026-03-12</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260312-internet-of-things-iot-generic.html</loc><lastmod>2026-03-12</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260312-internet-of-things-iot-iot.html</loc><lastmod>2026-03-12</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260311-138643.html</loc><lastmod>2026-03-11</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260311-15.html</loc><lastmod>2026-03-11</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260311-16.html</loc><lastmod>2026-03-11</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260311-2551-2568.html</loc><lastmod>2026-03-11</lastmod></url>
@@ -287,6 +381,7 @@
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260310-3.html</loc><lastmod>2026-03-10</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260306-1-2569.html</loc><lastmod>2026-03-06</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260306-10-2569.html</loc><lastmod>2026-03-06</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-gaz-20260306-2-2569.html</loc><lastmod>2026-03-06</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260306-2541-2569.html</loc><lastmod>2026-03-06</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260306-3-2569.html</loc><lastmod>2026-03-06</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260306-5-2569.html</loc><lastmod>2026-03-06</lastmod></url>
@@ -315,11 +410,13 @@
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260227-2022-1616-2569.html</loc><lastmod>2026-02-27</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260227-2569.html</loc><lastmod>2026-02-27</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260227-5.html</loc><lastmod>2026-02-27</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-gaz-20260226-2568.html</loc><lastmod>2026-02-26</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260226-2569.html</loc><lastmod>2026-02-26</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260226-wto-2569-2571-2569.html</loc><lastmod>2026-02-26</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260225-10-2569-2569.html</loc><lastmod>2026-02-25</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260225-2568.html</loc><lastmod>2026-02-25</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260225-365-2569.html</loc><lastmod>2026-02-25</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20260224-chiang-mai-initiative-multilateralisation-agreem.html</loc><lastmod>2026-02-24</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260224-1-2569.html</loc><lastmod>2026-02-24</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260224-10.html</loc><lastmod>2026-02-24</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260224-11.html</loc><lastmod>2026-02-24</lastmod></url>
@@ -353,10 +450,13 @@
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260219-2565.html</loc><lastmod>2026-02-19</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260219-2569.html</loc><lastmod>2026-02-19</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260219-45216159e9.html</loc><lastmod>2026-02-19</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260218-138584.html</loc><lastmod>2026-02-18</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260218-2-2569.html</loc><lastmod>2026-02-18</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260218-4-2569.html</loc><lastmod>2026-02-18</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260218-wto-1-2569.html</loc><lastmod>2026-02-18</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260218-wto-2569-1-2569.html</loc><lastmod>2026-02-18</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260217-138574.html</loc><lastmod>2026-02-17</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20260217-wto-2569-2571.html</loc><lastmod>2026-02-17</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260217-1-627.html</loc><lastmod>2026-02-17</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260217-2-2568.html</loc><lastmod>2026-02-17</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260217-22-2568-4-1-2.html</loc><lastmod>2026-02-17</lastmod></url>
@@ -365,6 +465,7 @@
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260217-48706f0540.html</loc><lastmod>2026-02-17</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260217-4aafefe977.html</loc><lastmod>2026-02-17</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260217-4affbcd198.html</loc><lastmod>2026-02-17</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-gaz-20260217-5-2569.html</loc><lastmod>2026-02-17</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260217-7f0d72dfe8.html</loc><lastmod>2026-02-17</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260217-dlt-gps-notice-2568.html</loc><lastmod>2026-02-17</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260217-lottery-6-l6.html</loc><lastmod>2026-02-17</lastmod></url>
@@ -392,6 +493,9 @@
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260211-59-2569.html</loc><lastmod>2026-02-11</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260211-889-2569.html</loc><lastmod>2026-02-11</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260211-9-2568.html</loc><lastmod>2026-02-11</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20260210-2546.html</loc><lastmod>2026-02-10</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20260210-2569.html</loc><lastmod>2026-02-10</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20260210-2569-2571.html</loc><lastmod>2026-02-10</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260210-10.html</loc><lastmod>2026-02-10</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260210-10-hybrid-electric-vehicle.html</loc><lastmod>2026-02-10</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260210-10-mild-hybrid-electric-vehicle.html</loc><lastmod>2026-02-10</lastmod></url>
@@ -415,6 +519,7 @@
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260209-2-2569.html</loc><lastmod>2026-02-09</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260209-2569-3.html</loc><lastmod>2026-02-09</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260209-3d405988f2.html</loc><lastmod>2026-02-09</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260206-138545.html</loc><lastmod>2026-02-06</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260206-227-2569.html</loc><lastmod>2026-02-06</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260206-2569.html</loc><lastmod>2026-02-06</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260206-5-2569.html</loc><lastmod>2026-02-06</lastmod></url>
@@ -440,6 +545,9 @@
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260204-2567.html</loc><lastmod>2026-02-04</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260204-2568.html</loc><lastmod>2026-02-04</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260204-2569.html</loc><lastmod>2026-02-04</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-gaz-20260204-haircut-2568.html</loc><lastmod>2026-02-04</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20260203-2833c90eb1.html</loc><lastmod>2026-02-03</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20260203-fidf-fee-1.html</loc><lastmod>2026-02-03</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260203-10-electric-powered-vehicle-4.html</loc><lastmod>2026-02-03</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260203-2-3.html</loc><lastmod>2026-02-03</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260203-2551.html</loc><lastmod>2026-02-03</lastmod></url>
@@ -453,4 +561,106 @@
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260202-ab75abac9e.html</loc><lastmod>2026-02-02</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260202-b9cbf16f78.html</loc><lastmod>2026-02-02</lastmod></url>
   <url><loc>https://www.thaipolicy.com/p/th-gaz-20260202-f956d372b1.html</loc><lastmod>2026-02-02</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260127-138509.html</loc><lastmod>2026-01-27</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20260127-pm2-5.html</loc><lastmod>2026-01-27</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20260120-a1480d2e4a.html</loc><lastmod>2026-01-20</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260115-138447.html</loc><lastmod>2026-01-15</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260115-138448.html</loc><lastmod>2026-01-15</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260115-138449.html</loc><lastmod>2026-01-15</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260115-138450.html</loc><lastmod>2026-01-15</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260115-138451.html</loc><lastmod>2026-01-15</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260115-138452.html</loc><lastmod>2026-01-15</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260115-138453.html</loc><lastmod>2026-01-15</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20260113-32.html</loc><lastmod>2026-01-13</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20260113-706398dece.html</loc><lastmod>2026-01-13</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20260113-9-2.html</loc><lastmod>2026-01-13</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20260113-a1e3b04610.html</loc><lastmod>2026-01-13</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260108-138403.html</loc><lastmod>2026-01-08</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20260106-ccs.html</loc><lastmod>2026-01-06</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20260105-138395.html</loc><lastmod>2026-01-05</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20251225-138389.html</loc><lastmod>2025-12-25</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20251223-8-2568-1-2567.html</loc><lastmod>2025-12-23</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20251209-2567-2567.html</loc><lastmod>2025-12-09</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20251202-414cf32ec9.html</loc><lastmod>2025-12-02</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20251114-138189.html</loc><lastmod>2025-11-14</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20251114-138190.html</loc><lastmod>2025-11-14</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20251110-138183.html</loc><lastmod>2025-11-10</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20251104-riyadh-declaration-on-the-future.html</loc><lastmod>2025-11-04</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20251103-138143.html</loc><lastmod>2025-11-03</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20251022-138086.html</loc><lastmod>2025-10-22</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20251022-138087.html</loc><lastmod>2025-10-22</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20251017-138053.html</loc><lastmod>2025-10-17</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20251017-138054.html</loc><lastmod>2025-10-17</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20250815-137310.html</loc><lastmod>2025-08-15</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20250808-137290.html</loc><lastmod>2025-08-08</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20250722-137196.html</loc><lastmod>2025-07-22</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20250722-137199.html</loc><lastmod>2025-07-22</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20250722-137200.html</loc><lastmod>2025-07-22</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20250718-137182.html</loc><lastmod>2025-07-18</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20250714-137152.html</loc><lastmod>2025-07-14</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20250605-137005.html</loc><lastmod>2025-06-05</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20250605-137006.html</loc><lastmod>2025-06-05</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20250605-137007.html</loc><lastmod>2025-06-05</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20250605-137008.html</loc><lastmod>2025-06-05</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20250605-137009.html</loc><lastmod>2025-06-05</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20250605-137010.html</loc><lastmod>2025-06-05</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20250506-amazing-thailand-grand-tourism-sports.html</loc><lastmod>2025-05-06</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20250429-2567.html</loc><lastmod>2025-04-29</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20250409-136809.html</loc><lastmod>2025-04-09</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20250409-136810.html</loc><lastmod>2025-04-09</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20250408-c75458a656.html</loc><lastmod>2025-04-08</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20250408-d5d117957d.html</loc><lastmod>2025-04-08</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20250401-446404fd57.html</loc><lastmod>2025-04-01</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20250327-1-2567.html</loc><lastmod>2025-03-27</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20250327-1c119827a4.html</loc><lastmod>2025-03-27</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20250327-70b76d7ae3.html</loc><lastmod>2025-03-27</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20250318-2019.html</loc><lastmod>2025-03-18</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20250318-b302aa3177.html</loc><lastmod>2025-03-18</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20250317-136728.html</loc><lastmod>2025-03-17</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20250311-6a7d7bce0a.html</loc><lastmod>2025-03-11</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20250228-136638.html</loc><lastmod>2025-02-28</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20250225-3-2567.html</loc><lastmod>2025-02-25</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20250225-31-2567.html</loc><lastmod>2025-02-25</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20250225-e529f7cf4d.html</loc><lastmod>2025-02-25</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20250224-136611.html</loc><lastmod>2025-02-24</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20250218-136583.html</loc><lastmod>2025-02-18</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20250218-136584.html</loc><lastmod>2025-02-18</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20250218-136587.html</loc><lastmod>2025-02-18</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20250218-136588.html</loc><lastmod>2025-02-18</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20250214-136567.html</loc><lastmod>2025-02-14</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20250214-136568.html</loc><lastmod>2025-02-14</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20250211-non-banks-soft-loan-non.html</loc><lastmod>2025-02-11</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20250204-136531.html</loc><lastmod>2025-02-04</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20250204-cdae6cb55a.html</loc><lastmod>2025-02-04</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20250131-136524.html</loc><lastmod>2025-01-31</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20250130-136475.html</loc><lastmod>2025-01-30</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20250130-136476.html</loc><lastmod>2025-01-30</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20250128-cctv-system.html</loc><lastmod>2025-01-28</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20250121-69ba3ee260.html</loc><lastmod>2025-01-21</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20250121-carbon-pricing.html</loc><lastmod>2025-01-21</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20250117-136468.html</loc><lastmod>2025-01-17</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20250117-136469.html</loc><lastmod>2025-01-17</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20250117-136470.html</loc><lastmod>2025-01-17</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20250117-136471.html</loc><lastmod>2025-01-17</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20250113-2f8b31f8e8.html</loc><lastmod>2025-01-13</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20250113-bdb9e408ef.html</loc><lastmod>2025-01-13</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20250107-cadb7e7b6c.html</loc><lastmod>2025-01-07</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20250107-sme-beyond-sme.html</loc><lastmod>2025-01-07</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20250102-136362.html</loc><lastmod>2025-01-02</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20241220-136325.html</loc><lastmod>2024-12-20</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20241220-136327.html</loc><lastmod>2024-12-20</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20241220-136328.html</loc><lastmod>2024-12-20</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-cabx-20241217-b149779c19.html</loc><lastmod>2024-12-17</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20241209-136276.html</loc><lastmod>2024-12-09</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20241209-136277.html</loc><lastmod>2024-12-09</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20241209-136278.html</loc><lastmod>2024-12-09</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20241209-136279.html</loc><lastmod>2024-12-09</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20241125-136238.html</loc><lastmod>2024-11-25</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20241125-136239.html</loc><lastmod>2024-11-25</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20241118-136216.html</loc><lastmod>2024-11-18</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20241104-136149.html</loc><lastmod>2024-11-04</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20241101-136141.html</loc><lastmod>2024-11-01</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20241101-136142.html</loc><lastmod>2024-11-01</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20241025-136110.html</loc><lastmod>2024-10-25</lastmod></url>
+  <url><loc>https://www.thaipolicy.com/p/th-boi-20241024-136366.html</loc><lastmod>2024-10-24</lastmod></url>
 </urlset>

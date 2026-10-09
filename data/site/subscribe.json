@@ -12,14 +12,14 @@
    "href": "feed/customs.xml"
   },
   {
+   "id": "finance",
+   "zh": "金融外汇",
+   "href": "feed/finance.xml"
+  },
+  {
    "id": "land",
    "zh": "房产土地",
    "href": "feed/land.xml"
-  },
-  {
-   "id": "health",
-   "zh": "医疗",
-   "href": "feed/health.xml"
   },
   {
    "id": "tax",
@@ -27,9 +27,9 @@
    "href": "feed/tax.xml"
   },
   {
-   "id": "finance",
-   "zh": "金融外汇",
-   "href": "feed/finance.xml"
+   "id": "health",
+   "zh": "医疗",
+   "href": "feed/health.xml"
   },
   {
    "id": "digital",
@@ -37,14 +37,14 @@
    "href": "feed/digital.xml"
   },
   {
-   "id": "labor",
-   "zh": "劳工用工",
-   "href": "feed/labor.xml"
-  },
-  {
    "id": "visa",
    "zh": "签证居留",
    "href": "feed/visa.xml"
+  },
+  {
+   "id": "labor",
+   "zh": "劳工用工",
+   "href": "feed/labor.xml"
   },
   {
    "id": "education",
@@ -54,46 +54,46 @@
  ],
  "weeks": [
   {
+   "id": "2026-W40",
+   "from": "2026-09-28",
+   "to": "2026-10-04",
+   "n": 6,
+   "href": "p/week/2026-W40.html"
+  },
+  {
+   "id": "2026-W21",
+   "from": "2026-05-18",
+   "to": "2026-05-24",
+   "n": 6,
+   "href": "p/week/2026-W21.html"
+  },
+  {
    "id": "2026-W17",
    "from": "2026-04-20",
    "to": "2026-04-26",
-   "n": 23,
+   "n": 25,
    "href": "p/week/2026-W17.html"
   },
   {
    "id": "2026-W15",
    "from": "2026-04-06",
    "to": "2026-04-12",
-   "n": 35,
+   "n": 39,
    "href": "p/week/2026-W15.html"
   },
   {
    "id": "2026-W14",
    "from": "2026-03-30",
    "to": "2026-04-05",
-   "n": 57,
+   "n": 64,
    "href": "p/week/2026-W14.html"
   },
   {
    "id": "2026-W13",
    "from": "2026-03-23",
    "to": "2026-03-29",
-   "n": 53,
+   "n": 55,
    "href": "p/week/2026-W13.html"
-  },
-  {
-   "id": "2026-W12",
-   "from": "2026-03-16",
-   "to": "2026-03-22",
-   "n": 42,
-   "href": "p/week/2026-W12.html"
-  },
-  {
-   "id": "2026-W11",
-   "from": "2026-03-09",
-   "to": "2026-03-15",
-   "n": 27,
-   "href": "p/week/2026-W11.html"
   }
  ]
 }
