@@ -1,37 +1,46 @@
 {
- "date": "2026-10-10",
+ "date": "2026-10-11",
  "site": "https://www.thaipolicy.com",
- "generated_at": "2026-10-10T03:15:28+07:00",
+ "generated_at": "2026-10-11T03:15:22+07:00",
  "metrics": {
-  "sitemap_urls": 663,
+  "sitemap_urls": 667,
   "pages_checked": 40,
   "pages_with_problems": 0,
-  "thin_pages": 2,
-  "crawl_search_7d": 2619,
-  "crawl_ai_7d": 1225,
-  "googlebot_7d": 220,
-  "bingbot_7d": 553,
+  "thin_pages": 3,
+  "crawl_search_7d": 2789,
+  "crawl_ai_7d": 853,
+  "googlebot_7d": 336,
+  "bingbot_7d": 498,
   "baiduspider_7d": 0,
-  "crawl_coverage_pct": 65.6,
+  "crawl_coverage_pct": 72.2,
   "visits_search_7d": 1,
   "visits_ai_7d": 0,
   "gsc_clicks_28d": 0,
   "gsc_impressions_28d": 46,
   "gsc_position": 9.0,
-  "gsc_indexed": 254,
-  "gsc_checked": 512,
-  "bing_in_index": 154,
-  "bing_impressions": 0,
-  "bing_clicks": 0,
-  "indexnow_submitted": 226,
+  "gsc_indexed": 260,
+  "gsc_checked": 572,
+  "bing_in_index": 155,
+  "bing_impressions": 6,
+  "bing_clicks": 1,
+  "indexnow_submitted": 4,
   "geo_asked": 8,
   "geo_cited": 0
  },
  "issues": [
   {
    "level": "warn",
+   "code": "crawl_errors",
+   "msg": "爬虫近两天遇到 1 个报错路径",
+   "fix": "404 通常是删掉的旧页面(可在 nginx 加 301)或错误链接;5xx 查服务器日志",
+   "items": [
+    "404 /p/th-gaz-20260326-2569.html(Bingbot,Meta-AI,最近 2026-10-10)"
+   ]
+  },
+  {
+   "level": "warn",
    "code": "gsc_not_indexed",
-   "msg": "已检查 512 页,258 页未被 Google 收录",
+   "msg": "已检查 572 页,312 页未被 Google 收录",
    "fix": "「已发现-尚未编入索引」多为权重/内链不足:加内链、丰富内容;「已抓取-尚未编入索引」多为内容单薄或重复",
    "items": [
     "https://www.thaipolicy.com/about.html(已发现 - 尚未编入索引)",
@@ -43,17 +52,17 @@
     "https://www.thaipolicy.com/p/t/import-control.html(已发现 - 尚未编入索引)",
     "https://www.thaipolicy.com/p/t/land-property.html(已发现 - 尚未编入索引)",
     "https://www.thaipolicy.com/p/t/social-security.html(已发现 - 尚未编入索引)",
-    "https://www.thaipolicy.com/p/th-gaz-20260203-4.html(已发现 - 尚未编入索引)",
-    "https://www.thaipolicy.com/p/th-gaz-20260205-46-2568-grid-code.html(已发现 - 尚未编入索引)",
-    "https://www.thaipolicy.com/p/th-gaz-20260206-227-2569.html(已发现 - 尚未编入索引)",
-    "https://www.thaipolicy.com/p/th-gaz-20260209-13.html(已发现 - 尚未编入索引)",
-    "https://www.thaipolicy.com/p/th-gaz-20260209-2569-3.html(已发现 - 尚未编入索引)",
-    "https://www.thaipolicy.com/p/th-gaz-20260210-pick-up-passenger-vehicle-ppv.html(已发现 - 尚未编入索引)",
-    "https://www.thaipolicy.com/p/th-gaz-20260211-2568-142-87-24-2568.html(已发现 - 尚未编入索引)",
-    "https://www.thaipolicy.com/p/th-gaz-20260211-59-2569.html(已发现 - 尚未编入索引)",
-    "https://www.thaipolicy.com/p/th-gaz-20260211-889-2569.html(已发现 - 尚未编入索引)",
-    "https://www.thaipolicy.com/p/th-gaz-20260211-9-2568.html(已抓取 - 尚未编入索引)",
-    "https://www.thaipolicy.com/p/th-gaz-20260213-2564.html(已发现 - 尚未编入索引)"
+    "https://www.thaipolicy.com/p/th-boi-20241024-136366.html(Google 无法识别此网址)",
+    "https://www.thaipolicy.com/p/th-boi-20241025-136110.html(Google 无法识别此网址)",
+    "https://www.thaipolicy.com/p/th-boi-20241101-136141.html(Google 无法识别此网址)",
+    "https://www.thaipolicy.com/p/th-boi-20241101-136142.html(Google 无法识别此网址)",
+    "https://www.thaipolicy.com/p/th-boi-20241104-136149.html(Google 无法识别此网址)",
+    "https://www.thaipolicy.com/p/th-boi-20241118-136216.html(Google 无法识别此网址)",
+    "https://www.thaipolicy.com/p/th-boi-20241125-136238.html(Google 无法识别此网址)",
+    "https://www.thaipolicy.com/p/th-boi-20241125-136239.html(Google 无法识别此网址)",
+    "https://www.thaipolicy.com/p/th-boi-20241209-136276.html(Google 无法识别此网址)",
+    "https://www.thaipolicy.com/p/th-boi-20241209-136277.html(Google 无法识别此网址)",
+    "https://www.thaipolicy.com/p/th-boi-20241209-136278.html(Google 无法识别此网址)"
    ]
   },
   {
@@ -78,17 +87,17 @@
    "msg": "20+ 个落地页近 7 天未被搜索爬虫抓取",
    "fix": "增加站内链接(首页、专题页、同领域推荐);新页面已通过 IndexNow 与 GSC sitemap 提交",
    "items": [
+    "/p/th-boi-20241010-136030.html",
+    "/p/th-boi-20241015-136054.html",
     "/p/th-boi-20241024-136366.html",
     "/p/th-boi-20241025-136110.html",
     "/p/th-boi-20241101-136141.html",
     "/p/th-boi-20241101-136142.html",
     "/p/th-boi-20241104-136149.html",
     "/p/th-boi-20241118-136216.html",
-    "/p/th-boi-20241125-136238.html",
     "/p/th-boi-20241125-136239.html",
     "/p/th-boi-20241209-136276.html",
     "/p/th-boi-20241209-136277.html",
-    "/p/th-boi-20241209-136278.html",
     "/p/th-boi-20241209-136279.html",
     "/p/th-boi-20241220-136325.html",
     "/p/th-boi-20241220-136327.html",
@@ -103,11 +112,12 @@
   {
    "level": "info",
    "code": "thin_content",
-   "msg": "抽查的 40 页中有 2 页摘要只依据标题(内容单薄)",
+   "msg": "抽查的 40 页中有 3 页摘要只依据标题(内容单薄)",
    "fix": "单薄页面难以获得排名与 AI 引用:给 enrich 增加读取公报 PDF 正文的步骤,生成有实质内容的摘要与要点",
    "items": [
-    "https://www.thaipolicy.com/p/th-boi-20250214-136567.html",
-    "https://www.thaipolicy.com/p/th-boi-20250214-136568.html"
+    "https://www.thaipolicy.com/p/th-boi-20250714-137152.html",
+    "https://www.thaipolicy.com/p/th-boi-20251103-138143.html",
+    "https://www.thaipolicy.com/p/th-boi-20260105-138395.html"
    ]
   }
  ],
@@ -115,12 +125,12 @@
   "site": {
    "home": {
     "status": 200,
-    "ms": 1118,
+    "ms": 1003,
     "error": ""
    },
    "robots": true,
-   "sitemap_live": 663,
-   "sitemap_repo": 663,
+   "sitemap_live": 667,
+   "sitemap_repo": 667,
    "llms.txt": true,
    "feed.xml": true,
    "llms-full.txt": true,
@@ -131,37 +141,23 @@
    "ok": 40,
    "with_problems": 0,
    "failed": 0,
-   "thin": 2
+   "thin": 3
   },
   "server": {
    "range": {
     "days": 7,
-    "start": "2026-10-04",
-    "end": "2026-10-10"
+    "start": "2026-10-05",
+    "end": "2026-10-11"
    },
-   "generated_at": "2026-10-10T03:07:46+07:00",
+   "generated_at": "2026-10-11T03:07:37+07:00",
    "crawlers": {
     "bots": [
      {
       "bot": "Applebot",
       "group": "search",
-      "hits": 1845,
-      "pages": 378,
-      "last_seen": "2026-10-10"
-     },
-     {
-      "bot": "Amazonbot",
-      "group": "ai",
-      "hits": 564,
-      "pages": 564,
-      "last_seen": "2026-10-06"
-     },
-     {
-      "bot": "Bingbot",
-      "group": "search",
-      "hits": 553,
-      "pages": 243,
-      "last_seen": "2026-10-10"
+      "hits": 1954,
+      "pages": 396,
+      "last_seen": "2026-10-11"
      },
      {
       "bot": "ClaudeBot",
@@ -171,18 +167,32 @@
       "last_seen": "2026-10-09"
      },
      {
+      "bot": "Bingbot",
+      "group": "search",
+      "hits": 498,
+      "pages": 256,
+      "last_seen": "2026-10-11"
+     },
+     {
       "bot": "Googlebot",
       "group": "search",
-      "hits": 220,
-      "pages": 104,
-      "last_seen": "2026-10-10"
+      "hits": 336,
+      "pages": 193,
+      "last_seen": "2026-10-11"
+     },
+     {
+      "bot": "Amazonbot",
+      "group": "ai",
+      "hits": 191,
+      "pages": 191,
+      "last_seen": "2026-10-06"
      },
      {
       "bot": "Meta-AI",
       "group": "ai",
-      "hits": 84,
-      "pages": 84,
-      "last_seen": "2026-10-09"
+      "hits": 85,
+      "pages": 85,
+      "last_seen": "2026-10-10"
      },
      {
       "bot": "OAI-SearchBot",
@@ -215,11 +225,6 @@
     ],
     "series": [
      {
-      "day": "2026-10-04",
-      "search": 290,
-      "ai": 375
-     },
-     {
       "day": "2026-10-05",
       "search": 366,
       "ai": 642
@@ -246,66 +251,22 @@
      },
      {
       "day": "2026-10-10",
-      "search": 53,
-      "ai": 1
+      "search": 445,
+      "ai": 4
+     },
+     {
+      "day": "2026-10-11",
+      "search": 68,
+      "ai": 0
      }
     ],
     "errors": [
      {
-      "path": "/p/th-gaz-20260202-5144b37383.html(",
+      "path": "/p/th-gaz-20260326-2569.html",
       "status": 404,
-      "n": 1,
-      "bots": "Amazonbot",
-      "last_seen": "2026-10-05"
-     },
-     {
-      "path": "/p/th-gaz-20260202-ab75abac9e.html(",
-      "status": 404,
-      "n": 1,
-      "bots": "Amazonbot",
-      "last_seen": "2026-10-04"
-     },
-     {
-      "path": "/p/th-gaz-20260202-b9cbf16f78.html(",
-      "status": 404,
-      "n": 1,
-      "bots": "Amazonbot",
-      "last_seen": "2026-10-04"
-     },
-     {
-      "path": "/p/th-gaz-20260202-f956d372b1.html(",
-      "status": 404,
-      "n": 1,
-      "bots": "Amazonbot",
-      "last_seen": "2026-10-05"
-     },
-     {
-      "path": "/p/th-gaz-20260203-10-electric-powered-vehicle-4.html(",
-      "status": 404,
-      "n": 1,
-      "bots": "Amazonbot",
-      "last_seen": "2026-10-04"
-     },
-     {
-      "path": "/p/th-gaz-20260203-2-3.html(",
-      "status": 404,
-      "n": 1,
-      "bots": "Amazonbot",
-      "last_seen": "2026-10-04"
-     },
-     {
-      "path": "/p/th-gaz-20260203-2551.html(",
-      "status": 404,
-      "n": 1,
-      "bots": "Amazonbot",
-      "last_seen": "2026-10-04"
-     },
-     {
-      "path": "/p/th-gaz-20260203-2569.html(",
-      "status": 404,
-      "n": 1,
-      "bots": "Amazonbot",
-      "last_seen": "2026-10-04"
+      "n": 2,
+      "bots": "Bingbot,Meta-AI",
+      "last_seen": "2026-10-10"
      },
      {
       "path": "/p/th-gaz-20260203-4.html(",
@@ -315,32 +276,11 @@
       "last_seen": "2026-10-05"
      },
      {
-      "path": "/p/th-gaz-20260203-d2dea52893.html(",
-      "status": 404,
-      "n": 1,
-      "bots": "Amazonbot",
-      "last_seen": "2026-10-04"
-     },
-     {
-      "path": "/p/th-gaz-20260203-e405ca6dcc.html(",
+      "path": "/p/th-gaz-20260206-9-2569.html(",
       "status": 404,
       "n": 1,
       "bots": "Amazonbot",
       "last_seen": "2026-10-05"
-     },
-     {
-      "path": "/p/th-gaz-20260203-sustainability-loan-2569-1.html(",
-      "status": 404,
-      "n": 1,
-      "bots": "Amazonbot",
-      "last_seen": "2026-10-04"
-     },
-     {
-      "path": "/p/th-gaz-20260204-2567.html(",
-      "status": 404,
-      "n": 1,
-      "bots": "Amazonbot",
-      "last_seen": "2026-10-04"
      },
      {
       "path": "/p/th-gaz-20260204-2568.html(",
@@ -348,13 +288,6 @@
       "n": 1,
       "bots": "Amazonbot",
       "last_seen": "2026-10-05"
-     },
-     {
-      "path": "/p/th-gaz-20260204-2569.html(",
-      "status": 404,
-      "n": 1,
-      "bots": "Amazonbot",
-      "last_seen": "2026-10-04"
      },
      {
       "path": "/p/th-gaz-20260205-0edc189083.html(",
@@ -371,13 +304,6 @@
       "last_seen": "2026-10-05"
      },
      {
-      "path": "/p/th-gaz-20260205-2afe15bbfc.html(",
-      "status": 404,
-      "n": 1,
-      "bots": "Amazonbot",
-      "last_seen": "2026-10-04"
-     },
-     {
       "path": "/p/th-gaz-20260205-361078d666.html(",
       "status": 404,
       "n": 1,
@@ -390,13 +316,6 @@
       "n": 1,
       "bots": "Amazonbot",
       "last_seen": "2026-10-05"
-     },
-     {
-      "path": "/p/th-gaz-20260205-67465343ec.html(",
-      "status": 404,
-      "n": 1,
-      "bots": "Amazonbot",
-      "last_seen": "2026-10-04"
      },
      {
       "path": "/p/th-gaz-20260205-71f7ec84fe.html(",
@@ -427,13 +346,6 @@
       "last_seen": "2026-10-05"
      },
      {
-      "path": "/p/th-gaz-20260205-flunarizine-cinnarizine.html(",
-      "status": 404,
-      "n": 1,
-      "bots": "Amazonbot",
-      "last_seen": "2026-10-04"
-     },
-     {
       "path": "/p/th-gaz-20260205-tolperisone-eperisone.html(",
       "status": 404,
       "n": 1,
@@ -441,67 +353,165 @@
       "last_seen": "2026-10-05"
      },
      {
-      "path": "/p/th-gaz-20260206-227-2569.html(",
+      "path": "/p/th-gaz-20260206-803-2569.html(",
       "status": 404,
       "n": 1,
       "bots": "Amazonbot",
-      "last_seen": "2026-10-04"
+      "last_seen": "2026-10-05"
      },
      {
-      "path": "/p/th-gaz-20260206-2569.html(",
+      "path": "/p/th-gaz-20260203-e405ca6dcc.html(",
       "status": 404,
       "n": 1,
       "bots": "Amazonbot",
-      "last_seen": "2026-10-04"
+      "last_seen": "2026-10-05"
      },
      {
-      "path": "/p/th-gaz-20260202-288ffb74c6.html(",
+      "path": "/p/th-gaz-20260206-wto-2569-2571-2569.html(",
       "status": 404,
       "n": 1,
       "bots": "Amazonbot",
-      "last_seen": "2026-10-04"
+      "last_seen": "2026-10-06"
+     },
+     {
+      "path": "/p/th-gaz-20260206-wto-2569.html(",
+      "status": 404,
+      "n": 1,
+      "bots": "Amazonbot",
+      "last_seen": "2026-10-05"
+     },
+     {
+      "path": "/p/th-gaz-20260209-04ce70cc46.html(",
+      "status": 404,
+      "n": 1,
+      "bots": "Amazonbot",
+      "last_seen": "2026-10-06"
+     },
+     {
+      "path": "/p/th-gaz-20260209-13.html(",
+      "status": 404,
+      "n": 1,
+      "bots": "Amazonbot",
+      "last_seen": "2026-10-05"
+     },
+     {
+      "path": "/p/th-gaz-20260210-10-hybrid-electric-vehicle.html(",
+      "status": 404,
+      "n": 1,
+      "bots": "Amazonbot",
+      "last_seen": "2026-10-05"
+     },
+     {
+      "path": "/p/th-gaz-20260210-10-mild-hybrid-electric-vehicle.html(",
+      "status": 404,
+      "n": 1,
+      "bots": "Amazonbot",
+      "last_seen": "2026-10-05"
+     },
+     {
+      "path": "/p/th-gaz-20260210-10.html(",
+      "status": 404,
+      "n": 1,
+      "bots": "Amazonbot",
+      "last_seen": "2026-10-05"
+     },
+     {
+      "path": "/p/th-gaz-20260210-4-000-3-250.html(",
+      "status": 404,
+      "n": 1,
+      "bots": "Amazonbot",
+      "last_seen": "2026-10-05"
+     },
+     {
+      "path": "/p/th-gaz-20260210-4-000-space-cab-19.html(",
+      "status": 404,
+      "n": 1,
+      "bots": "Amazonbot",
+      "last_seen": "2026-10-05"
+     },
+     {
+      "path": "/p/th-gaz-20260210-4-000-space-cab.html(",
+      "status": 404,
+      "n": 1,
+      "bots": "Amazonbot",
+      "last_seen": "2026-10-05"
+     },
+     {
+      "path": "/p/th-gaz-20260210-71af4bef81.html(",
+      "status": 404,
+      "n": 1,
+      "bots": "Amazonbot",
+      "last_seen": "2026-10-06"
+     },
+     {
+      "path": "/p/th-gaz-20260210-double-cab-plug-in-hybrid.html(",
+      "status": 404,
+      "n": 1,
+      "bots": "Amazonbot",
+      "last_seen": "2026-10-05"
+     },
+     {
+      "path": "/p/th-gaz-20260210-electronic-data-interchange-40.html(",
+      "status": 404,
+      "n": 1,
+      "bots": "Amazonbot",
+      "last_seen": "2026-10-05"
+     },
+     {
+      "path": "/p/th-gaz-20260210-pick-up-passenger-vehicle-ppv.html(",
+      "status": 404,
+      "n": 1,
+      "bots": "Amazonbot",
+      "last_seen": "2026-10-05"
+     },
+     {
+      "path": "/p/th-gaz-20260202-f956d372b1.html(",
+      "status": 404,
+      "n": 1,
+      "bots": "Amazonbot",
+      "last_seen": "2026-10-05"
      }
     ],
     "top_paths": [
      {
+      "path": "/data/site/ads.json",
+      "n": 192
+     },
+     {
       "path": "/data/site/analytics.json",
-      "n": 178
+      "n": 190
      },
      {
       "path": "/data/site/support.json",
-      "n": 178
-     },
-     {
-      "path": "/data/site/ads.json",
-      "n": 177
-     },
-     {
-      "path": "/js/support.js",
-      "n": 172
+      "n": 190
      },
      {
       "path": "/css/main.css",
-      "n": 171
+      "n": 183
      },
      {
       "path": "/js/promptpay.js",
-      "n": 169
+      "n": 183
      },
      {
-      "path": "/js/track.js",
-      "n": 168
+      "path": "/js/support.js",
+      "n": 183
      },
      {
       "path": "/js/vendor/qrcode-generator-1.4.4.js",
-      "n": 168
+      "n": 181
      },
      {
       "path": "/js/ads.js",
-      "n": 167
+      "n": 179
+     },
+     {
+      "path": "/js/track.js",
+      "n": 179
      },
      {
       "path": "/robots.txt",
-      "n": 80
+      "n": 84
      },
      {
       "path": "/sitemap.xml",
@@ -509,59 +519,59 @@
      },
      {
       "path": "/p/index.html",
-      "n": 17
+      "n": 13
      },
      {
       "path": "/",
-      "n": 11
+      "n": 8
      },
      {
       "path": "/p/th-gaz-20260327-30-2569.html",
-      "n": 10
+      "n": 8
      },
      {
       "path": "/p/th-gaz-20260328-3-2569.html",
-      "n": 10
+      "n": 8
      },
      {
-      "path": "/p/th-gaz-20260203-sustainability-loan-2569-1.html",
-      "n": 9
+      "path": "/p/th-gaz-20260210-497493539f.html",
+      "n": 7
      },
      {
       "path": "/p/th-gaz-20260225-2568.html",
-      "n": 9
+      "n": 7
      },
      {
-      "path": "/p/th-gaz-20260220-12-2569-systemically-important-retail.html",
-      "n": 8
+      "path": "/p/th-gaz-20260306-1-2569.html",
+      "n": 7
      },
      {
-      "path": "/p/th-gaz-20260225-10-2569-2569.html",
-      "n": 8
+      "path": "/p/th-gaz-20260306-2541-2569.html",
+      "n": 7
      },
      {
-      "path": "/p/th-gaz-20260324-multi-sided-platform-e-commerce.html",
-      "n": 8
+      "path": "/p/th-gaz-20260306-7-2569.html",
+      "n": 7
      }
     ]
    },
    "coverage": {
-    "sitemap_landing": 570,
-    "crawled_by_search": 374,
+    "sitemap_landing": 572,
+    "crawled_by_search": 413,
     "crawled_by_ai": 417,
-    "search_pct": 65.6,
+    "search_pct": 72.2,
     "never_crawled_sample": [
+     "/p/th-boi-20241010-136030.html",
+     "/p/th-boi-20241015-136054.html",
      "/p/th-boi-20241024-136366.html",
      "/p/th-boi-20241025-136110.html",
      "/p/th-boi-20241101-136141.html",
      "/p/th-boi-20241101-136142.html",
      "/p/th-boi-20241104-136149.html",
      "/p/th-boi-20241118-136216.html",
-     "/p/th-boi-20241125-136238.html",
      "/p/th-boi-20241125-136239.html",
      "/p/th-boi-20241209-136276.html",
      "/p/th-boi-20241209-136277.html",
-     "/p/th-boi-20241209-136278.html",
      "/p/th-boi-20241209-136279.html",
      "/p/th-boi-20241220-136325.html",
      "/p/th-boi-20241220-136327.html",
@@ -574,7 +584,7 @@
     ]
    },
    "channels": {
-    "direct": 17,
+    "direct": 13,
     "search": 1
    },
    "search_sources": [
@@ -755,35 +765,61 @@
     }
    ],
    "sitemap": {
-    "submitted": 453,
-    "last_downloaded": "2026-10-07T05:01:01.881Z",
+    "submitted": 667,
+    "last_downloaded": "2026-10-10T19:09:25.302Z",
     "errors": 0
    },
    "index": {
-    "checked": 512,
-    "indexed": 254,
-    "total": 663,
+    "checked": 572,
+    "indexed": 260,
+    "total": 667,
     "coverage_states": {
-     "已提交，且已编入索引": 254,
-     "已发现 - 尚未编入索引": 150,
-     "Google 无法识别此网址": 104,
-     "已抓取 - 尚未编入索引": 3,
+     "已提交，且已编入索引": 260,
+     "已发现 - 尚未编入索引": 186,
+     "Google 无法识别此网址": 121,
+     "已抓取 - 尚未编入索引": 4,
      "服务器错误 (5xx)": 1
     }
    }
   },
   "bing": {
    "crawl": {
-    "date": "2026-10-03",
-    "in_index": 154,
-    "crawled": 189,
-    "errors": 2
+    "date": "2026-10-04",
+    "in_index": 155,
+    "crawled": 183,
+    "errors": 1
    },
-   "top_queries": []
+   "top_queries": [
+    {
+     "q": "泰国发电厂烟气排放标准",
+     "impr": 2,
+     "clicks": 0
+    },
+    {
+     "q": "曼谷市政府网站所载《皇家公报》pdf。",
+     "impr": 1,
+     "clicks": 1
+    },
+    {
+     "q": "曼谷市政府网站所载《皇家公报》",
+     "impr": 1,
+     "clicks": 0
+    },
+    {
+     "q": "泰国sure有限公司",
+     "impr": 1,
+     "clicks": 0
+    },
+    {
+     "q": "泰国 海关 公告 2569 关税 2026年10月",
+     "impr": 1,
+     "clicks": 0
+    }
+   ]
   },
   "submit": {
    "indexnow": {
-    "submitted": 226,
+    "submitted": 4,
     "status": 200
    },
    "baidu": null
@@ -794,46 +830,47 @@
      "q": "泰国免签停留期最近有什么调整?内阁决议和公报是否一致?",
      "cited": false,
      "sources": [
-      "kpmg.com",
+      "assets.kpmg.com",
+      "image.mfa.go.th",
       "moscow.thaiembassy.org",
+      "newdelhi.thaiembassy.org",
       "thailand.go.th",
       "thailand.prd.go.th",
-      "www.gqb.gov.cn",
-      "www.straitstimes.com",
+      "www.bbc.com",
       "www.tatnews.org",
       "www.thailand.go.th",
-      "www.ttgasia.com"
+      "www.travelandtourworld.com"
      ]
     },
     {
      "q": "泰国境外所得汇入课税新规有哪些豁免措施?",
      "cited": false,
      "sources": [
-      "arrive.now",
-      "elcano.tax",
-      "houseviser.com",
+      "flytorelocation.com",
+      "phuket.thainotary.co.th",
       "thailand-construction.com",
-      "www.expat.hsbc.com",
+      "www.bdo.global",
+      "www.chiangraitimes.com",
       "www.forvismazars.com",
       "www.nishimura.com",
       "www.rd.go.th",
-      "www.taxesforexpats.com",
-      "www.thaiexaminer.com"
+      "www.thailawonline.com",
+      "www.thetraveler.org"
      ]
     },
     {
      "q": "泰国代持股(Nominee)公司如何被排查?外国人买公寓的外资配额是多少?",
      "cited": false,
      "sources": [
-      "houseviser.com",
+      "en.thairath.co.th",
       "stanbrinkman.com",
       "thailand.go.th",
-      "thethaiger.com",
+      "www.bdo.th",
+      "www.luther-lawfirm.com",
       "www.nationthailand.com",
+      "www.pdlegal.com.sg",
       "www.thaiexaminer.com",
       "www.thailand.go.th",
-      "www.thailandlawonline.com",
-      "www.thailawonline.com",
       "www.travelandtourworld.com"
      ]
     },
@@ -841,16 +878,14 @@
      "q": "泰国 PDPA 个人资料跨境传输有什么要求?",
      "cited": false,
      "sources": [
-      "assets.kpmg.com",
-      "chambers.com",
-      "insightplus.bakermckenzie.com",
-      "practiceguides.chambers.com",
-      "www.bakermckenzie.com",
-      "www.dataprotectionreport.com",
+      "pdpathailand.com",
+      "resourcehub.bakermckenzie.com",
+      "www.dlapiperdataprotection.com",
+      "www.globalcompliancenews.com",
       "www.lexology.com",
-      "www.linklaters.com",
-      "www.luther-lawfirm.com",
-      "www.nagashima.com"
+      "www.nagashima.com",
+      "www.nishimura.com",
+      "www.tmi.gr.jp"
      ]
     },
     {
@@ -858,24 +893,22 @@
      "cited": false,
      "sources": [
       "assets.kpmg.com",
-      "globallawexperts.com",
       "houseviser.com",
-      "kpmg.com",
       "ltr.boi.go.th",
-      "rumavi.com",
-      "thailand.acclime.com",
-      "www.austchamthailand.com",
-      "www.boi.go.th",
-      "www.rd.go.th"
+      "phuket.thainotary.co.th",
+      "terms.law",
+      "wiki.private.law",
+      "www.bdo.global",
+      "www.hlbthai.com",
+      "www.juslaws.com",
+      "www.thailawonline.com"
      ]
     },
     {
      "q": "泰国 BOI 2026 投资促进措施有哪些?数据中心有什么税收激励?",
      "cited": false,
      "sources": [
-      "assets.new.siemens.com",
       "osos.boi.go.th",
-      "thailand.go.th",
       "www.boi.go.th"
      ]
     },
@@ -883,46 +916,38 @@
      "q": "泰国个人所得税 PND 90/91 和半年申报 PND 94 的截止日期是什么时候?",
      "cited": false,
      "sources": [
-      "attorilaw.com",
-      "en.thairath.co.th",
+      "baanlyy.com",
       "houseviser.com",
-      "khonsulegal.com",
       "movetothai.land",
       "phuket.thainotary.co.th",
-      "taxprosrated.com",
-      "taxsummaries.pwc.com",
-      "www.bizwings.co",
-      "www.chiangraitimes.com"
+      "phuketexpatguide.com",
+      "terms.law",
+      "vbapartners.com",
+      "www.chiangraitimes.com",
+      "www.expatica.com",
+      "www.expattaxthailand.com"
      ]
     },
     {
      "q": "在哪里可以查到泰国皇家公报政策的中文翻译和官方原文链接?",
      "cited": false,
      "sources": [
-      "catalogue.nla.gov.au",
-      "dbpedia.org",
       "de.wikipedia.org",
-      "dtvthaivisa.com",
-      "libguides.nus.edu.sg",
-      "ndlsearch.ndl.go.jp",
-      "policy.mofcom.gov.cn",
+      "dictionary.cambridge.org",
+      "finallylearnthai.com",
+      "infocenter.oic.go.th",
+      "ratchakitcha.soc.go.th",
       "ratchakitcha2-uat.soc.go.th",
-      "translate.google.co.th",
-      "unimelb.libguides.com"
+      "tdac.info",
+      "www.botlc.or.th",
+      "www.dit.go.th",
+      "www.dtn.go.th"
      ]
     }
    ],
    "top_cited_domains": [
     [
-     "houseviser.com",
-     4
-    ],
-    [
-     "thailand.go.th",
-     3
-    ],
-    [
-     "www.thailand.go.th",
+     "phuket.thainotary.co.th",
      3
     ],
     [
@@ -930,19 +955,7 @@
      3
     ],
     [
-     "www.thailawonline.com",
-     3
-    ],
-    [
-     "kpmg.com",
-     2
-    ],
-    [
-     "www.forvismazars.com",
-     2
-    ],
-    [
-     "www.thaiexaminer.com",
+     "www.travelandtourworld.com",
      2
     ],
     [
@@ -950,24 +963,44 @@
      2
     ],
     [
-     "www.boi.go.th",
+     "www.thailand.go.th",
      2
     ],
     [
-     "moscow.thaiembassy.org",
-     1
+     "thailand.go.th",
+     2
     ],
     [
-     "www.tatnews.org",
-     1
+     "www.forvismazars.com",
+     2
     ],
     [
-     "www.ttgasia.com",
-     1
+     "www.chiangraitimes.com",
+     2
     ],
     [
-     "www.straitstimes.com",
-     1
+     "www.bdo.global",
+     2
+    ],
+    [
+     "zagdim.com",
+     2
+    ],
+    [
+     "www.thailawonline.com",
+     2
+    ],
+    [
+     "www.nishimura.com",
+     2
+    ],
+    [
+     "houseviser.com",
+     2
+    ],
+    [
+     "terms.law",
+     2
     ],
     [
      "thailand.prd.go.th",
@@ -1425,6 +1458,39 @@
    "issues": {
     "error": 0,
     "warn": 1,
+    "info": 3
+   }
+  },
+  {
+   "date": "2026-10-11",
+   "metrics": {
+    "sitemap_urls": 667,
+    "pages_checked": 40,
+    "pages_with_problems": 0,
+    "thin_pages": 3,
+    "crawl_search_7d": 2789,
+    "crawl_ai_7d": 853,
+    "googlebot_7d": 336,
+    "bingbot_7d": 498,
+    "baiduspider_7d": 0,
+    "crawl_coverage_pct": 72.2,
+    "visits_search_7d": 1,
+    "visits_ai_7d": 0,
+    "gsc_clicks_28d": 0,
+    "gsc_impressions_28d": 46,
+    "gsc_position": 9.0,
+    "gsc_indexed": 260,
+    "gsc_checked": 572,
+    "bing_in_index": 155,
+    "bing_impressions": 6,
+    "bing_clicks": 1,
+    "indexnow_submitted": 4,
+    "geo_asked": 8,
+    "geo_cited": 0
+   },
+   "issues": {
+    "error": 0,
+    "warn": 2,
     "info": 3
    }
   }
