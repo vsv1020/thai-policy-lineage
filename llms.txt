@@ -10,7 +10,7 @@
 
 ## 按领域浏览
 
-- [泰国公司投资政策](https://www.thaipolicy.com/p/topic/biz.html): 202 条
+- [泰国公司投资政策](https://www.thaipolicy.com/p/topic/biz.html): 204 条
 - [泰国海关贸易政策](https://www.thaipolicy.com/p/topic/customs.html): 89 条
 - [泰国金融外汇政策](https://www.thaipolicy.com/p/topic/finance.html): 55 条
 - [泰国房产土地政策](https://www.thaipolicy.com/p/topic/land.html): 55 条
@@ -25,7 +25,7 @@
 
 - [泰国土地与房产](https://www.thaipolicy.com/p/t/land-property.html): 32 条
 - [泰国进口管制、配额与贸易救济](https://www.thaipolicy.com/p/t/import-control.html): 42 条
-- [泰国投资促进(BOI)](https://www.thaipolicy.com/p/t/boi.html): 89 条
+- [泰国投资促进(BOI)](https://www.thaipolicy.com/p/t/boi.html): 91 条
 - [泰国消费税](https://www.thaipolicy.com/p/t/excise.html): 30 条
 - [泰国金融监管:央行与证监会](https://www.thaipolicy.com/p/t/financial-regulation.html): 19 条
 - [泰国政府储蓄银行存款与储蓄彩票](https://www.thaipolicy.com/p/t/gsb-savings.html): 17 条

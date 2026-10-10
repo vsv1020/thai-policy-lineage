@@ -19,7 +19,7 @@
     "desc": "规则与激励塑造环境",
     "color": "seal",
     "share": 77,
-    "count": 662,
+    "count": 665,
     "rows": [
      {
       "id": "disclosure",
@@ -52,7 +52,7 @@
       "id": "standards_licensing",
       "label": "标准与准入管制",
       "data": [
-       8,
+       10,
        34,
        333
       ]
@@ -61,7 +61,7 @@
       "id": "tax_incentive",
       "label": "税收减免与追缴",
       "data": [
-       7,
+       8,
        25,
        62
       ]
@@ -152,7 +152,7 @@
     ]
    }
   ],
-  "n": 859,
+  "n": 862,
   "sufficient": true,
   "min_n": 12
  },
@@ -217,7 +217,7 @@
      29,
      37,
      91,
-     88,
+     89,
      146,
      4
     ]
@@ -244,7 +244,7 @@
     "goal": "区域均衡"
    }
   ],
-  "n": 737,
+  "n": 738,
   "sufficient": true,
   "min_n": 12
  },
@@ -302,7 +302,7 @@
     "stability": 2,
     "justiciable": false,
     "note": "调整最快,占比最高",
-    "count": 415,
+    "count": 417,
     "pct": 73
    },
    {
@@ -339,10 +339,10 @@
     "pct": 3
    }
   ],
-  "total": 570,
+  "total": 572,
   "fragile_pct": 92,
   "fragile_note": "承载在公告与内阁决议层的比例 —— 调整快、可诉性弱,投资测算应按可撤回处理",
-  "n": 570,
+  "n": 572,
   "sufficient": true,
   "min_n": 20
  },
@@ -353,14 +353,14 @@
     "label": "外资企业",
     "support": 117,
     "constrain": 137,
-    "neutral": 176
+    "neutral": 178
    },
    {
     "id": "foreign_investor",
     "label": "外资投资者",
     "support": 90,
     "constrain": 28,
-    "neutral": 75
+    "neutral": 77
    },
    {
     "id": "consumer",
@@ -413,7 +413,7 @@
    }
   ],
   "max": 137,
-  "n": 1158,
+  "n": 1162,
   "sufficient": true,
   "min_n": 10
  },
@@ -566,7 +566,7 @@
    }
   ],
   "max": 14,
-  "solo_documents": 513,
+  "solo_documents": 515,
   "note": "联署少而各自单独规定同一事项,是维度六冲突的来源",
   "n": 85,
   "sufficient": true,
@@ -611,7 +611,7 @@
     "id": "implementing_rule",
     "label": "实施细则",
     "seq": 4,
-    "count": 511,
+    "count": 513,
     "hot": true,
     "weak": false
    },
@@ -632,12 +632,12 @@
     "weak": true
    }
   ],
-  "total": 570,
-  "peak": 511,
+  "total": 572,
+  "peak": 513,
   "missing": [
    "国家规划"
   ],
-  "n": 570,
+  "n": 572,
   "sufficient": true,
   "min_n": 12
  }

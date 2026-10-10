@@ -1,21 +1,21 @@
 {
  "_generated": "由 backend/app/export.py 从数据库导出,请勿手改;改 data/policies/*.jsonl → python3 -m app.ingest → python3 -m app.export",
  "schema_version": 4,
- "updated_at": "2026-10-09T07:07:31+07:00",
+ "updated_at": "2026-10-10T07:07:36+07:00",
  "stats": {
-  "total": 570,
+  "total": 572,
   "research": 0,
   "demo": 0,
-  "with_points": 501,
-  "date_from": "2024-10-24",
+  "with_points": 503,
+  "date_from": "2024-10-10",
   "date_to": "2026-10-06",
   "gazette_to": "2026-04-22",
-  "agency_n": 102,
+  "agency_n": 104,
   "by_domain": [
    {
     "id": "biz",
     "zh": "公司投资",
-    "n": 202
+    "n": 204
    },
    {
     "id": "customs",
@@ -28569,6 +28569,117 @@
      "id": "foreign_investor",
      "party_id": "foreign_investor",
      "stance": "support",
+     "label": "外资投资者"
+    }
+   ],
+   "featured": false
+  },
+  {
+   "uid": "TH-BOI-20241015-136054",
+   "issue_id": null,
+   "date": "2024-10-15",
+   "domain": "biz",
+   "domain_label": "公司投资",
+   "direction": "neutral",
+   "title_zh": "投资促进委员会公告第 ป.7/2567 号：委托泰国服装工业协会审核认证成衣及箱包产品生产配方",
+   "title_th": "ประกาศ สกท.ที่ ป.7/2567 เรื่อง การมอบหมายให้สมาคมอุตสาหกรรรมเครื่องนุ่มห่มไทยตรวจสอบและรับรองสูตรการผลิตสำหรับการผลิตผลิตภัณฑ์เสื้อผ้าสำเร็จรูปและผลิตภัณฑ์กระเป๋า",
+   "summary_zh": "投资促进委员会委托泰国服装工业协会对成衣、箱包及旅行箱（使用布料、皮革或其他材料）的生产配方进行审核认证，以加快享受第36条(1)(2)项下原材料进口关税豁免。享受该豁免的受促进企业须先将生产配方提交该协会审核认证，再报投资促进委员会审批。协会须在收到完整文件之日起7日内完成审核认证并送交委员会审批；服务费用由协会规定并须经委员会同意。本公告同时废止2023年3月20日第 ป.7/2566 号公告。",
+   "key_points": [
+    "适用对象：享受第36条(1)(2)项原材料进口关税豁免的受促进企业",
+    "义务：生产配方须先经泰国服装工业协会审核认证，再报BOI审批",
+    "协会须在收到完整文件之日起7日内完成审核并送BOI审批",
+    "服务费用由协会规定，须经BOI同意",
+    "废止2023年3月20日第 ป.7/2566 号公告"
+   ],
+   "org": "投资促进委员会 (BOI)",
+   "doc_no": "สกท. ป.7/2567",
+   "doc_no_label": "文号",
+   "legal_form": "公告 · ประกาศ 层级",
+   "stability": 2,
+   "effective_label": "已生效",
+   "status": "active",
+   "status_label": "现行有效",
+   "source_url": "https://www.boi.go.th/upload/content/por7_2567.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "boi_web",
+   "dates": {
+    "resolved_at": null,
+    "published_at": "2024-10-15",
+    "effective_from": "2024-10-15",
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
+    },
+    {
+     "id": "foreign_investor",
+     "party_id": "foreign_investor",
+     "stance": "neutral",
+     "label": "外资投资者"
+    }
+   ],
+   "featured": false
+  },
+  {
+   "uid": "TH-BOI-20241010-136030",
+   "issue_id": null,
+   "date": "2024-10-10",
+   "domain": "biz",
+   "domain_label": "公司投资",
+   "direction": "neutral",
+   "title_zh": "投资促进委员会公告第 ป.5/2567 号：取消私营机构协助检查生产损耗或不合格原材料的许可",
+   "title_th": "ประกาศ สกท.ที่ ป.5/2567 เรื่อง ยกเลิกอนุญาตให้เอกชนช่วยปฏิบัติงานตรวจสอบวัตถุดิบที่สูญเสียจากการผลิต หรือไม่ได้คุณภาพ",
+   "summary_zh": "投资促进委员会（BOI）取消此前授予某私营检验公司协助检查生产损耗或不合格原材料的许可。该公司已致函申请退出，不再从事相关检查与出证业务。自本公告发布之日起，该公司不再具有该项受托资格。",
+   "key_points": [
+    "取消某私营检验公司协助检查生产损耗或不合格原材料的资格",
+    "该公司已申请退出，不再从事相关检查与出证业务",
+    "取消自公告发布之日起生效",
+    "依据《投资促进法》第13/1条作出"
+   ],
+   "org": "投资促进委员会 (BOI)",
+   "doc_no": "สกท. ป.5/2567",
+   "doc_no_label": "文号",
+   "legal_form": "公告 · ประกาศ 层级",
+   "stability": 2,
+   "effective_label": "已生效",
+   "status": "active",
+   "status_label": "现行有效",
+   "source_url": "https://www.boi.go.th/upload/content/por5_2567.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "boi_web",
+   "dates": {
+    "resolved_at": null,
+    "published_at": "2024-10-10",
+    "effective_from": "2024-10-10",
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
+    },
+    {
+     "id": "foreign_investor",
+     "party_id": "foreign_investor",
+     "stance": "neutral",
      "label": "外资投资者"
     }
    ],

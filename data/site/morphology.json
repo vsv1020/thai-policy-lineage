@@ -1,17 +1,17 @@
 {
  "_generated": "由 backend/app/export.py 从数据库导出,请勿手改;改 data/policies/*.jsonl → python3 -m app.ingest → python3 -m app.export",
- "n": 570,
+ "n": 572,
  "kpis": {
-  "total": 570,
+  "total": 572,
   "avg_stability": 2.04,
   "binding_pct": 8.2,
-  "in_force_pct": 16.8,
+  "in_force_pct": 17.1,
   "high_tier_pct": 2.8,
   "tight": 117,
   "loose": 155
  },
  "insights": [
-  "库内 570 条政策中,公告 / 规程层级最多(占 83.2%);可诉、强制力较强的占 8.2%,现行有效的占 16.8%。",
+  "库内 572 条政策中,公告 / 规程层级最多(占 83.2%);可诉、强制力较强的占 8.2%,现行有效的占 17.1%。",
   "「税务」的政策层级最高(平均稳定性 2.31),多以公告出台;「金融外汇」最低(平均 1.85),以公告为主,规则更容易调整。",
   "方向上,收紧 117 条、放宽 155 条,整体偏放宽。"
  ],
@@ -22,7 +22,7 @@
    "stability": 5,
    "justiciable": true,
    "n": 6,
-   "pct": 1.1
+   "pct": 1.0
   },
   {
    "id": "emergency",
@@ -53,8 +53,8 @@
    "zh": "公告",
    "stability": 2,
    "justiciable": false,
-   "n": 415,
-   "pct": 72.8
+   "n": 417,
+   "pct": 72.9
   },
   {
    "id": "rabiap",
@@ -62,7 +62,7 @@
    "stability": 2,
    "justiciable": false,
    "n": 59,
-   "pct": 10.4
+   "pct": 10.3
   },
   {
    "id": "guidance",
@@ -103,7 +103,7 @@
   {
    "stability": 2,
    "label": "公告 / 规程",
-   "n": 474,
+   "n": 476,
    "pct": 83.2
   },
   {
@@ -125,7 +125,7 @@
    "id": "environment",
    "zh": "环境型",
    "desc": "规则与激励塑造环境",
-   "n": 470,
+   "n": 472,
    "pct": 82.5
   },
   {
@@ -140,7 +140,7 @@
   {
    "zh": "标准与准入管制",
    "class": "环境型",
-   "n": 375
+   "n": 377
   },
   {
    "zh": "申报、备案与披露",
@@ -150,7 +150,7 @@
   {
    "zh": "税收减免与追缴",
    "class": "环境型",
-   "n": 94
+   "n": 95
   },
   {
    "zh": "公共服务与系统供给",
@@ -189,19 +189,19 @@
    "id": "pending_gazette",
    "zh": "待刊公报",
    "n": 50,
-   "pct": 8.8
+   "pct": 8.7
   },
   {
    "id": "gazetted",
    "zh": "已刊公报",
    "n": 423,
-   "pct": 74.2
+   "pct": 74.0
   },
   {
    "id": "in_force",
    "zh": "现行有效",
-   "n": 96,
-   "pct": 16.8
+   "n": 98,
+   "pct": 17.1
   },
   {
    "id": "superseded",
@@ -305,7 +305,7 @@
     0,
     0,
     5,
-    145,
+    147,
     24,
     13,
     11
@@ -406,11 +406,11 @@
   {
    "id": "biz",
    "zh": "公司投资",
-   "n": 202,
+   "n": 204,
    "avg_stability": 1.97,
-   "binding_pct": 4.5,
+   "binding_pct": 4.4,
    "dominant_form": "公告",
-   "dominant_form_pct": 71.8,
+   "dominant_form_pct": 72.1,
    "dominant_class": "环境型",
    "tight": 33,
    "loose": 61
