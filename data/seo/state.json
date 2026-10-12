@@ -1,8 +1,8 @@
 {
 "audited": {
-"https://www.thaipolicy.com/": "2026-10-12",
+"https://www.thaipolicy.com/": "2026-10-13",
 "https://www.thaipolicy.com/about.html": "2026-10-02",
-"https://www.thaipolicy.com/p/index.html": "2026-10-12",
+"https://www.thaipolicy.com/p/index.html": "2026-10-13",
 "https://www.thaipolicy.com/p/t/boi.html": "2026-10-02",
 "https://www.thaipolicy.com/p/t/data-protection.html": "2026-10-02",
 "https://www.thaipolicy.com/p/t/excise.html": "2026-10-02",
@@ -102,9 +102,39 @@
 "https://www.thaipolicy.com/p/th-boi-20260521-138885.html": "2026-10-12",
 "https://www.thaipolicy.com/p/th-boi-20260623-123602.html": "2026-10-12",
 "https://www.thaipolicy.com/p/th-boi-20260715-139048.html": "2026-10-12",
-"https://www.thaipolicy.com/p/th-boi-20261006-139502.html": "2026-10-12",
-"https://www.thaipolicy.com/p/th-boi-20261006-139503.html": "2026-10-12",
-"https://www.thaipolicy.com/p/th-boi-20261006-139504.html": "2026-10-12",
+"https://www.thaipolicy.com/p/th-boi-20260715-139050.html": "2026-10-13",
+"https://www.thaipolicy.com/p/th-boi-20260715-139067.html": "2026-10-13",
+"https://www.thaipolicy.com/p/th-boi-20260715-139068.html": "2026-10-13",
+"https://www.thaipolicy.com/p/th-boi-20260916-139362.html": "2026-10-13",
+"https://www.thaipolicy.com/p/th-boi-20260930-139500.html": "2026-10-13",
+"https://www.thaipolicy.com/p/th-boi-20260930-139501.html": "2026-10-13",
+"https://www.thaipolicy.com/p/th-boi-20261006-139502.html": "2026-10-13",
+"https://www.thaipolicy.com/p/th-boi-20261006-139503.html": "2026-10-13",
+"https://www.thaipolicy.com/p/th-boi-20261006-139504.html": "2026-10-13",
+"https://www.thaipolicy.com/p/th-cabx-20241217-b149779c19.html": "2026-10-13",
+"https://www.thaipolicy.com/p/th-cabx-20250107-cadb7e7b6c.html": "2026-10-13",
+"https://www.thaipolicy.com/p/th-cabx-20250107-sme-beyond-sme.html": "2026-10-13",
+"https://www.thaipolicy.com/p/th-cabx-20250113-2f8b31f8e8.html": "2026-10-13",
+"https://www.thaipolicy.com/p/th-cabx-20250113-bdb9e408ef.html": "2026-10-13",
+"https://www.thaipolicy.com/p/th-cabx-20250121-69ba3ee260.html": "2026-10-13",
+"https://www.thaipolicy.com/p/th-cabx-20250121-carbon-pricing.html": "2026-10-13",
+"https://www.thaipolicy.com/p/th-cabx-20250128-cctv-system.html": "2026-10-13",
+"https://www.thaipolicy.com/p/th-cabx-20250204-cdae6cb55a.html": "2026-10-13",
+"https://www.thaipolicy.com/p/th-cabx-20250211-non-banks-soft-loan-non.html": "2026-10-13",
+"https://www.thaipolicy.com/p/th-cabx-20250225-3-2567.html": "2026-10-13",
+"https://www.thaipolicy.com/p/th-cabx-20250225-31-2567.html": "2026-10-13",
+"https://www.thaipolicy.com/p/th-cabx-20250225-e529f7cf4d.html": "2026-10-13",
+"https://www.thaipolicy.com/p/th-cabx-20250311-6a7d7bce0a.html": "2026-10-13",
+"https://www.thaipolicy.com/p/th-cabx-20250318-2019.html": "2026-10-13",
+"https://www.thaipolicy.com/p/th-cabx-20250318-b302aa3177.html": "2026-10-13",
+"https://www.thaipolicy.com/p/th-cabx-20250327-1-2567.html": "2026-10-13",
+"https://www.thaipolicy.com/p/th-cabx-20250327-1c119827a4.html": "2026-10-13",
+"https://www.thaipolicy.com/p/th-cabx-20250327-70b76d7ae3.html": "2026-10-13",
+"https://www.thaipolicy.com/p/th-cabx-20250401-446404fd57.html": "2026-10-13",
+"https://www.thaipolicy.com/p/th-cabx-20250408-c75458a656.html": "2026-10-13",
+"https://www.thaipolicy.com/p/th-cabx-20250408-d5d117957d.html": "2026-10-13",
+"https://www.thaipolicy.com/p/th-cabx-20250429-2567.html": "2026-10-13",
+"https://www.thaipolicy.com/p/th-cabx-20250506-amazing-thailand-grand-tourism-sports.html": "2026-10-13",
 "https://www.thaipolicy.com/p/th-gaz-20260202-288ffb74c6.html": "2026-10-01",
 "https://www.thaipolicy.com/p/th-gaz-20260202-5144b37383.html": "2026-10-01",
 "https://www.thaipolicy.com/p/th-gaz-20260202-ab75abac9e.html": "2026-10-01",
@@ -471,7 +501,7 @@
 "https://www.thaipolicy.com/p/th-gaz-20260422-5-2569.html": "2026-10-01",
 "https://www.thaipolicy.com/p/th-gaz-20260422-9-2568.html": "2026-10-01",
 "https://www.thaipolicy.com/p/th-gaz-20260422-fd1263e0ac.html": "2026-10-01",
-"https://www.thaipolicy.com/p/topic/biz.html": "2026-10-12",
+"https://www.thaipolicy.com/p/topic/biz.html": "2026-10-13",
 "https://www.thaipolicy.com/p/topic/customs.html": "2026-10-01",
 "https://www.thaipolicy.com/p/topic/finance.html": "2026-09-28",
 "https://www.thaipolicy.com/p/topic/health.html": "2026-10-01",
@@ -479,11 +509,11 @@
 "https://www.thaipolicy.com/p/topic/land.html": "2026-10-09",
 "https://www.thaipolicy.com/p/topic/tax.html": "2026-09-28",
 "https://www.thaipolicy.com/p/week/2026-W17.html": "2026-10-09",
-"https://www.thaipolicy.com/p/week/2026-W41.html": "2026-10-12",
-"https://www.thaipolicy.com/p/week/index.html": "2026-10-12",
+"https://www.thaipolicy.com/p/week/2026-W41.html": "2026-10-13",
+"https://www.thaipolicy.com/p/week/index.html": "2026-10-13",
 "https://www.thaipolicy.com/p/who/consumer.html": "2026-10-09",
-"https://www.thaipolicy.com/p/who/foreign_company.html": "2026-10-12",
-"https://www.thaipolicy.com/p/who/foreign_investor.html": "2026-10-12",
+"https://www.thaipolicy.com/p/who/foreign_company.html": "2026-10-13",
+"https://www.thaipolicy.com/p/who/foreign_investor.html": "2026-10-13",
 "https://www.thaipolicy.com/p/who/importer.html": "2026-10-09",
 "https://www.thaipolicy.com/p/who/local_government.html": "2026-10-09",
 "https://www.thaipolicy.com/p/who/thai_employer.html": "2026-10-09",
@@ -1990,175 +2020,175 @@
 },
 "https://www.thaipolicy.com/p/th-gaz-20260210-4-000-space-cab.html": {
 "canonical": "https://www.thaipolicy.com/p/th-gaz-20260210-4-000-space-cab.html",
-"checked": "2026-10-02",
+"checked": "2026-10-13",
 "coverage": "已提交，且已编入索引",
 "last_crawl": "2026-10-01T16:01:17Z",
 "verdict": "PASS"
 },
 "https://www.thaipolicy.com/p/th-gaz-20260210-497493539f.html": {
 "canonical": "https://www.thaipolicy.com/p/th-gaz-20260210-497493539f.html",
-"checked": "2026-10-02",
+"checked": "2026-10-13",
 "coverage": "已提交，且已编入索引",
 "last_crawl": "2026-10-01T18:33:32Z",
 "verdict": "PASS"
 },
 "https://www.thaipolicy.com/p/th-gaz-20260210-71af4bef81.html": {
 "canonical": "https://www.thaipolicy.com/p/th-gaz-20260210-71af4bef81.html",
-"checked": "2026-10-02",
+"checked": "2026-10-13",
 "coverage": "已提交，且已编入索引",
 "last_crawl": "2026-10-01T16:01:04Z",
 "verdict": "PASS"
 },
 "https://www.thaipolicy.com/p/th-gaz-20260210-double-cab-19-20.html": {
 "canonical": "https://www.thaipolicy.com/p/th-gaz-20260210-double-cab-19-20.html",
-"checked": "2026-10-02",
+"checked": "2026-10-13",
 "coverage": "已提交，且已编入索引",
 "last_crawl": "2026-10-01T18:01:17Z",
 "verdict": "PASS"
 },
 "https://www.thaipolicy.com/p/th-gaz-20260210-double-cab-plug-in-hybrid.html": {
 "canonical": "https://www.thaipolicy.com/p/th-gaz-20260210-double-cab-plug-in-hybrid.html",
-"checked": "2026-10-02",
+"checked": "2026-10-13",
 "coverage": "已提交，且已编入索引",
 "last_crawl": "2026-10-01T16:01:22Z",
 "verdict": "PASS"
 },
 "https://www.thaipolicy.com/p/th-gaz-20260210-double-cab.html": {
 "canonical": "https://www.thaipolicy.com/p/th-gaz-20260210-double-cab.html",
-"checked": "2026-10-02",
+"checked": "2026-10-13",
 "coverage": "已提交，且已编入索引",
 "last_crawl": "2026-10-01T18:40:28Z",
 "verdict": "PASS"
 },
 "https://www.thaipolicy.com/p/th-gaz-20260210-electric-powered-vehicle.html": {
 "canonical": "https://www.thaipolicy.com/p/th-gaz-20260210-electric-powered-vehicle.html",
-"checked": "2026-10-02",
+"checked": "2026-10-13",
 "coverage": "已提交，且已编入索引",
 "last_crawl": "2026-10-01T18:19:43Z",
 "verdict": "PASS"
 },
 "https://www.thaipolicy.com/p/th-gaz-20260210-electronic-data-interchange-40.html": {
 "canonical": "https://www.thaipolicy.com/p/th-gaz-20260210-electronic-data-interchange-40.html",
-"checked": "2026-10-02",
+"checked": "2026-10-13",
 "coverage": "已提交，且已编入索引",
 "last_crawl": "2026-10-01T19:24:56Z",
 "verdict": "PASS"
 },
 "https://www.thaipolicy.com/p/th-gaz-20260210-pick-up-passenger-vehicle-ppv.html": {
 "canonical": "",
-"checked": "2026-10-02",
+"checked": "2026-10-13",
 "coverage": "已发现 - 尚未编入索引",
 "last_crawl": "",
 "verdict": "NEUTRAL"
 },
 "https://www.thaipolicy.com/p/th-gaz-20260211-2568-142-87-24-2568.html": {
 "canonical": "",
-"checked": "2026-10-02",
+"checked": "2026-10-13",
 "coverage": "已发现 - 尚未编入索引",
 "last_crawl": "",
 "verdict": "NEUTRAL"
 },
 "https://www.thaipolicy.com/p/th-gaz-20260211-2569.html": {
 "canonical": "https://www.thaipolicy.com/p/th-gaz-20260211-2569.html",
-"checked": "2026-10-02",
+"checked": "2026-10-13",
 "coverage": "已提交，且已编入索引",
-"last_crawl": "2026-10-01T19:03:55Z",
+"last_crawl": "2026-10-11T03:45:59Z",
 "verdict": "PASS"
 },
 "https://www.thaipolicy.com/p/th-gaz-20260211-466.html": {
 "canonical": "https://www.thaipolicy.com/p/th-gaz-20260211-466.html",
-"checked": "2026-10-02",
+"checked": "2026-10-13",
 "coverage": "已提交，且已编入索引",
 "last_crawl": "2026-10-01T18:10:28Z",
 "verdict": "PASS"
 },
 "https://www.thaipolicy.com/p/th-gaz-20260211-59-2569.html": {
 "canonical": "",
-"checked": "2026-10-02",
+"checked": "2026-10-13",
 "coverage": "已发现 - 尚未编入索引",
 "last_crawl": "",
 "verdict": "NEUTRAL"
 },
 "https://www.thaipolicy.com/p/th-gaz-20260211-889-2569.html": {
 "canonical": "",
-"checked": "2026-10-02",
-"coverage": "已发现 - 尚未编入索引",
+"checked": "2026-10-13",
+"coverage": "Google 无法识别此网址",
 "last_crawl": "",
 "verdict": "NEUTRAL"
 },
 "https://www.thaipolicy.com/p/th-gaz-20260211-9-2568.html": {
-"canonical": "",
-"checked": "2026-10-02",
-"coverage": "已抓取 - 尚未编入索引",
-"last_crawl": "2026-10-01T17:16:06Z",
-"verdict": "NEUTRAL"
+"canonical": "https://www.thaipolicy.com/p/th-gaz-20260211-9-2568.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-03T19:15:47Z",
+"verdict": "PASS"
 },
 "https://www.thaipolicy.com/p/th-gaz-20260212-2568.html": {
 "canonical": "https://www.thaipolicy.com/p/th-gaz-20260212-2568.html",
-"checked": "2026-10-02",
+"checked": "2026-10-13",
 "coverage": "已提交，且已编入索引",
 "last_crawl": "2026-10-01T16:09:40Z",
 "verdict": "PASS"
 },
 "https://www.thaipolicy.com/p/th-gaz-20260212-2569.html": {
 "canonical": "https://www.thaipolicy.com/p/th-gaz-20260212-2569.html",
-"checked": "2026-10-02",
+"checked": "2026-10-13",
 "coverage": "已提交，且已编入索引",
 "last_crawl": "2026-10-01T17:46:50Z",
 "verdict": "PASS"
 },
 "https://www.thaipolicy.com/p/th-gaz-20260212-3-2569.html": {
 "canonical": "https://www.thaipolicy.com/p/th-gaz-20260212-3-2569.html",
-"checked": "2026-10-02",
+"checked": "2026-10-13",
 "coverage": "已提交，且已编入索引",
 "last_crawl": "2026-10-01T18:24:21Z",
 "verdict": "PASS"
 },
 "https://www.thaipolicy.com/p/th-gaz-20260212-37-2568-4-8411-1.html": {
 "canonical": "https://www.thaipolicy.com/p/th-gaz-20260212-37-2568-4-8411-1.html",
-"checked": "2026-10-02",
+"checked": "2026-10-13",
 "coverage": "已提交，且已编入索引",
 "last_crawl": "2026-10-01T18:38:16Z",
 "verdict": "PASS"
 },
 "https://www.thaipolicy.com/p/th-gaz-20260213-2564.html": {
-"canonical": "",
-"checked": "2026-10-02",
-"coverage": "已发现 - 尚未编入索引",
-"last_crawl": "",
-"verdict": "NEUTRAL"
+"canonical": "https://www.thaipolicy.com/p/th-gaz-20260213-2564.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-11T00:41:02Z",
+"verdict": "PASS"
 },
 "https://www.thaipolicy.com/p/th-gaz-20260213-2565.html": {
 "canonical": "https://www.thaipolicy.com/p/th-gaz-20260213-2565.html",
-"checked": "2026-10-02",
+"checked": "2026-10-13",
 "coverage": "已提交，且已编入索引",
 "last_crawl": "2026-10-01T19:34:28Z",
 "verdict": "PASS"
 },
 "https://www.thaipolicy.com/p/th-gaz-20260213-2566.html": {
 "canonical": "https://www.thaipolicy.com/p/th-gaz-20260213-2566.html",
-"checked": "2026-10-02",
+"checked": "2026-10-13",
 "coverage": "已提交，且已编入索引",
 "last_crawl": "2026-10-01T17:40:32Z",
 "verdict": "PASS"
 },
 "https://www.thaipolicy.com/p/th-gaz-20260213-2567.html": {
-"canonical": "",
-"checked": "2026-10-02",
-"coverage": "已发现 - 尚未编入索引",
-"last_crawl": "",
-"verdict": "NEUTRAL"
+"canonical": "https://www.thaipolicy.com/p/th-gaz-20260213-2567.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-10T21:40:40Z",
+"verdict": "PASS"
 },
 "https://www.thaipolicy.com/p/th-gaz-20260213-9-2568.html": {
 "canonical": "https://www.thaipolicy.com/p/th-gaz-20260213-9-2568.html",
-"checked": "2026-10-02",
+"checked": "2026-10-13",
 "coverage": "已提交，且已编入索引",
 "last_crawl": "2026-10-01T17:38:09Z",
 "verdict": "PASS"
 },
 "https://www.thaipolicy.com/p/th-gaz-20260213-f847bc113b.html": {
 "canonical": "https://www.thaipolicy.com/p/th-gaz-20260213-f847bc113b.html",
-"checked": "2026-10-02",
+"checked": "2026-10-13",
 "coverage": "已提交，且已编入索引",
 "last_crawl": "2026-10-01T18:56:52Z",
 "verdict": "PASS"
@@ -4767,6 +4797,188 @@
 "last_crawl": "2026-10-11T05:29:44Z",
 "verdict": "PASS"
 },
+"https://www.thaipolicy.com/p/week/2025-W07.html": {
+"canonical": "https://www.thaipolicy.com/p/week/2025-W07.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-10T18:43:29Z",
+"verdict": "PASS"
+},
+"https://www.thaipolicy.com/p/week/2025-W08.html": {
+"canonical": "https://www.thaipolicy.com/p/week/2025-W08.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-10T16:56:45Z",
+"verdict": "PASS"
+},
+"https://www.thaipolicy.com/p/week/2025-W09.html": {
+"canonical": "https://www.thaipolicy.com/p/week/2025-W09.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-10T06:10:53Z",
+"verdict": "PASS"
+},
+"https://www.thaipolicy.com/p/week/2025-W11.html": {
+"canonical": "https://www.thaipolicy.com/p/week/2025-W11.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-11T05:45:31Z",
+"verdict": "PASS"
+},
+"https://www.thaipolicy.com/p/week/2025-W12.html": {
+"canonical": "https://www.thaipolicy.com/p/week/2025-W12.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-10T04:37:51Z",
+"verdict": "PASS"
+},
+"https://www.thaipolicy.com/p/week/2025-W13.html": {
+"canonical": "https://www.thaipolicy.com/p/week/2025-W13.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-10T18:28:18Z",
+"verdict": "PASS"
+},
+"https://www.thaipolicy.com/p/week/2025-W14.html": {
+"canonical": "https://www.thaipolicy.com/p/week/2025-W14.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-10T17:40:27Z",
+"verdict": "PASS"
+},
+"https://www.thaipolicy.com/p/week/2025-W15.html": {
+"canonical": "https://www.thaipolicy.com/p/week/2025-W15.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-10T16:00:59Z",
+"verdict": "PASS"
+},
+"https://www.thaipolicy.com/p/week/2025-W18.html": {
+"canonical": "https://www.thaipolicy.com/p/week/2025-W18.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-11T05:13:57Z",
+"verdict": "PASS"
+},
+"https://www.thaipolicy.com/p/week/2025-W19.html": {
+"canonical": "https://www.thaipolicy.com/p/week/2025-W19.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-10T17:49:05Z",
+"verdict": "PASS"
+},
+"https://www.thaipolicy.com/p/week/2025-W23.html": {
+"canonical": "https://www.thaipolicy.com/p/week/2025-W23.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-10T18:33:13Z",
+"verdict": "PASS"
+},
+"https://www.thaipolicy.com/p/week/2025-W29.html": {
+"canonical": "https://www.thaipolicy.com/p/week/2025-W29.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-11T05:37:38Z",
+"verdict": "PASS"
+},
+"https://www.thaipolicy.com/p/week/2025-W30.html": {
+"canonical": "https://www.thaipolicy.com/p/week/2025-W30.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-11T05:21:50Z",
+"verdict": "PASS"
+},
+"https://www.thaipolicy.com/p/week/2025-W32.html": {
+"canonical": "https://www.thaipolicy.com/p/week/2025-W32.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-11T04:06:50Z",
+"verdict": "PASS"
+},
+"https://www.thaipolicy.com/p/week/2025-W33.html": {
+"canonical": "https://www.thaipolicy.com/p/week/2025-W33.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-10T04:33:47Z",
+"verdict": "PASS"
+},
+"https://www.thaipolicy.com/p/week/2025-W42.html": {
+"canonical": "https://www.thaipolicy.com/p/week/2025-W42.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-11T05:59:01Z",
+"verdict": "PASS"
+},
+"https://www.thaipolicy.com/p/week/2025-W43.html": {
+"canonical": "https://www.thaipolicy.com/p/week/2025-W43.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-11T06:10:32Z",
+"verdict": "PASS"
+},
+"https://www.thaipolicy.com/p/week/2025-W45.html": {
+"canonical": "https://www.thaipolicy.com/p/week/2025-W45.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-11T04:34:57Z",
+"verdict": "PASS"
+},
+"https://www.thaipolicy.com/p/week/2025-W46.html": {
+"canonical": "https://www.thaipolicy.com/p/week/2025-W46.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-10T20:22:08Z",
+"verdict": "PASS"
+},
+"https://www.thaipolicy.com/p/week/2025-W49.html": {
+"canonical": "https://www.thaipolicy.com/p/week/2025-W49.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-11T04:18:46Z",
+"verdict": "PASS"
+},
+"https://www.thaipolicy.com/p/week/2025-W50.html": {
+"canonical": "https://www.thaipolicy.com/p/week/2025-W50.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-11T01:15:58Z",
+"verdict": "PASS"
+},
+"https://www.thaipolicy.com/p/week/2025-W52.html": {
+"canonical": "https://www.thaipolicy.com/p/week/2025-W52.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-11T04:58:10Z",
+"verdict": "PASS"
+},
+"https://www.thaipolicy.com/p/week/2026-W02.html": {
+"canonical": "https://www.thaipolicy.com/p/week/2026-W02.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-10T19:00:58Z",
+"verdict": "PASS"
+},
+"https://www.thaipolicy.com/p/week/2026-W03.html": {
+"canonical": "https://www.thaipolicy.com/p/week/2026-W03.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-10T17:55:18Z",
+"verdict": "PASS"
+},
+"https://www.thaipolicy.com/p/week/2026-W04.html": {
+"canonical": "https://www.thaipolicy.com/p/week/2026-W04.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-10T19:13:17Z",
+"verdict": "PASS"
+},
+"https://www.thaipolicy.com/p/week/2026-W05.html": {
+"canonical": "https://www.thaipolicy.com/p/week/2026-W05.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-10T15:42:44Z",
+"verdict": "PASS"
+},
 "https://www.thaipolicy.com/p/week/2026-W06.html": {
 "canonical": "https://www.thaipolicy.com/p/week/2026-W06.html",
 "checked": "2026-10-04",
@@ -4849,6 +5061,69 @@
 "checked": "2026-10-05",
 "coverage": "已提交，且已编入索引",
 "last_crawl": "2026-10-01T22:08:33Z",
+"verdict": "PASS"
+},
+"https://www.thaipolicy.com/p/week/2026-W18.html": {
+"canonical": "https://www.thaipolicy.com/p/week/2026-W18.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-11T04:14:46Z",
+"verdict": "PASS"
+},
+"https://www.thaipolicy.com/p/week/2026-W19.html": {
+"canonical": "https://www.thaipolicy.com/p/week/2026-W19.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-10T17:55:25Z",
+"verdict": "PASS"
+},
+"https://www.thaipolicy.com/p/week/2026-W21.html": {
+"canonical": "https://www.thaipolicy.com/p/week/2026-W21.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-10T18:47:56Z",
+"verdict": "PASS"
+},
+"https://www.thaipolicy.com/p/week/2026-W26.html": {
+"canonical": "https://www.thaipolicy.com/p/week/2026-W26.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-11T04:42:22Z",
+"verdict": "PASS"
+},
+"https://www.thaipolicy.com/p/week/2026-W29.html": {
+"canonical": "https://www.thaipolicy.com/p/week/2026-W29.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-11T03:55:00Z",
+"verdict": "PASS"
+},
+"https://www.thaipolicy.com/p/week/2026-W38.html": {
+"canonical": "https://www.thaipolicy.com/p/week/2026-W38.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-10T18:13:35Z",
+"verdict": "PASS"
+},
+"https://www.thaipolicy.com/p/week/2026-W39.html": {
+"canonical": "https://www.thaipolicy.com/p/week/2026-W39.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-10T18:18:29Z",
+"verdict": "PASS"
+},
+"https://www.thaipolicy.com/p/week/2026-W40.html": {
+"canonical": "https://www.thaipolicy.com/p/week/2026-W40.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-10T17:55:17Z",
+"verdict": "PASS"
+},
+"https://www.thaipolicy.com/p/week/2026-W41.html": {
+"canonical": "https://www.thaipolicy.com/p/week/2026-W41.html",
+"checked": "2026-10-13",
+"coverage": "已提交，且已编入索引",
+"last_crawl": "2026-10-10T17:55:25Z",
 "verdict": "PASS"
 },
 "https://www.thaipolicy.com/p/week/index.html": {
