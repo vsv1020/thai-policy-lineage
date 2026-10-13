@@ -19,7 +19,7 @@
     "desc": "规则与激励塑造环境",
     "color": "seal",
     "share": 77,
-    "count": 665,
+    "count": 666,
     "rows": [
      {
       "id": "disclosure",
@@ -63,7 +63,7 @@
       "data": [
        8,
        25,
-       62
+       63
       ]
      }
     ]
@@ -152,7 +152,7 @@
     ]
    }
   ],
-  "n": 862,
+  "n": 863,
   "sufficient": true,
   "min_n": 12
  },
@@ -214,7 +214,7 @@
     "data": [
      134,
      16,
-     29,
+     30,
      37,
      91,
      89,
@@ -244,7 +244,7 @@
     "goal": "区域均衡"
    }
   ],
-  "n": 738,
+  "n": 739,
   "sufficient": true,
   "min_n": 12
  },
@@ -291,8 +291,8 @@
     "stability": 3,
     "justiciable": true,
     "note": "部长签发,程序性约束",
-    "count": 31,
-    "pct": 5
+    "count": 32,
+    "pct": 6
    },
    {
     "id": "prakat",
@@ -339,10 +339,10 @@
     "pct": 3
    }
   ],
-  "total": 572,
+  "total": 573,
   "fragile_pct": 92,
   "fragile_note": "承载在公告与内阁决议层的比例 —— 调整快、可诉性弱,投资测算应按可撤回处理",
-  "n": 572,
+  "n": 573,
   "sufficient": true,
   "min_n": 20
  },
@@ -566,7 +566,7 @@
    }
   ],
   "max": 14,
-  "solo_documents": 515,
+  "solo_documents": 516,
   "note": "联署少而各自单独规定同一事项,是维度六冲突的来源",
   "n": 85,
   "sufficient": true,
@@ -611,7 +611,7 @@
     "id": "implementing_rule",
     "label": "实施细则",
     "seq": 4,
-    "count": 513,
+    "count": 514,
     "hot": true,
     "weak": false
    },
@@ -632,12 +632,12 @@
     "weak": true
    }
   ],
-  "total": 572,
-  "peak": 513,
+  "total": 573,
+  "peak": 514,
   "missing": [
    "国家规划"
   ],
-  "n": 572,
+  "n": 573,
   "sufficient": true,
   "min_n": 12
  }

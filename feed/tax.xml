@@ -5,8 +5,16 @@
   <link href="https://www.thaipolicy.com/feed/tax.xml" rel="self"/>
   <link href="https://www.thaipolicy.com/p/topic/tax.html"/>
   <id>https://www.thaipolicy.com/feed/tax.xml</id>
-  <updated>2026-10-02T00:00:00+07:00</updated>
+  <updated>2026-10-12T00:00:00+07:00</updated>
   <author><name>政策脉络 · 泰国</name></author>
+  <entry>
+    <title>部令第402号（佛历2569年）依《税法典》关于所得税的规定：促进电子税务系统税收措施（第144号修正案）</title>
+    <link href="https://www.thaipolicy.com/p/th-rd-20261012-mr402.html"/>
+    <id>https://www.thaipolicy.com/p/th-rd-20261012-mr402.html</id>
+    <updated>2026-10-12T00:00:00+07:00</updated>
+    <category term="税务"/>
+    <summary>据标题，本文件为税务厅依《税法典》所得税章节发布的部令，内容为促进电子税务系统的税收措施，并对第144号规定作出修订。具体适用对象、优惠比例与期限待原文核对。</summary>
+  </entry>
   <entry>
     <title>税务厅厅长关于所得税的公告（第471号）：规定对投资高效机器设备或节能材料设备支出的所得税免征的准则、方法和条件</title>
     <link href="https://www.thaipolicy.com/p/th-rd-20261002-dg471a.html"/>
@@ -398,13 +406,5 @@
     <updated>2025-03-18T00:00:00+07:00</updated>
     <category term="税务"/>
     <summary>据标题，本文件为内阁审议的部令草案，规定遗产税应税财产价值的计算规则。具体条款与适用标准待原文核对。</summary>
-  </entry>
-  <entry>
-    <title>部令草案（第……号）（佛历……年）依据《税法典》关于税收豁免的规定</title>
-    <link href="https://www.thaipolicy.com/p/th-cabx-20250311-6a7d7bce0a.html"/>
-    <id>https://www.thaipolicy.com/p/th-cabx-20250311-6a7d7bce0a.html</id>
-    <updated>2025-03-11T00:00:00+07:00</updated>
-    <category term="税务"/>
-    <summary>据标题，本文件为一份依据《税法典》制定的部令草案，内容涉及税收豁免；具体豁免范围、适用对象与条件待原文核对。</summary>
   </entry>
 </feed>

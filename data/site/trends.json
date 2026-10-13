@@ -19,7 +19,7 @@
  "min_months_required": 6,
  "data_through": "2026-10",
  "gazette_through": "2026-04",
- "total_documents": 572,
+ "total_documents": 573,
  "volume_by_domain": [
   {
    "id": "biz",
@@ -54,7 +54,7 @@
     0,
     0,
     1,
-    4
+    5
    ]
   },
   {
@@ -236,7 +236,7 @@
     null,
     null,
     -0.26,
-    0.56
+    0.51
    ]
   },
   {
@@ -814,7 +814,7 @@
     0,
     0,
     1,
-    4
+    5
    ]
   },
   {
@@ -1073,9 +1073,9 @@
  "rising": [
   {
    "label": "税收减免与追缴",
-   "current": 6,
+   "current": 7,
    "previous": 2,
-   "growth_pct": 200
+   "growth_pct": 250
   },
   {
    "label": "绿色转型",
@@ -1084,10 +1084,22 @@
    "growth_pct": 200
   },
   {
+   "label": "数字与数据",
+   "current": 2,
+   "previous": 1,
+   "growth_pct": 100
+  },
+  {
    "label": "产业升级",
    "current": 8,
    "previous": 5,
    "growth_pct": 60
+  },
+  {
+   "label": "税务",
+   "current": 6,
+   "previous": 5,
+   "growth_pct": 20
   }
  ]
 }

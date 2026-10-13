@@ -1,16 +1,16 @@
 {
  "_generated": "由 backend/app/export.py 从数据库导出,请勿手改;改 data/policies/*.jsonl → python3 -m app.ingest → python3 -m app.export",
  "schema_version": 4,
- "updated_at": "2026-10-12T07:07:33+07:00",
+ "updated_at": "2026-10-13T07:07:32+07:00",
  "stats": {
-  "total": 572,
+  "total": 573,
   "research": 0,
   "demo": 0,
   "with_points": 503,
   "date_from": "2024-10-10",
-  "date_to": "2026-10-06",
+  "date_to": "2026-10-12",
   "gazette_to": "2026-04-22",
-  "agency_n": 104,
+  "agency_n": 105,
   "by_domain": [
    {
     "id": "biz",
@@ -23,6 +23,11 @@
     "n": 89
    },
    {
+    "id": "tax",
+    "zh": "税务",
+    "n": 56
+   },
+   {
     "id": "finance",
     "zh": "金融外汇",
     "n": 55
@@ -30,11 +35,6 @@
    {
     "id": "land",
     "zh": "房产土地",
-    "n": 55
-   },
-   {
-    "id": "tax",
-    "zh": "税务",
     "n": 55
    },
    {
@@ -75,8 +75,8 @@
   {
    "domain": "tax",
    "label": "税务",
-   "score": 0.35,
-   "n": 5,
+   "score": 0.32,
+   "n": 6,
    "direction": "loose"
   },
   {
@@ -28683,6 +28683,43 @@
      "label": "外资投资者"
     }
    ],
+   "featured": false
+  },
+  {
+   "uid": "TH-RD-20261012-MR402",
+   "issue_id": null,
+   "date": "2026-10-12",
+   "domain": "tax",
+   "domain_label": "税务",
+   "direction": "neutral",
+   "title_zh": "部令第402号（佛历2569年）依《税法典》关于所得税的规定：促进电子税务系统税收措施（第144号修正案）",
+   "title_th": "กฎกระทรวง ฉบับที่ 402 (พ.ศ. 2569) ออกตามความในประมวลรัษฎากร ว่าด้วยภาษีเงินได้ มาตรการภาษีเพื่อส่งเสริมระบบภาษีอิเล็กทรอนิกส์ แก้ไขเพิ่มเติม ฉบับที่ 144",
+   "summary_zh": "据标题，本文件为税务厅依《税法典》所得税章节发布的部令，内容为促进电子税务系统的税收措施，并对第144号规定作出修订。具体适用对象、优惠比例与期限待原文核对。",
+   "key_points": [],
+   "org": "税务厅 (RD)",
+   "doc_no": "",
+   "doc_no_label": "文号",
+   "legal_form": "部令 · กฎ 层级",
+   "stability": 3,
+   "effective_label": "已刊公报",
+   "status": "soon",
+   "status_label": "已刊公报",
+   "source_url": "https://www.rd.go.th/fileadmin/user_upload/kormor/newlaw/mr402.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "rd_web",
+   "dates": {
+    "resolved_at": null,
+    "published_at": "2026-10-12",
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "none"
+   },
+   "parties": [],
    "featured": false
   },
   {

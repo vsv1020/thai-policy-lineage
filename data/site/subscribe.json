@@ -12,6 +12,11 @@
    "href": "feed/customs.xml"
   },
   {
+   "id": "tax",
+   "zh": "税务",
+   "href": "feed/tax.xml"
+  },
+  {
    "id": "finance",
    "zh": "金融外汇",
    "href": "feed/finance.xml"
@@ -20,11 +25,6 @@
    "id": "land",
    "zh": "房产土地",
    "href": "feed/land.xml"
-  },
-  {
-   "id": "tax",
-   "zh": "税务",
-   "href": "feed/tax.xml"
   },
   {
    "id": "health",
