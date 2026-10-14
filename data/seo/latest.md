@@ -1,18 +1,18 @@
-# SEO / GEO 日报 · 2026-10-14
+# SEO / GEO 日报 · 2026-10-15
 
-站点 https://www.thaipolicy.com · 生成于 2026-10-14T03:15:30+07:00(曼谷时间)。本文件由 `python -m app.seo_monitor` 生成,每日例行会话据此修改站点。
+站点 https://www.thaipolicy.com · 生成于 2026-10-15T03:15:29+07:00(曼谷时间)。本文件由 `python -m app.seo_monitor` 生成,每日例行会话据此修改站点。
 
 ## 结论
 
 - 严重问题 0 个,需处理 1 个,建议 4 个。
-- Google 收录:已检查 669 页,确认收录 340 页(sitemap 共 669 页)。
-- 近 7 天抓取:Googlebot 605 · Bingbot 472 · 百度 4 · AI 爬虫 396;来访:搜索 1 · AI 0。
+- Google 收录:已检查 669 页,确认收录 342 页(sitemap 共 669 页)。
+- 近 7 天抓取:Googlebot 758 · Bingbot 499 · 百度 4 · AI 爬虫 414;来访:搜索 2 · AI 0。
 
 ## 待处理问题
 
 - **🟠 需处理** `crawl_errors` 爬虫近两天遇到 1 个报错路径
   - 建议:404 通常是删掉的旧页面(可在 nginx 加 301)或错误链接;5xx 查服务器日志
-  - 404 /p/th-gaz-20260326-2569.html(Bingbot,ChatGPT-User,Googlebot,Meta-AI,最近 2026-10-13)
+  - 404 /p/th-gaz-20260326-2569.html(Bingbot,ChatGPT-User,Googlebot,Meta-AI,最近 2026-10-14)
 - **🔵 建议** `geo_not_cited` 8 个实测问题的 AI 回答都没有引用本站
   - 建议:对照被引用的来源(见 GEO 一节),补对应主题的专题页与问答式要点;确保 Bing 已收录
   - 泰国免签停留期最近有什么调整?内阁决议和公报是否一致?
@@ -23,7 +23,7 @@
   - 泰国 BOI 2026 投资促进措施有哪些?数据中心有什么税收激励?
   - 泰国个人所得税 PND 90/91 和半年申报 PND 94 的截止日期是什么时候?
   - 在哪里可以查到泰国皇家公报政策的中文翻译和官方原文链接?
-- **🔵 建议** `gsc_not_indexed` 已检查 669 页,329 页未被 Google 收录
+- **🔵 建议** `gsc_not_indexed` 已检查 669 页,327 页未被 Google 收录
   - 建议:「已发现-尚未编入索引」多为权重/内链不足:加内链、丰富内容;「已抓取-尚未编入索引」多为内容单薄或重复
   - https://www.thaipolicy.com/about.html(已发现 - 尚未编入索引)
   - https://www.thaipolicy.com/p/t/boi.html(Google 无法识别此网址)
@@ -36,51 +36,49 @@
   - ……共 20 项,完整列表见 latest.json
 - **🔵 建议** `never_crawled` 20+ 个落地页近 7 天未被搜索爬虫抓取
   - 建议:增加站内链接(首页、专题页、同领域推荐);新页面已通过 IndexNow 与 GSC sitemap 提交
-  - /p/th-boi-20241024-136366.html
-  - /p/th-boi-20241101-136142.html
-  - /p/th-boi-20241118-136216.html
-  - /p/th-boi-20241125-136239.html
-  - /p/th-boi-20241209-136276.html
-  - /p/th-boi-20241209-136279.html
-  - /p/th-boi-20241220-136327.html
-  - /p/th-boi-20250102-136362.html
+  - /p/th-boi-20260115-138448.html
+  - /p/th-boi-20260115-138450.html
+  - /p/th-gaz-20260205-46-2568-grid-code.html
+  - /p/th-gaz-20260209-2569-3.html
+  - /p/th-gaz-20260210-10-mild-hybrid-electric-vehicle.html
+  - /p/th-gaz-20260210-electric-powered-vehicle.html
+  - /p/th-gaz-20260216-117-thailand-civil-aviation-regulation.html
+  - /p/th-gaz-20260216-2569.html
   - ……共 20 项,完整列表见 latest.json
-- **🔵 建议** `thin_content` 抽查的 40 页中有 30 页摘要只依据标题(内容单薄)
+- **🔵 建议** `thin_content` 抽查的 40 页中有 7 页摘要只依据标题(内容单薄)
   - 建议:单薄页面难以获得排名与 AI 引用:给 enrich 增加读取公报 PDF 正文的步骤,生成有实质内容的摘要与要点
   - https://www.thaipolicy.com/p/th-rd-20261012-mr402.html
-  - https://www.thaipolicy.com/p/th-cabx-20251104-riyadh-declaration-on-the-future.html
-  - https://www.thaipolicy.com/p/th-cabx-20251202-414cf32ec9.html
-  - https://www.thaipolicy.com/p/th-cabx-20251209-2567-2567.html
-  - https://www.thaipolicy.com/p/th-cabx-20251223-8-2568-1-2567.html
-  - https://www.thaipolicy.com/p/th-cabx-20260106-ccs.html
-  - https://www.thaipolicy.com/p/th-cabx-20260113-32.html
-  - https://www.thaipolicy.com/p/th-cabx-20260113-706398dece.html
-  - ……共 20 项,完整列表见 latest.json
+  - https://www.thaipolicy.com/p/th-gaz-20260320-3-2569-2569.html
+  - https://www.thaipolicy.com/p/th-gaz-20260321-a6db57c754.html
+  - https://www.thaipolicy.com/p/th-gaz-20260331-5ea2574d95.html
+  - https://www.thaipolicy.com/p/th-gaz-20260331-fd611049fe.html
+  - https://www.thaipolicy.com/p/th-gaz-20260401-36-2569.html
+  - https://www.thaipolicy.com/p/th-gaz-20260411-0bed790b1b.html
 
 ## 关键指标(括号内为较前一日变化)
 
 | 指标 | 今日 |
 |---|---|
-| sitemap 页面数 | 669 (+2) |
+| sitemap 页面数 | 669  |
 | 今日抽查页数 | 40  |
 | 抽查有问题页数 | 0  |
-| 内容单薄页数(抽查) | 30 (+6) |
-| Google 已确认收录 | 340 (+8) |
-| Google 已检查 | 669 (+2) |
-| Google 曝光(28 天) | 96 (+15) |
+| 内容单薄页数(抽查) | 7 (-23) |
+| Google 已确认收录 | 342 (+2) |
+| Google 已检查 | 669  |
+| Google 曝光(28 天) | 96  |
 | Google 点击(28 天) | 0  |
-| Google 平均排名 | 8.1 (-0.6) |
-| Bing 已收录 | 178  |
+| Google 平均排名 | 8.1  |
+| Bing 已收录 | 179 (+1) |
 | Bing 曝光 | 6  |
-| Googlebot 抓取(7 天) | 605 (+66) |
-| Bingbot 抓取(7 天) | 472 (+21) |
+| Googlebot 抓取(7 天) | 758 (+153) |
+| Bingbot 抓取(7 天) | 499 (+27) |
 | 百度蜘蛛抓取(7 天) | 4  |
-| AI 爬虫抓取(7 天) | 396 (-12) |
-| 落地页被搜索爬虫抓取占比 % | 83.2 (+1.7) |
-| 搜索来源访问(7 天) | 1  |
+| AI 爬虫抓取(7 天) | 414 (+18) |
+| 落地页被搜索爬虫抓取占比 % | 88.3 (+5.1) |
+| 搜索来源访问(7 天) | 2 (+1) |
 | AI 来源访问(7 天) | 0  |
 | AI 实测引用本站(题) | 0  |
-| 今日 IndexNow 提交 | 6 (+6) |
+| 今日 IndexNow 提交 | 0 (-6) |
 
 ## Google 搜索词(28 天)
 
@@ -90,11 +88,10 @@
 
 ## Google 收录状态分布(已检查页面)
 
-- 已提交，且已编入索引:340
-- 已发现 - 尚未编入索引:203
+- 已提交，且已编入索引:342
+- 已发现 - 尚未编入索引:202
 - Google 无法识别此网址:124
 - 已抓取 - 尚未编入索引:1
-- 服务器错误 (5xx):1
 
 ## Bing 搜索词
 
@@ -108,19 +105,19 @@
 
 | 爬虫 | 类型 | 次数 | 页面数 | 最近 |
 |---|---|---|---|---|
-| Applebot | 搜索 | 1580 | 321 | 2026-10-14 |
-| Googlebot | 搜索 | 605 | 401 | 2026-10-14 |
-| Bingbot | 搜索 | 472 | 217 | 2026-10-14 |
+| Applebot | 搜索 | 1118 | 203 | 2026-10-14 |
+| Googlebot | 搜索 | 758 | 496 | 2026-10-15 |
+| Bingbot | 搜索 | 499 | 235 | 2026-10-15 |
 | Meta-AI | AI | 294 | 178 | 2026-10-12 |
-| OAI-SearchBot | AI | 39 | 21 | 2026-10-14 |
-| ClaudeBot | AI | 30 | 3 | 2026-10-11 |
+| OAI-SearchBot | AI | 63 | 34 | 2026-10-14 |
+| ChatGPT-User | AI | 21 | 17 | 2026-10-14 |
+| ClaudeBot | AI | 6 | 3 | 2026-10-11 |
 | PerplexityBot | AI | 6 | 6 | 2026-10-11 |
 | Baiduspider | 搜索 | 4 | 4 | 2026-10-11 |
 | Bytespider | AI | 4 | 4 | 2026-10-11 |
 | DuckAssistBot | AI | 4 | 4 | 2026-10-11 |
 | GPTBot | AI | 4 | 4 | 2026-10-11 |
 | Amazonbot | AI | 3 | 3 | 2026-10-11 |
-| ChatGPT-User | AI | 3 | 2 | 2026-10-13 |
 | Claude-SearchBot | AI | 3 | 3 | 2026-10-11 |
 | cohere-ai | AI | 3 | 3 | 2026-10-11 |
 | CCBot | AI | 2 | 2 | 2026-10-11 |
@@ -130,20 +127,21 @@
 ## 来访渠道(近 7 天)
 
 - 搜索 · Bing:1
+- 搜索 · Google:1
 
 ## GEO 实测(Perplexity)
 
-- ❌ 泰国免签停留期最近有什么调整?内阁决议和公报是否一致? —— 引用:kpmg.com, moscow.thaiembassy.org, thailand.go.th, thailand.prd.go.th, www.ey.com
-- ❌ 泰国境外所得汇入课税新规有哪些豁免措施? —— 引用:news.ddtc.co.id, taxsummaries.pwc.com, thailand.acclime.com, www.bdo.global, www.chiangraitimes.com
-- ❌ 泰国代持股(Nominee)公司如何被排查?外国人买公寓的外资配额是多少? —— 引用:en.thairath.co.th, stanbrinkman.com, thailand.go.th, thailand.prd.go.th, www.bdo.th
-- ❌ 泰国 PDPA 个人资料跨境传输有什么要求? —— 引用:assets.kpmg.com, resourcehub.bakermckenzie.com, www.dlapiperdataprotection.com, www.linklaters.com, www.nagashima.com
-- ❌ 泰国 LTR 长期居留签证的税务待遇是什么? —— 引用:assets.kpmg.com, ltr.boi.go.th, taxsummaries.pwc.com, thailand.go.th, www.bdo.global
-- ❌ 泰国 BOI 2026 投资促进措施有哪些?数据中心有什么税收激励? —— 引用:taxsummaries.pwc.com, www.boi.go.th
-- ❌ 泰国个人所得税 PND 90/91 和半年申报 PND 94 的截止日期是什么时候? —— 引用:attorilaw.com, efiling.rd.go.th, houseviser.com, mbmg-group.com, movetothai.land
-- ❌ 在哪里可以查到泰国皇家公报政策的中文翻译和官方原文链接? —— 引用:de.wikipedia.org, en.wikipedia.org, ndlsearch.ndl.go.jp, thailand.go.th, thailand.prd.go.th
-- 被引用最多的其他站点:thailand.go.th(4)、www.thailand.go.th(4)、thailand.prd.go.th(3)、www.rd.go.th(3)、taxsummaries.pwc.com(3)、www.forvismazars.com(3)、www.boi.go.th(3)、www.chiangraitimes.com(2)
+- ❌ 泰国免签停留期最近有什么调整?内阁决议和公报是否一致? —— 引用:moscow.thaiembassy.org, tdac.info, thailand.go.th, thailand.prd.go.th, www.bbc.com
+- ❌ 泰国境外所得汇入课税新规有哪些豁免措施? —— 引用:phuket.thainotary.co.th, rumavi.com, www.bdo.global, www.bdo.th, www.chiangraitimes.com
+- ❌ 泰国代持股(Nominee)公司如何被排查?外国人买公寓的外资配额是多少? —— 引用:fosrlaw.com, oneasia.legal, stanbrinkman.com, thailand.go.th, thailand.prd.go.th
+- ❌ 泰国 PDPA 个人资料跨境传输有什么要求? —— 引用:kpmg.com, legal.pwc.de, practiceguides.chambers.com, resourcehub.bakermckenzie.com, www.austchamthailand.com
+- ❌ 泰国 LTR 长期居留签证的税务待遇是什么? —— 引用:image.mfa.go.th, kpmg.com, ltr.boi.go.th, thaiconsulatela.thaiembassy.org, www.bdo.global
+- ❌ 泰国 BOI 2026 投资促进措施有哪些?数据中心有什么税收激励? —— 引用:www.boi.go.th, www.luther-lawfirm.com, www.tilleke.com
+- ❌ 泰国个人所得税 PND 90/91 和半年申报 PND 94 的截止日期是什么时候? —— 引用:attorilaw.com, baanlyy.com, franklegaltax.com, houseviser.com, khonsulegal.com
+- ❌ 在哪里可以查到泰国皇家公报政策的中文翻译和官方原文链接? —— 引用:de.wikipedia.org, libguides.nus.edu.sg, ndlsearch.ndl.go.jp, thaigovdata.com, www.botlc.or.th
+- 被引用最多的其他站点:www.thailand.go.th(3)、www.luther-lawfirm.com(3)、www.forvismazars.com(3)、www.rd.go.th(3)、thailand.go.th(2)、thailand.prd.go.th(2)、www.bdo.th(2)、phuket.thainotary.co.th(2)
 
 ## 今日提交
 
-- IndexNow:6 个 URL
+- IndexNow:0 个 URL
 - GSC sitemap:已存在
