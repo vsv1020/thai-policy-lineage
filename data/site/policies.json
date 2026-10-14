@@ -1,7 +1,7 @@
 {
  "_generated": "由 backend/app/export.py 从数据库导出,请勿手改;改 data/policies/*.jsonl → python3 -m app.ingest → python3 -m app.export",
  "schema_version": 4,
- "updated_at": "2026-10-13T07:07:32+07:00",
+ "updated_at": "2026-10-14T07:07:32+07:00",
  "stats": {
   "total": 573,
   "research": 0,
@@ -68,9 +68,9 @@
   {
    "domain": "biz",
    "label": "公司投资",
-   "score": 0.05,
-   "n": 10,
-   "direction": "neutral"
+   "score": 0.39,
+   "n": 6,
+   "direction": "loose"
   },
   {
    "domain": "tax",
@@ -80,18 +80,18 @@
    "direction": "loose"
   },
   {
-   "domain": "digital",
-   "label": "数字与数据",
-   "score": 0.21,
-   "n": 2,
-   "direction": "loose"
-  },
-  {
    "domain": "health",
    "label": "医疗",
    "score": 0.0,
    "n": 1,
    "direction": "neutral"
+  },
+  {
+   "domain": "digital",
+   "label": "数字与数据",
+   "score": 0.26,
+   "n": 1,
+   "direction": "loose"
   }
  ],
  "calendar": [
