@@ -1,16 +1,16 @@
 {
  "_generated": "由 backend/app/export.py 从数据库导出,请勿手改;改 data/policies/*.jsonl → python3 -m app.ingest → python3 -m app.export",
  "schema_version": 4,
- "updated_at": "2026-10-14T07:07:32+07:00",
+ "updated_at": "2026-10-15T07:07:31+07:00",
  "stats": {
-  "total": 573,
+  "total": 575,
   "research": 0,
   "demo": 0,
   "with_points": 503,
   "date_from": "2024-10-10",
-  "date_to": "2026-10-12",
+  "date_to": "2026-10-14",
   "gazette_to": "2026-04-22",
-  "agency_n": 105,
+  "agency_n": 107,
   "by_domain": [
    {
     "id": "biz",
@@ -25,7 +25,7 @@
    {
     "id": "tax",
     "zh": "税务",
-    "n": 56
+    "n": 58
    },
    {
     "id": "finance",
@@ -66,16 +66,16 @@
  },
  "wind": [
   {
-   "domain": "biz",
-   "label": "公司投资",
-   "score": 0.39,
-   "n": 6,
+   "domain": "tax",
+   "label": "税务",
+   "score": 0.41,
+   "n": 8,
    "direction": "loose"
   },
   {
-   "domain": "tax",
-   "label": "税务",
-   "score": 0.32,
+   "domain": "biz",
+   "label": "公司投资",
+   "score": 0.39,
    "n": 6,
    "direction": "loose"
   },
@@ -90,6 +90,13 @@
    "domain": "digital",
    "label": "数字与数据",
    "score": 0.26,
+   "n": 1,
+   "direction": "loose"
+  },
+  {
+   "domain": "education",
+   "label": "教育",
+   "score": 0.17,
    "n": 1,
    "direction": "loose"
   }
@@ -28683,6 +28690,93 @@
      "label": "外资投资者"
     }
    ],
+   "featured": false
+  },
+  {
+   "uid": "TH-RD-20261014-DC808",
+   "issue_id": null,
+   "date": "2026-10-14",
+   "domain": "tax",
+   "domain_label": "税务",
+   "direction": "loose",
+   "title_zh": "《税收法典》项下免税皇家法令(第808号)佛历2569年:对法人企业用于开发系统、开具电子税务发票或电子收据及通过系统缴纳税款的支出等额所得免征所得税",
+   "title_th": "พระราชกฤษฎีกาออกตามความในประมวลรัษฎากร ว่าด้วยการยกเว้นรัษฎากร (ฉบับที่ 808) พ.ศ. 2569 ยกเว้นภาษีเงินได้ให้แก่บริษัทหรือห้างหุ้นส่วนนิติบุคคลสำหรับเงินได้เท่ากับรายจ่ายที่ได้จ่ายไปในการพัฒนาระบบ การจัดทำใบกำกับภาษีอิเล็กทรอนิกส์หรือใบรับอิเล็กทรอนิกส์ และการนำส่งภาษีผ่านระบบ",
+   "summary_zh": "据标题,本文件为依《税收法典》发布的免税皇家法令(第808号),对法人企业(公司或法人合伙)用于开发系统、开具电子税务发票或电子收据以及通过系统缴纳税款的支出,就其等额所得免征所得税;具体条款待原文核对。",
+   "key_points": [],
+   "org": "税务厅 (RD)",
+   "doc_no": "",
+   "doc_no_label": "文号",
+   "legal_form": "皇家法令 · พ.ร.ฎ. 层级",
+   "stability": 4,
+   "effective_label": "已刊公报",
+   "status": "soon",
+   "status_label": "已刊公报",
+   "source_url": "https://www.rd.go.th/fileadmin/user_upload/kormor/newlaw/dc808.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "rd_web",
+   "dates": {
+    "resolved_at": null,
+    "published_at": "2026-10-14",
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "none"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "support",
+     "label": "外资企业"
+    },
+    {
+     "id": "thai_employer",
+     "party_id": "thai_employer",
+     "stance": "support",
+     "label": "本地雇主"
+    }
+   ],
+   "featured": false
+  },
+  {
+   "uid": "TH-RD-20261014-DC809",
+   "issue_id": null,
+   "date": "2026-10-14",
+   "domain": "tax",
+   "domain_label": "税务",
+   "direction": "loose",
+   "title_zh": "根据《税法典》颁布的皇家法令：税收豁免（第809号）佛历2569年——对向教育机构捐赠资金或财产的免税",
+   "title_th": "พระราชกฤษฎีกาออกตามความในประมวลรัษฎากร ว่าด้วยการยกเว้นรัษฎากร (ฉบับที่ 809) พ.ศ. 2569 การยกเว้นภาษีสำหรับการบริจาคเงินหรือทรัพย์สินให้แก่สถานศึกษา",
+   "summary_zh": "据标题，本文件为根据《税法典》颁布的皇家法令（第809号），规定对向教育机构捐赠资金或财产给予税收豁免；具体豁免范围、比例与条件待原文核对。",
+   "key_points": [],
+   "org": "税务厅 (RD)",
+   "doc_no": "",
+   "doc_no_label": "文号",
+   "legal_form": "皇家法令 · พ.ร.ฎ. 层级",
+   "stability": 4,
+   "effective_label": "已刊公报",
+   "status": "soon",
+   "status_label": "已刊公报",
+   "source_url": "https://www.rd.go.th/fileadmin/user_upload/kormor/newlaw/dc809.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "rd_web",
+   "dates": {
+    "resolved_at": null,
+    "published_at": "2026-10-14",
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "none"
+   },
+   "parties": [],
    "featured": false
   },
   {
