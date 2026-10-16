@@ -1,12 +1,12 @@
 {
  "_generated": "由 backend/app/export.py 从数据库导出,请勿手改;改 data/policies/*.jsonl → python3 -m app.ingest → python3 -m app.export",
  "schema_version": 4,
- "updated_at": "2026-10-15T07:07:31+07:00",
+ "updated_at": "2026-10-16T07:07:35+07:00",
  "stats": {
   "total": 575,
   "research": 0,
   "demo": 0,
-  "with_points": 503,
+  "with_points": 506,
   "date_from": "2024-10-10",
   "date_to": "2026-10-14",
   "gazette_to": "2026-04-22",
@@ -68,7 +68,7 @@
   {
    "domain": "tax",
    "label": "税务",
-   "score": 0.41,
+   "score": 0.53,
    "n": 8,
    "direction": "loose"
   },
@@ -96,7 +96,7 @@
   {
    "domain": "education",
    "label": "教育",
-   "score": 0.17,
+   "score": 0.26,
    "n": 1,
    "direction": "loose"
   }
@@ -122,6 +122,179 @@
   }
  ],
  "policies": [
+  {
+   "uid": "TH-RD-20261014-DC808",
+   "issue_id": null,
+   "date": "2026-10-14",
+   "domain": "tax",
+   "domain_label": "税务",
+   "direction": "loose",
+   "title_zh": "根据《税法典》颁布的关于免税的皇家法令（第808号）佛历2569年：对法人公司为开发电子发票或电子收据系统及通过系统缴纳税款所支出的费用给予所得税免征",
+   "title_th": "พระราชกฤษฎีกาออกตามความในประมวลรัษฎากร ว่าด้วยการยกเว้นรัษฎากร (ฉบับที่ 808) พ.ศ. 2569 ยกเว้นภาษีเงินได้ให้แก่บริษัทหรือห้างหุ้นส่วนนิติบุคคลสำหรับเงินได้เท่ากับรายจ่ายที่ได้จ่ายไปในการพัฒนาระบบ การจัดทำใบกำกับภาษีอิเล็กทรอนิกส์หรือใบรับอิเล็กทรอนิกส์ และการนำส่งภาษีผ่านระบบ",
+   "summary_zh": "该皇家法令规定，对法人公司自2026年1月1日至2031年12月31日期间，为投资电子数据制作系统、电子数据接收系统，或购买计算机程序、电子证书存储设备、计算机及相关设备，用于制作、发送、接收或保存电子发票或电子收据所实际支出的费用，免征所得税，免征金额等于实际支出金额的100%。此外，对负责代扣代缴所得税、所得税或增值税的法人公司及税款缴纳服务提供商，同期为投资税款缴纳系统或购买相关设备所支出的费用，同样免征所得税。免税须符合税务厅厅长规定的规则、方法和条件；从事电子数据制作或发送服务以及为销售或提供服务而开发计算机程序者的支出不适用。",
+   "key_points": [
+    "法人公司2026年1月1日至2031年12月31日期间投资电子发票/收据系统可享所得税免征。",
+    "免征额等于实际支出金额的100%，用于购买程序、设备等。",
+    "代扣代缴义务人及税款缴纳服务商投资税款缴纳系统同样免税。",
+    "免税须符合税务厅厅长规定的规则、方法和条件。",
+    "服务提供商及软件开发商的相关支出不适用免税。"
+   ],
+   "org": "税务厅 (RD)",
+   "doc_no": "",
+   "doc_no_label": "文号",
+   "legal_form": "皇家法令 · พ.ร.ฎ. 层级",
+   "stability": 4,
+   "effective_label": "已生效",
+   "status": "soon",
+   "status_label": "已刊公报",
+   "source_url": "https://www.rd.go.th/fileadmin/user_upload/kormor/newlaw/dc808.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "rd_web",
+   "dates": {
+    "resolved_at": null,
+    "published_at": "2026-10-14",
+    "effective_from": "2026-10-15",
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "none"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "support",
+     "label": "外资企业"
+    },
+    {
+     "id": "thai_employer",
+     "party_id": "thai_employer",
+     "stance": "support",
+     "label": "本地雇主"
+    }
+   ],
+   "featured": true
+  },
+  {
+   "uid": "TH-RD-20261014-DC809",
+   "issue_id": null,
+   "date": "2026-10-14",
+   "domain": "tax",
+   "domain_label": "税务",
+   "direction": "loose",
+   "title_zh": "根据税法典关于免税的皇家法令（第809号）佛历2569年：向教育机构捐赠款项或财产的免税",
+   "title_th": "พระราชกฤษฎีกาออกตามความในประมวลรัษฎากร ว่าด้วยการยกเว้นรัษฎากร (ฉบับที่ 809) พ.ศ. 2569 การยกเว้นภาษีสำหรับการบริจาคเงินหรือทรัพย์สินให้แก่สถานศึกษา",
+   "summary_zh": "该皇家法令规定，自2026年1月1日至12月31日期间通过电子捐赠系统向教育机构捐赠，可享受所得税免税优惠。个人捐赠可按捐赠金额的两倍从应纳税所得额中扣除，公司或合伙企业的捐赠支出同样按两倍扣除。享受该优惠须符合税务厅厅长公告规定的其他条件和标准。",
+   "key_points": [
+    "个人通过电子捐赠系统向教育机构捐赠，可按捐赠金额两倍抵扣应纳税所得额",
+    "公司或合伙企业捐赠支出可按两倍扣除，无论捐赠现金或财产",
+    "适用期间为2026年1月1日至2026年12月31日",
+    "教育机构包括公立学校、私立学校、私立高等教育机构及部分国际教育机构",
+    "须符合税务厅厅长公告规定的其他条件和标准"
+   ],
+   "org": "税务厅 (RD)",
+   "doc_no": "",
+   "doc_no_label": "文号",
+   "legal_form": "皇家法令 · พ.ร.ฎ. 层级",
+   "stability": 4,
+   "effective_label": "已生效",
+   "status": "soon",
+   "status_label": "已刊公报",
+   "source_url": "https://www.rd.go.th/fileadmin/user_upload/kormor/newlaw/dc809.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "rd_web",
+   "dates": {
+    "resolved_at": null,
+    "published_at": "2026-10-14",
+    "effective_from": "2026-10-15",
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "none"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "support",
+     "label": "外资企业"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "support",
+     "label": "外籍长居个人"
+    },
+    {
+     "id": "thai_employer",
+     "party_id": "thai_employer",
+     "stance": "support",
+     "label": "本地雇主"
+    }
+   ],
+   "featured": true
+  },
+  {
+   "uid": "TH-RD-20261012-MR402",
+   "issue_id": null,
+   "date": "2026-10-12",
+   "domain": "tax",
+   "domain_label": "税务",
+   "direction": "loose",
+   "title_zh": "部令第402号（佛历2569年）依《税法典》关于所得税：促进电子税务系统措施，修订第144号",
+   "title_th": "กฎกระทรวง ฉบับที่ 402 (พ.ศ. 2569) ออกตามความในประมวลรัษฎากร ว่าด้วยภาษีเงินได้ มาตรการภาษีเพื่อส่งเสริมระบบภาษีอิเล็กทรอนิกส์ แก้ไขเพิ่มเติม ฉบับที่ 144",
+   "summary_zh": "该部令修订《税法典》下关于所得税的部令（第155号）第2条(13/5)款，对通过《税法典》第3条之十三规定的电子申报方式缴纳税款的付款方，给予降低的预扣税税率。适用期间为佛历2569年（2026年）1月1日至佛历2570年（2027年）12月31日，税率为1.0%。适用对象包括向公司或法人合伙支付的服务费、特许权使用费、租金、奖金、广告费等特定所得。",
+   "key_points": [
+    "对通过电子系统申报缴税的付款方，特定所得的预扣税税率降至1.0%。",
+    "适用期间为2026年1月1日至2027年12月31日。",
+    "适用所得包括服务费、特许权使用费、租金、奖金、广告费等。",
+    "不适用于基金会、协会及部分船舶租赁等特定情形。"
+   ],
+   "org": "税务厅 (RD) · 财政部 (MOF)",
+   "doc_no": "",
+   "doc_no_label": "文号",
+   "legal_form": "部令 · กฎ 层级",
+   "stability": 3,
+   "effective_label": "已生效",
+   "status": "soon",
+   "status_label": "已刊公报",
+   "source_url": "https://www.rd.go.th/fileadmin/user_upload/kormor/newlaw/mr402.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "rd_web",
+   "dates": {
+    "resolved_at": null,
+    "published_at": "2026-10-12",
+    "effective_from": "2026-10-13",
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "none"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "support",
+     "label": "外资企业"
+    },
+    {
+     "id": "thai_employer",
+     "party_id": "thai_employer",
+     "stance": "support",
+     "label": "本地雇主"
+    }
+   ],
+   "featured": true
+  },
   {
    "uid": "TH-BOI-20261006-139502",
    "issue_id": null,
@@ -349,7 +522,7 @@
      "label": "本地雇主"
     }
    ],
-   "featured": true
+   "featured": false
   },
   {
    "uid": "TH-RD-20261002-DG470A",
@@ -405,7 +578,7 @@
      "label": "外籍长居个人"
     }
    ],
-   "featured": true
+   "featured": false
   },
   {
    "uid": "TH-RD-20261002-DG471A",
@@ -1084,7 +1257,7 @@
      "label": "外资投资者"
     }
    ],
-   "featured": true
+   "featured": false
   },
   {
    "uid": "TH-BOI-20260521-138884",
@@ -28690,130 +28863,6 @@
      "label": "外资投资者"
     }
    ],
-   "featured": false
-  },
-  {
-   "uid": "TH-RD-20261014-DC808",
-   "issue_id": null,
-   "date": "2026-10-14",
-   "domain": "tax",
-   "domain_label": "税务",
-   "direction": "loose",
-   "title_zh": "《税收法典》项下免税皇家法令(第808号)佛历2569年:对法人企业用于开发系统、开具电子税务发票或电子收据及通过系统缴纳税款的支出等额所得免征所得税",
-   "title_th": "พระราชกฤษฎีกาออกตามความในประมวลรัษฎากร ว่าด้วยการยกเว้นรัษฎากร (ฉบับที่ 808) พ.ศ. 2569 ยกเว้นภาษีเงินได้ให้แก่บริษัทหรือห้างหุ้นส่วนนิติบุคคลสำหรับเงินได้เท่ากับรายจ่ายที่ได้จ่ายไปในการพัฒนาระบบ การจัดทำใบกำกับภาษีอิเล็กทรอนิกส์หรือใบรับอิเล็กทรอนิกส์ และการนำส่งภาษีผ่านระบบ",
-   "summary_zh": "据标题,本文件为依《税收法典》发布的免税皇家法令(第808号),对法人企业(公司或法人合伙)用于开发系统、开具电子税务发票或电子收据以及通过系统缴纳税款的支出,就其等额所得免征所得税;具体条款待原文核对。",
-   "key_points": [],
-   "org": "税务厅 (RD)",
-   "doc_no": "",
-   "doc_no_label": "文号",
-   "legal_form": "皇家法令 · พ.ร.ฎ. 层级",
-   "stability": 4,
-   "effective_label": "已刊公报",
-   "status": "soon",
-   "status_label": "已刊公报",
-   "source_url": "https://www.rd.go.th/fileadmin/user_upload/kormor/newlaw/dc808.pdf",
-   "verified": false,
-   "detail_ready": false,
-   "provenance": "rd_web",
-   "dates": {
-    "resolved_at": null,
-    "published_at": "2026-10-14",
-    "effective_from": null,
-    "effective_to": null,
-    "comment_deadline": null
-   },
-   "confidence": {
-    "dates": "high",
-    "doc_no": "none"
-   },
-   "parties": [
-    {
-     "id": "foreign_company",
-     "party_id": "foreign_company",
-     "stance": "support",
-     "label": "外资企业"
-    },
-    {
-     "id": "thai_employer",
-     "party_id": "thai_employer",
-     "stance": "support",
-     "label": "本地雇主"
-    }
-   ],
-   "featured": false
-  },
-  {
-   "uid": "TH-RD-20261014-DC809",
-   "issue_id": null,
-   "date": "2026-10-14",
-   "domain": "tax",
-   "domain_label": "税务",
-   "direction": "loose",
-   "title_zh": "根据《税法典》颁布的皇家法令：税收豁免（第809号）佛历2569年——对向教育机构捐赠资金或财产的免税",
-   "title_th": "พระราชกฤษฎีกาออกตามความในประมวลรัษฎากร ว่าด้วยการยกเว้นรัษฎากร (ฉบับที่ 809) พ.ศ. 2569 การยกเว้นภาษีสำหรับการบริจาคเงินหรือทรัพย์สินให้แก่สถานศึกษา",
-   "summary_zh": "据标题，本文件为根据《税法典》颁布的皇家法令（第809号），规定对向教育机构捐赠资金或财产给予税收豁免；具体豁免范围、比例与条件待原文核对。",
-   "key_points": [],
-   "org": "税务厅 (RD)",
-   "doc_no": "",
-   "doc_no_label": "文号",
-   "legal_form": "皇家法令 · พ.ร.ฎ. 层级",
-   "stability": 4,
-   "effective_label": "已刊公报",
-   "status": "soon",
-   "status_label": "已刊公报",
-   "source_url": "https://www.rd.go.th/fileadmin/user_upload/kormor/newlaw/dc809.pdf",
-   "verified": false,
-   "detail_ready": false,
-   "provenance": "rd_web",
-   "dates": {
-    "resolved_at": null,
-    "published_at": "2026-10-14",
-    "effective_from": null,
-    "effective_to": null,
-    "comment_deadline": null
-   },
-   "confidence": {
-    "dates": "high",
-    "doc_no": "none"
-   },
-   "parties": [],
-   "featured": false
-  },
-  {
-   "uid": "TH-RD-20261012-MR402",
-   "issue_id": null,
-   "date": "2026-10-12",
-   "domain": "tax",
-   "domain_label": "税务",
-   "direction": "neutral",
-   "title_zh": "部令第402号（佛历2569年）依《税法典》关于所得税的规定：促进电子税务系统税收措施（第144号修正案）",
-   "title_th": "กฎกระทรวง ฉบับที่ 402 (พ.ศ. 2569) ออกตามความในประมวลรัษฎากร ว่าด้วยภาษีเงินได้ มาตรการภาษีเพื่อส่งเสริมระบบภาษีอิเล็กทรอนิกส์ แก้ไขเพิ่มเติม ฉบับที่ 144",
-   "summary_zh": "据标题，本文件为税务厅依《税法典》所得税章节发布的部令，内容为促进电子税务系统的税收措施，并对第144号规定作出修订。具体适用对象、优惠比例与期限待原文核对。",
-   "key_points": [],
-   "org": "税务厅 (RD)",
-   "doc_no": "",
-   "doc_no_label": "文号",
-   "legal_form": "部令 · กฎ 层级",
-   "stability": 3,
-   "effective_label": "已刊公报",
-   "status": "soon",
-   "status_label": "已刊公报",
-   "source_url": "https://www.rd.go.th/fileadmin/user_upload/kormor/newlaw/mr402.pdf",
-   "verified": false,
-   "detail_ready": false,
-   "provenance": "rd_web",
-   "dates": {
-    "resolved_at": null,
-    "published_at": "2026-10-12",
-    "effective_from": null,
-    "effective_to": null,
-    "comment_deadline": null
-   },
-   "confidence": {
-    "dates": "high",
-    "doc_no": "none"
-   },
-   "parties": [],
    "featured": false
   },
   {

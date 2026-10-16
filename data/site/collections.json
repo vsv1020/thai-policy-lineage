@@ -75,7 +75,7 @@
   {
    "id": "foreign_company",
    "zh": "外资企业",
-   "n": 433,
+   "n": 435,
    "href": "p/who/foreign_company.html",
    "date": "2026-10-14"
   },
@@ -89,9 +89,9 @@
   {
    "id": "foreign_resident",
    "zh": "外籍长居个人",
-   "n": 104,
+   "n": 105,
    "href": "p/who/foreign_resident.html",
-   "date": "2026-10-02"
+   "date": "2026-10-14"
   },
   {
    "id": "importer",
@@ -117,7 +117,7 @@
   {
    "id": "thai_employer",
    "zh": "本地雇主",
-   "n": 94,
+   "n": 96,
    "href": "p/who/thai_employer.html",
    "date": "2026-10-14"
   },

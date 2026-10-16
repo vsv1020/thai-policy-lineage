@@ -213,7 +213,7 @@
     "color": "seal",
     "data": [
      134,
-     16,
+     17,
      30,
      37,
      92,
@@ -244,7 +244,7 @@
     "goal": "区域均衡"
    }
   ],
-  "n": 740,
+  "n": 741,
   "sufficient": true,
   "min_n": 12
  },
@@ -351,7 +351,7 @@
    {
     "id": "foreign_company",
     "label": "外资企业",
-    "support": 118,
+    "support": 120,
     "constrain": 137,
     "neutral": 178
    },
@@ -377,18 +377,18 @@
     "neutral": 35
    },
    {
-    "id": "foreign_resident",
-    "label": "外籍长居个人",
-    "support": 33,
-    "constrain": 23,
-    "neutral": 48
-   },
-   {
     "id": "thai_employer",
     "label": "本地雇主",
-    "support": 23,
+    "support": 25,
     "constrain": 33,
     "neutral": 38
+   },
+   {
+    "id": "foreign_resident",
+    "label": "外籍长居个人",
+    "support": 34,
+    "constrain": 23,
+    "neutral": 48
    },
    {
     "id": "sme",
@@ -413,7 +413,7 @@
    }
   ],
   "max": 137,
-  "n": 1164,
+  "n": 1169,
   "sufficient": true,
   "min_n": 10
  },
@@ -432,7 +432,7 @@
    {
     "a": "财政部",
     "b": "税务厅",
-    "n": 7
+    "n": 8
    },
    {
     "a": "投资促进委员会",
@@ -566,9 +566,9 @@
    }
   ],
   "max": 14,
-  "solo_documents": 518,
+  "solo_documents": 517,
   "note": "联署少而各自单独规定同一事项,是维度六冲突的来源",
-  "n": 85,
+  "n": 86,
   "sufficient": true,
   "min_n": 8
  },
