@@ -315,9 +315,11 @@ def server_stats(client: httpx.Client, rep: Report, token: str, baidu_on: bool =
                       f"在 {name} 站长平台验证站点并提交 sitemap;新站通常需要 1–4 周才开始抓取")
     # 只报近两天仍在发生的:已经修好的路径,7 天窗口里的旧记录不再天天提醒
     since = (rep.today - timedelta(days=1)).isoformat()
-    # 410 是本站故意返回的(如 /comments/feed/:没有评论订阅),不算问题
+    # 410 是本站故意返回的(如 /comments/feed/:没有评论订阅),不算问题;
+    # 含 ${ 的路径是 AI 爬虫把 JS 模板字符串当链接抓出来的,站内并无此链接
     recent = [e for e in d["crawlers"]["errors"]
-              if (e.get("last_seen") or since) >= since and e.get("status") != 410]
+              if (e.get("last_seen") or since) >= since and e.get("status") != 410
+              and "${" not in e.get("path", "")]
     if recent:
         rep.issue("warn", "crawl_errors", f"爬虫近两天遇到 {len(recent)} 个报错路径",
                   "404 通常是删掉的旧页面(可在 nginx 加 301)或错误链接;5xx 查服务器日志",
