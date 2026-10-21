@@ -1,7 +1,7 @@
 {
  "_generated": "由 backend/app/export.py 从数据库导出,请勿手改;改 data/policies/*.jsonl → python3 -m app.ingest → python3 -m app.export",
  "schema_version": 4,
- "updated_at": "2026-10-20T07:07:31+07:00",
+ "updated_at": "2026-10-21T07:07:41+07:00",
  "stats": {
   "total": 575,
   "research": 0,
