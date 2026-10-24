@@ -1,26 +1,18 @@
-# SEO / GEO 日报 · 2026-10-24
+# SEO / GEO 日报 · 2026-10-25
 
-站点 https://www.thaipolicy.com · 生成于 2026-10-24T03:15:37+07:00(曼谷时间)。本文件由 `python -m app.seo_monitor` 生成,每日例行会话据此修改站点。
+站点 https://www.thaipolicy.com · 生成于 2026-10-25T03:15:23+07:00(曼谷时间)。本文件由 `python -m app.seo_monitor` 生成,每日例行会话据此修改站点。
 
 ## 结论
 
 - 严重问题 0 个,需处理 1 个,建议 3 个。
-- Google 收录:已检查 671 页,确认收录 571 页(sitemap 共 671 页)。
-- 近 7 天抓取:Googlebot 505 · Bingbot 524 · 百度 56 · AI 爬虫 245;来访:搜索 3 · AI 0。
+- Google 收录:已检查 671 页,确认收录 587 页(sitemap 共 671 页)。
+- 近 7 天抓取:Googlebot 490 · Bingbot 538 · 百度 56 · AI 爬虫 243;来访:搜索 2 · AI 0。
 
 ## 待处理问题
 
-- **🟠 需处理** `crawl_errors` 爬虫近两天遇到 30 个报错路径
+- **🟠 需处理** `crawl_errors` 爬虫近两天遇到 1 个报错路径
   - 建议:404 通常是删掉的旧页面(可在 nginx 加 301)或错误链接;5xx 查服务器日志
-  - 404 /p/th-gaz-20260326-2569.html(Bingbot,Googlebot,最近 2026-10-23)
-  - 404 /app(Baiduspider,Bingbot,DuckAssistBot,Meta-AI,PerplexityBot,最近 2026-10-23)
-  - 404 /config/settings.local.yml(Claude-SearchBot,Meta-AI,最近 2026-10-23)
-  - 404 /application/.env.sample(ChatGPT-User,Claude-User,最近 2026-10-23)
-  - 404 /client/.env(DuckAssistBot,Googlebot,最近 2026-10-23)
-  - 404 /config/environment.json(OAI-SearchBot,PerplexityBot,最近 2026-10-23)
-  - 404 //dashboard(GPTBot,PerplexityBot,最近 2026-10-23)
-  - 404 /.terraform.rc(CCBot,Claude-User,最近 2026-10-23)
-  - ……共 20 项,完整列表见 latest.json
+  - 404 /p/th-gaz-20260326-2569.html(Bingbot,Googlebot,最近 2026-10-24)
 - **🔵 建议** `geo_not_cited` 8 个实测问题的 AI 回答都没有引用本站
   - 建议:对照被引用的来源(见 GEO 一节),补对应主题的专题页与问答式要点;确保 Bing 已收录
   - 泰国免签停留期最近有什么调整?内阁决议和公报是否一致?
@@ -31,7 +23,7 @@
   - 泰国 BOI 2026 投资促进措施有哪些?数据中心有什么税收激励?
   - 泰国个人所得税 PND 90/91 和半年申报 PND 94 的截止日期是什么时候?
   - 在哪里可以查到泰国皇家公报政策的中文翻译和官方原文链接?
-- **🔵 建议** `gsc_not_indexed` 已检查 671 页,100 页未被 Google 收录
+- **🔵 建议** `gsc_not_indexed` 已检查 671 页,84 页未被 Google 收录
   - 建议:「已发现-尚未编入索引」多为权重/内链不足:加内链、丰富内容;「已抓取-尚未编入索引」多为内容单薄或重复
   - https://www.thaipolicy.com/p/t/boi.html(已发现 - 尚未编入索引)
   - https://www.thaipolicy.com/p/t/data-protection.html(已发现 - 尚未编入索引)
@@ -51,7 +43,7 @@
   - /p/th-boi-20250714-137152.html
   - /p/th-boi-20260115-138447.html
   - /p/th-boi-20260115-138448.html
-  - /p/th-boi-20260115-138450.html
+  - /p/th-boi-20260409-138733.html
   - ……共 20 项,完整列表见 latest.json
 
 ## 关键指标(括号内为较前一日变化)
@@ -61,20 +53,20 @@
 | sitemap 页面数 | 671  |
 | 今日抽查页数 | 40  |
 | 抽查有问题页数 | 0  |
-| 内容单薄页数(抽查) | 0 (-1) |
-| Google 已确认收录 | 571 (+4) |
+| 内容单薄页数(抽查) | 0  |
+| Google 已确认收录 | 587 (+16) |
 | Google 已检查 | 671  |
-| Google 曝光(28 天) | 261 (+16) |
-| Google 点击(28 天) | 2 (+1) |
-| Google 平均排名 | 10.1 (-0.2) |
-| Bing 已收录 | 219 (+10) |
-| Bing 曝光 | 23  |
-| Googlebot 抓取(7 天) | 505 (-57) |
-| Bingbot 抓取(7 天) | 524 (+20) |
-| 百度蜘蛛抓取(7 天) | 56 (+36) |
-| AI 爬虫抓取(7 天) | 245 (+143) |
-| 落地页被搜索爬虫抓取占比 % | 71.8 (-8.9) |
-| 搜索来源访问(7 天) | 3  |
+| Google 曝光(28 天) | 275 (+14) |
+| Google 点击(28 天) | 2  |
+| Google 平均排名 | 10.4 (+0.3) |
+| Bing 已收录 | 240 (+21) |
+| Bing 曝光 | 44 (+21) |
+| Googlebot 抓取(7 天) | 490 (-15) |
+| Bingbot 抓取(7 天) | 538 (+14) |
+| 百度蜘蛛抓取(7 天) | 56  |
+| AI 爬虫抓取(7 天) | 243 (-2) |
+| 落地页被搜索爬虫抓取占比 % | 72.3 (+0.5) |
+| 搜索来源访问(7 天) | 2 (-1) |
 | AI 来源访问(7 天) | 0  |
 | AI 实测引用本站(题) | 0  |
 | 今日 IndexNow 提交 | 0  |
@@ -85,42 +77,43 @@
 |---|---|---|---|
 | 2569-2551 | 1 | 0 | 29 |
 | chiang mai initiative multilateralisation (cmim) | 1 | 0 | 68 |
+| pt99 | 1 | 0 | 100 |
 | 泰國設廠 注意事項 | 1 | 0 | 68 |
 | 泰國變更土地用途 注意事項 | 2 | 0 | 49.5 |
-| 泰國變更土地用途 限制 | 11 | 0 | 52.4 |
+| 泰國變更土地用途 限制 | 12 | 0 | 51.8 |
 
 ## Google 收录状态分布(已检查页面)
 
-- 已提交，且已编入索引:571
-- 已发现 - 尚未编入索引:74
-- Google 无法识别此网址:24
+- 已提交，且已编入索引:587
+- 已发现 - 尚未编入索引:60
+- Google 无法识别此网址:22
 - 已抓取 - 尚未编入索引:2
 
 ## Bing 搜索词
 
+- 清迈倡议:曝光 4 · 点击 0
 - 清迈倡议多边化（cmim）:曝光 3 · 点击 0
 - 泰国发电厂烟气排放标准:曝光 2 · 点击 0
+- sirps เกณฑ์:曝光 2 · 点击 0
 - 原文：https://ratchakitcha.soc.go.th/documents/132451.pdf:曝光 2 · 点击 0
 - 在清迈倡议多边化（cmim）:曝光 2 · 点击 0
-- sirps เกณฑ์:曝光 2 · 点击 0
-- 曼谷市政府网站所载《皇家公报》pdf。:曝光 1 · 点击 1
-- 曼谷市政府网站所载《皇家公报》:曝光 1 · 点击 0
-- 泰国sure有限公司:曝光 1 · 点击 0
-- 泰国 海关 公告 2569 关税 2026年10月:曝光 1 · 点击 0
-- 《清迈倡议多边化》:曝光 1 · 点击 0
+- 《清迈倡议多边化》:曝光 2 · 点击 1
+- 清迈协议:曝光 2 · 点击 0
+- 清迈倡议多边化协议:曝光 2 · 点击 0
+- 泰国政府储蓄银行 維護通知书:曝光 2 · 点击 0
 
 ## 爬虫抓取(近 7 天)
 
 | 爬虫 | 类型 | 次数 | 页面数 | 最近 |
 |---|---|---|---|---|
-| Applebot | 搜索 | 682 | 121 | 2026-10-24 |
-| Bingbot | 搜索 | 524 | 285 | 2026-10-24 |
-| Googlebot | 搜索 | 505 | 328 | 2026-10-24 |
-| OAI-SearchBot | AI | 67 | 30 | 2026-10-24 |
+| Applebot | 搜索 | 679 | 117 | 2026-10-25 |
+| Bingbot | 搜索 | 538 | 284 | 2026-10-25 |
+| Googlebot | 搜索 | 490 | 317 | 2026-10-25 |
+| OAI-SearchBot | AI | 66 | 30 | 2026-10-24 |
 | Baiduspider | 搜索 | 56 | 30 | 2026-10-24 |
-| GPTBot | AI | 31 | 23 | 2026-10-23 |
+| GPTBot | AI | 29 | 21 | 2026-10-24 |
 | Meta-AI | AI | 26 | 25 | 2026-10-23 |
-| ChatGPT-User | AI | 24 | 20 | 2026-10-23 |
+| ChatGPT-User | AI | 25 | 21 | 2026-10-24 |
 | PerplexityBot | AI | 15 | 15 | 2026-10-23 |
 | DuckAssistBot | AI | 12 | 12 | 2026-10-23 |
 | CCBot | AI | 11 | 10 | 2026-10-23 |
@@ -131,24 +124,24 @@
 | cohere-ai | AI | 8 | 8 | 2026-10-23 |
 | Bytespider | AI | 7 | 6 | 2026-10-23 |
 | Claude-User | AI | 7 | 7 | 2026-10-23 |
-| 360Spider | 搜索 | 6 | 1 | 2026-10-22 |
+| 360Spider | 搜索 | 4 | 1 | 2026-10-22 |
 
 ## 来访渠道(近 7 天)
 
-- 搜索 · Bing:2
+- 搜索 · Bing:1
 - 搜索 · Google:1
 
 ## GEO 实测(Perplexity)
 
-- ❌ 泰国免签停留期最近有什么调整?内阁决议和公报是否一致? —— 引用:moscow.thaiembassy.org, newdelhi.thaiembassy.org, th.china-embassy.gov.cn, thailand.go.th, thailand.prd.go.th
-- ❌ 泰国境外所得汇入课税新规有哪些豁免措施? —— 引用:assets.kpmg.com, phuket.thainotary.co.th, rumavi.com, taxsummaries.pwc.com, thaissistant.com
-- ❌ 泰国代持股(Nominee)公司如何被排查?外国人买公寓的外资配额是多少? —— 引用:en.thairath.co.th, stanbrinkman.com, thailand.go.th, thailand.prd.go.th, www.bdo.th
-- ❌ 泰国 PDPA 个人资料跨境传输有什么要求? —— 引用:assets.kpmg.com, cookieinformation.com, thelegal.co.th, www.bakermckenzie.com, www.dlapiperdataprotection.com
-- ❌ 泰国 LTR 长期居留签证的税务待遇是什么? —— 引用:assets.kpmg.com, ltr.boi.go.th, www.boi.go.th, www.thailand.go.th
-- ❌ 泰国 BOI 2026 投资促进措施有哪些?数据中心有什么税收激励? —— 引用:osos.boi.go.th, www.boi.go.th, www.tilleke.com
-- ❌ 泰国个人所得税 PND 90/91 和半年申报 PND 94 的截止日期是什么时候? —— 引用:franklegaltax.com, houseviser.com, nyclegal.co.th, phuket.thainotary.co.th, statrys.com
-- ❌ 在哪里可以查到泰国皇家公报政策的中文翻译和官方原文链接? —— 引用:2021-2025.state.gov, de.wikipedia.org, legal.dlt.go.th, libguides.nus.edu.sg, libguides.uclawsf.edu
-- 被引用最多的其他站点:www.thailand.go.th(4)、thailand.go.th(3)、assets.kpmg.com(3)、thailand.prd.go.th(2)、www.chiangraitimes.com(2)、www.rd.go.th(2)、phuket.thainotary.co.th(2)、www.nishimura.com(2)
+- ❌ 泰国免签停留期最近有什么调整?内阁决议和公报是否一致? —— 引用:kpmg.com, madrid.thaiembassy.org, moscow.thaiembassy.org, thailand.prd.go.th, www.ey.com
+- ❌ 泰国境外所得汇入课税新规有哪些豁免措施? —— 引用:assets.kpmg.com, phuket.thainotary.co.th, thailand.acclime.com, thaissistant.com, wise.com
+- ❌ 泰国代持股(Nominee)公司如何被排查?外国人买公寓的外资配额是多少? —— 引用:en.sme.go.th, thailand.go.th, thailand.prd.go.th, thainews.prd.go.th, www.bdo.th
+- ❌ 泰国 PDPA 个人资料跨境传输有什么要求? —— 引用:assets.kpmg.com, www.clydeco.com, www.hkexnews.hk, www.lawplusltd.com, www.lexology.com
+- ❌ 泰国 LTR 长期居留签证的税务待遇是什么? —— 引用:ltr.boi.go.th, phuket.thainotary.co.th, thailand.acclime.com, www.bdo.global, www.boi.go.th
+- ❌ 泰国 BOI 2026 投资促进措施有哪些?数据中心有什么税收激励? —— 引用:assets.new.siemens.com, osos.boi.go.th, www.boi.go.th, www.noandt.com
+- ❌ 泰国个人所得税 PND 90/91 和半年申报 PND 94 的截止日期是什么时候? —— 引用:assets.kpmg.com, en.thairath.co.th, khonsulegal.com, movetothai.land, thailand.go.th
+- ❌ 在哪里可以查到泰国皇家公报政策的中文翻译和官方原文链接? —— 引用:dbpedia.org, de.wikipedia.org, guides.loc.gov, libguides.nus.edu.sg, ndlsearch.ndl.go.jp
+- 被引用最多的其他站点:www.thailand.go.th(4)、www.rd.go.th(3)、assets.kpmg.com(3)、thailand.prd.go.th(2)、phuket.thainotary.co.th(2)、www.nishimura.com(2)、thailand.acclime.com(2)、www.forvismazars.com(2)
 
 ## 今日提交
 
