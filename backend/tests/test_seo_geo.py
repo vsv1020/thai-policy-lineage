@@ -337,6 +337,7 @@ def test_only_recent_crawl_errors_are_reported():
                          "errors": [{"path": "/feed", "status": 404, "n": 3, "bots": "Googlebot", "last_seen": "2026-09-27"},
                                     {"path": "/comments/feed/", "status": 410, "n": 2, "bots": "Googlebot", "last_seen": "2026-09-29"},
                                     {"path": "/js/${esc(ch.href)}", "status": 404, "n": 1, "bots": "GPTBot", "last_seen": "2026-09-29"},
+                                    {"path": "/client/.env", "status": 404, "n": 1, "bots": "Googlebot", "last_seen": "2026-09-29"},
                                     {"path": "/gone.html", "status": 404, "n": 1, "bots": "Googlebot", "last_seen": "2026-09-29"}]},
             "coverage": {}, "channels": {}}
     client = httpx.Client(transport=httpx.MockTransport(lambda r: httpx.Response(200, json=data)))
