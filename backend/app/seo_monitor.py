@@ -279,6 +279,14 @@ def audit_pages(client: httpx.Client, rep: Report, urls: list[str], state: dict)
 
 # ─────────────────────────── 2. 服务器侧:爬虫与来源 ───────────────────────────
 
+# 漏洞扫描器(常冒用爬虫 UA)探测的路径:点文件、.env、配置文件、/app /admin 之类,站内并无此链接
+_PROBE_RE = re.compile(r"^//|/\.|\.env|\.(?:ya?ml|ini|toml|bak|sql)$|^/(?:config|conf|app|admin|dashboard)(?:/|$)", re.I)
+
+
+def _is_probe(path: str) -> bool:
+    return bool(_PROBE_RE.search(path))
+
+
 def server_stats(client: httpx.Client, rep: Report, token: str, baidu_on: bool = False) -> dict | None:
     if not token:
         rep.disabled.append("ADMIN_TOKEN:没配置,拿不到服务器记录的爬虫抓取与搜索/AI 来源访问。"
@@ -319,7 +327,7 @@ def server_stats(client: httpx.Client, rep: Report, token: str, baidu_on: bool =
     # 含 ${ 的路径是 AI 爬虫把 JS 模板字符串当链接抓出来的,站内并无此链接
     recent = [e for e in d["crawlers"]["errors"]
               if (e.get("last_seen") or since) >= since and e.get("status") != 410
-              and "${" not in e.get("path", "")]
+              and "${" not in e.get("path", "") and not _is_probe(e.get("path", ""))]
     if recent:
         rep.issue("warn", "crawl_errors", f"爬虫近两天遇到 {len(recent)} 个报错路径",
                   "404 通常是删掉的旧页面(可在 nginx 加 301)或错误链接;5xx 查服务器日志",
