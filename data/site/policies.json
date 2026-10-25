@@ -1,7 +1,7 @@
 {
  "_generated": "由 backend/app/export.py 从数据库导出,请勿手改;改 data/policies/*.jsonl → python3 -m app.ingest → python3 -m app.export",
  "schema_version": 4,
- "updated_at": "2026-10-24T07:07:32+07:00",
+ "updated_at": "2026-10-25T07:07:36+07:00",
  "stats": {
   "total": 575,
   "research": 0,
@@ -18457,9 +18457,9 @@
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
-   "effective_label": "生效 2026-10-25",
+   "effective_label": "已生效",
    "status": "soon",
-   "status_label": "10-25 起施行",
+   "status_label": "已刊公报",
    "source_url": "https://ratchakitcha.soc.go.th/documents/104821.pdf",
    "verified": false,
    "detail_ready": false,
