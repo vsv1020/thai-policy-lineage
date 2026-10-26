@@ -1,7 +1,7 @@
 {
  "_generated": "由 backend/app/export.py 从数据库导出,请勿手改;改 data/policies/*.jsonl → python3 -m app.ingest → python3 -m app.export",
  "schema_version": 4,
- "updated_at": "2026-10-25T07:07:36+07:00",
+ "updated_at": "2026-10-26T07:07:27+07:00",
  "stats": {
   "total": 575,
   "research": 0,
@@ -102,12 +102,6 @@
   }
  ],
  "calendar": [
-  {
-   "date": "2026-10-25",
-   "text": "税务厅厅长关于所得税的公告（第467号）：规定公司或法人合伙企业在国 · 生效",
-   "uid": "TH-GAZ-20260223-467",
-   "kind": "document"
-  },
   {
    "date": "2026-12-04",
    "text": "海事厅公告第8/2569号：关于油轮货油舱防火焰进入装置的设计、测试 · 生效",
