@@ -280,7 +280,7 @@ def audit_pages(client: httpx.Client, rep: Report, urls: list[str], state: dict)
 # ─────────────────────────── 2. 服务器侧:爬虫与来源 ───────────────────────────
 
 # 漏洞扫描器(常冒用爬虫 UA)探测的路径:点文件、.env、配置文件、/app /admin 之类,站内并无此链接
-_PROBE_RE = re.compile(r"^//|/\.|\.env|\.(?:ya?ml|ini|toml|bak|sql)$|^/(?:config|conf|app|admin|dashboard)(?:/|$)", re.I)
+_PROBE_RE = re.compile(r"^//|/\.|\.env|\.(?:ya?ml|ini|toml|bak|sql)$|^/(?:config|conf|app|admin|dashboard|api|actions)(?:/|$)|^/__", re.I)
 
 
 def _is_probe(path: str) -> bool:
