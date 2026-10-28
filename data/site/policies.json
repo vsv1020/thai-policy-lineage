@@ -1,16 +1,16 @@
 {
  "_generated": "由 backend/app/export.py 从数据库导出,请勿手改;改 data/policies/*.jsonl → python3 -m app.ingest → python3 -m app.export",
  "schema_version": 4,
- "updated_at": "2026-10-27T07:07:33+07:00",
+ "updated_at": "2026-10-28T07:07:34+07:00",
  "stats": {
-  "total": 575,
+  "total": 576,
   "research": 0,
   "demo": 0,
   "with_points": 506,
   "date_from": "2024-10-10",
-  "date_to": "2026-10-14",
+  "date_to": "2026-10-27",
   "gazette_to": "2026-04-22",
-  "agency_n": 107,
+  "agency_n": 108,
   "by_domain": [
    {
     "id": "biz",
@@ -25,7 +25,7 @@
    {
     "id": "tax",
     "zh": "税务",
-    "n": 58
+    "n": 59
    },
    {
     "id": "finance",
@@ -68,8 +68,8 @@
   {
    "domain": "tax",
    "label": "税务",
-   "score": 0.53,
-   "n": 8,
+   "score": 0.51,
+   "n": 9,
    "direction": "loose"
   },
   {
@@ -28855,6 +28855,56 @@
      "party_id": "foreign_investor",
      "stance": "neutral",
      "label": "外资投资者"
+    }
+   ],
+   "featured": false
+  },
+  {
+   "uid": "TH-RD-20261027-DGR315A",
+   "issue_id": null,
+   "date": "2026-10-27",
+   "domain": "tax",
+   "domain_label": "税务",
+   "direction": "neutral",
+   "title_zh": "税务厅厅长公告：技术与创新研发受托方名单（第315号）",
+   "title_th": "ประกาศอธิบดีกรมสรรพากร เรื่อง รายชื่อผู้รับทำการวิจัยและพัฒนาเทคโนโลยีและนวัตกรรม (ฉบับที่ 315)",
+   "summary_zh": "据标题，本文件为税务厅厅长公告，公布可受托从事技术与创新研发的机构名单（第315号）；具体名单及适用条件待原文核对。",
+   "key_points": [],
+   "org": "税务厅 (RD)",
+   "doc_no": "",
+   "doc_no_label": "文号",
+   "legal_form": "公告 · ประกาศ 层级",
+   "stability": 2,
+   "effective_label": "已刊公报",
+   "status": "soon",
+   "status_label": "已刊公报",
+   "source_url": "https://www.rd.go.th/fileadmin/user_upload/kormor/newlaw/dgr315A.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "rd_web",
+   "dates": {
+    "resolved_at": null,
+    "published_at": "2026-10-27",
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "none"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
+    },
+    {
+     "id": "thai_employer",
+     "party_id": "thai_employer",
+     "stance": "neutral",
+     "label": "本地雇主"
     }
    ],
    "featured": false

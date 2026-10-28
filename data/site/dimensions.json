@@ -19,7 +19,7 @@
     "desc": "规则与激励塑造环境",
     "color": "seal",
     "share": 77,
-    "count": 668,
+    "count": 669,
     "rows": [
      {
       "id": "disclosure",
@@ -63,7 +63,7 @@
       "data": [
        8,
        25,
-       65
+       66
       ]
      }
     ]
@@ -152,7 +152,7 @@
     ]
    }
   ],
-  "n": 865,
+  "n": 866,
   "sufficient": true,
   "min_n": 12
  },
@@ -216,7 +216,7 @@
      17,
      30,
      37,
-     92,
+     93,
      89,
      146,
      4
@@ -244,7 +244,7 @@
     "goal": "区域均衡"
    }
   ],
-  "n": 741,
+  "n": 742,
   "sufficient": true,
   "min_n": 12
  },
@@ -302,7 +302,7 @@
     "stability": 2,
     "justiciable": false,
     "note": "调整最快,占比最高",
-    "count": 417,
+    "count": 418,
     "pct": 73
    },
    {
@@ -339,10 +339,10 @@
     "pct": 3
    }
   ],
-  "total": 575,
+  "total": 576,
   "fragile_pct": 91,
   "fragile_note": "承载在公告与内阁决议层的比例 —— 调整快、可诉性弱,投资测算应按可撤回处理",
-  "n": 575,
+  "n": 576,
   "sufficient": true,
   "min_n": 20
  },
@@ -353,7 +353,7 @@
     "label": "外资企业",
     "support": 120,
     "constrain": 137,
-    "neutral": 178
+    "neutral": 179
    },
    {
     "id": "foreign_investor",
@@ -381,7 +381,7 @@
     "label": "本地雇主",
     "support": 25,
     "constrain": 33,
-    "neutral": 38
+    "neutral": 39
    },
    {
     "id": "foreign_resident",
@@ -413,7 +413,7 @@
    }
   ],
   "max": 137,
-  "n": 1169,
+  "n": 1171,
   "sufficient": true,
   "min_n": 10
  },
@@ -566,7 +566,7 @@
    }
   ],
   "max": 14,
-  "solo_documents": 517,
+  "solo_documents": 518,
   "note": "联署少而各自单独规定同一事项,是维度六冲突的来源",
   "n": 86,
   "sufficient": true,
@@ -611,7 +611,7 @@
     "id": "implementing_rule",
     "label": "实施细则",
     "seq": 4,
-    "count": 514,
+    "count": 515,
     "hot": true,
     "weak": false
    },
@@ -632,12 +632,12 @@
     "weak": true
    }
   ],
-  "total": 575,
-  "peak": 514,
+  "total": 576,
+  "peak": 515,
   "missing": [
    "国家规划"
   ],
-  "n": 575,
+  "n": 576,
   "sufficient": true,
   "min_n": 12
  }
