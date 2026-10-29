@@ -1,57 +1,49 @@
 {
- "date": "2026-10-29",
+ "date": "2026-10-30",
  "site": "https://www.thaipolicy.com",
- "generated_at": "2026-10-29T03:15:23+07:00",
+ "generated_at": "2026-10-30T03:14:06+07:00",
  "metrics": {
   "sitemap_urls": 673,
   "pages_checked": 40,
   "pages_with_problems": 0,
   "thin_pages": 1,
-  "crawl_search_7d": 1574,
-  "crawl_ai_7d": 608,
-  "googlebot_7d": 414,
-  "bingbot_7d": 483,
-  "baiduspider_7d": 38,
-  "crawl_coverage_pct": 63.5,
-  "visits_search_7d": 8,
+  "crawl_search_7d": 1375,
+  "crawl_ai_7d": 485,
+  "googlebot_7d": 374,
+  "bingbot_7d": 450,
+  "baiduspider_7d": 31,
+  "crawl_coverage_pct": 60.4,
+  "visits_search_7d": 9,
   "visits_ai_7d": 2,
   "gsc_clicks_28d": 4,
-  "gsc_impressions_28d": 355,
-  "gsc_position": 10.5,
+  "gsc_impressions_28d": 368,
+  "gsc_position": 10.3,
   "gsc_indexed": 617,
   "gsc_checked": 673,
-  "bing_in_index": 269,
+  "bing_in_index": 303,
   "bing_impressions": 45,
   "bing_clicks": 2,
-  "indexnow_submitted": 8,
-  "geo_asked": 8,
+  "indexnow_submitted": 0,
+  "geo_asked": 0,
   "geo_cited": 0
  },
  "issues": [
   {
    "level": "warn",
    "code": "crawl_errors",
-   "msg": "爬虫近两天遇到 1 个报错路径",
+   "msg": "爬虫近两天遇到 2 个报错路径",
    "fix": "404 通常是删掉的旧页面(可在 nginx 加 301)或错误链接;5xx 查服务器日志",
    "items": [
-    "404 /p/th-gaz-20260326-2569.html(Bingbot,Googlebot,最近 2026-10-29)"
+    "404 /p/th-gaz-20260326-2569.html(Googlebot,最近 2026-10-30)",
+    "404 /sitemap.txt(Bingbot,最近 2026-10-29)"
    ]
   },
   {
-   "level": "info",
-   "code": "geo_not_cited",
-   "msg": "8 个实测问题的 AI 回答都没有引用本站",
-   "fix": "对照被引用的来源(见 GEO 一节),补对应主题的专题页与问答式要点;确保 Bing 已收录",
-   "items": [
-    "泰国免签停留期最近有什么调整?内阁决议和公报是否一致?",
-    "泰国境外所得汇入课税新规有哪些豁免措施?",
-    "泰国代持股(Nominee)公司如何被排查?外国人买公寓的外资配额是多少?",
-    "泰国 PDPA 个人资料跨境传输有什么要求?",
-    "泰国 LTR 长期居留签证的税务待遇是什么?",
-    "泰国 BOI 2026 投资促进措施有哪些?数据中心有什么税收激励?",
-    "泰国个人所得税 PND 90/91 和半年申报 PND 94 的截止日期是什么时候?",
-    "在哪里可以查到泰国皇家公报政策的中文翻译和官方原文链接?"
-   ]
+   "level": "warn",
+   "code": "geo_api",
+   "msg": "Perplexity 接口返回 403:The Agent API requires paid credits. Add paid credit at https://console.perplexity.ai to upgrade your organization.",
+   "fix": "按上面接口返回的原因处理。常见:账户没有可用额度(没绑卡/没充值)、Key 被停用,或接口已变更(需要改 seo_monitor.py 里的 PPLX_URL / 请求格式)",
+   "items": []
   },
   {
    "level": "info",
@@ -88,6 +80,7 @@
    "fix": "增加站内链接(首页、专题页、同领域推荐);新页面已通过 IndexNow 与 GSC sitemap 提交",
    "items": [
     "/p/th-boi-20241010-136030.html",
+    "/p/th-boi-20241015-136054.html",
     "/p/th-boi-20241024-136366.html",
     "/p/th-boi-20241025-136110.html",
     "/p/th-boi-20241101-136141.html",
@@ -102,11 +95,10 @@
     "/p/th-boi-20250714-137152.html",
     "/p/th-boi-20251022-138086.html",
     "/p/th-boi-20251103-138143.html",
+    "/p/th-boi-20251110-138183.html",
     "/p/th-boi-20251225-138389.html",
     "/p/th-boi-20260115-138447.html",
-    "/p/th-boi-20260115-138448.html",
-    "/p/th-boi-20260115-138452.html",
-    "/p/th-boi-20260127-138509.html"
+    "/p/th-boi-20260115-138448.html"
    ]
   },
   {
@@ -123,7 +115,7 @@
   "site": {
    "home": {
     "status": 200,
-    "ms": 1016,
+    "ms": 895,
     "error": ""
    },
    "robots": true,
@@ -144,152 +136,147 @@
   "server": {
    "range": {
     "days": 7,
-    "start": "2026-10-23",
-    "end": "2026-10-29"
+    "start": "2026-10-24",
+    "end": "2026-10-30"
    },
-   "generated_at": "2026-10-29T03:07:46+07:00",
+   "generated_at": "2026-10-30T03:07:38+07:00",
    "crawlers": {
     "bots": [
      {
       "bot": "Applebot",
       "group": "search",
-      "hits": 635,
-      "pages": 100,
-      "last_seen": "2026-10-29"
+      "hits": 514,
+      "pages": 79,
+      "last_seen": "2026-10-30"
      },
      {
       "bot": "Bingbot",
       "group": "search",
-      "hits": 483,
-      "pages": 265,
-      "last_seen": "2026-10-29"
+      "hits": 450,
+      "pages": 252,
+      "last_seen": "2026-10-30"
      },
      {
       "bot": "Googlebot",
       "group": "search",
-      "hits": 414,
-      "pages": 232,
-      "last_seen": "2026-10-29"
+      "hits": 374,
+      "pages": 217,
+      "last_seen": "2026-10-30"
      },
      {
       "bot": "ClaudeBot",
       "group": "ai",
-      "hits": 312,
-      "pages": 238,
-      "last_seen": "2026-10-29"
-     },
-     {
-      "bot": "Meta-AI",
-      "group": "ai",
-      "hits": 45,
-      "pages": 38,
-      "last_seen": "2026-10-28"
-     },
-     {
-      "bot": "GPTBot",
-      "group": "ai",
-      "hits": 44,
-      "pages": 36,
-      "last_seen": "2026-10-28"
+      "hits": 320,
+      "pages": 229,
+      "last_seen": "2026-10-30"
      },
      {
       "bot": "OAI-SearchBot",
       "group": "ai",
-      "hits": 41,
-      "pages": 18,
-      "last_seen": "2026-10-28"
+      "hits": 35,
+      "pages": 11,
+      "last_seen": "2026-10-30"
+     },
+     {
+      "bot": "GPTBot",
+      "group": "ai",
+      "hits": 32,
+      "pages": 25,
+      "last_seen": "2026-10-29"
      },
      {
       "bot": "Baiduspider",
       "group": "search",
-      "hits": 38,
-      "pages": 31,
+      "hits": 31,
+      "pages": 25,
       "last_seen": "2026-10-26"
+     },
+     {
+      "bot": "Meta-AI",
+      "group": "ai",
+      "hits": 30,
+      "pages": 24,
+      "last_seen": "2026-10-28"
      },
      {
       "bot": "PerplexityBot",
       "group": "ai",
-      "hits": 27,
-      "pages": 24,
+      "hits": 14,
+      "pages": 11,
       "last_seen": "2026-10-28"
      },
      {
       "bot": "ChatGPT-User",
       "group": "ai",
-      "hits": 24,
-      "pages": 23,
+      "hits": 11,
+      "pages": 11,
       "last_seen": "2026-10-28"
-     },
-     {
-      "bot": "DuckAssistBot",
-      "group": "ai",
-      "hits": 19,
-      "pages": 18,
-      "last_seen": "2026-10-26"
      },
      {
       "bot": "Amazonbot",
       "group": "ai",
-      "hits": 17,
-      "pages": 17,
+      "hits": 8,
+      "pages": 8,
       "last_seen": "2026-10-27"
-     },
-     {
-      "bot": "CCBot",
-      "group": "ai",
-      "hits": 16,
-      "pages": 15,
-      "last_seen": "2026-10-26"
      },
      {
       "bot": "Claude-SearchBot",
       "group": "ai",
-      "hits": 15,
-      "pages": 14,
+      "hits": 7,
+      "pages": 6,
       "last_seen": "2026-10-26"
      },
      {
-      "bot": "Perplexity-User",
+      "bot": "DuckAssistBot",
       "group": "ai",
-      "hits": 15,
-      "pages": 15,
-      "last_seen": "2026-10-26"
-     },
-     {
-      "bot": "cohere-ai",
-      "group": "ai",
-      "hits": 13,
-      "pages": 13,
-      "last_seen": "2026-10-26"
-     },
-     {
-      "bot": "Bytespider",
-      "group": "ai",
-      "hits": 11,
-      "pages": 9,
-      "last_seen": "2026-10-26"
-     },
-     {
-      "bot": "Claude-User",
-      "group": "ai",
-      "hits": 9,
-      "pages": 9,
+      "hits": 7,
+      "pages": 7,
       "last_seen": "2026-10-26"
      },
      {
       "bot": "360Spider",
       "group": "search",
-      "hits": 4,
+      "hits": 6,
       "pages": 1,
+      "last_seen": "2026-10-29"
+     },
+     {
+      "bot": "CCBot",
+      "group": "ai",
+      "hits": 5,
+      "pages": 5,
+      "last_seen": "2026-10-26"
+     },
+     {
+      "bot": "Perplexity-User",
+      "group": "ai",
+      "hits": 5,
+      "pages": 5,
+      "last_seen": "2026-10-26"
+     },
+     {
+      "bot": "cohere-ai",
+      "group": "ai",
+      "hits": 5,
+      "pages": 5,
+      "last_seen": "2026-10-26"
+     },
+     {
+      "bot": "Bytespider",
+      "group": "ai",
+      "hits": 4,
+      "pages": 3,
+      "last_seen": "2026-10-26"
+     },
+     {
+      "bot": "Claude-User",
+      "group": "ai",
+      "hits": 2,
+      "pages": 2,
       "last_seen": "2026-10-26"
      }
     ],
     "series": [
-     {
-      "day": "2026-10-23",
-      "search": 338,
-      "ai": 146
-     },
      {
       "day": "2026-10-24",
       "search": 381,
@@ -317,29 +304,27 @@
      },
      {
       "day": "2026-10-29",
-      "search": 27,
-      "ai": 2
+      "search": 116,
+      "ai": 20
+     },
+     {
+      "day": "2026-10-30",
+      "search": 50,
+      "ai": 5
      }
     ],
     "errors": [
      {
       "path": "/p/th-gaz-20260326-2569.html",
       "status": 404,
-      "n": 7,
-      "bots": "Bingbot,Googlebot",
-      "last_seen": "2026-10-29"
-     },
-     {
-      "path": "/app",
-      "status": 404,
-      "n": 7,
-      "bots": "Baiduspider,Bingbot,DuckAssistBot,GPTBot,Meta-AI,Perplexity-User,PerplexityBot",
-      "last_seen": "2026-10-26"
+      "n": 6,
+      "bots": "Googlebot",
+      "last_seen": "2026-10-30"
      },
      {
       "path": "/.env",
       "status": 404,
-      "n": 6,
+      "n": 5,
       "bots": "Bytespider,DuckAssistBot,GPTBot,OAI-SearchBot",
       "last_seen": "2026-10-26"
      },
@@ -351,88 +336,11 @@
       "last_seen": "2026-10-26"
      },
      {
-      "path": "/.vscode/launch.json",
+      "path": "/@fs/src/.env",
       "status": 404,
       "n": 2,
-      "bots": "Bytespider,Meta-AI",
-      "last_seen": "2026-10-23"
-     },
-     {
-      "path": "/api",
-      "status": 404,
-      "n": 2,
-      "bots": "Amazonbot,Applebot",
+      "bots": "Bingbot,Googlebot",
       "last_seen": "2026-10-26"
-     },
-     {
-      "path": "//settings",
-      "status": 404,
-      "n": 2,
-      "bots": "CCBot,DuckAssistBot",
-      "last_seen": "2026-10-23"
-     },
-     {
-      "path": "/.s3cfg",
-      "status": 404,
-      "n": 2,
-      "bots": "PerplexityBot,cohere-ai",
-      "last_seen": "2026-10-23"
-     },
-     {
-      "path": "/.ssh/id_ecdsa",
-      "status": 404,
-      "n": 2,
-      "bots": "CCBot,Perplexity-User",
-      "last_seen": "2026-10-23"
-     },
-     {
-      "path": "/.ssh/id_dsa",
-      "status": 404,
-      "n": 2,
-      "bots": "Amazonbot,Bingbot",
-      "last_seen": "2026-10-23"
-     },
-     {
-      "path": "/.svn/entries",
-      "status": 404,
-      "n": 2,
-      "bots": "Meta-AI",
-      "last_seen": "2026-10-23"
-     },
-     {
-      "path": "//dashboard",
-      "status": 404,
-      "n": 2,
-      "bots": "GPTBot,PerplexityBot",
-      "last_seen": "2026-10-23"
-     },
-     {
-      "path": "/__vite_rsc_findSourceMapURL",
-      "status": 404,
-      "n": 2,
-      "bots": "Baiduspider,cohere-ai",
-      "last_seen": "2026-10-26"
-     },
-     {
-      "path": "/ai/.env",
-      "status": 404,
-      "n": 2,
-      "bots": "Amazonbot,OAI-SearchBot",
-      "last_seen": "2026-10-23"
-     },
-     {
-      "path": "/.bash_profile",
-      "status": 404,
-      "n": 2,
-      "bots": "Amazonbot,DuckAssistBot",
-      "last_seen": "2026-10-23"
-     },
-     {
-      "path": "/.gitconfig",
-      "status": 404,
-      "n": 2,
-      "bots": "GPTBot,PerplexityBot",
-      "last_seen": "2026-10-23"
      },
      {
       "path": "/.env.development",
@@ -442,69 +350,6 @@
       "last_seen": "2026-10-26"
      },
      {
-      "path": "/.env.smtp",
-      "status": 404,
-      "n": 2,
-      "bots": "Bingbot,CCBot",
-      "last_seen": "2026-10-23"
-     },
-     {
-      "path": "/.env.key",
-      "status": 404,
-      "n": 2,
-      "bots": "Applebot,GPTBot",
-      "last_seen": "2026-10-23"
-     },
-     {
-      "path": "/.docker/config.json",
-      "status": 404,
-      "n": 2,
-      "bots": "Meta-AI,cohere-ai",
-      "last_seen": "2026-10-23"
-     },
-     {
-      "path": "/.env.live",
-      "status": 404,
-      "n": 2,
-      "bots": "Perplexity-User,PerplexityBot",
-      "last_seen": "2026-10-23"
-     },
-     {
-      "path": "/.dev.vars.production",
-      "status": 404,
-      "n": 2,
-      "bots": "Googlebot,cohere-ai",
-      "last_seen": "2026-10-23"
-     },
-     {
-      "path": "/.env.sendgrid",
-      "status": 404,
-      "n": 2,
-      "bots": "Bytespider,ClaudeBot",
-      "last_seen": "2026-10-23"
-     },
-     {
-      "path": "/.terraform.rc",
-      "status": 404,
-      "n": 2,
-      "bots": "CCBot,Claude-User",
-      "last_seen": "2026-10-23"
-     },
-     {
-      "path": "/.profile",
-      "status": 404,
-      "n": 2,
-      "bots": "Amazonbot,ClaudeBot",
-      "last_seen": "2026-10-23"
-     },
-     {
-      "path": "//admin",
-      "status": 404,
-      "n": 2,
-      "bots": "GPTBot,PerplexityBot",
-      "last_seen": "2026-10-23"
-     },
-     {
       "path": "/@fs/.env",
       "status": 404,
       "n": 2,
@@ -512,117 +357,265 @@
       "last_seen": "2026-10-26"
      },
      {
-      "path": "/@fs/src/.env",
+      "path": "/__vite_rsc_findSourceMapURL",
       "status": 404,
       "n": 2,
-      "bots": "Bingbot,Googlebot",
+      "bots": "Baiduspider,cohere-ai",
       "last_seen": "2026-10-26"
      },
      {
-      "path": "/actions",
+      "path": "/sitemap.txt",
       "status": 404,
       "n": 2,
-      "bots": "ClaudeBot,OAI-SearchBot",
+      "bots": "Bingbot",
+      "last_seen": "2026-10-29"
+     },
+     {
+      "path": "/app",
+      "status": 404,
+      "n": 2,
+      "bots": "GPTBot,Perplexity-User",
       "last_seen": "2026-10-26"
      },
      {
-      "path": "/.ssh/known_hosts",
+      "path": "/.env.old",
       "status": 404,
-      "n": 2,
-      "bots": "Bingbot,ChatGPT-User",
-      "last_seen": "2026-10-23"
+      "n": 1,
+      "bots": "Meta-AI",
+      "last_seen": "2026-10-26"
+     },
+     {
+      "path": "/.env.keys",
+      "status": 404,
+      "n": 1,
+      "bots": "CCBot",
+      "last_seen": "2026-10-26"
+     },
+     {
+      "path": "/.env.development.local",
+      "status": 404,
+      "n": 1,
+      "bots": "DuckAssistBot",
+      "last_seen": "2026-10-26"
+     },
+     {
+      "path": "/.turbo/config.json",
+      "status": 404,
+      "n": 1,
+      "bots": "DuckAssistBot",
+      "last_seen": "2026-10-26"
+     },
+     {
+      "path": "/@fs/..%2f..%2f..%2f..%2f..%2froot/.env",
+      "status": 404,
+      "n": 1,
+      "bots": "Perplexity-User",
+      "last_seen": "2026-10-26"
+     },
+     {
+      "path": "/.dev.vars",
+      "status": 404,
+      "n": 1,
+      "bots": "OAI-SearchBot",
+      "last_seen": "2026-10-26"
+     },
+     {
+      "path": "/.aws/credentials",
+      "status": 404,
+      "n": 1,
+      "bots": "Claude-SearchBot",
+      "last_seen": "2026-10-26"
+     },
+     {
+      "path": "/.env::$DATA",
+      "status": 404,
+      "n": 1,
+      "bots": "GPTBot",
+      "last_seen": "2026-10-26"
+     },
+     {
+      "path": "/.env.staging.local",
+      "status": 404,
+      "n": 1,
+      "bots": "Meta-AI",
+      "last_seen": "2026-10-26"
+     },
+     {
+      "path": "/.env.save",
+      "status": 404,
+      "n": 1,
+      "bots": "Meta-AI",
+      "last_seen": "2026-10-26"
+     },
+     {
+      "path": "/.env.dev.local",
+      "status": 404,
+      "n": 1,
+      "bots": "GPTBot",
+      "last_seen": "2026-10-26"
+     },
+     {
+      "path": "/.changeset/config.json",
+      "status": 404,
+      "n": 1,
+      "bots": "Amazonbot",
+      "last_seen": "2026-10-26"
+     },
+     {
+      "path": "/.firebaserc",
+      "status": 404,
+      "n": 1,
+      "bots": "ClaudeBot",
+      "last_seen": "2026-10-26"
+     },
+     {
+      "path": "/.git-credentials",
+      "status": 404,
+      "n": 1,
+      "bots": "Amazonbot",
+      "last_seen": "2026-10-26"
+     },
+     {
+      "path": "/.github/workflows/deploy.yml",
+      "status": 404,
+      "n": 1,
+      "bots": "GPTBot",
+      "last_seen": "2026-10-26"
+     },
+     {
+      "path": "/.gitlab-ci.yml",
+      "status": 404,
+      "n": 1,
+      "bots": "OAI-SearchBot",
+      "last_seen": "2026-10-26"
+     },
+     {
+      "path": "/.htpasswd",
+      "status": 404,
+      "n": 1,
+      "bots": "PerplexityBot",
+      "last_seen": "2026-10-26"
+     },
+     {
+      "path": "/.env.production.local",
+      "status": 404,
+      "n": 1,
+      "bots": "PerplexityBot",
+      "last_seen": "2026-10-26"
+     },
+     {
+      "path": "/4v7luvq2mz4fp5vzhugy",
+      "status": 404,
+      "n": 1,
+      "bots": "PerplexityBot",
+      "last_seen": "2026-10-26"
+     },
+     {
+      "path": "/.env.prod.local",
+      "status": 404,
+      "n": 1,
+      "bots": "ChatGPT-User",
+      "last_seen": "2026-10-26"
+     },
+     {
+      "path": "/.env.credentials",
+      "status": 404,
+      "n": 1,
+      "bots": "PerplexityBot",
+      "last_seen": "2026-10-26"
      }
     ],
     "top_paths": [
      {
       "path": "/robots.txt",
-      "n": 98
+      "n": 105
      },
      {
       "path": "/data/site/analytics.json",
-      "n": 80
+      "n": 70
      },
      {
       "path": "/data/site/ads.json",
-      "n": 78
+      "n": 66
      },
      {
       "path": "/data/site/support.json",
-      "n": 77
-     },
-     {
-      "path": "/js/promptpay.js",
-      "n": 70
+      "n": 66
      },
      {
       "path": "/js/track.js",
-      "n": 70
+      "n": 59
+     },
+     {
+      "path": "/js/promptpay.js",
+      "n": 58
      },
      {
       "path": "/css/main.css",
-      "n": 69
+      "n": 57
      },
      {
       "path": "/js/ads.js",
-      "n": 69
-     },
-     {
-      "path": "/js/support.js",
-      "n": 66
+      "n": 56
      },
      {
       "path": "/js/vendor/qrcode-generator-1.4.4.js",
-      "n": 66
+      "n": 55
+     },
+     {
+      "path": "/js/support.js",
+      "n": 54
      },
      {
       "path": "/sitemap.xml",
-      "n": 50
+      "n": 54
      },
      {
       "path": "/",
-      "n": 28
+      "n": 25
      },
      {
       "path": "/data/site/collections.json",
-      "n": 9
+      "n": 7
      },
      {
       "path": "/data/site/policies.json",
-      "n": 9
+      "n": 7
      },
      {
       "path": "/data/site/subscribe.json",
-      "n": 9
-     },
-     {
-      "path": "/data/site/dimensions.json",
-      "n": 8
-     },
-     {
-      "path": "/data/site/lineage.json",
-      "n": 8
-     },
-     {
-      "path": "/data/site/trends.json",
-      "n": 8
-     },
-     {
-      "path": "/app",
       "n": 7
      },
      {
       "path": "/p/th-boi-20260521-138885.html",
       "n": 7
+     },
+     {
+      "path": "/p/th-cabx-20250225-e529f7cf4d.html",
+      "n": 7
+     },
+     {
+      "path": "/about.html",
+      "n": 6
+     },
+     {
+      "path": "/data/site/dimensions.json",
+      "n": 6
+     },
+     {
+      "path": "/data/site/lineage.json",
+      "n": 6
      }
     ]
    },
    "coverage": {
     "sitemap_landing": 576,
-    "crawled_by_search": 366,
+    "crawled_by_search": 348,
     "crawled_by_ai": 180,
-    "search_pct": 63.5,
+    "search_pct": 60.4,
     "never_crawled_sample": [
      "/p/th-boi-20241010-136030.html",
+     "/p/th-boi-20241015-136054.html",
      "/p/th-boi-20241024-136366.html",
      "/p/th-boi-20241025-136110.html",
      "/p/th-boi-20241101-136141.html",
@@ -637,18 +630,16 @@
      "/p/th-boi-20250714-137152.html",
      "/p/th-boi-20251022-138086.html",
      "/p/th-boi-20251103-138143.html",
+     "/p/th-boi-20251110-138183.html",
      "/p/th-boi-20251225-138389.html",
      "/p/th-boi-20260115-138447.html",
-     "/p/th-boi-20260115-138448.html",
-     "/p/th-boi-20260115-138452.html",
-     "/p/th-boi-20260127-138509.html"
+     "/p/th-boi-20260115-138448.html"
     ]
    },
    "channels": {
-    "direct": 35,
+    "direct": 41,
     "ai": 2,
-    "search": 8,
-    "referral": 1
+    "search": 9
    },
    "search_sources": [
     {
@@ -657,7 +648,7 @@
     },
     {
      "key": "Google",
-     "n": 2
+     "n": 3
     }
    ],
    "ai_sources": [
@@ -676,6 +667,10 @@
      "n": 2
     },
     {
+     "key": "/p/th-gaz-20260330-18-2569.html",
+     "n": 2
+    },
+    {
      "key": "/p/",
      "n": 1
     },
@@ -685,10 +680,6 @@
     },
     {
      "key": "/p/th-gaz-20260219-2-2569-uvc.html",
-     "n": 1
-    },
-    {
-     "key": "/p/th-gaz-20260330-18-2569.html",
      "n": 1
     }
    ],
@@ -703,9 +694,9 @@
    "property": "sc-domain:thaipolicy.com",
    "totals_28d": {
     "clicks": 4,
-    "impressions": 355,
-    "ctr": 0.011267605633802818,
-    "position": 10.498591549295774
+    "impressions": 368,
+    "ctr": 0.010869565217391304,
+    "position": 10.30163043478261
    },
    "top_queries": [
     {
@@ -831,6 +822,12 @@
      "pos": 6
     },
     {
+     "page": "https://www.thaipolicy.com/p/th-boi-20250605-137007.html",
+     "clicks": 0,
+     "impr": 1,
+     "pos": 7
+    },
+    {
      "page": "https://www.thaipolicy.com/p/th-boi-20250718-137182.html",
      "clicks": 0,
      "impr": 3,
@@ -849,6 +846,18 @@
      "pos": 2
     },
     {
+     "page": "https://www.thaipolicy.com/p/th-boi-20260311-138643.html",
+     "clicks": 0,
+     "impr": 1,
+     "pos": 1
+    },
+    {
+     "page": "https://www.thaipolicy.com/p/th-boi-20260330-138693.html",
+     "clicks": 0,
+     "impr": 1,
+     "pos": 1
+    },
+    {
      "page": "https://www.thaipolicy.com/p/th-boi-20260409-138733.html",
      "clicks": 0,
      "impr": 4,
@@ -861,40 +870,22 @@
      "pos": 1
     },
     {
+     "page": "https://www.thaipolicy.com/p/th-boi-20260501-138800.html",
+     "clicks": 0,
+     "impr": 1,
+     "pos": 9
+    },
+    {
      "page": "https://www.thaipolicy.com/p/th-boi-20260520-138870.html",
      "clicks": 0,
      "impr": 2,
      "pos": 3
     },
     {
-     "page": "https://www.thaipolicy.com/p/th-boi-20260715-139050.html",
+     "page": "https://www.thaipolicy.com/p/th-boi-20260521-138876.html",
      "clicks": 0,
-     "impr": 4,
-     "pos": 4.5
-    },
-    {
-     "page": "https://www.thaipolicy.com/p/th-boi-20260715-139067.html",
-     "clicks": 0,
-     "impr": 2,
-     "pos": 5.5
-    },
-    {
-     "page": "https://www.thaipolicy.com/p/th-boi-20260715-139068.html",
-     "clicks": 0,
-     "impr": 2,
-     "pos": 7
-    },
-    {
-     "page": "https://www.thaipolicy.com/p/th-boi-20260916-139362.html",
-     "clicks": 0,
-     "impr": 5,
-     "pos": 5.2
-    },
-    {
-     "page": "https://www.thaipolicy.com/p/th-boi-20260930-139500.html",
-     "clicks": 0,
-     "impr": 2,
-     "pos": 4.5
+     "impr": 1,
+     "pos": 1
     }
    ],
    "sitemap": {
@@ -915,9 +906,9 @@
   },
   "bing": {
    "crawl": {
-    "date": "2026-10-25",
-    "in_index": 269,
-    "crawled": 87,
+    "date": "2026-10-28",
+    "in_index": 303,
+    "crawled": 76,
     "errors": 0
    },
    "top_queries": [
@@ -937,6 +928,11 @@
      "clicks": 0
     },
     {
+     "q": "在清迈倡议多边化（cmim）",
+     "impr": 2,
+     "clicks": 0
+    },
+    {
      "q": "原文：https://ratchakitcha.soc.go.th/documents/132451.pdf",
      "impr": 2,
      "clicks": 0
@@ -947,19 +943,9 @@
      "clicks": 0
     },
     {
-     "q": "在清迈倡议多边化（cmim）",
-     "impr": 2,
-     "clicks": 0
-    },
-    {
      "q": "《清迈倡议多边化》",
      "impr": 2,
      "clicks": 1
-    },
-    {
-     "q": "清迈倡议多边化协议",
-     "impr": 2,
-     "clicks": 0
     },
     {
      "q": "清迈协议",
@@ -977,6 +963,11 @@
      "clicks": 0
     },
     {
+     "q": "清迈倡议多边化协议",
+     "impr": 2,
+     "clicks": 0
+    },
+    {
      "q": "boi第9/2565号公告",
      "impr": 2,
      "clicks": 0
@@ -985,11 +976,6 @@
      "q": "曼谷市政府网站所载《皇家公报》pdf。",
      "impr": 1,
      "clicks": 1
-    },
-    {
-     "q": "泰国sure有限公司",
-     "impr": 1,
-     "clicks": 0
     },
     {
      "q": "曼谷市政府网站所载《皇家公报》",
@@ -1002,7 +988,7 @@
      "clicks": 0
     },
     {
-     "q": "巴蜀渔业",
+     "q": "泰国sure有限公司",
      "impr": 1,
      "clicks": 0
     },
@@ -1012,7 +998,7 @@
      "clicks": 0
     },
     {
-     "q": "泰国皇家公报网站",
+     "q": "巴蜀渔业",
      "impr": 1,
      "clicks": 0
     },
@@ -1020,13 +1006,17 @@
      "q": "泰国 红案号",
      "impr": 1,
      "clicks": 0
+    },
+    {
+     "q": "泰国皇家公报网站",
+     "impr": 1,
+     "clicks": 0
     }
    ]
   },
   "submit": {
    "indexnow": {
-    "submitted": 8,
-    "status": 200
+    "submitted": 0
    },
    "baidu": null
   },
@@ -1034,212 +1024,14 @@
    "results": [
     {
      "q": "泰国免签停留期最近有什么调整?内阁决议和公报是否一致?",
-     "cited": false,
-     "sources": [
-      "madrid.thaiembassy.org",
-      "newdelhi.thaiembassy.org",
-      "thailand.go.th",
-      "thailand.prd.go.th",
-      "www.ey.com",
-      "www.thailand.go.th"
-     ]
-    },
-    {
-     "q": "泰国境外所得汇入课税新规有哪些豁免措施?",
-     "cited": false,
-     "sources": [
-      "rumavi.com",
-      "statrys.com",
-      "thaissistant.com",
-      "thelegal.co.th",
-      "wise.com",
-      "www.bgloballaw.com",
-      "www.chiangraitimes.com",
-      "www.deloitte.com",
-      "www.dfdl.com",
-      "www.forvismazars.com"
-     ]
-    },
-    {
-     "q": "泰国代持股(Nominee)公司如何被排查?外国人买公寓的外资配额是多少?",
-     "cited": false,
-     "sources": [
-      "fosrlaw.com",
-      "thailand.go.th",
-      "www.bdo.th",
-      "www.nationthailand.com",
-      "www.thailand.go.th",
-      "www.thaipbs.or.th",
-      "www.thaipbsworld.com"
-     ]
-    },
-    {
-     "q": "泰国 PDPA 个人资料跨境传输有什么要求?",
-     "cited": false,
-     "sources": [
-      "fosrlaw.com",
-      "iapp.org",
-      "thelegal.co.th",
-      "www.bakermckenzie.com",
-      "www.dlapiperdataprotection.com",
-      "www.globalcompliancenews.com",
-      "www.lawplusltd.com",
-      "www.nagashima.com",
-      "www.nishimura.com",
-      "www.rajahtannasia.com"
-     ]
-    },
-    {
-     "q": "泰国 LTR 长期居留签证的税务待遇是什么?",
-     "cited": false,
-     "sources": [
-      "assets.kpmg.com",
-      "ltr.boi.go.th",
-      "thailand.go.th",
-      "www.bdo.th",
-      "www.boi.go.th",
-      "www.thailand.go.th"
-     ]
-    },
-    {
-     "q": "泰国 BOI 2026 投资促进措施有哪些?数据中心有什么税收激励?",
-     "cited": false,
-     "sources": [
-      "jen.jiji.com",
-      "www.boi.go.th",
-      "www.businesstimes.com.sg"
-     ]
-    },
-    {
-     "q": "泰国个人所得税 PND 90/91 和半年申报 PND 94 的截止日期是什么时候?",
-     "cited": false,
-     "sources": [
-      "en.thairath.co.th",
-      "mbmg-group.com",
-      "plizz.co",
-      "www.chiangraitimes.com",
-      "www.forvismazars.com",
-      "www.justenda.com",
-      "www.linkedin.com",
-      "www.rd.go.th",
-      "www.thailawonline.com"
-     ]
-    },
-    {
-     "q": "在哪里可以查到泰国皇家公报政策的中文翻译和官方原文链接?",
-     "cited": false,
-     "sources": [
-      "al360.legal",
-      "authority.org.cn",
-      "en.wikipedia.org",
-      "lawcat.berkeley.edu",
-      "libguides.nus.edu.sg",
-      "thaigovdata.com",
-      "unimelb.libguides.com",
-      "webportal.bangkok.go.th",
-      "www.ipthailand.go.th",
-      "www.rd.go.th"
-     ]
+     "error": "HTTP 403 The Agent API requires paid credits. Add paid credit at https://console.perplexity.ai to upgrade your organization."
     }
    ],
-   "top_cited_domains": [
-    [
-     "thailand.go.th",
-     3
-    ],
-    [
-     "www.thailand.go.th",
-     3
-    ],
-    [
-     "www.rd.go.th",
-     3
-    ],
-    [
-     "www.nishimura.com",
-     2
-    ],
-    [
-     "www.thailawonline.com",
-     2
-    ],
-    [
-     "thelegal.co.th",
-     2
-    ],
-    [
-     "www.forvismazars.com",
-     2
-    ],
-    [
-     "www.chiangraitimes.com",
-     2
-    ],
-    [
-     "fosrlaw.com",
-     2
-    ],
-    [
-     "www.bdo.th",
-     2
-    ],
-    [
-     "www.boi.go.th",
-     2
-    ],
-    [
-     "thailand.prd.go.th",
-     1
-    ],
-    [
-     "madrid.thaiembassy.org",
-     1
-    ],
-    [
-     "www.ey.com",
-     1
-    ],
-    [
-     "newdelhi.thaiembassy.org",
-     1
-    ]
-   ]
+   "top_cited_domains": []
   }
  },
  "disabled": [],
  "trend": [
-  {
-   "date": "2026-09-30",
-   "metrics": {
-    "sitemap_urls": 194,
-    "pages_checked": 40,
-    "pages_with_problems": 0,
-    "thin_pages": 12,
-    "crawl_search_7d": 443,
-    "crawl_ai_7d": 3,
-    "googlebot_7d": 290,
-    "bingbot_7d": 69,
-    "baiduspider_7d": 0,
-    "crawl_coverage_pct": 57.8,
-    "visits_search_7d": 0,
-    "visits_ai_7d": 0,
-    "gsc_clicks_28d": 0,
-    "gsc_impressions_28d": 0,
-    "gsc_position": null,
-    "gsc_indexed": 31,
-    "gsc_checked": 194,
-    "bing_impressions": 0,
-    "bing_clicks": 0,
-    "indexnow_submitted": 0,
-    "geo_asked": 8,
-    "geo_cited": 0
-   },
-   "issues": {
-    "error": 0,
-    "warn": 1,
-    "info": 3
-   }
-  },
   {
    "date": "2026-10-01",
    "metrics": {
@@ -2187,6 +1979,39 @@
     "error": 0,
     "warn": 1,
     "info": 4
+   }
+  },
+  {
+   "date": "2026-10-30",
+   "metrics": {
+    "sitemap_urls": 673,
+    "pages_checked": 40,
+    "pages_with_problems": 0,
+    "thin_pages": 1,
+    "crawl_search_7d": 1375,
+    "crawl_ai_7d": 485,
+    "googlebot_7d": 374,
+    "bingbot_7d": 450,
+    "baiduspider_7d": 31,
+    "crawl_coverage_pct": 60.4,
+    "visits_search_7d": 9,
+    "visits_ai_7d": 2,
+    "gsc_clicks_28d": 4,
+    "gsc_impressions_28d": 368,
+    "gsc_position": 10.3,
+    "gsc_indexed": 617,
+    "gsc_checked": 673,
+    "bing_in_index": 303,
+    "bing_impressions": 45,
+    "bing_clicks": 2,
+    "indexnow_submitted": 0,
+    "geo_asked": 0,
+    "geo_cited": 0
+   },
+   "issues": {
+    "error": 0,
+    "warn": 2,
+    "info": 3
    }
   }
  ]
