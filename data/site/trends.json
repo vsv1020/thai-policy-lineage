@@ -19,7 +19,7 @@
  "min_months_required": 6,
  "data_through": "2026-10",
  "gazette_through": "2026-04",
- "total_documents": 576,
+ "total_documents": 577,
  "volume_by_domain": [
   {
    "id": "biz",
@@ -54,7 +54,7 @@
     0,
     0,
     1,
-    8
+    9
    ]
   },
   {
@@ -236,7 +236,7 @@
     null,
     null,
     -0.26,
-    0.66
+    0.74
    ]
   },
   {
@@ -634,7 +634,7 @@
     0,
     0,
     1,
-    1
+    2
    ]
   },
   {
@@ -1072,6 +1072,18 @@
  ],
  "rising": [
   {
+   "label": "税务",
+   "current": 10,
+   "previous": 0,
+   "growth_pct": null
+  },
+  {
+   "label": "税收减免与追缴",
+   "current": 10,
+   "previous": 0,
+   "growth_pct": null
+  },
+  {
    "label": "财政收入",
    "current": 2,
    "previous": 0,
@@ -1084,28 +1096,22 @@
    "growth_pct": null
   },
   {
-   "label": "税收减免与追缴",
-   "current": 10,
-   "previous": 1,
-   "growth_pct": 900
-  },
-  {
-   "label": "税务",
-   "current": 9,
-   "previous": 1,
-   "growth_pct": 800
-  },
-  {
    "label": "绿色转型",
    "current": 3,
    "previous": 1,
    "growth_pct": 200
   },
   {
+   "label": "申报、备案与披露",
+   "current": 2,
+   "previous": 1,
+   "growth_pct": 100
+  },
+  {
    "label": "产业升级",
    "current": 9,
-   "previous": 6,
-   "growth_pct": 50
+   "previous": 5,
+   "growth_pct": 80
   }
  ]
 }

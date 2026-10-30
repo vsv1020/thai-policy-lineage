@@ -75,9 +75,9 @@
   {
    "id": "foreign_company",
    "zh": "外资企业",
-   "n": 436,
+   "n": 437,
    "href": "p/who/foreign_company.html",
-   "date": "2026-10-27"
+   "date": "2026-10-29"
   },
   {
    "id": "foreign_investor",
@@ -110,16 +110,16 @@
   {
    "id": "sme",
    "zh": "中小企业",
-   "n": 41,
+   "n": 43,
    "href": "p/who/sme.html",
-   "date": "2026-10-02"
+   "date": "2026-10-29"
   },
   {
    "id": "thai_employer",
    "zh": "本地雇主",
-   "n": 97,
+   "n": 96,
    "href": "p/who/thai_employer.html",
-   "date": "2026-10-27"
+   "date": "2026-10-14"
   },
   {
    "id": "traveller",

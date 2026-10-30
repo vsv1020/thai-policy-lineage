@@ -1,16 +1,16 @@
 {
  "_generated": "由 backend/app/export.py 从数据库导出,请勿手改;改 data/policies/*.jsonl → python3 -m app.ingest → python3 -m app.export",
  "schema_version": 4,
- "updated_at": "2026-10-29T07:07:40+07:00",
+ "updated_at": "2026-10-30T07:07:48+07:00",
  "stats": {
-  "total": 576,
+  "total": 577,
   "research": 0,
   "demo": 0,
-  "with_points": 506,
+  "with_points": 507,
   "date_from": "2024-10-10",
-  "date_to": "2026-10-27",
+  "date_to": "2026-10-29",
   "gazette_to": "2026-04-22",
-  "agency_n": 108,
+  "agency_n": 109,
   "by_domain": [
    {
     "id": "biz",
@@ -25,7 +25,7 @@
    {
     "id": "tax",
     "zh": "税务",
-    "n": 59
+    "n": 60
    },
    {
     "id": "finance",
@@ -68,8 +68,8 @@
   {
    "domain": "tax",
    "label": "税务",
-   "score": 0.51,
-   "n": 9,
+   "score": 0.6,
+   "n": 10,
    "direction": "loose"
   },
   {
@@ -116,6 +116,61 @@
   }
  ],
  "policies": [
+  {
+   "uid": "TH-RD-20261027-DGR315A",
+   "issue_id": null,
+   "date": "2026-10-27",
+   "domain": "tax",
+   "domain_label": "税务",
+   "direction": "loose",
+   "title_zh": "税务厅厅长公告：技术与创新研发承接单位名单（第315号）",
+   "title_th": "ประกาศอธิบดีกรมสรรพากร เรื่อง รายชื่อผู้รับทำการวิจัยและพัฒนาเทคโนโลยีและนวัตกรรม (ฉบับที่ 315)",
+   "summary_zh": "本公告依据《税收法典》相关皇家法令及税务厅厅长2016年4月12日公告的权限，在技术与创新研发承接单位名单中增列第(804)项，即一家有限公司。列入该名单的单位可承接企业委托的研发项目，委托方据此享受相关税收优惠。公告自2026年5月8日起施行。",
+   "key_points": [
+    "在研发承接单位名单中增列第(804)项，为一家有限公司",
+    "名单内单位可承接企业研发委托，委托方享受税收优惠",
+    "公告自2026年5月8日起施行",
+    "依据税务厅厅长2016年4月12日公告的申请规则管理"
+   ],
+   "org": "税务厅 (RD)",
+   "doc_no": "",
+   "doc_no_label": "文号",
+   "legal_form": "公告 · ประกาศ 层级",
+   "stability": 2,
+   "effective_label": "已生效",
+   "status": "soon",
+   "status_label": "已刊公报",
+   "source_url": "https://www.rd.go.th/fileadmin/user_upload/kormor/newlaw/dgr315A.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "rd_web",
+   "dates": {
+    "resolved_at": null,
+    "published_at": "2026-10-27",
+    "effective_from": "2026-05-08",
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "none"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "support",
+     "label": "外资企业"
+    },
+    {
+     "id": "sme",
+     "party_id": "sme",
+     "stance": "support",
+     "label": "中小企业"
+    }
+   ],
+   "featured": true
+  },
   {
    "uid": "TH-RD-20261014-DC808",
    "issue_id": null,
@@ -232,7 +287,7 @@
      "label": "本地雇主"
     }
    ],
-   "featured": true
+   "featured": false
   },
   {
    "uid": "TH-RD-20261012-MR402",
@@ -28860,17 +28915,17 @@
    "featured": false
   },
   {
-   "uid": "TH-RD-20261027-DGR315A",
+   "uid": "TH-RD-20261029-MOFDISASTER18A",
    "issue_id": null,
-   "date": "2026-10-27",
+   "date": "2026-10-29",
    "domain": "tax",
    "domain_label": "税务",
-   "direction": "neutral",
-   "title_zh": "税务厅厅长公告：技术与创新研发受托方名单（第315号）",
-   "title_th": "ประกาศอธิบดีกรมสรรพากร เรื่อง รายชื่อผู้รับทำการวิจัยและพัฒนาเทคโนโลยีและนวัตกรรม (ฉบับที่ 315)",
-   "summary_zh": "据标题，本文件为税务厅厅长公告，公布可受托从事技术与创新研发的机构名单（第315号）；具体名单及适用条件待原文核对。",
+   "direction": "loose",
+   "title_zh": "财政部公告：延长受灾地区纳税义务人申报及缴纳税款期限（第18号），2026年10月22日",
+   "title_th": "ประกาศกระทรวงการคลัง เรื่อง ขยายกำหนดเวลาการยื่นรายการและชำระภาษีอากรหรือนำส่งภาษีให้แก่ ผู้มีหน้าที่เสียภาษีหรือนำส่งภาษีในท้องที่ที่เกิดภัยพิบัติ (ฉบับที่ 18) ลงวันที่ 22 ตุลาคม พ.ศ. 2569",
+   "summary_zh": "据标题，本文件为财政部公告，延长受灾地区纳税义务人及代扣代缴义务人申报和缴纳税款的期限；这是第18号公告。具体适用地区、延长期限及税种待原文核对。",
    "key_points": [],
-   "org": "税务厅 (RD)",
+   "org": "财政部 (MOF)",
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -28878,13 +28933,13 @@
    "effective_label": "已刊公报",
    "status": "soon",
    "status_label": "已刊公报",
-   "source_url": "https://www.rd.go.th/fileadmin/user_upload/kormor/newlaw/dgr315A.pdf",
+   "source_url": "https://www.rd.go.th/fileadmin/user_upload/kormor/newlaw/mofdisaster18A.pdf",
    "verified": false,
    "detail_ready": false,
    "provenance": "rd_web",
    "dates": {
     "resolved_at": null,
-    "published_at": "2026-10-27",
+    "published_at": "2026-10-29",
     "effective_from": null,
     "effective_to": null,
     "comment_deadline": null
@@ -28897,14 +28952,14 @@
     {
      "id": "foreign_company",
      "party_id": "foreign_company",
-     "stance": "neutral",
+     "stance": "support",
      "label": "外资企业"
     },
     {
-     "id": "thai_employer",
-     "party_id": "thai_employer",
-     "stance": "neutral",
-     "label": "本地雇主"
+     "id": "sme",
+     "party_id": "sme",
+     "stance": "support",
+     "label": "中小企业"
     }
    ],
    "featured": false

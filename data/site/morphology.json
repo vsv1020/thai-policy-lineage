@@ -1,19 +1,19 @@
 {
  "_generated": "由 backend/app/export.py 从数据库导出,请勿手改;改 data/policies/*.jsonl → python3 -m app.ingest → python3 -m app.export",
- "n": 576,
+ "n": 577,
  "kpis": {
-  "total": 576,
+  "total": 577,
   "avg_stability": 2.05,
   "binding_pct": 8.7,
   "in_force_pct": 17.0,
   "high_tier_pct": 3.1,
   "tight": 117,
-  "loose": 158
+  "loose": 160
  },
  "insights": [
-  "库内 576 条政策中,公告 / 规程层级最多(占 82.8%);可诉、强制力较强的占 8.7%,现行有效的占 17.0%。",
+  "库内 577 条政策中,公告 / 规程层级最多(占 82.8%);可诉、强制力较强的占 8.7%,现行有效的占 17.0%。",
   "「税务」的政策层级最高(平均稳定性 2.37),多以公告出台;「金融外汇」最低(平均 1.85),以公告为主,规则更容易调整。",
-  "方向上,收紧 117 条、放宽 158 条,整体偏放宽。"
+  "方向上,收紧 117 条、放宽 160 条,整体偏放宽。"
  ],
  "legal_forms": [
   {
@@ -46,14 +46,14 @@
    "stability": 3,
    "justiciable": true,
    "n": 32,
-   "pct": 5.6
+   "pct": 5.5
   },
   {
    "id": "prakat",
    "zh": "公告",
    "stability": 2,
    "justiciable": false,
-   "n": 418,
+   "n": 419,
    "pct": 72.6
   },
   {
@@ -70,7 +70,7 @@
    "stability": 1,
    "justiciable": false,
    "n": 17,
-   "pct": 3.0
+   "pct": 2.9
   },
   {
    "id": "resolution",
@@ -78,7 +78,7 @@
    "stability": 1,
    "justiciable": false,
    "n": 32,
-   "pct": 5.6
+   "pct": 5.5
   }
  ],
  "tiers": [
@@ -98,12 +98,12 @@
    "stability": 3,
    "label": "部令",
    "n": 32,
-   "pct": 5.6
+   "pct": 5.5
   },
   {
    "stability": 2,
    "label": "公告 / 规程",
-   "n": 477,
+   "n": 478,
    "pct": 82.8
   },
   {
@@ -126,21 +126,21 @@
    "zh": "环境型",
    "desc": "规则与激励塑造环境",
    "n": 476,
-   "pct": 82.6
+   "pct": 82.5
   },
   {
    "id": "demand",
    "zh": "需求型",
    "desc": "直接拉动市场",
    "n": 81,
-   "pct": 14.1
+   "pct": 14.0
   }
  ],
  "top_instruments": [
   {
    "zh": "标准与准入管制",
    "class": "环境型",
-   "n": 377
+   "n": 378
   },
   {
    "zh": "申报、备案与披露",
@@ -194,8 +194,8 @@
   {
    "id": "gazetted",
    "zh": "已刊公报",
-   "n": 427,
-   "pct": 74.1
+   "n": 428,
+   "pct": 74.2
   },
   {
    "id": "in_force",
@@ -325,7 +325,7 @@
     0,
     10,
     5,
-    38,
+    39,
     3,
     2,
     1
@@ -430,14 +430,14 @@
   {
    "id": "tax",
    "zh": "税务",
-   "n": 59,
+   "n": 60,
    "avg_stability": 2.37,
-   "binding_pct": 25.4,
+   "binding_pct": 25.0,
    "dominant_form": "公告",
-   "dominant_form_pct": 64.4,
+   "dominant_form_pct": 65.0,
    "dominant_class": "环境型",
    "tight": 8,
-   "loose": 33
+   "loose": 35
   },
   {
    "id": "finance",
@@ -611,13 +611,13 @@
   },
   {
    "quarter": "2026Q4",
-   "n": 11,
-   "avg_stability": 2.64,
+   "n": 12,
+   "avg_stability": 2.58,
    "tiers": {
     "法律": 0,
     "皇家法令": 3,
     "部令": 1,
-    "公告 / 规程": 7,
+    "公告 / 规程": 8,
     "决议 / 指引": 0
    }
   }
