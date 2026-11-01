@@ -1,23 +1,23 @@
 {
- "date": "2026-11-01",
+ "date": "2026-11-02",
  "site": "https://www.thaipolicy.com",
- "generated_at": "2026-11-01T03:14:08+07:00",
+ "generated_at": "2026-11-02T03:15:08+07:00",
  "metrics": {
   "sitemap_urls": 674,
   "pages_checked": 40,
   "pages_with_problems": 0,
-  "thin_pages": 3,
-  "crawl_search_7d": 1175,
-  "crawl_ai_7d": 539,
-  "googlebot_7d": 339,
-  "bingbot_7d": 440,
-  "baiduspider_7d": 31,
-  "crawl_coverage_pct": 53.2,
-  "visits_search_7d": 11,
+  "thin_pages": 4,
+  "crawl_search_7d": 1067,
+  "crawl_ai_7d": 221,
+  "googlebot_7d": 263,
+  "bingbot_7d": 460,
+  "baiduspider_7d": 29,
+  "crawl_coverage_pct": 48.4,
+  "visits_search_7d": 12,
   "visits_ai_7d": 2,
   "gsc_clicks_28d": 6,
-  "gsc_impressions_28d": 400,
-  "gsc_position": 10.2,
+  "gsc_impressions_28d": 408,
+  "gsc_position": 10.1,
   "gsc_indexed": 617,
   "gsc_checked": 674,
   "bing_in_index": 318,
@@ -28,6 +28,19 @@
   "geo_cited": 0
  },
  "issues": [
+  {
+   "level": "warn",
+   "code": "crawl_errors",
+   "msg": "爬虫近两天遇到 5 个报错路径",
+   "fix": "404 通常是删掉的旧页面(可在 nginx 加 301)或错误链接;5xx 查服务器日志",
+   "items": [
+    "404 /blog(Googlebot,最近 2026-11-01)",
+    "404 /site(Googlebot,最近 2026-11-01)",
+    "404 /site/wp-json/(Googlebot,最近 2026-11-01)",
+    "404 /press/wp-json/(Googlebot,最近 2026-11-01)",
+    "404 /cms(Googlebot,最近 2026-11-01)"
+   ]
+  },
   {
    "level": "warn",
    "code": "geo_api",
@@ -51,9 +64,9 @@
     "https://www.thaipolicy.com/p/t/social-security.html(Google 无法识别此网址)",
     "https://www.thaipolicy.com/p/th-boi-20260115-138447.html(已发现 - 尚未编入索引)",
     "https://www.thaipolicy.com/p/th-boi-20260115-138448.html(已发现 - 尚未编入索引)",
-    "https://www.thaipolicy.com/p/th-boi-20260115-138449.html(Google 无法识别此网址)",
+    "https://www.thaipolicy.com/p/th-boi-20260115-138449.html(已发现 - 尚未编入索引)",
     "https://www.thaipolicy.com/p/th-boi-20260115-138450.html(已发现 - 尚未编入索引)",
-    "https://www.thaipolicy.com/p/th-boi-20260115-138451.html(Google 无法识别此网址)",
+    "https://www.thaipolicy.com/p/th-boi-20260115-138451.html(已发现 - 尚未编入索引)",
     "https://www.thaipolicy.com/p/th-cabx-20250327-1c119827a4.html(已发现 - 尚未编入索引)",
     "https://www.thaipolicy.com/p/th-gaz-20260216-116-thailand-civil-aviation-regulation.html(已发现 - 尚未编入索引)",
     "https://www.thaipolicy.com/p/th-gaz-20260217-1-627.html(已发现 - 尚未编入索引)",
@@ -78,28 +91,29 @@
     "/p/th-boi-20241125-136239.html",
     "/p/th-boi-20241209-136276.html",
     "/p/th-boi-20241209-136277.html",
+    "/p/th-boi-20241220-136327.html",
     "/p/th-boi-20250102-136362.html",
     "/p/th-boi-20250117-136469.html",
     "/p/th-boi-20250117-136470.html",
+    "/p/th-boi-20250218-136587.html",
     "/p/th-boi-20250218-136588.html",
+    "/p/th-boi-20250224-136611.html",
     "/p/th-boi-20250317-136728.html",
     "/p/th-boi-20250409-136809.html",
     "/p/th-boi-20250409-136810.html",
-    "/p/th-boi-20250605-137008.html",
-    "/p/th-boi-20250605-137009.html",
-    "/p/th-boi-20250722-137196.html",
-    "/p/th-boi-20251022-138086.html"
+    "/p/th-boi-20250605-137005.html"
    ]
   },
   {
    "level": "info",
    "code": "thin_content",
-   "msg": "抽查的 40 页中有 3 页摘要只依据标题(内容单薄)",
+   "msg": "抽查的 40 页中有 4 页摘要只依据标题(内容单薄)",
    "fix": "单薄页面难以获得排名与 AI 引用:给 enrich 增加读取公报 PDF 正文的步骤,生成有实质内容的摘要与要点",
    "items": [
     "https://www.thaipolicy.com/p/th-rd-20261029-mofdisaster18a.html",
-    "https://www.thaipolicy.com/p/th-boi-20250214-136567.html",
-    "https://www.thaipolicy.com/p/th-boi-20250214-136568.html"
+    "https://www.thaipolicy.com/p/th-boi-20250714-137152.html",
+    "https://www.thaipolicy.com/p/th-boi-20251103-138143.html",
+    "https://www.thaipolicy.com/p/th-boi-20260105-138395.html"
    ]
   }
  ],
@@ -107,7 +121,7 @@
   "site": {
    "home": {
     "status": 200,
-    "ms": 962,
+    "ms": 1656,
     "error": ""
    },
    "robots": true,
@@ -123,157 +137,103 @@
    "ok": 40,
    "with_problems": 0,
    "failed": 0,
-   "thin": 3
+   "thin": 4
   },
   "server": {
    "range": {
     "days": 7,
-    "start": "2026-10-26",
-    "end": "2026-11-01"
+    "start": "2026-10-27",
+    "end": "2026-11-02"
    },
-   "generated_at": "2026-11-01T03:07:38+07:00",
+   "generated_at": "2026-11-02T03:08:03+07:00",
    "crawlers": {
     "bots": [
      {
       "bot": "Bingbot",
       "group": "search",
-      "hits": 440,
-      "pages": 282,
+      "hits": 460,
+      "pages": 272,
+      "last_seen": "2026-11-02"
+     },
+     {
+      "bot": "Applebot",
+      "group": "search",
+      "hits": 307,
+      "pages": 46,
+      "last_seen": "2026-11-02"
+     },
+     {
+      "bot": "Googlebot",
+      "group": "search",
+      "hits": 263,
+      "pages": 158,
       "last_seen": "2026-11-01"
      },
      {
       "bot": "ClaudeBot",
       "group": "ai",
-      "hits": 367,
-      "pages": 229,
-      "last_seen": "2026-11-01"
-     },
-     {
-      "bot": "Applebot",
-      "group": "search",
-      "hits": 361,
-      "pages": 54,
-      "last_seen": "2026-10-31"
-     },
-     {
-      "bot": "Googlebot",
-      "group": "search",
-      "hits": 339,
-      "pages": 192,
+      "hits": 121,
+      "pages": 5,
       "last_seen": "2026-11-01"
      },
      {
       "bot": "OAI-SearchBot",
       "group": "ai",
-      "hits": 43,
-      "pages": 19,
+      "hits": 37,
+      "pages": 14,
       "last_seen": "2026-11-01"
      },
      {
       "bot": "Baiduspider",
       "group": "search",
-      "hits": 31,
-      "pages": 23,
+      "hits": 29,
+      "pages": 21,
       "last_seen": "2026-11-01"
      },
      {
       "bot": "Meta-AI",
       "group": "ai",
-      "hits": 30,
-      "pages": 24,
-      "last_seen": "2026-10-28"
+      "hits": 25,
+      "pages": 15,
+      "last_seen": "2026-11-01"
      },
      {
       "bot": "GPTBot",
       "group": "ai",
-      "hits": 29,
-      "pages": 22,
-      "last_seen": "2026-10-31"
-     },
-     {
-      "bot": "PerplexityBot",
-      "group": "ai",
-      "hits": 16,
-      "pages": 12,
-      "last_seen": "2026-10-30"
-     },
-     {
-      "bot": "ChatGPT-User",
-      "group": "ai",
-      "hits": 13,
-      "pages": 11,
-      "last_seen": "2026-10-30"
-     },
-     {
-      "bot": "Claude-SearchBot",
-      "group": "ai",
-      "hits": 7,
-      "pages": 6,
-      "last_seen": "2026-10-26"
-     },
-     {
-      "bot": "DuckAssistBot",
-      "group": "ai",
-      "hits": 7,
-      "pages": 7,
-      "last_seen": "2026-10-26"
-     },
-     {
-      "bot": "Amazonbot",
-      "group": "ai",
-      "hits": 6,
-      "pages": 6,
-      "last_seen": "2026-10-27"
-     },
-     {
-      "bot": "CCBot",
-      "group": "ai",
-      "hits": 5,
-      "pages": 5,
-      "last_seen": "2026-10-26"
-     },
-     {
-      "bot": "Perplexity-User",
-      "group": "ai",
-      "hits": 5,
-      "pages": 5,
-      "last_seen": "2026-10-26"
-     },
-     {
-      "bot": "cohere-ai",
-      "group": "ai",
-      "hits": 5,
-      "pages": 5,
-      "last_seen": "2026-10-26"
+      "hits": 23,
+      "pages": 16,
+      "last_seen": "2026-11-01"
      },
      {
       "bot": "360Spider",
       "group": "search",
-      "hits": 4,
-      "pages": 1,
-      "last_seen": "2026-10-29"
-     },
-     {
-      "bot": "Bytespider",
-      "group": "ai",
-      "hits": 4,
-      "pages": 3,
-      "last_seen": "2026-10-26"
-     },
-     {
-      "bot": "Claude-User",
-      "group": "ai",
-      "hits": 2,
+      "hits": 8,
       "pages": 2,
-      "last_seen": "2026-10-26"
+      "last_seen": "2026-11-02"
+     },
+     {
+      "bot": "ChatGPT-User",
+      "group": "ai",
+      "hits": 6,
+      "pages": 4,
+      "last_seen": "2026-10-30"
+     },
+     {
+      "bot": "PerplexityBot",
+      "group": "ai",
+      "hits": 6,
+      "pages": 4,
+      "last_seen": "2026-10-30"
+     },
+     {
+      "bot": "Amazonbot",
+      "group": "ai",
+      "hits": 3,
+      "pages": 3,
+      "last_seen": "2026-11-01"
      }
     ],
     "series": [
-     {
-      "day": "2026-10-26",
-      "search": 244,
-      "ai": 352
-     },
      {
       "day": "2026-10-27",
       "search": 289,
@@ -301,59 +261,22 @@
      },
      {
       "day": "2026-11-01",
-      "search": 45,
-      "ai": 5
+      "search": 146,
+      "ai": 39
+     },
+     {
+      "day": "2026-11-02",
+      "search": 35,
+      "ai": 0
      }
     ],
     "errors": [
      {
-      "path": "/.env",
-      "status": 404,
-      "n": 5,
-      "bots": "Bytespider,DuckAssistBot,GPTBot,OAI-SearchBot",
-      "last_seen": "2026-10-26"
-     },
-     {
       "path": "/p/th-gaz-20260326-2569.html",
       "status": 404,
-      "n": 4,
+      "n": 3,
       "bots": "Googlebot",
       "last_seen": "2026-10-30"
-     },
-     {
-      "path": "/.env.local",
-      "status": 404,
-      "n": 3,
-      "bots": "ChatGPT-User,Perplexity-User,cohere-ai",
-      "last_seen": "2026-10-26"
-     },
-     {
-      "path": "/@fs/src/.env",
-      "status": 404,
-      "n": 2,
-      "bots": "Bingbot,Googlebot",
-      "last_seen": "2026-10-26"
-     },
-     {
-      "path": "/.env.development",
-      "status": 404,
-      "n": 2,
-      "bots": "DuckAssistBot,GPTBot",
-      "last_seen": "2026-10-26"
-     },
-     {
-      "path": "/@fs/.env",
-      "status": 404,
-      "n": 2,
-      "bots": "ChatGPT-User,PerplexityBot",
-      "last_seen": "2026-10-26"
-     },
-     {
-      "path": "/__vite_rsc_findSourceMapURL",
-      "status": 404,
-      "n": 2,
-      "bots": "Baiduspider,cohere-ai",
-      "last_seen": "2026-10-26"
      },
      {
       "path": "/sitemap.txt",
@@ -363,231 +286,99 @@
       "last_seen": "2026-10-29"
      },
      {
-      "path": "/app",
-      "status": 404,
-      "n": 2,
-      "bots": "GPTBot,Perplexity-User",
-      "last_seen": "2026-10-26"
-     },
-     {
-      "path": "/.env.old",
-      "status": 404,
-      "n": 1,
-      "bots": "Meta-AI",
-      "last_seen": "2026-10-26"
-     },
-     {
-      "path": "/.env.keys",
-      "status": 404,
-      "n": 1,
-      "bots": "CCBot",
-      "last_seen": "2026-10-26"
-     },
-     {
-      "path": "/.env.development.local",
-      "status": 404,
-      "n": 1,
-      "bots": "DuckAssistBot",
-      "last_seen": "2026-10-26"
-     },
-     {
-      "path": "/.turbo/config.json",
-      "status": 404,
-      "n": 1,
-      "bots": "DuckAssistBot",
-      "last_seen": "2026-10-26"
-     },
-     {
-      "path": "/@fs/..%2f..%2f..%2f..%2f..%2froot/.env",
-      "status": 404,
-      "n": 1,
-      "bots": "Perplexity-User",
-      "last_seen": "2026-10-26"
-     },
-     {
-      "path": "/.dev.vars",
-      "status": 404,
-      "n": 1,
-      "bots": "OAI-SearchBot",
-      "last_seen": "2026-10-26"
-     },
-     {
-      "path": "/.aws/credentials",
-      "status": 404,
-      "n": 1,
-      "bots": "Claude-SearchBot",
-      "last_seen": "2026-10-26"
-     },
-     {
-      "path": "/.env::$DATA",
-      "status": 404,
-      "n": 1,
-      "bots": "GPTBot",
-      "last_seen": "2026-10-26"
-     },
-     {
-      "path": "/.env.staging.local",
-      "status": 404,
-      "n": 1,
-      "bots": "Meta-AI",
-      "last_seen": "2026-10-26"
-     },
-     {
-      "path": "/.env.save",
-      "status": 404,
-      "n": 1,
-      "bots": "Meta-AI",
-      "last_seen": "2026-10-26"
-     },
-     {
-      "path": "/.env.dev.local",
-      "status": 404,
-      "n": 1,
-      "bots": "GPTBot",
-      "last_seen": "2026-10-26"
-     },
-     {
-      "path": "/.changeset/config.json",
+      "path": "/p/th-cabx-20260326-7-9-81-2569.html(",
       "status": 404,
       "n": 1,
       "bots": "Amazonbot",
-      "last_seen": "2026-10-26"
+      "last_seen": "2026-10-27"
      },
      {
-      "path": "/.firebaserc",
+      "path": "/blog",
       "status": 404,
       "n": 1,
-      "bots": "ClaudeBot",
-      "last_seen": "2026-10-26"
+      "bots": "Googlebot",
+      "last_seen": "2026-11-01"
      },
      {
-      "path": "/.git-credentials",
+      "path": "/site",
       "status": 404,
       "n": 1,
-      "bots": "Amazonbot",
-      "last_seen": "2026-10-26"
+      "bots": "Googlebot",
+      "last_seen": "2026-11-01"
      },
      {
-      "path": "/.github/workflows/deploy.yml",
+      "path": "/site/wp-json/",
       "status": 404,
       "n": 1,
-      "bots": "GPTBot",
-      "last_seen": "2026-10-26"
+      "bots": "Googlebot",
+      "last_seen": "2026-11-01"
      },
      {
-      "path": "/.gitlab-ci.yml",
+      "path": "/press/wp-json/",
       "status": 404,
       "n": 1,
-      "bots": "OAI-SearchBot",
-      "last_seen": "2026-10-26"
+      "bots": "Googlebot",
+      "last_seen": "2026-11-01"
      },
      {
-      "path": "/.htpasswd",
+      "path": "/cms",
       "status": 404,
       "n": 1,
-      "bots": "PerplexityBot",
-      "last_seen": "2026-10-26"
-     },
-     {
-      "path": "/.env.production.local",
-      "status": 404,
-      "n": 1,
-      "bots": "PerplexityBot",
-      "last_seen": "2026-10-26"
-     },
-     {
-      "path": "/4v7luvq2mz4fp5vzhugy",
-      "status": 404,
-      "n": 1,
-      "bots": "PerplexityBot",
-      "last_seen": "2026-10-26"
-     },
-     {
-      "path": "/.env.prod.local",
-      "status": 404,
-      "n": 1,
-      "bots": "ChatGPT-User",
-      "last_seen": "2026-10-26"
-     },
-     {
-      "path": "/.env.credentials",
-      "status": 404,
-      "n": 1,
-      "bots": "PerplexityBot",
-      "last_seen": "2026-10-26"
+      "bots": "Googlebot",
+      "last_seen": "2026-11-01"
      }
     ],
     "top_paths": [
      {
       "path": "/robots.txt",
-      "n": 129
+      "n": 117
      },
      {
       "path": "/sitemap.xml",
-      "n": 78
+      "n": 66
      },
      {
       "path": "/data/site/analytics.json",
-      "n": 52
-     },
-     {
-      "path": "/data/site/ads.json",
-      "n": 50
-     },
-     {
-      "path": "/data/site/support.json",
-      "n": 50
-     },
-     {
-      "path": "/js/track.js",
-      "n": 46
-     },
-     {
-      "path": "/css/main.css",
-      "n": 45
-     },
-     {
-      "path": "/js/ads.js",
       "n": 44
      },
      {
-      "path": "/js/support.js",
+      "path": "/data/site/ads.json",
       "n": 43
      },
      {
+      "path": "/data/site/support.json",
+      "n": 43
+     },
+     {
+      "path": "/js/track.js",
+      "n": 40
+     },
+     {
+      "path": "/js/support.js",
+      "n": 38
+     },
+     {
+      "path": "/css/main.css",
+      "n": 37
+     },
+     {
+      "path": "/js/ads.js",
+      "n": 37
+     },
+     {
       "path": "/js/promptpay.js",
-      "n": 41
+      "n": 35
      },
      {
       "path": "/js/vendor/qrcode-generator-1.4.4.js",
-      "n": 41
+      "n": 35
      },
      {
       "path": "/",
-      "n": 19
+      "n": 17
      },
      {
       "path": "/data/site/policies.json",
-      "n": 8
-     },
-     {
-      "path": "/about.html",
-      "n": 7
-     },
-     {
-      "path": "/data/site/collections.json",
-      "n": 7
-     },
-     {
-      "path": "/data/site/subscribe.json",
-      "n": 7
-     },
-     {
-      "path": "/p/th-boi-20250605-137007.html",
-      "n": 7
-     },
-     {
-      "path": "/p/th-cabx-20251209-2567-2567.html",
       "n": 7
      },
      {
@@ -595,16 +386,36 @@
       "n": 7
      },
      {
-      "path": "/p/th-cabx-20250225-e529f7cf4d.html",
+      "path": "/p/th-rd-20261027-dgr315a.html",
+      "n": 7
+     },
+     {
+      "path": "/js/echarts.min.js",
+      "n": 6
+     },
+     {
+      "path": "/p/th-boi-20250605-137007.html",
+      "n": 6
+     },
+     {
+      "path": "/p/th-cabx-20251209-2567-2567.html",
+      "n": 6
+     },
+     {
+      "path": "/p/th-gaz-20260203-2-3.html",
+      "n": 6
+     },
+     {
+      "path": "/p/week/2026-W26.html",
       "n": 6
      }
     ]
    },
    "coverage": {
     "sitemap_landing": 577,
-    "crawled_by_search": 307,
-    "crawled_by_ai": 188,
-    "search_pct": 53.2,
+    "crawled_by_search": 279,
+    "crawled_by_ai": 22,
+    "search_pct": 48.4,
     "never_crawled_sample": [
      "/p/th-boi-20241010-136030.html",
      "/p/th-boi-20241015-136054.html",
@@ -615,32 +426,32 @@
      "/p/th-boi-20241125-136239.html",
      "/p/th-boi-20241209-136276.html",
      "/p/th-boi-20241209-136277.html",
+     "/p/th-boi-20241220-136327.html",
      "/p/th-boi-20250102-136362.html",
      "/p/th-boi-20250117-136469.html",
      "/p/th-boi-20250117-136470.html",
+     "/p/th-boi-20250218-136587.html",
      "/p/th-boi-20250218-136588.html",
+     "/p/th-boi-20250224-136611.html",
      "/p/th-boi-20250317-136728.html",
      "/p/th-boi-20250409-136809.html",
      "/p/th-boi-20250409-136810.html",
-     "/p/th-boi-20250605-137008.html",
-     "/p/th-boi-20250605-137009.html",
-     "/p/th-boi-20250722-137196.html",
-     "/p/th-boi-20251022-138086.html"
+     "/p/th-boi-20250605-137005.html"
     ]
    },
    "channels": {
-    "direct": 40,
-    "search": 11,
+    "direct": 35,
+    "search": 12,
     "ai": 2
    },
    "search_sources": [
     {
      "key": "Bing",
-     "n": 7
+     "n": 6
     },
     {
      "key": "Google",
-     "n": 4
+     "n": 6
     }
    ],
    "ai_sources": [
@@ -651,15 +462,15 @@
    ],
    "search_landings": [
     {
+     "key": "/p/th-gaz-20260219-2-2569-uvc.html",
+     "n": 3
+    },
+    {
      "key": "/p/",
      "n": 2
     },
     {
-     "key": "/p/th-gaz-20260210-pick-up-passenger-vehicle-ppv.html",
-     "n": 2
-    },
-    {
-     "key": "/p/th-gaz-20260219-2-2569-uvc.html",
+     "key": "/p/th-gaz-20260205-46-2568-grid-code.html",
      "n": 2
     },
     {
@@ -671,7 +482,7 @@
      "n": 2
     },
     {
-     "key": "/p/th-gaz-20260205-46-2568-grid-code.html",
+     "key": "/",
      "n": 1
     }
    ],
@@ -686,9 +497,9 @@
    "property": "sc-domain:thaipolicy.com",
    "totals_28d": {
     "clicks": 6,
-    "impressions": 400,
-    "ctr": 0.015,
-    "position": 10.1675
+    "impressions": 408,
+    "ctr": 0.014705882352941176,
+    "position": 10.075980392156863
    },
    "top_queries": [
     {
@@ -732,8 +543,8 @@
     {
      "page": "https://www.thaipolicy.com/p/th-gaz-20260219-2-2569-uvc.html",
      "clicks": 2,
-     "impr": 9,
-     "pos": 2.7
+     "impr": 10,
+     "pos": 2.5
     },
     {
      "page": "https://www.thaipolicy.com/p/th-gaz-20260330-18-2569.html",
@@ -750,8 +561,8 @@
     {
      "page": "https://www.thaipolicy.com/p/th-gaz-20260220-13-2569-systemically-important-retail.html",
      "clicks": 1,
-     "impr": 3,
-     "pos": 6.3
+     "impr": 2,
+     "pos": 5.5
     },
     {
      "page": "https://www.thaipolicy.com/",
@@ -870,8 +681,8 @@
     {
      "page": "https://www.thaipolicy.com/p/th-boi-20260206-138545.html",
      "clicks": 0,
-     "impr": 3,
-     "pos": 2
+     "impr": 4,
+     "pos": 2.5
     },
     {
      "page": "https://www.thaipolicy.com/p/th-boi-20260311-138643.html",
@@ -891,8 +702,8 @@
     "total": 674,
     "coverage_states": {
      "已提交，且已编入索引": 617,
-     "已发现 - 尚未编入索引": 45,
-     "Google 无法识别此网址": 12
+     "已发现 - 尚未编入索引": 47,
+     "Google 无法识别此网址": 10
     }
    }
   },
@@ -935,12 +746,12 @@
      "clicks": 0
     },
     {
-     "q": "sirps เกณฑ์",
+     "q": "原文：https://ratchakitcha.soc.go.th/documents/132451.pdf",
      "impr": 2,
      "clicks": 0
     },
     {
-     "q": "原文：https://ratchakitcha.soc.go.th/documents/132451.pdf",
+     "q": "sirps เกณฑ์",
      "impr": 2,
      "clicks": 0
     },
@@ -948,11 +759,6 @@
      "q": "《清迈倡议多边化》",
      "impr": 2,
      "clicks": 1
-    },
-    {
-     "q": "清迈倡议多边化协议",
-     "impr": 2,
-     "clicks": 0
     },
     {
      "q": "《部令：规定工厂的类别、种类及规模，佛历 2563（2020）》",
@@ -965,12 +771,12 @@
      "clicks": 0
     },
     {
-     "q": "泰国政府储蓄银行 維護通知书",
+     "q": "清迈倡议多边化协议",
      "impr": 2,
      "clicks": 0
     },
     {
-     "q": "อนุ กก. บูรณาการวีซ่า เพื่อดึงดูดชาวต่างชาติที่มีศักยภาพสูงสู่ประเทศไทย",
+     "q": "泰国政府储蓄银行 維護通知书",
      "impr": 2,
      "clicks": 0
     },
@@ -980,12 +786,17 @@
      "clicks": 0
     },
     {
-     "q": "泰国政策文件",
+     "q": "อนุ กก. บูรณาการวีซ่า เพื่อดึงดูดชาวต่างชาติที่มีศักยภาพสูงสู่ประเทศไทย",
+     "impr": 2,
+     "clicks": 0
+    },
+    {
+     "q": "皇家法令805号",
      "impr": 2,
      "clicks": 1
     },
     {
-     "q": "皇家法令805号",
+     "q": "泰国政策文件",
      "impr": 2,
      "clicks": 1
     },
@@ -1024,38 +835,6 @@
  },
  "disabled": [],
  "trend": [
-  {
-   "date": "2026-10-03",
-   "metrics": {
-    "sitemap_urls": 453,
-    "pages_checked": 40,
-    "pages_with_problems": 0,
-    "thin_pages": 0,
-    "crawl_search_7d": 1680,
-    "crawl_ai_7d": 95,
-    "googlebot_7d": 740,
-    "bingbot_7d": 540,
-    "baiduspider_7d": 36,
-    "crawl_coverage_pct": 89.7,
-    "visits_search_7d": 1,
-    "visits_ai_7d": 0,
-    "gsc_clicks_28d": 0,
-    "gsc_impressions_28d": 1,
-    "gsc_position": 6,
-    "gsc_indexed": 97,
-    "gsc_checked": 372,
-    "bing_impressions": 0,
-    "bing_clicks": 0,
-    "indexnow_submitted": 0,
-    "geo_asked": 8,
-    "geo_cited": 0
-   },
-   "issues": {
-    "error": 0,
-    "warn": 1,
-    "info": 2
-   }
-  },
   {
    "date": "2026-10-04",
    "metrics": {
@@ -2005,6 +1784,39 @@
    "issues": {
     "error": 0,
     "warn": 1,
+    "info": 3
+   }
+  },
+  {
+   "date": "2026-11-02",
+   "metrics": {
+    "sitemap_urls": 674,
+    "pages_checked": 40,
+    "pages_with_problems": 0,
+    "thin_pages": 4,
+    "crawl_search_7d": 1067,
+    "crawl_ai_7d": 221,
+    "googlebot_7d": 263,
+    "bingbot_7d": 460,
+    "baiduspider_7d": 29,
+    "crawl_coverage_pct": 48.4,
+    "visits_search_7d": 12,
+    "visits_ai_7d": 2,
+    "gsc_clicks_28d": 6,
+    "gsc_impressions_28d": 408,
+    "gsc_position": 10.1,
+    "gsc_indexed": 617,
+    "gsc_checked": 674,
+    "bing_in_index": 318,
+    "bing_impressions": 78,
+    "bing_clicks": 5,
+    "indexnow_submitted": 0,
+    "geo_asked": 0,
+    "geo_cited": 0
+   },
+   "issues": {
+    "error": 0,
+    "warn": 2,
     "info": 3
    }
   }
