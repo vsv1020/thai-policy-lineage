@@ -1,26 +1,26 @@
 {
- "date": "2026-11-04",
+ "date": "2026-11-05",
  "site": "https://www.thaipolicy.com",
- "generated_at": "2026-11-04T03:14:27+07:00",
+ "generated_at": "2026-11-05T03:14:09+07:00",
  "metrics": {
   "sitemap_urls": 674,
   "pages_checked": 40,
   "pages_with_problems": 0,
-  "thin_pages": 28,
-  "crawl_search_7d": 1066,
-  "crawl_ai_7d": 169,
-  "googlebot_7d": 259,
-  "bingbot_7d": 558,
+  "thin_pages": 29,
+  "crawl_search_7d": 1080,
+  "crawl_ai_7d": 187,
+  "googlebot_7d": 274,
+  "bingbot_7d": 548,
   "baiduspider_7d": 29,
-  "crawl_coverage_pct": 43.2,
-  "visits_search_7d": 11,
+  "crawl_coverage_pct": 44.4,
+  "visits_search_7d": 10,
   "visits_ai_7d": 0,
-  "gsc_clicks_28d": 9,
-  "gsc_impressions_28d": 409,
-  "gsc_position": 9.9,
+  "gsc_clicks_28d": 10,
+  "gsc_impressions_28d": 414,
+  "gsc_position": 10.0,
   "gsc_indexed": 617,
   "gsc_checked": 674,
-  "bing_in_index": 399,
+  "bing_in_index": 419,
   "bing_impressions": 78,
   "bing_clicks": 5,
   "indexnow_submitted": 0,
@@ -34,7 +34,7 @@
    "msg": "爬虫近两天遇到 1 个报错路径",
    "fix": "404 通常是删掉的旧页面(可在 nginx 加 301)或错误链接;5xx 查服务器日志",
    "items": [
-    "404 /p/th-gaz-20260326-2569.html(Googlebot,最近 2026-11-03)"
+    "404 /p/th-gaz-20260317-866-47-7-3-4.html(Bingbot,最近 2026-11-04)"
    ]
   },
   {
@@ -78,12 +78,10 @@
    "msg": "20+ 个落地页近 7 天未被搜索爬虫抓取",
    "fix": "增加站内链接(首页、专题页、同领域推荐);新页面已通过 IndexNow 与 GSC sitemap 提交",
    "items": [
-    "/p/th-boi-20241010-136030.html",
     "/p/th-boi-20241015-136054.html",
     "/p/th-boi-20241024-136366.html",
     "/p/th-boi-20241025-136110.html",
     "/p/th-boi-20241101-136141.html",
-    "/p/th-boi-20241104-136149.html",
     "/p/th-boi-20241125-136238.html",
     "/p/th-boi-20241125-136239.html",
     "/p/th-boi-20241209-136276.html",
@@ -97,35 +95,37 @@
     "/p/th-boi-20250228-136638.html",
     "/p/th-boi-20250409-136809.html",
     "/p/th-boi-20250409-136810.html",
-    "/p/th-boi-20250605-137005.html"
+    "/p/th-boi-20250605-137005.html",
+    "/p/th-boi-20250605-137006.html",
+    "/p/th-boi-20250605-137010.html"
    ]
   },
   {
    "level": "info",
    "code": "thin_content",
-   "msg": "抽查的 40 页中有 28 页摘要只依据标题(内容单薄)",
+   "msg": "抽查的 40 页中有 29 页摘要只依据标题(内容单薄)",
    "fix": "单薄页面难以获得排名与 AI 引用:给 enrich 增加读取公报 PDF 正文的步骤,生成有实质内容的摘要与要点",
    "items": [
     "https://www.thaipolicy.com/p/th-rd-20261029-mofdisaster18a.html",
-    "https://www.thaipolicy.com/p/th-cabx-20241217-b149779c19.html",
-    "https://www.thaipolicy.com/p/th-cabx-20250107-cadb7e7b6c.html",
-    "https://www.thaipolicy.com/p/th-cabx-20250107-sme-beyond-sme.html",
-    "https://www.thaipolicy.com/p/th-cabx-20250113-2f8b31f8e8.html",
-    "https://www.thaipolicy.com/p/th-cabx-20250113-bdb9e408ef.html",
-    "https://www.thaipolicy.com/p/th-cabx-20250121-69ba3ee260.html",
-    "https://www.thaipolicy.com/p/th-cabx-20250121-carbon-pricing.html",
-    "https://www.thaipolicy.com/p/th-cabx-20250128-cctv-system.html",
-    "https://www.thaipolicy.com/p/th-cabx-20250204-cdae6cb55a.html",
-    "https://www.thaipolicy.com/p/th-cabx-20250211-non-banks-soft-loan-non.html",
-    "https://www.thaipolicy.com/p/th-cabx-20250225-3-2567.html",
-    "https://www.thaipolicy.com/p/th-cabx-20250225-31-2567.html",
-    "https://www.thaipolicy.com/p/th-cabx-20250225-e529f7cf4d.html",
-    "https://www.thaipolicy.com/p/th-cabx-20250311-6a7d7bce0a.html",
-    "https://www.thaipolicy.com/p/th-cabx-20250318-2019.html",
-    "https://www.thaipolicy.com/p/th-cabx-20250318-b302aa3177.html",
-    "https://www.thaipolicy.com/p/th-cabx-20250327-1-2567.html",
-    "https://www.thaipolicy.com/p/th-cabx-20250327-1c119827a4.html",
-    "https://www.thaipolicy.com/p/th-cabx-20250327-70b76d7ae3.html"
+    "https://www.thaipolicy.com/p/th-cabx-20251223-8-2568-1-2567.html",
+    "https://www.thaipolicy.com/p/th-cabx-20260106-ccs.html",
+    "https://www.thaipolicy.com/p/th-cabx-20260113-32.html",
+    "https://www.thaipolicy.com/p/th-cabx-20260113-706398dece.html",
+    "https://www.thaipolicy.com/p/th-cabx-20260113-9-2.html",
+    "https://www.thaipolicy.com/p/th-cabx-20260113-a1e3b04610.html",
+    "https://www.thaipolicy.com/p/th-cabx-20260120-a1480d2e4a.html",
+    "https://www.thaipolicy.com/p/th-cabx-20260127-pm2-5.html",
+    "https://www.thaipolicy.com/p/th-cabx-20260203-2833c90eb1.html",
+    "https://www.thaipolicy.com/p/th-cabx-20260203-fidf-fee-1.html",
+    "https://www.thaipolicy.com/p/th-cabx-20260210-2546.html",
+    "https://www.thaipolicy.com/p/th-cabx-20260210-2569-2571.html",
+    "https://www.thaipolicy.com/p/th-cabx-20260210-2569.html",
+    "https://www.thaipolicy.com/p/th-cabx-20260217-wto-2569-2571.html",
+    "https://www.thaipolicy.com/p/th-cabx-20260224-chiang-mai-initiative-multilateralisation-agreem.html",
+    "https://www.thaipolicy.com/p/th-cabx-20260317-11721c1055.html",
+    "https://www.thaipolicy.com/p/th-cabx-20260317-330e08aef6.html",
+    "https://www.thaipolicy.com/p/th-cabx-20260317-65be84cc73.html",
+    "https://www.thaipolicy.com/p/th-cabx-20260326-7-9-81-2569.html"
    ]
   }
  ],
@@ -133,7 +133,7 @@
   "site": {
    "home": {
     "status": 200,
-    "ms": 1065,
+    "ms": 1071,
     "error": ""
    },
    "robots": true,
@@ -149,51 +149,51 @@
    "ok": 40,
    "with_problems": 0,
    "failed": 0,
-   "thin": 28
+   "thin": 29
   },
   "server": {
    "range": {
     "days": 7,
-    "start": "2026-10-29",
-    "end": "2026-11-04"
+    "start": "2026-10-30",
+    "end": "2026-11-05"
    },
-   "generated_at": "2026-11-04T03:07:59+07:00",
+   "generated_at": "2026-11-05T03:07:48+07:00",
    "crawlers": {
     "bots": [
      {
       "bot": "Bingbot",
       "group": "search",
-      "hits": 558,
-      "pages": 260,
-      "last_seen": "2026-11-04"
+      "hits": 548,
+      "pages": 264,
+      "last_seen": "2026-11-05"
      },
      {
       "bot": "Googlebot",
       "group": "search",
-      "hits": 259,
-      "pages": 138,
-      "last_seen": "2026-11-04"
+      "hits": 274,
+      "pages": 139,
+      "last_seen": "2026-11-05"
      },
      {
       "bot": "Applebot",
       "group": "search",
-      "hits": 212,
-      "pages": 33,
-      "last_seen": "2026-11-03"
+      "hits": 223,
+      "pages": 34,
+      "last_seen": "2026-11-05"
      },
      {
       "bot": "ClaudeBot",
       "group": "ai",
-      "hits": 89,
+      "hits": 97,
       "pages": 3,
-      "last_seen": "2026-11-04"
+      "last_seen": "2026-11-05"
      },
      {
       "bot": "OAI-SearchBot",
       "group": "ai",
-      "hits": 33,
+      "hits": 34,
       "pages": 9,
-      "last_seen": "2026-11-03"
+      "last_seen": "2026-11-05"
      },
      {
       "bot": "Baiduspider",
@@ -205,9 +205,9 @@
      {
       "bot": "GPTBot",
       "group": "ai",
-      "hits": 20,
-      "pages": 14,
-      "last_seen": "2026-11-03"
+      "hits": 27,
+      "pages": 20,
+      "last_seen": "2026-11-04"
      },
      {
       "bot": "Meta-AI",
@@ -219,16 +219,16 @@
      {
       "bot": "360Spider",
       "group": "search",
-      "hits": 8,
+      "hits": 6,
       "pages": 2,
       "last_seen": "2026-11-02"
      },
      {
       "bot": "ChatGPT-User",
       "group": "ai",
-      "hits": 4,
+      "hits": 6,
       "pages": 3,
-      "last_seen": "2026-10-30"
+      "last_seen": "2026-11-04"
      },
      {
       "bot": "PerplexityBot",
@@ -246,11 +246,6 @@
      }
     ],
     "series": [
-     {
-      "day": "2026-10-29",
-      "search": 116,
-      "ai": 20
-     },
      {
       "day": "2026-10-30",
       "search": 232,
@@ -278,8 +273,13 @@
      },
      {
       "day": "2026-11-04",
-      "search": 26,
-      "ai": 4
+      "search": 141,
+      "ai": 37
+     },
+     {
+      "day": "2026-11-05",
+      "search": 15,
+      "ai": 5
      }
     ],
     "errors": [
@@ -291,13 +291,6 @@
       "last_seen": "2026-11-02"
      },
      {
-      "path": "/p/th-gaz-20260326-2569.html",
-      "status": 404,
-      "n": 3,
-      "bots": "Googlebot",
-      "last_seen": "2026-11-03"
-     },
-     {
       "path": "/site",
       "status": 404,
       "n": 2,
@@ -305,11 +298,25 @@
       "last_seen": "2026-11-02"
      },
      {
-      "path": "/sitemap.txt",
+      "path": "/p/th-gaz-20260326-2569.html",
       "status": 404,
       "n": 2,
+      "bots": "Googlebot",
+      "last_seen": "2026-11-03"
+     },
+     {
+      "path": "/p/th-gaz-20260317-866-47-7-3-4.html",
+      "status": 404,
+      "n": 1,
       "bots": "Bingbot",
-      "last_seen": "2026-10-29"
+      "last_seen": "2026-11-04"
+     },
+     {
+      "path": "/press/wp-json/",
+      "status": 404,
+      "n": 1,
+      "bots": "Googlebot",
+      "last_seen": "2026-11-01"
      },
      {
       "path": "/blog",
@@ -338,23 +345,16 @@
       "n": 1,
       "bots": "Googlebot",
       "last_seen": "2026-11-02"
-     },
-     {
-      "path": "/press/wp-json/",
-      "status": 404,
-      "n": 1,
-      "bots": "Googlebot",
-      "last_seen": "2026-11-01"
      }
     ],
     "top_paths": [
      {
       "path": "/robots.txt",
-      "n": 103
+      "n": 108
      },
      {
       "path": "/sitemap.xml",
-      "n": 51
+      "n": 55
      },
      {
       "path": "/data/site/ads.json",
@@ -366,35 +366,43 @@
      },
      {
       "path": "/data/site/support.json",
-      "n": 36
-     },
-     {
-      "path": "/js/ads.js",
-      "n": 28
-     },
-     {
-      "path": "/js/support.js",
-      "n": 28
+      "n": 37
      },
      {
       "path": "/css/main.css",
-      "n": 27
+      "n": 32
+     },
+     {
+      "path": "/js/support.js",
+      "n": 31
+     },
+     {
+      "path": "/js/ads.js",
+      "n": 30
+     },
+     {
+      "path": "/js/vendor/qrcode-generator-1.4.4.js",
+      "n": 29
      },
      {
       "path": "/js/track.js",
       "n": 27
      },
      {
-      "path": "/js/vendor/qrcode-generator-1.4.4.js",
+      "path": "/js/promptpay.js",
       "n": 26
      },
      {
-      "path": "/js/promptpay.js",
-      "n": 23
+      "path": "/",
+      "n": 19
      },
      {
-      "path": "/",
-      "n": 20
+      "path": "/p/th-gaz-20260217-4affbcd198.html",
+      "n": 9
+     },
+     {
+      "path": "/data/site/policies.json",
+      "n": 8
      },
      {
       "path": "/p/th-gaz-20260203-2-3.html",
@@ -413,35 +421,25 @@
       "n": 8
      },
      {
-      "path": "/data/site/policies.json",
+      "path": "/data/site/collections.json",
       "n": 7
      },
      {
-      "path": "/p/th-gaz-20260217-4affbcd198.html",
-      "n": 7
-     },
-     {
-      "path": "/p/week/2024-W47.html",
-      "n": 7
-     },
-     {
-      "path": "/p/week/2025-W06.html",
+      "path": "/p/index.html",
       "n": 7
      }
     ]
    },
    "coverage": {
     "sitemap_landing": 577,
-    "crawled_by_search": 249,
+    "crawled_by_search": 256,
     "crawled_by_ai": 16,
-    "search_pct": 43.2,
+    "search_pct": 44.4,
     "never_crawled_sample": [
-     "/p/th-boi-20241010-136030.html",
      "/p/th-boi-20241015-136054.html",
      "/p/th-boi-20241024-136366.html",
      "/p/th-boi-20241025-136110.html",
      "/p/th-boi-20241101-136141.html",
-     "/p/th-boi-20241104-136149.html",
      "/p/th-boi-20241125-136238.html",
      "/p/th-boi-20241125-136239.html",
      "/p/th-boi-20241209-136276.html",
@@ -455,17 +453,19 @@
      "/p/th-boi-20250228-136638.html",
      "/p/th-boi-20250409-136809.html",
      "/p/th-boi-20250409-136810.html",
-     "/p/th-boi-20250605-137005.html"
+     "/p/th-boi-20250605-137005.html",
+     "/p/th-boi-20250605-137006.html",
+     "/p/th-boi-20250605-137010.html"
     ]
    },
    "channels": {
-    "direct": 32,
-    "search": 11
+    "direct": 27,
+    "search": 10
    },
    "search_sources": [
     {
      "key": "Google",
-     "n": 7
+     "n": 6
     },
     {
      "key": "Bing",
@@ -480,10 +480,6 @@
     },
     {
      "key": "/p/th-gaz-20260219-2-2569-uvc.html",
-     "n": 2
-    },
-    {
-     "key": "/p/th-gaz-20260330-18-2569.html",
      "n": 2
     },
     {
@@ -503,6 +499,10 @@
      "n": 1
     },
     {
+     "key": "/p/th-gaz-20260330-18-2569.html",
+     "n": 1
+    },
+    {
      "key": "/p/th-rd-20261012-mr402.html",
      "n": 1
     }
@@ -512,10 +512,10 @@
   "gsc": {
    "property": "sc-domain:thaipolicy.com",
    "totals_28d": {
-    "clicks": 9,
-    "impressions": 409,
-    "ctr": 0.022004889975550123,
-    "position": 9.943765281173594
+    "clicks": 10,
+    "impressions": 414,
+    "ctr": 0.024154589371980676,
+    "position": 9.973429951690822
    },
    "top_queries": [
     {
@@ -565,8 +565,8 @@
     {
      "page": "https://www.thaipolicy.com/p/th-gaz-20260219-2-2569-uvc.html",
      "clicks": 3,
-     "impr": 18,
-     "pos": 2.1
+     "impr": 20,
+     "pos": 2.7
     },
     {
      "page": "https://www.thaipolicy.com/p/th-gaz-20260330-18-2569.html",
@@ -593,15 +593,21 @@
      "pos": 5.5
     },
     {
+     "page": "https://www.thaipolicy.com/p/th-gaz-20260319-16-2569.html",
+     "clicks": 1,
+     "impr": 4,
+     "pos": 9.5
+    },
+    {
      "page": "https://www.thaipolicy.com/p/th-rd-20261012-mr402.html",
      "clicks": 1,
-     "impr": 2,
-     "pos": 6
+     "impr": 4,
+     "pos": 3.5
     },
     {
      "page": "https://www.thaipolicy.com/",
      "clicks": 0,
-     "impr": 12,
+     "impr": 13,
      "pos": 6.8
     },
     {
@@ -705,12 +711,6 @@
      "clicks": 0,
      "impr": 5,
      "pos": 2.6
-    },
-    {
-     "page": "https://www.thaipolicy.com/p/th-boi-20250722-137200.html",
-     "clicks": 0,
-     "impr": 1,
-     "pos": 4
     }
    ],
    "sitemap": {
@@ -731,9 +731,9 @@
   },
   "bing": {
    "crawl": {
-    "date": "2026-10-31",
-    "in_index": 399,
-    "crawled": 51,
+    "date": "2026-11-01",
+    "in_index": 419,
+    "crawled": 98,
     "errors": 0
    },
    "top_queries": [
@@ -763,11 +763,6 @@
      "clicks": 0
     },
     {
-     "q": "在清迈倡议多边化（cmim）",
-     "impr": 2,
-     "clicks": 0
-    },
-    {
      "q": "原文：https://ratchakitcha.soc.go.th/documents/132451.pdf",
      "impr": 2,
      "clicks": 0
@@ -778,14 +773,14 @@
      "clicks": 0
     },
     {
+     "q": "在清迈倡议多边化（cmim）",
+     "impr": 2,
+     "clicks": 0
+    },
+    {
      "q": "《清迈倡议多边化》",
      "impr": 2,
      "clicks": 1
-    },
-    {
-     "q": "清迈倡议多边化协议",
-     "impr": 2,
-     "clicks": 0
     },
     {
      "q": "《部令：规定工厂的类别、种类及规模，佛历 2563（2020）》",
@@ -803,7 +798,7 @@
      "clicks": 0
     },
     {
-     "q": "อนุ กก. บูรณาการวีซ่า เพื่อดึงดูดชาวต่างชาติที่มีศักยภาพสูงสู่ประเทศไทย",
+     "q": "清迈倡议多边化协议",
      "impr": 2,
      "clicks": 0
     },
@@ -813,12 +808,17 @@
      "clicks": 0
     },
     {
-     "q": "皇家法令805号",
+     "q": "อนุ กก. บูรณาการวีซ่า เพื่อดึงดูดชาวต่างชาติที่มีศักยภาพสูงสู่ประเทศไทย",
+     "impr": 2,
+     "clicks": 0
+    },
+    {
+     "q": "泰国政策文件",
      "impr": 2,
      "clicks": 1
     },
     {
-     "q": "泰国政策文件",
+     "q": "皇家法令805号",
      "impr": 2,
      "clicks": 1
     },
@@ -857,38 +857,6 @@
  },
  "disabled": [],
  "trend": [
-  {
-   "date": "2026-10-06",
-   "metrics": {
-    "sitemap_urls": 453,
-    "pages_checked": 40,
-    "pages_with_problems": 0,
-    "thin_pages": 0,
-    "crawl_search_7d": 2309,
-    "crawl_ai_7d": 1444,
-    "googlebot_7d": 534,
-    "bingbot_7d": 906,
-    "baiduspider_7d": 36,
-    "crawl_coverage_pct": 89.7,
-    "visits_search_7d": 1,
-    "visits_ai_7d": 0,
-    "gsc_clicks_28d": 0,
-    "gsc_impressions_28d": 12,
-    "gsc_position": 13.5,
-    "gsc_indexed": 183,
-    "gsc_checked": 453,
-    "bing_impressions": 0,
-    "bing_clicks": 0,
-    "indexnow_submitted": 0,
-    "geo_asked": 8,
-    "geo_cited": 0
-   },
-   "issues": {
-    "error": 0,
-    "warn": 2,
-    "info": 2
-   }
-  },
   {
    "date": "2026-10-07",
    "metrics": {
@@ -1832,6 +1800,39 @@
     "gsc_indexed": 617,
     "gsc_checked": 674,
     "bing_in_index": 399,
+    "bing_impressions": 78,
+    "bing_clicks": 5,
+    "indexnow_submitted": 0,
+    "geo_asked": 0,
+    "geo_cited": 0
+   },
+   "issues": {
+    "error": 0,
+    "warn": 2,
+    "info": 3
+   }
+  },
+  {
+   "date": "2026-11-05",
+   "metrics": {
+    "sitemap_urls": 674,
+    "pages_checked": 40,
+    "pages_with_problems": 0,
+    "thin_pages": 29,
+    "crawl_search_7d": 1080,
+    "crawl_ai_7d": 187,
+    "googlebot_7d": 274,
+    "bingbot_7d": 548,
+    "baiduspider_7d": 29,
+    "crawl_coverage_pct": 44.4,
+    "visits_search_7d": 10,
+    "visits_ai_7d": 0,
+    "gsc_clicks_28d": 10,
+    "gsc_impressions_28d": 414,
+    "gsc_position": 10.0,
+    "gsc_indexed": 617,
+    "gsc_checked": 674,
+    "bing_in_index": 419,
     "bing_impressions": 78,
     "bing_clicks": 5,
     "indexnow_submitted": 0,
