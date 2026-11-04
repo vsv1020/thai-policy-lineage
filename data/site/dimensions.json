@@ -19,7 +19,7 @@
     "desc": "规则与激励塑造环境",
     "color": "seal",
     "share": 77,
-    "count": 670,
+    "count": 671,
     "rows": [
      {
       "id": "disclosure",
@@ -54,7 +54,7 @@
       "data": [
        10,
        34,
-       334
+       335
       ]
      },
      {
@@ -152,7 +152,7 @@
     ]
    }
   ],
-  "n": 867,
+  "n": 868,
   "sufficient": true,
   "min_n": 12
  },
@@ -393,7 +393,7 @@
    {
     "id": "sme",
     "label": "中小企业",
-    "support": 23,
+    "support": 22,
     "constrain": 7,
     "neutral": 13
    },
@@ -413,7 +413,7 @@
    }
   ],
   "max": 137,
-  "n": 1173,
+  "n": 1172,
   "sufficient": true,
   "min_n": 10
  },
