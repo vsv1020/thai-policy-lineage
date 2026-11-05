@@ -1,18 +1,15 @@
-# SEO / GEO 日报 · 2026-11-05
+# SEO / GEO 日报 · 2026-11-06
 
-站点 https://www.thaipolicy.com · 生成于 2026-11-05T03:14:09+07:00(曼谷时间)。本文件由 `python -m app.seo_monitor` 生成,每日例行会话据此修改站点。
+站点 https://www.thaipolicy.com · 生成于 2026-11-06T03:14:17+07:00(曼谷时间)。本文件由 `python -m app.seo_monitor` 生成,每日例行会话据此修改站点。
 
 ## 结论
 
-- 严重问题 0 个,需处理 2 个,建议 3 个。
+- 严重问题 0 个,需处理 1 个,建议 3 个。
 - Google 收录:已检查 674 页,确认收录 617 页(sitemap 共 674 页)。
-- 近 7 天抓取:Googlebot 274 · Bingbot 548 · 百度 29 · AI 爬虫 187;来访:搜索 10 · AI 0。
+- 近 7 天抓取:Googlebot 249 · Bingbot 532 · 百度 29 · AI 爬虫 163;来访:搜索 10 · AI 0。
 
 ## 待处理问题
 
-- **🟠 需处理** `crawl_errors` 爬虫近两天遇到 1 个报错路径
-  - 建议:404 通常是删掉的旧页面(可在 nginx 加 301)或错误链接;5xx 查服务器日志
-  - 404 /p/th-gaz-20260317-866-47-7-3-4.html(Bingbot,最近 2026-11-04)
 - **🟠 需处理** `geo_api` Perplexity 接口返回 403:The Agent API requires paid credits. Add paid credit at https://console.perplexity.ai to upgrade your organization.
   - 建议:按上面接口返回的原因处理。常见:账户没有可用额度(没绑卡/没充值)、Key 被停用,或接口已变更(需要改 seo_monitor.py 里的 PPLX_URL / 请求格式)
 - **🔵 建议** `gsc_not_indexed` 已检查 674 页,57 页未被 Google 收录
@@ -37,17 +34,13 @@
   - /p/th-boi-20241209-136276.html
   - /p/th-boi-20241209-136277.html
   - ……共 20 项,完整列表见 latest.json
-- **🔵 建议** `thin_content` 抽查的 40 页中有 29 页摘要只依据标题(内容单薄)
+- **🔵 建议** `thin_content` 抽查的 40 页中有 5 页摘要只依据标题(内容单薄)
   - 建议:单薄页面难以获得排名与 AI 引用:给 enrich 增加读取公报 PDF 正文的步骤,生成有实质内容的摘要与要点
   - https://www.thaipolicy.com/p/th-rd-20261029-mofdisaster18a.html
-  - https://www.thaipolicy.com/p/th-cabx-20251223-8-2568-1-2567.html
-  - https://www.thaipolicy.com/p/th-cabx-20260106-ccs.html
-  - https://www.thaipolicy.com/p/th-cabx-20260113-32.html
-  - https://www.thaipolicy.com/p/th-cabx-20260113-706398dece.html
-  - https://www.thaipolicy.com/p/th-cabx-20260113-9-2.html
-  - https://www.thaipolicy.com/p/th-cabx-20260113-a1e3b04610.html
-  - https://www.thaipolicy.com/p/th-cabx-20260120-a1480d2e4a.html
-  - ……共 20 项,完整列表见 latest.json
+  - https://www.thaipolicy.com/p/th-gaz-20260331-5ea2574d95.html
+  - https://www.thaipolicy.com/p/th-gaz-20260331-fd611049fe.html
+  - https://www.thaipolicy.com/p/th-gaz-20260401-36-2569.html
+  - https://www.thaipolicy.com/p/th-gaz-20260411-0bed790b1b.html
 
 ## 关键指标(括号内为较前一日变化)
 
@@ -56,20 +49,20 @@
 | sitemap 页面数 | 674  |
 | 今日抽查页数 | 40  |
 | 抽查有问题页数 | 0  |
-| 内容单薄页数(抽查) | 29 (+1) |
+| 内容单薄页数(抽查) | 5 (-24) |
 | Google 已确认收录 | 617  |
 | Google 已检查 | 674  |
-| Google 曝光(28 天) | 414 (+5) |
-| Google 点击(28 天) | 10 (+1) |
-| Google 平均排名 | 10.0 (+0.1) |
-| Bing 已收录 | 419 (+20) |
+| Google 曝光(28 天) | 420 (+6) |
+| Google 点击(28 天) | 11 (+1) |
+| Google 平均排名 | 9.9 (-0.1) |
+| Bing 已收录 | 419  |
 | Bing 曝光 | 78  |
-| Googlebot 抓取(7 天) | 274 (+15) |
-| Bingbot 抓取(7 天) | 548 (-10) |
+| Googlebot 抓取(7 天) | 249 (-25) |
+| Bingbot 抓取(7 天) | 532 (-16) |
 | 百度蜘蛛抓取(7 天) | 29  |
-| AI 爬虫抓取(7 天) | 187 (+18) |
-| 落地页被搜索爬虫抓取占比 % | 44.4 (+1.2) |
-| 搜索来源访问(7 天) | 10 (-1) |
+| AI 爬虫抓取(7 天) | 163 (-24) |
+| 落地页被搜索爬虫抓取占比 % | 43.5 (-0.9) |
+| 搜索来源访问(7 天) | 10  |
 | AI 来源访问(7 天) | 0  |
 | AI 实测引用本站(题) | 0  |
 | 今日 IndexNow 提交 | 0  |
@@ -99,28 +92,28 @@
 - 清迈倡议多边化（cmim）:曝光 3 · 点击 0
 - 泰国皇家公报:曝光 3 · 点击 0
 - 泰国发电厂烟气排放标准:曝光 2 · 点击 0
+- 在清迈倡议多边化（cmim）:曝光 2 · 点击 0
 - 原文：https://ratchakitcha.soc.go.th/documents/132451.pdf:曝光 2 · 点击 0
 - sirps เกณฑ์:曝光 2 · 点击 0
-- 在清迈倡议多边化（cmim）:曝光 2 · 点击 0
 - 《清迈倡议多边化》:曝光 2 · 点击 1
-- 《部令：规定工厂的类别、种类及规模，佛历 2563（2020）》:曝光 2 · 点击 0
+- 泰国政府储蓄银行 維護通知书:曝光 2 · 点击 0
 
 ## 爬虫抓取(近 7 天)
 
 | 爬虫 | 类型 | 次数 | 页面数 | 最近 |
 |---|---|---|---|---|
-| Bingbot | 搜索 | 548 | 264 | 2026-11-05 |
-| Googlebot | 搜索 | 274 | 139 | 2026-11-05 |
-| Applebot | 搜索 | 223 | 34 | 2026-11-05 |
-| ClaudeBot | AI | 97 | 3 | 2026-11-05 |
-| OAI-SearchBot | AI | 34 | 9 | 2026-11-05 |
+| Bingbot | 搜索 | 532 | 258 | 2026-11-06 |
+| Googlebot | 搜索 | 249 | 131 | 2026-11-06 |
+| Applebot | 搜索 | 139 | 24 | 2026-11-05 |
+| ClaudeBot | AI | 93 | 2 | 2026-11-05 |
 | Baiduspider | 搜索 | 29 | 21 | 2026-11-01 |
-| GPTBot | AI | 27 | 20 | 2026-11-04 |
+| OAI-SearchBot | AI | 25 | 1 | 2026-11-05 |
+| GPTBot | AI | 21 | 15 | 2026-11-05 |
 | Meta-AI | AI | 17 | 13 | 2026-11-01 |
-| 360Spider | 搜索 | 6 | 2 | 2026-11-02 |
-| ChatGPT-User | AI | 6 | 3 | 2026-11-04 |
-| PerplexityBot | AI | 4 | 3 | 2026-11-02 |
+| 360Spider | 搜索 | 8 | 2 | 2026-11-05 |
+| ChatGPT-User | AI | 3 | 2 | 2026-11-05 |
 | Amazonbot | AI | 2 | 2 | 2026-11-01 |
+| PerplexityBot | AI | 2 | 2 | 2026-11-02 |
 
 ## 来访渠道(近 7 天)
 
