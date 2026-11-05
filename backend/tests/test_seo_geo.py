@@ -361,3 +361,12 @@ def test_short_summary_gets_lede_in_description(session):
     assert desc.startswith("短摘要。") and "当前状态" in desc and len(desc) >= 40
     doc.summary_zh = orig
     session.rollback()
+
+
+def test_skipped_page_paths_reads_skip_flag(tmp_path, monkeypatch):
+    (tmp_path / "d.jsonl").write_text(
+        '{"uid": "TH-GAZ-1-A", "flags": {"skip": true}}\n'
+        '{"uid": "TH-GAZ-2-B", "flags": {"skip": false}}\n'
+        'not json\n', encoding="utf-8")
+    monkeypatch.setattr(M, "POLICIES_DIR", tmp_path)
+    assert M.skipped_page_paths() == {"/p/th-gaz-1-a.html"}

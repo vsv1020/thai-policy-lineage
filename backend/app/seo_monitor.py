@@ -33,7 +33,7 @@ from urllib.parse import quote, urlsplit
 
 import httpx
 
-from .config import BKK, DATA_DIR, REPO_ROOT, settings
+from .config import BKK, DATA_DIR, POLICIES_DIR, REPO_ROOT, settings
 
 OUT_DIR = DATA_DIR / "seo"
 UA = "thaipolicy-seo-monitor/1.0 (+https://www.thaipolicy.com/llms.txt)"
@@ -283,6 +283,20 @@ def audit_pages(client: httpx.Client, rep: Report, urls: list[str], state: dict)
 _PROBE_RE = re.compile(r"^//|/\.|\.env|\.(?:ya?ml|ini|toml|bak|sql)$|^/(?:config|conf|app|admin|dashboard|api|actions)(?:/|$)|^/__", re.I)
 
 
+def skipped_page_paths() -> set[str]:
+    """被标 skip 的政策(如译文触及红线)故意不生成落地页,爬虫抓到 404 是预期行为。"""
+    out: set[str] = set()
+    for f in sorted(POLICIES_DIR.glob("*.jsonl")):
+        for line in f.read_text(encoding="utf-8").splitlines():
+            try:
+                d = json.loads(line)
+            except ValueError:
+                continue
+            if (d.get("flags") or {}).get("skip") and d.get("uid"):
+                out.add(f"/p/{d['uid'].lower()}.html")
+    return out
+
+
 def _is_probe(path: str) -> bool:
     return bool(_PROBE_RE.search(path))
 
@@ -325,8 +339,10 @@ def server_stats(client: httpx.Client, rep: Report, token: str, baidu_on: bool =
     since = (rep.today - timedelta(days=1)).isoformat()
     # 410 是本站故意返回的(如 /comments/feed/:没有评论订阅),不算问题;
     # 含 ${ 的路径是 AI 爬虫把 JS 模板字符串当链接抓出来的,站内并无此链接
+    skipped = skipped_page_paths()
     recent = [e for e in d["crawlers"]["errors"]
               if (e.get("last_seen") or since) >= since and e.get("status") != 410
+              and e.get("path") not in skipped
               and "${" not in e.get("path", "") and not _is_probe(e.get("path", ""))]
     if recent:
         rep.issue("warn", "crawl_errors", f"爬虫近两天遇到 {len(recent)} 个报错路径",
