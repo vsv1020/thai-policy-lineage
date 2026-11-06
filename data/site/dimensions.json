@@ -19,7 +19,7 @@
     "desc": "规则与激励塑造环境",
     "color": "seal",
     "share": 77,
-    "count": 671,
+    "count": 676,
     "rows": [
      {
       "id": "disclosure",
@@ -27,7 +27,7 @@
       "data": [
        4,
        10,
-       102
+       103
       ]
      },
      {
@@ -63,7 +63,7 @@
       "data": [
        8,
        25,
-       66
+       70
       ]
      }
     ]
@@ -152,7 +152,7 @@
     ]
    }
   ],
-  "n": 868,
+  "n": 873,
   "sufficient": true,
   "min_n": 12
  },
@@ -214,8 +214,8 @@
     "data": [
      134,
      17,
-     30,
-     37,
+     33,
+     38,
      93,
      89,
      146,
@@ -244,7 +244,7 @@
     "goal": "区域均衡"
    }
   ],
-  "n": 742,
+  "n": 746,
   "sufficient": true,
   "min_n": 12
  },
@@ -280,7 +280,7 @@
     "stability": 4,
     "justiciable": true,
     "note": "据法律授权,常用于税收减免",
-    "count": 11,
+    "count": 13,
     "pct": 2
    },
    {
@@ -302,8 +302,8 @@
     "stability": 2,
     "justiciable": false,
     "note": "调整最快,占比最高",
-    "count": 419,
-    "pct": 73
+    "count": 421,
+    "pct": 72
    },
    {
     "id": "rabiap",
@@ -339,10 +339,10 @@
     "pct": 3
    }
   ],
-  "total": 577,
+  "total": 581,
   "fragile_pct": 91,
   "fragile_note": "承载在公告与内阁决议层的比例 —— 调整快、可诉性弱,投资测算应按可撤回处理",
-  "n": 577,
+  "n": 581,
   "sufficient": true,
   "min_n": 20
  },
@@ -351,7 +351,7 @@
    {
     "id": "foreign_company",
     "label": "外资企业",
-    "support": 122,
+    "support": 124,
     "constrain": 137,
     "neutral": 178
    },
@@ -377,23 +377,23 @@
     "neutral": 35
    },
    {
+    "id": "foreign_resident",
+    "label": "外籍长居个人",
+    "support": 35,
+    "constrain": 24,
+    "neutral": 48
+   },
+   {
     "id": "thai_employer",
     "label": "本地雇主",
     "support": 25,
-    "constrain": 33,
+    "constrain": 34,
     "neutral": 38
-   },
-   {
-    "id": "foreign_resident",
-    "label": "外籍长居个人",
-    "support": 34,
-    "constrain": 23,
-    "neutral": 48
    },
    {
     "id": "sme",
     "label": "中小企业",
-    "support": 22,
+    "support": 24,
     "constrain": 7,
     "neutral": 13
    },
@@ -413,7 +413,7 @@
    }
   ],
   "max": 137,
-  "n": 1172,
+  "n": 1179,
   "sufficient": true,
   "min_n": 10
  },
@@ -425,13 +425,13 @@
     "n": 14
    },
    {
-    "a": "土地厅",
-    "b": "内政部",
-    "n": 8
-   },
-   {
     "a": "财政部",
     "b": "税务厅",
+    "n": 9
+   },
+   {
+    "a": "土地厅",
+    "b": "内政部",
     "n": 8
    },
    {
@@ -566,9 +566,9 @@
    }
   ],
   "max": 14,
-  "solo_documents": 519,
+  "solo_documents": 522,
   "note": "联署少而各自单独规定同一事项,是维度六冲突的来源",
-  "n": 86,
+  "n": 87,
   "sufficient": true,
   "min_n": 8
  },
@@ -595,7 +595,7 @@
     "id": "legal_form",
     "label": "法律形式",
     "seq": 2,
-    "count": 18,
+    "count": 20,
     "hot": false,
     "weak": true
    },
@@ -611,7 +611,7 @@
     "id": "implementing_rule",
     "label": "实施细则",
     "seq": 4,
-    "count": 516,
+    "count": 518,
     "hot": true,
     "weak": false
    },
@@ -632,12 +632,12 @@
     "weak": true
    }
   ],
-  "total": 577,
-  "peak": 516,
+  "total": 581,
+  "peak": 518,
   "missing": [
    "国家规划"
   ],
-  "n": 577,
+  "n": 581,
   "sufficient": true,
   "min_n": 12
  }

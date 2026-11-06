@@ -1,16 +1,16 @@
 {
  "_generated": "由 backend/app/export.py 从数据库导出,请勿手改;改 data/policies/*.jsonl → python3 -m app.ingest → python3 -m app.export",
  "schema_version": 4,
- "updated_at": "2026-11-05T07:07:40+07:00",
+ "updated_at": "2026-11-06T07:12:24+07:00",
  "stats": {
-  "total": 577,
+  "total": 581,
   "research": 0,
   "demo": 0,
-  "with_points": 507,
+  "with_points": 510,
   "date_from": "2024-10-10",
-  "date_to": "2026-10-29",
+  "date_to": "2026-11-05",
   "gazette_to": "2026-04-22",
-  "agency_n": 109,
+  "agency_n": 113,
   "by_domain": [
    {
     "id": "biz",
@@ -25,7 +25,7 @@
    {
     "id": "tax",
     "zh": "税务",
-    "n": 60
+    "n": 64
    },
    {
     "id": "finance",
@@ -68,8 +68,8 @@
   {
    "domain": "tax",
    "label": "税务",
-   "score": 0.63,
-   "n": 11,
+   "score": 0.55,
+   "n": 15,
    "direction": "loose"
   },
   {
@@ -113,9 +113,188 @@
    "text": "财政部关于所得税与增值税的公告（第863号）：依据《税法典》第47条 · 生效",
    "uid": "TH-GAZ-20260311-863-47-7-3-4",
    "kind": "document"
+  },
+  {
+   "date": "2027-01-01",
+   "text": "税务厅厅长关于所得税的公告（第472号）：规定向政党捐款或为支持政党 · 生效",
+   "uid": "TH-RD-20261105-DG472A",
+   "kind": "document"
   }
  ],
  "policies": [
+  {
+   "uid": "TH-RD-20261105-DG472A",
+   "issue_id": null,
+   "date": "2026-11-05",
+   "domain": "tax",
+   "domain_label": "税务",
+   "direction": "tight",
+   "title_zh": "税务厅厅长关于所得税的公告（第472号）：规定向政党捐款或为支持政党筹款活动提供金钱、财产或其他利益的扣除标准、方法和条件（修订第357号公告）",
+   "title_th": "ประกาศอธิบดีกรมสรรพากร เกี่ยวกับภาษีเงินได้ (ฉบับที่ 472) เรื่อง กำหนดหลักเกณฑ์ วิธีการ และเงื่อนไข ในการหักลดหย่อนเงินที่บริจาคแก่พรรคการเมือง หรือเงิน ทรัพย์สิน หรือประโยชน์อื่นใด ที่ให้เพื่อสนับสนุนการจัดกิจกรรมระดมทุนของพรรคการเมืองตามกฎหมายประกอบรัฐธรรมนูญว่าด้วยพรรคการเมือง แก้ไขเพิ่มเติม ฉบับที่ 357",
+   "summary_zh": "本公告修订税务厅厅长关于所得税的第357号公告第6条，重新规定纳税人就向政党捐款或为支持政党筹款活动提供金钱、财产或其他利益申请税前扣除时须提交的证明材料。以金钱捐赠的，须通过电子捐赠系统（e-Donation）进行，且不得使用银行二维码或条形码方式，并以该系统记录作为扣除凭证；以财产或其他利益支持的，须取得政党开具的收据（พ.ก.๙）并附产权转移、取得成本或服务价值等证明文件，供评估官员核查。本公告自2027年1月1日起施行。",
+   "key_points": [
+    "金钱捐赠须通过电子捐赠系统（e-Donation）进行，不得使用银行二维码或条形码方式",
+    "以系统记录作为税前扣除凭证",
+    "捐赠财产或其他利益须取得政党开具的พ.ก.๙收据",
+    "须备产权转移、取得成本或服务价值等证明供税务官员核查",
+    "本公告自2027年1月1日起施行"
+   ],
+   "org": "税务厅 (RD)",
+   "doc_no": "",
+   "doc_no_label": "文号",
+   "legal_form": "公告 · ประกาศ 层级",
+   "stability": 2,
+   "effective_label": "生效 2027-01-01",
+   "status": "soon",
+   "status_label": "01-01 起施行",
+   "source_url": "https://www.rd.go.th/fileadmin/user_upload/kormor/newlaw/dg472A.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "rd_web",
+   "dates": {
+    "resolved_at": null,
+    "published_at": "2026-11-05",
+    "effective_from": "2027-01-01",
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "none"
+   },
+   "parties": [
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "constrain",
+     "label": "外籍长居个人"
+    },
+    {
+     "id": "thai_employer",
+     "party_id": "thai_employer",
+     "stance": "constrain",
+     "label": "本地雇主"
+    }
+   ],
+   "featured": true
+  },
+  {
+   "uid": "TH-RD-20261104-DC811",
+   "issue_id": null,
+   "date": "2026-11-04",
+   "domain": "tax",
+   "domain_label": "税务",
+   "direction": "loose",
+   "title_zh": "依《税法典》关于免税的皇家法令（第811号）佛历2569年：对渔业船舶退出体系项目免征个人所得税和法人所得税",
+   "title_th": "พระราชกฤษฎีกาออกตามความในประมวลรัษฎากร ว่าด้วยการยกเว้นรัษฎากร (ฉบับที่ 811) พ.ศ. 2569 การยกเว้นภาษีเงินได้บุคคลธรรมดาและภาษีเงินได้นิติบุคคลแล้วแต่กรณีของโครงการนำเรือประมง ออกนอกระบบ เพื่อการจัดการทรัพยากรประมงทะเลที่ยั่งยืน",
+   "summary_zh": "该皇家法令规定，对个人和法人公司或合伙企业在佛历2569年和佛历2570年从渔业厅领取的「渔业船舶退出体系以实现海洋渔业资源可持续管理项目」补偿金，免征《税法典》第二编第三章第二部分和第三部分规定的所得税。该法令自刊登次日起施行，由财政部长负责执行。",
+   "key_points": [
+    "个人及法人公司、合伙企业从渔业厅领取的渔船退出项目补偿金免征所得税",
+    "免税适用于佛历2569年和佛历2570年取得的补偿金",
+    "免税范围限于《税法典》第二编第三章第二部分和第三部分的所得税",
+    "财政部长负责该法令的执行"
+   ],
+   "org": "税务厅 (RD) · 财政部 (MOF)",
+   "doc_no": "",
+   "doc_no_label": "文号",
+   "legal_form": "皇家法令 · พ.ร.ฎ. 层级",
+   "stability": 4,
+   "effective_label": "已生效",
+   "status": "soon",
+   "status_label": "已刊公报",
+   "source_url": "https://www.rd.go.th/fileadmin/user_upload/kormor/newlaw/dc811.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "rd_web",
+   "dates": {
+    "resolved_at": null,
+    "published_at": "2026-11-04",
+    "effective_from": "2026-11-05",
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "none"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "support",
+     "label": "外资企业"
+    },
+    {
+     "id": "sme",
+     "party_id": "sme",
+     "stance": "support",
+     "label": "中小企业"
+    }
+   ],
+   "featured": true
+  },
+  {
+   "uid": "TH-RD-20261104-DC812",
+   "issue_id": null,
+   "date": "2026-11-04",
+   "domain": "tax",
+   "domain_label": "税务",
+   "direction": "loose",
+   "title_zh": "关于税收豁免的皇家法令（第812号）佛历2569年：修订支持社会企业的税收措施，修订第735号法令",
+   "title_th": "พระราชกฤษฎีกาออกตามความในประมวลรัษฎากร ว่าด้วยการยกเว้นรัษฎากร (ฉบับที่ 812) พ.ศ. 2569 การปรับปรุงมาตรการภาษีเพื่อสนับสนุนวิสาหกิจเพื่อสังคม แก้ไขเพิ่มเติม ฉบับที่ 735",
+   "summary_zh": "该皇家法令修订了关于税收豁免的第735号皇家法令，以调整支持社会企业的税收措施。个人向已向税务厅厅长申报的社会企业无偿捐赠，捐赠额可在扣除费用和减免额后的应税所得中免税，但加上一般捐赠后不超过该所得的10%；法人向此类社会企业捐赠，加上公共慈善支出后不超过净利润的2%。向推动社会企业基金捐款，在2026年1月1日至某年12月31日期间，个人和法人均可按捐款额的两倍免税，但受10%上限约束。转让资产或销售商品给社会企业免征所得税、增值税、特定商业税和印花税，但不得将资产成本作为费用扣除。",
+   "key_points": [
+    "个人向已申报社会企业无偿捐赠，可在扣除费用和减免额后的应税所得中免税，但加上一般捐赠后不超过该所得的10%",
+    "法人向已申报社会企业捐赠，加上公共慈善支出后不超过净利润的2%",
+    "年1月1日至某年12月31日向推动社会企业基金捐款，个人和法人可按捐款额两倍免税，但受10%上限约束",
+    "转让资产或销售商品给社会企业免征所得税、增值税、特定商业税和印花税，但不得将资产成本作为费用扣除",
+    "免税须符合税务厅厅长公告规定的准则、方法和条件"
+   ],
+   "org": "税务厅 (RD)",
+   "doc_no": "",
+   "doc_no_label": "文号",
+   "legal_form": "皇家法令 · พ.ร.ฎ. 层级",
+   "stability": 4,
+   "effective_label": "已生效",
+   "status": "soon",
+   "status_label": "已刊公报",
+   "source_url": "https://www.rd.go.th/fileadmin/user_upload/kormor/newlaw/dc812.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "rd_web",
+   "dates": {
+    "resolved_at": null,
+    "published_at": "2026-11-04",
+    "effective_from": "2026-11-05",
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "none"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "support",
+     "label": "外资企业"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "support",
+     "label": "外籍长居个人"
+    },
+    {
+     "id": "sme",
+     "party_id": "sme",
+     "stance": "support",
+     "label": "中小企业"
+    }
+   ],
+   "featured": true
+  },
   {
    "uid": "TH-RD-20261027-DGR315A",
    "issue_id": null,
@@ -169,7 +348,7 @@
      "label": "中小企业"
     }
    ],
-   "featured": true
+   "featured": false
   },
   {
    "uid": "TH-RD-20261014-DC808",
@@ -225,7 +404,7 @@
      "label": "本地雇主"
     }
    ],
-   "featured": true
+   "featured": false
   },
   {
    "uid": "TH-RD-20261014-DC809",
@@ -1134,7 +1313,7 @@
      "label": "外资投资者"
     }
    ],
-   "featured": true
+   "featured": false
   },
   {
    "uid": "TH-BOI-20260623-123602",
@@ -28906,6 +29085,43 @@
      "label": "外资投资者"
     }
    ],
+   "featured": false
+  },
+  {
+   "uid": "TH-RD-20261105-DG473A",
+   "issue_id": null,
+   "date": "2026-11-05",
+   "domain": "tax",
+   "domain_label": "税务",
+   "direction": "neutral",
+   "title_zh": "税务厅厅长关于所得税的公告（第473号）：规定依据政党法向政党捐款的支出可享受的准则、方法和条件（修订第358号公告）",
+   "title_th": "ประกาศอธิบดีกรมสรรพากร เกี่ยวกับภาษีเงินได้ (ฉบับที่ 473) เรื่อง กำหนดหลักเกณฑ์ วิธีการ และเงื่อนไขสำหรับรายจ่ายซึ่งเป็นเงินที่บริจาคแก่พรรคการเมือง ตามกฎหมายประกอบรัฐธรรมนูญว่าด้วยพรรคการเมือง แก้ไขเพิ่มเติม ฉบับที่ 358",
+   "summary_zh": "据标题，本文件是税务厅厅长关于所得税的公告，规定依据政党法向政党捐款的支出可享受的准则、方法和条件，并修订此前第358号公告。具体条款待原文核对。",
+   "key_points": [],
+   "org": "税务厅 (RD)",
+   "doc_no": "",
+   "doc_no_label": "文号",
+   "legal_form": "公告 · ประกาศ 层级",
+   "stability": 2,
+   "effective_label": "已刊公报",
+   "status": "soon",
+   "status_label": "已刊公报",
+   "source_url": "https://www.rd.go.th/fileadmin/user_upload/kormor/newlaw/dg473A.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "rd_web",
+   "dates": {
+    "resolved_at": null,
+    "published_at": "2026-11-05",
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "none"
+   },
+   "parties": [],
    "featured": false
   },
   {
