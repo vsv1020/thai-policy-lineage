@@ -1,18 +1,15 @@
-# SEO / GEO 日报 · 2026-11-07
+# SEO / GEO 日报 · 2026-11-08
 
-站点 https://www.thaipolicy.com · 生成于 2026-11-07T03:14:12+07:00(曼谷时间)。本文件由 `python -m app.seo_monitor` 生成,每日例行会话据此修改站点。
+站点 https://www.thaipolicy.com · 生成于 2026-11-08T03:14:08+07:00(曼谷时间)。本文件由 `python -m app.seo_monitor` 生成,每日例行会话据此修改站点。
 
 ## 结论
 
-- 严重问题 0 个,需处理 2 个,建议 3 个。
+- 严重问题 0 个,需处理 1 个,建议 3 个。
 - Google 收录:已检查 679 页,确认收录 617 页(sitemap 共 679 页)。
-- 近 7 天抓取:Googlebot 419 · Bingbot 475 · 百度 29 · AI 爬虫 149;来访:搜索 9 · AI 0。
+- 近 7 天抓取:Googlebot 462 · Bingbot 428 · 百度 0 · AI 爬虫 119;来访:搜索 6 · AI 0。
 
 ## 待处理问题
 
-- **🟠 需处理** `crawl_errors` 爬虫近两天遇到 1 个报错路径
-  - 建议:404 通常是删掉的旧页面(可在 nginx 加 301)或错误链接;5xx 查服务器日志
-  - 404 /sitemap_index.xml(Bingbot,最近 2026-11-06)
 - **🟠 需处理** `geo_api` Perplexity 接口返回 403:The Agent API requires paid credits. Add paid credit at https://console.perplexity.ai to upgrade your organization.
   - 建议:按上面接口返回的原因处理。常见:账户没有可用额度(没绑卡/没充值)、Key 被停用,或接口已变更(需要改 seo_monitor.py 里的 PPLX_URL / 请求格式)
 - **🔵 建议** `gsc_not_indexed` 已检查 679 页,62 页未被 Google 收录
@@ -34,38 +31,37 @@
   - /p/th-boi-20241101-136141.html
   - /p/th-boi-20241125-136239.html
   - /p/th-boi-20241209-136277.html
-  - /p/th-boi-20241209-136278.html
   - /p/th-boi-20250102-136362.html
+  - /p/th-boi-20250117-136468.html
   - ……共 20 项,完整列表见 latest.json
-- **🔵 建议** `thin_content` 抽查的 40 页中有 2 页摘要只依据标题(内容单薄)
+- **🔵 建议** `thin_content` 抽查的 40 页中有 1 页摘要只依据标题(内容单薄)
   - 建议:单薄页面难以获得排名与 AI 引用:给 enrich 增加读取公报 PDF 正文的步骤,生成有实质内容的摘要与要点
   - https://www.thaipolicy.com/p/th-rd-20261105-dg473a.html
-  - https://www.thaipolicy.com/p/th-rd-20261001-dc806.html
 
 ## 关键指标(括号内为较前一日变化)
 
 | 指标 | 今日 |
 |---|---|
-| sitemap 页面数 | 679 (+5) |
+| sitemap 页面数 | 679  |
 | 今日抽查页数 | 40  |
 | 抽查有问题页数 | 0  |
-| 内容单薄页数(抽查) | 2 (-3) |
+| 内容单薄页数(抽查) | 1 (-1) |
 | Google 已确认收录 | 617  |
-| Google 已检查 | 679 (+5) |
-| Google 曝光(28 天) | 418 (-2) |
+| Google 已检查 | 679  |
+| Google 曝光(28 天) | 408 (-10) |
 | Google 点击(28 天) | 11  |
 | Google 平均排名 | 9.9  |
-| Bing 已收录 | 419  |
+| Bing 已收录 | 446 (+27) |
 | Bing 曝光 | 78  |
-| Googlebot 抓取(7 天) | 419 (+170) |
-| Bingbot 抓取(7 天) | 475 (-57) |
-| 百度蜘蛛抓取(7 天) | 29  |
-| AI 爬虫抓取(7 天) | 149 (-14) |
-| 落地页被搜索爬虫抓取占比 % | 49.1 (+5.6) |
-| 搜索来源访问(7 天) | 9 (-1) |
+| Googlebot 抓取(7 天) | 462 (+43) |
+| Bingbot 抓取(7 天) | 428 (-47) |
+| 百度蜘蛛抓取(7 天) | 0 (-29) |
+| AI 爬虫抓取(7 天) | 119 (-30) |
+| 落地页被搜索爬虫抓取占比 % | 49.7 (+0.6) |
+| 搜索来源访问(7 天) | 6 (-3) |
 | AI 来源访问(7 天) | 0  |
 | AI 实测引用本站(题) | 0  |
-| 今日 IndexNow 提交 | 13 (+13) |
+| 今日 IndexNow 提交 | 0 (-13) |
 
 ## Google 搜索词(28 天)
 
@@ -92,9 +88,9 @@
 - 清迈倡议多边化（cmim）:曝光 3 · 点击 0
 - 泰国皇家公报:曝光 3 · 点击 0
 - 泰国发电厂烟气排放标准:曝光 2 · 点击 0
-- sirps เกณฑ์:曝光 2 · 点击 0
-- 在清迈倡议多边化（cmim）:曝光 2 · 点击 0
 - 原文：https://ratchakitcha.soc.go.th/documents/132451.pdf:曝光 2 · 点击 0
+- 在清迈倡议多边化（cmim）:曝光 2 · 点击 0
+- sirps เกณฑ์:曝光 2 · 点击 0
 - 《清迈倡议多边化》:曝光 2 · 点击 1
 - 泰国政府储蓄银行 維護通知书:曝光 2 · 点击 0
 
@@ -102,23 +98,21 @@
 
 | 爬虫 | 类型 | 次数 | 页面数 | 最近 |
 |---|---|---|---|---|
-| Bingbot | 搜索 | 475 | 237 | 2026-11-07 |
-| Googlebot | 搜索 | 419 | 210 | 2026-11-07 |
-| Applebot | 搜索 | 128 | 23 | 2026-11-05 |
-| ClaudeBot | AI | 69 | 2 | 2026-11-05 |
-| Baiduspider | 搜索 | 29 | 21 | 2026-11-01 |
-| GPTBot | AI | 26 | 20 | 2026-11-06 |
-| OAI-SearchBot | AI | 26 | 1 | 2026-11-07 |
-| Meta-AI | AI | 17 | 13 | 2026-11-01 |
-| 360Spider | 搜索 | 8 | 2 | 2026-11-05 |
+| Googlebot | 搜索 | 462 | 220 | 2026-11-08 |
+| Bingbot | 搜索 | 428 | 230 | 2026-11-08 |
+| Applebot | 搜索 | 139 | 24 | 2026-11-07 |
+| ClaudeBot | AI | 63 | 2 | 2026-11-05 |
+| OAI-SearchBot | AI | 25 | 1 | 2026-11-07 |
+| GPTBot | AI | 22 | 16 | 2026-11-07 |
 | PerplexityBot | AI | 5 | 4 | 2026-11-06 |
+| 360Spider | 搜索 | 4 | 1 | 2026-11-05 |
 | ChatGPT-User | AI | 4 | 2 | 2026-11-06 |
-| Amazonbot | AI | 2 | 2 | 2026-11-01 |
+| YandexBot | 搜索 | 4 | 4 | 2026-11-07 |
 
 ## 来访渠道(近 7 天)
 
-- 搜索 · Google:6
-- 搜索 · Bing:3
+- 搜索 · Google:4
+- 搜索 · Bing:2
 
 ## GEO 实测(Perplexity)
 
@@ -126,5 +120,5 @@
 
 ## 今日提交
 
-- IndexNow:13 个 URL
+- IndexNow:0 个 URL
 - GSC sitemap:已存在
