@@ -236,7 +236,7 @@
     null,
     0.0,
     0.74,
-    0.16
+    0.0
    ]
   },
   {
@@ -1085,7 +1085,7 @@
   },
   {
    "label": "财政收入",
-   "current": 5,
+   "current": 6,
    "previous": 0,
    "growth_pct": null
   },
@@ -1096,16 +1096,16 @@
    "growth_pct": null
   },
   {
-   "label": "绿色转型",
+   "label": "申报、备案与披露",
    "current": 4,
    "previous": 1,
    "growth_pct": 300
   },
   {
-   "label": "申报、备案与披露",
-   "current": 3,
+   "label": "绿色转型",
+   "current": 4,
    "previous": 1,
-   "growth_pct": 200
+   "growth_pct": 300
   },
   {
    "label": "产业升级",

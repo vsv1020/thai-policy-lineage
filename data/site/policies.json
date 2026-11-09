@@ -1,12 +1,12 @@
 {
  "_generated": "由 backend/app/export.py 从数据库导出,请勿手改;改 data/policies/*.jsonl → python3 -m app.ingest → python3 -m app.export",
  "schema_version": 4,
- "updated_at": "2026-11-08T07:07:35+07:00",
+ "updated_at": "2026-11-09T07:07:28+07:00",
  "stats": {
   "total": 581,
   "research": 0,
   "demo": 0,
-  "with_points": 510,
+  "with_points": 511,
   "date_from": "2024-10-10",
   "date_to": "2026-11-05",
   "gazette_to": "2026-04-22",
@@ -68,7 +68,7 @@
   {
    "domain": "tax",
    "label": "税务",
-   "score": 0.55,
+   "score": 0.48,
    "n": 15,
    "direction": "loose"
   },
@@ -112,6 +112,12 @@
    "date": "2026-12-20",
    "text": "财政部关于所得税与增值税的公告（第863号）：依据《税法典》第47条 · 生效",
    "uid": "TH-GAZ-20260311-863-47-7-3-4",
+   "kind": "document"
+  },
+  {
+   "date": "2027-01-01",
+   "text": "税务厅厅长关于所得税的公告（第473号）：规定依据政党法向政党捐款的 · 生效",
+   "uid": "TH-RD-20261105-DG473A",
    "kind": "document"
   },
   {
@@ -168,6 +174,61 @@
      "party_id": "foreign_resident",
      "stance": "constrain",
      "label": "外籍长居个人"
+    },
+    {
+     "id": "thai_employer",
+     "party_id": "thai_employer",
+     "stance": "constrain",
+     "label": "本地雇主"
+    }
+   ],
+   "featured": true
+  },
+  {
+   "uid": "TH-RD-20261105-DG473A",
+   "issue_id": null,
+   "date": "2026-11-05",
+   "domain": "tax",
+   "domain_label": "税务",
+   "direction": "tight",
+   "title_zh": "税务厅厅长关于所得税的公告（第473号）：规定依据政党法向政党捐款的支出条件、方法与规则（修订第358号公告）",
+   "title_th": "ประกาศอธิบดีกรมสรรพากร เกี่ยวกับภาษีเงินได้ (ฉบับที่ 473) เรื่อง กำหนดหลักเกณฑ์ วิธีการ และเงื่อนไขสำหรับรายจ่ายซึ่งเป็นเงินที่บริจาคแก่พรรคการเมือง ตามกฎหมายประกอบรัฐธรรมนูญว่าด้วยพรรคการเมือง แก้ไขเพิ่มเติม ฉบับที่ 358",
+   "summary_zh": "本公告修订税务厅厅长关于所得税的第358号公告第3条，规定公司或法人合伙向政党捐款必须通过电子捐款系统（e-Donation）办理，且自2027年1月1日起不得通过银行QR码或条形码方式接收捐款。e-Donation系统中记录的捐款数据可作为将捐款列为支出、计算净利润的凭证，无需向评估官员出示捐款证明文件。本公告自2027年1月1日起施行。",
+   "key_points": [
+    "公司或法人合伙向政党捐款须通过e-Donation系统办理",
+    "自2027年1月1日起不得以银行QR码或条形码方式接收捐款",
+    "e-Donation系统数据可直接作为捐款支出凭证，无需另附证明",
+    "本公告自2027年1月1日起施行"
+   ],
+   "org": "税务厅 (RD)",
+   "doc_no": "",
+   "doc_no_label": "文号",
+   "legal_form": "公告 · ประกาศ 层级",
+   "stability": 2,
+   "effective_label": "生效 2027-01-01",
+   "status": "soon",
+   "status_label": "01-01 起施行",
+   "source_url": "https://www.rd.go.th/fileadmin/user_upload/kormor/newlaw/dg473A.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "rd_web",
+   "dates": {
+    "resolved_at": null,
+    "published_at": "2026-11-05",
+    "effective_from": "2027-01-01",
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "none"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "constrain",
+     "label": "外资企业"
     },
     {
      "id": "thai_employer",
@@ -293,7 +354,7 @@
      "label": "中小企业"
     }
    ],
-   "featured": true
+   "featured": false
   },
   {
    "uid": "TH-RD-20261027-DGR315A",
@@ -29085,43 +29146,6 @@
      "label": "外资投资者"
     }
    ],
-   "featured": false
-  },
-  {
-   "uid": "TH-RD-20261105-DG473A",
-   "issue_id": null,
-   "date": "2026-11-05",
-   "domain": "tax",
-   "domain_label": "税务",
-   "direction": "neutral",
-   "title_zh": "税务厅厅长关于所得税的公告（第473号）：规定依据政党法向政党捐款的支出可享受的准则、方法和条件（修订第358号公告）",
-   "title_th": "ประกาศอธิบดีกรมสรรพากร เกี่ยวกับภาษีเงินได้ (ฉบับที่ 473) เรื่อง กำหนดหลักเกณฑ์ วิธีการ และเงื่อนไขสำหรับรายจ่ายซึ่งเป็นเงินที่บริจาคแก่พรรคการเมือง ตามกฎหมายประกอบรัฐธรรมนูญว่าด้วยพรรคการเมือง แก้ไขเพิ่มเติม ฉบับที่ 358",
-   "summary_zh": "据标题，本文件是税务厅厅长关于所得税的公告，规定依据政党法向政党捐款的支出可享受的准则、方法和条件，并修订此前第358号公告。具体条款待原文核对。",
-   "key_points": [],
-   "org": "税务厅 (RD)",
-   "doc_no": "",
-   "doc_no_label": "文号",
-   "legal_form": "公告 · ประกาศ 层级",
-   "stability": 2,
-   "effective_label": "已刊公报",
-   "status": "soon",
-   "status_label": "已刊公报",
-   "source_url": "https://www.rd.go.th/fileadmin/user_upload/kormor/newlaw/dg473A.pdf",
-   "verified": false,
-   "detail_ready": false,
-   "provenance": "rd_web",
-   "dates": {
-    "resolved_at": null,
-    "published_at": "2026-11-05",
-    "effective_from": null,
-    "effective_to": null,
-    "comment_deadline": null
-   },
-   "confidence": {
-    "dates": "high",
-    "doc_no": "none"
-   },
-   "parties": [],
    "featured": false
   },
   {

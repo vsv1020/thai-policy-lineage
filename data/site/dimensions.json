@@ -19,7 +19,7 @@
     "desc": "规则与激励塑造环境",
     "color": "seal",
     "share": 77,
-    "count": 676,
+    "count": 677,
     "rows": [
      {
       "id": "disclosure",
@@ -27,7 +27,7 @@
       "data": [
        4,
        10,
-       103
+       104
       ]
      },
      {
@@ -152,7 +152,7 @@
     ]
    }
   ],
-  "n": 873,
+  "n": 874,
   "sufficient": true,
   "min_n": 12
  },
@@ -214,7 +214,7 @@
     "data": [
      134,
      17,
-     33,
+     34,
      38,
      93,
      89,
@@ -244,7 +244,7 @@
     "goal": "区域均衡"
    }
   ],
-  "n": 746,
+  "n": 747,
   "sufficient": true,
   "min_n": 12
  },
@@ -352,7 +352,7 @@
     "id": "foreign_company",
     "label": "外资企业",
     "support": 124,
-    "constrain": 137,
+    "constrain": 138,
     "neutral": 178
    },
    {
@@ -377,18 +377,18 @@
     "neutral": 35
    },
    {
+    "id": "thai_employer",
+    "label": "本地雇主",
+    "support": 25,
+    "constrain": 35,
+    "neutral": 38
+   },
+   {
     "id": "foreign_resident",
     "label": "外籍长居个人",
     "support": 35,
     "constrain": 24,
     "neutral": 48
-   },
-   {
-    "id": "thai_employer",
-    "label": "本地雇主",
-    "support": 25,
-    "constrain": 34,
-    "neutral": 38
    },
    {
     "id": "sme",
@@ -412,8 +412,8 @@
     "neutral": 25
    }
   ],
-  "max": 137,
-  "n": 1179,
+  "max": 138,
+  "n": 1181,
   "sufficient": true,
   "min_n": 10
  },
