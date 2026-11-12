@@ -1,17 +1,23 @@
-# SEO / GEO 日报 · 2026-11-12
+# SEO / GEO 日报 · 2026-11-13
 
-站点 https://www.thaipolicy.com · 生成于 2026-11-12T03:14:06+07:00(曼谷时间)。本文件由 `python -m app.seo_monitor` 生成,每日例行会话据此修改站点。
+站点 https://www.thaipolicy.com · 生成于 2026-11-13T03:14:16+07:00(曼谷时间)。本文件由 `python -m app.seo_monitor` 生成,每日例行会话据此修改站点。
 
 ## 结论
 
-- 严重问题 0 个,需处理 1 个,建议 2 个。
+- 严重问题 0 个,需处理 3 个,建议 2 个。
 - Google 收录:已检查 679 页,确认收录 618 页(sitemap 共 679 页)。
-- 近 7 天抓取:Googlebot 454 · Bingbot 309 · 百度 39 · AI 爬虫 94;来访:搜索 4 · AI 0。
+- 近 7 天抓取:Googlebot 359 · Bingbot 328 · 百度 39 · AI 爬虫 86;来访:搜索 5 · AI 0。
 
 ## 待处理问题
 
-- **🟠 需处理** `geo_api` Perplexity 接口返回 403:The Agent API requires paid credits. Add paid credit at https://console.perplexity.ai to upgrade your organization.
+- **🟠 需处理** `crawl_errors` 爬虫近两天遇到 1 个报错路径
+  - 建议:404 通常是删掉的旧页面(可在 nginx 加 301)或错误链接;5xx 查服务器日志
+  - 404 /ads.txt(Googlebot,最近 2026-11-12)
+- **🟠 需处理** `geo_api` Perplexity 接口返回 403:The Agent API requires paid credits. Sign-up credits and Perplexity Pro or Max subscriptions do not count. Add credits at https://console.perplexity.ai to unloc
   - 建议:按上面接口返回的原因处理。常见:账户没有可用额度(没绑卡/没充值)、Key 被停用,或接口已变更(需要改 seo_monitor.py 里的 PPLX_URL / 请求格式)
+- **🟠 需处理** `slow_pages` 1 个页面响应超过 2.5 秒
+  - 建议:检查服务器负载
+  - https://www.thaipolicy.com/p/th-gaz-20260202-f956d372b1.html
 - **🔵 建议** `gsc_not_indexed` 已检查 679 页,61 页未被 Google 收录
   - 建议:「已发现-尚未编入索引」多为权重/内链不足:加内链、丰富内容;「已抓取-尚未编入索引」多为内容单薄或重复
   - https://www.thaipolicy.com/p/t/boi.html(已发现 - 尚未编入索引)
@@ -26,13 +32,13 @@
 - **🔵 建议** `never_crawled` 20+ 个落地页近 7 天未被搜索爬虫抓取
   - 建议:增加站内链接(首页、专题页、同领域推荐);新页面已通过 IndexNow 与 GSC sitemap 提交
   - /p/th-boi-20241010-136030.html
-  - /p/th-boi-20241015-136054.html
-  - /p/th-boi-20241024-136366.html
-  - /p/th-boi-20241025-136110.html
   - /p/th-boi-20241101-136141.html
   - /p/th-boi-20241101-136142.html
   - /p/th-boi-20241104-136149.html
+  - /p/th-boi-20241125-136238.html
   - /p/th-boi-20241125-136239.html
+  - /p/th-boi-20241209-136276.html
+  - /p/th-boi-20241209-136279.html
   - ……共 20 项,完整列表见 latest.json
 
 ## 关键指标(括号内为较前一日变化)
@@ -45,17 +51,17 @@
 | 内容单薄页数(抽查) | 0  |
 | Google 已确认收录 | 618  |
 | Google 已检查 | 679  |
-| Google 曝光(28 天) | 401 (-1) |
+| Google 曝光(28 天) | 387 (-14) |
 | Google 点击(28 天) | 12  |
-| Google 平均排名 | 9.7 (-0.2) |
-| Bing 已收录 | 446  |
+| Google 平均排名 | 9.3 (-0.4) |
+| Bing 已收录 | 505 (+59) |
 | Bing 曝光 | 111  |
-| Googlebot 抓取(7 天) | 454 (-1) |
-| Bingbot 抓取(7 天) | 309 (+10) |
-| 百度蜘蛛抓取(7 天) | 39 (+39) |
-| AI 爬虫抓取(7 天) | 94 (-15) |
-| 落地页被搜索爬虫抓取占比 % | 43.2 (-1.6) |
-| 搜索来源访问(7 天) | 4  |
+| Googlebot 抓取(7 天) | 359 (-95) |
+| Bingbot 抓取(7 天) | 328 (+19) |
+| 百度蜘蛛抓取(7 天) | 39  |
+| AI 爬虫抓取(7 天) | 86 (-8) |
+| 落地页被搜索爬虫抓取占比 % | 36.5 (-6.7) |
+| 搜索来源访问(7 天) | 5 (+1) |
 | AI 来源访问(7 天) | 0  |
 | AI 实测引用本站(题) | 0  |
 | 今日 IndexNow 提交 | 0  |
@@ -69,9 +75,8 @@
 | dolwms.dol.go.th. 2 | 1 | 0 | 47 |
 | pt99 | 1 | 0 | 100 |
 | 泰國工業區 分佈 | 1 | 0 | 1 |
-| 泰國設廠 注意事項 | 1 | 0 | 68 |
 | 泰國變更土地用途 注意事項 | 2 | 0 | 49.5 |
-| 泰國變更土地用途 限制 | 10 | 0 | 55.4 |
+| 泰國變更土地用途 限制 | 9 | 0 | 55.3 |
 
 ## Google 收录状态分布(已检查页面)
 
@@ -89,31 +94,31 @@
 - sirps เกณฑ์:曝光 3 · 点击 0
 - 泰国皇家公报:曝光 3 · 点击 0
 - 泰国发电厂烟气排放标准:曝光 2 · 点击 0
-- 在清迈倡议多边化（cmim）:曝光 2 · 点击 0
 - 原文：https://ratchakitcha.soc.go.th/documents/132451.pdf:曝光 2 · 点击 0
+- 在清迈倡议多边化（cmim）:曝光 2 · 点击 0
 
 ## 爬虫抓取(近 7 天)
 
 | 爬虫 | 类型 | 次数 | 页面数 | 最近 |
 |---|---|---|---|---|
-| Googlebot | 搜索 | 454 | 220 | 2026-11-12 |
-| Bingbot | 搜索 | 309 | 155 | 2026-11-12 |
-| Applebot | 搜索 | 75 | 17 | 2026-11-11 |
+| Googlebot | 搜索 | 359 | 161 | 2026-11-13 |
+| Bingbot | 搜索 | 328 | 161 | 2026-11-13 |
+| Applebot | 搜索 | 87 | 18 | 2026-11-12 |
 | Baiduspider | 搜索 | 39 | 29 | 2026-11-11 |
-| OAI-SearchBot | AI | 37 | 12 | 2026-11-11 |
-| GPTBot | AI | 24 | 18 | 2026-11-11 |
+| OAI-SearchBot | AI | 38 | 12 | 2026-11-13 |
 | Meta-AI | AI | 23 | 13 | 2026-11-10 |
-| ChatGPT-User | AI | 7 | 7 | 2026-11-11 |
+| GPTBot | AI | 19 | 13 | 2026-11-12 |
+| ChatGPT-User | AI | 6 | 6 | 2026-11-11 |
 | YandexBot | 搜索 | 4 | 4 | 2026-11-07 |
-| PerplexityBot | AI | 3 | 3 | 2026-11-06 |
 
 ## 来访渠道(近 7 天)
 
 - 搜索 · Bing:4
+- 搜索 · Google:1
 
 ## GEO 实测(Perplexity)
 
-- ⚠️ 泰国免签停留期最近有什么调整?内阁决议和公报是否一致? —— HTTP 403 The Agent API requires paid credits. Add paid credit at https://console.perplexity.ai to upgrade your organization.
+- ⚠️ 泰国免签停留期最近有什么调整?内阁决议和公报是否一致? —— HTTP 403 The Agent API requires paid credits. Sign-up credits and Perplexity Pro or Max subscriptions do not count. Add credits at https://console.perplexity.ai to unloc
 
 ## 今日提交
 
