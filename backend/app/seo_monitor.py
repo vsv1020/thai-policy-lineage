@@ -340,6 +340,10 @@ def server_stats(client: httpx.Client, rep: Report, token: str, baidu_on: bool =
     # 410 是本站故意返回的(如 /comments/feed/:没有评论订阅),不算问题;
     # 含 ${ 的路径是 AI 爬虫把 JS 模板字符串当链接抓出来的,站内并无此链接
     skipped = skipped_page_paths()
+    # /ads.txt:没开广告时不生成(见 seo.py),Googlebot 例行探测到 404 是正确应答;
+    # 仓库里有 ads.txt 而线上 404 才是真问题
+    if not (REPO_ROOT / "ads.txt").exists():
+        skipped.add("/ads.txt")
     recent = [e for e in d["crawlers"]["errors"]
               if (e.get("last_seen") or since) >= since and e.get("status") != 410
               and e.get("path") not in skipped
