@@ -349,6 +349,23 @@ def test_only_recent_crawl_errors_are_reported():
     assert len(issue["items"]) == 1 and "/gone.html" in issue["items"][0], "已修好的旧 404 与故意的 410 不再提醒"
 
 
+def test_ads_txt_404_ignored_only_when_ads_off(tmp_path, monkeypatch):
+    data = {"crawlers": {"bots": [{"bot": "Googlebot", "group": "search", "hits": 1, "pages": 1, "last_seen": "2026-09-29"},
+                                  {"bot": "Bingbot", "group": "search", "hits": 1, "pages": 1, "last_seen": "2026-09-29"}],
+                         "errors": [{"path": "/ads.txt", "status": 404, "n": 1, "bots": "Googlebot", "last_seen": "2026-09-29"}]},
+            "coverage": {}, "channels": {}}
+    client = httpx.Client(transport=httpx.MockTransport(lambda r: httpx.Response(200, json=data)))
+    monkeypatch.setattr(M, "REPO_ROOT", tmp_path)
+    rep = M.Report(SITE, date(2026, 9, 29))
+    M.server_stats(client, rep, "tok")
+    assert not [i for i in rep.issues if i["code"] == "crawl_errors"], "没开广告时 /ads.txt 404 是预期"
+    (tmp_path / "ads.txt").write_text("google.com, pub-1, DIRECT, f08c47fec0942fa0\n", encoding="utf-8")
+    rep = M.Report(SITE, date(2026, 9, 29))
+    M.server_stats(client, rep, "tok")
+    issue = next(i for i in rep.issues if i["code"] == "crawl_errors")
+    assert "/ads.txt" in issue["items"][0], "仓库有 ads.txt 而线上 404 要报"
+
+
 def test_short_summary_gets_lede_in_description(session):
     from sqlalchemy import select
     from app import analytics as A
