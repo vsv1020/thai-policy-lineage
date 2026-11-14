@@ -297,8 +297,23 @@ def skipped_page_paths() -> set[str]:
     return out
 
 
+# 本站会提供的内容类型;其余后缀(.php .py .json .asp……)站内从未有过
+_WEB_EXT_RE = re.compile(r"\.(?:html?|xml|txt|css|js|svg|ico|png|jpe?g|webp|gif|pdf|webmanifest)$", re.I)
+
+
 def _is_probe(path: str) -> bool:
     return bool(_PROBE_RE.search(path))
+
+
+def _is_foreign_404(path: str) -> bool:
+    """404 的路径既不在仓库已有的顶层目录/文件之下,也不是网页类后缀:
+    本站是静态站,不可能有过这种地址,是扫描器按通用字典乱试(/index.php、/cgi-bin/php、/userfiles)。
+    旧页面、错误内链(/p/…、/old.html)不受影响,照常上报。"""
+    path = path.split("?", 1)[0]
+    top = path.lstrip("/").split("/", 1)[0]
+    if not top or _WEB_EXT_RE.search(path):
+        return False
+    return not (REPO_ROOT / top).exists()
 
 
 def server_stats(client: httpx.Client, rep: Report, token: str, baidu_on: bool = False) -> dict | None:
@@ -347,7 +362,8 @@ def server_stats(client: httpx.Client, rep: Report, token: str, baidu_on: bool =
     recent = [e for e in d["crawlers"]["errors"]
               if (e.get("last_seen") or since) >= since and e.get("status") != 410
               and e.get("path") not in skipped
-              and "${" not in e.get("path", "") and not _is_probe(e.get("path", ""))]
+              and "${" not in e.get("path", "") and not _is_probe(e.get("path", ""))
+              and not (e.get("status") == 404 and _is_foreign_404(e.get("path", "")))]
     if recent:
         rep.issue("warn", "crawl_errors", f"爬虫近两天遇到 {len(recent)} 个报错路径",
                   "404 通常是删掉的旧页面(可在 nginx 加 301)或错误链接;5xx 查服务器日志",

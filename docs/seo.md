@@ -93,6 +93,7 @@ cd backend && python -m app.seo_monitor --site http://127.0.0.1:8000 --no-submit
 ## 六、已知限制
 
 - 爬虫按 User-Agent 识别,可被伪造,只看趋势。
+- 漏洞扫描器常冒用爬虫 UA 乱试地址。日报的「爬虫报错」不报这类 404:路径既不在仓库已有的顶层目录或文件之下,也不是网页类后缀(如 `/index.php`、`/cgi-bin/php`、`/userfiles`)。旧页面、错误内链和所有 5xx 照常上报。
 - 没有 Search Console 时,「是否被收录」只能从爬虫抓取和搜索来访间接判断。GSC 数据有 2–3 天延迟。
 - 爬虫与来源数据要等服务器更新后才开始积累。
 
