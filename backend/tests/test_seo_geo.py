@@ -366,6 +366,27 @@ def test_ads_txt_404_ignored_only_when_ads_off(tmp_path, monkeypatch):
     assert "/ads.txt" in issue["items"][0], "仓库有 ads.txt 而线上 404 要报"
 
 
+def test_foreign_404_scanner_paths_ignored_real_ones_kept(tmp_path, monkeypatch):
+    def err(path, status=404):
+        return {"path": path, "status": status, "n": 1, "bots": "Bingbot", "last_seen": "2026-09-29"}
+    noise = ["/userfiles", "/cgi-bin/php", "/index.php", "/config.json", "/_debugbar/open",
+             "/cgi-bin/php-cgi", "/core/settings.py"]
+    real = ["/p/th-gaz-old.html", "/gone.html", "/p/topic/visa", "/css/old.css", "/sitemap_index.xml"]
+    data = {"crawlers": {"bots": [{"bot": "Googlebot", "group": "search", "hits": 1, "pages": 1, "last_seen": "2026-09-29"},
+                                  {"bot": "Bingbot", "group": "search", "hits": 1, "pages": 1, "last_seen": "2026-09-29"}],
+                         "errors": [err(p) for p in noise + real] + [err("/index.php/x", 500)]},
+            "coverage": {}, "channels": {}}
+    client = httpx.Client(transport=httpx.MockTransport(lambda r: httpx.Response(200, json=data)))
+    for d in ("p", "css"):
+        (tmp_path / d).mkdir()
+    monkeypatch.setattr(M, "REPO_ROOT", tmp_path)
+    rep = M.Report(SITE, date(2026, 9, 29))
+    M.server_stats(client, rep, "tok")
+    items = next(i for i in rep.issues if i["code"] == "crawl_errors")["items"]
+    got = {it.split("(")[0] for it in items}
+    assert got == {f"404 {p}" for p in real} | {"500 /index.php/x"}, "站内不可能有的路径不报;旧页面、错误内链、5xx 照报"
+
+
 def test_short_summary_gets_lede_in_description(session):
     from sqlalchemy import select
     from app import analytics as A
