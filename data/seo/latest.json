@@ -1,26 +1,26 @@
 {
- "date": "2026-11-16",
+ "date": "2026-11-17",
  "site": "https://www.thaipolicy.com",
- "generated_at": "2026-11-16T03:14:02+07:00",
+ "generated_at": "2026-11-17T03:14:10+07:00",
  "metrics": {
   "sitemap_urls": 679,
   "pages_checked": 40,
   "pages_with_problems": 0,
-  "thin_pages": 0,
-  "crawl_search_7d": 1218,
-  "crawl_ai_7d": 310,
-  "googlebot_7d": 367,
-  "bingbot_7d": 343,
+  "thin_pages": 1,
+  "crawl_search_7d": 1205,
+  "crawl_ai_7d": 283,
+  "googlebot_7d": 346,
+  "bingbot_7d": 329,
   "baiduspider_7d": 75,
-  "crawl_coverage_pct": 40.6,
-  "visits_search_7d": 5,
+  "crawl_coverage_pct": 42.2,
+  "visits_search_7d": 3,
   "visits_ai_7d": 0,
   "gsc_clicks_28d": 12,
-  "gsc_impressions_28d": 368,
-  "gsc_position": 8.9,
+  "gsc_impressions_28d": 367,
+  "gsc_position": 8.8,
   "gsc_indexed": 618,
   "gsc_checked": 679,
-  "bing_in_index": 532,
+  "bing_in_index": 539,
   "bing_impressions": 153,
   "bing_clicks": 13,
   "indexnow_submitted": 0,
@@ -58,8 +58,8 @@
     "https://www.thaipolicy.com/p/th-gaz-20260216-116-thailand-civil-aviation-regulation.html(已发现 - 尚未编入索引)",
     "https://www.thaipolicy.com/p/th-gaz-20260217-1-627.html(Google 无法识别此网址)",
     "https://www.thaipolicy.com/p/th-gaz-20260224-3.html(已发现 - 尚未编入索引)",
-    "https://www.thaipolicy.com/p/th-gaz-20260224-8.html(已发现 - 尚未编入索引)",
-    "https://www.thaipolicy.com/p/th-gaz-20260227-2022-1616-2569.html(已发现 - 尚未编入索引)",
+    "https://www.thaipolicy.com/p/th-gaz-20260224-8.html(Google 无法识别此网址)",
+    "https://www.thaipolicy.com/p/th-gaz-20260227-2022-1616-2569.html(Google 无法识别此网址)",
     "https://www.thaipolicy.com/p/th-gaz-20260302-804-2569.html(Google 无法识别此网址)"
    ]
   },
@@ -70,7 +70,6 @@
    "fix": "增加站内链接(首页、专题页、同领域推荐);新页面已通过 IndexNow 与 GSC sitemap 提交",
    "items": [
     "/p/th-boi-20241101-136142.html",
-    "/p/th-boi-20241104-136149.html",
     "/p/th-boi-20250204-136531.html",
     "/p/th-boi-20250218-136587.html",
     "/p/th-boi-20250218-136588.html",
@@ -88,7 +87,17 @@
     "/p/th-boi-20251225-138389.html",
     "/p/th-boi-20260115-138447.html",
     "/p/th-boi-20260115-138448.html",
-    "/p/th-boi-20260115-138449.html"
+    "/p/th-boi-20260115-138449.html",
+    "/p/th-boi-20260115-138450.html"
+   ]
+  },
+  {
+   "level": "info",
+   "code": "thin_content",
+   "msg": "抽查的 40 页中有 1 页摘要只依据标题(内容单薄)",
+   "fix": "单薄页面难以获得排名与 AI 引用:给 enrich 增加读取公报 PDF 正文的步骤,生成有实质内容的摘要与要点",
+   "items": [
+    "https://www.thaipolicy.com/p/th-gaz-20260220-12-2569-systemically-important-retail.html"
    ]
   }
  ],
@@ -96,7 +105,7 @@
   "site": {
    "home": {
     "status": 200,
-    "ms": 889,
+    "ms": 1010,
     "error": ""
    },
    "robots": true,
@@ -112,37 +121,37 @@
    "ok": 40,
    "with_problems": 0,
    "failed": 0,
-   "thin": 0
+   "thin": 1
   },
   "server": {
    "range": {
     "days": 7,
-    "start": "2026-11-10",
-    "end": "2026-11-16"
+    "start": "2026-11-11",
+    "end": "2026-11-17"
    },
-   "generated_at": "2026-11-16T03:07:41+07:00",
+   "generated_at": "2026-11-17T03:07:44+07:00",
    "crawlers": {
     "bots": [
      {
       "bot": "Applebot",
       "group": "search",
-      "hits": 433,
-      "pages": 80,
-      "last_seen": "2026-11-15"
+      "hits": 455,
+      "pages": 83,
+      "last_seen": "2026-11-16"
      },
      {
       "bot": "Googlebot",
       "group": "search",
-      "hits": 367,
-      "pages": 191,
-      "last_seen": "2026-11-16"
+      "hits": 346,
+      "pages": 189,
+      "last_seen": "2026-11-17"
      },
      {
       "bot": "Bingbot",
       "group": "search",
-      "hits": 343,
-      "pages": 180,
-      "last_seen": "2026-11-16"
+      "hits": 329,
+      "pages": 183,
+      "last_seen": "2026-11-17"
      },
      {
       "bot": "Baiduspider",
@@ -154,22 +163,22 @@
      {
       "bot": "OAI-SearchBot",
       "group": "ai",
-      "hits": 48,
+      "hits": 45,
       "pages": 25,
-      "last_seen": "2026-11-15"
+      "last_seen": "2026-11-16"
      },
      {
       "bot": "GPTBot",
       "group": "ai",
-      "hits": 42,
-      "pages": 35,
-      "last_seen": "2026-11-15"
+      "hits": 33,
+      "pages": 27,
+      "last_seen": "2026-11-16"
      },
      {
       "bot": "Meta-AI",
       "group": "ai",
-      "hits": 42,
-      "pages": 40,
+      "hits": 31,
+      "pages": 29,
       "last_seen": "2026-11-13"
      },
      {
@@ -178,13 +187,6 @@
       "hits": 26,
       "pages": 26,
       "last_seen": "2026-11-13"
-     },
-     {
-      "bot": "ChatGPT-User",
-      "group": "ai",
-      "hits": 22,
-      "pages": 21,
-      "last_seen": "2026-11-16"
      },
      {
       "bot": "CCBot",
@@ -199,6 +201,13 @@
       "hits": 19,
       "pages": 19,
       "last_seen": "2026-11-13"
+     },
+     {
+      "bot": "ChatGPT-User",
+      "group": "ai",
+      "hits": 18,
+      "pages": 17,
+      "last_seen": "2026-11-16"
      },
      {
       "bot": "Perplexity-User",
@@ -252,11 +261,6 @@
     ],
     "series": [
      {
-      "day": "2026-11-10",
-      "search": 138,
-      "ai": 30
-     },
-     {
       "day": "2026-11-11",
       "search": 208,
       "ai": 18
@@ -283,8 +287,13 @@
      },
      {
       "day": "2026-11-16",
-      "search": 13,
-      "ai": 1
+      "search": 130,
+      "ai": 4
+     },
+     {
+      "day": "2026-11-17",
+      "search": 8,
+      "ai": 0
      }
     ],
     "errors": [
@@ -502,66 +511,54 @@
     "top_paths": [
      {
       "path": "/robots.txt",
-      "n": 82
+      "n": 78
+     },
+     {
+      "path": "/data/site/ads.json",
+      "n": 63
      },
      {
       "path": "/data/site/analytics.json",
       "n": 62
      },
      {
-      "path": "/data/site/ads.json",
-      "n": 61
-     },
-     {
       "path": "/data/site/support.json",
-      "n": 60
+      "n": 62
      },
      {
       "path": "/js/support.js",
-      "n": 52
+      "n": 53
      },
      {
-      "path": "/css/main.css",
-      "n": 51
+      "path": "/js/ads.js",
+      "n": 52
      },
      {
       "path": "/js/track.js",
       "n": 51
      },
      {
-      "path": "/js/ads.js",
-      "n": 50
+      "path": "/css/main.css",
+      "n": 49
      },
      {
       "path": "/js/vendor/qrcode-generator-1.4.4.js",
-      "n": 48
+      "n": 49
      },
      {
       "path": "/js/promptpay.js",
-      "n": 47
+      "n": 46
      },
      {
       "path": "/",
-      "n": 14
-     },
-     {
-      "path": "/index.html",
-      "n": 12
-     },
-     {
-      "path": "/data/site/policies.json",
       "n": 10
      },
      {
-      "path": "/data/site/collections.json",
-      "n": 9
+      "path": "/index.html",
+      "n": 10
      },
      {
-      "path": "/data/site/lineage.json",
-      "n": 9
-     },
-     {
-      "path": "/data/site/subscribe.json",
+      "path": "/p/index.html",
       "n": 9
      },
      {
@@ -569,27 +566,38 @@
       "n": 9
      },
      {
-      "path": "/data/site/dimensions.json",
-      "n": 8
+      "path": "/p/topic/biz.html",
+      "n": 7
      },
      {
-      "path": "/data/site/trends.json",
-      "n": 8
+      "path": "/data/site/collections.json",
+      "n": 6
      },
      {
-      "path": "/p/index.html",
-      "n": 8
+      "path": "/data/site/lineage.json",
+      "n": 6
+     },
+     {
+      "path": "/data/site/policies.json",
+      "n": 6
+     },
+     {
+      "path": "/data/site/subscribe.json",
+      "n": 6
+     },
+     {
+      "path": "/p/th-boi-20241025-136110.html",
+      "n": 6
      }
     ]
    },
    "coverage": {
     "sitemap_landing": 581,
-    "crawled_by_search": 236,
-    "crawled_by_ai": 12,
-    "search_pct": 40.6,
+    "crawled_by_search": 245,
+    "crawled_by_ai": 8,
+    "search_pct": 42.2,
     "never_crawled_sample": [
      "/p/th-boi-20241101-136142.html",
-     "/p/th-boi-20241104-136149.html",
      "/p/th-boi-20250204-136531.html",
      "/p/th-boi-20250218-136587.html",
      "/p/th-boi-20250218-136588.html",
@@ -607,17 +615,18 @@
      "/p/th-boi-20251225-138389.html",
      "/p/th-boi-20260115-138447.html",
      "/p/th-boi-20260115-138448.html",
-     "/p/th-boi-20260115-138449.html"
+     "/p/th-boi-20260115-138449.html",
+     "/p/th-boi-20260115-138450.html"
     ]
    },
    "channels": {
-    "search": 5,
-    "direct": 62
+    "direct": 59,
+    "search": 3
    },
    "search_sources": [
     {
      "key": "Bing",
-     "n": 4
+     "n": 2
     },
     {
      "key": "Google",
@@ -626,10 +635,6 @@
    ],
    "ai_sources": [],
    "search_landings": [
-    {
-     "key": "/",
-     "n": 2
-    },
     {
      "key": "/p/th-gaz-20260212-2569.html",
      "n": 1
@@ -649,9 +654,9 @@
    "property": "sc-domain:thaipolicy.com",
    "totals_28d": {
     "clicks": 12,
-    "impressions": 368,
-    "ctr": 0.03260869565217391,
-    "position": 8.929347826086957
+    "impressions": 367,
+    "ctr": 0.0326975476839237,
+    "position": 8.752043596730246
    },
    "top_queries": [
     {
@@ -693,8 +698,8 @@
     {
      "q": "泰國變更土地用途 限制",
      "clicks": 0,
-     "impr": 6,
-     "pos": 55.8
+     "impr": 5,
+     "pos": 56.6
     }
    ],
    "top_pages": [
@@ -845,8 +850,8 @@
     {
      "page": "https://www.thaipolicy.com/p/th-boi-20250224-136611.html",
      "clicks": 0,
-     "impr": 2,
-     "pos": 5.5
+     "impr": 1,
+     "pos": 5
     }
    ],
    "sitemap": {
@@ -860,17 +865,17 @@
     "total": 679,
     "coverage_states": {
      "已提交，且已编入索引": 618,
-     "已发现 - 尚未编入索引": 48,
-     "Google 无法识别此网址": 13
+     "已发现 - 尚未编入索引": 46,
+     "Google 无法识别此网址": 15
     }
    }
   },
   "bing": {
    "crawl": {
-    "date": "2026-11-12",
-    "in_index": 532,
-    "crawled": 56,
-    "errors": 5
+    "date": "2026-11-14",
+    "in_index": 539,
+    "crawled": 47,
+    "errors": 0
    },
    "top_queries": [
     {
@@ -949,7 +954,7 @@
      "clicks": 0
     },
     {
-     "q": "泰国政府储蓄银行 維護通知书",
+     "q": "《部令：规定工厂的类别、种类及规模，佛历 2563（2020）》",
      "impr": 2,
      "clicks": 0
     },
@@ -964,12 +969,12 @@
      "clicks": 0
     },
     {
-     "q": "《部令：规定工厂的类别、种类及规模，佛历 2563（2020）》",
+     "q": "泰国政府储蓄银行 維護通知书",
      "impr": 2,
      "clicks": 0
     },
     {
-     "q": "อนุ กก. บูรณาการวีซ่า เพื่อดึงดูดชาวต่างชาติที่มีศักยภาพสูงสู่ประเทศไทย",
+     "q": "泰国进出口海关政策",
      "impr": 2,
      "clicks": 0
     }
@@ -993,39 +998,6 @@
  },
  "disabled": [],
  "trend": [
-  {
-   "date": "2026-10-18",
-   "metrics": {
-    "sitemap_urls": 671,
-    "pages_checked": 40,
-    "pages_with_problems": 0,
-    "thin_pages": 0,
-    "crawl_search_7d": 2405,
-    "crawl_ai_7d": 935,
-    "googlebot_7d": 699,
-    "bingbot_7d": 483,
-    "baiduspider_7d": 0,
-    "crawl_coverage_pct": 87.0,
-    "visits_search_7d": 1,
-    "visits_ai_7d": 0,
-    "gsc_clicks_28d": 1,
-    "gsc_impressions_28d": 154,
-    "gsc_position": 9.5,
-    "gsc_indexed": 410,
-    "gsc_checked": 671,
-    "bing_in_index": 181,
-    "bing_impressions": 23,
-    "bing_clicks": 1,
-    "indexnow_submitted": 0,
-    "geo_asked": 8,
-    "geo_cited": 0
-   },
-   "issues": {
-    "error": 0,
-    "warn": 1,
-    "info": 3
-   }
-  },
   {
    "date": "2026-10-19",
    "metrics": {
@@ -1981,6 +1953,39 @@
     "error": 0,
     "warn": 1,
     "info": 2
+   }
+  },
+  {
+   "date": "2026-11-17",
+   "metrics": {
+    "sitemap_urls": 679,
+    "pages_checked": 40,
+    "pages_with_problems": 0,
+    "thin_pages": 1,
+    "crawl_search_7d": 1205,
+    "crawl_ai_7d": 283,
+    "googlebot_7d": 346,
+    "bingbot_7d": 329,
+    "baiduspider_7d": 75,
+    "crawl_coverage_pct": 42.2,
+    "visits_search_7d": 3,
+    "visits_ai_7d": 0,
+    "gsc_clicks_28d": 12,
+    "gsc_impressions_28d": 367,
+    "gsc_position": 8.8,
+    "gsc_indexed": 618,
+    "gsc_checked": 679,
+    "bing_in_index": 539,
+    "bing_impressions": 153,
+    "bing_clicks": 13,
+    "indexnow_submitted": 0,
+    "geo_asked": 0,
+    "geo_cited": 0
+   },
+   "issues": {
+    "error": 0,
+    "warn": 1,
+    "info": 3
    }
   }
  ]
