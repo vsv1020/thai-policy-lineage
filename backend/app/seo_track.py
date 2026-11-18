@@ -19,7 +19,7 @@ import re
 from datetime import date, datetime, timedelta
 
 from fastapi import APIRouter, Depends, Query, Response
-from sqlalchemy import delete, distinct, func, select
+from sqlalchemy import case, delete, distinct, func, or_, select
 from sqlalchemy.orm import Session
 
 from .config import DATA_DIR, settings
@@ -169,10 +169,15 @@ def report(s: Session, days: int = 30, now: datetime | None = None) -> dict:
     start = end - timedelta(days=days - 1)
     rng = (CrawlHit.day >= start) & (CrawlHit.day <= end)
 
-    bots = [{"bot": b, "group": g, "hits": n, "pages": p, "last_seen": last.isoformat() if last else None}
-            for b, g, n, p, last in s.execute(
+    # page_hits:成功取到页面的次数(状态码 < 400,地址是 .html 或以 / 结尾)。hits 把样式、脚本、数据文件
+    # 和报错请求都算在内 —— 会渲染页面的爬虫每抓一页带出十来个子请求;冒用爬虫 UA 的漏洞扫描一天就能刷出几百次 404。
+    # 判断「爬虫到底来读了多少内容」看 page_hits
+    is_page = (CrawlHit.status < 400) & or_(CrawlHit.path.like("%.html"), CrawlHit.path.like("%/"))
+    bots = [{"bot": b, "group": g, "hits": n, "pages": p, "page_hits": int(ph or 0),
+             "last_seen": last.isoformat() if last else None}
+            for b, g, n, p, ph, last in s.execute(
                 select(CrawlHit.bot, CrawlHit.group, func.count(), func.count(distinct(CrawlHit.path)),
-                       func.max(CrawlHit.day))
+                       func.sum(case((is_page, 1), else_=0)), func.max(CrawlHit.day))
                 .where(rng).group_by(CrawlHit.bot, CrawlHit.group)
                 .order_by(func.count().desc(), CrawlHit.bot)).all()]
     by_day = {(d, g): n for d, g, n in s.execute(

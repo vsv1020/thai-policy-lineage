@@ -401,6 +401,12 @@ def server_stats(client: httpx.Client, rep: Report, token: str, baidu_on: bool =
         "visits_search_7d": d["channels"].get("search", 0),
         "visits_ai_7d": d["channels"].get("ai", 0),
     })
+    # 成功取到页面的次数(服务器版本够新才有 page_hits):上面几项「抓取次数」把样式、脚本、数据文件和报错请求都算在内,
+    # 冒用爬虫 UA 的扫描一天就能把 AI 爬虫的次数刷高几百;看爬虫实际读了多少内容用这两项。原有指标口径不变
+    if all("page_hits" in b for b in d["crawlers"]["bots"]):
+        rep.metrics.update({
+            "crawl_search_pages_7d": sum(b["page_hits"] for b in d["crawlers"]["bots"] if b["group"] == "search"),
+            "crawl_ai_pages_7d": sum(b["page_hits"] for b in d["crawlers"]["bots"] if b["group"] == "ai")})
     # 百度默认不追踪(不做百度推送时,蜘蛛来不来不是需要处理的问题);配了 BAIDU_PUSH_TOKEN 才提醒
     watch = [("Googlebot", "Google"), ("Bingbot", "Bing")] + ([("Baiduspider", "百度")] if baidu_on else [])
     for b, name in watch:
@@ -802,7 +808,9 @@ METRIC_ZH = [("sitemap_urls", "sitemap 页面数"), ("pages_checked", "今日抽
              ("gsc_position", "Google 平均排名"), ("bing_in_index", "Bing 已收录"),
              ("bing_impressions", "Bing 曝光"), ("googlebot_7d", "Googlebot 抓取(7 天)"),
              ("bingbot_7d", "Bingbot 抓取(7 天)"), ("baiduspider_7d", "百度蜘蛛抓取(7 天)"),
-             ("crawl_ai_7d", "AI 爬虫抓取(7 天)"), ("crawl_coverage_pct", "简体落地页被搜索爬虫抓取占比 %"),
+             ("crawl_ai_7d", "AI 爬虫抓取(7 天)"),
+             ("crawl_search_pages_7d", "搜索爬虫成功取到页面(7 天)"), ("crawl_ai_pages_7d", "AI 爬虫成功取到页面(7 天)"),
+             ("crawl_coverage_pct", "简体落地页被搜索爬虫抓取占比 %"),
              ("crawl_hant_landing", "繁体落地页数(sitemap)"), ("crawl_hant_by_search", "繁体落地页被搜索爬虫抓取数"),
              ("hant_suspicious", "繁体成品可疑字形(处)"),
              ("visits_search_7d", "搜索来源访问(7 天)"), ("visits_ai_7d", "AI 来源访问(7 天)"),
@@ -831,7 +839,9 @@ def render_md(d: dict, prev: dict | None) -> str:
         out.append("- Google 收录:未接入 Search Console,只能从爬虫抓取与搜索来源访问间接判断。")
     if "googlebot_7d" in m:
         out.append(f"- 近 7 天抓取:Googlebot {m['googlebot_7d']} · Bingbot {m['bingbot_7d']} · "
-                   f"百度 {m['baiduspider_7d']} · AI 爬虫 {m['crawl_ai_7d']};来访:搜索 {m['visits_search_7d']} · AI {m['visits_ai_7d']}。")
+                   f"百度 {m['baiduspider_7d']} · AI 爬虫 {m['crawl_ai_7d']}"
+                   + (f"(其中成功取到页面 {m['crawl_ai_pages_7d']} 次)" if "crawl_ai_pages_7d" in m else "")
+                   + f";来访:搜索 {m['visits_search_7d']} · AI {m['visits_ai_7d']}。")
     out.append("")
     out += ["## 待处理问题", ""]
     if not d["issues"]:
@@ -863,9 +873,11 @@ def render_md(d: dict, prev: dict | None) -> str:
                                            for x in b["top_queries"][:10]]
     srv = sec.get("server") or {}
     if srv:
-        out += ["", "## 爬虫抓取(近 7 天)", "", "| 爬虫 | 类型 | 次数 | 页面数 | 最近 |", "|---|---|---|---|---|"]
-        out += [f"| {x['bot']} | {'搜索' if x['group'] == 'search' else 'AI'} | {x['hits']} | {x['pages']} | {x['last_seen']} |"
-                for x in srv["crawlers"]["bots"]] or ["| — | — | 0 | 0 | — |"]
+        # 「次数」含样式、脚本、数据文件与报错请求;「取到页面」只算成功返回的 .html 页面(服务器版本够新才有)
+        out += ["", "## 爬虫抓取(近 7 天)", "", "| 爬虫 | 类型 | 次数 | 取到页面 | 不同地址数 | 最近 |", "|---|---|---|---|---|---|"]
+        out += [f"| {x['bot']} | {'搜索' if x['group'] == 'search' else 'AI'} | {x['hits']} | {x.get('page_hits', '—')} "
+                f"| {x['pages']} | {x['last_seen']} |"
+                for x in srv["crawlers"]["bots"]] or ["| — | — | 0 | — | 0 | — |"]
         if srv.get("ai_sources") or srv.get("search_sources"):
             out += ["", "## 来访渠道(近 7 天)", ""]
             out += [f"- 搜索 · {x['key']}:{x['n']}" for x in srv.get("search_sources", [])]

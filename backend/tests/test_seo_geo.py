@@ -533,6 +533,50 @@ def test_channel_of_separates_baidu_ai_from_baidu_search(host, expect):
     assert T.channel_of(host) == expect
 
 
+def test_page_hits_count_only_successful_page_fetches(clean_hits):
+    """「抓取次数」把脚本、数据文件和报错请求都算在内:会渲染的爬虫每页带出十来个子请求,
+    冒用爬虫 UA 的扫描器一天能刷出几百次 404。page_hits 只算成功取到的页面。"""
+    now = datetime(2026, 11, 13, 10, tzinfo=BKK)
+    rows = [("Applebot", "search", "/p/a.html", 200), ("Applebot", "search", "/js/track.js", 200),
+            ("Applebot", "search", "/data/site/ads.json", 200), ("Applebot", "search", "/css/main.css", 200),
+            ("Applebot", "search", "/zh-hant/", 200), ("Applebot", "search", "/", 304),
+            ("cohere-ai", "ai", "/.env", 404), ("cohere-ai", "ai", "/index.php", 404), ("cohere-ai", "ai", "/userfiles", 404),
+            ("cohere-ai", "ai", "/p/gone.html", 404), ("GPTBot", "ai", "/p/b.html", 200), ("GPTBot", "ai", "/llms.txt", 200)]
+    with session_scope() as s:
+        for bot, g, path, st in rows:
+            s.add(CrawlHit(ts=now, day=now.date(), bot=bot, group=g, path=path, status=st))
+    with session_scope() as s:
+        bots = {b["bot"]: b for b in T.report(s, 7, now=now)["crawlers"]["bots"]}
+    assert (bots["Applebot"]["hits"], bots["Applebot"]["page_hits"]) == (6, 3)
+    assert (bots["cohere-ai"]["hits"], bots["cohere-ai"]["page_hits"]) == (4, 0), "扫描器的 404 不算读到了页面"
+    assert (bots["GPTBot"]["hits"], bots["GPTBot"]["page_hits"]) == (2, 1)
+
+
+def test_monitor_reports_page_fetches_next_to_raw_hits():
+    def data(with_pages: bool):
+        bots = [{"bot": "Googlebot", "group": "search", "hits": 300, "pages": 160, "page_hits": 150, "last_seen": "2026-11-18"},
+                {"bot": "Bingbot", "group": "search", "hits": 200, "pages": 150, "page_hits": 140, "last_seen": "2026-11-18"},
+                {"bot": "cohere-ai", "group": "ai", "hits": 245, "pages": 245, "page_hits": 0, "last_seen": "2026-11-13"},
+                {"bot": "GPTBot", "group": "ai", "hits": 26, "pages": 20, "page_hits": 18, "last_seen": "2026-11-17"}]
+        if not with_pages:
+            bots = [{k: v for k, v in b.items() if k != "page_hits"} for b in bots]
+        return {"crawlers": {"bots": bots, "errors": []}, "coverage": {}, "channels": {}}
+    rep = M.Report(SITE, date(2026, 11, 18))
+    d = M.server_stats(httpx.Client(transport=httpx.MockTransport(lambda r: httpx.Response(200, json=data(True)))), rep, "tok")
+    assert rep.metrics["crawl_ai_7d"] == 271, "原有指标口径不变"
+    assert rep.metrics["crawl_ai_pages_7d"] == 18 and rep.metrics["crawl_search_pages_7d"] == 290
+    rep.sections["server"] = d
+    md = M.render_md(rep.to_dict(), None)
+    assert "AI 爬虫 271(其中成功取到页面 18 次)" in md and "| cohere-ai | AI | 245 | 0 | 245 |" in md
+    # 服务器还是旧版本(没有 page_hits)时不出这两项,表格里写「—」
+    rep = M.Report(SITE, date(2026, 11, 18))
+    d = M.server_stats(httpx.Client(transport=httpx.MockTransport(lambda r: httpx.Response(200, json=data(False)))), rep, "tok")
+    assert "crawl_ai_pages_7d" not in rep.metrics and rep.metrics["crawl_ai_7d"] == 271
+    rep.sections["server"] = d
+    md = M.render_md(rep.to_dict(), None)
+    assert "成功取到页面" not in md.split("## 关键指标")[0] and "| GPTBot | AI | 26 | — | 20 |" in md
+
+
 def test_only_recent_crawl_errors_are_reported():
     rep = M.Report(SITE, date(2026, 9, 29))
     data = {"crawlers": {"bots": [{"bot": "Googlebot", "group": "search", "hits": 1, "pages": 1, "last_seen": "2026-09-29"},
