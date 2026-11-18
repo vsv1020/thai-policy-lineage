@@ -35,6 +35,8 @@
   .brand-name { font-family: var(--serif); font-weight: 700; font-size: 19px; letter-spacing: .06em; white-space: nowrap; }
   .brand-sub { font-size: 12px; color: rgba(242,239,232,.55); border-left: 1px solid rgba(242,239,232,.2); padding-left: 14px; white-space: nowrap; }
   .header-right { display: flex; align-items: center; gap: 16px; font-size: 12px; color: rgba(242,239,232,.5); white-space: nowrap; }
+  .lang-switch { color: rgba(242,239,232,.85); border: 1px solid rgba(242,239,232,.3); border-radius: 3px; padding: 2px 8px; text-decoration: none; }
+  .lang-switch:hover { color: #fff; border-color: rgba(242,239,232,.6); }
   .btn-solid {
     background: var(--seal); color: #fff; border: 0; font: inherit; font-weight: 600; font-size: 13px;
     padding: 7px 16px; cursor: pointer;

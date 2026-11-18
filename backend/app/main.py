@@ -38,6 +38,7 @@ PUBLIC_DIRS = {
     "/p": REPO_ROOT / "p",          # 每条政策的静态落地页(SEO),由 app.export 生成
     "/assets": REPO_ROOT / "assets",  # 打赏收款码等静态图片
     "/feed": REPO_ROOT / "feed",      # 按领域的 Atom 订阅,由 app.export 生成
+    "/zh-hant": REPO_ROOT / "zh-hant",  # 繁体版静态页(镜像简体结构),由 app.export 生成
 }
 # 根目录下允许单独访问的文件
 PUBLIC_FILES = {"index.html", "privacy.html", "about.html", "robots.txt", "sitemap.xml", "favicon.ico", "favicon.svg",
@@ -59,10 +60,12 @@ INDEXNOW_KEY_FILE = _indexnow_file()
 # 静态内容的浏览器缓存(秒):URL 前缀 → 有效期。文件名不带指纹,所以都设得短,过期后凭 ETag 复核(没变就是 304)。
 # 不设的话浏览器按「距上次修改时间的 10%」自己估:久未改动的脚本可能被缓存好几天,发版后旧脚本迟迟不换;
 # 而每次都重新请求样式表又拖慢回访者的首屏。派生数据 /data/site/ 在下面的中间件里单独处理
-CACHE_SECONDS = (("/css/", 3600), ("/js/", 3600), ("/assets/", 86400), ("/p/", 600), ("/feed/", 600))
+CACHE_SECONDS = (("/css/", 3600), ("/js/", 3600), ("/assets/", 86400), ("/p/", 600), ("/feed/", 600),
+                 ("/zh-hant/", 600))
 ROOT_CACHE_SECONDS = 300      # 首页与根目录下的 html / xml / txt
 # 页面类地址的 404 用这一页(app.export 生成);接口与数据文件的 404 仍是 JSON
 NOT_FOUND_PAGE = REPO_ROOT / "p" / "404.html"
+NOT_FOUND_PAGE_HANT = REPO_ROOT / "zh-hant" / "404.html"     # /zh-hant/ 下的地址用繁体的 404 页
 
 SECURITY_HEADERS = {
     "X-Content-Type-Options": "nosniff",
@@ -153,9 +156,10 @@ async def not_found(request: Request, exc: StarletteHTTPException):
     从搜索结果点进已下线页面的人能接着找,而不是看到一行 {"detail":"Not Found"}。"""
     path = request.url.path
     page_like = path.endswith((".html", "/")) or "." not in path.rsplit("/", 1)[-1]
+    page = NOT_FOUND_PAGE_HANT if path.startswith("/zh-hant/") and NOT_FOUND_PAGE_HANT.is_file() else NOT_FOUND_PAGE
     if (exc.status_code == 404 and page_like and not path.startswith(settings.api_prefix + "/")
-            and NOT_FOUND_PAGE.is_file()):
-        return FileResponse(NOT_FOUND_PAGE, status_code=404, headers={"X-Robots-Tag": "noindex"})
+            and page.is_file()):
+        return FileResponse(page, status_code=404, headers={"X-Robots-Tag": "noindex"})
     return await http_exception_handler(request, exc)
 
 
@@ -178,11 +182,14 @@ def admin_page() -> FileResponse:
 
 # 爬虫按惯例会探测的地址:给它们指到真实文件,而不是在抓取报告里留一串 404
 # (/favicon.ico 是浏览器与 Google 的默认图标地址;/feed 是 WordPress 等博客的订阅地址)
-CONVENTIONAL_REDIRECTS = {"/favicon.ico": "/favicon.svg", "/feed": "/feed.xml", "/feed/": "/feed.xml",
+# /zh-hant 不带斜杠时会先被下面的 /{name} 接住(返回 404),这里显式 301 到繁体首页
+CONVENTIONAL_REDIRECTS = {"/favicon.ico": "/favicon.svg", "/zh-hant": "/zh-hant/",
+                          "/feed": "/feed.xml", "/feed/": "/feed.xml",
                           "/rss": "/feed.xml", "/rss.xml": "/feed.xml", "/atom.xml": "/feed.xml"}
 
 
 @app.get("/favicon.ico", include_in_schema=False)
+@app.get("/zh-hant", include_in_schema=False)
 @app.get("/feed", include_in_schema=False)
 @app.get("/feed/", include_in_schema=False)
 @app.get("/rss", include_in_schema=False)

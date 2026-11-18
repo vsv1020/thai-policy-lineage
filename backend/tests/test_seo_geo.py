@@ -375,6 +375,8 @@ def _mock_site(root, key, calls):
         if path == "/api/admin/seo":
             return httpx.Response(401)
         f = root / (path.lstrip("/") or "index.html")
+        if f.is_dir():                    # 与 StaticFiles(html=True) 一致:目录地址给目录里的 index.html
+            f = f / "index.html"
         if f.is_file():
             return httpx.Response(200, text=f.read_text(encoding="utf-8"))
         return httpx.Response(404)
@@ -607,4 +609,4 @@ def test_skipped_page_paths_reads_skip_flag(tmp_path, monkeypatch):
         '{"uid": "TH-GAZ-2-B", "flags": {"skip": false}}\n'
         'not json\n', encoding="utf-8")
     monkeypatch.setattr(M, "POLICIES_DIR", tmp_path)
-    assert M.skipped_page_paths() == {"/p/th-gaz-1-a.html"}
+    assert M.skipped_page_paths() == {"/p/th-gaz-1-a.html", "/zh-hant/p/th-gaz-1-a.html"}, "繁体版同样不生成"

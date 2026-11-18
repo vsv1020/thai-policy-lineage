@@ -11,7 +11,8 @@ GEO(生成式引擎优化):让 ChatGPT、Perplexity、Claude、豆包等 AI 检�
 robots.txt 明确放行 AI 检索爬虫。
 
 输出全部是派生产物(p/*.html、p/topic/、p/t/、p/who/、p/week/、p/guide/、p/404.html、sitemap.xml、
-robots.txt、feed.xml、llms.txt、llms-full.txt、index.html 里的两个受管区块、ads.txt),由 app.export 调用,
+robots.txt、feed.xml、llms.txt、llms-full.txt、index.html 里的三个受管区块、ads.txt,以及 zh-hant/ 下
+全部静态页的繁体版),由 app.export 调用,
 与 data/site/*.json 一样禁止手改,CI 会检查它们与事实层一致。
 """
 from __future__ import annotations
@@ -65,6 +66,92 @@ ROBOTS_INDEX = "index, follow, max-snippet:-1, max-image-preview:large"
 ROBOTS_NOINDEX = "noindex, follow"
 GUIDE_PATH = "p/guide/royal-gazette.html"
 
+# ───────────────────── 繁体版:/zh-hant/ 镜像简体的全部静态页 ─────────────────────
+# 同一套渲染函数跑两遍:简体一遍,繁体一遍(_variant(True) 下),繁体那遍的输出再整页过 app.hant 转换。
+# 渲染函数里只有三处随字形变:站内绝对地址(_base)、语言标记(_lang 等)、资源文件的相对路径(_root)。
+# 站内相对链接(../index.html、topic/x.html、../../feed.xml)两边目录结构相同,不用改,自然留在 /zh-hant/ 内;
+# css / js / favicon / assets 不复制,繁体页多退一级到站点根目录去取。
+HANT_DIR = "zh-hant"
+OG_IMAGE_HANT = "assets/og-hant.png"
+_STATE = {"hant": False}
+
+
+class _variant:
+    """with _variant(True): 其间渲染的是繁体页(地址、语言标记按繁体版写,文字仍是简体,写盘前再转换)。"""
+
+    def __init__(self, hant: bool):
+        self.hant = hant
+
+    def __enter__(self):
+        self.prev, _STATE["hant"] = _STATE["hant"], self.hant
+        return self
+
+    def __exit__(self, *exc):
+        _STATE["hant"] = self.prev
+
+
+def _is_hant() -> bool:
+    return _STATE["hant"]
+
+
+def _base() -> str:
+    """当前字形的站点根地址(不带结尾斜杠):简体 https://…,繁体 https://…/zh-hant。"""
+    return settings.site_url + (f"/{HANT_DIR}" if _is_hant() else "")
+
+
+def _home() -> str:
+    return _base() + "/"
+
+
+def _lang() -> str:
+    """结构化数据的 inLanguage / <html lang>。"""
+    return "zh-Hant" if _is_hant() else "zh-CN"
+
+
+def _og_image() -> str:
+    return OG_IMAGE_HANT if _is_hant() else OG_IMAGE
+
+
+def _root(up: str) -> str:
+    """资源文件(css / js / favicon / assets)与 data-base 的前缀:繁体页比站内链接多退一级。"""
+    if not _is_hant():
+        return up
+    return "/" if up.startswith("/") else up + "../"
+
+
+def _alternates(canonical: str) -> tuple[str, str]:
+    """canonical → (简体地址, 繁体地址)。两边目录结构相同,只差 /zh-hant 前缀。"""
+    site = settings.site_url
+    rel = canonical[len(_base()):] if canonical.startswith(_base()) else canonical[len(site):]
+    return site + rel, f"{site}/{HANT_DIR}" + rel
+
+
+def hreflang_links(canonical: str) -> str:
+    """简繁互指 + x-default(指简体)。两种字形的页面上写的完全一样。"""
+    hans, hant = _alternates(canonical)
+    return (f'<link rel="alternate" hreflang="zh-Hans" href="{e(hans)}">\n'
+            f'<link rel="alternate" hreflang="zh-Hant" href="{e(hant)}">\n'
+            f'<link rel="alternate" hreflang="x-default" href="{e(hans)}">')
+
+
+def BACK_HOME() -> str:  # noqa: N802
+    """落地页、指南页末尾回首页的链接文字。繁体首页是静态门户页,没有检索与图表,不能照抄简体的说法。"""
+    return "← 返回政策脉络首页" if _is_hant() else "← 返回政策脉络首页(检索、趋势、七维分析)"
+
+
+def lang_switch(up: str, canonical: str = "") -> str:
+    """页头的字形切换链接,指向同一页的另一种字形。标签不经转换器(「简体中文」要保持简体)。"""
+    from .hant import keep
+    if canonical:
+        rel = _alternates(canonical)[0][len(settings.site_url):]       # /p/x.html
+        href = (_root(up) + rel[1:]) if _is_hant() else f"{up}{HANT_DIR}{rel}"
+    else:                                                              # 404 页:回另一种字形的首页
+        href = "/" if _is_hant() else f"/{HANT_DIR}/"
+    if _is_hant():
+        return (f'<a class="lang-switch" href="{e(href)}" hreflang="zh-Hans" lang="zh-Hans">'
+                f'{keep("简体中文")}</a>')
+    return f'<a class="lang-switch" href="{e(href)}" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a>'
+
 
 def clip(text: str, n: int = 150) -> str:
     """搜索结果里的描述:不超过 n 字,尽量停在句末;停不了就停在逗号处并加省略号。
@@ -95,7 +182,7 @@ def slug(uid: str) -> str:
 
 
 def page_url(uid: str) -> str:
-    return f"{settings.site_url}/p/{slug(uid)}.html"
+    return f"{_base()}/p/{slug(uid)}.html"
 
 
 def seo_config() -> dict:
@@ -113,11 +200,12 @@ def _head(title: str, desc: str, canonical: str, jsonld: list[dict] | dict | Non
     """extra:追加到 <head> 的标签(如本领域的订阅地址),调用方负责转义。"""
     lds = jsonld if isinstance(jsonld, list) else ([jsonld] if jsonld else [])
     ld = "\n".join(x for x in [extra, *(_ld(x) for x in lds)] if x)
-    img = f"{settings.site_url}/{OG_IMAGE}"
-    canon = (f'<link rel="canonical" href="{e(canonical)}">\n<meta property="og:url" content="{e(canonical)}">'
-             if canonical else "")
+    img = f"{settings.site_url}/{_og_image()}"
+    root = _root(up)
+    canon = (f'<link rel="canonical" href="{e(canonical)}">\n{hreflang_links(canonical)}\n'
+             f'<meta property="og:url" content="{e(canonical)}">' if canonical else "")
     return f"""<!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="{"zh-Hant" if _is_hant() else "zh-CN"}">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -125,10 +213,10 @@ def _head(title: str, desc: str, canonical: str, jsonld: list[dict] | dict | Non
 <meta name="description" content="{e(desc)}">
 <meta name="robots" content="{robots}">
 {canon}
-<link rel="icon" href="{up}favicon.svg" type="image/svg+xml">
+<link rel="icon" href="{root}favicon.svg" type="image/svg+xml">
 <link rel="alternate" type="application/atom+xml" title="{SITE_NAME} · 最新政策" href="{up}feed.xml">
 <meta property="og:type" content="{og_type}">
-<meta property="og:locale" content="zh_CN">
+<meta property="og:locale" content="{"zh_TW" if _is_hant() else "zh_CN"}">
 <meta property="og:title" content="{e(title)}">
 <meta property="og:description" content="{e(desc)}">
 <meta property="og:site_name" content="{SITE_NAME}">
@@ -138,7 +226,7 @@ def _head(title: str, desc: str, canonical: str, jsonld: list[dict] | dict | Non
 <meta property="og:image:alt" content="{OG_ALT}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="{e(img)}">
-<link rel="stylesheet" href="{up}css/main.css">
+<link rel="stylesheet" href="{root}css/main.css">
 {ld}
 </head>
 <body>
@@ -146,29 +234,28 @@ def _head(title: str, desc: str, canonical: str, jsonld: list[dict] | dict | Non
   <div class="brand"><a href="{up}index.html" style="display:flex;align-items:center;gap:14px;color:inherit;text-decoration:none">
     <div class="seal">脉</div><div class="brand-name">{SITE_NAME}</div></a>
     <div class="brand-sub">Thai Policy Lineage · นโยบายไทย</div></div>
-  <div class="header-right"><a href="{up}p/index.html" style="color:inherit">全部政策</a>
+  <div class="header-right">{lang_switch(up, canonical)}<a href="{up}p/index.html" style="color:inherit">全部政策</a>
     <button class="btn-solid" data-support-button hidden>☕ 打赏支持</button></div>
 </header>
 <main style="max-width:880px;margin:0 auto;padding:32px 20px">"""
 
 
 def _foot(up: str = "../") -> str:
+    root = _root(up)
     return f"""</main>
 <footer>{SITE_NAME} —— 官方源自动监测 · 全部内容可溯源 · 零带货中立平台。
 本站译文均为非官方翻译,仅供参考,以泰文原文为准;不构成法律意见。
 <a href="{up}about.html">关于本站与数据来源</a> · <a href="{up}{GUIDE_PATH}">泰国皇家公报指南</a> ·
 <a href="{up}p/index.html">全部政策</a> · <a href="{up}feed.xml">RSS 订阅</a> · <a href="{up}privacy.html">隐私政策</a></footer>
-<script src="{up}js/track.js" data-base="{up}"></script>
-<script src="{up}js/ads.js" data-base="{up}"></script>
-<script src="{up}js/vendor/qrcode-generator-1.4.4.js"></script>
-<script src="{up}js/promptpay.js"></script>
-<script src="{up}js/support.js" data-base="{up}"></script>
+<script src="{root}js/track.js" data-base="{root}"></script>
+<script src="{root}js/ads.js" data-base="{root}"></script>
+<script src="{root}js/vendor/qrcode-generator-1.4.4.js"></script>
+<script src="{root}js/promptpay.js"></script>
+<script src="{root}js/support.js" data-base="{root}"></script>
 </body>
 </html>
 """
 
-
-FOOT = _foot()
 
 
 def _field(k: str, v) -> str:
@@ -186,7 +273,7 @@ def page_title(t: str, tag: str = "") -> str:
 
 
 def topic_url(dom_id: str) -> str:
-    return f"{settings.site_url}/p/topic/{dom_id}.html"
+    return f"{_base()}/p/topic/{dom_id}.html"
 
 
 def _status(v: dict) -> str:
@@ -218,12 +305,14 @@ def _lede(v: dict, gazetted: bool = True) -> str:
 def render_page(s: Session, doc: Document, today, titles: dict[str, str],
                 dom: tuple[str, str] = ("", ""), related: list[tuple[str, str, str]] = (),
                 series: list[tuple[str, str, str]] = (),
-                collections: list[tuple[str, str]] = (), dup_title: bool = False) -> str:
+                collections: list[tuple[str, str]] = (), dup_title: bool = False,
+                view: dict | None = None) -> str:
     """dom = (领域 id, 领域中文名);related = 同领域相邻政策 [(uid, 日期, 标题)],做站内链接;
     series = 同一标题先后刊登的其他文件 [(uid, 日期, 标题)],按日期排列;
     collections = 收录本条的汇总页 [(相对 p/ 的地址, 名称)],专题页与影响对象页靠它拿到内链;
-    dup_title = 还有别的条目与本条中文标题完全相同,<title> 要带上日期区分。"""
-    v = A.document_view(s, doc, today)
+    dup_title = 还有别的条目与本条中文标题完全相同,<title> 要带上日期区分;
+    view = 已算好的 A.document_view(简繁两遍渲染共用一份,省一半查询)。"""
+    v = view or A.document_view(s, doc, today)
     d = v["dates"]
     # 有公报卷期才说「刊登公报」;部门官网来源的条目,日期是官网发布日
     gazetted = bool(doc.gazette_series)
@@ -278,7 +367,7 @@ def render_page(s: Session, doc: Document, today, titles: dict[str, str],
         "legislationPassedBy": ({"@type": "GovernmentOrganization", "name": v["org"]}
                                 if v["org"] else None),
         "datePublished": v["date"] or None,
-        "inLanguage": "zh-CN", "url": canonical, "abstract": v["summary_zh"],
+        "inLanguage": _lang(), "url": canonical, "abstract": v["summary_zh"],
         "about": dom[1] or None,
         "isAccessibleForFree": True,
         # 本页是泰文原文的中文译述:指明原作,方便搜索与 AI 引擎追溯到官方来源
@@ -288,12 +377,12 @@ def render_page(s: Session, doc: Document, today, titles: dict[str, str],
         # 与首页的 Organization / WebSite 用同一个 @id,搜索引擎把各页归到同一个站点实体
         "publisher": {"@type": "Organization", "@id": f"{settings.site_url}/#org", "name": SITE_NAME,
                       "url": f"{settings.site_url}/"},
-        "isPartOf": {"@type": "WebSite", "@id": f"{settings.site_url}/#website", "name": SITE_NAME,
-                     "url": f"{settings.site_url}/"},
+        "isPartOf": {"@type": "WebSite", "@id": f"{_home()}#website", "name": SITE_NAME,
+                     "url": _home()},
         "mainEntityOfPage": canonical,
     }
     legislation = {k: val for k, val in legislation.items() if val}
-    crumbs = [("首页", f"{settings.site_url}/"), ("全部政策", f"{settings.site_url}/p/index.html")]
+    crumbs = [("首页", _home()), ("全部政策", f"{_base()}/p/index.html")]
     if dom[0]:
         crumbs.append((dom[1], topic_url(dom[0])))
     crumbs.append((v["title_zh"], canonical))
@@ -338,9 +427,9 @@ def render_page(s: Session, doc: Document, today, titles: dict[str, str],
 {f'<section class="related"><h2 class="mod">同名系列</h2><p class="lib-date">同一机关以同一标题先后刊登的文件;后一份是否取代前一份,以各份原文为准。</p><ul>{same}</ul></section>{chr(10)}' if same else ''}{f'<section class="related"><h2 class="mod">同领域政策 · {e(dom[1])}</h2><ul>{near}</ul><a href="topic/{e(dom[0])}.html">查看{e(dom[1])}全部政策 →</a></section>' if near else ''}
 <div class="support-slot"></div>
 <div class="ad-slot" data-slot="landing_bottom" style="margin-top:18px"></div>
-<p style="margin-top:18px"><a href="../index.html">← 返回政策脉络首页(检索、趋势、七维分析)</a></p>
+<p style="margin-top:18px"><a href="../index.html">{BACK_HOME()}</a></p>
 """
-    return _head(title, desc, canonical, [legislation, breadcrumb], og_type="article") + body + FOOT
+    return _head(title, desc, canonical, [legislation, breadcrumb], og_type="article") + body + _foot()
 
 
 def _rows_html(items, up: str = "") -> str:
@@ -366,12 +455,12 @@ def render_index(rows: list[tuple[str, str, str, str]], topics: list[tuple[str, 
     for dom in sorted(groups):
         body += f'<h2 class="mod" style="margin-top:24px">{e(dom)}</h2><div class="lib-wrap">{_rows_html(groups[dom])}</div>'
     ld = {"@context": "https://schema.org", "@type": "CollectionPage", "name": "全部政策",
-          "url": f"{settings.site_url}/p/index.html", "inLanguage": "zh-CN",
-          "isPartOf": {"@type": "WebSite", "name": SITE_NAME, "url": f"{settings.site_url}/"}}
+          "url": f"{_base()}/p/index.html", "inLanguage": _lang(),
+          "isPartOf": {"@type": "WebSite", "name": SITE_NAME, "url": _home()}}
     return (_head("泰国政策中文目录:皇家公报、内阁决议全部条目 | 政策脉络",
                   f"泰国皇家公报、内阁决议与各部委政策的中文目录,共 {len(rows)} 条,按签证、税务、劳工、"
                   "海关贸易等领域分组;每条附泰文原文(泰国政府网站)链接,非官方翻译。",
-                  f"{settings.site_url}/p/index.html", ld) + body + FOOT)
+                  f"{_base()}/p/index.html", ld) + body + _foot())
 
 
 # 各领域收什么:与 about.html 的「领域说明」同一口径。领域页的开场白用它,
@@ -419,18 +508,18 @@ def render_topic(dom_id: str, zh: str, en: str, items: list[dict],
     desc = clip(f"泰国{zh}({en})政策中文汇总" + (f":{scope}" if scope else "") + f"。共 {len(items)} 条皇家公报、内阁决议与部委公告"
                 + (f",收录至 {latest}" if latest else "") + ",每条附中文摘要与泰文原文(官方)链接。")
     ld = [{"@context": "https://schema.org", "@type": "CollectionPage", "name": f"泰国{zh}政策",
-           "url": url, "inLanguage": "zh-CN", "about": zh, "description": desc,
+           "url": url, "inLanguage": _lang(), "about": zh, "description": desc,
            **({"dateModified": latest} if latest else {}),
-           "isPartOf": {"@type": "WebSite", "@id": f"{settings.site_url}/#website", "name": SITE_NAME,
-                        "url": f"{settings.site_url}/"},
+           "isPartOf": {"@type": "WebSite", "@id": f"{_home()}#website", "name": SITE_NAME,
+                        "url": _home()},
            "mainEntity": {"@type": "ItemList", "numberOfItems": len(items),
                           "itemListElement": [{"@type": "ListItem", "position": i + 1,
                                                "url": x["url"], "name": x["title"]}
                                               for i, x in enumerate(items[:50])]}},
           {"@context": "https://schema.org", "@type": "BreadcrumbList",
            "itemListElement": [
-               {"@type": "ListItem", "position": 1, "name": "首页", "item": f"{settings.site_url}/"},
-               {"@type": "ListItem", "position": 2, "name": "全部政策", "item": f"{settings.site_url}/p/index.html"},
+               {"@type": "ListItem", "position": 1, "name": "首页", "item": _home()},
+               {"@type": "ListItem", "position": 2, "name": "全部政策", "item": f"{_base()}/p/index.html"},
                {"@type": "ListItem", "position": 3, "name": zh, "item": url}]}]
     intro = (f"收录泰国{e(zh)}({e(en)})相关的皇家公报、内阁决议与部委公告"
              + (f",范围包括{e(scope)}" if scope else "") + f"。共 <b>{len(items)}</b> 条"
@@ -498,7 +587,7 @@ def render_collection(url: str, title: str, h1: str, scope: str, items: list[dic
             stance = f'<span class="party {e(st)}">{e(STANCE_ZH.get(st, ""))}</span> ' if STANCE_ZH.get(st) else ""
         rows.append(_item_card(x, "../", lead=stance))
     ld = {"@context": "https://schema.org", "@type": "CollectionPage", "name": h1, "url": url,
-          "inLanguage": "zh-CN", "description": scope,
+          "inLanguage": _lang(), "description": scope,
           "mainEntity": {"@type": "ItemList", "numberOfItems": len(items),
                          "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": x["url"],
                                               "name": x["title"]} for i, x in enumerate(items[:50])]}}
@@ -510,14 +599,9 @@ def render_collection(url: str, title: str, h1: str, scope: str, items: list[dic
     return _head(title, desc, url, ld, up="../../") + body + _foot("../../")
 
 
-def build_collections(entries: list[dict], parties_zh: dict[str, str]
-                      ) -> tuple[list[dict], list[dict], dict[str, list[tuple[str, str]]]]:
-    """生成 p/who/*.html 与 p/t/*.html,返回 (影响对象页, 专题页, 成员反查) ——
-    前两项是索引 [{id, zh, n, href, date}];成员反查 {uid: [(相对 p/ 的地址, 名称)]},专题在前,
-    落地页据此链回收录它的汇总页(否则汇总页只有首页和目录两处入口)。
-    先算出全部页面再渲染:每页页尾互相链接(相关专题、按影响对象),给读者和爬虫多一条路。"""
-    (PAGES_DIR / "who").mkdir(exist_ok=True)
-    (PAGES_DIR / "t").mkdir(exist_ok=True)
+def collection_pages(entries: list[dict], parties_zh: dict[str, str]) -> tuple[list[tuple], list[dict]]:
+    """算出要生成的汇总页:影响对象页 p/who/ 与配置专题 p/t/。
+    返回 (pages, index):pages = [(kind, id, 中文名, 条目, 专题配置)],index = [{kind, id, zh, n, href, date}]。"""
     pages = []          # (kind, id, zh, items, extra)
     for pid in sorted(parties_zh):
         items = [x for x in entries if any(p["id"] == pid for p in x["parties"])]
@@ -530,7 +614,12 @@ def build_collections(entries: list[dict], parties_zh: dict[str, str]
             pages.append(("t", t["id"], t["title_zh"], items, t))
     index = [{"kind": k, "id": i, "zh": zh, "n": len(items), "href": f"p/{k}/{i}.html",
               "date": max((x["date"] for x in items if x["date"]), default="")} for k, i, zh, items, _ in pages]
+    return pages, index
 
+
+def render_collections(pages: list[tuple], index: list[dict]) -> dict[str, str]:
+    """渲染全部汇总页,返回 {相对 p/ 的地址: html}。
+    先算出全部页面再渲染:每页页尾互相链接(相关专题、按影响对象),给读者和爬虫多一条路。"""
     def related(kind: str, pid: str) -> str:
         links = lambda k: " · ".join(f'<a href="../{e(x["kind"])}/{e(x["id"])}.html">{e(x["zh"])}</a>'  # noqa: E731
                                      for x in index if x["kind"] == k and not (x["kind"] == kind and x["id"] == pid))
@@ -539,25 +628,47 @@ def build_collections(entries: list[dict], parties_zh: dict[str, str]
                 + (f"<div><b>按影响对象</b> {w}</div>" if w else "")
                 + '<div><a href="../week/index.html">按周汇总</a> · <a href="../index.html">全部政策</a></div></nav>')
 
+    out: dict[str, str] = {}
     for kind, pid, zh, items, t in pages:
         if kind == "who":
             html = render_collection(
-                f"{settings.site_url}/p/who/{pid}.html", f"影响{zh}的泰国政策汇总 | {SITE_NAME}",
+                f"{_base()}/p/who/{pid}.html", f"影响{zh}的泰国政策汇总 | {SITE_NAME}",
                 f"影响「{zh}」的泰国政策", f"收录本站标注为影响「{zh}」的公报与决议(含约束与利好)。",
                 items, f"影响对象 / {zh}", party=pid, related=related(kind, pid))
         else:
             html = render_collection(
-                f"{settings.site_url}/p/t/{pid}.html", f"泰国{zh}:历次公报汇总 | {SITE_NAME}",
+                f"{_base()}/p/t/{pid}.html", f"泰国{zh}:历次公报汇总 | {SITE_NAME}",
                 f"泰国{zh}:历次公报汇总", t["scope_zh"], items, f"专题 / {zh}", related=related(kind, pid))
-        (PAGES_DIR / kind / f"{pid}.html").write_text(html, encoding="utf-8")
+        out[f"{kind}/{pid}.html"] = html
+    return out
+
+
+def collection_members(pages: list[tuple]) -> dict[str, list[tuple[str, str]]]:
+    """成员反查 {uid: [(相对 p/ 的地址, 名称)]},专题在前:落地页据此链回收录它的汇总页
+    (否则汇总页只有首页和目录两处入口)。"""
     member_of: dict[str, list[tuple[str, str]]] = {}
     for kind, pid, zh, items, _ in sorted(pages, key=lambda x: x[0] != "t"):
         for x in items:
             member_of.setdefault(x["uid"], []).append(
                 (f"{kind}/{pid}.html", zh if kind == "t" else f"影响{zh}"))
+    return member_of
+
+
+def _split_index(index: list[dict]) -> tuple[list[dict], list[dict]]:
+    """index → (影响对象页, 专题页),各项 {id, zh, n, href, date}。"""
     strip = lambda x: {k: v for k, v in x.items() if k != "kind"}  # noqa: E731
-    return ([strip(x) for x in index if x["kind"] == "who"], [strip(x) for x in index if x["kind"] == "t"],
-            member_of)
+    return [strip(x) for x in index if x["kind"] == "who"], [strip(x) for x in index if x["kind"] == "t"]
+
+
+def build_collections(entries: list[dict], parties_zh: dict[str, str]
+                      ) -> tuple[list[dict], list[dict], dict[str, list[tuple[str, str]]]]:
+    """生成(简体)p/who/*.html 与 p/t/*.html,返回 (影响对象页, 专题页, 成员反查)。
+    build() 自己分步调用上面三个函数(简繁各渲染一遍);这个包装留给单独生成汇总页的场合。"""
+    pages, index = collection_pages(entries, parties_zh)
+    for rel, html in render_collections(pages, index).items():
+        (PAGES_DIR / rel).parent.mkdir(parents=True, exist_ok=True)
+        (PAGES_DIR / rel).write_text(html, encoding="utf-8")
+    return (*_split_index(index), collection_members(pages))
 
 
 def week_id(d: str) -> str:
@@ -581,7 +692,7 @@ def render_week(wid: str, items: list[dict], prev_id: str | None, next_id: str |
     爬虫仍可顺着上面的链接走)。全站一半的周汇总都是这种页,留在索引里只会拉低整站的内容质量评价。"""
     a, b = week_range(wid)
     y, w = wid.split("-W")
-    url = f"{settings.site_url}/p/week/{wid}.html"
+    url = f"{_base()}/p/week/{wid}.html"
     title = f"泰国政策周汇总:{y} 年第 {int(w)} 周({a[5:]} 至 {b[5:]})"
     desc = clip(f"{a} 至 {b} 刊登或发布、本站已收录的 {len(items)} 条泰国政策,每条附中文摘要与泰文原文链接。"
                 + (f"本周包括:{items[0]['title']}。" if items else ""))
@@ -595,7 +706,7 @@ def render_week(wid: str, items: list[dict], prev_id: str | None, next_id: str |
         '<a href="index.html">全部周汇总</a>',
         f'<a href="{e(next_id)}.html">下一周 →</a>' if next_id else "") if t)
     ld = {"@context": "https://schema.org", "@type": "CollectionPage", "name": title, "url": url,
-          "inLanguage": "zh-CN", "temporalCoverage": f"{a}/{b}", "description": desc,
+          "inLanguage": _lang(), "temporalCoverage": f"{a}/{b}", "description": desc,
           "mainEntity": {"@type": "ItemList", "numberOfItems": len(items),
                          "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": x["url"],
                                               "name": x["title"]} for i, x in enumerate(items[:50])]}}
@@ -609,7 +720,7 @@ def render_week(wid: str, items: list[dict], prev_id: str | None, next_id: str |
 
 
 def render_week_index(weeks: list[tuple[str, int]]) -> str:
-    url = f"{settings.site_url}/p/week/index.html"
+    url = f"{_base()}/p/week/index.html"
     rows = "".join(f'<div class="lib-row"><span class="lib-date">{e(week_range(w)[0])}</span>'
                    f'<div class="lib-title"><a href="{e(w)}.html">{e(w.replace("-W", " 年第 "))} 周</a></div>'
                    f'<span class="pill st-draft">{n} 条</span></div>' for w, n in weeks)
@@ -621,22 +732,24 @@ def render_week_index(weeks: list[tuple[str, int]]) -> str:
     desc = (f"按泰国皇家公报刊登日分周整理的政策中文汇总,目前共 {len(weeks)} 周、"
             f"{sum(n for _, n in weeks)} 条,每周一页,每条附中文摘要与泰文原文链接,可用 RSS 订阅更新。")
     ld = {"@context": "https://schema.org", "@type": "CollectionPage", "name": "泰国政策周汇总",
-          "url": url, "inLanguage": "zh-CN", "description": desc}
+          "url": url, "inLanguage": _lang(), "description": desc}
     return _head(title, desc, url, ld, up="../../") + body + _foot("../../")
 
 
 def render_404() -> str:
     """/p/ 下不存在的地址(已下线的政策、打错的链接)显示这一页,状态码仍是 404 ——
     StaticFiles(html=True) 的约定:找不到文件时返回挂载目录根上的 404.html。
-    这一页会出现在任意层级的地址上,所以链接一律从站点根路径写起。"""
+    这一页会出现在任意层级的地址上,所以链接一律从站点根路径写起(繁体版从 /zh-hant/ 写起)。"""
+    r = f"/{HANT_DIR}/" if _is_hant() else "/"
     body = ('<h1 class="page">页面不存在</h1>'
             '<div class="page-sub">这个地址没有内容:可能是链接有误,也可能是这条政策已经下线'
             '(与别的条目重复、判定为与在泰华人无关,或官方原文链接失效)。</div>'
-            '<p style="line-height:2.2"><a href="/p/index.html">全部政策目录</a> · <a href="/">回首页检索</a> · '
-            f'<a href="/p/week/index.html">按周汇总</a> · <a href="/{GUIDE_PATH}">泰国皇家公报指南</a></p>')
+            f'<p style="line-height:2.2"><a href="{r}p/index.html">全部政策目录</a> · '
+            + (f'<a href="{r}">回繁体首页</a> · <a href="/">简体版检索</a> · ' if _is_hant() else '<a href="/">回首页检索</a> · ')
+            + f'<a href="{r}p/week/index.html">按周汇总</a> · <a href="{r}{GUIDE_PATH}">泰国皇家公报指南</a></p>')
     return (_head(f"页面不存在 | {SITE_NAME}",
                   "这个地址没有内容。可以从全部政策目录或首页检索继续查找泰国政策的中文摘要与泰文原文。",
-                  "", up="/", robots=ROBOTS_NOINDEX) + body + _foot("/"))
+                  "", up=r, robots=ROBOTS_NOINDEX) + body + _foot(r))
 
 
 # ───────────────────── 站点级文件:robots / sitemap / feed / llms ─────────────────────
@@ -667,14 +780,14 @@ def render_feed(entries: list[dict], title: str = "最新政策", self_path: str
     全站一份(feed.xml),每个领域一份(feed/<领域>.xml)。"""
     entries = sorted(entries, key=lambda x: (x["date"] or "", x["uid"]), reverse=True)
     upd = (entries[0]["date"] if entries and entries[0]["date"] else "2026-01-01") + "T00:00:00+07:00"
-    alt = alt_url or f"{settings.site_url}/"
+    alt = alt_url or _home()
     out = ['<?xml version="1.0" encoding="UTF-8"?>',
-           '<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">',
+           f'<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="{_lang()}">',
            f"  <title>{SITE_NAME} · {e(title)}</title>",
            f"  <subtitle>{e(SITE_DESC)}</subtitle>",
-           f'  <link href="{e(settings.site_url)}/{e(self_path)}" rel="self"/>',
+           f'  <link href="{e(_base())}/{e(self_path)}" rel="self"/>',
            f'  <link href="{e(alt)}"/>',
-           f"  <id>{e(settings.site_url)}/{e(self_path)}</id>", f"  <updated>{upd}</updated>",
+           f"  <id>{e(_base())}/{e(self_path)}</id>", f"  <updated>{upd}</updated>",
            f"  <author><name>{SITE_NAME}</name></author>"]
     for x in entries[:50]:
         out += ["  <entry>", f"    <title>{e(x['title'])}</title>",
@@ -717,7 +830,11 @@ def render_llms(entries: list[dict], topics: list[tuple[str, str, int]], full: b
         head += ["", "## 指南", "",
                  f"- [泰国皇家公报(政府公报)中文指南]({site}/{GUIDE_PATH}): 公报是什么、官方网站、四个类别、"
                  "编号读法、佛历换算、刊登日与生效日的区别",
-                 f"- [关于本站与数据来源]({site}/about.html): 收录范围、数据来源、更新节奏与译文性质"]
+                 f"- [关于本站与数据来源]({site}/about.html): 收录范围、数据来源、更新节奏与译文性质",
+                 "", "## 繁体中文版", "",
+                 f"- [繁体中文首页]({site}/{HANT_DIR}/): 落地页、领域页、专题与影响对象汇总、周汇总、指南、订阅都有繁体版,"
+                 f"地址是在简体地址的路径前加 /{HANT_DIR}(如 {site}/p/<uid>.html → {site}/{HANT_DIR}/p/<uid>.html);"
+                 "内容与简体版相同,只做字形转换。检索与图表只有简体版"]
         head += ["", "## 最新政策", ""]
         head += [f"- [{_md(x['title'])}]({x['url']}): {x['date']}"
                  + (f" · {x['doc_no']}" if x["doc_no"] else "") + f" · {_md(x['summary'])[:80]}"
@@ -760,7 +877,10 @@ def _coverage(entries: list[dict]) -> str | None:
 
 
 def update_index_html(entries: list[dict], topics: list[tuple[str, str, int]], cfg: dict,
-                      collections: list[dict] = (), who: list[dict] = ()) -> bool:
+                      collections: list[dict] = (), who: list[dict] = (),
+                      featured: list[dict] | None = None) -> bool:
+    """featured:首页「最新收录」实际显示的条目(data/site/policies.json 里 featured 的那几条),
+    预渲染进 <!-- seo:feed --> 区块;None 表示不动这个区块。"""
     path = REPO_ROOT / "index.html"
     if not path.exists():
         return False
@@ -793,6 +913,7 @@ def update_index_html(entries: list[dict], topics: list[tuple[str, str, int]], c
     graph["@graph"][2] = {k: v for k, v in graph["@graph"][2].items() if v is not None}
     head = "\n".join([
         f'<link rel="canonical" href="{e(site)}/">',
+        hreflang_links(f"{site}/"),
         '<link rel="icon" href="favicon.svg" type="image/svg+xml">',
         f'<link rel="alternate" type="application/atom+xml" title="{SITE_NAME} · 最新政策" href="feed.xml">',
         f'<meta property="og:url" content="{e(site)}/">',
@@ -818,52 +939,180 @@ def update_index_html(entries: list[dict], topics: list[tuple[str, str, int]], c
              + (f"<div><b>最新收录</b> {latest}</div>" if latest else "") + "</nav>")
     old = path.read_text(encoding="utf-8")
     new = _replace_block(_replace_block(old, "head", head), "links", links)
+    if featured is not None:
+        new = _replace_block(new, "feed", render_home_feed(featured))
     if new != old:
         path.write_text(new, encoding="utf-8")
 
     # 手写的静态页(隐私政策、怎么用本站):canonical + WebPage 结构化数据
-    for fname, name, kind in (("privacy.html", "隐私政策", "WebPage"), ("about.html", "怎么用本站", "AboutPage")):
+    for fname, name, kind in STATIC_PAGES:
         page = REPO_ROOT / fname
         if not page.exists():
             continue
-        ld = {"@context": "https://schema.org", "@type": kind, "name": name,
-              "url": f"{site}/{fname}", "inLanguage": "zh-CN",
-              "isPartOf": {"@type": "WebSite", "@id": f"{site}/#website", "name": SITE_NAME, "url": f"{site}/"},
-              **({"about": {"@type": "Organization", "@id": f"{site}/#org", "name": SITE_NAME}}
-                 if kind == "AboutPage" else {})}
         old = page.read_text(encoding="utf-8")
-        t = re.search(r"<title>(.*?)</title>", old, re.S)
-        dsc = re.search(r'<meta name="description" content="([^"]*)"', old)
-        og = [f'<link rel="canonical" href="{e(site)}/{fname}">',
-              f'<meta property="og:url" content="{e(site)}/{fname}">',
-              '<meta property="og:type" content="website">',
-              f'<meta property="og:site_name" content="{SITE_NAME}">',
-              *([f'<meta property="og:title" content="{t.group(1).strip()}">'] if t else []),      # 页面里已是转义过的文本
-              *([f'<meta property="og:description" content="{dsc.group(1)}">'] if dsc else []),
-              f'<meta property="og:image" content="{e(site)}/{OG_IMAGE}">',
-              '<meta name="twitter:card" content="summary_large_image">']
-        new = _replace_block(old, "head", "\n".join(og) + "\n" + _ld(ld))
+        new = _replace_block(old, "head", _static_head(old, fname, name, kind))
         if new != old:
             page.write_text(new, encoding="utf-8")
     return True
 
 
-def build(s: Session) -> dict[str, int]:
+STATIC_PAGES = (("privacy.html", "隐私政策", "WebPage"), ("about.html", "怎么用本站", "AboutPage"))
+
+
+def _static_head(text: str, fname: str, name: str, kind: str) -> str:
+    """手写静态页的 <!-- seo:head --> 区块(按当前字形):canonical、hreflang、分享信息、结构化数据。"""
+    site, url = settings.site_url, f"{_base()}/{fname}"
+    ld = {"@context": "https://schema.org", "@type": kind, "name": name,
+          "url": url, "inLanguage": _lang(),
+          "isPartOf": {"@type": "WebSite", "@id": f"{_home()}#website", "name": SITE_NAME, "url": _home()},
+          **({"about": {"@type": "Organization", "@id": f"{site}/#org", "name": SITE_NAME}}
+             if kind == "AboutPage" else {})}
+    t = re.search(r"<title>(.*?)</title>", text, re.S)
+    dsc = re.search(r'<meta name="description" content="([^"]*)"', text)
+    og = [f'<link rel="canonical" href="{e(url)}">',
+          hreflang_links(url),
+          f'<meta property="og:url" content="{e(url)}">',
+          '<meta property="og:type" content="website">',
+          *(['<meta property="og:locale" content="zh_TW">'] if _is_hant() else []),
+          f'<meta property="og:site_name" content="{SITE_NAME}">',
+          *([f'<meta property="og:title" content="{t.group(1).strip()}">'] if t else []),      # 页面里已是转义过的文本
+          *([f'<meta property="og:description" content="{dsc.group(1)}">'] if dsc else []),
+          f'<meta property="og:image" content="{e(site)}/{_og_image()}">',
+          '<meta name="twitter:card" content="summary_large_image">']
+    return "\n".join(og) + "\n" + _ld(ld)
+
+
+# ───────────────────── 首页「最新收录」预渲染(<!-- seo:feed -->) ─────────────────────
+
+_DIR_LABEL = {"tight": "▲ 收紧", "loose": "▼ 放宽"}
+_STANCE_PREFIX = {"constrain": "约束 · ", "support": "利好 · ", "neutral": ""}
+
+
+def _cut(t: str, n: int) -> str:
+    t = str(t or "")
+    return t[:n] + "…" if len(t) > n else t
+
+
+def render_policy_card(p: dict) -> str:
+    """与 js/data.js 的 policyCard 同一结构、同一类名、同一处空白,前端加载后整体替换时版面不跳。
+    只少了点击打开站内详情的 onclick:脚本还没加载完时点标题,直接去落地页,而不是调用还不存在的函数。"""
+    dates = p.get("dates") or {}
+    pub = dates.get("published_at") or p.get("date")
+    verb = "刊登" if p.get("doc_no_label") == "公报" else ("发布" if dates.get("published_at") else "决议")
+    points = (p.get("key_points") or [])[:2]
+    meta = "".join(x for x in [
+        f'<span>{e(p["org"])}</span>' if p.get("org") else "",
+        f'<span>{e(p.get("doc_no_label") or "文号")} <b>{e(p["doc_no"])}</b></span>' if p.get("doc_no") else "",
+        f"<span>{verb} {e(pub)}</span>" if pub else "",
+        (f'<span><a href="{e(p["source_url"])}" target="_blank" rel="noopener"\n'
+         f'    onclick="event.stopPropagation()">泰文原文 ↗</a></span>') if p.get("source_url") else ""])
+    d = p.get("direction")
+    dir_ = f'<span class="dir {e(d)}">{_DIR_LABEL[d]}</span>' if d in _DIR_LABEL else ""
+    chips = "".join(f'<span class="party {e(x.get("stance"))}">{e(_STANCE_PREFIX.get(x.get("stance"), ""))}'
+                    f'{e(x.get("label"))}</span>' for x in (p.get("parties") or [])[:2])
+    body = (f'<div class="pc-sum">{e(p.get("summary_zh"))}</div><ul class="pc-points">'
+            + "".join(f"<li>{e(k)}</li>" for k in points) + "</ul>" if points
+            else f'<div class="pc-sum"><span class="thin-tag">摘要仅据标题</span>{e(_cut(p.get("summary_zh"), 90))}</div>')
+    return f"""<div class="card policy-card">
+    <div class="pc-top">
+      <span class="chip {e(p.get("domain"))}">{e(p.get("domain_label"))}</span>
+      {dir_}{chips}
+      {'<span class="verified">已人工复核</span>' if p.get("verified") else ''}
+    </div>
+    <a class="pc-title" href="p/{e(str(p["uid"]).lower())}.html">{e(p.get("title_zh"))}</a>
+    {body}
+    <div class="pc-meta">{meta}</div>
+  </div>"""
+
+
+def render_home_feed(featured: list[dict]) -> str:
+    """不跑 JS 的爬虫(Bing、百度、AI 爬虫)在首页主体里读到的就是这几条;前端加载后 set('feed', …) 整体替换。"""
+    return "".join(render_policy_card(p) for p in featured) or \
+        '<div class="card"><div class="pc-sum">暂无可展示的政策。</div></div>'
+
+
+# ───────────────────── 繁体版:首页门户、手写静态页 ─────────────────────
+
+HANT_LATEST = 20            # 繁体首页带摘要展示的最新条数
+
+
+def render_hant_home(entries: list[dict], topics: list[tuple[str, str, int]], collections: list[dict],
+                     who: list[dict], weeks: list[tuple[str, int]], telegram: str = "") -> str:
+    """/zh-hant/ 首页:静态门户页(单页应用只有简体)。entries 的 url 已是繁体地址;文字仍是简体,写盘前统一转换。"""
+    url = _home()
+    latest = entries[:HANT_LATEST]
+    nav = " · ".join(f'<a href="p/topic/{e(i)}.html">{e(zh)}({n})</a>' for i, zh, n in topics)
+    coll = " · ".join(f'<a href="{e(x["href"])}">{e(x["zh"])}({x["n"]})</a>' for x in collections)
+    whos = " · ".join(f'<a href="{e(x["href"])}">{e(x["zh"])}({x["n"]})</a>' for x in who)
+    wk = " · ".join(f'<a href="p/week/{e(w)}.html">{e(week_range(w)[0])} 起({n} 条)</a>' for w, n in weeks)
+    feeds = " · ".join(f'<a href="feed/{e(i)}.xml">{e(zh)}</a>' for i, zh, _ in topics)
+    total = len(entries)
+    dates = [x["date"] for x in entries if x["date"]]
+    body = (f'<h1 class="page">泰国政策中文数据库:皇家公报与内阁决议</h1>'
+            f'<div class="page-sub">{e(SITE_DESC)}<br>目前收录 <b>{total}</b> 条'
+            + (f",文件日期从 {e(min(dates))} 到 {e(max(dates))}" if dates else "") + "。"
+            '本页是繁体中文版入口;互动检索、筛选与趋势图表目前只有简体版:'
+            '<a href="../" hreflang="zh-Hans">简体版首页</a> · <a href="../#search" hreflang="zh-Hans">找政策</a>。</div>'
+            '<nav class="coll-related">'
+            + (f"<div><b>按领域浏览</b> {nav}</div>" if nav else "")
+            + (f"<div><b>专题汇总</b> {coll}</div>" if coll else "")
+            + (f"<div><b>按影响对象</b> {whos}</div>" if whos else "")
+            + f'<div><b>指南</b> <a href="{GUIDE_PATH}">泰国皇家公报(政府公报)中文指南</a> · '
+              '<a href="about.html">怎么用本站</a> · <a href="p/index.html">全部政策目录</a></div>'
+            + '<div><b>周汇总</b> ' + (f"{wk} · " if wk else "") + '<a href="p/week/index.html">全部周汇总</a></div>'
+            + '<div><b>订阅更新</b> <a href="feed.xml">RSS 订阅全站更新</a>'
+            + (f" · 按领域:{feeds}" if feeds else "")
+            + (f' · <a href="{e(telegram)}" rel="noopener" target="_blank">Telegram 频道</a>' if telegram else "")
+            + "</div></nav>"
+            + f'<h2 class="mod sec">最新收录</h2>'
+            + "".join(_item_card(x, "p/", tag="h3") for x in latest)
+            + f'<p style="margin-top:16px"><a href="p/index.html">查看全部 {total} 条 →</a></p>')
+    ld = [{"@context": "https://schema.org", "@type": "WebSite", "@id": f"{url}#website", "name": SITE_NAME,
+           "alternateName": ["Thai Policy Lineage", "泰国政策中文库"], "url": url, "inLanguage": _lang(),
+           "description": SITE_DESC, "publisher": {"@id": f"{settings.site_url}/#org"}},
+          {"@context": "https://schema.org", "@type": "CollectionPage", "name": "泰国政策 · 最新收录", "url": url,
+           "inLanguage": _lang(), "isPartOf": {"@id": f"{url}#website"},
+           "mainEntity": {"@type": "ItemList", "numberOfItems": len(latest),
+                          "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": x["url"],
+                                               "name": x["title"]} for i, x in enumerate(latest)]}}]
+    return (_head("泰国政策中文数据库:皇家公报、内阁决议中文摘要与原文 | 政策脉络", clip(SITE_DESC), url, ld, up="")
+            + body + _foot(""))
+
+
+_ASSET_REF_RE = re.compile(r'((?:href|src)=")(css/|js/|assets/|favicon\.svg)')
+_SWITCH_RE = re.compile(r'<a class="lang-switch"[^>]*>.*?</a>', re.S)
+
+
+def render_hant_static(text: str, fname: str, name: str, kind: str) -> str:
+    """手写的 about.html / privacy.html → 繁体版(仍是简体文字,写盘前统一转换):
+    换掉受管的 <head> 区块、语言标记与页头切换链接;资源文件多退一级到站点根目录,
+    其余相对链接(index.html、p/…、feed.xml)两边结构相同,原样留在 /zh-hant/ 内。"""
+    text = _replace_block(text, "head", _static_head(text, fname, name, kind))
+    text = text.replace('<html lang="zh-CN">', '<html lang="zh-Hant">', 1)
+    text = _ASSET_REF_RE.sub(r"\1../\2", text)
+    return _SWITCH_RE.sub(lambda m: lang_switch("", f"{_base()}/{fname}"), text, count=1)
+
+
+def build(s: Session, overview: dict | None = None) -> dict[str, int]:
+    """overview:A.overview(s) 的结果(app.export 已经算过,传进来省一次);首页预渲染用其中 featured 的条目。"""
+    from . import hant, seo_guide
     today = A._today(s)
     docs = s.scalars(select(Document).order_by(Document.display_date.desc().nullslast(),
                                                Document.uid)).all()
     titles = {d.uid: d.title_zh for d in docs}
     domains = {d.id: d for d in s.scalars(select(Domain)).all()}
+    views = {d.uid: A.document_view(s, d, today) for d in docs}    # 简繁两遍渲染共用
 
     def dom_of(doc: Document) -> tuple[str, str]:
         dom = min(doc.domains, key=lambda x: x.seq).domain_id if doc.domains else ""
         return (dom, domains[dom].zh) if dom in domains else ("", "其他")
 
-    # 整目录重建:已删除或被标 skip 的政策,其落地页也要消失。
+    # 整目录重建:已删除或被标 skip 的政策,其落地页(简繁两份)也要消失。
     # 只清空内容、不删目录本身 —— 生产环境 p/ 是 docker 挂载点,删挂载点会 EBUSY,
     # 导出失败会让容器启动命令(ingest && export && uvicorn)永远起不来
+    hant_root = REPO_ROOT / HANT_DIR
     clear_dir(PAGES_DIR)
-    (PAGES_DIR / "topic").mkdir()
+    clear_dir(hant_root)
 
     by_dom: dict[str, list[tuple[str, str, str]]] = {}
     for doc in docs:
@@ -905,64 +1154,107 @@ def build(s: Session) -> dict[str, int]:
                         "effective": doc.effective_from.isoformat() if doc.effective_from else "",
                         "parties_zh": [parties_zh[x.party_id] for x in sorted(doc.parties, key=lambda x: x.party_id)
                                        if x.party_id in parties_zh],
-                        "org": A.document_view(s, doc, today)["org"]})
+                        "org": views[doc.uid]["org"]})
 
     topics = sorted(((i, domains[i].zh, len(items)) for i, items in by_dom.items() if i),
                     key=lambda t: (-t[2], t[0]))
 
     # 专题汇总:影响对象页 + 配置专题(只汇编已收录条目,不写综述)
-    who_pages, topic_pages, member_of = build_collections(entries, parties_zh)
-    for doc, dom, related in pending:
-        (PAGES_DIR / f"{slug(doc.uid)}.html").write_text(
-            render_page(s, doc, today, titles, dom, related, in_series.get(doc.uid, []),
-                        member_of.get(doc.uid, []), dup_title=doc.title_zh in dup_titles), encoding="utf-8")
-    # 领域页:要用到汇总页的成员关系(哪些专题与本领域相关),所以排在汇总页之后
+    coll_pages, coll_index = collection_pages(entries, parties_zh)
+    who_pages, topic_pages = _split_index(coll_index)
+    member_of = collection_members(coll_pages)
+
+    # 领域页要用到汇总页的成员关系(哪些专题与本领域相关)
+    dom_colls: dict[str, list[tuple[str, str]]] = {}
     for i, zh, _ in topics:
-        items = [x for x in entries if x["domain_id"] == i]
         hits: dict[tuple[str, str], int] = {}
-        for x in items:
-            for c in member_of.get(x["uid"], []):
-                if c[0].startswith("t/"):
-                    hits[c] = hits.get(c, 0) + 1
-        colls = [c for c, n in sorted(hits.items(), key=lambda kv: (-kv[1], kv[0])) if n >= MIN_COLLECTION]
-        (PAGES_DIR / "topic" / f"{i}.html").write_text(
-            render_topic(i, zh, domains[i].en or "", items, colls, [t for t in topics if t[0] != i]),
-            encoding="utf-8")
-    (PAGES_DIR / "index.html").write_text(render_index(rows, topics, topic_pages, who_pages), encoding="utf-8")
-    (PAGES_DIR / "404.html").write_text(render_404(), encoding="utf-8")
+        for x in entries:
+            if x["domain_id"] == i:
+                for c in member_of.get(x["uid"], []):
+                    if c[0].startswith("t/"):
+                        hits[c] = hits.get(c, 0) + 1
+        dom_colls[i] = [c for c, n in sorted(hits.items(), key=lambda kv: (-kv[1], kv[0])) if n >= MIN_COLLECTION]
 
     # 指南页:泰国皇家公报是什么(数字与编号示例从数据现算)
-    from . import seo_guide
     gaz = [d for d in docs if d.gazette_series]
     series_n: dict[str, int] = {}
     for d in gaz:
         series_n[d.gazette_series] = series_n.get(d.gazette_series, 0) + 1
     ex = next((d for d in gaz if d.gazette_volume and d.gazette_part and d.doc_no and d.display_date
                and "พิเศษ" in d.gazette_series), None)
-    (PAGES_DIR / "guide").mkdir()
-    (PAGES_DIR / "guide" / "royal-gazette.html").write_text(seo_guide.render({
+    guide_stats = {
         "total": len(docs), "gazette_total": len(gaz), "series": series_n,
         "example": ({"uid": ex.uid, "title": ex.title_zh, "doc_no": ex.doc_no, "series": ex.gazette_series,
                      "volume": ex.gazette_volume, "part": ex.gazette_part,
                      "date": ex.display_date.isoformat()} if ex else None),
-        "topics": topics, "collections": topic_pages}), encoding="utf-8")
-    (SITE_DIR / "collections.json").write_text(json.dumps(
-        {"topics": topic_pages, "who": who_pages}, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+        "topics": topics, "collections": topic_pages}
 
     # 周汇总:p/week/<YYYY-Www>.html,按公报刊登日分周
-    (PAGES_DIR / "week").mkdir()
     by_week: dict[str, list[dict]] = {}
     for x in entries:
         if x["date"]:
             by_week.setdefault(week_id(x["date"]), []).append(x)
     week_ids = sorted(by_week, reverse=True)
-    for k, wid in enumerate(week_ids):
-        items = sorted(by_week[wid], key=lambda x: (x["date"], x["uid"]), reverse=True)
-        (PAGES_DIR / "week" / f"{wid}.html").write_text(
-            render_week(wid, items, week_ids[k + 1] if k + 1 < len(week_ids) else None,
-                        week_ids[k - 1] if k > 0 else None), encoding="utf-8")
-    (PAGES_DIR / "week" / "index.html").write_text(
-        render_week_index([(w, len(by_week[w])) for w in week_ids]), encoding="utf-8")
+
+    sub = json.loads(SUBSCRIBE_CONFIG.read_text(encoding="utf-8")) if SUBSCRIBE_CONFIG.exists() else {}
+    telegram = str(sub.get("telegram_channel_url") or "")
+    telegram = telegram if telegram.startswith("https://t.me/") else ""
+
+    def render_site(ents: list[dict]) -> dict[str, str]:
+        """按当前字形渲染全部静态页,返回 {相对字形根目录的路径: 内容}。ents 的 url 已按当前字形算好。"""
+        by_uid = {x["uid"]: x for x in ents}
+        swap = lambda items: [by_uid[x["uid"]] for x in items]  # noqa: E731
+        out: dict[str, str] = {}
+        cps = [(k, i, zh, swap(items), t) for k, i, zh, items, t in coll_pages]
+        out.update({f"p/{rel}": html for rel, html in render_collections(cps, coll_index).items()})
+        for doc, dom, related in pending:
+            out[f"p/{slug(doc.uid)}.html"] = render_page(
+                s, doc, today, titles, dom, related, in_series.get(doc.uid, []),
+                member_of.get(doc.uid, []), dup_title=doc.title_zh in dup_titles, view=views[doc.uid])
+        for i, zh, _ in topics:
+            out[f"p/topic/{i}.html"] = render_topic(i, zh, domains[i].en or "",
+                                                    [x for x in ents if x["domain_id"] == i],
+                                                    dom_colls[i], [t for t in topics if t[0] != i])
+        out["p/index.html"] = render_index(rows, topics, topic_pages, who_pages)
+        out[GUIDE_PATH] = seo_guide.render(guide_stats)
+        for k, wid in enumerate(week_ids):
+            items = sorted(swap(by_week[wid]), key=lambda x: (x["date"], x["uid"]), reverse=True)
+            out[f"p/week/{wid}.html"] = render_week(wid, items, week_ids[k + 1] if k + 1 < len(week_ids) else None,
+                                                    week_ids[k - 1] if k > 0 else None)
+        out["p/week/index.html"] = render_week_index([(w, len(by_week[w])) for w in week_ids])
+        out["feed.xml"] = render_feed(ents)
+        # 按领域订阅:feed/<领域>.xml,整目录重建(领域没有条目了,订阅文件也要消失)
+        for i, zh, _ in topics:
+            out[f"feed/{i}.xml"] = render_feed([x for x in ents if x["domain_id"] == i], f"{zh} · 最新政策",
+                                               f"feed/{i}.xml", topic_url(i))
+        return out
+
+    def write(path: Path, text: str) -> None:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(text, encoding="utf-8")
+
+    # ── 简体 ──
+    feed_dir = REPO_ROOT / "feed"
+    clear_dir(feed_dir)
+    hans = render_site(entries)
+    hans["p/404.html"] = render_404()
+    for rel, text in hans.items():
+        write(PAGES_DIR / rel[2:] if rel.startswith("p/") else REPO_ROOT / rel, text)
+
+    # ── 繁体:同样的页面在 /zh-hant/ 下各一份,渲染完整页转换字形 ──
+    conv = hant.Converter()
+    with _variant(True):
+        ents_h = [{**x, "url": page_url(x["uid"])} for x in entries]
+        hant_pages = render_site(ents_h)
+        hant_pages["404.html"] = render_404()
+        hant_pages["index.html"] = render_hant_home(
+            ents_h, topics, topic_pages, who_pages,
+            [(w, len(by_week[w])) for w in week_ids if len(by_week[w]) >= MIN_COLLECTION][:8], telegram)
+    for rel, text in hant_pages.items():
+        write(hant_root / rel, conv.html(text))
+
+    (SITE_DIR / "collections.json").write_text(json.dumps(
+        {"topics": topic_pages, "who": who_pages}, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
 
     # sitemap:lastmod 用数据自身的日期,保证导出可重复
     newest = entries[0]["date"] if entries else None
@@ -976,29 +1268,34 @@ def build(s: Session) -> dict[str, int]:
     urls += [(f"{settings.site_url}/p/week/{w}.html", by_week[w][0]["date"]) for w in week_ids
              if len(by_week[w]) >= MIN_COLLECTION]
     urls += [(x["url"], x["date"] or None) for x in entries]
-    (REPO_ROOT / "sitemap.xml").write_text(render_sitemap(urls), encoding="utf-8")
+    # 繁体版:同一批页面,地址多一级 /zh-hant(about / privacy 只有 index.html 在时才生成,见下)
+    hant_urls = [(_alternates(u)[1], lm) for u, lm in urls]
     (REPO_ROOT / "robots.txt").write_text(render_robots(), encoding="utf-8")
-    (REPO_ROOT / "feed.xml").write_text(render_feed(entries), encoding="utf-8")
-    # 按领域订阅:feed/<领域>.xml,整目录重建(领域没有条目了,订阅文件也要消失)
-    feed_dir = REPO_ROOT / "feed"
-    clear_dir(feed_dir)
-    for i, zh, _ in topics:
-        (feed_dir / f"{i}.xml").write_text(
-            render_feed([x for x in entries if x["domain_id"] == i], f"{zh} · 最新政策", f"feed/{i}.xml",
-                        topic_url(i)), encoding="utf-8")
     (REPO_ROOT / "llms.txt").write_text(
         render_llms(entries, topics, collections=topic_pages, who=who_pages), encoding="utf-8")
     (REPO_ROOT / "llms-full.txt").write_text(render_llms(entries, topics, full=True), encoding="utf-8")
-    update_index_html(entries, topics, seo_config(), topic_pages, who_pages)
+    if overview is None:
+        overview = A.overview(s)
+    featured = [p for p in overview.get("policies") or [] if p.get("featured")]
+    if update_index_html(entries, topics, seo_config(), topic_pages, who_pages, featured):
+        # 手写静态页的繁体版:从刚更新过受管区块的简体文件转换
+        for fname, name, kind in STATIC_PAGES:
+            page = REPO_ROOT / fname
+            if page.exists():
+                with _variant(True):
+                    text = render_hant_static(page.read_text(encoding="utf-8"), fname, name, kind)
+                write(hant_root / fname, conv.html(text))
+    hant_urls = [(u, lm) for u, lm in hant_urls
+                 if not u.endswith(("/about.html", "/privacy.html")) or (hant_root / u.rsplit("/", 1)[1]).exists()]
+    urls += hant_urls
+    (REPO_ROOT / "sitemap.xml").write_text(render_sitemap(urls), encoding="utf-8")
 
     # 广告配置:config/ads.json → data/site/ads.json;启用 AdSense 时生成 ads.txt
     ads = json.loads(ADS_CONFIG.read_text(encoding="utf-8")) if ADS_CONFIG.exists() else {"enabled": False}
     (SITE_DIR / "ads.json").write_text(json.dumps(ads, ensure_ascii=False, indent=1) + "\n",
                                        encoding="utf-8")
-    sub = json.loads(SUBSCRIBE_CONFIG.read_text(encoding="utf-8")) if SUBSCRIBE_CONFIG.exists() else {}
-    url = str(sub.get("telegram_channel_url") or "")
     (SITE_DIR / "subscribe.json").write_text(json.dumps({
-        "telegram_channel_url": url if url.startswith("https://t.me/") else "",
+        "telegram_channel_url": telegram,
         "feeds": [{"id": i, "zh": zh, "href": f"feed/{i}.xml"} for i, zh, _ in topics],
         "weeks": [{"id": w, "from": week_range(w)[0], "to": week_range(w)[1], "n": len(by_week[w]),
                    "href": f"p/week/{w}.html"} for w in [w for w in week_ids if len(by_week[w]) >= 5][:6]],
@@ -1018,4 +1315,5 @@ def build(s: Session) -> dict[str, int]:
                            encoding="utf-8")
     elif ads_txt.exists():
         ads_txt.unlink()
-    return {"pages": len(docs) + 1, "topics": len(topics), "sitemap_urls": len(urls)}
+    return {"pages": len(docs) + 1, "topics": len(topics), "sitemap_urls": len(urls),
+            "hant_pages": sum(1 for _ in hant_root.rglob("*.html"))}

@@ -147,9 +147,11 @@ def purge_crawls(s: Session, today: date | None = None) -> int:
     return s.execute(delete(CrawlHit).where(CrawlHit.day < cutoff)).rowcount or 0
 
 
-def _is_landing(path: str) -> bool:
-    """单条政策落地页 /p/<uid>.html;汇总页(专题、周汇总等)在子目录里,不计入覆盖率。"""
-    return bool(re.fullmatch(r"/p/(?!index\.html)[^/]+\.html", path))
+def _is_landing(path: str, hant: bool = False) -> bool:
+    """单条政策落地页 /p/<uid>.html(hant=True:繁体版 /zh-hant/p/<uid>.html);
+    汇总页(专题、周汇总等)在子目录里,不计入覆盖率。"""
+    return bool(re.fullmatch(r"/zh-hant/p/(?!index\.html)[^/]+\.html" if hant
+                             else r"/p/(?!index\.html)[^/]+\.html", path))
 
 
 def latest_monitor() -> dict | None:
@@ -187,9 +189,11 @@ def report(s: Session, days: int = 30, now: datetime | None = None) -> dict:
         .where(rng, CrawlHit.status >= 400).group_by(CrawlHit.path, CrawlHit.status)
         .order_by(func.count().desc()).limit(30)).all()]
 
-    # 落地页覆盖率:sitemap 里的落地页,近 N 天被主流搜索爬虫抓过几成。抓取 ≠ 收录,但没抓过一定没收录
-    crawled_search = {p for (p,) in s.execute(
-        select(CrawlHit.path).distinct().where(rng, CrawlHit.group == "search")).all() if _is_landing(p)}
+    # 落地页覆盖率:sitemap 里的落地页,近 N 天被主流搜索爬虫抓过几成。抓取 ≠ 收录,但没抓过一定没收录。
+    # 分子分母同一口径:主指标只算简体落地页(与繁体版上线前的历史可比),繁体落地页单列 hant_*
+    searched = [p for (p,) in s.execute(
+        select(CrawlHit.path).distinct().where(rng, CrawlHit.group == "search")).all()]
+    crawled_search = {p for p in searched if _is_landing(p)}
     crawled_ai = {p for (p,) in s.execute(
         select(CrawlHit.path).distinct().where(rng, CrawlHit.group == "ai")).all() if _is_landing(p)}
     sitemap_paths = _sitemap_paths()
@@ -198,6 +202,9 @@ def report(s: Session, days: int = 30, now: datetime | None = None) -> dict:
            "crawled_by_ai": len(sitemap_paths & crawled_ai)}
     cov["search_pct"] = round(cov["crawled_by_search"] / cov["sitemap_landing"] * 100, 1) if sitemap_paths else None
     cov["never_crawled_sample"] = sorted(sitemap_paths - crawled_search)[:20]
+    hant_paths = _sitemap_paths(hant=True)
+    cov["hant_sitemap_landing"] = len(hant_paths)
+    cov["hant_crawled_by_search"] = len(hant_paths & {p for p in searched if _is_landing(p, hant=True)})
 
     # 真人来源渠道
     pv = (PageHit.day >= start) & (PageHit.day <= end) & (PageHit.kind == "pv")
@@ -232,7 +239,7 @@ def report(s: Session, days: int = 30, now: datetime | None = None) -> dict:
     }
 
 
-def _sitemap_paths() -> set[str]:
+def _sitemap_paths(hant: bool = False) -> set[str]:
     from .config import REPO_ROOT
     try:
         xml = (REPO_ROOT / "sitemap.xml").read_text(encoding="utf-8")
@@ -240,7 +247,7 @@ def _sitemap_paths() -> set[str]:
         return set()
     base = settings.site_url
     return {loc[len(base):] for loc in re.findall(r"<loc>([^<]+)</loc>", xml)
-            if loc.startswith(base) and _is_landing(loc[len(base):])}
+            if loc.startswith(base) and _is_landing(loc[len(base):], hant)}
 
 
 @router.get("/admin/seo", include_in_schema=False, dependencies=[Depends(require_admin)])

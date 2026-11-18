@@ -56,6 +56,10 @@
 - [泰国皇家公报(政府公报)中文指南](https://www.thaipolicy.com/p/guide/royal-gazette.html): 公报是什么、官方网站、四个类别、编号读法、佛历换算、刊登日与生效日的区别
 - [关于本站与数据来源](https://www.thaipolicy.com/about.html): 收录范围、数据来源、更新节奏与译文性质
 
+## 繁体中文版
+
+- [繁体中文首页](https://www.thaipolicy.com/zh-hant/): 落地页、领域页、专题与影响对象汇总、周汇总、指南、订阅都有繁体版,地址是在简体地址的路径前加 /zh-hant(如 https://www.thaipolicy.com/p/<uid>.html → https://www.thaipolicy.com/zh-hant/p/<uid>.html);内容与简体版相同,只做字形转换。检索与图表只有简体版
+
 ## 最新政策
 
 - [税务厅厅长关于所得税的公告（第472号）：规定向政党捐款或为支持政党筹款活动提供金钱、财产或其他利益的扣除标准、方法和条件（修订第357号公告）](https://www.thaipolicy.com/p/th-rd-20261105-dg472a.html): 2026-11-05 · 本公告修订税务厅厅长关于所得税的第357号公告第6条，重新规定纳税人就向政党捐款或为支持政党筹款活动提供金钱、财产或其他利益申请税前扣除时须提交的证明材料。以金

@@ -61,10 +61,12 @@ def faq(stats: dict) -> list[tuple[str, str]]:
 def render(stats: dict) -> str:
     """stats = {total, gazette_total, series: {系列: 条数}, example: {...}|None,
     topics: [(领域 id, 中文名, 条数)], collections: [{zh, href, n}]}"""
-    from .seo import GUIDE_PATH, SITE_NAME, _foot, _head, clip, e, slug   # 延迟导入,避免与 seo 循环依赖
+    from .seo import (BACK_HOME, GUIDE_PATH, SITE_NAME, _base, _foot, _head, _home, _lang, _og_image,  # 延迟导入,
+                      clip, e, slug)                                                                 # 避免循环依赖
 
     site = settings.site_url
-    url = f"{site}/{GUIDE_PATH}"
+    base = _base()            # 繁体版在 /zh-hant/ 下;组织实体(#org)只有一个,仍用站点根
+    url = f"{base}/{GUIDE_PATH}"
     title = "泰国皇家公报(政府公报)是什么:官网、分类、编号与中文查询 | 政策脉络"
     desc = clip("泰国皇家公报(ราชกิจจานุเบกษา,Royal Thai Government Gazette,也译泰国政府公报)是泰国政府的官方公报,"
                 "由内阁秘书处出版,官网 ratchakitcha.soc.go.th,只有泰文。本页说明公报的四个类别、编号读法、"
@@ -159,24 +161,24 @@ def render(stats: dict) -> str:
 {faq_html}
 <div class="disclaim">本页说明泰国皇家公报的一般情况与本站的整理方式,不构成法律意见;具体文件的效力与适用,以泰文原文为准。本站与泰国政府无隶属关系。</div>
 </article>
-<p style="margin-top:18px"><a href="../../index.html">← 返回政策脉络首页(检索、趋势、七维分析)</a></p>
+<p style="margin-top:18px"><a href="../../index.html">{BACK_HOME()}</a></p>
 """
     ld = [
         {"@context": "https://schema.org", "@type": "Article", "headline": GUIDE_TITLE, "name": GUIDE_TITLE,
-         "description": desc, "url": url, "mainEntityOfPage": url, "inLanguage": "zh-CN",
-         "image": f"{site}/assets/og.png",
+         "description": desc, "url": url, "mainEntityOfPage": url, "inLanguage": _lang(),
+         "image": f"{site}/{_og_image()}",
          "about": {"@type": "Thing", "name": "Royal Thai Government Gazette",
                    "alternateName": ["ราชกิจจานุเบกษา", "泰国皇家公报", "泰国政府公报"], "url": OFFICIAL_SITE},
          "author": {"@type": "Organization", "@id": f"{site}/#org", "name": SITE_NAME, "url": f"{site}/"},
          "publisher": {"@type": "Organization", "@id": f"{site}/#org", "name": SITE_NAME, "url": f"{site}/"},
-         "isPartOf": {"@type": "WebSite", "@id": f"{site}/#website", "name": SITE_NAME, "url": f"{site}/"}},
+         "isPartOf": {"@type": "WebSite", "@id": f"{_home()}#website", "name": SITE_NAME, "url": _home()}},
         {"@context": "https://schema.org", "@type": "FAQPage",
          "mainEntity": [{"@type": "Question", "name": q,
                          "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in qa]},
         {"@context": "https://schema.org", "@type": "BreadcrumbList",
          "itemListElement": [
-             {"@type": "ListItem", "position": 1, "name": "首页", "item": f"{site}/"},
-             {"@type": "ListItem", "position": 2, "name": "全部政策", "item": f"{site}/p/index.html"},
+             {"@type": "ListItem", "position": 1, "name": "首页", "item": _home()},
+             {"@type": "ListItem", "position": 2, "name": "全部政策", "item": f"{base}/p/index.html"},
              {"@type": "ListItem", "position": 3, "name": GUIDE_TITLE, "item": url}]},
     ]
     return _head(title, desc, url, ld, up="../../", og_type="article") + body + _foot("../../")

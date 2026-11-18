@@ -37,7 +37,8 @@ from .config import BKK, DATA_DIR, POLICIES_DIR, REPO_ROOT, settings
 
 OUT_DIR = DATA_DIR / "seo"
 UA = "thaipolicy-seo-monitor/1.0 (+https://www.thaipolicy.com/llms.txt)"
-THIN_RE = re.compile(r"据标题|待原文核对")
+# 只凭标题写的摘要;繁体版(/zh-hant/)里同一句话是「據標題」「待原文核對」
+THIN_RE = re.compile(r"据标题|據標題|待原文核对|待原文核對")
 INDEXNOW_MAX = 10000        # IndexNow 单次提交的 URL 上限
 LEVELS = {"error": 0, "warn": 1, "info": 2}
 LEVEL_ZH = {"error": "🔴 严重", "warn": "🟠 需处理", "info": "🔵 建议"}
@@ -297,6 +298,7 @@ def skipped_page_paths() -> set[str]:
                 continue
             if (d.get("flags") or {}).get("skip") and d.get("uid"):
                 out.add(f"/p/{d['uid'].lower()}.html")
+                out.add(f"/zh-hant/p/{d['uid'].lower()}.html")      # 繁体版同样不生成
     return out
 
 

@@ -20,6 +20,7 @@ tools/validate.py     纯标准库校验器(词表、关系、日期顺序、编
 pipeline/             早期抓取 PoC(已由 backend/app/collect.py 接管)
 .github/workflows/collect.yml  每日自动采集 → 翻译 → 导出 → 提交
 p/                    每条政策的静态落地页,以及领域页、专题页、周汇总、皇家公报指南(SEO,由 export 生成)
+zh-hant/              以上静态页的繁体中文版(OpenCC s2tw 转换 + config/hant.json 覆盖表,由 export 生成)
 config/ads.json       广告位配置(默认关闭,类别白名单)
 config/analytics.json 站点统计配置(自建 /admin 后台 + 可选 Cloudflare/Plausible)
 admin.html            站点统计后台(需 ADMIN_TOKEN)
@@ -96,7 +97,7 @@ GitHub Actions(每天曼谷 07:23)
   └─ app.collect   data.go.th 官方接口(公报、内阁决议)+ 税务厅「新法」RSS + BOI 公告列表
                    → 佛历换算 → 红线过滤 → 跨来源去重 → 追加 JSONL
   └─ app.enrich    DeepSeek(或 Claude)把泰文标题翻译分类成中文结构化记录(受词表约束)
-  └─ app.export    → data/site/*.json + p/*.html 落地页 + sitemap.xml
+  └─ app.export    → data/site/*.json + p/*.html 落地页(及 zh-hant/ 繁体版)+ sitemap.xml
   └─ git commit    → GitHub Pages 自动呈现
 ```
 

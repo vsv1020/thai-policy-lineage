@@ -11,17 +11,20 @@
 | `p/guide/royal-gazette.html` 指南页 | 「泰国皇家公报 / 政府公报」是什么、官网、四个类别、编号读法、佛历换算、刊登日与生效日的区别、有没有中文版。Bing 上给本站带来曝光的词大多是这类问公报本身的词。`Article` + `FAQPage`;文字在 `backend/app/seo_guide.py`,数字与编号示例从数据现算 |
 | `p/week/<年-W周>.html` 周汇总 | 一周内刊登或发布的条目,逐条带摘要与原文链接。少于 3 条的周只是落地页的重复:`noindex, follow`,不进 sitemap |
 | `p/404.html` | `/p/` 下不存在的地址显示它(状态码仍是 404);其他页面类地址的 404 也用这一页,接口与资源文件的 404 仍是 JSON |
-| `assets/og.png` 分享图 | 微信、LINE、Telegram、Facebook、X 分享链接时显示的预览图(1200×630),全站页面的 `og:image` 都指向它;源文件 `tools/og.html` |
+| `assets/og.png` 分享图 | 微信、LINE、Telegram、Facebook、X 分享链接时显示的预览图(1200×630),全站页面的 `og:image` 都指向它(繁体页用 `assets/og-hant.png`);源文件 `tools/og.html` |
 | `p/t/<专题>.html`、`p/who/<对象>.html` 汇总页 | 配置专题(`config/topics.json`)与影响对象的汇编;每个成员落地页的「收录于汇总页」一行链回它们,汇总页因此不只靠首页和目录两处入口 |
 | `p/index.html` | 全部政策目录,按领域分组 |
 | `robots.txt` | 放行所有搜索引擎,并逐个点名放行 GPTBot、OAI-SearchBot、ClaudeBot、PerplexityBot 等 AI 爬虫;屏蔽 `/api/`、`/admin` |
-| `sitemap.xml` | 首页、目录、专题页、全部落地页,`lastmod` 取数据日期 |
-| `llms.txt` / `llms-full.txt` | 给大模型的站点说明、引用方式、索引(领域、专题、影响对象、指南);full 版含每条政策的摘要、生效日、影响对象与官方原文链接 |
+| `sitemap.xml` | 首页、目录、专题页、全部落地页,以及它们的繁体版,`lastmod` 取数据日期 |
+| `llms.txt` / `llms-full.txt` | 给大模型的站点说明、引用方式、索引(领域、专题、影响对象、指南、繁体版地址规律);full 版含每条政策的摘要、生效日、影响对象与官方原文链接 |
 | `feed.xml` | Atom 订阅,最新 50 条 |
-| `index.html` 受管区块 | `<!-- seo:head -->`:canonical、分享图、站长平台验证 meta、`WebSite` / `Organization` / `Dataset` 结构化数据;`<!-- seo:links -->`:页脚的领域、专题、影响对象、指南与最新收录链接(给爬虫的入口) |
+| `index.html` 受管区块 | `<!-- seo:head -->`:canonical、hreflang、分享图、站长平台验证 meta、`WebSite` / `Organization` / `Dataset` 结构化数据;`<!-- seo:links -->`:页脚的领域、专题、影响对象、指南与最新收录链接(给爬虫的入口);`<!-- seo:feed -->`:「最新收录」那几条卡片的静态版(见下) |
+| `zh-hant/` 繁体版 | 上面全部静态页的繁体中文版,见「繁体中文版」一节 |
 | `favicon.svg` | 搜索结果里显示的站点图标 |
 
 首页卡片标题也改成了真实链接(`<a href="p/…html">`),爬虫能顺着首页找到每一页;普通点击仍在站内打开详情。
+
+首页「最新收录」(`#feed`)原先只有一句「政策加载中……」,Bing、百度和全部 AI 爬虫不跑 JS,在首页主体里读不到任何政策。现在导出时把首页实际显示的那几条(`data/site/policies.json` 里 `featured` 的条目,与前端同一口径)按 `js/data.js` 的 `policyCard` 同一结构、同一类名渲染进 `<!-- seo:feed -->`;前端加载后 `set('feed', …)` 整体替换,卡片相同,版面不跳。静态卡片不带 `onclick`:脚本加载完之前点标题直接去落地页。
 
 这些都是派生产物,CI 会检查它们与事实层一致,**不要手改**,改 `seo.py`。
 
@@ -32,10 +35,22 @@
 - **状态里的日期写全。** 「01-01 起施行」在首页卡片上挨着日期看得懂,落地页上写成「2027-01-01 起施行」。
 - **内容太少的汇总页不进索引。** 一两条的周汇总只是落地页的重复,留在索引里会拉低整站的内容质量评价。
 
-服务器(`backend/app/main.py`)给静态内容加了短时间的浏览器缓存:样式与脚本 1 小时、落地页 10 分钟、首页与根目录文件 5 分钟,过期后凭 ETag 复核。
+服务器(`backend/app/main.py`)给静态内容加了短时间的浏览器缓存:样式与脚本 1 小时、落地页(含 `/zh-hant/`)10 分钟、首页与根目录文件 5 分钟,过期后凭 ETag 复核。
+
+### 繁体中文版(`/zh-hant/`)
+
+Google 给本站带来曝光的搜索词全是繁体(泰國變更土地用途、泰國工業區 分佈……),所以全部静态页另出一份繁体版。
+
+- **地址**:简体地址的路径前加 `/zh-hant`,目录结构完全相同(`/zh-hant/p/<uid>.html`、`/zh-hant/p/topic/`、`/zh-hant/feed.xml`……)。简体地址一个不变。`/zh-hant` 301 到 `/zh-hant/`;`/zh-hant/` 下不存在的地址给繁体 404 页。
+- **怎么生成**:`seo.build()` 用同一套渲染函数跑两遍,第二遍在 `_variant(True)` 下:站内绝对地址、语言标记、资源路径按繁体版写,整页再过 `backend/app/hant.py` 转换。站内相对链接两边结构相同,自然留在 `/zh-hant/` 内;css、js、favicon、assets 不复制,从站点根目录取,`data-base` 也指向站点根(统计、广告位、打赏照常工作)。`about.html`、`privacy.html` 的繁体版从简体文件转换。
+- **繁体首页**是静态门户页:领域、专题、影响对象、指南、周汇总、订阅入口,加最新 20 条摘要卡片。单页应用、`js/`、`data/site/*.json` 只有简体,门户页注明检索与图表在简体版并给链接。
+- **语言标记**:`<html lang="zh-Hant">`、`og:locale` `zh_TW`、结构化数据 `inLanguage: zh-Hant`、分享图 `assets/og-hant.png`。每页简繁两边都有 `zh-Hans` / `zh-Hant` / `x-default`(指简体)三条 hreflang,canonical 各指自己;页头有切换链接。sitemap 收全部可收录的繁体地址,周汇总「少于 3 条 noindex」同样适用。
+- **转换**:OpenCC `s2tw`(只换字形,版本钉死在 `backend/requirements.txt`)。不用 `s2twp`:它连词汇一起换,会把「发布公告」换成「釋出公告」、「申请文件」换成「申請檔案」。转换只动汉字,并逐字核对 URL、泰文、类名等非汉字内容一字未改,否则导出报错。
+- **覆盖表 `config/hant.json`**:`s2tw` 一简对多繁的错,在 OpenCC 之后逐条替换,每条在 `backend/tests/test_hant.py` 里有一个真实例句。表是对全站简体文本做审计得来的:找出含「干、后、里、发、复、台、制、并、周……」等一简对多繁字的全部片段,按「字 → 转换结果」分组,逐组看三字语境,对可疑的再看整句。修过的有:府名音译里的「里」(春武里、暖武里、董里)、「沙没巴干府」的「干」;「部长发布→部長髮布」「60天后生效→天后」「证书签发→書籤發」「货斗→貨鬥」「规定制定→製定」「协调制度→協調製度」「提交并缴税→提交併繳稅」等;「台、發布、公布、頒布、宣布、週」统一成台湾通行写法。数据里出现新的专有名词或新句式时,照同样的办法补规则。
 
 ## 二、效果度量(服务器侧,`backend/app/seo_track.py`)
 
+- **落地页覆盖率**:近 N 天被搜索爬虫抓过的落地页占 sitemap 落地页的比例。主指标只算简体落地页(分子分母同口径,与繁体版上线前可比),繁体落地页另列 `hant_sitemap_landing` / `hant_crawled_by_search`。
 - **爬虫抓取**:中间件按 User-Agent 识别 Googlebot、Bingbot、百度、神马、花瓣、GPTBot、ClaudeBot、PerplexityBot、豆包(Bytespider)、智谱等,记录爬虫名、路径、状态码(不存 IP)。爬虫不跑 JS,前端统计看不到它们。
 - **来源渠道**:把真人访问的来源分成 搜索引擎 / AI 助手 / 社交 / 其他网站 / 直接访问。从 chatgpt.com、perplexity.ai、豆包、Kimi、DeepSeek、元宝、通义、文心一言等进来 = AI 回答引用了本站,这是 GEO 最直接的证据。
 - **后台**:`/admin` →「SEO / GEO」标签。

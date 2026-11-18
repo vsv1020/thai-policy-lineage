@@ -11,7 +11,7 @@ OLD=$(git rev-parse HEAD)
 NEW=$(git rev-parse "origin/$BRANCH")
 [ "$OLD" = "$NEW" ] && exit 0
 
-# 派生文件(data/site、p/)会被服务器按自己的 SITE_URL 重新导出,本地改动直接丢弃即可;
+# 派生文件(data/site、p/、feed/、zh-hant/)会被服务器按自己的 SITE_URL 重新导出,本地改动直接丢弃即可;
 # .env 是未跟踪文件,reset 不会动它
 git reset -q --hard "origin/$BRANCH"
 echo "$(date '+%F %T') 同步 ${OLD%"${OLD#???????}"} → ${NEW%"${NEW#???????}"}"
@@ -23,7 +23,7 @@ if ! echo "$CHANGED" | grep -qv '^data/seo/'; then
   exit 0
 fi
 
-if echo "$CHANGED" | grep -qvE '^(data/|p/|feed/|sitemap\.xml$|robots\.txt$|feed\.xml$|llms(-full)?\.txt$|index\.html$|privacy\.html$|about\.html$)'; then
+if echo "$CHANGED" | grep -qvE '^(data/|p/|feed/|zh-hant/|sitemap\.xml$|robots\.txt$|feed\.xml$|llms(-full)?\.txt$|index\.html$|privacy\.html$|about\.html$)'; then
   echo "代码有变动,重建镜像"
   $DC up -d --build --remove-orphans
 else
