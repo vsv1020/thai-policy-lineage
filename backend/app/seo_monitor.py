@@ -38,6 +38,7 @@ from .config import BKK, DATA_DIR, POLICIES_DIR, REPO_ROOT, settings
 OUT_DIR = DATA_DIR / "seo"
 UA = "thaipolicy-seo-monitor/1.0 (+https://www.thaipolicy.com/llms.txt)"
 THIN_RE = re.compile(r"据标题|待原文核对")
+INDEXNOW_MAX = 10000        # IndexNow 单次提交的 URL 上限
 LEVELS = {"error": 0, "warn": 1, "info": 2}
 LEVEL_ZH = {"error": "🔴 严重", "warn": "🟠 需处理", "info": "🔵 建议"}
 
@@ -552,9 +553,13 @@ def changed_urls(sitemap: dict[str, str | None], done: dict[str, str]) -> list[s
 
 
 def indexnow(client: httpx.Client, rep: Report, key: str, sitemap: dict, live: set[str],
-             state: dict) -> dict:
+             state: dict, epoch: str = "") -> dict:
+    """只提交新增或 lastmod 变了的 URL。epoch(config/seo.json 的 indexnow_resubmit.epoch)
+    与上次记下的不同时,把已提交记录视为全部过期,整站重新提交一次:改模板不会改 lastmod
+    (lastmod 取数据日期),不这样 Bing 不会知道要重抓。成功后才记下新的 epoch,失败了明天重试。"""
     done = state.setdefault("indexnow", {})
-    todo = [u for u in changed_urls(sitemap, done) if u in live][:10000]
+    resubmit = bool(epoch) and state.get("indexnow_epoch") != epoch
+    todo = [u for u in changed_urls(sitemap, {} if resubmit else done) if u in live][:INDEXNOW_MAX]
     if not todo:
         return {"submitted": 0}
     host = _host(rep.site)
@@ -565,9 +570,13 @@ def indexnow(client: httpx.Client, rep: Report, key: str, sitemap: dict, live: s
         rep.issue("warn", "indexnow", f"IndexNow 提交失败:{ex}"[:200], "明天会自动重试")
         return {"submitted": 0, "error": str(ex)[:200]}
     if r.status_code in (200, 202):
+        if resubmit:
+            # 旧记录作废:超出单次上限没提交到的 URL,明天按「新增」照常补交
+            done = state["indexnow"] = {}
+            state["indexnow_epoch"] = epoch
         for u in todo:
             done[u] = sitemap[u] or ""
-        return {"submitted": len(todo), "status": r.status_code}
+        return {"submitted": len(todo), "status": r.status_code, **({"resubmit": epoch} if resubmit else {})}
     rep.issue("warn", "indexnow", f"IndexNow 返回 {r.status_code}",
               "403 = 核验文件与 key 不一致;422 = URL 不属于该域名;429 = 提交过于频繁")
     return {"submitted": 0, "status": r.status_code}
@@ -777,7 +786,8 @@ def render_md(d: dict, prev: dict | None) -> str:
             out.append("- 被引用最多的其他站点:" + "、".join(f"{h}({n})" for h, n in geo["top_cited_domains"][:8]))
     sub = sec.get("submit") or {}
     out += ["", "## 今日提交", "",
-            f"- IndexNow:{(sub.get('indexnow') or {}).get('submitted', 0)} 个 URL",
+            f"- IndexNow:{(sub.get('indexnow') or {}).get('submitted', 0)} 个 URL"
+            + (f"(整站重新提交,批次 {sub['indexnow']['resubmit']})" if (sub.get("indexnow") or {}).get("resubmit") else ""),
             *([f"- 百度:{sub['baidu'].get('submitted', 0)} 个 URL"] if sub.get("baidu") else []),
             f"- GSC sitemap:{'已提交' if (g or {}).get('sitemap_submitted') else ('已存在' if g.get('sitemap') else '—')}"]
     if d["disabled"]:
@@ -841,7 +851,8 @@ def run(client: httpx.Client, site: str, env: dict, today: date, out_dir: Path,
 
     sub: dict = {}
     if submit and key and basics.get("indexnow_key"):
-        sub["indexnow"] = indexnow(client, rep, key, repo_sm, live, state)
+        sub["indexnow"] = indexnow(client, rep, key, repo_sm, live, state,
+                                   str((cfg.get("indexnow_resubmit") or {}).get("epoch") or ""))
         rep.metrics["indexnow_submitted"] = sub["indexnow"].get("submitted", 0)
     if submit:
         sub["baidu"] = baidu(client, rep, env.get("BAIDU_PUSH_TOKEN", ""), repo_sm, live, state)

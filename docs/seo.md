@@ -47,6 +47,7 @@
 1. **体检线上站点**:首页、robots、sitemap、llms.txt、feed、IndexNow 核验文件、http→https 与裸域→www 跳转;每天抽查 40 个页面(最新 10 页 + 其余轮换),检查 canonical、noindex、标题、描述、H1、结构化数据、分享图、官方原文链接、内容是否单薄;线上 sitemap 与仓库对比,发现服务器没同步。
 2. **查收录**:Search Console 的 URL 检查接口逐页查 Google 收录状态(每天 60 页轮换,结果累积)、28 天搜索表现、sitemap 状态;Bing 已收录页数与搜索词;服务器的爬虫抓取与来源渠道。
 3. **提交新页面**:IndexNow(Bing、Yandex、Naver、Seznam 共用)、百度普通收录、GSC sitemap —— 只提交新增或变更的页面,进度记在 `data/seo/state.json`。
+   改了页面模板(措辞、标题、描述)而数据日期没变时,lastmod 不变,IndexNow 不会重交:把 `config/seo.json` 里 `indexnow_resubmit.epoch` 改成一个新值,下一次监控就整站向 IndexNow 重新提交一次(成功后记在 `state.json` 的 `indexnow_epoch`)。百度配额很小,不跟着重推。
 4. **GEO 实测**:用 `config/seo.json` 里的问题问 Perplexity,看回答是否引用本站、引用了哪些竞争站点。
 5. **写日报**:`data/seo/latest.md`(人看)、`latest.json`(后台与例行会话读)、`history.jsonl`(趋势),提交回仓库。
 

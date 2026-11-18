@@ -411,6 +411,15 @@ def test_monitor_end_to_end(site, tmp_path, monkeypatch):
         M.run(client, SITE, {}, date(2026, 9, 28), tmp_path / "seo")
     assert calls == []
 
+    # 改了模板:config 里换一个 indexnow_resubmit.epoch,下一次整站重交一次并记下 epoch
+    (tmp_path / "seo.json").write_text(json.dumps({"indexnow_key": key, "geo_questions": ["q"],
+                                                   "indexnow_resubmit": {"epoch": "2026-09-29"}}))
+    with _mock_site(root, key, calls) as client:
+        res = M.run(client, SITE, {}, date(2026, 9, 29), tmp_path / "seo")
+    assert len(calls) == 1 and len(calls[0]["urlList"]) == d["metrics"]["sitemap_urls"]
+    assert res["state"]["indexnow_epoch"] == "2026-09-29"
+    assert "整站重新提交" in M.render_md(res["report"], None)
+
 
 def test_monitor_site_down_is_error(tmp_path, monkeypatch):
     monkeypatch.setattr(seo, "SEO_CONFIG", tmp_path / "none.json")
