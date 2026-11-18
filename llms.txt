@@ -33,6 +33,11 @@
 - [泰国食品与药品监管](https://www.thaipolicy.com/p/t/food-drug.html): 20 条
 - [泰国社会保障与劳工](https://www.thaipolicy.com/p/t/social-security.html): 7 条
 - [泰国个人资料保护与网络安全](https://www.thaipolicy.com/p/t/data-protection.html): 3 条
+- [泰国所得税](https://www.thaipolicy.com/p/t/income-tax.html): 18 条
+- [泰国电动汽车与汽车产业](https://www.thaipolicy.com/p/t/ev-auto.html): 31 条
+- [泰国工业产品标准(TIS)](https://www.thaipolicy.com/p/t/industrial-standards.html): 80 条
+- [泰国能源与电力](https://www.thaipolicy.com/p/t/energy.html): 24 条
+- [泰国环境与碳排放](https://www.thaipolicy.com/p/t/environment.html): 16 条
 
 ## 按影响对象(外资企业、长居外国人、进口商等)
 

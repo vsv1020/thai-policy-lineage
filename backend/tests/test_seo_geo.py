@@ -191,6 +191,9 @@ def test_gazette_guide_page(site):
     for kw in ("泰国皇家公报", "泰国政府公报", "ราชกิจจานุเบกษา", "ratchakitcha.soc.go.th", "佛历", "非官方"):
         assert kw in html, kw
     assert "王室" not in html, "指南不展开王室相关内容"
+    kho = re.search(r"<li><b>ข 类</b>(.*?)</li>", html)
+    assert kho and re.sub(r"<[^>]+>", "", kho.group(1)) == "(ฉบับทะเบียนฐานันดร):本站不收录。", "ข 类只列泰文名称,不释义"
+    assert "勋衔" not in html and "卷号每年递增一卷" in html
     faq = next(x for x in _lds(html) if x["@type"] == "FAQPage")
     text = re.sub(r"<[^>]+>", "", html)
     for q in faq["mainEntity"]:
