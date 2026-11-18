@@ -33,11 +33,13 @@ function cut(s, n) { s = String(s || ''); return s.length > n ? s.slice(0, n) + 
 function policyCard(p) {
   const clickable = ` onclick="openDetail('${esc(p.uid)}')" style="cursor:pointer"`;
   const pub = (p.dates && p.dates.published_at) || p.date;
+  // 日期前的动词:公报文件是「刊登」,部门官网来源是「发布」,只有决议日的是「决议」
+  const pubVerb = p.doc_no_label === '公报' ? '刊登' : (p.dates && p.dates.published_at) ? '发布' : '决议';
   const points = (p.key_points || []).slice(0, 2);
   const meta = [
     p.org ? `<span>${esc(p.org)}</span>` : '',
     p.doc_no ? `<span>${esc(p.doc_no_label || '文号')} <b>${esc(p.doc_no)}</b></span>` : '',
-    pub ? `<span>刊登 ${esc(pub)}</span>` : '',
+    pub ? `<span>${pubVerb} ${esc(pub)}</span>` : '',
     originLink(p)
   ].filter(Boolean).join('');
   // 方向只显示收紧 / 放宽;「中性」满屏都是,只是噪音

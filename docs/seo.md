@@ -6,32 +6,45 @@
 
 | 产物 | 作用 |
 |---|---|
-| `p/<uid>.html` 落地页 | 无需 JS 可读;开头一句话结论(谁、何时、发布了什么、现在什么状态)、「要点速览」、引用格式、同领域推荐;结构化数据 `Legislation`(含 `translationOfWork` 指向泰文原文)+ `BreadcrumbList`;长标题自动截短 |
-| `p/topic/<领域>.html` 专题页 | 「泰国 + 签证/税务/劳工… + 政策」长尾词的落地页,`CollectionPage` + `ItemList` |
+| `p/<uid>.html` 落地页 | 无需 JS 可读;开头一句话结论(谁、何时、发布了什么、现在什么状态)、「要点速览」、引用格式、同领域推荐;结构化数据 `Legislation`(含 `translationOfWork` 指向泰文原文)+ `BreadcrumbList`;长标题自动截短,标题与别的条目完全相同时(同名系列)带上日期;描述停在句末,不拦腰截断 |
+| `p/topic/<领域>.html` 领域页 | 「泰国 + 签证/税务/劳工… + 政策」长尾词的落地页:开场白说明本领域收什么,先列最新 10 条的摘要、要点与原文链接,再按年份列全部条目;页尾链到相关专题与其他领域;`CollectionPage` + `ItemList` |
+| `p/guide/royal-gazette.html` 指南页 | 「泰国皇家公报 / 政府公报」是什么、官网、四个类别、编号读法、佛历换算、刊登日与生效日的区别、有没有中文版。Bing 上给本站带来曝光的词大多是这类问公报本身的词。`Article` + `FAQPage`;文字在 `backend/app/seo_guide.py`,数字与编号示例从数据现算 |
+| `p/week/<年-W周>.html` 周汇总 | 一周内刊登或发布的条目,逐条带摘要与原文链接。少于 3 条的周只是落地页的重复:`noindex, follow`,不进 sitemap |
+| `p/404.html` | `/p/` 下不存在的地址显示它(状态码仍是 404);其他页面类地址的 404 也用这一页,接口与资源文件的 404 仍是 JSON |
+| `assets/og.png` 分享图 | 微信、LINE、Telegram、Facebook、X 分享链接时显示的预览图(1200×630),全站页面的 `og:image` 都指向它;源文件 `tools/og.html` |
 | `p/t/<专题>.html`、`p/who/<对象>.html` 汇总页 | 配置专题(`config/topics.json`)与影响对象的汇编;每个成员落地页的「收录于汇总页」一行链回它们,汇总页因此不只靠首页和目录两处入口 |
 | `p/index.html` | 全部政策目录,按领域分组 |
 | `robots.txt` | 放行所有搜索引擎,并逐个点名放行 GPTBot、OAI-SearchBot、ClaudeBot、PerplexityBot 等 AI 爬虫;屏蔽 `/api/`、`/admin` |
 | `sitemap.xml` | 首页、目录、专题页、全部落地页,`lastmod` 取数据日期 |
-| `llms.txt` / `llms-full.txt` | 给大模型的站点说明、引用方式、索引;full 版含每条政策的摘要与官方原文链接 |
+| `llms.txt` / `llms-full.txt` | 给大模型的站点说明、引用方式、索引(领域、专题、影响对象、指南);full 版含每条政策的摘要、生效日、影响对象与官方原文链接 |
 | `feed.xml` | Atom 订阅,最新 50 条 |
-| `index.html` 受管区块 | `<!-- seo:head -->`:canonical、站长平台验证 meta、`WebSite` / `Organization` / `Dataset` 结构化数据;`<!-- seo:links -->`:页脚按领域浏览与最新收录链接(给爬虫的入口) |
+| `index.html` 受管区块 | `<!-- seo:head -->`:canonical、分享图、站长平台验证 meta、`WebSite` / `Organization` / `Dataset` 结构化数据;`<!-- seo:links -->`:页脚的领域、专题、影响对象、指南与最新收录链接(给爬虫的入口) |
 | `favicon.svg` | 搜索结果里显示的站点图标 |
 
 首页卡片标题也改成了真实链接(`<a href="p/…html">`),爬虫能顺着首页找到每一页;普通点击仍在站内打开详情。
 
 这些都是派生产物,CI 会检查它们与事实层一致,**不要手改**,改 `seo.py`。
 
+几条写页面时守住的规则:
+
+- **有公报卷期才说「刊登公报」。** 税务厅、BOI 等官网来源的条目,日期是官网发布日,落地页写「于某日发布」「发布日」,不写「在皇家公报刊登」。开头那句话是 AI 最常引用的,不能写本站没核对过的事。
+- **官方原文链接不加 `nofollow`。** 它是页面的出处;`nofollow` 是给不愿背书的链接(广告、用户投稿)用的。
+- **状态里的日期写全。** 「01-01 起施行」在首页卡片上挨着日期看得懂,落地页上写成「2027-01-01 起施行」。
+- **内容太少的汇总页不进索引。** 一两条的周汇总只是落地页的重复,留在索引里会拉低整站的内容质量评价。
+
+服务器(`backend/app/main.py`)给静态内容加了短时间的浏览器缓存:样式与脚本 1 小时、落地页 10 分钟、首页与根目录文件 5 分钟,过期后凭 ETag 复核。
+
 ## 二、效果度量(服务器侧,`backend/app/seo_track.py`)
 
-- **爬虫抓取**:中间件按 User-Agent 识别 Googlebot、Bingbot、百度、GPTBot、ClaudeBot、PerplexityBot 等,记录爬虫名、路径、状态码(不存 IP)。爬虫不跑 JS,前端统计看不到它们。
-- **来源渠道**:把真人访问的来源分成 搜索引擎 / AI 助手 / 社交 / 其他网站 / 直接访问。从 chatgpt.com、perplexity.ai 等进来 = AI 回答引用了本站,这是 GEO 最直接的证据。
+- **爬虫抓取**:中间件按 User-Agent 识别 Googlebot、Bingbot、百度、神马、花瓣、GPTBot、ClaudeBot、PerplexityBot、豆包(Bytespider)、智谱等,记录爬虫名、路径、状态码(不存 IP)。爬虫不跑 JS,前端统计看不到它们。
+- **来源渠道**:把真人访问的来源分成 搜索引擎 / AI 助手 / 社交 / 其他网站 / 直接访问。从 chatgpt.com、perplexity.ai、豆包、Kimi、DeepSeek、元宝、通义、文心一言等进来 = AI 回答引用了本站,这是 GEO 最直接的证据。
 - **后台**:`/admin` →「SEO / GEO」标签。
 
 ## 三、每日监控(每天曼谷时间 03:00)
 
 `.github/workflows/seo.yml` 运行 `python -m app.seo_monitor`:
 
-1. **体检线上站点**:首页、robots、sitemap、llms.txt、feed、IndexNow 核验文件、http→https 与裸域→www 跳转;每天抽查 40 个页面(最新 10 页 + 其余轮换),检查 canonical、noindex、标题、描述、H1、结构化数据、官方原文链接、内容是否单薄;线上 sitemap 与仓库对比,发现服务器没同步。
+1. **体检线上站点**:首页、robots、sitemap、llms.txt、feed、IndexNow 核验文件、http→https 与裸域→www 跳转;每天抽查 40 个页面(最新 10 页 + 其余轮换),检查 canonical、noindex、标题、描述、H1、结构化数据、分享图、官方原文链接、内容是否单薄;线上 sitemap 与仓库对比,发现服务器没同步。
 2. **查收录**:Search Console 的 URL 检查接口逐页查 Google 收录状态(每天 60 页轮换,结果累积)、28 天搜索表现、sitemap 状态;Bing 已收录页数与搜索词;服务器的爬虫抓取与来源渠道。
 3. **提交新页面**:IndexNow(Bing、Yandex、Naver、Seznam 共用)、百度普通收录、GSC sitemap —— 只提交新增或变更的页面,进度记在 `data/seo/state.json`。
 4. **GEO 实测**:用 `config/seo.json` 里的问题问 Perplexity,看回答是否引用本站、引用了哪些竞争站点。

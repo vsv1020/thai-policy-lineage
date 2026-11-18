@@ -12,11 +12,13 @@ import time
 from collections import defaultdict, deque
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, HTTPException, Request
+from fastapi.exception_handlers import http_exception_handler
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import FileResponse, JSONResponse, PlainTextResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
+from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from .api import router
 from .stats import router as stats_router
@@ -53,6 +55,14 @@ def _indexnow_file() -> str:
 
 
 INDEXNOW_KEY_FILE = _indexnow_file()
+
+# 静态内容的浏览器缓存(秒):URL 前缀 → 有效期。文件名不带指纹,所以都设得短,过期后凭 ETag 复核(没变就是 304)。
+# 不设的话浏览器按「距上次修改时间的 10%」自己估:久未改动的脚本可能被缓存好几天,发版后旧脚本迟迟不换;
+# 而每次都重新请求样式表又拖慢回访者的首屏。派生数据 /data/site/ 在下面的中间件里单独处理
+CACHE_SECONDS = (("/css/", 3600), ("/js/", 3600), ("/assets/", 86400), ("/p/", 600), ("/feed/", 600))
+ROOT_CACHE_SECONDS = 300      # 首页与根目录下的 html / xml / txt
+# 页面类地址的 404 用这一页(app.export 生成);接口与数据文件的 404 仍是 JSON
+NOT_FOUND_PAGE = REPO_ROOT / "p" / "404.html"
 
 SECURITY_HEADERS = {
     "X-Content-Type-Options": "nosniff",
@@ -124,10 +134,29 @@ async def guard(request: Request, call_next):
         await run_in_threadpool(record_crawl, ua, request.url.path, response.status_code)
     for k, v in SECURITY_HEADERS.items():
         response.headers.setdefault(k, v)
-    if request.url.path.startswith("/data/site/"):
+    path = request.url.path
+    if path.startswith("/data/site/"):
         # 派生数据每天更新一次,短缓存即可;API 不缓存
         response.headers.setdefault("Cache-Control", "public, max-age=300")
+    elif response.status_code == 200 and request.method in ("GET", "HEAD"):
+        ttl = next((t for prefix, t in CACHE_SECONDS if path.startswith(prefix)), None)
+        if ttl is None and (path == "/" or (path.count("/") == 1 and path.endswith((".html", ".xml", ".txt", ".svg")))):
+            ttl = ROOT_CACHE_SECONDS
+        if ttl:        # 后台页自己设了 no-store,setdefault 不会覆盖它
+            response.headers.setdefault("Cache-Control", f"public, max-age={ttl}")
     return response
+
+
+@app.exception_handler(StarletteHTTPException)
+async def not_found(request: Request, exc: StarletteHTTPException):
+    """页面类地址(.html、目录、无后缀)的 404 给一张带导航的 HTML 页,状态码仍是 404:
+    从搜索结果点进已下线页面的人能接着找,而不是看到一行 {"detail":"Not Found"}。"""
+    path = request.url.path
+    page_like = path.endswith((".html", "/")) or "." not in path.rsplit("/", 1)[-1]
+    if (exc.status_code == 404 and page_like and not path.startswith(settings.api_prefix + "/")
+            and NOT_FOUND_PAGE.is_file()):
+        return FileResponse(NOT_FOUND_PAGE, status_code=404, headers={"X-Robots-Tag": "noindex"})
+    return await http_exception_handler(request, exc)
 
 
 app.include_router(router)
@@ -179,7 +208,7 @@ def root_file(name: str):
         return PlainTextResponse(INDEXNOW_KEY_FILE[:-4])
     if name == "robots.txt":        # 没生成过也给一个合理默认
         return PlainTextResponse("User-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /admin\n")
-    return JSONResponse({"detail": "Not Found"}, status_code=404)
+    raise HTTPException(status_code=404)
 
 
 for prefix, directory in PUBLIC_DIRS.items():

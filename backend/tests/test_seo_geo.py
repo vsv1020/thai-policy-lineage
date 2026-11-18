@@ -93,6 +93,131 @@ def test_long_titles_are_shortened():
     t = seo.page_title("很" * 90)
     assert len(t) <= 56 and t.endswith(" | 泰国政策") and "…" in t
     assert seo.page_title("短标题") == "短标题 | 泰国政策"
+    # 同名系列:带上日期区分,日期不能被截掉
+    assert seo.page_title("最低贷款利率", "2026-03-02") == "最低贷款利率(2026-03-02) | 泰国政策"
+    t = seo.page_title("很" * 90, "2026-03-02")
+    assert len(t) <= 56 and t.endswith("…(2026-03-02) | 泰国政策")
+
+
+def test_clip_stops_at_sentence_end_not_mid_sentence():
+    short = "不到上限的原样返回。"
+    assert seo.clip(short) == short
+    s = "第一句话写得比较长" * 10 + "。" + "第二句话" * 30 + "。"
+    assert seo.clip(s) == "第一句话写得比较长" * 10 + "。", "超长时停在最后一个完整的句子"
+    s = "很" * 100 + "," + "长" * 100
+    assert seo.clip(s) == "很" * 100 + "…", "没有句号就停在逗号处并加省略号"
+    assert seo.clip("字" * 400) == "字" * 149 + "…"
+    assert all(len(seo.clip(x * 60)) <= 150 for x in ("甲乙丙。", "甲乙,丙丁", "abc def "))
+
+
+def _lds(html: str) -> list[dict]:
+    import re
+    return [json.loads(x.replace("<\\/", "</"))
+            for x in re.findall(r'<script type="application/ld\+json">(.*?)</script>', html, re.S)]
+
+
+def test_agency_website_items_do_not_claim_gazette_publication(site):
+    """BOI、税务厅、PDPC 官网来源的条目没有公报卷期,日期是官网发布日 ——
+    开头那句话是 AI 最常引用的,不能写成本站没核对过的「在皇家公报刊登」。"""
+    root, _ = site
+    web = (root / "p" / "th-boi-20260115-measures-2026.html").read_text(encoding="utf-8")
+    assert "于 2026-01-15 发布《" in web and "<div class=\"k\">发布日</div>" in web and "发文机关发布" in web
+    for wrong in ("在泰国皇家公报刊登", "刊登公报日", "刊登皇家公报"):
+        assert wrong not in web, wrong
+    gaz = (root / "p" / "th-mol-20250701-minwage-14.html").read_text(encoding="utf-8")
+    assert "于 2025-07-01 在泰国皇家公报刊登《" in gaz and "刊登公报日" in gaz and "刊登皇家公报" in gaz
+
+
+def test_upcoming_status_shows_full_date():
+    v = {"dates": {"effective_from": "2027-01-01"}, "status_label": "01-01 起施行"}
+    assert seo._status(v) == "2027-01-01 起施行"
+    assert seo._status({"dates": {"effective_from": "2026-01-01"}, "status_label": "现行有效"}) == "现行有效"
+
+
+def test_every_page_has_share_image_and_unique_title(site):
+    root, _ = site
+    import re
+    pages = [p for p in (root / "p").rglob("*.html")] + [root / "index.html", root / "about.html"]
+    titles = {}
+    for p in pages:
+        html = p.read_text(encoding="utf-8")
+        assert f'<meta property="og:image" content="{SITE}/assets/og.png">' in html, p
+        assert '<meta name="twitter:card" content="summary_large_image">' in html, p
+        assert "nofollow" not in html.replace("noindex, follow", ""), f"官方原文链接不加 nofollow:{p}"
+        if p.parent.name == "p" and p.name.startswith("th-"):
+            titles.setdefault(re.search(r"<title>(.*?)</title>", html).group(1), []).append(p.name)
+    assert not {t: ps for t, ps in titles.items() if len(ps) > 1}
+
+
+def test_share_image_is_shipped_at_declared_size():
+    import struct
+    from app.config import REPO_ROOT
+    raw = (REPO_ROOT / seo.OG_IMAGE).read_bytes()
+    assert raw[:8] == b"\x89PNG\r\n\x1a\n" and struct.unpack(">II", raw[16:24]) == (1200, 630)
+
+
+def test_topic_page_leads_with_summaries_then_full_list(site):
+    root, _ = site
+    html = (root / "p" / "topic" / "tax.html").read_text(encoding="utf-8")
+    assert "最新收录" in html and 'class="coll-item"' in html and "泰文原文 ↗" in html
+    assert "个人所得税" in html, "开场白说明本领域收什么"
+    assert 'href="../../feed/tax.xml"' in html and 'type="application/atom+xml" title="政策脉络 · 泰国 · 税务"' in html
+    assert "其他领域" in html and 'href="../guide/royal-gazette.html"' in html
+    coll = next(x for x in _lds(html) if x["@type"] == "CollectionPage")
+    assert coll["mainEntity"]["numberOfItems"] >= html.count('class="coll-item"') > 0
+    assert M.audit_html(f"{SITE}/p/topic/tax.html", html, {})["problems"] == []
+
+
+def test_topic_page_groups_long_lists_by_year(monkeypatch):
+    monkeypatch.setattr(seo, "TOPIC_LATEST", 2)
+    items = [{"uid": f"TH-X-{i}", "title": f"标题 {i}", "url": f"{SITE}/p/th-x-{i}.html", "date": d, "org": "税务厅",
+              "doc_no": "", "summary": "摘要。", "points": [], "official": "https://www.rd.go.th/x.pdf"}
+             for i, d in enumerate(["2026-03-01", "2026-01-05", "2025-12-30", "2025-02-02"])]
+    html = seo.render_topic("tax", "税务", "Taxation", items, [("t/excise.html", "消费税")], [("visa", "签证居留", 3)])
+    assert html.count('class="coll-item"') == 2 and html.count('class="lib-row"') == 4
+    assert 'id="y2026"' in html and 'id="y2025"' in html and html.index('id="y2026"') < html.index('id="y2025"')
+    assert 'href="../t/excise.html"' in html and 'href="visa.html"' in html
+    assert "更新至 2026-03" in html
+
+
+def test_gazette_guide_page(site):
+    """「泰国皇家公报」指南:Bing 上搜公报本身的词有了对应页面;数字从数据现算,问答与结构化数据一致。"""
+    import re
+    root, _ = site
+    path = root / "p" / "guide" / "royal-gazette.html"
+    html = path.read_text(encoding="utf-8")
+    url = f"{SITE}/p/guide/royal-gazette.html"
+    assert M.audit_html(url, html, {})["problems"] == []
+    for kw in ("泰国皇家公报", "泰国政府公报", "ราชกิจจานุเบกษา", "ratchakitcha.soc.go.th", "佛历", "非官方"):
+        assert kw in html, kw
+    assert "王室" not in html, "指南不展开王室相关内容"
+    faq = next(x for x in _lds(html) if x["@type"] == "FAQPage")
+    text = re.sub(r"<[^>]+>", "", html)
+    for q in faq["mainEntity"]:
+        assert q["name"] in text and q["acceptedAnswer"]["text"] in __import__("html").unescape(text)
+    # 编号示例取自真实条目,并链到它的落地页
+    ex = re.search(r'例:<a href="\.\./(th-[^"]+\.html)">', html)
+    assert ex and (root / "p" / ex.group(1)).is_file()
+    assert url in M.parse_sitemap((root / "sitemap.xml").read_text(encoding="utf-8"))
+    assert url in (root / "llms.txt").read_text(encoding="utf-8")
+    assert 'href="p/guide/royal-gazette.html"' in (root / "index.html").read_text(encoding="utf-8")
+    assert 'href="../p/guide/royal-gazette.html"' in (root / "p" / "th-mol-20250701-minwage-14.html").read_text(encoding="utf-8")
+
+
+def test_thai_citation_matches_series():
+    from app import seo_guide as G
+    assert G.thai_citation("ง พิเศษ", 143, "52") == "เล่ม 143 ตอนพิเศษ 52 ง"
+    assert G.thai_citation("ก", 143, "12") == "เล่ม 143 ตอนที่ 12 ก"
+    assert G.series_zh("ง พิเศษ") == "ง 类特刊" and G.series_zh("ก") == "ก 类"
+
+
+def test_llms_txt_lists_audience_pages_and_effective_dates(site):
+    root, _ = site
+    llms = (root / "llms.txt").read_text(encoding="utf-8")
+    assert "## 按影响对象" in llms and f"{SITE}/p/who/" in llms and "## 指南" in llms
+    assert "刊登日不等于生效日" in llms
+    full = (root / "llms-full.txt").read_text(encoding="utf-8")
+    assert "- 生效日:2025-07-01" in full and "- 影响对象:" in full
 
 
 def test_index_blocks_injected_idempotently(site):
@@ -343,6 +468,54 @@ def test_conventional_crawler_paths_redirect_instead_of_404():
             r = c.get(path, follow_redirects=False)
             assert r.status_code == 301 and r.headers["location"] == dst, path
         assert c.get("/comments/feed/", follow_redirects=False).status_code == 410
+
+
+def test_missing_pages_get_html_404_but_api_and_assets_stay_json(tmp_path, monkeypatch):
+    """从搜索结果点进已下线页面的人看到带导航的 404 页;状态码仍是 404,接口与资源文件不受影响。"""
+    from app import main
+    page = tmp_path / "404.html"
+    page.write_text("<html><body><h1>页面不存在</h1></body></html>", encoding="utf-8")
+    monkeypatch.setattr(main, "NOT_FOUND_PAGE", page)
+    with TestClient(main.app) as c:
+        for path in ("/no-such-page.html", "/old/section/", "/whatever"):
+            r = c.get(path)
+            assert r.status_code == 404 and "页面不存在" in r.text, path
+            assert r.headers["content-type"].startswith("text/html") and r.headers["x-robots-tag"] == "noindex"
+        for path in ("/api/documents/TH-NOPE-1-X", "/js/nope.js", "/data/site/nope.json"):
+            r = c.get(path)
+            assert r.status_code == 404 and r.headers["content-type"].startswith("application/json"), path
+    monkeypatch.setattr(main, "NOT_FOUND_PAGE", tmp_path / "missing.html")
+    with TestClient(main.app) as c:        # 还没导出过 404 页:退回默认的 JSON
+        assert c.get("/no-such-page.html").json() == {"detail": "Not Found"}
+
+
+def test_static_files_declare_short_browser_cache():
+    from app.main import app
+    with TestClient(app) as c:
+        assert c.get("/css/main.css").headers["cache-control"] == "public, max-age=3600"
+        assert c.get("/js/track.js").headers["cache-control"] == "public, max-age=3600"
+        assert c.get("/").headers["cache-control"] == "public, max-age=300"
+        assert c.get("/robots.txt").headers["cache-control"] == "public, max-age=300"
+        assert c.get("/admin").headers["cache-control"] == "no-store", "后台页不缓存"
+        assert "cache-control" not in c.get("/api/health").headers
+        assert "cache-control" not in c.get("/js/nope.js").headers, "404 不缓存"
+
+
+@pytest.mark.parametrize("ua,expect", [
+    ("Mozilla/5.0 (compatible; YisouSpider/5.0; +http://www.yisou.com/help/yisouspider.html)", ("YisouSpider", "search")),
+    ("Mozilla/5.0 (compatible; PetalBot;+https://webmaster.petalsearch.com/site/petalbot)", ("PetalBot", "search")),
+    ("Mozilla/5.0 (compatible; ChatGLM-Spider/1.0; +https://chatglm.cn/)", ("ChatGLM-Spider", "ai")),
+])
+def test_classify_bot_knows_chinese_engines(ua, expect):
+    assert T.classify_bot(ua) == expect
+
+
+@pytest.mark.parametrize("host,expect", [
+    ("yiyan.baidu.com", ("ai", "文心一言")), ("chat.baidu.com", ("ai", "文心一言")),
+    ("www.baidu.com", ("search", "百度")), ("www.tongyi.com", ("ai", "通义")), ("chatglm.cn", ("ai", "智谱清言")),
+])
+def test_channel_of_separates_baidu_ai_from_baidu_search(host, expect):
+    assert T.channel_of(host) == expect
 
 
 def test_only_recent_crawl_errors_are_reported():

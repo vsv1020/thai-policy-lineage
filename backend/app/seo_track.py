@@ -38,6 +38,8 @@ BOTS: list[tuple[str, str, str]] = [
     ("YandexBot", "search", r"YandexBot|YandexMobileBot"),
     ("Sogou", "search", r"Sogou"),
     ("360Spider", "search", r"360Spider|HaosouSpider"),
+    ("YisouSpider", "search", r"YisouSpider"),                  # 神马搜索 / 夸克
+    ("PetalBot", "search", r"PetalBot"),                        # 华为花瓣搜索
     ("DuckDuckBot", "search", r"DuckDuckBot"),
     ("Applebot", "search", r"Applebot(?!-Extended)"),
     ("Yeti(Naver)", "search", r"Yeti/"),
@@ -56,6 +58,8 @@ BOTS: list[tuple[str, str, str]] = [
     ("DuckAssistBot", "ai", r"DuckAssistBot"),
     ("MistralAI-User", "ai", r"MistralAI-User"),
     ("cohere-ai", "ai", r"cohere-ai"),
+    ("ChatGLM-Spider", "ai", r"ChatGLM-Spider"),                # 智谱清言
+    ("YouBot", "ai", r"YouBot"),
 ]
 _BOT_RES = [(n, g, re.compile(p, re.I)) for n, g, p in BOTS]
 SEARCH_BOTS = [n for n, g, _ in BOTS if g == "search"]
@@ -70,7 +74,9 @@ AI_REFS = {"chatgpt.com": "ChatGPT", "chat.openai.com": "ChatGPT", "openai.com":
            "bard.google.com": "Gemini", "copilot.microsoft.com": "Copilot",
            "doubao.com": "豆包", "kimi.moonshot.cn": "Kimi", "kimi.com": "Kimi",
            "chat.deepseek.com": "DeepSeek", "yuanbao.tencent.com": "腾讯元宝",
-           "metaso.cn": "秘塔", "tongyi.aliyun.com": "通义", "qianwen.com": "通义",
+           "metaso.cn": "秘塔", "tongyi.aliyun.com": "通义", "tongyi.com": "通义", "qianwen.com": "通义",
+           "yiyan.baidu.com": "文心一言", "chat.baidu.com": "文心一言", "chatglm.cn": "智谱清言",
+           "xinghuo.xfyun.cn": "讯飞星火", "n.cn": "纳米 AI", "felo.ai": "Felo",
            "you.com": "You.com", "phind.com": "Phind", "poe.com": "Poe", "grok.com": "Grok",
            "chat.mistral.ai": "Mistral"}
 SOCIAL_REFS = {"facebook.com": "Facebook", "t.co": "X", "x.com": "X", "twitter.com": "X",

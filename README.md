@@ -19,7 +19,7 @@ data/site/            派生层(backend/app/export.py 导出,禁止手改)
 tools/validate.py     纯标准库校验器(词表、关系、日期顺序、编辑红线)
 pipeline/             早期抓取 PoC(已由 backend/app/collect.py 接管)
 .github/workflows/collect.yml  每日自动采集 → 翻译 → 导出 → 提交
-p/                    每条政策的静态落地页(SEO,由 export 生成)
+p/                    每条政策的静态落地页,以及领域页、专题页、周汇总、皇家公报指南(SEO,由 export 生成)
 config/ads.json       广告位配置(默认关闭,类别白名单)
 config/analytics.json 站点统计配置(自建 /admin 后台 + 可选 Cloudflare/Plausible)
 admin.html            站点统计后台(需 ADMIN_TOKEN)

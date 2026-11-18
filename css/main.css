@@ -144,7 +144,8 @@
   .field:nth-last-child(-n+4) { border-bottom: 0; }
   .field .k { font-size: 11px; color: var(--muted); letter-spacing: .05em; }
   .field .v { font-family: var(--serif); font-size: 14px; font-weight: 700; margin-top: 2px; }
-  .d-body h4 { font-family: var(--serif); font-size: 15px; margin: 20px 0 8px; font-weight: 700; }
+  .d-body h2, .d-body h4 { font-family: var(--serif); font-size: 15px; margin: 20px 0 8px; font-weight: 700; }
+  .d-body h3 { font-size: 14px; margin: 14px 0 4px; font-weight: 700; }
   .d-body p, .d-body li { font-size: 13.5px; color: var(--ink-2); }
   .d-body ul { padding-left: 20px; margin: 6px 0; }
   .origin { background: var(--panel); border: 1px dashed var(--muted); padding: 13px 17px; font-size: 12.5px; color: var(--ink-2); margin-top: 18px; }
@@ -397,3 +398,7 @@ aside .side-label { margin-top: 10px; }
 .coll-item p { font-size: 13.5px; color: var(--ink-2); margin-bottom: 6px; }
 .coll-related { margin-top: 24px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 13px; line-height: 2; }
 .coll-related b { color: var(--ink-2); margin-right: 6px; }
+/* 领域页:小节标题与年份分组 */
+h2.mod.sec { font-family: var(--serif); font-size: 19px; font-weight: 700; margin: 30px 0 12px; }
+h3.mod.yr { margin: 20px 0 8px; scroll-margin-top: 70px; }
+h3.coll-title { font-weight: 700; }

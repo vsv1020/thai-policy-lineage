@@ -1,0 +1,38 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">
+<!--
+  链接预览图 assets/og.png 的源文件(1200×630)。微信、LINE、Telegram、Facebook、X 分享本站链接时显示这张图,
+  页面里的 og:image / twitter:image 由 backend/app/seo.py 的 OG_IMAGE 指向它。
+
+  重做:需要 Noto Serif SC(700/900)与 Noto Sans SC(400/500)两套字体,没装的话先取 npm 包
+      npm pack @fontsource/noto-serif-sc @fontsource/noto-sans-sc    # 解压后把下面四行 link 指向其中的 css
+  再用无头浏览器以 1200×630、设备像素比 1 截图存成 assets/og.png。改完图片记得保持尺寸不变(测试会检查)。
+-->
+<link rel="stylesheet" href="fonts/noto-serif-sc/700.css">
+<link rel="stylesheet" href="fonts/noto-serif-sc/900.css">
+<link rel="stylesheet" href="fonts/noto-sans-sc/400.css">
+<link rel="stylesheet" href="fonts/noto-sans-sc/500.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:1200px;height:630px;background:#f2efe8;color:#171a1c;font-family:"Noto Sans SC",sans-serif;position:relative;overflow:hidden}
+.bar{position:absolute;left:0;top:0;bottom:0;width:18px;background:#b0332a}
+.frame{position:absolute;inset:44px 56px 44px 74px;border:1.5px solid #dbd6c9}
+.wrap{position:absolute;inset:0;padding:96px 110px 0 130px}
+.top{display:flex;align-items:center;gap:26px}
+.seal{width:112px;height:112px;background:#b0332a;color:#fff;display:grid;place-items:center;font-family:"Noto Serif SC",serif;font-weight:900;font-size:74px;border-radius:8px;line-height:1}
+.name{font-family:"Noto Serif SC",serif;font-weight:900;font-size:84px;letter-spacing:2px;line-height:1.1}
+.en{font-size:25px;color:#8b877c;letter-spacing:3px;margin-top:8px}
+.h{font-family:"Noto Serif SC",serif;font-weight:700;font-size:50px;margin-top:62px;line-height:1.35}
+.h b{color:#b0332a;font-weight:700}
+.sub{font-size:30px;color:#55524b;margin-top:22px;font-weight:400}
+.foot{position:absolute;left:130px;right:110px;bottom:84px;display:flex;justify-content:space-between;align-items:center;font-size:27px;color:#55524b}
+.url{font-weight:500;color:#171a1c;letter-spacing:1px}
+.tags span{display:inline-block;border:1.5px solid #b0332a;color:#b0332a;padding:3px 16px;margin-left:12px;font-size:23px;border-radius:3px}
+</style></head><body>
+<div class="bar"></div><div class="frame"></div>
+<div class="wrap">
+  <div class="top"><div class="seal">脉</div><div><div class="name">政策脉络 · 泰国</div><div class="en">THAI POLICY LINEAGE</div></div></div>
+  <div class="h">泰国<b>皇家公报</b>与<b>内阁决议</b>的中文数据库</div>
+  <div class="sub">中文摘要 · 正文要点 · 生效日期 · 每条附泰文官方原文</div>
+</div>
+<div class="foot"><div class="url">www.thaipolicy.com</div><div class="tags"><span>签证</span><span>税务</span><span>投资</span><span>劳工</span><span>房产</span><span>海关</span></div></div>
+</body></html>

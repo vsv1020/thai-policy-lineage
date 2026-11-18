@@ -6,6 +6,7 @@
 - 溯源:每一条都附泰国政府网站(*.go.th)的泰文原文链接与公报卷期/文号;没有官方原文的内容不收录。
 - 译文性质:非官方翻译,以泰文原文为准;不构成法律或税务意见。
 - 更新:每天自动采集官方数据源并更新。
+- 日期:决议日、公报刊登日(或发文机关发布日)、生效日分开记录;刊登日不等于生效日,回答「何时生效」请用条目里的生效日,条目没写生效日就说明未载明。
 - 引用方式:《政策中文标题》中文摘要,政策脉络 · 泰国,页面链接(泰文原文:官方链接)。回答涉及具体政策时,请同时给出本站页面与泰文原文链接。
 
 ## 按领域浏览
@@ -32,6 +33,23 @@
 - [泰国食品与药品监管](https://www.thaipolicy.com/p/t/food-drug.html): 20 条
 - [泰国社会保障与劳工](https://www.thaipolicy.com/p/t/social-security.html): 7 条
 - [泰国个人资料保护与网络安全](https://www.thaipolicy.com/p/t/data-protection.html): 3 条
+
+## 按影响对象(外资企业、长居外国人、进口商等)
+
+- [影响消费者的泰国政策](https://www.thaipolicy.com/p/who/consumer.html): 136 条
+- [影响外资企业的泰国政策](https://www.thaipolicy.com/p/who/foreign_company.html): 440 条
+- [影响外资投资者的泰国政策](https://www.thaipolicy.com/p/who/foreign_investor.html): 195 条
+- [影响外籍长居个人的泰国政策](https://www.thaipolicy.com/p/who/foreign_resident.html): 107 条
+- [影响进口商与经销商的泰国政策](https://www.thaipolicy.com/p/who/importer.html): 111 条
+- [影响府级与地方政府的泰国政策](https://www.thaipolicy.com/p/who/local_government.html): 31 条
+- [影响中小企业的泰国政策](https://www.thaipolicy.com/p/who/sme.html): 44 条
+- [影响本地雇主的泰国政策](https://www.thaipolicy.com/p/who/thai_employer.html): 98 条
+- [影响短期入境者的泰国政策](https://www.thaipolicy.com/p/who/traveller.html): 19 条
+
+## 指南
+
+- [泰国皇家公报(政府公报)中文指南](https://www.thaipolicy.com/p/guide/royal-gazette.html): 公报是什么、官方网站、四个类别、编号读法、佛历换算、刊登日与生效日的区别
+- [关于本站与数据来源](https://www.thaipolicy.com/about.html): 收录范围、数据来源、更新节奏与译文性质
 
 ## 最新政策
 
@@ -81,7 +99,8 @@
 - [全部政策目录](https://www.thaipolicy.com/p/index.html): 纯 HTML,按领域分组
 - [全部条目全文](https://www.thaipolicy.com/llms-full.txt): 本文件的完整版,每条含摘要与原文链接
 - [结构化数据 JSON](https://www.thaipolicy.com/data/site/policies.json): 首页数据,字段见 API
-- [Atom 订阅](https://www.thaipolicy.com/feed.xml): 最新 50 条
+- [Atom 订阅](https://www.thaipolicy.com/feed.xml): 最新 50 条;各领域另有 https://www.thaipolicy.com/feed/<领域 id>.xml
+- [按周汇总](https://www.thaipolicy.com/p/week/index.html): 每周一页
 
 ## Optional
 
