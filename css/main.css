@@ -365,7 +365,13 @@ aside .side-label { margin-top: 10px; }
 @media (max-width: 700px) {
   header { padding: 10px 16px; gap: 10px; }
   header .brand-sub, #stamp { display: none; }
-  .brand-name { white-space: normal; font-size: 17px; }
+  .brand-name { font-size: 16px; letter-spacing: .02em; overflow: hidden; text-overflow: ellipsis; }
+  .brand > a { min-width: 0; }
+  /* 右侧可收缩:页脚已有「全部政策」,窄屏页头不再放;打赏按钮与切换链接变紧凑 */
+  .header-right { gap: 8px; flex: 0 0 auto; }
+  .header-right .hdr-all { display: none; }
+  header .btn-solid { padding: 5px 9px; font-size: 12px; }
+  .lang-switch { padding: 1px 6px; }
   aside { position: sticky; top: 52px; z-index: 40; display: flex; flex-wrap: nowrap; overflow-x: auto;
     padding: 0; border-right: 0; border-bottom: 1px solid var(--line); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
   aside::-webkit-scrollbar { display: none; }
@@ -404,3 +410,8 @@ aside .side-label { margin-top: 10px; }
 h2.mod.sec { font-family: var(--serif); font-size: 19px; font-weight: 700; margin: 30px 0 12px; }
 h3.mod.yr { margin: 20px 0 8px; scroll-margin-top: 70px; }
 h3.coll-title { font-weight: 700; }
+
+/* 落地页的官方原文链接很长,窄屏下允许在任意处折行,不撑出横向滚动 */
+.origin a { overflow-wrap: anywhere; }
+/* 繁体 about 页的提示:检索与图表在简体版 */
+.hant-note { font-size: 13px; color: var(--ink-2); background: var(--panel); padding: 9px 14px; line-height: 1.7; }

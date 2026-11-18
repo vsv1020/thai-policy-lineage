@@ -42,6 +42,9 @@ services:
       # 若采集改由 GitHub Actions 负责(推荐),把这里设为 0,
       # 服务器只做 git pull + ingest + export,避免两个采集器同时写
       ENABLE_SCHEDULER: ${ENABLE_SCHEDULER:-1}
+      # 繁体版(zh-hant/)生成失败时不让整个导出失败:只记错误日志、保留旧繁体页,简体与 API 照常启动
+      # (启动命令是 ingest && export && uvicorn)。CI 与本地默认严格(1),出错直接报出来
+      HANT_STRICT: ${HANT_STRICT:-0}
     ports:
       - "127.0.0.1:8000:8000"   # 只绑本机,前面挂 nginx/caddy 做 TLS
     volumes:

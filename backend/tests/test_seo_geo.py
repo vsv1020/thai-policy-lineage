@@ -23,7 +23,8 @@ SITE = settings.site_url
 def site(tmp_path_factory):
     root = tmp_path_factory.mktemp("geo")
     (root / "data" / "site").mkdir(parents=True)
-    head = ('<head><title>政策脉络 · 泰国</title><meta name="description" content="' + "泰国政策中文数据库" * 6
+    # 手写静态页要有 <html lang="zh-CN">:导出繁体版时会改成 zh-Hant,找不到就报错
+    head = ('<!DOCTYPE html><html lang="zh-CN"><head><title>政策脉络 · 泰国</title><meta name="description" content="' + "泰国政策中文数据库" * 6
             + '">\n<!-- seo:head x -->\nOLD\n<!-- /seo:head -->\n</head><body><h1>t</h1>')
     (root / "index.html").write_text(head + "<footer>\n<!-- seo:links x -->\n<!-- /seo:links -->\n</footer>",
                                      encoding="utf-8")

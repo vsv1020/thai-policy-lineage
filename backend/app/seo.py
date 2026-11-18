@@ -17,8 +17,11 @@ robots.txt、feed.xml、llms.txt、llms-full.txt、index.html 里的三个受管
 """
 from __future__ import annotations
 
+import contextvars
 import html
 import json
+import logging
+import os
 import re
 import shutil
 from pathlib import Path
@@ -31,6 +34,7 @@ from .config import REPO_ROOT, SITE_DIR, settings
 from .ingest import split_summary
 from .models import Document, Domain, Party
 
+log = logging.getLogger("policy.seo")
 PAGES_DIR = REPO_ROOT / "p"
 ADS_CONFIG = REPO_ROOT / "config" / "ads.json"
 SUPPORT_CONFIG = REPO_ROOT / "config" / "support.json"
@@ -73,25 +77,46 @@ GUIDE_PATH = "p/guide/royal-gazette.html"
 # css / js / favicon / assets 不复制,繁体页多退一级到站点根目录去取。
 HANT_DIR = "zh-hant"
 OG_IMAGE_HANT = "assets/og-hant.png"
-_STATE = {"hant": False}
+# 用 ContextVar 而不是模块级全局:服务进程里的采集线程导出时,别的线程调用 page_url 等不会读到繁体状态
+_HANT: contextvars.ContextVar[bool] = contextvars.ContextVar("seo_hant", default=False)
 
 
 class _variant:
-    """with _variant(True): 其间渲染的是繁体页(地址、语言标记按繁体版写,文字仍是简体,写盘前再转换)。"""
+    """with _variant(True): 其间渲染的是繁体页(地址、语言标记按繁体版写,文字仍是简体,写盘前再转换)。
+    退出时(包括抛异常)恢复原状态。"""
 
     def __init__(self, hant: bool):
         self.hant = hant
 
     def __enter__(self):
-        self.prev, _STATE["hant"] = _STATE["hant"], self.hant
+        self.token = _HANT.set(self.hant)
         return self
 
     def __exit__(self, *exc):
-        _STATE["hant"] = self.prev
+        _HANT.reset(self.token)
 
 
 def _is_hant() -> bool:
-    return _STATE["hant"]
+    return _HANT.get()
+
+
+# 繁体版没能生成时(HANT_STRICT=0 下转换出错),简体页只链向旧 zh-hant/ 里确实存在的繁体页:
+# None = 全部存在(正常情况);否则是旧 zh-hant/ 里已有页面的相对路径集合
+_HANT_AVAIL: contextvars.ContextVar[frozenset | None] = contextvars.ContextVar("seo_hant_avail", default=None)
+
+
+def hant_strict() -> bool:
+    """HANT_STRICT(默认 1):繁体版生成失败时导出直接报错(CI、本地)。
+    生产环境设 0:繁体失败只记错误日志、保留旧的 zh-hant/,简体照常导出,站点照常启动。"""
+    return os.getenv("HANT_STRICT", "1").strip() not in ("0", "false", "no")
+
+
+def _has_hant(canonical: str) -> bool:
+    avail = _HANT_AVAIL.get()
+    if avail is None or _is_hant():
+        return True
+    rel = _alternates(canonical)[0][len(settings.site_url) + 1:] if canonical else ""
+    return (rel or "index.html") in avail
 
 
 def _base() -> str:
@@ -127,7 +152,9 @@ def _alternates(canonical: str) -> tuple[str, str]:
 
 
 def hreflang_links(canonical: str) -> str:
-    """简繁互指 + x-default(指简体)。两种字形的页面上写的完全一样。"""
+    """简繁互指 + x-default(指简体)。两种字形的页面上写的完全一样。没有对应繁体页时返回空串。"""
+    if not _has_hant(canonical):
+        return ""
     hans, hant = _alternates(canonical)
     return (f'<link rel="alternate" hreflang="zh-Hans" href="{e(hans)}">\n'
             f'<link rel="alternate" hreflang="zh-Hant" href="{e(hant)}">\n'
@@ -142,6 +169,8 @@ def BACK_HOME() -> str:  # noqa: N802
 def lang_switch(up: str, canonical: str = "") -> str:
     """页头的字形切换链接,指向同一页的另一种字形。标签不经转换器(「简体中文」要保持简体)。"""
     from .hant import keep
+    if not _has_hant(canonical):
+        return ""
     if canonical:
         rel = _alternates(canonical)[0][len(settings.site_url):]       # /p/x.html
         href = (_root(up) + rel[1:]) if _is_hant() else f"{up}{HANT_DIR}{rel}"
@@ -202,8 +231,8 @@ def _head(title: str, desc: str, canonical: str, jsonld: list[dict] | dict | Non
     ld = "\n".join(x for x in [extra, *(_ld(x) for x in lds)] if x)
     img = f"{settings.site_url}/{_og_image()}"
     root = _root(up)
-    canon = (f'<link rel="canonical" href="{e(canonical)}">\n{hreflang_links(canonical)}\n'
-             f'<meta property="og:url" content="{e(canonical)}">' if canonical else "")
+    canon = "\n".join(x for x in (f'<link rel="canonical" href="{e(canonical)}">', hreflang_links(canonical),
+                                   f'<meta property="og:url" content="{e(canonical)}">') if x) if canonical else ""
     return f"""<!DOCTYPE html>
 <html lang="{"zh-Hant" if _is_hant() else "zh-CN"}">
 <head>
@@ -234,7 +263,7 @@ def _head(title: str, desc: str, canonical: str, jsonld: list[dict] | dict | Non
   <div class="brand"><a href="{up}index.html" style="display:flex;align-items:center;gap:14px;color:inherit;text-decoration:none">
     <div class="seal">脉</div><div class="brand-name">{SITE_NAME}</div></a>
     <div class="brand-sub">Thai Policy Lineage · นโยบายไทย</div></div>
-  <div class="header-right">{lang_switch(up, canonical)}<a href="{up}p/index.html" style="color:inherit">全部政策</a>
+  <div class="header-right">{lang_switch(up, canonical)}<a class="hdr-all" href="{up}p/index.html" style="color:inherit">全部政策</a>
     <button class="btn-solid" data-support-button hidden>☕ 打赏支持</button></div>
 </header>
 <main style="max-width:880px;margin:0 auto;padding:32px 20px">"""
@@ -745,7 +774,7 @@ def render_404() -> str:
             '<div class="page-sub">这个地址没有内容:可能是链接有误,也可能是这条政策已经下线'
             '(与别的条目重复、判定为与在泰华人无关,或官方原文链接失效)。</div>'
             f'<p style="line-height:2.2"><a href="{r}p/index.html">全部政策目录</a> · '
-            + (f'<a href="{r}">回繁体首页</a> · <a href="/">简体版检索</a> · ' if _is_hant() else '<a href="/">回首页检索</a> · ')
+            + (f'<a href="{r}">回繁体首页</a> · <a href="/" hreflang="zh-Hans">简体版检索</a> · ' if _is_hant() else '<a href="/">回首页检索</a> · ')
             + f'<a href="{r}p/week/index.html">按周汇总</a> · <a href="{r}{GUIDE_PATH}">泰国皇家公报指南</a></p>')
     return (_head(f"页面不存在 | {SITE_NAME}",
                   "这个地址没有内容。可以从全部政策目录或首页检索继续查找泰国政策的中文摘要与泰文原文。",
@@ -878,9 +907,11 @@ def _coverage(entries: list[dict]) -> str | None:
 
 def update_index_html(entries: list[dict], topics: list[tuple[str, str, int]], cfg: dict,
                       collections: list[dict] = (), who: list[dict] = (),
-                      featured: list[dict] | None = None) -> bool:
-    """featured:首页「最新收录」实际显示的条目(data/site/policies.json 里 featured 的那几条),
-    预渲染进 <!-- seo:feed --> 区块;None 表示不动这个区块。"""
+                      overview: dict | None = None) -> bool:
+    """overview:A.overview 的结果(与 data/site/policies.json 同一份)。首页「最新收录」实际显示的
+    featured 条目预渲染进 <!-- seo:feed -->,页头时间戳、条数与数据说明预渲染进 seo:stamp / seo:today-sub /
+    seo:lag-note —— 与 js/data.js 的 renderOverview 同一口径,前端加载后替换成同样的文字,版面不跳。
+    None 表示不动这几个区块。"""
     path = REPO_ROOT / "index.html"
     if not path.exists():
         return False
@@ -911,7 +942,7 @@ def update_index_html(entries: list[dict], topics: list[tuple[str, str, int]], c
                            "contentUrl": f"{site}/llms-full.txt"}]},
     ]}
     graph["@graph"][2] = {k: v for k, v in graph["@graph"][2].items() if v is not None}
-    head = "\n".join([
+    head = "\n".join(x for x in [
         f'<link rel="canonical" href="{e(site)}/">',
         hreflang_links(f"{site}/"),
         '<link rel="icon" href="favicon.svg" type="image/svg+xml">',
@@ -925,7 +956,7 @@ def update_index_html(entries: list[dict], topics: list[tuple[str, str, int]], c
         '<meta name="twitter:card" content="summary_large_image">',
         f'<meta name="twitter:image" content="{e(site)}/{OG_IMAGE}">',
         *[f'<meta name="{metas[k]}" content="{e(ver[k])}">' for k in metas if ver.get(k)],
-        _ld(graph)])
+        _ld(graph)] if x)
     nav = " · ".join(f'<a href="p/topic/{e(i)}.html">{e(zh)}</a>' for i, zh, _ in topics)
     latest = " · ".join(f'<a href="p/{e(slug(x["uid"]))}.html">{e(x["title"])}</a>' for x in entries[:12])
     coll = " · ".join(f'<a href="{e(x["href"])}">{e(x["zh"])}</a>' for x in collections)
@@ -939,8 +970,11 @@ def update_index_html(entries: list[dict], topics: list[tuple[str, str, int]], c
              + (f"<div><b>最新收录</b> {latest}</div>" if latest else "") + "</nav>")
     old = path.read_text(encoding="utf-8")
     new = _replace_block(_replace_block(old, "head", head), "links", links)
-    if featured is not None:
+    if overview is not None:
+        featured = [p for p in overview.get("policies") or [] if p.get("featured")]
         new = _replace_block(new, "feed", render_home_feed(featured))
+        for name, text in home_texts(overview).items():
+            new = _replace_block(new, name, text)
     if new != old:
         path.write_text(new, encoding="utf-8")
 
@@ -973,13 +1007,13 @@ def _static_head(text: str, fname: str, name: str, kind: str) -> str:
           hreflang_links(url),
           f'<meta property="og:url" content="{e(url)}">',
           '<meta property="og:type" content="website">',
-          *(['<meta property="og:locale" content="zh_TW">'] if _is_hant() else []),
+          f'<meta property="og:locale" content="{"zh_TW" if _is_hant() else "zh_CN"}">',
           f'<meta property="og:site_name" content="{SITE_NAME}">',
           *([f'<meta property="og:title" content="{t.group(1).strip()}">'] if t else []),      # 页面里已是转义过的文本
           *([f'<meta property="og:description" content="{dsc.group(1)}">'] if dsc else []),
           f'<meta property="og:image" content="{e(site)}/{_og_image()}">',
           '<meta name="twitter:card" content="summary_large_image">']
-    return "\n".join(og) + "\n" + _ld(ld)
+    return "\n".join(x for x in og if x) + "\n" + _ld(ld)
 
 
 # ───────────────────── 首页「最新收录」预渲染(<!-- seo:feed -->) ─────────────────────
@@ -1023,6 +1057,33 @@ def render_policy_card(p: dict) -> str:
     {body}
     <div class="pc-meta">{meta}</div>
   </div>"""
+
+
+def _bkk_stamp(iso: str) -> str:
+    """js/data.js 的 fmtStamp:按曼谷时间显示到分钟,如「2026-11-18 07:07 曼谷时间」。"""
+    from datetime import datetime
+    try:
+        d = datetime.fromisoformat(str(iso).replace("Z", "+00:00"))
+    except ValueError:
+        return e(iso)
+    if d.tzinfo is not None:
+        from zoneinfo import ZoneInfo
+        d = d.astimezone(ZoneInfo("Asia/Bangkok"))
+    return d.strftime("%Y-%m-%d %H:%M") + " 曼谷时间"
+
+
+def home_texts(d: dict) -> dict[str, str]:
+    """首页几处由 js/data.js renderOverview 填写的文字,导出时按同一口径预先写好(受管区块名 → HTML)。"""
+    st = d.get("stats") or {}
+    total = st.get("total") or len(d.get("policies") or [])
+    updated = _bkk_stamp(d["updated_at"])[:10] if d.get("updated_at") else "—"
+    gz = st.get("gazette_to") or st.get("date_to")
+    lag = (f"泰国官方公报数据集(data.go.th)通常比刊登日晚几个月开放,目前收录到 <b>{e(str(gz)[:10] if gz else '—')}</b> 刊登的公报。"
+           + (f"更新的规定来自税务厅、BOI 官网(已收 {st['agency_n']} 条,每日同步)。" if st.get("agency_n") else "")
+           + f"最近一次采集 {e(updated)}。")
+    return {"stamp": f"数据更新 {_bkk_stamp(d['updated_at'])}" if d.get("updated_at") else "加载中……",
+            "today-sub": f"最近收录的 <b>{total}</b> 条公报,读过原文、有要点的排在前面。",
+            "lag-note": lag}
 
 
 def render_home_feed(featured: list[dict]) -> str:
@@ -1080,6 +1141,13 @@ def render_hant_home(entries: list[dict], topics: list[tuple[str, str, int]], co
 
 
 _ASSET_REF_RE = re.compile(r'((?:href|src)=")(css/|js/|assets/|favicon\.svg)')
+_DATA_BASE_RE = re.compile(r'data-base="(?!/|https?:)([^"]*)"')     # 相对的站点根前缀,繁体页多退一级
+_HTML_LANG_RE = re.compile(r'(<html\b[^>]*?\blang=")zh-CN(")')
+# 繁体 about.html 的提示:页面里说的检索框、领域按钮、「数据覆盖」都在简体首页
+HANT_ABOUT_NOTE = ('<p class="hant-note">繁体版说明:下文提到的首页检索框、「找政策」、领域按钮、「各领域条数」与「数据覆盖」'
+                   '都在<a href="../" hreflang="zh-Hans">简体版首页</a>;繁体版提供'
+                   '<a href="index.html">繁体首页</a>(按领域、专题、最新收录浏览)与'
+                   '<a href="p/index.html">全部政策目录</a>。</p>')
 _SWITCH_RE = re.compile(r'<a class="lang-switch"[^>]*>.*?</a>', re.S)
 
 
@@ -1088,8 +1156,12 @@ def render_hant_static(text: str, fname: str, name: str, kind: str) -> str:
     换掉受管的 <head> 区块、语言标记与页头切换链接;资源文件多退一级到站点根目录,
     其余相对链接(index.html、p/…、feed.xml)两边结构相同,原样留在 /zh-hant/ 内。"""
     text = _replace_block(text, "head", _static_head(text, fname, name, kind))
-    text = text.replace('<html lang="zh-CN">', '<html lang="zh-Hant">', 1)
+    text = _replace_block(text, "hant-note", HANT_ABOUT_NOTE)
+    text, n = _HTML_LANG_RE.subn(r"\1zh-Hant\2", text, count=1)
+    if not n:
+        raise ValueError(f"{fname}:找不到 <html lang=…>,无法标成繁体")
     text = _ASSET_REF_RE.sub(r"\1../\2", text)
+    text = _DATA_BASE_RE.sub(lambda m: f'data-base="../{m.group(1)}"', text)
     return _SWITCH_RE.sub(lambda m: lang_switch("", f"{_base()}/{fname}"), text, count=1)
 
 
@@ -1108,11 +1180,10 @@ def build(s: Session, overview: dict | None = None) -> dict[str, int]:
         return (dom, domains[dom].zh) if dom in domains else ("", "其他")
 
     # 整目录重建:已删除或被标 skip 的政策,其落地页(简繁两份)也要消失。
+    # 先把简繁全部页面渲染、转换到内存,最后才清空目录、写盘:中途出错时两套旧文件原样保留。
     # 只清空内容、不删目录本身 —— 生产环境 p/ 是 docker 挂载点,删挂载点会 EBUSY,
     # 导出失败会让容器启动命令(ingest && export && uvicorn)永远起不来
     hant_root = REPO_ROOT / HANT_DIR
-    clear_dir(PAGES_DIR)
-    clear_dir(hant_root)
 
     by_dom: dict[str, list[tuple[str, str, str]]] = {}
     for doc in docs:
@@ -1233,62 +1304,81 @@ def build(s: Session, overview: dict | None = None) -> dict[str, int]:
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(text, encoding="utf-8")
 
-    # ── 简体 ──
-    feed_dir = REPO_ROOT / "feed"
-    clear_dir(feed_dir)
-    hans = render_site(entries)
-    hans["p/404.html"] = render_404()
-    for rel, text in hans.items():
-        write(PAGES_DIR / rel[2:] if rel.startswith("p/") else REPO_ROOT / rel, text)
-
-    # ── 繁体:同样的页面在 /zh-hant/ 下各一份,渲染完整页转换字形 ──
-    conv = hant.Converter()
-    with _variant(True):
-        ents_h = [{**x, "url": page_url(x["uid"])} for x in entries]
-        hant_pages = render_site(ents_h)
-        hant_pages["404.html"] = render_404()
-        hant_pages["index.html"] = render_hant_home(
-            ents_h, topics, topic_pages, who_pages,
-            [(w, len(by_week[w])) for w in week_ids if len(by_week[w]) >= MIN_COLLECTION][:8], telegram)
-    for rel, text in hant_pages.items():
-        write(hant_root / rel, conv.html(text))
-
-    (SITE_DIR / "collections.json").write_text(json.dumps(
-        {"topics": topic_pages, "who": who_pages}, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
-
-    # sitemap:lastmod 用数据自身的日期,保证导出可重复
-    newest = entries[0]["date"] if entries else None
-    urls = [(f"{settings.site_url}/", newest), (f"{settings.site_url}/p/index.html", newest),
-            (f"{settings.site_url}/about.html", None), (f"{settings.site_url}/privacy.html", None)]
-    urls += [(topic_url(i), by_dom[i][0][0] or None) for i, _, _ in topics]
-    urls += [(f"{settings.site_url}/{x['href']}", x["date"] or None) for x in topic_pages + who_pages]
-    urls += [(f"{settings.site_url}/{GUIDE_PATH}", newest)]
-    urls += [(f"{settings.site_url}/p/week/index.html", newest)]
-    # 条目太少的周是 noindex(见 render_week),不进 sitemap
-    urls += [(f"{settings.site_url}/p/week/{w}.html", by_week[w][0]["date"]) for w in week_ids
-             if len(by_week[w]) >= MIN_COLLECTION]
-    urls += [(x["url"], x["date"] or None) for x in entries]
-    # 繁体版:同一批页面,地址多一级 /zh-hant(about / privacy 只有 index.html 在时才生成,见下)
-    hant_urls = [(_alternates(u)[1], lm) for u, lm in urls]
-    (REPO_ROOT / "robots.txt").write_text(render_robots(), encoding="utf-8")
-    (REPO_ROOT / "llms.txt").write_text(
-        render_llms(entries, topics, collections=topic_pages, who=who_pages), encoding="utf-8")
-    (REPO_ROOT / "llms-full.txt").write_text(render_llms(entries, topics, full=True), encoding="utf-8")
     if overview is None:
         overview = A.overview(s)
-    featured = [p for p in overview.get("policies") or [] if p.get("featured")]
-    if update_index_html(entries, topics, seo_config(), topic_pages, who_pages, featured):
-        # 手写静态页的繁体版:从刚更新过受管区块的简体文件转换
-        for fname, name, kind in STATIC_PAGES:
-            page = REPO_ROOT / fname
-            if page.exists():
-                with _variant(True):
-                    text = render_hant_static(page.read_text(encoding="utf-8"), fname, name, kind)
-                write(hant_root / fname, conv.html(text))
-    hant_urls = [(u, lm) for u, lm in hant_urls
-                 if not u.endswith(("/about.html", "/privacy.html")) or (hant_root / u.rsplit("/", 1)[1]).exists()]
-    urls += hant_urls
-    (REPO_ROOT / "sitemap.xml").write_text(render_sitemap(urls), encoding="utf-8")
+
+    # ── 繁体:同样的页面在 /zh-hant/ 下各一份,渲染完整页再转换字形(全部在内存里)──
+    hant_pages: dict[str, str] | None = None
+    try:
+        conv = hant.Converter()
+        with _variant(True):
+            ents_h = [{**x, "url": page_url(x["uid"])} for x in entries]
+            raw = render_site(ents_h)
+            raw["404.html"] = render_404()
+            raw["index.html"] = render_hant_home(
+                ents_h, topics, topic_pages, who_pages,
+                [(w, len(by_week[w])) for w in week_ids if len(by_week[w]) >= MIN_COLLECTION][:8], telegram)
+            # 手写静态页的繁体版:从简体文件转换(受管的 head 区块按繁体重写,与简体文件里的旧区块无关)
+            if (REPO_ROOT / "index.html").exists():
+                for fname, name, kind in STATIC_PAGES:
+                    if (REPO_ROOT / fname).exists():
+                        raw[fname] = render_hant_static((REPO_ROOT / fname).read_text(encoding="utf-8"),
+                                                        fname, name, kind)
+        hant_pages = {rel: conv.html(text) for rel, text in raw.items()}
+    except Exception:
+        if hant_strict():
+            raise
+        log.exception("繁体版生成失败(HANT_STRICT=0):保留旧的 zh-hant/,简体照常导出")
+
+    # 繁体没生成时,简体页与 sitemap 只引用旧 zh-hant/ 里确实存在的繁体页
+    avail = None if hant_pages is not None else frozenset(
+        str(p.relative_to(hant_root)) for p in hant_root.rglob("*.html")) if hant_root.is_dir() else frozenset()
+    token = _HANT_AVAIL.set(avail)
+    try:
+        # ── 简体 ──
+        hans = render_site(entries)
+        hans["p/404.html"] = render_404()
+
+        # sitemap:lastmod 用数据自身的日期,保证导出可重复
+        newest = entries[0]["date"] if entries else None
+        urls = [(f"{settings.site_url}/", newest), (f"{settings.site_url}/p/index.html", newest),
+                (f"{settings.site_url}/about.html", None), (f"{settings.site_url}/privacy.html", None)]
+        urls += [(topic_url(i), by_dom[i][0][0] or None) for i, _, _ in topics]
+        urls += [(f"{settings.site_url}/{x['href']}", x["date"] or None) for x in topic_pages + who_pages]
+        urls += [(f"{settings.site_url}/{GUIDE_PATH}", newest)]
+        urls += [(f"{settings.site_url}/p/week/index.html", newest)]
+        # 条目太少的周是 noindex(见 render_week),不进 sitemap
+        urls += [(f"{settings.site_url}/p/week/{w}.html", by_week[w][0]["date"]) for w in week_ids
+                 if len(by_week[w]) >= MIN_COLLECTION]
+        urls += [(x["url"], x["date"] or None) for x in entries]
+        # 繁体版:同一批页面,地址多一级 /zh-hant;只列真的有的(about / privacy 要 index.html 在才生成)
+        have = set(hant_pages) if hant_pages is not None else set(avail or ())
+        for u, lm in list(urls):
+            hu = _alternates(u)[1]
+            rel = hu[len(f"{settings.site_url}/{HANT_DIR}/"):] or "index.html"
+            if rel in have:
+                urls.append((hu, lm))
+
+        # ── 写盘:渲染全部成功之后才动目录 ──
+        clear_dir(PAGES_DIR)
+        clear_dir(REPO_ROOT / "feed")
+        for rel, text in hans.items():
+            write(PAGES_DIR / rel[2:] if rel.startswith("p/") else REPO_ROOT / rel, text)
+        if hant_pages is not None:
+            clear_dir(hant_root)
+            for rel, text in hant_pages.items():
+                write(hant_root / rel, text)
+
+        (SITE_DIR / "collections.json").write_text(json.dumps(
+            {"topics": topic_pages, "who": who_pages}, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+        (REPO_ROOT / "robots.txt").write_text(render_robots(), encoding="utf-8")
+        (REPO_ROOT / "llms.txt").write_text(
+            render_llms(entries, topics, collections=topic_pages, who=who_pages), encoding="utf-8")
+        (REPO_ROOT / "llms-full.txt").write_text(render_llms(entries, topics, full=True), encoding="utf-8")
+        update_index_html(entries, topics, seo_config(), topic_pages, who_pages, overview)
+        (REPO_ROOT / "sitemap.xml").write_text(render_sitemap(urls), encoding="utf-8")
+    finally:
+        _HANT_AVAIL.reset(token)
 
     # 广告配置:config/ads.json → data/site/ads.json;启用 AdSense 时生成 ads.txt
     ads = json.loads(ADS_CONFIG.read_text(encoding="utf-8")) if ADS_CONFIG.exists() else {"enabled": False}
@@ -1316,4 +1406,4 @@ def build(s: Session, overview: dict | None = None) -> dict[str, int]:
     elif ads_txt.exists():
         ads_txt.unlink()
     return {"pages": len(docs) + 1, "topics": len(topics), "sitemap_urls": len(urls),
-            "hant_pages": sum(1 for _ in hant_root.rglob("*.html"))}
+            "hant_pages": sum(1 for _ in hant_root.rglob("*.html")), "hant_ok": hant_pages is not None}
