@@ -30,9 +30,9 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from . import analytics as A
-from .config import REPO_ROOT, SITE_DIR, settings
+from .config import DATA_DIR, REPO_ROOT, SITE_DIR, settings
 from .ingest import split_summary
-from .models import Document, Domain, Party
+from .models import Agency, Document, Domain, Party
 
 log = logging.getLogger("policy.seo")
 PAGES_DIR = REPO_ROOT / "p"
@@ -287,18 +287,41 @@ def _foot(up: str = "../") -> str:
 
 
 
+def _crumbs_ld(trail: list[tuple[str, str]]) -> dict:
+    """BreadcrumbList 结构化数据:trail = [(名称, 地址)…],首页与「全部政策」自动加在前面。
+    只用在页面上看得见面包屑的页(与可见内容一致);搜索结果里显示的是路径名而不是一串网址。"""
+    full = [("首页", _home()), ("全部政策", f"{_base()}/p/index.html"), *trail]
+    return {"@context": "https://schema.org", "@type": "BreadcrumbList",
+            "itemListElement": [{"@type": "ListItem", "position": i + 1, "name": n, "item": u}
+                                for i, (n, u) in enumerate(full)]}
+
+
 def _field(k: str, v) -> str:
     return (f'<div class="field"><div class="k">{e(k)}</div><div class="v">{e(v)}</div></div>'
             if v else "")
 
 
-def page_title(t: str, tag: str = "") -> str:
+def page_title(t: str, tag: str = "", lead: str = "") -> str:
     """搜索结果标题约显示 30 个汉字;公报标题常常很长,截短并用短后缀,总长控制在 56 字以内。
-    tag:标题与别的页面完全相同时(同名系列)附上日期,否则搜索结果里分不出是哪一份。"""
+    tag:标题与别的页面完全相同时(同名系列)附上日期,否则搜索结果里分不出是哪一份。
+    lead:写在最前面的限定语(见 title_lead),算在总长之内。"""
     t = re.sub(r"\s+", " ", t or "").strip()
     tag = f"({tag})" if tag else ""
-    room = 48 - len(tag)
-    return (t if len(t) <= room else t[:room - 1] + "…") + tag + " | 泰国政策"
+    room = 48 - len(tag) - len(lead)
+    return lead + (t if len(t) <= room else t[:room - 1] + "…") + tag + " | 泰国政策"
+
+
+def title_lead(title_zh: str, cabinet_resolution: bool = False) -> str:
+    """<title> 最前面的「泰国」。公报标题是「工业部公告:…」「土地厅公告:…」这样的写法,九成不含「泰国」二字,
+    而搜索结果只显示标题的前 30 个字左右,结尾的「| 泰国政策」几乎都被截掉 —— 搜索的人看不出这是哪国的规定。
+    内阁决议的标题多是「关于……的措施」,前面写明「泰国内阁决议:」。标题本身以「泰国」开头的不重复加。
+    只改 <title>(以及随它的 og:title);页面上的 H1 仍是标题原样。"""
+    t = (title_zh or "").strip()
+    if cabinet_resolution and not t.startswith(("内阁决议", "泰国内阁")):
+        return "泰国内阁决议:"
+    if t.startswith(("泰国", "泰王国")):
+        return ""
+    return "泰国 " if t[:1].isascii() and t[:1].isalnum() else "泰国"
 
 
 def topic_url(dom_id: str) -> str:
@@ -311,42 +334,159 @@ def _status(v: dict) -> str:
     return f"{eff} 起施行" if eff and v["status_label"].endswith("起施行") else v["status_label"]
 
 
-def _lede(v: dict, gazetted: bool = True) -> str:
-    """一句话结论:谁、何时、发布了什么、现在什么状态。AI 摘答时最常直接引用开头这一句。
-    gazetted=False:条目来自发文机关官网(税务厅、BOI 等),日期是官网发布日,没有公报卷期 ——
-    不能写成「在皇家公报刊登」,那是本站没有核对过的事实。"""
-    d = v["dates"]
-    who = v["org"] or "泰国政府"
-    if d.get("published_at") and not gazetted:
-        when = f"于 {d['published_at']} 发布"
-    elif d.get("published_at"):
-        when = f"于 {d['published_at']} 在泰国皇家公报刊登"
-    elif d.get("resolved_at"):
-        when = f"于 {d['resolved_at']} 经内阁决议通过"
+# 早先的要点清洗把开头的数字一律当成列表序号删掉(app.enrich.strip_list_marker 已改正,新条目不再出错):
+# 「2026年7月1日及以后建造的船舶须……」成了「年7月1日及以后建造的船舶须……」,「7号线涵盖……」成了「号线涵盖……」。
+# 事实层里已有的这几十条要等重新整理才能恢复;在那之前,页面上不展示这种开头明显缺字的要点 ——
+# 缺了年份的日期被 AI 引用出去就是一条错误信息。摘要不受影响。只认不可能是句子开头的写法,「年利率」「月均」这类照常显示
+_CLIPPED_POINT_RE = re.compile(r"^(?:[年月]\s?\d|号线|级(?:包括|[:\uff1a])|个月)")
+
+
+def sound_points(points: list[str]) -> list[str]:
+    return [p for p in points or [] if not _CLIPPED_POINT_RE.match(p)]
+
+
+def book(title: str) -> str:
+    """给标题加书名号。标题里已有书名号时内层改用单书名号:《〈清迈倡议多边化协议〉修订版草案》,
+    而不是《《清迈倡议多边化协议》修订版草案》。"""
+    t = str(title or "")
+    return "《" + (t.replace("《", "〈").replace("》", "〉") if "《" in t or "》" in t else t) + "》"
+
+
+def is_cabinet_resolution(doc: Document) -> bool:
+    """内阁决议条目:只有决议日,没有公报卷期,也没有发布日。"""
+    return bool(doc.resolved_at) and not doc.published_at and not doc.gazette_series
+
+
+def agency_th_names() -> dict[str, list[str]]:
+    """词表里各机关的泰文名与别名 {id: [名称…]}(与 app.enrich.agency_rules 同一口径:4 个字符以下的缩写不用)。
+    词表里写的是「某某委员会办公室」(สำนักงานคณะกรรมการ…)的,委员会本身(คณะกรรมการ…)发的公告也算它的 ——
+    BOI 在词表里是办公室的泰文名,而公报上的「投资促进委员会公告」署的是委员会。"""
+    try:
+        vocab = json.loads((DATA_DIR / "vocab.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+    out: dict[str, list[str]] = {}
+    for a in vocab.get("agencies") or []:
+        names = [n for n in [a.get("th") or "", *(a.get("th_aliases") or [])] if len(n) >= 4]
+        names += [n[len("สำนักงาน"):] for n in names if n.startswith("สำนักงานคณะกรรมการ")]
+        out[a["id"]] = list(dict.fromkeys(names))
+    return out
+
+
+def issuer_info(doc: Document, org: str, th_names: dict[str, list[str]]) -> tuple[str, str]:
+    """落地页上「机关」一栏的 (标签, 名称)。标签是「发文机关」时,开头那句话和结构化数据才把它写成发文者。
+
+    数据里的机关是模型从词表里选的:词表没有的机关(宪法法院、商品与服务安全委员会、疾病控制厅……)
+    会被归到上级部委,或者落到缺省值「内阁」。原样写成「内阁于某日在皇家公报刊登《宪法法院裁决……》」
+    就是一句错话,而开头这句正是 AI 最常引用的。所以只在有依据时才说是谁发的:
+    - 公报条目:泰文原题的发文机关段(「เรื่อง」之前)里出现了该机关的泰文名;没有泰文原题的(人工整理的条目)照旧。
+    - 官网来源的条目:第一个机关就是这个官网的机关(uid 的第二段,如 TH-BOI-…、TH-RD-…),或泰文原题印证。
+    - 内阁决议:第一个机关是内阁。
+    - 人工复核过的条目照旧。
+    印证不了的:标签改为「相关机关」(本站归类,不等于发文者);只有一个缺省的「内阁」时整栏不显示。"""
+    ids = [a.agency_id for a in sorted(doc.agencies, key=lambda x: x.seq)]
+    if not ids or not org:
+        return "发文机关", org
+    head = re.split(r"เรื่อง|ว่าด้วย", doc.title_th or "")[0][:160].strip()
+    named = bool(head) and any(n in head for i in ids for n in th_names.get(i, ()))
+    if doc.verified or named:
+        ok = True
+    elif is_cabinet_resolution(doc):
+        ok = ids[0] == "cabinet"
+    elif doc.gazette_series:
+        ok = not head
     else:
-        when = "发布"
+        ok = ids[0] == _uid_agency(doc.uid) or (not head and ids[0] != "cabinet")
+    if ok:
+        return "发文机关", org
+    return ("", "") if ids == ["cabinet"] else ("相关机关", org)
+
+
+def _uid_agency(uid: str) -> str:
+    """uid 的第二段(TH-<机关>-<日期>-…):官网来源的条目,这一段就是来源网站所属的机关。"""
+    parts = str(uid or "").split("-")
+    return parts[1].lower() if len(parts) > 2 else ""
+
+
+def source_site(doc: Document, agencies_zh: dict[str, str]) -> str:
+    """官网来源的条目:原文所在官网属于哪个机关(中文名)。由 uid 的机关段与原文链接的域名互相印证,
+    对不上就返回空串。只用于「在某某官网发布」这句话。"""
+    aid = _uid_agency(doc.uid)
+    if doc.gazette_series or aid not in agencies_zh:
+        return ""
+    hosts = [re.sub(r"^https?://([^/:]+).*$", r"\1", x.url or "") for x in doc.sources if x.role == "official"]
+    return agencies_zh[aid] if any(h == f"{aid}.go.th" or h.endswith(f".{aid}.go.th") for h in hosts) else ""
+
+
+def legal_force(doc: Document, today) -> str | None:
+    """结构化数据的 legislationLegalForce。原先只看状态词表的 in_force,「已刊公报」一律写成 NotInForce ——
+    而页面正文写着「某日起生效」。按页面上看得见的事实来:
+    已被替代 / 废止 / 失效,或过了失效日 → NotInForce;现行有效 → InForce;
+    已刊公报:生效日已到 → InForce,生效日未到 → NotInForce,没有生效日 → 不声明;
+    草案、待刊公报 → NotInForce。"""
+    if doc.status_id in ("superseded", "repealed", "expired") or (doc.effective_to and doc.effective_to < today):
+        return "NotInForce"
+    if doc.status.in_force:
+        return "InForce"
+    if doc.status_id == "gazetted":
+        if not doc.effective_from:
+            return None
+        return "InForce" if doc.effective_from <= today else "NotInForce"
+    return "NotInForce"
+
+
+def _lede(v: dict, gazetted: bool = True, issuer: bool = True, site: str = "") -> str:
+    """一句话结论:谁、何时、发布了什么、现在什么状态。AI 摘答时最常直接引用开头这一句,
+    所以每个成分都要是本站核对过的事实。
+    gazetted=False:条目来自发文机关官网(税务厅、BOI 等),日期是官网发布日,没有公报卷期 ——
+    不能写成「在皇家公报刊登」。
+    issuer=False:机关一栏印证不了是发文者(见 issuer_info)—— 不拿它当主语,改用「《……》于某日刊登 / 发布」;
+    site 是原文所在官网的机关名,有它就写「在某某官网发布」。
+    内阁决议:只说「内阁就《……》作出决议」。决议可能是批准,也可能只是听取报告或交办,
+    没读过决议正文的条目不能一律写成「通过」。"""
+    d = v["dates"]
+    who = v["org"] if issuer else ""
+    sep = " " if who[-1:].isascii() else ""
+    title = book(v["title_zh"])
     no = f"({v['doc_no_label']} {v['doc_no']})" if v["doc_no"] else ""
     eff = f",{d['effective_from']} 起生效" if d.get("effective_from") else ""
-    sep = " " if who[-1:].isascii() else ""
-    return f"{who}{sep}{when}《{v['title_zh']}》{no}{eff}。当前状态:{_status(v)}。"
+    if d.get("published_at") and not gazetted:
+        if who:
+            what = f"{who}{sep}于 {d['published_at']} 发布{title}{no}"
+        else:
+            what = f"{title}{no}于 {d['published_at']} " + (f"在{site}官网发布" if site else "发布")
+    elif d.get("published_at"):
+        what = (f"{who}{sep}于 {d['published_at']} 在泰国皇家公报刊登{title}{no}" if who
+                else f"{title}{no}于 {d['published_at']} 在泰国皇家公报刊登")
+    elif d.get("resolved_at"):
+        what = f"泰国内阁于 {d['resolved_at']} 就{title}作出决议{no}"
+    else:
+        who = who or "泰国政府"
+        what = f"{who}{' ' if who[-1:].isascii() else ''}发布{title}{no}"
+    return f"{what}{eff}。当前状态:{_status(v)}。"
 
 
 def render_page(s: Session, doc: Document, today, titles: dict[str, str],
                 dom: tuple[str, str] = ("", ""), related: list[tuple[str, str, str]] = (),
                 series: list[tuple[str, str, str]] = (),
                 collections: list[tuple[str, str]] = (), dup_title: bool = False,
-                view: dict | None = None) -> str:
+                view: dict | None = None, issuer: tuple[str, str] | None = None, site: str = "") -> str:
     """dom = (领域 id, 领域中文名);related = 同领域相邻政策 [(uid, 日期, 标题)],做站内链接;
     series = 同一标题先后刊登的其他文件 [(uid, 日期, 标题)],按日期排列;
     collections = 收录本条的汇总页 [(相对 p/ 的地址, 名称)],专题页与影响对象页靠它拿到内链;
     dup_title = 还有别的条目与本条中文标题完全相同,<title> 要带上日期区分;
-    view = 已算好的 A.document_view(简繁两遍渲染共用一份,省一半查询)。"""
+    view = 已算好的 A.document_view(简繁两遍渲染共用一份,省一半查询);
+    issuer = issuer_info 的结果 (机关一栏的标签, 名称),site = source_site 的结果;不传就现算。"""
     v = view or A.document_view(s, doc, today)
     d = v["dates"]
     # 有公报卷期才说「刊登公报」;部门官网来源的条目,日期是官网发布日
     gazetted = bool(doc.gazette_series)
-    lede = _lede(v, gazetted)
-    title = page_title(v["title_zh"], v["date"] if dup_title else "")
+    org_label, org = issuer if issuer is not None else issuer_info(doc, v["org"], agency_th_names())
+    is_issuer = org_label == "发文机关"
+    points = sound_points(v["key_points"])
+    lede = _lede(v, gazetted, is_issuer, site)
+    title = page_title(v["title_zh"], v["date"] if dup_title else "",
+                       title_lead(v["title_zh"], is_cabinet_resolution(doc)))
     desc = v["summary_zh"] or v["title_zh"]
     if len(desc) < 80:                 # 摘要太短(搜索结果里几乎没信息),补上一句话结论
         desc = f"{desc} {lede}".strip()
@@ -371,7 +511,7 @@ def render_page(s: Session, doc: Document, today, titles: dict[str, str],
     origin = "泰文原文(官方):" + cite + links
 
     timeline = [(d.get("resolved_at"), "内阁决议"), (d.get("comment_deadline"), "征求意见截止"),
-                (d.get("published_at"), "刊登皇家公报" if gazetted else "发文机关发布"),
+                (d.get("published_at"), "刊登皇家公报" if gazetted else ("发文机关发布" if is_issuer else "官网发布")),
                 (d.get("effective_from"), "生效"),
                 (d.get("effective_to"), "失效")]
     timeline = sorted([t for t in timeline if t[0]])
@@ -379,7 +519,7 @@ def render_page(s: Session, doc: Document, today, titles: dict[str, str],
                  f'<div class="tl-name">{e(t[1])}</div></div>' for t in timeline)
 
     when = " / ".join(f"{n} {dt}" for dt, n in timeline) or "—"
-    facts = [("是什么", v["title_zh"]), ("发文机关", v["org"]),
+    facts = [("是什么", v["title_zh"]), (org_label, org),
              (v["doc_no_label"], v["doc_no"]), ("关键日期", when), ("当前状态", _status(v)),
              ("法律层级", v["legal_form"]), ("所属领域", dom[1])]
     facts_html = "".join(f"<dt>{e(k)}</dt><dd>{e(val)}</dd>" for k, val in facts if val)
@@ -392,9 +532,10 @@ def render_page(s: Session, doc: Document, today, titles: dict[str, str],
         "legislationJurisdiction": "TH",
         "legislationType": v["legal_form"],
         "legislationDate": d.get("published_at") or d.get("resolved_at"),
-        "legislationLegalForce": "InForce" if doc.status.in_force else "NotInForce",
-        "legislationPassedBy": ({"@type": "GovernmentOrganization", "name": v["org"]}
-                                if v["org"] else None),
+        "legislationLegalForce": legal_force(doc, today),
+        # 只在机关确是发文者时才声明(见 issuer_info);印证不了的不写
+        "legislationPassedBy": ({"@type": "GovernmentOrganization", "name": org}
+                                if is_issuer and org else None),
         "datePublished": v["date"] or None,
         "inLanguage": _lang(), "url": canonical, "abstract": v["summary_zh"],
         "about": dom[1] or None,
@@ -421,7 +562,7 @@ def render_page(s: Session, doc: Document, today, titles: dict[str, str],
 
     crumb_html = '<a href="index.html">全部政策</a>' + (
         f' / <a href="topic/{e(dom[0])}.html">{e(dom[1])}</a>' if dom[0] else "") + f" / {e(v['legal_form'])}"
-    citation = (f"《{v['title_zh']}》中文摘要,{SITE_NAME},{canonical}"
+    citation = (f"{book(v['title_zh'])}中文摘要,{SITE_NAME},{canonical}"
                 + (f"(泰文原文:{first_official})" if first_official else ""))
 
     body = f"""
@@ -434,14 +575,14 @@ def render_page(s: Session, doc: Document, today, titles: dict[str, str],
   {f'<div class="d-thai" lang="th">泰文原题:{e(v["title_th"])}</div>' if v['title_th'] else ''}
   <p class="lede">{e(lede)}</p>
   <div class="fields">
-    {_field('发文机关', v['org'])}{_field(v['doc_no_label'], v['doc_no'])}
+    {_field(org_label, org)}{_field(v['doc_no_label'], v['doc_no'])}
     {_field('内阁决议日', d.get('resolved_at'))}{_field('刊登公报日' if gazetted else '发布日', d.get('published_at'))}
     {_field('生效日', d.get('effective_from'))}{_field('状态', _status(v))}
     {_field('法律层级', v['legal_form'])}{_field('稳定性', f"{v['stability']} / 5")}
   </div>
   <div class="d-body">
     <h2 style="font-size:15px">中文摘要</h2><p>{e(v['summary_zh'])}</p>
-    {('<h2 style="font-size:15px">正文要点</h2><ul class="points">' + "".join(f"<li>{e(k)}</li>" for k in v["key_points"]) + "</ul>") if v["key_points"] else ""}
+    {('<h2 style="font-size:15px">正文要点</h2><ul class="points">' + "".join(f"<li>{e(k)}</li>" for k in points) + "</ul>") if points else ""}
     <h2 style="font-size:15px">要点速览</h2><dl class="facts">{facts_html}</dl>
     {f'<h2 style="font-size:15px">生命周期</h2><div class="timeline">{tl}</div>' if tl else ''}
     {f'<h2 style="font-size:15px">关联文件</h2><ul>{rels}</ul>' if rels else ''}
@@ -514,7 +655,7 @@ def _item_card(x: dict, up: str = "../", tag: str = "h2", points: int = 3, lead:
     """汇总页里的一条:日期 · 机关 · 编号 / 标题 / 摘要 / 要点 / 泰文原文链接。
     lead 是标题前的标记(已转义的 HTML),sub 覆盖第一行的说明(已转义的 HTML)。"""
     pts = "".join(f"<li>{e(k)}</li>" for k in x["points"][:points])
-    head = sub or (f'{e(x["date"] or "—")} · {e(x["org"] or "")}' + (f" · {e(x['doc_no'])}" if x["doc_no"] else ""))
+    head = sub or " · ".join(e(t) for t in (x["date"] or "—", x["org"], x["doc_no"]) if t)
     return (f'<div class="coll-item"><div class="lib-sub">{head}</div>'
             f'<{tag} class="coll-title">{lead}<a href="{up}{e(slug(x["uid"]))}.html">{e(x["title"])}</a></{tag}>'
             f'<p>{e(x["summary"])}</p>' + (f'<ul class="points">{pts}</ul>' if pts else "")
@@ -601,30 +742,63 @@ def topic_matches(x: dict, match: dict) -> bool:
     return True
 
 
+COLL_LATEST = 20            # 专题页 / 影响对象页开头带摘要展示的最新条数
+COLL_KEEP_WHOLE = 5         # 只比上面多出这么几条以内就整页都带摘要,不为三五条另起一个目录
+
+
 def render_collection(url: str, title: str, h1: str, scope: str, items: list[dict], crumb: str,
-                      party: str | None = None, related: str = "") -> str:
-    """汇编页:逐条列出已收录条目的日期、机关、标题、摘要、要点与泰文原文链接。
-    刻意不写任何综述 —— 页面上的每一句都来自某一条有官方原文的条目。"""
+                      party: str | None = None, related: str = "", desc_lead: str = "") -> str:
+    """汇编页:列出已收录条目的日期、机关、标题、摘要、要点与泰文原文链接。
+    刻意不写任何综述 —— 页面上的每一句都来自某一条有官方原文的条目。
+
+    条目多的页面(「影响外资企业」440 条、BOI 91 条)原先每一条都带摘要和要点,一页 580 KB、5100 个节点:
+    手机上首屏要 2 秒多,AI 助手取页面时也只读得进开头一小段。现在与领域页同一结构 ——
+    最新 COLL_LATEST 条带摘要与要点,更早的按年份列标题(连到各自的落地页,摘要在那里)。
+    desc_lead:<meta description> 的开头,要带上「泰国」和主题词(搜索结果里先看到的是这一句)。"""
     items = sorted(items, key=lambda x: (x["date"] or "", x["uid"]), reverse=True)
     latest = items[0]["date"] if items else ""
-    desc = f"{scope} 共 {len(items)} 条" + (f",最新 {latest}" if latest else "") + ";每条附泰文原文链接。"
-    rows = []
-    for x in items:
-        stance = ""
-        if party:
-            st = next((p["stance"] for p in x["parties"] if p["id"] == party), "")
-            stance = f'<span class="party {e(st)}">{e(STANCE_ZH.get(st, ""))}</span> ' if STANCE_ZH.get(st) else ""
-        rows.append(_item_card(x, "../", lead=stance))
-    ld = {"@context": "https://schema.org", "@type": "CollectionPage", "name": h1, "url": url,
-          "inLanguage": _lang(), "description": scope,
-          "mainEntity": {"@type": "ItemList", "numberOfItems": len(items),
-                         "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": x["url"],
-                                              "name": x["title"]} for i, x in enumerate(items[:50])]}}
+    tail = f"共 {len(items)} 条" + (f",最新 {latest}" if latest else "") + ";每条附中文摘要与泰文原文链接。"
+    desc = clip(f"{desc_lead}{scope}{tail}" if desc_lead else f"{scope} {tail}")
+
+    def stance_of(x: dict) -> str:
+        if not party:
+            return ""
+        st = next((p["stance"] for p in x["parties"] if p["id"] == party), "")
+        return f'<span class="party {e(st)}">{e(STANCE_ZH.get(st, ""))}</span> ' if STANCE_ZH.get(st) else ""
+
+    split = len(items) > COLL_LATEST + COLL_KEEP_WHOLE
+    head_items, rest = (items[:COLL_LATEST], items[COLL_LATEST:]) if split else (items, [])
+    cards = "".join(_item_card(x, "../", tag="h3" if split else "h2", lead=stance_of(x)) for x in head_items)
+    older = ""
+    if rest:
+        by_year: dict[str, list[dict]] = {}
+        for x in rest:
+            by_year.setdefault(x["date"][:4] or "日期不详", []).append(x)
+        years = sorted(by_year, reverse=True)
+        jump = " · ".join(f'<a href="#y{e(y)}">{e(y)} 年({len(by_year[y])})</a>' for y in years)
+        older = (f'<h2 class="mod sec">更早的 {len(rest)} 条</h2>'
+                 + (f'<div class="mod-sub">按年份:{jump}</div>' if len(years) > 1 else ""))
+        for y in years:
+            rows = "".join(f'<div class="lib-row"><span class="lib-date">{e(x["date"])}</span>'
+                           f'<div class="lib-title">{stance_of(x)}<a href="../{e(slug(x["uid"]))}.html">{e(x["title"])}</a>'
+                           f'</div></div>' for x in by_year[y])
+            older += (f'<h3 class="mod yr" id="y{e(y)}">{e(y)} 年 · {len(by_year[y])} 条</h3>'
+                      f'<div class="lib-wrap">{rows}</div>')
+    ld = [{"@context": "https://schema.org", "@type": "CollectionPage", "name": h1, "url": url,
+           "inLanguage": _lang(), "description": scope, **({"dateModified": latest} if latest else {}),
+           "isPartOf": {"@type": "WebSite", "@id": f"{_home()}#website", "name": SITE_NAME, "url": _home()},
+           "mainEntity": {"@type": "ItemList", "numberOfItems": len(items),
+                          "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": x["url"],
+                                               "name": x["title"]} for i, x in enumerate(items[:50])]}},
+          _crumbs_ld([(crumb.split(" / ", 1)[-1], url)])]
+    how = (f"先列最新 {len(head_items)} 条的中文摘要、要点与泰文原文链接,更早的 {len(rest)} 条按年份列出标题(点开可读摘要)"
+           if rest else "以下逐条摘录本站已收录条目的中文摘要")
     body = (f'<div class="crumb"><a href="../index.html">全部政策</a> / {e(crumb)}</div>'
             f'<h1 class="page">{e(h1)}</h1>'
             f'<div class="page-sub">{e(scope)}<br>共 <b>{len(items)}</b> 条' + (f",最新 {e(latest)}" if latest else "")
-            + "。以下逐条摘录本站已收录条目的中文摘要,一切以泰文原文为准。</div>"
-            + "".join(rows) + related)
+            + f"。{how},一切以泰文原文为准。</div>"
+            + (f'<h2 class="mod sec">最新 {len(head_items)} 条</h2>' if rest else "")
+            + cards + older + related)
     return _head(title, desc, url, ld, up="../../") + body + _foot("../../")
 
 
@@ -663,11 +837,13 @@ def render_collections(pages: list[tuple], index: list[dict]) -> dict[str, str]:
             html = render_collection(
                 f"{_base()}/p/who/{pid}.html", f"影响{zh}的泰国政策汇总 | {SITE_NAME}",
                 f"影响「{zh}」的泰国政策", f"收录本站标注为影响「{zh}」的公报与决议(含约束与利好)。",
-                items, f"影响对象 / {zh}", party=pid, related=related(kind, pid))
+                items, f"影响对象 / {zh}", party=pid, related=related(kind, pid),
+                desc_lead=f"影响{zh}的泰国政策汇总:")
         else:
             html = render_collection(
                 f"{_base()}/p/t/{pid}.html", f"泰国{zh}:历次公报汇总 | {SITE_NAME}",
-                f"泰国{zh}:历次公报汇总", t["scope_zh"], items, f"专题 / {zh}", related=related(kind, pid))
+                f"泰国{zh}:历次公报汇总", t["scope_zh"], items, f"专题 / {zh}", related=related(kind, pid),
+                desc_lead=f"泰国{zh}:")
         out[f"{kind}/{pid}.html"] = html
     return out
 
@@ -734,11 +910,12 @@ def render_week(wid: str, items: list[dict], prev_id: str | None, next_id: str |
         f'<a href="{e(prev_id)}.html">← 上一周</a>' if prev_id else "",
         '<a href="index.html">全部周汇总</a>',
         f'<a href="{e(next_id)}.html">下一周 →</a>' if next_id else "") if t)
-    ld = {"@context": "https://schema.org", "@type": "CollectionPage", "name": title, "url": url,
-          "inLanguage": _lang(), "temporalCoverage": f"{a}/{b}", "description": desc,
-          "mainEntity": {"@type": "ItemList", "numberOfItems": len(items),
-                         "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": x["url"],
-                                              "name": x["title"]} for i, x in enumerate(items[:50])]}}
+    ld = [{"@context": "https://schema.org", "@type": "CollectionPage", "name": title, "url": url,
+           "inLanguage": _lang(), "temporalCoverage": f"{a}/{b}", "description": desc,
+           "mainEntity": {"@type": "ItemList", "numberOfItems": len(items),
+                          "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": x["url"],
+                                               "name": x["title"]} for i, x in enumerate(items[:50])]}},
+          _crumbs_ld([("周汇总", f"{_base()}/p/week/index.html"), (f"{y} 年第 {int(w)} 周", url)])]
     body = (f'<div class="crumb"><a href="../index.html">全部政策</a> / 周汇总</div>'
             f'<h1 class="page">{e(title)}</h1><div class="page-sub">{a} 至 {b} 刊登或发布、本站已收录的 '
             f'<b>{len(items)}</b> 条政策。按条目日期(公报刊登日或发文机关发布日)分周;'
@@ -760,8 +937,9 @@ def render_week_index(weeks: list[tuple[str, int]]) -> str:
     title = "泰国政策周汇总 | 政策脉络 · 泰国"
     desc = (f"按泰国皇家公报刊登日分周整理的政策中文汇总,目前共 {len(weeks)} 周、"
             f"{sum(n for _, n in weeks)} 条,每周一页,每条附中文摘要与泰文原文链接,可用 RSS 订阅更新。")
-    ld = {"@context": "https://schema.org", "@type": "CollectionPage", "name": "泰国政策周汇总",
-          "url": url, "inLanguage": _lang(), "description": desc}
+    ld = [{"@context": "https://schema.org", "@type": "CollectionPage", "name": "泰国政策周汇总",
+           "url": url, "inLanguage": _lang(), "description": desc},
+          _crumbs_ld([("周汇总", url)])]
     return _head(title, desc, url, ld, up="../../") + body + _foot("../../")
 
 
@@ -833,9 +1011,14 @@ def _md(t: str) -> str:
 
 
 def render_llms(entries: list[dict], topics: list[tuple[str, str, int]], full: bool = False,
-                collections: list[dict] = (), who: list[dict] = ()) -> str:
-    """llms.txt(llmstxt.org 约定):给大模型的站点说明 + 索引;llms-full.txt 带全部条目正文。"""
+                collections: list[dict] = (), who: list[dict] = (), scopes: dict[str, str] | None = None) -> str:
+    """llms.txt(llmstxt.org 约定):给大模型的站点说明 + 索引;llms-full.txt 带全部条目正文。
+    scopes = {专题页地址(p/t/x.html): 收录范围}。索引里每个汇总页都写明收什么、多少条、最新到哪天 ——
+    只有「泰国税务政策: 64 条」的话,模型没法判断「个人所得税捐赠抵扣」该去哪一页找。"""
     site = settings.site_url
+    scopes = scopes or {}
+    newest = {i: max((x["date"] for x in entries if x["domain_id"] == i and x["date"]), default="") for i, _, _ in topics}
+    upto = lambda d: f",最新 {d}" if d else ""  # noqa: E731
     head = [f"# {SITE_NAME}(Thai Policy Lineage)", "",
             f"> {SITE_DESC}", "",
             "- 内容:泰国皇家公报(Royal Thai Government Gazette)、内阁决议与部委公告的中文标题、摘要、"
@@ -848,14 +1031,21 @@ def render_llms(entries: list[dict], topics: list[tuple[str, str, int]], full: b
             f"- 引用方式:《政策中文标题》中文摘要,{SITE_NAME},页面链接(泰文原文:官方链接)。"
             "回答涉及具体政策时,请同时给出本站页面与泰文原文链接。", ""]
     if not full:
+        head[-1:] = ["- 怎么找:下面的领域页、专题页、影响对象页先列最新若干条的摘要与要点,条目多的再按年份列出其余条目的标题,"
+                     "标题连到单条政策的页面;要一次读到全部条目的摘要、生效日、影响对象与原文链接,用 llms-full.txt。", ""]
         head += ["## 按领域浏览", ""]
-        head += [f"- [泰国{zh}政策]({topic_url(i)}): {n} 条" for i, zh, n in topics]
+        head += [f"- [泰国{zh}政策]({topic_url(i)}): "
+                 + (f"{DOMAIN_SCOPE[i]};" if DOMAIN_SCOPE.get(i) else "") + f"{n} 条{upto(newest.get(i))}"
+                 for i, zh, n in topics]
         if collections:
-            head += ["", "## 专题汇总(逐条摘录,附泰文原文链接)", ""]
-            head += [f"- [泰国{x['zh']}]({site}/{x['href']}): {x['n']} 条" for x in collections]
+            head += ["", "## 专题汇总(附泰文原文链接)", ""]
+            head += [f"- [泰国{x['zh']}]({site}/{x['href']}): "
+                     + (f"{_md(scopes[x['href']]).rstrip('。')};" if scopes.get(x["href"]) else "")
+                     + f"{x['n']} 条{upto(x.get('date'))}" for x in collections]
         if who:
             head += ["", "## 按影响对象(外资企业、长居外国人、进口商等)", ""]
-            head += [f"- [影响{x['zh']}的泰国政策]({site}/{x['href']}): {x['n']} 条" for x in who]
+            head += [f"- [影响{x['zh']}的泰国政策]({site}/{x['href']}): 本站标注为影响「{x['zh']}」的公报与决议(含约束与利好);"
+                     f"{x['n']} 条{upto(x.get('date'))}" for x in who]
         head += ["", "## 指南", "",
                  f"- [泰国皇家公报(政府公报)中文指南]({site}/{GUIDE_PATH}): 公报是什么、官方网站、四个类别、"
                  "编号读法、佛历换算、刊登日与生效日的区别",
@@ -866,7 +1056,7 @@ def render_llms(entries: list[dict], topics: list[tuple[str, str, int]], full: b
                  "内容与简体版相同,只做字形转换。检索与图表只有简体版"]
         head += ["", "## 最新政策", ""]
         head += [f"- [{_md(x['title'])}]({x['url']}): {x['date']}"
-                 + (f" · {x['doc_no']}" if x["doc_no"] else "") + f" · {_md(x['summary'])[:80]}"
+                 + (f" · {x['doc_no']}" if x["doc_no"] else "") + f" · {clip(x['summary'], 90)}"
                  for x in entries[:40]]
         head += ["", "## 数据", "",
                  f"- [全部政策目录]({site}/p/index.html): 纯 HTML,按领域分组",
@@ -885,7 +1075,7 @@ def render_llms(entries: list[dict], topics: list[tuple[str, str, int]], full: b
                  f"- 日期:{x['date'] or '—'} · 领域:{x['domain'] or '—'} · 状态:{x['status']}",
                  *([f"- 生效日:{x['effective']}"] if x.get("effective") else []),
                  *([f"- 影响对象:{'、'.join(x['parties_zh'])}"] if x.get("parties_zh") else []),
-                 *([f"- 发文机关:{x['org']}"] if x["org"] else []),
+                 *([f"- {x.get('org_label') or '发文机关'}:{x['org']}"] if x["org"] else []),
                  f"- 泰文原文(官方):{x['official']}", "",
                  _md(x["summary"]), *([""] + [f"- {_md(k)}" for k in x["points"]] if x["points"] else []), ""]
     return "\n".join(body) + "\n"
@@ -1095,6 +1285,10 @@ def render_home_feed(featured: list[dict]) -> str:
 # ───────────────────── 繁体版:首页门户、手写静态页 ─────────────────────
 
 HANT_LATEST = 20            # 繁体首页带摘要展示的最新条数
+# 繁体首页的描述与开场白。不能照抄 SITE_DESC:那句话里的「七维政策分析与趋势看板」是简体单页应用的功能,
+# 繁体首页是静态门户页,没有这些;搜索结果里许诺了页面上没有的东西,点进来的人会直接走
+HANT_HOME_DESC = ("泰国皇家公报、内阁决议与各部委公告的中文摘要与正文要点:按签证、税务、公司投资、劳工、房产土地、"
+                  "海关贸易等领域整理,每条附泰国政府网站上的泰文原文链接。非官方翻译,以泰文原文为准。")
 
 
 def render_hant_home(entries: list[dict], topics: list[tuple[str, str, int]], collections: list[dict],
@@ -1110,7 +1304,7 @@ def render_hant_home(entries: list[dict], topics: list[tuple[str, str, int]], co
     total = len(entries)
     dates = [x["date"] for x in entries if x["date"]]
     body = (f'<h1 class="page">泰国政策中文数据库:皇家公报与内阁决议</h1>'
-            f'<div class="page-sub">{e(SITE_DESC)}<br>目前收录 <b>{total}</b> 条'
+            f'<div class="page-sub">{e(HANT_HOME_DESC)}<br>目前收录 <b>{total}</b> 条'
             + (f",文件日期从 {e(min(dates))} 到 {e(max(dates))}" if dates else "") + "。"
             '本页是繁体中文版入口;互动检索、筛选与趋势图表目前只有简体版:'
             '<a href="../" hreflang="zh-Hans">简体版首页</a> · <a href="../#search" hreflang="zh-Hans">找政策</a>。</div>'
@@ -1130,13 +1324,13 @@ def render_hant_home(entries: list[dict], topics: list[tuple[str, str, int]], co
             + f'<p style="margin-top:16px"><a href="p/index.html">查看全部 {total} 条 →</a></p>')
     ld = [{"@context": "https://schema.org", "@type": "WebSite", "@id": f"{url}#website", "name": SITE_NAME,
            "alternateName": ["Thai Policy Lineage", "泰国政策中文库"], "url": url, "inLanguage": _lang(),
-           "description": SITE_DESC, "publisher": {"@id": f"{settings.site_url}/#org"}},
+           "description": HANT_HOME_DESC, "publisher": {"@id": f"{settings.site_url}/#org"}},
           {"@context": "https://schema.org", "@type": "CollectionPage", "name": "泰国政策 · 最新收录", "url": url,
            "inLanguage": _lang(), "isPartOf": {"@id": f"{url}#website"},
            "mainEntity": {"@type": "ItemList", "numberOfItems": len(latest),
                           "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": x["url"],
                                                "name": x["title"]} for i, x in enumerate(latest)]}}]
-    return (_head("泰国政策中文数据库:皇家公报、内阁决议中文摘要与原文 | 政策脉络", clip(SITE_DESC), url, ld, up="")
+    return (_head("泰国政策中文数据库:皇家公报、内阁决议中文摘要与原文 | 政策脉络", clip(HANT_HOME_DESC), url, ld, up="")
             + body + _foot(""))
 
 
@@ -1174,6 +1368,11 @@ def build(s: Session, overview: dict | None = None) -> dict[str, int]:
     titles = {d.uid: d.title_zh for d in docs}
     domains = {d.id: d for d in s.scalars(select(Domain)).all()}
     views = {d.uid: A.document_view(s, d, today) for d in docs}    # 简繁两遍渲染共用
+    # 机关一栏能不能当「发文机关」说(见 issuer_info);官网来源的条目,原文在哪个机关的官网上
+    th_names = agency_th_names()
+    agencies_zh = {a.id: a.zh for a in s.scalars(select(Agency)).all()}
+    issuers = {d.uid: issuer_info(d, views[d.uid]["org"], th_names) for d in docs}
+    sites = {d.uid: source_site(d, agencies_zh) for d in docs}
 
     def dom_of(doc: Document) -> tuple[str, str]:
         dom = min(doc.domains, key=lambda x: x.seq).domain_id if doc.domains else ""
@@ -1220,12 +1419,12 @@ def build(s: Session, overview: dict | None = None) -> dict[str, int]:
                         "parties": [{"id": x.party_id, "stance": x.stance}
                                     for x in sorted(doc.parties, key=lambda x: x.party_id)],
                         "doc_no": doc.doc_no or "", "summary": split_summary(doc.summary_zh)[0],
-                        "points": split_summary(doc.summary_zh)[1],
+                        "points": sound_points(split_summary(doc.summary_zh)[1]),
                         "status": doc.status.zh, "official": official,
                         "effective": doc.effective_from.isoformat() if doc.effective_from else "",
                         "parties_zh": [parties_zh[x.party_id] for x in sorted(doc.parties, key=lambda x: x.party_id)
                                        if x.party_id in parties_zh],
-                        "org": views[doc.uid]["org"]})
+                        "org": issuers[doc.uid][1], "org_label": issuers[doc.uid][0]})
 
     topics = sorted(((i, domains[i].zh, len(items)) for i, items in by_dom.items() if i),
                     key=lambda t: (-t[2], t[0]))
@@ -1281,7 +1480,8 @@ def build(s: Session, overview: dict | None = None) -> dict[str, int]:
         for doc, dom, related in pending:
             out[f"p/{slug(doc.uid)}.html"] = render_page(
                 s, doc, today, titles, dom, related, in_series.get(doc.uid, []),
-                member_of.get(doc.uid, []), dup_title=doc.title_zh in dup_titles, view=views[doc.uid])
+                member_of.get(doc.uid, []), dup_title=doc.title_zh in dup_titles, view=views[doc.uid],
+                issuer=issuers[doc.uid], site=sites[doc.uid])
         for i, zh, _ in topics:
             out[f"p/topic/{i}.html"] = render_topic(i, zh, domains[i].en or "",
                                                     [x for x in ents if x["domain_id"] == i],
@@ -1373,7 +1573,9 @@ def build(s: Session, overview: dict | None = None) -> dict[str, int]:
             {"topics": topic_pages, "who": who_pages}, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
         (REPO_ROOT / "robots.txt").write_text(render_robots(), encoding="utf-8")
         (REPO_ROOT / "llms.txt").write_text(
-            render_llms(entries, topics, collections=topic_pages, who=who_pages), encoding="utf-8")
+            render_llms(entries, topics, collections=topic_pages, who=who_pages,
+                        scopes={f"p/t/{i}.html": t["scope_zh"] for k, i, _, _, t in coll_pages if k == "t"}),
+            encoding="utf-8")
         (REPO_ROOT / "llms-full.txt").write_text(render_llms(entries, topics, full=True), encoding="utf-8")
         update_index_html(entries, topics, seo_config(), topic_pages, who_pages, overview)
         (REPO_ROOT / "sitemap.xml").write_text(render_sitemap(urls), encoding="utf-8")

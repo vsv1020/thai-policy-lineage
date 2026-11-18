@@ -95,6 +95,9 @@ RULE_CASES = [
     ("新内容会补进对应的周。", "對應的週", "對應的周"),
     ("2026 年第 17 周(04-20 至 04-26)", "第 17 週", "17 周"),
     ("连续用药超过2周须在医生监督下进行", "2週須", "2周"),
+    # 用词(不是字形):只收无歧义、且目前只出现在本站说明文字里的两个词
+    ("泰国政策中文数据库:皇家公报与内阁决议", "中文資料庫", "數據庫"),
+    ("每条附中文摘要与泰文原文链接。", "泰文原文連結", "鏈接"),
 ]
 
 # 规则不能误伤的正确用法:(简体原文, 繁体里应出现的)
@@ -111,6 +114,12 @@ KEEP_CASES = [
     ("最后一天", "最後一天"), ("复苏", "復甦"), ("一并废止", "一併廢止"), ("外汇", "外匯"),
     ("周岁", "週歲"), ("生命周期", "生命週期"), ("若干莱土地", "若干萊"), ("宋干节", "宋干節"),
     ("主干道", "主幹道"), ("干部", "幹部"),
+    # 「某某链 + 接…」不是「链接」
+    ("须提供供应链接入方案", "供應鏈接入"), ("区块链接口标准", "區塊鏈接口"), ("与全球产业链接轨", "產業鏈接軌"),
+    ("冷链接驳点", "冷鏈接駁"), ("价值链接续", "價值鏈接續"),
+    # 词汇不整体换成台湾用语:法律文本里的「发布、文件、程序、项目、信息」保持原词
+    ("发布公告", "發布公告"), ("申请文件", "申請文件"), ("行政程序", "行政程序"), ("投资项目", "投資項目"),
+    ("信息交换", "信息交換"), ("网络安全", "網絡安全"), ("数据保护", "數據保護"),
 ]
 
 
@@ -397,7 +406,13 @@ def test_text_is_converted(site):
 def test_hant_home_portal(site):
     root, _ = site
     t = (root / "zh-hant" / "index.html").read_text(encoding="utf-8")
-    assert t.count("<h1") == 1 and "泰國政策中文數據庫" in t
+    assert t.count("<h1") == 1 and "泰國政策中文資料庫" in t, "「数据库」在繁体页作「資料庫」"
+    head = t.split("</head>")[0]
+    desc = re.search(r'<meta name="description" content="([^"]*)"', head).group(1)
+    # 门户页没有七维分析与趋势看板,描述与开场白不能许诺页面上没有的功能
+    for absent in ("七維", "趨勢看板", "數據庫", "鏈接"):
+        assert absent not in desc and absent not in t.split("<main")[1].split("<nav")[0], absent
+    assert desc.startswith("泰國皇家公報") and "泰文原文連結" in desc
     assert M.audit_html(f"{HANT}/", t, {})["problems"] == []
     for href in ('href="p/topic/', 'href="p/t/', 'href="p/who/', 'href="p/guide/royal-gazette.html"',
                  'href="p/week/index.html"', 'href="feed.xml"', 'href="feed/', 'href="about.html"'):

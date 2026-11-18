@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-Hant">
   <title>政策脈絡 · 泰國 · 簽證居留 · 最新政策</title>
-  <subtitle>泰國皇家公報、內閣決議與各部委政策的中文結構化數據庫:每條附泰文原文(泰國政府網站)溯源,含演進脈絡、七維政策分析與趨勢看板。非官方翻譯,以泰文原文為準。</subtitle>
+  <subtitle>泰國皇家公報、內閣決議與各部委政策的中文結構化資料庫:每條附泰文原文(泰國政府網站)溯源,含演進脈絡、七維政策分析與趨勢看板。非官方翻譯,以泰文原文為準。</subtitle>
   <link href="https://www.thaipolicy.com/zh-hant/feed/visa.xml" rel="self"/>
   <link href="https://www.thaipolicy.com/zh-hant/p/topic/visa.html"/>
   <id>https://www.thaipolicy.com/zh-hant/feed/visa.xml</id>
