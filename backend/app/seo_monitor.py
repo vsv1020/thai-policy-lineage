@@ -40,6 +40,13 @@ UA = "thaipolicy-seo-monitor/1.0 (+https://www.thaipolicy.com/llms.txt)"
 # 只凭标题写的摘要;繁体版(/zh-hant/)里同一句话是「據標題」「待原文核對」
 THIN_RE = re.compile(r"据标题|據標題|待原文核对|待原文核對")
 INDEXNOW_MAX = 10000        # IndexNow 单次提交的 URL 上限
+HANT_PREFIX = "zh-hant"     # 繁体版地址前缀
+HANT_INSPECT_SHARE = 0.25   # 每日 GSC 逐页收录检查名额里给繁体页的比例
+
+
+def is_hant_url(u: str) -> bool:
+    """繁体版页面:路径以 /zh-hant/ 开头。"""
+    return urlsplit(u).path.startswith(f"/{HANT_PREFIX}/")
 LEVELS = {"error": 0, "warn": 1, "info": 2}
 LEVEL_ZH = {"error": "🔴 严重", "warn": "🟠 需处理", "info": "🔵 建议"}
 
@@ -114,6 +121,14 @@ def audit_html(url: str, html: str, headers: dict) -> dict:
         headers.get("x-robots-tag", "")
     if "noindex" in robots.lower():
         probs.append("被设为 noindex")
+    lang_m = re.search(r'<html\b[^>]*\blang="([^"]*)"', html, re.I)
+    want = "zh-Hant" if is_hant_url(url) else "zh-CN"
+    if not lang_m or lang_m.group(1) != want:
+        probs.append(f"<html lang> 不是 {want}({lang_m.group(1) if lang_m else '缺'})")
+    if canon:
+        alts = set(re.findall(r'<link rel="alternate" hreflang="([^"]+)"', html))
+        if not {"zh-Hans", "zh-Hant", "x-default"} <= alts:
+            probs.append("hreflang 不全(应有 zh-Hans / zh-Hant / x-default 三条)")
     h1 = len(re.findall(r"<h1[\s>]", html, re.I))
     if h1 != 1:
         probs.append(f"H1 数量为 {h1}")
@@ -207,6 +222,7 @@ def check_site(client: httpx.Client, rep: Report, key: str, repo_sitemap: dict) 
         rep.issue("error", "sitemap_missing", "线上 sitemap.xml 无法访问或为空", "在服务器上跑 deploy/sync.sh 并确认 app.export 成功")
     else:
         missing = sorted(set(repo_sitemap) - set(live))
+        out["deploy_lag"] = len(missing)
         if missing:
             rep.issue("warn", "deploy_lag", f"仓库里有 {len(missing)} 个页面线上还没有(服务器未同步)",
                       "服务器每小时跑 deploy/sync.sh;持续出现说明 cron 失效或导出报错,看 /var/log/thai-policy-sync.log",
@@ -225,6 +241,19 @@ def check_site(client: httpx.Client, rep: Report, key: str, repo_sitemap: dict) 
             rep.issue("warn", f"missing_{name.replace('.', '_').replace('-', '_')}", f"{what} 线上无法访问",
                       "确认镜像已重建(deploy/sync.sh 在代码变动时会 up --build)")
 
+    # 繁体版:/zh-hant/ 首页能打开,/zh-hant(不带斜杠)301 过去
+    r, _, err = _get(client, f"{site}/{HANT_PREFIX}/")
+    r2, _, err2 = _get(client, f"{site}/{HANT_PREFIX}")
+    loc = (r2.headers.get("location", "") if r2 is not None else "")
+    out["hant_home"] = bool(r is not None and r.status_code == 200)
+    if not out["hant_home"]:
+        rep.issue("warn", "hant_home", f"繁体首页 /{HANT_PREFIX}/ 打不开({err or (r is not None and r.status_code)})",
+                  "确认服务器已更新到含 /zh-hant 的版本(main.py 的 PUBLIC_DIRS),且 app.export 生成了 zh-hant/")
+    elif r2 is None or r2.status_code not in (301, 308) or not loc.rstrip("/").endswith(f"/{HANT_PREFIX}") \
+            or not loc.endswith("/"):
+        rep.issue("warn", "hant_redirect", f"/{HANT_PREFIX} 没有 301 到 /{HANT_PREFIX}/"
+                  f"({err2 or (r2 is not None and r2.status_code)} → {loc or '无'})", "见 main.py 的 CONVENTIONAL_REDIRECTS")
+
     if key:
         r, _, err = _get(client, f"{site}/{key}.txt")
         out["indexnow_key"] = bool(r is not None and r.status_code == 200 and r.text.strip() == key)
@@ -236,8 +265,13 @@ def check_site(client: httpx.Client, rep: Report, key: str, repo_sitemap: dict) 
 
 
 def pick_pages(urls: list[str], lastmods: dict, state: dict, n: int, today: date) -> list[str]:
-    """抽查哪些页:最新 10 页必查,其余按「最久没查过」轮换,保证每页都会被定期覆盖。"""
-    newest = sorted(urls, key=lambda u: (lastmods.get(u) or "", u), reverse=True)[:10]
+    """抽查哪些页:最新 10 页必查(简体 5 页、繁体 5 页;一边不够时由另一边补足),
+    其余按「最久没查过」轮换,保证每页都会被定期覆盖。"""
+    by_date = sorted(urls, key=lambda u: (lastmods.get(u) or "", u), reverse=True)
+    hans = [u for u in by_date if not is_hant_url(u)]
+    hant = [u for u in by_date if is_hant_url(u)]
+    n_hant = min(len(hant), max(5, 10 - len(hans)))
+    newest = hans[:10 - n_hant] + hant[:n_hant]
     audited = state.get("audited", {})
     rest = sorted((u for u in urls if u not in newest), key=lambda u: (audited.get(u, ""), u))
     return (newest + rest)[:n]
@@ -279,6 +313,21 @@ def audit_pages(client: httpx.Client, rep: Report, urls: list[str], state: dict)
         rep.issue("warn", "slow_pages", f"{len(slow)} 个页面响应超过 2.5 秒", "检查服务器负载", slow)
     return {"checked": len(urls), "ok": len(urls) - len(fail) - len(problems),
             "with_problems": len(problems), "failed": len(fail), "thin": len(thin)}
+
+
+def hant_check(rep: Report, root: Path) -> None:
+    """繁体成品的可疑字形(config/hant.json 的 suspicious):读仓库里的 zh-hant/,不走网络。
+    命中说明出现了覆盖表没盖住的 s2tw 错字,每日例行会话据此补规则。"""
+    from .hant import scan
+    if not root.is_dir():
+        return
+    hits = scan(root)
+    rep.metrics["hant_suspicious"] = len(hits)
+    if hits:
+        rep.issue("warn", "hant_suspicious", f"繁体版有 {len(hits)} 处可疑字形(s2tw 转换可能出错)",
+                  "逐条核对;错的在 config/hant.json 的 rules 里补带上下文的规则并在 tests/test_hant.py 补例句,"
+                  "是正确用法就收紧 suspicious 里的模式;改完重新导出,python -m app.hant --check 零命中",
+                  [f"{p}:{note} —— {snip}" for p, note, snip in hits])
 
 
 # ─────────────────────────── 2. 服务器侧:爬虫与来源 ───────────────────────────
@@ -346,6 +395,9 @@ def server_stats(client: httpx.Client, rep: Report, token: str, baidu_on: bool =
         "bingbot_7d": bots.get("Bingbot", {}).get("hits", 0),
         "baiduspider_7d": bots.get("Baiduspider", {}).get("hits", 0),
         "crawl_coverage_pct": d["coverage"].get("search_pct"),
+        # 繁体落地页单列(主覆盖率只算简体,分子分母同口径)
+        "crawl_hant_landing": d["coverage"].get("hant_sitemap_landing"),
+        "crawl_hant_by_search": d["coverage"].get("hant_crawled_by_search"),
         "visits_search_7d": d["channels"].get("search", 0),
         "visits_ai_7d": d["channels"].get("ai", 0),
     })
@@ -465,13 +517,21 @@ def gsc(client: httpx.Client, rep: Report, env: dict, urls: list[str], sitemap_u
     except (httpx.HTTPError, ValueError) as ex:
         rep.issue("info", "gsc_sitemap", f"读取 GSC sitemap 状态失败:{ex}"[:200], "")
 
-    # 逐页收录检查(配额每天 2000 次,这里只查一部分,按「最久没查」轮换,结果累积在 state 里)
+    # 逐页收录检查(配额每天 2000 次,这里只查一部分,按「最久没查」轮换,结果累积在 state 里)。
+    # 名额按字形固定分配(繁体占 HANT_INSPECT_SHARE):繁体版新增的几百个地址不能把简体挤掉;
+    # 一边地址不够用时,剩下的名额给另一边
     idx = state.setdefault("gsc_index", {})
-    order = sorted(urls, key=lambda u: (idx.get(u, {}).get("checked", ""), u))[:n_inspect]
+    oldest = lambda us: sorted(us, key=lambda u: (idx.get(u, {}).get("checked", ""), u))  # noqa: E731
+    hans_urls = [u for u in urls if not is_hant_url(u)]
+    hant_urls = [u for u in urls if is_hant_url(u)]
+    n_hant = min(len(hant_urls), round(n_inspect * HANT_INSPECT_SHARE))
+    n_hans = min(len(hans_urls), n_inspect - n_hant)
+    n_hant = min(len(hant_urls), n_inspect - n_hans)
+    order = oldest(hans_urls)[:n_hans] + oldest(hant_urls)[:n_hant]
     for u in order:
         try:
             r = client.post(GSC_INSPECT, headers=h, json={"inspectionUrl": u, "siteUrl": prop,
-                                                          "languageCode": "zh-CN"})
+                                                          "languageCode": "zh-TW" if is_hant_url(u) else "zh-CN"})
             if r.status_code == 429:
                 break
             r.raise_for_status()
@@ -481,25 +541,45 @@ def gsc(client: httpx.Client, rep: Report, env: dict, urls: list[str], sitemap_u
                       "canonical": s.get("googleCanonical", "")}
         except (httpx.HTTPError, ValueError):
             continue
-    live = set(urls)
-    known = {u: v for u, v in idx.items() if u in live}
-    indexed = [u for u, v in known.items() if v.get("verdict") == "PASS"]
-    states: dict[str, int] = {}
-    for v in known.values():
-        states[v.get("coverage") or "未知"] = states.get(v.get("coverage") or "未知", 0) + 1
-    out["index"] = {"checked": len(known), "indexed": len(indexed), "total": len(urls),
-                    "coverage_states": states}
-    rep.metrics.update({"gsc_indexed": len(indexed), "gsc_checked": len(known)})
-    not_idx = [f"{u}({v.get('coverage')})" for u, v in known.items() if v.get("verdict") != "PASS"]
-    if not_idx:
-        rep.issue("warn" if len(not_idx) > len(indexed) else "info", "gsc_not_indexed",
-                  f"已检查 {len(known)} 页,{len(not_idx)} 页未被 Google 收录",
-                  "「已发现-尚未编入索引」多为权重/内链不足:加内链、丰富内容;「已抓取-尚未编入索引」多为内容单薄或重复",
-                  not_idx)
-    wrong_canon = [u for u, v in known.items() if v.get("canonical") and v["canonical"] != u]
-    if wrong_canon:
-        rep.issue("warn", "gsc_canonical", f"{len(wrong_canon)} 页 Google 选了别的规范网址",
-                  "通常是内容过于相似;让摘要与要点更具体", wrong_canon)
+    # 主指标与告警只算简体(与繁体版上线前的历史可比);繁体单列 gsc_hant_*,只作提示
+    for hant, pool in ((False, hans_urls), (True, hant_urls)):
+        live = set(pool)
+        known = {u: v for u, v in idx.items() if u in live}
+        indexed = [u for u, v in known.items() if v.get("verdict") == "PASS"]
+        states: dict[str, int] = {}
+        for v in known.values():
+            states[v.get("coverage") or "未知"] = states.get(v.get("coverage") or "未知", 0) + 1
+        out["index_hant" if hant else "index"] = {"checked": len(known), "indexed": len(indexed),
+                                                  "total": len(pool), "coverage_states": states}
+        pre = "gsc_hant_" if hant else "gsc_"
+        rep.metrics.update({pre + "indexed": len(indexed), pre + "checked": len(known)})
+        not_idx = [f"{u}({v.get('coverage')})" for u, v in known.items() if v.get("verdict") != "PASS"]
+        canon = [(u, v["canonical"]) for u, v in known.items() if v.get("canonical") and v["canonical"] != u]
+        if not hant:
+            if not_idx:
+                rep.issue("warn" if len(not_idx) > len(indexed) else "info", "gsc_not_indexed",
+                          f"已检查 {len(known)} 个简体页,{len(not_idx)} 页未被 Google 收录",
+                          "「已发现-尚未编入索引」多为权重/内链不足:加内链、丰富内容;「已抓取-尚未编入索引」多为内容单薄或重复",
+                          not_idx)
+            if canon:
+                rep.issue("warn", "gsc_canonical", f"{len(canon)} 页 Google 选了别的规范网址",
+                          "通常是内容过于相似;让摘要与要点更具体", [u for u, _ in canon])
+            continue
+        if not_idx:
+            rep.issue("info", "gsc_hant_not_indexed",
+                      f"已检查 {len(known)} 个繁体页,{len(not_idx)} 页未被 Google 收录",
+                      "繁体页是简体页的字形转换,新上线时收录慢属正常;先看简体页的收录情况,不必为繁体页单独加内链或改内容",
+                      not_idx)
+        to_hans = [u for u, c in canon if c == u.replace(f"/{HANT_PREFIX}/", "/", 1)]
+        other = [u for u, c in canon if u not in to_hans]
+        if to_hans:
+            rep.issue("info", "gsc_hant_canonical_hans", f"{len(to_hans)} 个繁体页被 Google 归并到对应的简体页",
+                      "简繁两版内容相同,Google 可能把繁体页当作简体页的重复;页面已有互指的 hreflang,"
+                      "这不是内容过于相似的问题,不用改摘要。持续出现时在 Search Console 里核对 hreflang 是否被识别",
+                      to_hans)
+        if other:
+            rep.issue("warn", "gsc_hant_canonical", f"{len(other)} 个繁体页 Google 选了别的规范网址(不是对应的简体页)",
+                      "核对这些页的 canonical 与 hreflang", other)
     return out
 
 
@@ -590,7 +670,8 @@ def baidu(client: httpx.Client, rep: Report, token: str, sitemap: dict, live: se
         return None                     # 百度是可选项,不配就静默跳过,日报里不提
     done = state.setdefault("baidu", {})
     quota = int(state.get("baidu_remain", 10) or 10)
-    todo = [u for u in changed_urls(sitemap, done) if u in live][:max(quota, 1)]
+    # 配额每天约 10 条,只推简体页;繁体页靠 sitemap 与 hreflang 被发现
+    todo = [u for u in changed_urls(sitemap, done) if u in live and not is_hant_url(u)][:max(quota, 1)]
     if not todo:
         return {"submitted": 0}
     try:
@@ -715,12 +796,15 @@ def _delta(cur, prev) -> str:
 
 METRIC_ZH = [("sitemap_urls", "sitemap 页面数"), ("pages_checked", "今日抽查页数"),
              ("pages_with_problems", "抽查有问题页数"), ("thin_pages", "内容单薄页数(抽查)"),
-             ("gsc_indexed", "Google 已确认收录"), ("gsc_checked", "Google 已检查"),
+             ("gsc_indexed", "Google 已确认收录(简体)"), ("gsc_checked", "Google 已检查(简体)"),
+             ("gsc_hant_indexed", "Google 已确认收录(繁体)"), ("gsc_hant_checked", "Google 已检查(繁体)"),
              ("gsc_impressions_28d", "Google 曝光(28 天)"), ("gsc_clicks_28d", "Google 点击(28 天)"),
              ("gsc_position", "Google 平均排名"), ("bing_in_index", "Bing 已收录"),
              ("bing_impressions", "Bing 曝光"), ("googlebot_7d", "Googlebot 抓取(7 天)"),
              ("bingbot_7d", "Bingbot 抓取(7 天)"), ("baiduspider_7d", "百度蜘蛛抓取(7 天)"),
-             ("crawl_ai_7d", "AI 爬虫抓取(7 天)"), ("crawl_coverage_pct", "落地页被搜索爬虫抓取占比 %"),
+             ("crawl_ai_7d", "AI 爬虫抓取(7 天)"), ("crawl_coverage_pct", "简体落地页被搜索爬虫抓取占比 %"),
+             ("crawl_hant_landing", "繁体落地页数(sitemap)"), ("crawl_hant_by_search", "繁体落地页被搜索爬虫抓取数"),
+             ("hant_suspicious", "繁体成品可疑字形(处)"),
              ("visits_search_7d", "搜索来源访问(7 天)"), ("visits_ai_7d", "AI 来源访问(7 天)"),
              ("geo_cited", "AI 实测引用本站(题)"), ("indexnow_submitted", "今日 IndexNow 提交"),
              ("baidu_submitted", "今日百度推送")]
@@ -736,8 +820,13 @@ def render_md(d: dict, prev: dict | None) -> str:
     out += ["## 结论", "",
             f"- 严重问题 {len(errs)} 个,需处理 {len(warns)} 个,建议 {len(d['issues']) - len(errs) - len(warns)} 个。"]
     if m.get("gsc_checked"):
-        out.append(f"- Google 收录:已检查 {m['gsc_checked']} 页,确认收录 {m.get('gsc_indexed', 0)} 页"
-                   f"(sitemap 共 {m.get('sitemap_urls', '—')} 页)。")
+        gi = ((d.get("sections") or {}).get("gsc") or {}).get("index") or {}
+        out.append(f"- Google 收录(简体):已检查 {m['gsc_checked']} 页,确认收录 {m.get('gsc_indexed', 0)} 页"
+                   f"(sitemap 里简体 {gi.get('total', '—')} 页)。")
+        if m.get("gsc_hant_checked"):
+            gh = ((d.get("sections") or {}).get("gsc") or {}).get("index_hant") or {}
+            out.append(f"- Google 收录(繁体,单列):已检查 {m['gsc_hant_checked']} 页,确认收录 "
+                       f"{m.get('gsc_hant_indexed', 0)} 页(sitemap 里繁体 {gh.get('total', '—')} 页)。")
     else:
         out.append("- Google 收录:未接入 Search Console,只能从爬虫抓取与搜索来源访问间接判断。")
     if "googlebot_7d" in m:
@@ -763,8 +852,11 @@ def render_md(d: dict, prev: dict | None) -> str:
         out += ["", "## Google 搜索词(28 天)", "", "| 搜索词 | 曝光 | 点击 | 排名 |", "|---|---|---|---|"]
         out += [f"| {x['q']} | {x['impr']} | {x['clicks']} | {x['pos']} |" for x in g["top_queries"][:15]]
     if g.get("index", {}).get("coverage_states"):
-        out += ["", "## Google 收录状态分布(已检查页面)", ""]
+        out += ["", "## Google 收录状态分布(已检查的简体页)", ""]
         out += [f"- {k}:{v}" for k, v in sorted(g["index"]["coverage_states"].items(), key=lambda kv: -kv[1])]
+    if (g.get("index_hant") or {}).get("coverage_states"):
+        out += ["", "## Google 收录状态分布(已检查的繁体页,单列)", ""]
+        out += [f"- {k}:{v}" for k, v in sorted(g["index_hant"]["coverage_states"].items(), key=lambda kv: -kv[1])]
     b = sec.get("bing") or {}
     if b.get("top_queries"):
         out += ["", "## Bing 搜索词", ""] + [f"- {x['q']}:曝光 {x['impr']} · 点击 {x['clicks']}"
@@ -844,6 +936,7 @@ def run(client: httpx.Client, site: str, env: dict, today: date, out_dir: Path,
     rep.metrics.update({"pages_checked": a["checked"], "pages_with_problems": a["with_problems"] + a["failed"],
                         "thin_pages": a["thin"]})
 
+    hant_check(rep, REPO_ROOT / HANT_PREFIX)
     srv = server_stats(client, rep, env.get("ADMIN_TOKEN", ""), baidu_on=bool(env.get("BAIDU_PUSH_TOKEN")))
     if srv:
         srv.pop("monitor", None)
@@ -853,8 +946,14 @@ def run(client: httpx.Client, site: str, env: dict, today: date, out_dir: Path,
 
     sub: dict = {}
     if submit and key and basics.get("indexnow_key"):
-        sub["indexnow"] = indexnow(client, rep, key, repo_sm, live, state,
-                                   str((cfg.get("indexnow_resubmit") or {}).get("epoch") or ""))
+        epoch = str((cfg.get("indexnow_resubmit") or {}).get("epoch") or "")
+        if epoch and state.get("indexnow_epoch") != epoch and basics.get("deploy_lag"):
+            # 线上还是旧版本(仓库 sitemap 里的地址线上没有):这时整站重交,Bing 抓到的仍是旧模板,顺延
+            rep.issue("info", "indexnow_resubmit_deferred",
+                      f"IndexNow 整站重新提交(批次 {epoch})顺延:线上还有 {basics['deploy_lag']} 个页面没部署",
+                      "服务器同步到新版本后,下一次监控自动整站重交")
+            epoch = ""
+        sub["indexnow"] = indexnow(client, rep, key, repo_sm, live, state, epoch)
         rep.metrics["indexnow_submitted"] = sub["indexnow"].get("submitted", 0)
     if submit:
         sub["baidu"] = baidu(client, rep, env.get("BAIDU_PUSH_TOKEN", ""), repo_sm, live, state)

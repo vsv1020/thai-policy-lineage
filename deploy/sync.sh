@@ -25,7 +25,13 @@ fi
 
 if echo "$CHANGED" | grep -qvE '^(data/|p/|feed/|zh-hant/|sitemap\.xml$|robots\.txt$|feed\.xml$|llms(-full)?\.txt$|index\.html$|privacy\.html$|about\.html$)'; then
   echo "代码有变动,重建镜像"
-  $DC up -d --build --remove-orphans
+  # 重建失败时把 HEAD 退回同步前的版本并非零退出:否则 HEAD 已是新版本,
+  # 下一小时会判「无变化」直接退出,新代码永远不会再试着上线
+  if ! $DC up -d --build --remove-orphans; then
+    git reset -q --hard "$OLD"
+    echo "$(date '+%F %T') 重建失败,已退回 ${OLD%"${OLD#???????}"},下一小时重试" >&2
+    exit 1
+  fi
 else
   echo "只有数据变动,重新入库并导出"
   # index.html / privacy.html 打在镜像里、没挂载:先拷进容器,导出会重写其中的 SEO 受管区块
