@@ -173,9 +173,11 @@ def _lede(v: dict) -> str:
 
 def render_page(s: Session, doc: Document, today, titles: dict[str, str],
                 dom: tuple[str, str] = ("", ""), related: list[tuple[str, str, str]] = (),
-                series: list[tuple[str, str, str]] = ()) -> str:
+                series: list[tuple[str, str, str]] = (),
+                collections: list[tuple[str, str]] = ()) -> str:
     """dom = (领域 id, 领域中文名);related = 同领域相邻政策 [(uid, 日期, 标题)],做站内链接;
-    series = 同一标题先后刊登的其他文件 [(uid, 日期, 标题)],按日期排列。"""
+    series = 同一标题先后刊登的其他文件 [(uid, 日期, 标题)],按日期排列;
+    collections = 收录本条的汇总页 [(相对 p/ 的地址, 名称)],专题页与影响对象页靠它拿到内链。"""
     v = A.document_view(s, doc, today)
     d = v["dates"]
     title = page_title(v["title_zh"])
@@ -191,6 +193,7 @@ def render_page(s: Session, doc: Document, today, titles: dict[str, str],
         for r in doc.relations_out if r.dst_uid in titles)
     near = "".join(f'<li><a href="{e(slug(u))}.html">{e(t)}</a> <span class="lib-date">{e(dt)}</span></li>'
                    for u, dt, t in related)
+    colls = " · ".join(f'<a href="{e(h)}">{e(n)}</a>' for h, n in collections)
     same = "".join(f'<li><a href="{e(slug(u))}.html">{e(t)}</a> <span class="lib-date">{e(dt)}</span></li>'
                    for u, dt, t in series)
     # 能生成落地页的都已有官方原文(入库规则保证),这里只负责列出原文与公报卷期
@@ -269,6 +272,7 @@ def render_page(s: Session, doc: Document, today, titles: dict[str, str],
     <h2 style="font-size:15px">要点速览</h2><dl class="facts">{facts_html}</dl>
     {f'<h2 style="font-size:15px">生命周期</h2><div class="timeline">{tl}</div>' if tl else ''}
     {f'<h2 style="font-size:15px">关联文件</h2><ul>{rels}</ul>' if rels else ''}
+    {f'<p class="in-colls"><b>收录于汇总页</b> {colls}</p>' if colls else ''}
   </div>
   <div class="origin">{origin}<br>字段可信度:日期 {e(CONF_ZH.get(v['confidence']['dates'], ''))}
     · 文号 {e(CONF_ZH.get(v['confidence']['doc_no'], ''))}</div>
@@ -392,8 +396,11 @@ def render_collection(url: str, title: str, h1: str, scope: str, items: list[dic
     return _head(title, desc, url, ld, up="../../") + body + _foot("../../")
 
 
-def build_collections(entries: list[dict], parties_zh: dict[str, str]) -> tuple[list[dict], list[dict]]:
-    """生成 p/who/*.html 与 p/t/*.html,返回 (影响对象页, 专题页) 的索引 [{id, zh, n, href, date}]。
+def build_collections(entries: list[dict], parties_zh: dict[str, str]
+                      ) -> tuple[list[dict], list[dict], dict[str, list[tuple[str, str]]]]:
+    """生成 p/who/*.html 与 p/t/*.html,返回 (影响对象页, 专题页, 成员反查) ——
+    前两项是索引 [{id, zh, n, href, date}];成员反查 {uid: [(相对 p/ 的地址, 名称)]},专题在前,
+    落地页据此链回收录它的汇总页(否则汇总页只有首页和目录两处入口)。
     先算出全部页面再渲染:每页页尾互相链接(相关专题、按影响对象),给读者和爬虫多一条路。"""
     (PAGES_DIR / "who").mkdir(exist_ok=True)
     (PAGES_DIR / "t").mkdir(exist_ok=True)
@@ -429,8 +436,14 @@ def build_collections(entries: list[dict], parties_zh: dict[str, str]) -> tuple[
                 f"{settings.site_url}/p/t/{pid}.html", f"泰国{zh}:历次公报汇总 | {SITE_NAME}",
                 f"泰国{zh}:历次公报汇总", t["scope_zh"], items, f"专题 / {zh}", related=related(kind, pid))
         (PAGES_DIR / kind / f"{pid}.html").write_text(html, encoding="utf-8")
+    member_of: dict[str, list[tuple[str, str]]] = {}
+    for kind, pid, zh, items, _ in sorted(pages, key=lambda x: x[0] != "t"):
+        for x in items:
+            member_of.setdefault(x["uid"], []).append(
+                (f"{kind}/{pid}.html", zh if kind == "t" else f"影响{zh}"))
     strip = lambda x: {k: v for k, v in x.items() if k != "kind"}  # noqa: E731
-    return ([strip(x) for x in index if x["kind"] == "who"], [strip(x) for x in index if x["kind"] == "t"])
+    return ([strip(x) for x in index if x["kind"] == "who"], [strip(x) for x in index if x["kind"] == "t"],
+            member_of)
 
 
 def week_id(d: str) -> str:
@@ -686,15 +699,13 @@ def build(s: Session) -> dict[str, int]:
         for u, _, _ in members:
             in_series[u] = [m for m in members if m[0] != u]
 
-    rows, entries = [], []
+    rows, entries, pending = [], [], []
     for doc in docs:
         dom = dom_of(doc)
         peers = by_dom.get(dom[0], [])
         i = next(k for k, x in enumerate(peers) if x[1] == doc.uid)
         related = [(u, dt, t) for dt, u, t in (peers[max(0, i - 3):i] + peers[i + 1:i + 4])][:6]
-        (PAGES_DIR / f"{slug(doc.uid)}.html").write_text(
-            render_page(s, doc, today, titles, dom if dom[0] else ("", ""), related,
-                        in_series.get(doc.uid, [])), encoding="utf-8")
+        pending.append((doc, dom if dom[0] else ("", ""), related))   # 等汇总页成员算出来再渲染
         date_s = doc.display_date.isoformat() if doc.display_date else ""
         rows.append((dom[1], date_s, doc.uid, doc.title_zh))
         official = next((x.url for x in doc.sources if x.role == "official" and x.url), "")
@@ -718,7 +729,11 @@ def build(s: Session) -> dict[str, int]:
     # 专题汇总:影响对象页 + 配置专题(只汇编已收录条目,不写综述)
     from .models import Party
     parties_zh = {p.id: p.zh for p in s.scalars(select(Party)).all()}
-    who_pages, topic_pages = build_collections(entries, parties_zh)
+    who_pages, topic_pages, member_of = build_collections(entries, parties_zh)
+    for doc, dom, related in pending:
+        (PAGES_DIR / f"{slug(doc.uid)}.html").write_text(
+            render_page(s, doc, today, titles, dom, related, in_series.get(doc.uid, []),
+                        member_of.get(doc.uid, [])), encoding="utf-8")
     (PAGES_DIR / "index.html").write_text(render_index(rows, topics, topic_pages, who_pages), encoding="utf-8")
     (SITE_DIR / "collections.json").write_text(json.dumps(
         {"topics": topic_pages, "who": who_pages}, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")

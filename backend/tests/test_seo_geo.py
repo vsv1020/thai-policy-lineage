@@ -105,6 +105,21 @@ def test_index_blocks_injected_idempotently(site):
     assert (root / "index.html").read_text(encoding="utf-8") == html
 
 
+def test_landing_pages_link_back_to_their_collections(site):
+    """汇总页(p/t、p/who)列出的每个成员落地页,都要有一条链回该汇总页的内链。"""
+    import re
+    root, _ = site
+    colls = sorted((root / "p" / "t").glob("*.html")) + sorted((root / "p" / "who").glob("*.html"))
+    assert colls, "测试数据应至少生成一个汇总页"
+    for c in colls:
+        rel = f"{c.parent.name}/{c.name}"
+        members = set(re.findall(r'class="coll-title">.*?<a href="\.\./([^"/]+\.html)"', c.read_text(encoding="utf-8")))
+        assert members
+        for m in members:
+            page = (root / "p" / m).read_text(encoding="utf-8")
+            assert 'class="in-colls"' in page and f'href="{rel}"' in page, (rel, m)
+
+
 def test_jsonld_cannot_break_out_of_script():
     assert "</script>" not in seo._ld({"x": "</script><b>"})[:-9]
 
