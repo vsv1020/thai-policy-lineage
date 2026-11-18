@@ -1,26 +1,26 @@
 {
- "date": "2026-11-18",
+ "date": "2026-11-19",
  "site": "https://www.thaipolicy.com",
- "generated_at": "2026-11-18T03:14:09+07:00",
+ "generated_at": "2026-11-19T03:14:08+07:00",
  "metrics": {
   "sitemap_urls": 679,
   "pages_checked": 40,
   "pages_with_problems": 0,
   "thin_pages": 0,
-  "crawl_search_7d": 1113,
-  "crawl_ai_7d": 271,
-  "googlebot_7d": 332,
-  "bingbot_7d": 289,
+  "crawl_search_7d": 1055,
+  "crawl_ai_7d": 849,
+  "googlebot_7d": 297,
+  "bingbot_7d": 247,
   "baiduspider_7d": 45,
-  "crawl_coverage_pct": 39.9,
-  "visits_search_7d": 2,
+  "crawl_coverage_pct": 37.5,
+  "visits_search_7d": 1,
   "visits_ai_7d": 0,
   "gsc_clicks_28d": 12,
-  "gsc_impressions_28d": 363,
-  "gsc_position": 8.3,
+  "gsc_impressions_28d": 354,
+  "gsc_position": 8.2,
   "gsc_indexed": 618,
   "gsc_checked": 679,
-  "bing_in_index": 557,
+  "bing_in_index": 567,
   "bing_impressions": 153,
   "bing_clicks": 13,
   "indexnow_submitted": 0,
@@ -74,9 +74,9 @@
     "/p/th-boi-20250218-136587.html",
     "/p/th-boi-20250218-136588.html",
     "/p/th-boi-20250224-136611.html",
+    "/p/th-boi-20250605-137007.html",
     "/p/th-boi-20250718-137182.html",
     "/p/th-boi-20250722-137199.html",
-    "/p/th-boi-20250722-137200.html",
     "/p/th-boi-20250808-137290.html",
     "/p/th-boi-20251017-138053.html",
     "/p/th-boi-20251017-138054.html",
@@ -87,8 +87,8 @@
     "/p/th-boi-20251114-138189.html",
     "/p/th-boi-20251114-138190.html",
     "/p/th-boi-20251225-138389.html",
-    "/p/th-boi-20260115-138447.html",
-    "/p/th-boi-20260115-138448.html"
+    "/p/th-boi-20260108-138403.html",
+    "/p/th-boi-20260115-138447.html"
    ]
   }
  ],
@@ -96,7 +96,7 @@
   "site": {
    "home": {
     "status": 200,
-    "ms": 756,
+    "ms": 1217,
     "error": ""
    },
    "robots": true,
@@ -117,32 +117,39 @@
   "server": {
    "range": {
     "days": 7,
-    "start": "2026-11-12",
-    "end": "2026-11-18"
+    "start": "2026-11-13",
+    "end": "2026-11-19"
    },
-   "generated_at": "2026-11-18T03:07:44+07:00",
+   "generated_at": "2026-11-19T03:07:42+07:00",
    "crawlers": {
     "bots": [
      {
+      "bot": "GPTBot",
+      "group": "ai",
+      "hits": 599,
+      "pages": 592,
+      "last_seen": "2026-11-18"
+     },
+     {
       "bot": "Applebot",
       "group": "search",
-      "hits": 444,
-      "pages": 82,
+      "hits": 463,
+      "pages": 84,
       "last_seen": "2026-11-18"
      },
      {
       "bot": "Googlebot",
       "group": "search",
-      "hits": 332,
-      "pages": 166,
-      "last_seen": "2026-11-18"
+      "hits": 297,
+      "pages": 157,
+      "last_seen": "2026-11-19"
      },
      {
       "bot": "Bingbot",
       "group": "search",
-      "hits": 289,
-      "pages": 177,
-      "last_seen": "2026-11-18"
+      "hits": 247,
+      "pages": 155,
+      "last_seen": "2026-11-19"
      },
      {
       "bot": "Baiduspider",
@@ -152,25 +159,18 @@
       "last_seen": "2026-11-17"
      },
      {
-      "bot": "GPTBot",
+      "bot": "Meta-AI",
       "group": "ai",
-      "hits": 34,
-      "pages": 27,
-      "last_seen": "2026-11-17"
+      "hits": 42,
+      "pages": 40,
+      "last_seen": "2026-11-18"
      },
      {
       "bot": "OAI-SearchBot",
       "group": "ai",
       "hits": 33,
       "pages": 14,
-      "last_seen": "2026-11-17"
-     },
-     {
-      "bot": "Meta-AI",
-      "group": "ai",
-      "hits": 31,
-      "pages": 29,
-      "last_seen": "2026-11-13"
+      "last_seen": "2026-11-19"
      },
      {
       "bot": "cohere-ai",
@@ -215,14 +215,14 @@
       "last_seen": "2026-11-13"
      },
      {
-      "bot": "DuckAssistBot",
+      "bot": "PerplexityBot",
       "group": "ai",
-      "hits": 14,
-      "pages": 14,
-      "last_seen": "2026-11-13"
+      "hits": 16,
+      "pages": 16,
+      "last_seen": "2026-11-18"
      },
      {
-      "bot": "PerplexityBot",
+      "bot": "DuckAssistBot",
       "group": "ai",
       "hits": 14,
       "pages": 14,
@@ -259,11 +259,6 @@
     ],
     "series": [
      {
-      "day": "2026-11-12",
-      "search": 138,
-      "ai": 4
-     },
-     {
       "day": "2026-11-13",
       "search": 218,
       "ai": 245
@@ -290,8 +285,13 @@
      },
      {
       "day": "2026-11-18",
-      "search": 18,
-      "ai": 0
+      "search": 85,
+      "ai": 581
+     },
+     {
+      "day": "2026-11-19",
+      "search": 13,
+      "ai": 1
      }
     ],
     "errors": [
@@ -512,16 +512,16 @@
       "n": 59
      },
      {
+      "path": "/data/site/analytics.json",
+      "n": 59
+     },
+     {
       "path": "/data/site/support.json",
       "n": 59
      },
      {
-      "path": "/data/site/analytics.json",
-      "n": 57
-     },
-     {
       "path": "/js/support.js",
-      "n": 53
+      "n": 55
      },
      {
       "path": "/js/ads.js",
@@ -533,7 +533,7 @@
      },
      {
       "path": "/js/vendor/qrcode-generator-1.4.4.js",
-      "n": 48
+      "n": 50
      },
      {
       "path": "/robots.txt",
@@ -541,68 +541,68 @@
      },
      {
       "path": "/css/main.css",
-      "n": 46
+      "n": 47
      },
      {
       "path": "/js/promptpay.js",
-      "n": 45
+      "n": 47
      },
      {
       "path": "/",
-      "n": 17
-     },
-     {
-      "path": "/index.html",
-      "n": 10
+      "n": 21
      },
      {
       "path": "/sitemap.xml",
       "n": 10
      },
      {
+      "path": "/index.html",
+      "n": 8
+     },
+     {
+      "path": "/p/th-gaz-20260204-2569.html",
+      "n": 8
+     },
+     {
       "path": "/data/site/collections.json",
-      "n": 8
-     },
-     {
-      "path": "/data/site/lineage.json",
-      "n": 8
-     },
-     {
-      "path": "/data/site/policies.json",
-      "n": 8
-     },
-     {
-      "path": "/data/site/subscribe.json",
-      "n": 8
-     },
-     {
-      "path": "/data/site/dimensions.json",
       "n": 7
      },
      {
-      "path": "/data/site/trends.json",
+      "path": "/data/site/lineage.json",
+      "n": 7
+     },
+     {
+      "path": "/data/site/policies.json",
+      "n": 7
+     },
+     {
+      "path": "/data/site/subscribe.json",
       "n": 7
      },
      {
       "path": "/p/index.html",
+      "n": 7
+     },
+     {
+      "path": "/p/th-gaz-20260206-227-2569.html",
       "n": 7
      }
     ]
    },
    "coverage": {
     "sitemap_landing": 581,
-    "crawled_by_search": 232,
-    "crawled_by_ai": 1,
-    "search_pct": 39.9,
+    "crawled_by_search": 218,
+    "crawled_by_ai": 483,
+    "search_pct": 37.5,
     "never_crawled_sample": [
      "/p/th-boi-20241101-136142.html",
      "/p/th-boi-20250204-136531.html",
      "/p/th-boi-20250218-136587.html",
      "/p/th-boi-20250218-136588.html",
      "/p/th-boi-20250224-136611.html",
+     "/p/th-boi-20250605-137007.html",
      "/p/th-boi-20250718-137182.html",
      "/p/th-boi-20250722-137199.html",
-     "/p/th-boi-20250722-137200.html",
      "/p/th-boi-20250808-137290.html",
      "/p/th-boi-20251017-138053.html",
      "/p/th-boi-20251017-138054.html",
@@ -613,30 +613,22 @@
      "/p/th-boi-20251114-138189.html",
      "/p/th-boi-20251114-138190.html",
      "/p/th-boi-20251225-138389.html",
-     "/p/th-boi-20260115-138447.html",
-     "/p/th-boi-20260115-138448.html"
+     "/p/th-boi-20260108-138403.html",
+     "/p/th-boi-20260115-138447.html"
     ]
    },
    "channels": {
-    "direct": 29,
-    "search": 2
+    "direct": 33,
+    "search": 1
    },
    "search_sources": [
     {
      "key": "Bing",
      "n": 1
-    },
-    {
-     "key": "Google",
-     "n": 1
     }
    ],
    "ai_sources": [],
    "search_landings": [
-    {
-     "key": "/p/th-gaz-20260218-4-2569.html",
-     "n": 1
-    },
     {
      "key": "/p/topic/customs.html",
      "n": 1
@@ -648,17 +640,11 @@
    "property": "sc-domain:thaipolicy.com",
    "totals_28d": {
     "clicks": 12,
-    "impressions": 363,
-    "ctr": 0.03305785123966942,
-    "position": 8.333333333333332
+    "impressions": 354,
+    "ctr": 0.03389830508474576,
+    "position": 8.22316384180791
    },
    "top_queries": [
-    {
-     "q": "2569-2551",
-     "clicks": 0,
-     "impr": 1,
-     "pos": 29
-    },
     {
      "q": "dolwms.dol.go.th. 2",
      "clicks": 0,
@@ -681,13 +667,13 @@
      "q": "泰國變更土地用途 注意事項",
      "clicks": 0,
      "impr": 2,
-     "pos": 49.5
+     "pos": 57.5
     },
     {
      "q": "泰國變更土地用途 限制",
      "clicks": 0,
-     "impr": 4,
-     "pos": 57.8
+     "impr": 3,
+     "pos": 59.7
     }
    ],
    "top_pages": [
@@ -700,8 +686,8 @@
     {
      "page": "https://www.thaipolicy.com/p/th-gaz-20260330-18-2569.html",
      "clicks": 3,
-     "impr": 7,
-     "pos": 2.7
+     "impr": 6,
+     "pos": 3
     },
     {
      "page": "https://www.thaipolicy.com/p/th-boi-20260715-139048.html",
@@ -760,8 +746,8 @@
     {
      "page": "https://www.thaipolicy.com/p/index.html",
      "clicks": 0,
-     "impr": 15,
-     "pos": 7.4
+     "impr": 14,
+     "pos": 7.5
     },
     {
      "page": "https://www.thaipolicy.com/p/th-boi-20241015-136054.html",
@@ -853,16 +839,16 @@
     "total": 679,
     "coverage_states": {
      "已提交，且已编入索引": 618,
-     "已发现 - 尚未编入索引": 46,
-     "Google 无法识别此网址": 15
+     "已发现 - 尚未编入索引": 51,
+     "Google 无法识别此网址": 10
     }
    }
   },
   "bing": {
    "crawl": {
-    "date": "2026-11-15",
-    "in_index": 557,
-    "crawled": 47,
+    "date": "2026-11-17",
+    "in_index": 567,
+    "crawled": 43,
     "errors": 0
    },
    "top_queries": [
@@ -932,12 +918,17 @@
      "clicks": 0
     },
     {
+     "q": "泰国皇家公报网站",
+     "impr": 2,
+     "clicks": 0
+    },
+    {
      "q": "《清迈倡议多边化》",
      "impr": 2,
      "clicks": 1
     },
     {
-     "q": "泰国皇家公报网站",
+     "q": "boi第9/2565号公告",
      "impr": 2,
      "clicks": 0
     },
@@ -947,22 +938,17 @@
      "clicks": 0
     },
     {
-     "q": "《部令：规定工厂的类别、种类及规模，佛历 2563（2020）》",
-     "impr": 2,
-     "clicks": 0
-    },
-    {
-     "q": "boi第9/2565号公告",
-     "impr": 2,
-     "clicks": 0
-    },
-    {
      "q": "清迈倡议多边化协议",
      "impr": 2,
      "clicks": 0
     },
     {
-     "q": "泰国进出口海关政策",
+     "q": "《部令：规定工厂的类别、种类及规模，佛历 2563（2020）》",
+     "impr": 2,
+     "clicks": 0
+    },
+    {
+     "q": "อนุ กก. บูรณาการวีซ่า เพื่อดึงดูดชาวต่างชาติที่มีศักยภาพสูงสู่ประเทศไทย",
      "impr": 2,
      "clicks": 0
     }
@@ -986,39 +972,6 @@
  },
  "disabled": [],
  "trend": [
-  {
-   "date": "2026-10-20",
-   "metrics": {
-    "sitemap_urls": 671,
-    "pages_checked": 40,
-    "pages_with_problems": 0,
-    "thin_pages": 0,
-    "crawl_search_7d": 2571,
-    "crawl_ai_7d": 734,
-    "googlebot_7d": 684,
-    "bingbot_7d": 505,
-    "baiduspider_7d": 20,
-    "crawl_coverage_pct": 88.0,
-    "visits_search_7d": 3,
-    "visits_ai_7d": 0,
-    "gsc_clicks_28d": 1,
-    "gsc_impressions_28d": 190,
-    "gsc_position": 9.9,
-    "gsc_indexed": 435,
-    "gsc_checked": 671,
-    "bing_in_index": 197,
-    "bing_impressions": 23,
-    "bing_clicks": 1,
-    "indexnow_submitted": 0,
-    "geo_asked": 8,
-    "geo_cited": 0
-   },
-   "issues": {
-    "error": 0,
-    "warn": 1,
-    "info": 3
-   }
-  },
   {
    "date": "2026-10-21",
    "metrics": {
@@ -1964,6 +1917,39 @@
     "gsc_indexed": 618,
     "gsc_checked": 679,
     "bing_in_index": 557,
+    "bing_impressions": 153,
+    "bing_clicks": 13,
+    "indexnow_submitted": 0,
+    "geo_asked": 0,
+    "geo_cited": 0
+   },
+   "issues": {
+    "error": 0,
+    "warn": 1,
+    "info": 2
+   }
+  },
+  {
+   "date": "2026-11-19",
+   "metrics": {
+    "sitemap_urls": 679,
+    "pages_checked": 40,
+    "pages_with_problems": 0,
+    "thin_pages": 0,
+    "crawl_search_7d": 1055,
+    "crawl_ai_7d": 849,
+    "googlebot_7d": 297,
+    "bingbot_7d": 247,
+    "baiduspider_7d": 45,
+    "crawl_coverage_pct": 37.5,
+    "visits_search_7d": 1,
+    "visits_ai_7d": 0,
+    "gsc_clicks_28d": 12,
+    "gsc_impressions_28d": 354,
+    "gsc_position": 8.2,
+    "gsc_indexed": 618,
+    "gsc_checked": 679,
+    "bing_in_index": 567,
     "bing_impressions": 153,
     "bing_clicks": 13,
     "indexnow_submitted": 0,
