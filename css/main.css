@@ -308,6 +308,8 @@ dl.facts { display: grid; grid-template-columns: 88px 1fr; gap: 6px 14px; font-s
 dl.facts dt { color: var(--muted); }
 dl.facts dd { margin: 0; }
 .cite { font-size: 12px; color: var(--ink-2); margin-top: 10px; word-break: break-all; }
+.in-colls { font-size: 13px; line-height: 2; margin-top: 14px; }
+.in-colls b { color: var(--ink-2); font-weight: 600; margin-right: 6px; }
 .related { margin-top: 22px; }
 .related ul { margin: 8px 0 10px 18px; line-height: 1.9; font-size: 14px; }
 .seo-nav { margin-top: 12px; line-height: 2; font-size: 12px; }

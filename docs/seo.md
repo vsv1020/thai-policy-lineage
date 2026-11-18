@@ -8,6 +8,7 @@
 |---|---|
 | `p/<uid>.html` 落地页 | 无需 JS 可读;开头一句话结论(谁、何时、发布了什么、现在什么状态)、「要点速览」、引用格式、同领域推荐;结构化数据 `Legislation`(含 `translationOfWork` 指向泰文原文)+ `BreadcrumbList`;长标题自动截短 |
 | `p/topic/<领域>.html` 专题页 | 「泰国 + 签证/税务/劳工… + 政策」长尾词的落地页,`CollectionPage` + `ItemList` |
+| `p/t/<专题>.html`、`p/who/<对象>.html` 汇总页 | 配置专题(`config/topics.json`)与影响对象的汇编;每个成员落地页的「收录于汇总页」一行链回它们,汇总页因此不只靠首页和目录两处入口 |
 | `p/index.html` | 全部政策目录,按领域分组 |
 | `robots.txt` | 放行所有搜索引擎,并逐个点名放行 GPTBot、OAI-SearchBot、ClaudeBot、PerplexityBot 等 AI 爬虫;屏蔽 `/api/`、`/admin` |
 | `sitemap.xml` | 首页、目录、专题页、全部落地页,`lastmod` 取数据日期 |
