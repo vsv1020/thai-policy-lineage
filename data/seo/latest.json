@@ -1,35 +1,36 @@
 {
  "date": "2026-11-20",
  "site": "https://www.thaipolicy.com",
- "generated_at": "2026-11-20T00:57:30+07:00",
+ "generated_at": "2026-11-20T03:14:13+07:00",
  "metrics": {
   "sitemap_urls": 1610,
   "pages_checked": 40,
   "pages_with_problems": 0,
   "thin_pages": 0,
   "hant_suspicious": 0,
-  "crawl_search_7d": 2319,
-  "crawl_ai_7d": 2788,
-  "googlebot_7d": 563,
-  "bingbot_7d": 1156,
+  "crawl_search_7d": 2337,
+  "crawl_ai_7d": 2789,
+  "googlebot_7d": 575,
+  "bingbot_7d": 1162,
   "baiduspider_7d": 30,
   "crawl_coverage_pct": 57.4,
   "crawl_hant_landing": 714,
   "crawl_hant_by_search": 706,
   "visits_search_7d": 2,
   "visits_ai_7d": 0,
-  "crawl_search_pages_7d": 1707,
+  "crawl_search_pages_7d": 1720,
   "crawl_ai_pages_7d": 2709,
   "gsc_clicks_28d": 12,
   "gsc_impressions_28d": 343,
   "gsc_position": 8.1,
-  "gsc_indexed": 601,
-  "gsc_checked": 745,
-  "gsc_hant_indexed": 4,
-  "gsc_hant_checked": 29,
+  "gsc_indexed": 606,
+  "gsc_checked": 790,
+  "gsc_hant_indexed": 5,
+  "gsc_hant_checked": 44,
   "bing_in_index": 580,
   "bing_impressions": 153,
   "bing_clicks": 13,
+  "indexnow_submitted": 0,
   "geo_asked": 0,
   "geo_cited": 0
  },
@@ -55,7 +56,7 @@
   {
    "level": "info",
    "code": "gsc_hant_not_indexed",
-   "msg": "已检查 29 个繁体页,25 页未被 Google 收录",
+   "msg": "已检查 44 个繁体页,39 页未被 Google 收录",
    "fix": "繁体页是简体页的字形转换,新上线时收录慢属正常;先看简体页的收录情况,不必为繁体页单独加内链或改内容",
    "items": [
     "https://www.thaipolicy.com/zh-hant/(Google 無法辨識的網址)",
@@ -83,13 +84,14 @@
   {
    "level": "info",
    "code": "gsc_not_indexed",
-   "msg": "已检查 745 个简体页,144 页未被 Google 收录",
+   "msg": "已检查 790 个简体页,184 页未被 Google 收录",
    "fix": "「已发现-尚未编入索引」多为权重/内链不足:加内链、丰富内容;「已抓取-尚未编入索引」多为内容单薄或重复",
    "items": [
     "https://www.thaipolicy.com/p/guide/royal-gazette.html(Google 无法识别此网址)",
     "https://www.thaipolicy.com/p/t/boi.html(已发现 - 尚未编入索引)",
     "https://www.thaipolicy.com/p/t/data-protection.html(已发现 - 尚未编入索引)",
     "https://www.thaipolicy.com/p/t/energy.html(Google 无法识别此网址)",
+    "https://www.thaipolicy.com/p/t/environment.html(已发现 - 尚未编入索引)",
     "https://www.thaipolicy.com/p/t/ev-auto.html(Google 无法识别此网址)",
     "https://www.thaipolicy.com/p/t/excise.html(已发现 - 尚未编入索引)",
     "https://www.thaipolicy.com/p/t/financial-regulation.html(已发现 - 尚未编入索引)",
@@ -104,8 +106,7 @@
     "https://www.thaipolicy.com/p/th-boi-20260115-138448.html(已发现 - 尚未编入索引)",
     "https://www.thaipolicy.com/p/th-boi-20260115-138449.html(已发现 - 尚未编入索引)",
     "https://www.thaipolicy.com/p/th-boi-20260115-138450.html(已发现 - 尚未编入索引)",
-    "https://www.thaipolicy.com/p/th-boi-20260115-138451.html(已发现 - 尚未编入索引)",
-    "https://www.thaipolicy.com/p/th-boi-20261117-139685.html(Google 无法识别此网址)"
+    "https://www.thaipolicy.com/p/th-boi-20260115-138451.html(已发现 - 尚未编入索引)"
    ]
   },
   {
@@ -141,7 +142,7 @@
   "site": {
    "home": {
     "status": 200,
-    "ms": 1133,
+    "ms": 1386,
     "error": ""
    },
    "robots": true,
@@ -167,7 +168,7 @@
     "start": "2026-11-14",
     "end": "2026-11-20"
    },
-   "generated_at": "2026-11-20T00:51:00+07:00",
+   "generated_at": "2026-11-20T03:07:46+07:00",
    "crawlers": {
     "bots": [
      {
@@ -181,9 +182,9 @@
      {
       "bot": "Bingbot",
       "group": "search",
-      "hits": 1156,
-      "pages": 1061,
-      "page_hits": 1141,
+      "hits": 1162,
+      "pages": 1065,
+      "page_hits": 1146,
       "last_seen": "2026-11-20"
      },
      {
@@ -197,9 +198,9 @@
      {
       "bot": "Googlebot",
       "group": "search",
-      "hits": 563,
-      "pages": 262,
-      "page_hits": 370,
+      "hits": 575,
+      "pages": 269,
+      "page_hits": 378,
       "last_seen": "2026-11-20"
      },
      {
@@ -237,10 +238,10 @@
      {
       "bot": "OAI-SearchBot",
       "group": "ai",
-      "hits": 18,
+      "hits": 19,
       "pages": 1,
       "page_hits": 0,
-      "last_seen": "2026-11-19"
+      "last_seen": "2026-11-20"
      },
      {
       "bot": "DuckDuckBot",
@@ -300,8 +301,8 @@
      },
      {
       "day": "2026-11-20",
-      "search": 12,
-      "ai": 0
+      "search": 30,
+      "ai": 1
      }
     ],
     "errors": [
@@ -379,7 +380,7 @@
     "top_paths": [
      {
       "path": "/robots.txt",
-      "n": 85
+      "n": 90
      },
      {
       "path": "/data/site/ads.json",
@@ -395,7 +396,7 @@
      },
      {
       "path": "/js/support.js",
-      "n": 60
+      "n": 61
      },
      {
       "path": "/js/promptpay.js",
@@ -490,7 +491,7 @@
     "hant_crawled_by_search": 706
    },
    "channels": {
-    "direct": 37,
+    "direct": 38,
     "search": 2
    },
    "search_sources": [
@@ -714,23 +715,23 @@
     "errors": 0
    },
    "index": {
-    "checked": 745,
-    "indexed": 601,
+    "checked": 790,
+    "indexed": 606,
     "total": 805,
     "coverage_states": {
-     "已提交，且已编入索引": 601,
-     "Google 无法识别此网址": 69,
-     "已发现 - 尚未编入索引": 75
+     "已提交，且已编入索引": 606,
+     "Google 无法识别此网址": 76,
+     "已发现 - 尚未编入索引": 108
     }
    },
    "index_hant": {
-    "checked": 29,
-    "indexed": 4,
+    "checked": 44,
+    "indexed": 5,
     "total": 805,
     "coverage_states": {
-     "Google 無法辨識的網址": 19,
-     "已提交並建立索引": 4,
-     "已找到 - 目前尚未建立索引": 6
+     "Google 無法辨識的網址": 27,
+     "已提交並建立索引": 5,
+     "已找到 - 目前尚未建立索引": 12
     }
    }
   },
@@ -818,17 +819,12 @@
      "clicks": 1
     },
     {
-     "q": "《部令：规定工厂的类别、种类及规模，佛历 2563（2020）》",
-     "impr": 2,
-     "clicks": 0
-    },
-    {
-     "q": "泰国政府储蓄银行 維護通知书",
-     "impr": 2,
-     "clicks": 0
-    },
-    {
      "q": "boi第9/2565号公告",
+     "impr": 2,
+     "clicks": 0
+    },
+    {
+     "q": "《部令：规定工厂的类别、种类及规模，佛历 2563（2020）》",
      "impr": 2,
      "clicks": 0
     },
@@ -838,13 +834,23 @@
      "clicks": 0
     },
     {
-     "q": "泰国进出口海关政策",
+     "q": "泰国政府储蓄银行 維護通知书",
+     "impr": 2,
+     "clicks": 0
+    },
+    {
+     "q": "อนุ กก. บูรณาการวีซ่า เพื่อดึงดูดชาวต่างชาติที่มีศักยภาพสูงสู่ประเทศไทย",
      "impr": 2,
      "clicks": 0
     }
    ]
   },
-  "submit": {},
+  "submit": {
+   "indexnow": {
+    "submitted": 0
+   },
+   "baidu": null
+  },
   "geo": {
    "results": [
     {
@@ -1829,28 +1835,29 @@
     "pages_with_problems": 0,
     "thin_pages": 0,
     "hant_suspicious": 0,
-    "crawl_search_7d": 2319,
-    "crawl_ai_7d": 2788,
-    "googlebot_7d": 563,
-    "bingbot_7d": 1156,
+    "crawl_search_7d": 2337,
+    "crawl_ai_7d": 2789,
+    "googlebot_7d": 575,
+    "bingbot_7d": 1162,
     "baiduspider_7d": 30,
     "crawl_coverage_pct": 57.4,
     "crawl_hant_landing": 714,
     "crawl_hant_by_search": 706,
     "visits_search_7d": 2,
     "visits_ai_7d": 0,
-    "crawl_search_pages_7d": 1707,
+    "crawl_search_pages_7d": 1720,
     "crawl_ai_pages_7d": 2709,
     "gsc_clicks_28d": 12,
     "gsc_impressions_28d": 343,
     "gsc_position": 8.1,
-    "gsc_indexed": 601,
-    "gsc_checked": 745,
-    "gsc_hant_indexed": 4,
-    "gsc_hant_checked": 29,
+    "gsc_indexed": 606,
+    "gsc_checked": 790,
+    "gsc_hant_indexed": 5,
+    "gsc_hant_checked": 44,
     "bing_in_index": 580,
     "bing_impressions": 153,
     "bing_clicks": 13,
+    "indexnow_submitted": 0,
     "geo_asked": 0,
     "geo_cited": 0
    },
