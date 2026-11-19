@@ -19,7 +19,7 @@
  "min_months_required": 6,
  "data_through": "2026-11",
  "gazette_through": "2026-04",
- "total_documents": 581,
+ "total_documents": 583,
  "volume_by_domain": [
   {
    "id": "biz",
@@ -36,7 +36,7 @@
     0,
     3,
     3,
-    0
+    2
    ]
   },
   {
@@ -54,7 +54,7 @@
     0,
     2,
     9,
-    4
+    5
    ]
   },
   {
@@ -218,7 +218,7 @@
     null,
     0.34,
     0.23,
-    null
+    -0.41
    ]
   },
   {
@@ -236,7 +236,7 @@
     null,
     0.0,
     0.74,
-    0.0
+    -0.13
    ]
   },
   {
@@ -400,7 +400,7 @@
     0,
     3,
     3,
-    0
+    2
    ]
   },
   {
@@ -1073,7 +1073,7 @@
  "rising": [
   {
    "label": "税务",
-   "current": 15,
+   "current": 16,
    "previous": 0,
    "growth_pct": null
   },
@@ -1090,28 +1090,34 @@
    "growth_pct": null
   },
   {
+   "label": "申报、备案与披露",
+   "current": 4,
+   "previous": 0,
+   "growth_pct": null
+  },
+  {
+   "label": "绿色转型",
+   "current": 4,
+   "previous": 0,
+   "growth_pct": null
+  },
+  {
+   "label": "秩序与安全",
+   "current": 2,
+   "previous": 0,
+   "growth_pct": null
+  },
+  {
    "label": "权益保护",
    "current": 2,
    "previous": 0,
    "growth_pct": null
   },
   {
-   "label": "申报、备案与披露",
-   "current": 4,
-   "previous": 1,
-   "growth_pct": 300
-  },
-  {
-   "label": "绿色转型",
-   "current": 4,
-   "previous": 1,
-   "growth_pct": 300
-  },
-  {
    "label": "产业升级",
    "current": 9,
-   "previous": 5,
-   "growth_pct": 80
+   "previous": 1,
+   "growth_pct": 800
   }
  ]
 }

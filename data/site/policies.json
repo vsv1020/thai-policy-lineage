@@ -1,21 +1,21 @@
 {
  "_generated": "由 backend/app/export.py 从数据库导出,请勿手改;改 data/policies/*.jsonl → python3 -m app.ingest → python3 -m app.export",
  "schema_version": 4,
- "updated_at": "2026-11-18T07:07:37+07:00",
+ "updated_at": "2026-11-19T07:07:43+07:00",
  "stats": {
-  "total": 581,
+  "total": 583,
   "research": 0,
   "demo": 0,
-  "with_points": 511,
+  "with_points": 513,
   "date_from": "2024-10-10",
-  "date_to": "2026-11-05",
+  "date_to": "2026-11-17",
   "gazette_to": "2026-04-22",
-  "agency_n": 113,
+  "agency_n": 115,
   "by_domain": [
    {
     "id": "biz",
     "zh": "公司投资",
-    "n": 204
+    "n": 206
    },
    {
     "id": "customs",
@@ -68,16 +68,16 @@
   {
    "domain": "tax",
    "label": "税务",
-   "score": 0.48,
-   "n": 15,
+   "score": 0.4,
+   "n": 16,
    "direction": "loose"
   },
   {
    "domain": "biz",
    "label": "公司投资",
-   "score": 0.39,
-   "n": 6,
-   "direction": "loose"
+   "score": 0.11,
+   "n": 8,
+   "direction": "neutral"
   },
   {
    "domain": "health",
@@ -128,6 +128,116 @@
   }
  ],
  "policies": [
+  {
+   "uid": "TH-BOI-20261117-139685",
+   "issue_id": null,
+   "date": "2026-11-17",
+   "domain": "biz",
+   "domain_label": "公司投资",
+   "direction": "tight",
+   "title_zh": "投资促进委员会公告第 ป.12/2569 号:撤销私人协助检查生产损耗或不合格原材料的许可",
+   "title_th": "ประกาศ สกท.ที่ ป.12/2569 เรื่อง ยกเลิกอนุญาตให้เอกชนช่วยปฏิบัติงานตรวจสอบวัตถุดิบที่สูญเสียจากการผลิต หรือไม่ได้คุณภาพ",
+   "summary_zh": "投资促进委员会撤销此前授予一家私人检验公司的许可,该公司原获准协助检查生产损耗或不合格的原材料。原因是该公司未能在 2568 年(2025 年)内取得泰国工业标准 TIS 17020 检验机构认证,不符合第 ป.12/2567 号公告第 3.2 条和第 6 条规定的条件。撤销自 2569 年 1 月 27 日(2026 年 1 月 27 日)起生效。",
+   "key_points": [
+    "撤销某私人检验公司协助检查生产损耗或不合格原材料的许可",
+    "原因:未在 2568 年内取得 TIS 17020 检验机构认证",
+    "不符合第 ป.12/2567 号公告第 3.2 条和第 6 条条件",
+    "撤销自 2026 年 1 月 27 日起生效"
+   ],
+   "org": "投资促进委员会 (BOI)",
+   "doc_no": "สกท. ป.12/2569",
+   "doc_no_label": "文号",
+   "legal_form": "公告 · ประกาศ 层级",
+   "stability": 2,
+   "effective_label": "已生效",
+   "status": "active",
+   "status_label": "现行有效",
+   "source_url": "https://www.boi.go.th/upload/content/por12_2569_6afcfe16a5602.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "boi_web",
+   "dates": {
+    "resolved_at": null,
+    "published_at": "2026-11-17",
+    "effective_from": "2026-01-27",
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "constrain",
+     "label": "外资企业"
+    },
+    {
+     "id": "foreign_investor",
+     "party_id": "foreign_investor",
+     "stance": "neutral",
+     "label": "外资投资者"
+    }
+   ],
+   "featured": true
+  },
+  {
+   "uid": "TH-BOI-20261117-139686",
+   "issue_id": null,
+   "date": "2026-11-17",
+   "domain": "biz",
+   "domain_label": "公司投资",
+   "direction": "tight",
+   "title_zh": "投资促进委员会公告第 ป.13/2569 号：取消私人机构协助检查生产损耗或不合格原材料的许可",
+   "title_th": "ประกาศ สกท.ที่ ป.13/2569 เรื่อง ยกเลิกอนุญาตให้เอกชนช่วยปฏิบัติงานตรวจสอบวัตถุดิบที่สูญเสียจากการผลิต หรือไม่ได้คุณภาพ",
+   "summary_zh": "投资促进委员会取消此前授予电气与电子研究所的许可，该许可允许其协助检查生产损耗或不合格原材料。原因是该机构未能在 2568 年（2025 年）内取得泰国工业产品标准体系下检查机构认证（มอก. 17020），不符合第 ป.12/2567 号公告第 3.2 条和第 6 条规定的条件。取消自 2569 年 1 月 27 日（2026 年 1 月 27 日）起生效。",
+   "key_points": [
+    "取消电气与电子研究所协助检查损耗或不合格原材料的资格",
+    "原因是未在 2568 年内取得 มอก. 17020 检查机构认证",
+    "取消自 2569 年 1 月 27 日起生效",
+    "依据投资促进法第 13/1 条作出"
+   ],
+   "org": "投资促进委员会 (BOI)",
+   "doc_no": "สกท. ป.13/2569",
+   "doc_no_label": "文号",
+   "legal_form": "公告 · ประกาศ 层级",
+   "stability": 2,
+   "effective_label": "已生效",
+   "status": "active",
+   "status_label": "现行有效",
+   "source_url": "https://www.boi.go.th/upload/content/por13_2569_6afcffdfcb60d.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "boi_web",
+   "dates": {
+    "resolved_at": null,
+    "published_at": "2026-11-17",
+    "effective_from": "2026-01-27",
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
+    },
+    {
+     "id": "thai_employer",
+     "party_id": "thai_employer",
+     "stance": "neutral",
+     "label": "本地雇主"
+    }
+   ],
+   "featured": true
+  },
   {
    "uid": "TH-RD-20261105-DG472A",
    "issue_id": null,
@@ -985,7 +1095,7 @@
      "label": "外资投资者"
     }
    ],
-   "featured": true
+   "featured": false
   },
   {
    "uid": "TH-BOI-20260930-139501",
@@ -1041,7 +1151,7 @@
      "label": "外资投资者"
     }
    ],
-   "featured": true
+   "featured": false
   },
   {
    "uid": "TH-RD-20260923-MOFCRSM31A",

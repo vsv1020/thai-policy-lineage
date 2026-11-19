@@ -17,9 +17,9 @@
   {
    "id": "boi",
    "zh": "投资促进(BOI)",
-   "n": 91,
+   "n": 93,
    "href": "p/t/boi.html",
-   "date": "2026-09-30"
+   "date": "2026-11-17"
   },
   {
    "id": "excise",
@@ -75,16 +75,16 @@
   {
    "id": "foreign_company",
    "zh": "外资企业",
-   "n": 440,
+   "n": 442,
    "href": "p/who/foreign_company.html",
-   "date": "2026-11-05"
+   "date": "2026-11-17"
   },
   {
    "id": "foreign_investor",
    "zh": "外资投资者",
-   "n": 195,
+   "n": 196,
    "href": "p/who/foreign_investor.html",
-   "date": "2026-10-06"
+   "date": "2026-11-17"
   },
   {
    "id": "foreign_resident",
@@ -117,9 +117,9 @@
   {
    "id": "thai_employer",
    "zh": "本地雇主",
-   "n": 98,
+   "n": 99,
    "href": "p/who/thai_employer.html",
-   "date": "2026-11-05"
+   "date": "2026-11-17"
   },
   {
    "id": "traveller",
