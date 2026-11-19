@@ -464,3 +464,13 @@ def test_merge_update_keeps_derived_effective_date():
     m = C.merge_update(old, new)
     assert m["dates"] == {"published_at": "2026-04-03", "effective_from": "2026-04-02", "resolved_at": None}
     assert m["doc_no"] == "ง 2" and m["titles"]["zh"] == "中文"
+
+
+def test_garbled_datastore_and_worksheet_files():
+    """2026-11 实测:2023-11~2024-02 的 datastore 是按行导入的 JSON 碎片;2024-06、07 的文件包在 Worksheet 里。"""
+    assert C.datastore_is_garbled([{"_id": 1, "[": "    {"}, {"_id": 2, "[": '        "วันที่": "01/11/2023"'}])
+    assert not C.datastore_is_garbled([{"_id": 1, "วันที่": "01/03/2024", "เรื่อง": "กฎกระทรวง"}])
+    assert not C.datastore_is_garbled([])
+    rows = C.iter_records({"Worksheet": [{"วันที่": "01/07/2024", "เรื่อง": "ระเบียบกรมที่ดิน"}, {"วันที่": "02/07/2024"}]})
+    assert len(rows) == 2 and rows[0]["เรื่อง"] == "ระเบียบกรมที่ดิน"
+    assert C.iter_records({"data": [{"a": 1}]}) == [{"a": 1}]

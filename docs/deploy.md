@@ -75,6 +75,27 @@ DOMAIN=你的域名 bash /opt/thai-policy-lineage/deploy/install.sh        # 买
 - `.env` 里设 `ADMIN_TOKEN` 与 `STATS_SECRET`,即可在 `https://你的域名/admin` 看站点统计,
   见 [analytics.md](analytics.md)。纯 GitHub 方案没有后端,用 Cloudflare Web Analytics。
 
+## 备用:在服务器上直接采集(GitHub Actions 用不了时)
+
+每日采集默认跑在 GitHub Actions 上。Actions 额度用完、出故障或被停用时,可以改由泰国服务器自己采集,
+网站照常更新(服务器在泰国,不需要出口代理):
+
+1. GitHub → Settings → Developer settings → Fine-grained tokens → 新建令牌:只授权本仓库,
+   Repository permissions → **Contents: Read and write**。
+2. 在服务器 `/opt/thai-policy-lineage/.env` 里加两行(`DEEPSEEK_API_KEY` 已经在里面,翻译要用):
+   ```
+   COLLECT_ON_SERVER=1
+   GH_PUSH_TOKEN=github_pat_xxx
+   ```
+3. 手动跑一次确认:`/opt/thai-policy-lineage/deploy/collect-local.sh`,看到「已推送」即成功。
+
+之后每天 07:07 由 `dispatch.sh` 调用 `deploy/collect-local.sh`:在单独的目录 `/opt/thai-policy-collect`
+拉最新 main,用应用镜像起临时容器跑「采集 → 翻译 → 校验 → 导出」(与 `collect.yml` 相同),通过后
+提交并推回 main;网站由 `sync.sh` 照常同步。GitHub 上的定时备份看到当天已有采集提交会自动跳过。
+日志在 `/var/log/thai-policy-dispatch.log`。改回 GitHub 采集:把 `COLLECT_ON_SERVER` 改成 0。
+
+SEO 每日监控(`seo.yml`)仍在 GitHub 上跑;它一天只用几分钟,Actions 恢复前停几天影响不大。
+
 ## 上线前检查清单
 
 - [ ] `cd backend && python3 -m pytest tests -q` 全过(含 `test_security.py`:私有路径一律 404)

@@ -9,6 +9,12 @@
 # 没配就什么都不做。
 set -eu
 cd "$(dirname "$0")/.."
+# 备用方案:.env 里 COLLECT_ON_SERVER=1 时,07 点的采集直接在本机跑(deploy/collect-local.sh),
+# 不再触发 GitHub 的采集工作流 —— GitHub Actions 用不了时打开它
+if [ -z "${1:-}" ] && [ "$(TZ=Asia/Bangkok date +%H)" = 07 ] \
+   && [ "$(grep '^COLLECT_ON_SERVER=' .env 2>/dev/null | cut -d= -f2-)" = 1 ]; then
+  exec "$(pwd)/deploy/collect-local.sh"
+fi
 TOKEN=$(grep '^GH_DISPATCH_TOKEN=' .env 2>/dev/null | cut -d= -f2- || true)
 [ -n "$TOKEN" ] || exit 0
 REPO="${GH_REPO:-vsv1020/thai-policy-lineage}"
