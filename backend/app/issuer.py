@@ -119,7 +119,8 @@ def agency_rules(v: dict) -> list[Rule]:
     for a in v["agencies"]:
         for x in alias_entries(a):
             n = norm(x["th"])
-            if len(n) >= MIN_NAME:
+            # 太短的缩写容易误认,不用;限定官网的缩写(BOI 官网上的「กกท」)除外 —— 范围已经收窄到一个来源
+            if len(n) >= MIN_NAME or (x.get("site") and len(n) >= 3):
                 rules.add(Rule(n, a["id"], bool(x.get("prefix")), bool(x.get("official")), x.get("zh") or "",
                                x.get("site") or ""))
     return sorted(rules, key=lambda r: (-len(r.name), r.name, r.aid))

@@ -121,10 +121,16 @@ def split_summary(text: str) -> tuple[str, list[str]]:
     return head.strip(), [p.strip() for p in points if p.strip()]
 
 
+def hidden(r: dict) -> bool:
+    """不上前台:标了 skip(判为无关等),或因红线下线(flags.red_line)—— 两个标记任一即算。"""
+    flags = r.get("flags") or {}
+    return bool(flags.get("skip") or flags.get("red_line"))
+
+
 def presentable(r: dict) -> bool:
     """有中文标题、未被标记跳过、且有可考证的官方原文链接 —— 才进数据库、才会被呈现。
     没有官方原文的条目(例如只有律所、媒体等二手引述)一律不上前台,只留在事实层里等补链接。"""
-    return (bool((r.get("titles") or {}).get("zh")) and not (r.get("flags") or {}).get("skip")
+    return (bool((r.get("titles") or {}).get("zh")) and not hidden(r)
             and bool(official_sources(r)))
 
 

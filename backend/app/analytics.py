@@ -704,13 +704,13 @@ def ops(s: Session) -> dict:
         else:
             break
 
-    from .ingest import official_sources
+    from .ingest import hidden, official_sources
     records = read_jsonl(POLICIES_DIR / "documents.jsonl")
     pending = [r for r in records if not (r.get("titles") or {}).get("zh")
-               and not (r.get("flags") or {}).get("skip") and official_sources(r)]
+               and not hidden(r) and official_sources(r)]
     # 缺官方原文:不上前台、也不翻译,等补上 *.go.th 原文链接后自动恢复
-    no_source = [r for r in records if not (r.get("flags") or {}).get("skip") and not official_sources(r)]
-    skipped = [r for r in records if (r.get("flags") or {}).get("skip")]
+    no_source = [r for r in records if not hidden(r) and not official_sources(r)]
+    skipped = [r for r in records if hidden(r)]
     by_pipeline: dict[str, int] = defaultdict(int)
     for r in records:
         by_pipeline[(r.get("provenance") or {}).get("pipeline", "manual")] += 1

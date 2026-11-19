@@ -463,3 +463,17 @@ def test_red_line_flag_survives_retitle_and_requeue(tmp_path, monkeypatch):
     monkeypatch.setattr(E, "_keep_patterns", lambda: ["กระทรวงการคลัง"])
     (d / "documents.jsonl").write_text(json.dumps(merged, ensure_ascii=False) + "\n")
     assert E.requeue_kept() == []
+
+
+
+def test_boi_committee_abbreviation_without_dot():
+    """BOI 官网上「ประกาศ กกท ที่ …」(缩写不带句点)也认作委员会;只限 BOI 官网来源。"""
+    assert E.issuer_agencies("ประกาศ กกท ที่ 3/2569 เรื่อง ก", V, "boi") == ["boi"]
+    assert E.issuer_agencies("ประกาศ กกท ที่ 3/2569 เรื่อง ก", V) == []
+
+
+def test_hidden_counts_red_line_even_without_skip():
+    from app.ingest import hidden, presentable
+    r = {"titles": {"zh": "标题"}, "flags": {"red_line": True},
+         "sources": [{"role": "official", "url": "https://ratchakitcha.soc.go.th/documents/1.pdf"}]}
+    assert hidden(r) and not presentable(r) and not E.is_pending({**r, "titles": {"zh": ""}})

@@ -142,7 +142,8 @@ def check_doc(d: dict, v: dict, rep: Report, all_uids: set[str], issue_ids: set[
         x.get("role") == "official" and str(x.get("url", "")).startswith(("https://", "http://"))
         and (urlsplit(x["url"]).hostname or "").lower().endswith(".go.th")
         for x in d.get("sources") or [])
-    if (d.get("titles") or {}).get("zh") and not (d.get("flags") or {}).get("skip") and not has_official:
+    if (d.get("titles") or {}).get("zh") and not ((d.get("flags") or {}).get("skip")
+                                                  or (d.get("flags") or {}).get("red_line")) and not has_official:
         rep.warn(where, "缺官方原文链接(*.go.th),不会上前台;在 sources 里补 {\"role\": \"official\", \"url\": …}")
     stage = d.get("implementation_stage")
     if stage is not None and stage not in ids(v, "implementation_stages"):

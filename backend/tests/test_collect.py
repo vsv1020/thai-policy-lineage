@@ -540,3 +540,42 @@ def test_batch_collisions_in_collect_and_backfill(monkeypatch):
     res = C.collect_source(C.SOURCES[0], C.Throttle(0), "x", C.date(2020, 1, 1), dry_run=False, backfill=True)
     assert len(res.records) == 4 and res.uid_collisions == 3, "同一份文件重复出现只留一条,不同文件都留下"
     assert "uid 撞号 3 条" in res.detail
+
+
+def test_same_pdf_is_recognised_even_when_uid_differs(tmp_path, monkeypatch):
+    """同一份文件先按官方原文链接认:占着基础 uid 的记录被删掉后,或官方改了标题(uid 跟着变),
+    同一个 PDF 都不再入库一份。"""
+    a = _doc("ประกาศกรมป่าไม้ เรื่อง ก 2567", "https://ratchakitcha.soc.go.th/documents/101.pdf")
+    b = _doc("ประกาศกรมประมง เรื่อง ข 2567", "https://ratchakitcha.soc.go.th/documents/102.pdf")
+    path = _jsonl(tmp_path, monkeypatch, [])
+    C.upsert_jsonl([dict(a), dict(b)], "x")
+    rows = [json.loads(x) for x in path.read_text().splitlines()]
+    assert [r["uid"] for r in rows] == ["TH-GAZ-20240301-2567", "TH-GAZ-20240301-2567-102"]
+    # 前一条被删掉(如 purge_red_lines)后再采 102.pdf:认作已入库的那条,不再挂到基础 uid 上
+    path.write_text(json.dumps(rows[1], ensure_ascii=False) + "\n")
+    stats = {}
+    assert C.upsert_jsonl([dict(b)], "y", stats)[1:] == (0, 0) and stats["uid_collisions"] == 0
+    assert [json.loads(x)["uid"] for x in path.read_text().splitlines()] == ["TH-GAZ-20240301-2567-102"]
+    # 官方改了标题、标题里的数字变了(uid 随之变):同一个 PDF 仍是更新,保留已有 uid
+    retitled = _doc("ประกาศกรมประมง เรื่อง ข (ฉบับที่ 2) 2567", "https://ratchakitcha.soc.go.th/documents/102.pdf")
+    assert retitled["uid"] != "TH-GAZ-20240301-2567-102"
+    assert C.upsert_jsonl([retitled], "z")[1:] == (0, 1)
+    rows = [json.loads(x) for x in path.read_text().splitlines()]
+    assert len(rows) == 1 and rows[0]["uid"] == "TH-GAZ-20240301-2567-102" and "ฉบับที่ 2" in rows[0]["titles"]["th"]
+    # 批次内同理:同一个 PDF 以两个 uid 出现,只留一条
+    assert len(C.dedupe_batch([dict(b), dict(retitled)])[0]) == 1
+
+
+def test_recollecting_every_existing_record_changes_nothing(tmp_path, monkeypatch):
+    """把仓库里全部现有记录原样重采一遍:0 新增、0 更新、uid 不变、没有新撞号。"""
+    from app.config import REPO_ROOT
+    src = (REPO_ROOT / "data" / "policies" / "documents.jsonl").read_text(encoding="utf-8")
+    d = tmp_path / "policies"; d.mkdir()
+    monkeypatch.setattr(C, "POLICIES_DIR", d)
+    (d / "documents.jsonl").write_text(src, encoding="utf-8")
+    recs = [json.loads(x) for x in src.splitlines()]
+    auto = [r for r in recs if (r.get("provenance") or {}).get("pipeline") in C.AUTO_PIPELINES]
+    stats = {}
+    assert C.upsert_jsonl([json.loads(json.dumps(r)) for r in auto], "x", stats)[1:] == (0, 0)
+    assert stats["uid_collisions"] == 0
+    assert (d / "documents.jsonl").read_text(encoding="utf-8") == src

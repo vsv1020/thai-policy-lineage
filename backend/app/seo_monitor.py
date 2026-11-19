@@ -345,7 +345,7 @@ def skipped_page_paths() -> set[str]:
                 d = json.loads(line)
             except ValueError:
                 continue
-            if (d.get("flags") or {}).get("skip") and d.get("uid"):
+            if ((d.get("flags") or {}).get("skip") or (d.get("flags") or {}).get("red_line")) and d.get("uid"):
                 out.add(f"/p/{d['uid'].lower()}.html")
                 out.add(f"/zh-hant/p/{d['uid'].lower()}.html")      # 繁体版同样不生成
     return out

@@ -21,7 +21,7 @@
     { "id": "excise",   "zh": "消费税厅",   "th": "กรมสรรพสามิต",          "abbr": "EXCISE", "ministry": "mof" },
     { "id": "customs",  "zh": "海关厅",     "th": "กรมศุลกากร",            "abbr": "CUSTOMS","ministry": "mof" },
     { "id": "mof",      "zh": "财政部",     "th": "กระทรวงการคลัง",        "abbr": "MOF",    "ministry": null },
-    { "id": "boi", "zh": "投资促进委员会", "th": "คณะกรรมการส่งเสริมการลงทุน", "abbr": "BOI", "ministry": null, "th_aliases": [{"th": "สำนักงานคณะกรรมการส่งเสริมการลงทุน", "zh": "投资促进委员会办公室"}, {"th": "กกท.", "site": "boi"}, {"th": "สกท.", "zh": "投资促进委员会办公室", "site": "boi"}] },
+    { "id": "boi", "zh": "投资促进委员会", "th": "คณะกรรมการส่งเสริมการลงทุน", "abbr": "BOI", "ministry": null, "th_aliases": [{"th": "สำนักงานคณะกรรมการส่งเสริมการลงทุน", "zh": "投资促进委员会办公室"}, {"th": "กกท.", "site": "boi"}, {"th": "กกท", "site": "boi"}, {"th": "สกท.", "zh": "投资促进委员会办公室", "site": "boi"}] },
     { "id": "imm",      "zh": "移民局",     "th": "สำนักงานตรวจคนเข้าเมือง", "abbr": "IMM",  "ministry": "police" },
     { "id": "moi",      "zh": "内政部",     "th": "กระทรวงมหาดไทย",        "abbr": "MOI",    "ministry": null },
     { "id": "dol", "zh": "土地厅", "th": "กรมที่ดิน", "abbr": "DOL", "ministry": "moi", "th_aliases": [{"th": "สำนักงานที่ดินจังหวัด", "prefix": true}, {"th": "สำนักงานที่ดินกรุงเทพมหานคร", "prefix": true}] },

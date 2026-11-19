@@ -674,13 +674,17 @@ def dedupe_batch(records: list[dict]) -> tuple[list[dict], int]:
     """同一批次里同一份文件只留一条(几个月份文件里重复出现);uid 相同的不同文件都留下,uid 暂不改 ——
     消歧后缀在 upsert_jsonl 里对照已入库记录统一分配,这样谁先谁后都得到同一个结果。返回 (记录, 撞号数)。"""
     by_uid: dict[str, list[dict]] = {}
+    urls: set[str] = set()
     out, collisions = [], 0
     for rec in records:
         group = by_uid.setdefault(rec["uid"], [])
-        if any(same_document(x, rec) for x in group):
+        mine = official_urls(rec)
+        # 同一份文件:官方原文链接已在本批出现过(标题改了、uid 跟着变也算),或同 uid 下已有同一份
+        if (mine & urls) or any(same_document(x, rec) for x in group):
             continue
         collisions += bool(group)
         group.append(rec)
+        urls |= mine
         out.append(rec)
     return out, collisions
 
@@ -750,8 +754,9 @@ def find_twin(rows: list[dict], candidates: list[int], rec: dict) -> int | None:
 def upsert_jsonl(records: list[dict], run_at: str, stats: dict | None = None) -> tuple[list[dict], int, int]:
     """新记录追加、已有记录按官方源更新,原位改写 documents.jsonl(保持顺序,diff 只出现改动的行)。
     人工整理的条目(pipeline 不是官方接口)永远不被覆盖。返回 (新增或变动的记录, 新增数, 更新数)。
-    uid 撞号(同一个 uid 已是另一份文件,或同批次里两份文件同 uid)时,新文件加消歧后缀入库,
-    撞号数写进 stats["uid_collisions"]。"""
+    同一份文件先按官方原文链接认(已入库的那条照常更新,保留它的 uid);链接没见过的,
+    uid 撞号(同一个 uid 已是另一份文件,或同批次里两份文件同 uid)时加消歧后缀入库,
+    本次新分配的消歧 uid 条数写进 stats["uid_collisions"]。"""
     stats = stats if stats is not None else {}
     records, _ = dedupe_batch(records)
     stats["uid_collisions"] = 0
@@ -765,13 +770,24 @@ def upsert_jsonl(records: list[dict], run_at: str, stats: dict | None = None) ->
     for k, r in enumerate(rows):
         if (r.get("provenance") or {}).get("pipeline") in AUTO_PIPELINES:
             by_title.setdefault(title_key((r.get("titles") or {}).get("th", "")), []).append(k)
+    # 官方原文链接 → 已入库记录:同一份文件先按链接认,不看候选算出来的 uid —— 占着基础 uid 的记录被删掉后,
+    # 或官方改了标题(标题里的数字变了、uid 跟着变),同一个 PDF 都不会再入库一份
+    by_url: dict[str, int] = {}
+    for k, r in enumerate(rows):
+        for url in official_urls(r):
+            by_url.setdefault(url, k)
     touched: list[dict] = []
     added = updated = 0
     for rec in records:
-        uid, hit = resolve_uid(rec, _RowsByUid(rows, index))
-        if hit:
-            rec = {**rec, "uid": uid}
-            stats["uid_collisions"] += 1
+        known = next((by_url[u] for u in sorted(official_urls(rec)) if u in by_url), None)
+        if known is not None:
+            rec = {**rec, "uid": rows[known]["uid"]}
+        else:
+            uid, hit = resolve_uid(rec, _RowsByUid(rows, index))
+            if hit:
+                rec = {**rec, "uid": uid}
+                # 只统计本次新分配的消歧 uid(原样重采已有的消歧条目不算)
+                stats["uid_collisions"] += uid not in index
         i = index.get(rec["uid"])
         twin = find_twin(rows, by_title.get(title_key(rec["titles"]["th"]), []), rec) if i is None else None
         if twin is not None:
@@ -791,6 +807,8 @@ def upsert_jsonl(records: list[dict], run_at: str, stats: dict | None = None) ->
             continue
         if i is None:
             index[rec["uid"]] = len(rows)
+            for url in official_urls(rec):
+                by_url.setdefault(url, len(rows))
             by_title.setdefault(title_key(rec["titles"]["th"]), []).append(len(rows))
             rows.append(rec)
             touched.append(rec)
