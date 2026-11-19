@@ -33,9 +33,10 @@ import httpx
 from sqlalchemy import select
 
 from .persons import title_person_reason
-from .config import BKK, POLICIES_DIR, settings
+from .config import BKK, DATA_DIR, POLICIES_DIR, settings
 from .db import init_db, session_scope
 from .ingest import load_documents, read_jsonl
+from .issuer import title_issuers
 from .models import CollectRun, Document, SourceHealth
 
 log = logging.getLogger("policy.collect")
@@ -56,7 +57,9 @@ SOURCES = [
 ]
 
 # 红线一:王室相关一律不自动入库
-ROYAL_TERMS = ("พระบรมราชโองการ", "สมเด็จพระ", "พระบาทสมเด็จ", "ราชวงศ์", "เครื่องราชอิสริยาภรณ์")
+# 红线一的泰文词:采集(标题)、翻译(enrich.ROYAL_TERMS)、校验(tools/validate.py)三处同一份,
+# 测试 test_fulltext.test_red_line_terms_are_the_same_everywhere 逐字比对
+ROYAL_TERMS = ("พระบรมราชโองการ", "สมเด็จพระ", "พระบาทสมเด็จ", "ราชวงศ์", "เครื่องราชอิสริยาภรณ์", "พระราชทาน")
 # 红线二:人名前缀出现即跳过(叙勋、归化名单等)。规则在 app.persons,与翻译环节共用
 PERSON_PREFIX = re.compile(r"(นาย|นาง|นางสาว)\s*\S")     # 旧规则,仅为兼容保留;判断用 persons
 
@@ -72,6 +75,7 @@ class SourceResult:
     status: str = "unattempted"
     detail: str = ""
     records: list[dict] = field(default_factory=list)
+    uid_collisions: int = 0
 
 
 class Throttle:
@@ -375,7 +379,8 @@ def normalize_gazette(rec: dict, run_at: str) -> tuple[dict | None, str]:
         "goal_ids": [],
         "implementation_stage": None,
         "subjects": [],
-        "agency_ids": ["cabinet"],          # 公报索引不含发文机关,先挂内阁秘书处口径
+        # 公报索引不含发文机关字段:按泰文标题认(app.issuer,与 enrich.fix_agency 同一口径);认不出先挂内阁秘书处口径
+        "agency_ids": title_issuers(title, DATA_DIR / "vocab.json") or ["cabinet"],
         "domain_ids": ["biz"],              # 待翻译分类环节改写
         "legal_form_id": "prakat",
         "status_id": "gazetted",
@@ -515,7 +520,6 @@ def _collect_with(src: dict, res: SourceResult, client: httpx.Client, throttle: 
     done: list[str] = []
     failed: list[str] = []
     fields = ""
-    seen: set[str] = set()
     for r in targets:
         name = r.get("name") or r.get("id", "?")
         try:
@@ -538,13 +542,12 @@ def _collect_with(src: dict, res: SourceResult, client: httpx.Client, throttle: 
             if stamp and date.fromisoformat(stamp) < cutoff:
                 skipped["早于回溯期"] = skipped.get("早于回溯期", 0) + 1
                 continue
-            if norm["uid"] in seen:
-                continue
-            seen.add(norm["uid"])
             res.records.append(norm)
             got += 1
         done.append(f"{name}({urlsplit(r.get('url') or '').hostname},{via}) {got} 条")
 
+    # 同一份文件在几个月份文件里重复出现只留一条;uid 相同的不同文件都留下(入库时加消歧后缀)
+    res.records, res.uid_collisions = dedupe_batch(res.records)
     if not done:
         res.status = "error"
         res.detail = ("resource 均不可用:" + ";".join(failed)
@@ -552,6 +555,8 @@ def _collect_with(src: dict, res: SourceResult, client: httpx.Client, throttle: 
         return res
     res.status = "ok"
     parts = [f"同步 {len(done)} 个文件,收 {len(res.records)} 条:" + ";".join(done)]
+    if res.uid_collisions:
+        parts.append(f"uid 撞号 {res.uid_collisions} 条(入库时加消歧后缀)")
     if skipped:
         parts.append(f"跳过 {sum(skipped.values())} 条(" +
                      ", ".join(f"{k}×{v}" for k, v in sorted(skipped.items())) + ")")
@@ -609,8 +614,86 @@ AGENCY_PIPELINES = {"rd_web", "boi_web"}
 RAW_FIELDS = ("doc_no", "gazette", "dates", "sources", "status_id")
 
 
+def official_urls(rec: dict) -> set[str]:
+    return {x["url"] for x in rec.get("sources") or [] if x.get("role") == "official" and x.get("url")}
+
+
+def same_document(a: dict, b: dict) -> bool:
+    """两条记录是不是同一份文件:官方原文链接有交集,或泰文标题归一后相同。
+    uid 只是「日期 + 标题里的拉丁字母和数字」,同一天两份标题里只有「พ.ศ. 2569」的文件 uid 必然相同 ——
+    uid 相同不等于同一份文件。"""
+    from .agency_sources import title_key
+    ua, ub = official_urls(a), official_urls(b)
+    if ua and ub and ua & ub:
+        return True
+    ta, tb = (title_key((a.get("titles") or {}).get("th", "")),
+              title_key((b.get("titles") or {}).get("th", "")))
+    return bool(ta) and ta == tb
+
+
+def uid_suffix(rec: dict) -> str:
+    """撞号时的消歧后缀,只由这份文件本身决定(可重现):官方原文 PDF 的编号,没有就用泰文标题的短哈希。"""
+    import hashlib
+    from .agency_sources import title_key
+    for url in sorted(official_urls(rec)):
+        m = re.search(r"/(\d+)\.pdf$", url)
+        if m:
+            return m.group(1)
+    key = title_key((rec.get("titles") or {}).get("th", "")) or json.dumps(sorted(official_urls(rec)))
+    return hashlib.sha1(key.encode("utf-8")).hexdigest()[:8].upper()
+
+
+def resolve_uid(rec: dict, taken: dict[str, dict]) -> tuple[str, bool]:
+    """给候选记录定 uid。taken = {已占用的 uid: 记录}。返回 (uid, 是否撞号)。
+    uid 没被占用,或占着它的就是同一份文件:用原 uid(后者走更新)。被别的文件占了:加消歧后缀;
+    后缀也被别的文件占了(极少见)再加序号。已有记录的 uid 一律不变 —— 网址已经被收录。"""
+    uid = rec["uid"]
+    if uid not in taken or same_document(taken[uid], rec):
+        return uid, False
+    base = f"{uid}-{uid_suffix(rec)}"
+    cand, n = base, 2
+    while cand in taken and not same_document(taken[cand], rec):
+        cand, n = f"{base}-{n}", n + 1
+    return cand, True
+
+
+class _RowsByUid:
+    """把 (rows, {uid: 行号}) 当成 {uid: 记录} 用,给 resolve_uid 查,不必每条都复制一份字典。"""
+
+    def __init__(self, rows: list[dict], index: dict[str, int]):
+        self.rows, self.index = rows, index
+
+    def __contains__(self, uid: str) -> bool:
+        return uid in self.index
+
+    def __getitem__(self, uid: str) -> dict:
+        return self.rows[self.index[uid]]
+
+
+def dedupe_batch(records: list[dict]) -> tuple[list[dict], int]:
+    """同一批次里同一份文件只留一条(几个月份文件里重复出现);uid 相同的不同文件都留下,uid 暂不改 ——
+    消歧后缀在 upsert_jsonl 里对照已入库记录统一分配,这样谁先谁后都得到同一个结果。返回 (记录, 撞号数)。"""
+    by_uid: dict[str, list[dict]] = {}
+    urls: set[str] = set()
+    out, collisions = [], 0
+    for rec in records:
+        group = by_uid.setdefault(rec["uid"], [])
+        mine = official_urls(rec)
+        # 同一份文件:官方原文链接已在本批出现过(标题改了、uid 跟着变也算),或同 uid 下已有同一份
+        if (mine & urls) or any(same_document(x, rec) for x in group):
+            continue
+        collisions += bool(group)
+        group.append(rec)
+        urls |= mine
+        out.append(rec)
+    return out, collisions
+
+
 def merge_update(old: dict, new: dict) -> dict:
-    """官方源里已入库记录的更新:原始字段以官方为准;泰文标题变了则清空中文结果,交给翻译环节重做。"""
+    """官方源里已入库记录的更新:原始字段以官方为准;泰文标题变了则清空中文结果,交给翻译环节重做。
+    只用于同一份文件(same_document);原文链接与标题都不同的,是撞了 uid 的另一份文件,原样返回旧记录。"""
+    if not same_document(old, new):
+        return json.loads(json.dumps(old))
     merged = json.loads(json.dumps(old))
     for k in RAW_FIELDS:
         if k not in new:
@@ -635,7 +718,9 @@ def merge_update(old: dict, new: dict) -> dict:
         merged["titles"]["zh"] = ""
         merged["summary_zh"] = ""
         merged["key_points_zh"] = []
-        merged.setdefault("flags", {}).pop("skip", None)
+        if not (merged.get("flags") or {}).get("red_line"):
+            # 因红线下线的(flags.red_line)保持跳过:标题哪怕只多了一个空格,也不能借重新翻译回到前台
+            merged.setdefault("flags", {}).pop("skip", None)
         prov = merged.setdefault("provenance", {})
         for k in ("summary_basis", "fulltext_attempts", "enriched_by"):
             prov.pop(k, None)
@@ -666,9 +751,15 @@ def find_twin(rows: list[dict], candidates: list[int], rec: dict) -> int | None:
     return None
 
 
-def upsert_jsonl(records: list[dict], run_at: str) -> tuple[list[dict], int, int]:
+def upsert_jsonl(records: list[dict], run_at: str, stats: dict | None = None) -> tuple[list[dict], int, int]:
     """新记录追加、已有记录按官方源更新,原位改写 documents.jsonl(保持顺序,diff 只出现改动的行)。
-    人工整理的条目(pipeline 不是官方接口)永远不被覆盖。返回 (新增或变动的记录, 新增数, 更新数)。"""
+    人工整理的条目(pipeline 不是官方接口)永远不被覆盖。返回 (新增或变动的记录, 新增数, 更新数)。
+    同一份文件先按官方原文链接认(已入库的那条照常更新,保留它的 uid);链接没见过的,
+    uid 撞号(同一个 uid 已是另一份文件,或同批次里两份文件同 uid)时加消歧后缀入库,
+    本次新分配的消歧 uid 条数写进 stats["uid_collisions"]。"""
+    stats = stats if stats is not None else {}
+    records, _ = dedupe_batch(records)
+    stats["uid_collisions"] = 0
     if not records:
         return [], 0, 0
     path = POLICIES_DIR / "documents.jsonl"
@@ -679,9 +770,24 @@ def upsert_jsonl(records: list[dict], run_at: str) -> tuple[list[dict], int, int
     for k, r in enumerate(rows):
         if (r.get("provenance") or {}).get("pipeline") in AUTO_PIPELINES:
             by_title.setdefault(title_key((r.get("titles") or {}).get("th", "")), []).append(k)
+    # 官方原文链接 → 已入库记录:同一份文件先按链接认,不看候选算出来的 uid —— 占着基础 uid 的记录被删掉后,
+    # 或官方改了标题(标题里的数字变了、uid 跟着变),同一个 PDF 都不会再入库一份
+    by_url: dict[str, int] = {}
+    for k, r in enumerate(rows):
+        for url in official_urls(r):
+            by_url.setdefault(url, k)
     touched: list[dict] = []
     added = updated = 0
     for rec in records:
+        known = next((by_url[u] for u in sorted(official_urls(rec)) if u in by_url), None)
+        if known is not None:
+            rec = {**rec, "uid": rows[known]["uid"]}
+        else:
+            uid, hit = resolve_uid(rec, _RowsByUid(rows, index))
+            if hit:
+                rec = {**rec, "uid": uid}
+                # 只统计本次新分配的消歧 uid(原样重采已有的消歧条目不算)
+                stats["uid_collisions"] += uid not in index
         i = index.get(rec["uid"])
         twin = find_twin(rows, by_title.get(title_key(rec["titles"]["th"]), []), rec) if i is None else None
         if twin is not None:
@@ -701,6 +807,8 @@ def upsert_jsonl(records: list[dict], run_at: str) -> tuple[list[dict], int, int
             continue
         if i is None:
             index[rec["uid"]] = len(rows)
+            for url in official_urls(rec):
+                by_url.setdefault(url, len(rows))
             by_title.setdefault(title_key(rec["titles"]["th"]), []).append(len(rows))
             rows.append(rec)
             touched.append(rec)
@@ -760,7 +868,7 @@ def backfill_topic(topic_id: str, dry_run: bool = False) -> dict:
     run_at = started.replace(microsecond=0).isoformat()
     throttle = Throttle(settings.min_request_interval)
     src = next(x for x in SOURCES if x["id"] == "gazette_json")
-    records: dict[str, dict] = {}
+    records: list[dict] = []
     months: list[str] = []
     failed: list[str] = []
     skipped: dict[str, int] = {}
@@ -784,21 +892,25 @@ def backfill_topic(topic_id: str, dry_run: bool = False) -> dict:
                     continue
                 if not th_title_matches(norm["titles"]["th"], match):
                     continue
-                if norm["uid"] not in records:
-                    records[norm["uid"]] = norm
-                    got += 1
+                records.append(norm)
+                got += 1
             y, m = resource_period(r)
             months.append(f"{y}-{m:02d}:{got}")
+    records, batch_collisions = dedupe_batch(records)
     out = {"topic": topic_id, "matched": len(records), "months": months, "failed": failed,
            "skipped_top": dict(sorted(skipped.items(), key=lambda kv: -kv[1])[:8]), "dry_run": dry_run}
     if dry_run:
-        out["sample"] = [r["titles"]["th"][:120] for r in list(records.values())[:20]]
+        out["sample"] = [r["titles"]["th"][:120] for r in records[:20]]
+        out["uid_collisions"] = batch_collisions
         return out
-    touched, added, updated = upsert_jsonl(list(records.values()), run_at)
-    out.update(added=added, updated=updated)
+    stats: dict = {}
+    touched, added, updated = upsert_jsonl(records, run_at, stats)
+    collisions = stats.get("uid_collisions", 0)
+    out.update(added=added, updated=updated, uid_collisions=collisions)
     append_run({"started_at": run_at, "finished_at": datetime.now(BKK).replace(microsecond=0).isoformat(),
                 "status": "ok" if not failed else "partial", "trigger": f"backfill-topic:{topic_id}",
                 "added": added, "updated": updated, "backfill": True,
+                "uid_collisions": collisions,
                 "duration_s": round((datetime.now(BKK) - started).total_seconds(), 1),
                 "detail": f"专题回填 {topic_id}:命中 {len(records)} 条,新增 {added},更新 {updated};"
                           f"扫描 {len(months)} 个月" + (f";{len(failed)} 个月失败" if failed else "")})
@@ -853,12 +965,14 @@ def run_collection(trigger: str = "manual", dry_run: bool = False, backfill: boo
     ok_count = sum(1 for r in results if r.status == "ok")
 
     added = updated = appended = 0
+    upsert_stats = {}
     purged: list[tuple[str, str]] = []
     if not dry_run:
         # 红线规则收紧后,早先收进来的不合规条目先清掉(否则它们永远留在公开的事实层里)
         purged = purge_red_lines()
         # 新记录追加,已入库记录按官方源更新;只把有变动的记录写库
-        touched, appended, updated = upsert_jsonl(all_records, run_at_iso)
+        upsert_stats: dict = {}
+        touched, appended, updated = upsert_jsonl(all_records, run_at_iso, upsert_stats)
         with session_scope() as s:
             added, _ = load_documents(s, touched, now=started)
 
@@ -886,6 +1000,8 @@ def run_collection(trigger: str = "manual", dry_run: bool = False, backfill: boo
                     "status": status, "trigger": trigger,
                     "added": appended, "updated": updated, "backfill": backfill,
                     **({"purged": len(purged)} if purged else {}),
+                    # uid 撞号:与已入库记录或同批次的另一份文件撞号、已加消歧后缀入库的条数(不再丢弃或覆盖)
+                    **({"uid_collisions": n} if (n := upsert_stats.get("uid_collisions", 0)) else {}),
                     "duration_s": round(duration, 1), "detail": detail[:1000]})
 
     enrich_result = None

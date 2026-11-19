@@ -14,7 +14,8 @@ from datetime import date, datetime, timedelta
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session, aliased
 
-from .config import BKK, CONF_WEIGHT, settings
+from . import issuer as ISSUER
+from .config import BKK, CONF_WEIGHT, DATA_DIR, settings
 from .ingest import split_summary
 from .models import (Agency, Conflict, Deadline, Document, DocumentAgency, DocumentDomain,
                      DocumentGoal, DocumentInstrument, DocumentParty, Domain, Goal,
@@ -60,6 +61,30 @@ def iso_bkk(dt: datetime | None) -> str | None:
 
 # ─────────────────────── 首页 ───────────────────────
 
+def is_cabinet_resolution(doc) -> bool:
+    """内阁决议条目:只有决议日,没有公报卷期,也没有发布日。"""
+    return bool(doc.resolved_at) and not doc.published_at and not doc.gazette_series
+
+
+def uid_agency(uid: str) -> str:
+    """uid 的第二段(TH-<机关>-<日期>-…):官网来源的条目,这一段就是来源网站所属的机关。"""
+    parts = str(uid or "").split("-")
+    return parts[1].lower() if len(parts) > 2 else ""
+
+
+def attribution(doc, zh: dict[str, str], with_ids: bool = False):
+    """机关栏 (标签, 发文机关中文名, 相关机关中文名);规则见 app.issuer.attribute。
+    zh = {机关 id: 显示名}。落地页、首页卡片、详情视图、llms-full.txt 都用这一个结果。"""
+    ids = [a.agency_id for a in sorted(doc.agencies, key=lambda x: x.seq)]
+    try:
+        rules, parents = ISSUER.vocab_rules(DATA_DIR / "vocab.json")
+    except (OSError, ValueError):
+        rules, parents = [], {}
+    return ISSUER.attribute(doc.title_th or "", ids, zh, rules, parents, verified=bool(doc.verified),
+                            gazette=bool(doc.gazette_series), cabinet_resolution=is_cabinet_resolution(doc),
+                            uid_agency=uid_agency(doc.uid), with_ids=with_ids)
+
+
 def document_view(s: Session, doc: Document, today: date) -> dict:
     domains = sorted(doc.domains, key=lambda x: x.seq)
     agencies = sorted(doc.agencies, key=lambda x: x.seq)
@@ -69,6 +94,9 @@ def document_view(s: Session, doc: Document, today: date) -> dict:
         a = s.get(Agency, aid)
         abbr = (a.abbr or "").replace("-", "")
         return f"{a.zh} ({a.abbr})" if abbr.isascii() and abbr.isalpha() else a.zh
+
+    org_label, org_issuer, org_related, issuer_ids = attribution(
+        doc, {a.agency_id: org_name(a.agency_id) for a in agencies}, with_ids=True)
 
     lf, st = doc.legal_form, doc.status
     if doc.effective_from:
@@ -97,6 +125,15 @@ def document_view(s: Session, doc: Document, today: date) -> dict:
         "summary_zh": split_summary(doc.summary_zh)[0],
         "key_points": split_summary(doc.summary_zh)[1],
         "org": " · ".join(org_name(a.agency_id) for a in agencies),
+        # 机关栏:标签「发文机关」时 org_issuer 是标题(或来源)印证的发文者,其余在 org_related;
+        # 标签「相关机关」时全部在 org_related;标签为空 = 只有缺省的「内阁」,不显示。卡片上显示 org_shown;
+        # org_issuer_ids:发文机关的 id(官网来源转载别家文件时,落地页据此不把官网上架日说成发文日)
+        "org_label": org_label,
+        "org_issuer": " · ".join(org_issuer),
+        "org_related": " · ".join(org_related),
+        # 首页卡片只显示印证了的发文机关;只有相关机关时不显示(不带标签地写出来会被读成发文者)
+        "org_shown": " · ".join(org_issuer),
+        "org_issuer_ids": issuer_ids,
         "doc_no": doc.doc_no,
         "doc_no_label": "公报" if doc.gazette_series else "文号",
         "legal_form": f"{lf.zh} · {lf.abbr} 层级",
@@ -667,13 +704,13 @@ def ops(s: Session) -> dict:
         else:
             break
 
-    from .ingest import official_sources
+    from .ingest import hidden, official_sources
     records = read_jsonl(POLICIES_DIR / "documents.jsonl")
     pending = [r for r in records if not (r.get("titles") or {}).get("zh")
-               and not (r.get("flags") or {}).get("skip") and official_sources(r)]
+               and not hidden(r) and official_sources(r)]
     # 缺官方原文:不上前台、也不翻译,等补上 *.go.th 原文链接后自动恢复
-    no_source = [r for r in records if not (r.get("flags") or {}).get("skip") and not official_sources(r)]
-    skipped = [r for r in records if (r.get("flags") or {}).get("skip")]
+    no_source = [r for r in records if not hidden(r) and not official_sources(r)]
+    skipped = [r for r in records if hidden(r)]
     by_pipeline: dict[str, int] = defaultdict(int)
     for r in records:
         by_pipeline[(r.get("provenance") or {}).get("pipeline", "manual")] += 1

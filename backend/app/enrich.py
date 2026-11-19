@@ -4,6 +4,8 @@
     python3 -m app.enrich                 # 处理待办队列(title_zh 为空的条目)
     python3 -m app.enrich --limit 5       # 只处理 5 条
     python3 -m app.enrich --dry-run       # 只列出队列,不调用 API
+    python3 -m app.enrich --fix-agencies  # 词表补了机关后:已入库条目按泰文标题重定发文机关(不调用模型)
+    python3 -m app.enrich --fix-agencies --dry-run   # 只列出前 10 条改动,不写
 
 为什么需要这一步:app.collect 从官方接口取回的是泰文标题 + 公报卷期 + 日期,
 中文标题、摘要、领域、工具、方向全是空的或占位值 —— 不补这一步,自动采集的内容
@@ -44,15 +46,20 @@ import httpx
 from .config import BKK, DATA_DIR, POLICIES_DIR, REPO_ROOT, settings
 from .db import init_db, session_scope
 from .ingest import load_documents, read_jsonl
+from . import issuer as ISSUER
 from .persons import output_person_reason, redact as redact_persons
 
 log = logging.getLogger("policy.enrich")
 
-ROYAL_TERMS = ("พระบรมราชโองการ", "สมเด็จพระ", "พระบาทสมเด็จ", "ราชวงศ์",
-               "เครื่องราชอิสริยาภรณ์", "พระราชทาน")
+# 泰文部分与 app.collect.ROYAL_TERMS、tools/validate.py 完全一致
+ROYAL_TERMS = ("พระบรมราชโองการ", "สมเด็จพระ", "พระบาทสมเด็จ", "ราชวงศ์", "เครื่องราชอิสริยาภรณ์", "พระราชทาน")
 # 模型输出里也不得出现王室相关表述(与 tools/validate.py 的红线一保持一致)。
 # 读正文后模型可能写出「经国王御准」之类的话 —— 命中就按红线一整条跳过,不写入任何译文
-ROYAL_OUTPUT_TERMS = ROYAL_TERMS + ("王室", "国王", "王后", "御准", "冒犯君主")
+# 称谓也算:正文里受王室赞助的机构名(「受某某王太后殿下赞助的……协会」)会被模型原样译出
+ROYAL_OUTPUT_TERMS = ROYAL_TERMS + ("王室", "国王", "王后", "御准", "冒犯君主",
+                                    "王太后", "太后", "陛下", "殿下", "亲王", "王储",
+                                    "公主", "王妃", "皇后", "皇室", "泰皇", "皇上", "御赐", "钦赐", "皇家赞助")
+# 不收「王子」(会命中「宋卡王子大学」)和单独的「皇家」(皇家公报、皇家法令)
 
 SYSTEM_PROMPT = """你是泰国政策数据库的编辑助手,把泰国皇家公报/内阁决议/部门公告(税务厅、BOI)整理成中文结构化记录,
 读者是在泰国生活和经商的华人(长居个人、中资企业、投资者)。输入有泰文标题,多数还附有正文(从官方 PDF 抽取,
@@ -78,7 +85,9 @@ SYSTEM_PROMPT = """你是泰国政策数据库的编辑助手,把泰国皇家公
   confidence 选 low)。
 - 涉及王室的内容不在你的处理范围内(上游已过滤),若仍遇到,relevant 设为 false。
 - 不写任何自然人的姓名(包括部长、官员、当事人),只写职务或机关,如「副总理兼财政部长」「税务厅厅长」;
-  正文里的姓名已替换为[人名略],不要猜测或还原。不用「先生/女士」等称谓。"""
+  正文里的姓名已替换为[人名略],不要猜测或还原。不用「先生/女士」等称谓。
+- 术语:ที่ราชพัสดุ 是国库厅管理的国有地产,译「国库土地」或「国有财产」,不要译成「皇家地产」;
+  กรมธนารักษ์ 译「国库厅」,不要译成「财政厅」(财政部是 กระทรวงการคลัง)。"""
 
 
 def _vocab() -> dict:
@@ -142,6 +151,7 @@ def needs_fulltext_upgrade(rec: dict) -> bool:
     from .fulltext import pdf_url
     prov = rec.get("provenance") or {}
     return (bool((rec.get("titles") or {}).get("zh")) and not (rec.get("flags") or {}).get("skip")
+            and not (rec.get("flags") or {}).get("red_line")
             and bool(prov.get("enriched_by")) and prov.get("summary_basis") != "fulltext"
             and int(prov.get("fulltext_attempts", 0) or 0) < UPGRADE_MAX_ATTEMPTS
             and bool(pdf_url(rec)))
@@ -150,7 +160,8 @@ def needs_fulltext_upgrade(rec: dict) -> bool:
 def is_pending(rec: dict) -> bool:
     """待翻译:没有中文标题、未被跳过,且有可考证的官方原文 —— 没有原文的条目上不了前台,不花钱翻译。"""
     from .ingest import official_sources
-    return (not (rec.get("titles") or {}).get("zh") and not (rec.get("flags") or {}).get("skip")
+    flags = rec.get("flags") or {}
+    return (not (rec.get("titles") or {}).get("zh") and not flags.get("skip") and not flags.get("red_line")
             and bool(official_sources(rec)))
 
 
@@ -335,36 +346,51 @@ def strip_list_marker(text: str) -> str:
     return _LIST_MARKER_RE.sub("", str(text or "")).strip()
 
 
-def agency_rules(v: dict) -> list[tuple[str, str]]:
-    """词表里机关的泰文名(含别名)→ id,长名在前:「สำนักงานคณะกรรมการ…」不会被它包含的短名抢先。"""
-    rules = []
-    for a in v["agencies"]:
-        for name in [a.get("th") or ""] + list(a.get("th_aliases") or []):
-            if len(name) >= 4:
-                rules.append((name, a["id"]))
-    return sorted(rules, key=lambda r: -len(r[0]))
+# 按泰文标题定发文机关的来源管线:公报与部门官网。内阁决议数据的标题是议题名,人工整理的条目以人工为准
+TITLE_ISSUER_PIPELINES = ("gazette_json", "rd_web", "boi_web")
+
+
+_RULES_MEMO: dict[int, tuple[dict, list]] = {}
+
+
+def agency_rules(v: dict) -> list:
+    """词表里机关的泰文名(含别名)→ 规则,长名在前(规则在 app.issuer,与页面层共用)。同一份词表只排一次序。"""
+    hit = _RULES_MEMO.get(id(v))
+    if hit is None or hit[0] is not v:
+        _RULES_MEMO.clear()
+        hit = _RULES_MEMO[id(v)] = (v, ISSUER.agency_rules(v))
+    return hit[1]
+
+
+def _parents(v: dict) -> dict:
+    return {a["id"]: a.get("ministry") for a in v["agencies"]}
+
+
+def issuer_agencies(title_th: str, v: dict, site: str = "") -> list[str]:
+    """泰文标题写明的发文机关 id(联合发文时按标题顺序列出全部);认不出返回空列表。规则见 app.issuer。
+    site = 官网来源条目的官网机关(uid 第二段),只对限定官网的别名(如 BOI 官网上的「กกท.」)起作用。"""
+    return ISSUER.issuer_agencies(title_th, agency_rules(v), _parents(v), site=site)
 
 
 def issuer_agency(title_th: str, v: dict) -> str | None:
-    """从泰文标题的发文机关段(「เรื่อง」或「ว่าด้วย」之前)认出词表里的机关;认不出返回 None。
+    """泰文标题写明的(第一个)发文机关;认不出返回 None。
     公报标题都是「ประกาศ/คำสั่ง/ระเบียบ + 机关 + เรื่อง …」,机关写在标题里,不需要模型猜。"""
-    head = re.split(r"เรื่อง|ว่าด้วย", title_th or "")[0][:160]
-    best = None
-    for name, aid in agency_rules(v):
-        pos = head.find(name)
-        if pos >= 0 and (best is None or pos < best[0] or (pos == best[0] and len(name) > best[1])):
-            best = (pos, len(name), aid)
-    return best[2] if best else None
+    ids = issuer_agencies(title_th, v)
+    return ids[0] if ids else None
 
 
 def fix_agency(rec: dict, v: dict) -> bool:
-    """公报条目的发文机关以标题为准(模型在词表里找不到时会退而选上级部委)。返回是否改动。"""
-    if (rec.get("provenance") or {}).get("pipeline") != "gazette_json":
+    """公报与部门官网条目的发文机关以标题为准(模型在词表里找不到时会退而选上级部委)。返回是否改动。
+    认不出的不动;已经以标题写明的机关开头的也不动(模型另选的机关保留,页面上列为「相关机关」)。"""
+    if (rec.get("provenance") or {}).get("pipeline") not in TITLE_ISSUER_PIPELINES:
         return False
-    aid = issuer_agency((rec.get("titles") or {}).get("th", ""), v)
-    if not aid or (rec.get("agency_ids") or [None])[0] == aid:
+    pipeline = (rec.get("provenance") or {}).get("pipeline")
+    site = "" if pipeline == "gazette_json" else str(rec.get("uid", "")).split("-")[1].lower() \
+        if str(rec.get("uid", "")).count("-") >= 2 else ""
+    ids = issuer_agencies((rec.get("titles") or {}).get("th", ""), v, site)
+    if not ids or list(rec.get("agency_ids") or [])[:len(ids)] == ids:
         return False
-    rec["agency_ids"] = [aid]
+    rec["agency_ids"] = ids
     return True
 
 
@@ -390,7 +416,9 @@ def requeue_kept(dry_run: bool = False) -> list[str]:
     records = read_jsonl(POLICIES_DIR / "documents.jsonl")
     changed: dict[str, dict] = {}
     for r in records:
-        if (r.get("flags") or {}).get("skip") and kept_by_topic(r, pats) \
+        # 因红线跳过的(flags.red_line,或标题含王室词)不在此列:那是留给人工判断的,不能自动放回队列
+        red = (r.get("flags") or {}).get("red_line") or any(t in (r.get("titles") or {}).get("th", "") for t in ROYAL_TERMS)
+        if (r.get("flags") or {}).get("skip") and kept_by_topic(r, pats) and not red \
                 and (r.get("provenance") or {}).get("pipeline") in ("gazette_json", "cabinet_json", "rd_web", "boi_web"):
             r = json.loads(json.dumps(r))
             r["flags"].pop("skip", None)
@@ -414,6 +442,7 @@ def apply_enrichment(rec: dict, out: dict, v: dict, model: str, basis: str = "ti
     if not out.get("relevant", True):
         rec.setdefault("flags", {})["skip"] = True
         rec["titles"]["zh"] = out.get("title_zh", "")[:200]
+        fix_agency(rec, v)                     # 无关条目也按标题定机关:事实层始终是 fix_agencies 的不动点
         rec["note"] = (rec.get("note", "") + f" | {now} LLM 判定与在泰外籍人士/企业无关,不上首页").strip(" |")
         return rec
 
@@ -525,6 +554,7 @@ def run_enrichment(limit: int | None = None, dry_run: bool = False, client=None,
         if any(t in th for t in ROYAL_TERMS):
             rec = json.loads(json.dumps(rec))
             rec.setdefault("flags", {})["skip"] = True
+            rec["flags"]["red_line"] = True        # 结构化标记:采集更新、放回队列都认它,不会被自动翻回来
             rec["note"] = (rec.get("note", "") + " | 触及红线一,不做任何加工").strip(" |")
             updated[rec["uid"]] = rec
             result["skipped_red_line"] += 1
@@ -585,6 +615,7 @@ def run_enrichment(limit: int | None = None, dry_run: bool = False, client=None,
             # 红线一:不写入任何模型输出,标记跳过,留给人工判断
             rec = json.loads(json.dumps(rec))
             rec.setdefault("flags", {})["skip"] = True
+            rec["flags"]["red_line"] = True
             # 说明里不能再写出命中的词,否则整条记录又会被 validate.py 的红线检查拒收
             rec["note"] = (rec.get("note", "") + " | 译文触及红线一,不做加工,待人工处理").strip(" |")
             updated[rec["uid"]] = rec

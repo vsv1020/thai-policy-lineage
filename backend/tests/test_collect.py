@@ -394,8 +394,10 @@ def test_upsert_adds_updates_and_keeps_translation(tmp_path, monkeypatch):
 
 
 def test_upsert_retitle_triggers_retranslation(tmp_path, monkeypatch):
-    path = _jsonl(tmp_path, monkeypatch, [_gz("A", zh="中文A")])
-    C.upsert_jsonl([_gz("A", th="ประกาศ ก (แก้ไข)")], "x")
+    # 官方改了标题的「同一份文件」靠原文链接认出(原先只看 uid;uid 会撞号,见 test_uid_collisions_*)
+    pdf = [{"role": "official", "url": "https://ratchakitcha.soc.go.th/documents/1.pdf"}]
+    path = _jsonl(tmp_path, monkeypatch, [{**_gz("A", zh="中文A"), "sources": pdf}])
+    C.upsert_jsonl([{**_gz("A", th="ประกาศ ก (แก้ไข)"), "sources": pdf}], "x")
     row = json.loads(path.read_text())
     assert row["titles"]["th"].endswith("(แก้ไข)") and row["titles"]["zh"] == "" and row["summary_zh"] == ""
 
@@ -474,3 +476,106 @@ def test_garbled_datastore_and_worksheet_files():
     rows = C.iter_records({"Worksheet": [{"วันที่": "01/07/2024", "เรื่อง": "ระเบียบกรมที่ดิน"}, {"วันที่": "02/07/2024"}]})
     assert len(rows) == 2 and rows[0]["เรื่อง"] == "ระเบียบกรมที่ดิน"
     assert C.iter_records({"data": [{"a": 1}]}) == [{"a": 1}]
+
+
+
+# ─────────────────────────── uid 撞号:不同文件不互相覆盖 ───────────────────────────
+
+def _doc(title, pdf, date_="01/03/2567"):
+    rec, why = C.normalize_gazette({"title": title, "date": date_, "series": "ง", "pdf_url": pdf}, "x")
+    assert rec is not None, why
+    return rec
+
+
+COLLIDING = [
+    _doc("ประกาศกรมโยธาธิการและผังเมือง เรื่อง โครงสร้าง การจัดองค์กร 2567", "https://ratchakitcha.soc.go.th/documents/9001.pdf"),
+    _doc("ประกาศคณะกรรมการจัดรูปที่ดินจังหวัดสกลนคร เรื่อง โครงการ 2567", "https://ratchakitcha.soc.go.th/documents/9002.pdf"),
+    _doc("กฎกระทรวงให้ใช้บังคับผังเมืองรวมเมืองน่าน 2567", "https://ratchakitcha.soc.go.th/documents/9003.pdf"),
+    _doc("กฎกระทรวงให้ใช้บังคับผังเมืองรวมเมืองตราด 2567", "https://ratchakitcha.soc.go.th/documents/9004.pdf"),
+]
+
+
+def test_uid_collisions_keep_every_document(tmp_path, monkeypatch):
+    """同一天、标题里只有「2567」的四份不同文件:uid 原本全是 TH-GAZ-20240301-2567,
+    以前只留第一条(回填)或互相覆盖(日常更新)。现在全部入库,后来的加官方 PDF 编号作消歧后缀。"""
+    assert len({r["uid"] for r in COLLIDING}) == 1
+    path = _jsonl(tmp_path, monkeypatch, [])
+    stats = {}
+    _, added, updated = C.upsert_jsonl([dict(r) for r in COLLIDING], "x", stats)
+    rows = [json.loads(x) for x in path.read_text().splitlines()]
+    uids = [r["uid"] for r in rows]
+    assert added == 4 and updated == 0 and stats["uid_collisions"] == 3
+    assert uids == ["TH-GAZ-20240301-2567", "TH-GAZ-20240301-2567-9002", "TH-GAZ-20240301-2567-9003",
+                    "TH-GAZ-20240301-2567-9004"]
+    # 重跑稳定:同样的输入(顺序打乱也一样)只是更新,不新增,uid 不变
+    before = path.read_text()
+    assert C.upsert_jsonl([dict(r) for r in reversed(COLLIDING)], "x")[1:] == (0, 0)
+    assert path.read_text() == before
+
+
+def test_uid_collision_with_existing_record_never_overwrites(tmp_path, monkeypatch):
+    old = {**COLLIDING[0], "titles": {**COLLIDING[0]["titles"], "zh": "已翻译"}, "summary_zh": "摘要"}
+    path = _jsonl(tmp_path, monkeypatch, [old])
+    C.upsert_jsonl([dict(COLLIDING[2])], "x")
+    rows = {r["uid"]: r for r in map(json.loads, path.read_text().splitlines())}
+    assert rows["TH-GAZ-20240301-2567"]["titles"]["zh"] == "已翻译", "原记录不被别的文件顶替"
+    assert rows["TH-GAZ-20240301-2567-9003"]["titles"]["th"].startswith("กฎกระทรวงให้ใช้บังคับผังเมืองรวมเมืองน่าน")
+    # 同一份文件重复采集仍是更新
+    assert C.upsert_jsonl([{**COLLIDING[0], "doc_no": "ง 9/9"}], "y")[1:] == (0, 1)
+
+
+def test_merge_update_refuses_a_different_document():
+    a, b = COLLIDING[2], COLLIDING[3]
+    assert not C.same_document(a, b)
+    assert C.merge_update(a, b) == a
+    same_pdf = {**b, "sources": a["sources"]}
+    assert C.same_document(a, same_pdf), "原文链接相同就是同一份文件(标题可能被官方更正)"
+
+
+def test_batch_collisions_in_collect_and_backfill(monkeypatch):
+    monkeypatch.setattr(C, "fetch_ckan", lambda *_a, **_k: MONTHS)
+    raw = [{"title": r["titles"]["th"], "date": "01/03/2567", "series": "ง", "pdf_url": r["sources"][0]["url"]}
+           for r in COLLIDING]
+    monkeypatch.setattr(C, "download", lambda r, *_a: ((raw + raw[:1]) if r["id"] == "m3" else [], "直连"))
+    res = C.collect_source(C.SOURCES[0], C.Throttle(0), "x", C.date(2020, 1, 1), dry_run=False, backfill=True)
+    assert len(res.records) == 4 and res.uid_collisions == 3, "同一份文件重复出现只留一条,不同文件都留下"
+    assert "uid 撞号 3 条" in res.detail
+
+
+def test_same_pdf_is_recognised_even_when_uid_differs(tmp_path, monkeypatch):
+    """同一份文件先按官方原文链接认:占着基础 uid 的记录被删掉后,或官方改了标题(uid 跟着变),
+    同一个 PDF 都不再入库一份。"""
+    a = _doc("ประกาศกรมป่าไม้ เรื่อง ก 2567", "https://ratchakitcha.soc.go.th/documents/101.pdf")
+    b = _doc("ประกาศกรมประมง เรื่อง ข 2567", "https://ratchakitcha.soc.go.th/documents/102.pdf")
+    path = _jsonl(tmp_path, monkeypatch, [])
+    C.upsert_jsonl([dict(a), dict(b)], "x")
+    rows = [json.loads(x) for x in path.read_text().splitlines()]
+    assert [r["uid"] for r in rows] == ["TH-GAZ-20240301-2567", "TH-GAZ-20240301-2567-102"]
+    # 前一条被删掉(如 purge_red_lines)后再采 102.pdf:认作已入库的那条,不再挂到基础 uid 上
+    path.write_text(json.dumps(rows[1], ensure_ascii=False) + "\n")
+    stats = {}
+    assert C.upsert_jsonl([dict(b)], "y", stats)[1:] == (0, 0) and stats["uid_collisions"] == 0
+    assert [json.loads(x)["uid"] for x in path.read_text().splitlines()] == ["TH-GAZ-20240301-2567-102"]
+    # 官方改了标题、标题里的数字变了(uid 随之变):同一个 PDF 仍是更新,保留已有 uid
+    retitled = _doc("ประกาศกรมประมง เรื่อง ข (ฉบับที่ 2) 2567", "https://ratchakitcha.soc.go.th/documents/102.pdf")
+    assert retitled["uid"] != "TH-GAZ-20240301-2567-102"
+    assert C.upsert_jsonl([retitled], "z")[1:] == (0, 1)
+    rows = [json.loads(x) for x in path.read_text().splitlines()]
+    assert len(rows) == 1 and rows[0]["uid"] == "TH-GAZ-20240301-2567-102" and "ฉบับที่ 2" in rows[0]["titles"]["th"]
+    # 批次内同理:同一个 PDF 以两个 uid 出现,只留一条
+    assert len(C.dedupe_batch([dict(b), dict(retitled)])[0]) == 1
+
+
+def test_recollecting_every_existing_record_changes_nothing(tmp_path, monkeypatch):
+    """把仓库里全部现有记录原样重采一遍:0 新增、0 更新、uid 不变、没有新撞号。"""
+    from app.config import REPO_ROOT
+    src = (REPO_ROOT / "data" / "policies" / "documents.jsonl").read_text(encoding="utf-8")
+    d = tmp_path / "policies"; d.mkdir()
+    monkeypatch.setattr(C, "POLICIES_DIR", d)
+    (d / "documents.jsonl").write_text(src, encoding="utf-8")
+    recs = [json.loads(x) for x in src.splitlines()]
+    auto = [r for r in recs if (r.get("provenance") or {}).get("pipeline") in C.AUTO_PIPELINES]
+    stats = {}
+    assert C.upsert_jsonl([json.loads(json.dumps(r)) for r in auto], "x", stats)[1:] == (0, 0)
+    assert stats["uid_collisions"] == 0
+    assert (d / "documents.jsonl").read_text(encoding="utf-8") == src

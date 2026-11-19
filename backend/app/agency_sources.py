@@ -24,6 +24,9 @@ from urllib.parse import quote, urljoin
 
 import httpx
 
+from .config import DATA_DIR
+from .issuer import title_issuers
+
 RD_BASE = "https://www.rd.go.th/"
 RD_RSS = RD_BASE + "rss.xml"
 RD_LAW_INDEX = RD_BASE + "284.html"
@@ -69,7 +72,8 @@ def _record(uid: str, title: str, published: str, pdf: str, pipeline: str, run_a
         "goal_ids": [],
         "implementation_stage": None,
         "subjects": [],
-        "agency_ids": [agency],
+        # 官网所属机关是缺省值;标题写明了别的发文机关(BOI 官网转载的总理府命令)以标题为准
+        "agency_ids": title_issuers(title, DATA_DIR / "vocab.json", site=agency) or [agency],
         "domain_ids": [domain],
         "legal_form_id": legal_form,
         "status_id": status,

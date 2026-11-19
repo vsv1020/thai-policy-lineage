@@ -37,8 +37,11 @@ REQUIRED = ("uid", "titles", "summary_zh", "agency_ids", "domain_ids", "legal_fo
             "status_id", "direction", "dates", "relations", "provenance", "flags")
 
 # 红线三:王室相关内容零加工 —— 命中即要求人工确认,不允许自动流程写入
-ROYAL_TERMS = ("พระบรมราชโองการ", "สมเด็จพระ", "พระบาทสมเด็จ", "ราชวงศ์",
-               "王室", "国王", "王后", "御准", "冒犯君主")
+# 泰文部分与 backend/app/collect.py、enrich.py 一致;中文部分与 enrich.ROYAL_OUTPUT_TERMS 一致(测试逐字比对)
+ROYAL_TERMS = ("พระบรมราชโองการ", "สมเด็จพระ", "พระบาทสมเด็จ", "ราชวงศ์", "เครื่องราชอิสริยาภรณ์", "พระราชทาน",
+               "王室", "国王", "王后", "御准", "冒犯君主",
+               "王太后", "太后", "陛下", "殿下", "亲王", "王储",
+               "公主", "王妃", "皇后", "皇室", "泰皇", "皇上", "御赐", "钦赐", "皇家赞助")
 
 
 class Report:
@@ -139,7 +142,8 @@ def check_doc(d: dict, v: dict, rep: Report, all_uids: set[str], issue_ids: set[
         x.get("role") == "official" and str(x.get("url", "")).startswith(("https://", "http://"))
         and (urlsplit(x["url"]).hostname or "").lower().endswith(".go.th")
         for x in d.get("sources") or [])
-    if (d.get("titles") or {}).get("zh") and not (d.get("flags") or {}).get("skip") and not has_official:
+    if (d.get("titles") or {}).get("zh") and not ((d.get("flags") or {}).get("skip")
+                                                  or (d.get("flags") or {}).get("red_line")) and not has_official:
         rep.warn(where, "缺官方原文链接(*.go.th),不会上前台;在 sources 里补 {\"role\": \"official\", \"url\": …}")
     stage = d.get("implementation_stage")
     if stage is not None and stage not in ids(v, "implementation_stages"):
@@ -197,6 +201,12 @@ def check_doc(d: dict, v: dict, rep: Report, all_uids: set[str], issue_ids: set[
     for t in ROYAL_TERMS:
         if t in blob:
             rep.err(where, f"命中王室相关词 {t!r} —— 自动流程不得加工王室内容,需人工处理")
+    # 因红线下线的条目用结构化标记 flags.red_line(采集更新、放回翻译队列都认它);下线就必须跳过
+    flags = d.get("flags") or {}
+    if flags.get("red_line") and not flags.get("skip"):
+        rep.err(where, "flags.red_line 的条目必须同时 flags.skip = true(红线条目不上前台)")
+    if "红线一" in (d.get("note") or "") and not flags.get("red_line"):
+        rep.err(where, "note 写着触及红线一,但没有 flags.red_line 标记 —— 补上标记,否则采集更新会把它放回翻译队列")
 
     # 红线二:不建人名索引。规则与采集、翻译共用(backend/app/persons.py,纯标准库)。
     # 自动采集的条目必须过关;人工条目只提醒(可能在说明里引用了公开职务)
