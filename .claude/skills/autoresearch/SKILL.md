@@ -8,9 +8,12 @@ description: 抓取泰国官方政策最新动态,写入 data/policies/documents
 一次运行 = 一轮增量采集。
 
 **写入 `data/policies/*.jsonl`(规范化事实层),然后 `python3 -m app.ingest` 入库、
-`python3 -m app.export` 生成 `data/site/*.json`。**
-不要手改 `data/site/` 下的任何文件(那是派生产物,CI 会检查它与事实层一致),
-也不要改 `index.html` / `js/`(前端从 API 或这些 JSON 渲染)。
+`python3 -m app.export` 生成 `data/site/*.json` 和落地页等其余派生产物。**
+派生产物都不要手改,CI 会重新导出并检查它们与事实层一致:`data/site/`、`p/`、`feed/`、
+`sitemap.xml`、`robots.txt`、`feed.xml`、`llms.txt`、`llms-full.txt`,以及 `index.html` /
+`privacy.html` / `about.html` 里 `<!-- seo:… -->` 标记之间的受管区块。
+`index.html` 的其余部分和 `js/` 也不要改(前端从 API 或这些 JSON 渲染);
+导出重写了受管区块就照常提交,不要还原。
 
 **先看后端有没有在跑**:`python3 -m app.collect` 已经会自动采集 data.go.th 官方源并入库。
 本流程负责的是**官方接口拿不到、需要判断的那部分** —— 公开检索发现的线索,
@@ -47,7 +50,8 @@ cd backend && python3 -m app.collect --trigger manual
 ```
 
 这一步会自己完成:取 data.go.th 官方 CKAN 接口 → 佛历换算 → 红线过滤 →
-追加 JSONL → 入库 → 导出静态 JSON。成功就不用再做第 3 步之外的事。
+追加 JSONL → 入库 → 导出静态 JSON 与落地页等派生产物(同第 6 步的 `app.export`)。
+成功就不用再做第 3 步之外的事。
 失败(`FetchError` / `ProxyError` / 403) → **不要重试超过一次,不要试图绕过**,继续走第 3 步。
 这是预期情况:泰国政府站点对海外 IP 有 WAF 拦截,且本仓库的远程执行环境出口默认只放行
 GitHub/包镜像,`data.go.th` 会返回 403 CONNECT。要打通需由用户在环境的网络策略里放行域名
@@ -105,11 +109,17 @@ python3 tools/validate.py                    # 词表、关系、日期顺序、
 cd backend && pip install -q -r requirements.txt   # 首次或依赖变动时
 python3 -m app.ingest                        # 事实层 → 数据库(幂等)
 python3 -m pytest tests -q                   # 全部测试,分析口径别被改坏
-python3 -m app.export                        # 数据库 → data/site/*.json
-cd .. && git add data/policies data/site
+python3 -m app.export                        # 数据库 → data/site/*.json + 落地页 p/ 等派生产物
+# 事实层 + app.export 重写的全部派生产物;清单与 .github/workflows/collect.yml「提交采集结果」步骤保持一致
+cd .. && git add data/policies data/site p feed sitemap.xml robots.txt feed.xml llms.txt llms-full.txt index.html privacy.html about.html
+[ -f ads.txt ] && git add ads.txt || true
+[ -d data/notify ] && git add data/notify || true
 git commit -m "data: 政策数据增量更新(新增 N 条 / 更新 M 条)"
 git push -u origin claude/code-review-loop-autoresearch-pisrof
 ```
+
+派生产物要和事实层**同一次提交**:只提交 `data/policies data/site` 的话,
+`.github/workflows/data.yml` 会重新导出,发现 `p/`、`sitemap.xml` 等与提交内容不一致而失败。
 
 校验或测试报错就**修数据**;不要为了让它们通过去放宽 `tools/validate.py` 的规则或改 `MIN_N` 阈值。
 推送失败(网络)按 2s/4s/8s/16s 退避重试至多 4 次。
@@ -125,9 +135,10 @@ git push -u origin claude/code-review-loop-autoresearch-pisrof
 
 ## 不在本流程范围内
 
-- **上升话题榜**没有数据来源(需要关键词提取 + 环比),一直是 `js/app.js` 里的演示数据。
-- **趋势看板另三张图**已经接了 `trends.json`,但数据覆盖不足 `MIN_TREND_MONTHS` 个月时
-  会自动退回演示数组 —— 这是有意的,不要为了「让图好看」去改阈值或补造月份。
+- **趋势看板四张图**(含上升话题榜)全部由 `trends.json` 的真实聚合渲染,前端已没有演示数组。
+  上升话题榜是其中的 `rising`:领域 / 工具 / 目标标签近 90 天对前 90 天的文件数增幅。
+  数据少时图会稀疏或显示「暂无」空态 —— 这是有意的,不要为了「让图好看」去改
+  `MIN_TREND_MONTHS` 或补造月份。
 - **政策维度七维**已全部由数据库聚合算出(`backend/app/analytics.py`)。样本不足的维度会
   自己显示「数据不足」提示条。**不要为了让提示条消失去调 `MIN_N`** —— 那个提示条就是产品的一部分。
   要让维度更准,该做的是给新条目补 `instrument_ids` / `goal_ids` / `implementation_stage`
