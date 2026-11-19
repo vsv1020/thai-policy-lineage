@@ -3,10 +3,10 @@
  "schema_version": 4,
  "updated_at": "2026-11-19T07:07:43+07:00",
  "stats": {
-  "total": 712,
+  "total": 714,
   "research": 0,
   "demo": 0,
-  "with_points": 638,
+  "with_points": 640,
   "date_from": "2023-06-02",
   "date_to": "2026-11-17",
   "gazette_to": "2026-04-22",
@@ -15,7 +15,7 @@
    {
     "id": "biz",
     "zh": "公司投资",
-    "n": 208
+    "n": 209
    },
    {
     "id": "land",
@@ -25,7 +25,7 @@
    {
     "id": "customs",
     "zh": "海关贸易",
-    "n": 88
+    "n": 89
    },
    {
     "id": "tax",
@@ -15646,6 +15646,66 @@
    "uid": "TH-GAZ-20260313-2569",
    "issue_id": null,
    "date": "2026-03-13",
+   "domain": "biz",
+   "domain_label": "公司投资",
+   "direction": "neutral",
+   "title_zh": "工业部公告：规定工业产品标准《制冷系统测试》佛历2569年",
+   "title_th": "ประกาศกระทรวงอุตสาหกรรม เรื่อง กำหนดมาตรฐานผลิตภัณฑ์อุตสาหกรรม การทดสอบระบบทำความเย็น พ.ศ. 2569",
+   "summary_zh": "工业部依据《工业产品标准法》发布公告，将《制冷系统测试》列为工业产品标准（มอก. 4228-2567）。该标准适用于以压缩机驱动、采用蒸汽压缩原理的制冷系统的性能测试，涵盖压缩、冷凝、蒸发回路及相关管路与附件，不适用于吸收式、蒸汽喷射式制冷系统，也不涵盖家用冰箱、商用冷柜、空调等成品制冷设备的适用性测试。标准共26页，自公告刊登次日起施行。",
+   "key_points": [
+    "规定工业产品标准 มอก. 4228-2567《制冷系统测试》",
+    "适用于压缩机驱动、蒸汽压缩原理的制冷系统性能测试",
+    "不涵盖吸收式、蒸汽喷射式制冷系统及家用冰箱、空调等成品",
+    "标准共26页，含测试方法、测量工具与结果换算等内容",
+    "自公告刊登次日起施行"
+   ],
+   "org": "工业部 (MOI-IND)",
+   "org_label": "发文机关",
+   "org_issuer": "工业部 (MOI-IND)",
+   "org_related": "",
+   "org_shown": "工业部 (MOI-IND)",
+   "doc_no": "ง พิเศษ 143/66",
+   "doc_no_label": "公报",
+   "legal_form": "公告 · ประกาศ 层级",
+   "stability": 2,
+   "effective_label": "已刊公报",
+   "status": "soon",
+   "status_label": "已刊公报",
+   "source_url": "https://ratchakitcha.soc.go.th/documents/107774.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "gazette_json",
+   "dates": {
+    "resolved_at": null,
+    "published_at": "2026-03-13",
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
+    },
+    {
+     "id": "thai_employer",
+     "party_id": "thai_employer",
+     "stance": "neutral",
+     "label": "本地雇主"
+    }
+   ],
+   "featured": false
+  },
+  {
+   "uid": "TH-GAZ-20260313-2569-108120",
+   "issue_id": null,
+   "date": "2026-03-13",
    "domain": "land",
    "domain_label": "房产土地",
    "direction": "neutral",
@@ -20999,6 +21059,72 @@
      "party_id": "local_government",
      "stance": "support",
      "label": "府级与地方政府"
+    }
+   ],
+   "featured": false
+  },
+  {
+   "uid": "TH-GAZ-20260219-2569",
+   "issue_id": null,
+   "date": "2026-02-19",
+   "domain": "customs",
+   "domain_label": "海关贸易",
+   "direction": "neutral",
+   "title_zh": "渔业厅关于核准虾饲料生产所需小麦进口量及出具虾饲料生产用小麦数量证明的规定 佛历2569年",
+   "title_th": "ระเบียบกรมประมง ว่าด้วยการรับรองปริมาณการนำเข้าข้าวสาลีที่จำเป็นต้องใช้เป็นวัตถุดิบในการผลิตอาหารกุ้ง และการออกหนังสือรับรองปริมาณการใช้ข้าวสาลีในการผลิตอาหารกุ้ง พ.ศ. 2569",
+   "summary_zh": "本规定由渔业厅厅长依据《佛历2535年国家行政组织法》第32条发布，取代佛历2568年7月25日的旧规定。商务部规定进口小麦用于虾饲料生产可豁免收购国内饲料玉米，但须出示渔业厅出具的虾饲料生产用小麦数量证明。渔业厅核准的进口量以生产必需为限，小麦在虾饲料中的配比不得超过百分之二十，或按饲料玉米政策与管理委员会（นบขพ.）决议执行。申请、通知、提交材料及出具文件原则上须通过电子方式办理，无法电子办理时向渔业厅水产饲料研究与开发处提交。",
+   "key_points": [
+    "进口小麦用于虾饲料生产须先取得渔业厅出具的用量证明，方可豁免收购国内饲料玉米",
+    "小麦在虾饲料中配比不得超过20%，或按นบขพ.委员会决议执行",
+    "申请、通知及材料提交原则上须以电子方式办理",
+    "获准进口者须每月10日前提交上月小麦使用报告，进口月份结束后30日内提交进口量报告副本及报关单（คศ.05）副本",
+    "材料不齐全且未在指定期限内补正的，视为放弃申请，退回申请并注销案件"
+   ],
+   "org": "渔业厅 (DOF)",
+   "org_label": "发文机关",
+   "org_issuer": "渔业厅 (DOF)",
+   "org_related": "",
+   "org_shown": "渔业厅 (DOF)",
+   "doc_no": "ง พิเศษ 143/47",
+   "doc_no_label": "公报",
+   "legal_form": "规程/指令 · ระเบียบ 层级",
+   "stability": 2,
+   "effective_label": "已生效",
+   "status": "soon",
+   "status_label": "已刊公报",
+   "source_url": "https://ratchakitcha.soc.go.th/documents/105054.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "gazette_json",
+   "dates": {
+    "resolved_at": null,
+    "published_at": "2026-02-19",
+    "effective_from": "2026-02-20",
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "constrain",
+     "label": "进口商与经销商"
+    },
+    {
+     "id": "thai_employer",
+     "party_id": "thai_employer",
+     "stance": "neutral",
+     "label": "本地雇主"
     }
    ],
    "featured": false

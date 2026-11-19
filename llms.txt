@@ -12,9 +12,9 @@
 
 ## 按领域浏览
 
-- [泰国公司投资政策](https://www.thaipolicy.com/p/topic/biz.html): 公司设立、外资准入、投资促进(BOI)与营商规则;208 条,最新 2026-11-17
+- [泰国公司投资政策](https://www.thaipolicy.com/p/topic/biz.html): 公司设立、外资准入、投资促进(BOI)与营商规则;209 条,最新 2026-11-17
 - [泰国房产土地政策](https://www.thaipolicy.com/p/topic/land.html): 土地、公寓、建筑与城市规划;177 条,最新 2026-04-22
-- [泰国海关贸易政策](https://www.thaipolicy.com/p/topic/customs.html): 进出口管制、配额、关税与贸易救济;88 条,最新 2026-04-22
+- [泰国海关贸易政策](https://www.thaipolicy.com/p/topic/customs.html): 进出口管制、配额、关税与贸易救济;89 条,最新 2026-04-22
 - [泰国税务政策](https://www.thaipolicy.com/p/topic/tax.html): 个人所得税、企业所得税、增值税、消费税等税费;70 条,最新 2026-11-05
 - [泰国金融外汇政策](https://www.thaipolicy.com/p/topic/finance.html): 银行、证券、保险、外汇与支付;55 条,最新 2026-04-21
 - [泰国医疗政策](https://www.thaipolicy.com/p/topic/health.html): 药品、食品、医疗器械、医疗服务与卫生管理;50 条,最新 2026-09-30
@@ -27,7 +27,7 @@
 
 - [泰国土地与房产](https://www.thaipolicy.com/p/t/land-property.html): 收录标题涉及土地、地契、公寓的公报,包括土地办公室业务、土地使用费率与地方土地规定;58 条,最新 2026-04-22
 - [泰国变更土地用途与城市规划](https://www.thaipolicy.com/p/t/land-use.html): 收录涉及变更土地用途的公报:城市总体规划(ผังเมืองรวม)的施行与修订、禁止建造或改变建筑用途的区域、土地整理、农业改革用地(ส.ป.ก.)的使用与转让、国家森林保护区内的土地使用与撤销、国有与公共土地的转用、工业园区的设立与边界变更,以及按土地用途计税的土地与建筑物税;136 条,最新 2026-03-17
-- [泰国进口管制、配额与贸易救济](https://www.thaipolicy.com/p/t/import-control.html): 收录标题涉及进口、配额、关税与反倾销的公报;41 条,最新 2026-04-22
+- [泰国进口管制、配额与贸易救济](https://www.thaipolicy.com/p/t/import-control.html): 收录标题涉及进口、配额、关税与反倾销的公报;42 条,最新 2026-04-22
 - [泰国投资促进(BOI)](https://www.thaipolicy.com/p/t/boi.html): 收录投资促进委员会及其办公室发布的公告;93 条,最新 2026-11-17
 - [泰国消费税](https://www.thaipolicy.com/p/t/excise.html): 收录消费税厅与消费税相关的公报,包括酒类、烟草等商品的征管规定;30 条,最新 2026-04-20
 - [泰国金融监管:央行与证监会](https://www.thaipolicy.com/p/t/financial-regulation.html): 收录泰国央行、证券交易委员会及金融机构监管相关的公告;19 条,最新 2026-04-01
@@ -37,20 +37,20 @@
 - [泰国个人资料保护与网络安全](https://www.thaipolicy.com/p/t/data-protection.html): 收录标题涉及个人资料保护、网络安全与数字平台的公报;3 条,最新 2026-03-24
 - [泰国所得税](https://www.thaipolicy.com/p/t/income-tax.html): 收录标题涉及所得税的公报、皇家法令、部令与税务厅公告,包括个人所得税与法人所得税;17 条,最新 2026-11-05
 - [泰国电动汽车与汽车产业](https://www.thaipolicy.com/p/t/ev-auto.html): 收录标题涉及电动汽车、混合动力汽车、汽车产业与汽车零部件的公报与政策委员会文件;31 条,最新 2026-10-06
-- [泰国工业产品标准(TIS)](https://www.thaipolicy.com/p/t/industrial-standards.html): 收录标题涉及工业产品标准(TIS)的公报,包括标准的制定、修订、废止与强制执行;79 条,最新 2026-04-10
+- [泰国工业产品标准(TIS)](https://www.thaipolicy.com/p/t/industrial-standards.html): 收录标题涉及工业产品标准(TIS)的公报,包括标准的制定、修订、废止与强制执行;80 条,最新 2026-04-10
 - [泰国能源与电力](https://www.thaipolicy.com/p/t/energy.html): 收录标题涉及能源、太阳能、石油、天然气、电网与燃料供应的公报;24 条,最新 2026-10-02
 - [泰国环境与碳排放](https://www.thaipolicy.com/p/t/environment.html): 收录标题涉及环境管理、环境影响、污染、碳定价、碳捕集与温室气体的公报;16 条,最新 2026-03-30
 
 ## 按影响对象(外资企业、长居外国人、进口商等)
 
 - [影响消费者的泰国政策](https://www.thaipolicy.com/p/who/consumer.html): 本站标注为影响「消费者」的公报与决议(含约束与利好);137 条,最新 2026-10-02
-- [影响外资企业的泰国政策](https://www.thaipolicy.com/p/who/foreign_company.html): 本站标注为影响「外资企业」的公报与决议(含约束与利好);554 条,最新 2026-11-17
+- [影响外资企业的泰国政策](https://www.thaipolicy.com/p/who/foreign_company.html): 本站标注为影响「外资企业」的公报与决议(含约束与利好);556 条,最新 2026-11-17
 - [影响外资投资者的泰国政策](https://www.thaipolicy.com/p/who/foreign_investor.html): 本站标注为影响「外资投资者」的公报与决议(含约束与利好);286 条,最新 2026-11-17
 - [影响外籍长居个人的泰国政策](https://www.thaipolicy.com/p/who/foreign_resident.html): 本站标注为影响「外籍长居个人」的公报与决议(含约束与利好);147 条,最新 2026-11-05
-- [影响进口商与经销商的泰国政策](https://www.thaipolicy.com/p/who/importer.html): 本站标注为影响「进口商与经销商」的公报与决议(含约束与利好);110 条,最新 2026-04-22
+- [影响进口商与经销商的泰国政策](https://www.thaipolicy.com/p/who/importer.html): 本站标注为影响「进口商与经销商」的公报与决议(含约束与利好);111 条,最新 2026-04-22
 - [影响府级与地方政府的泰国政策](https://www.thaipolicy.com/p/who/local_government.html): 本站标注为影响「府级与地方政府」的公报与决议(含约束与利好);91 条,最新 2026-04-22
 - [影响中小企业的泰国政策](https://www.thaipolicy.com/p/who/sme.html): 本站标注为影响「中小企业」的公报与决议(含约束与利好);52 条,最新 2026-11-04
-- [影响本地雇主的泰国政策](https://www.thaipolicy.com/p/who/thai_employer.html): 本站标注为影响「本地雇主」的公报与决议(含约束与利好);102 条,最新 2026-11-17
+- [影响本地雇主的泰国政策](https://www.thaipolicy.com/p/who/thai_employer.html): 本站标注为影响「本地雇主」的公报与决议(含约束与利好);104 条,最新 2026-11-17
 - [影响短期入境者的泰国政策](https://www.thaipolicy.com/p/who/traveller.html): 本站标注为影响「短期入境者」的公报与决议(含约束与利好);23 条,最新 2026-04-10
 
 ## 指南
