@@ -43,12 +43,14 @@ function dateRow(k, v, note) {
 function renderDetail(d) {
   const dates = d.dates || {};
   const conf = d.confidence || {};
+  // 有公报卷期才说「刊登公报」;税务厅、BOI 等官网来源的条目,这个日期是官网发布日
+  const gazetted = d.doc_no_label === '公报';
   const fields = [
     `<div class="field"><div class="k">发文机关</div><div class="v">${E(d.org)}</div></div>`,
     d.doc_no ? `<div class="field"><div class="k">${E(d.doc_no_label || '文号')}</div>
       <div class="v">${E(d.doc_no)}</div></div>` : '',
     dateRow('内阁决议日', dates.resolved_at),
-    dateRow('刊登公报日', dates.published_at),
+    dateRow(gazetted ? '刊登公报日' : '发布日', dates.published_at),
     dateRow('生效日', dates.effective_from, dates.published_at
       && dates.effective_from < dates.published_at ? '追溯适用' : ''),
     dateRow('失效日', dates.effective_to),
@@ -110,7 +112,7 @@ function renderDetail(d) {
   const tl = [
     dates.resolved_at && { d: dates.resolved_at, n: '内阁决议', s: 'done' },
     dates.comment_deadline && { d: dates.comment_deadline, n: '公开征求意见截止', s: 'done' },
-    dates.published_at && { d: dates.published_at, n: '刊登皇家公报', s: 'done' },
+    dates.published_at && { d: dates.published_at, n: gazetted ? '刊登皇家公报' : '发文机关发布', s: 'done' },
     dates.effective_from && { d: dates.effective_from, n: '生效适用', s: 'now' },
     dates.effective_to && { d: dates.effective_to, n: '失效', s: '' },
   ].filter(Boolean).sort((a, b) => a.d.localeCompare(b.d));

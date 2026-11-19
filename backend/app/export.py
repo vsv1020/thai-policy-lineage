@@ -30,7 +30,7 @@ def export_all() -> dict[str, int]:
             "morphology.json": A.morphology(s),
         }
         from .seo import build as build_seo
-        seo = build_seo(s)
+        seo = build_seo(s, overview=payloads["policies.json"])
     for name, payload in payloads.items():
         if isinstance(payload, dict):
             payload = {"_generated": GENERATED_NOTE, **payload}

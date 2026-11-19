@@ -325,6 +325,16 @@ def effective_from(rule: str, explicit: str, published: str | None) -> str | Non
     return None
 
 
+# 要点开头的列表记号:「- 」「• 」「1. 」「2、」「3) 」「(4) 」。数字后面必须跟着分隔符,且分隔符后面不是数字 ——
+# 原先的写法把开头的数字一律删掉,「2026年1月1日起施行」成了「年1月1日起施行」,「7号线涵盖……」成了「号线涵盖……」
+_LIST_MARKER_RE = re.compile(r"^(?:\s*(?:[·•*]|[\-–—](?!\d)|[(\uff08]\d{1,2}[)\uff09]|\d{1,2}[.、)\uff09](?!\d)))+\s*")
+
+
+def strip_list_marker(text: str) -> str:
+    """去掉模型在要点前面加的列表记号,不动正文开头的数字(年份、编号、金额、百分比、条款号)。"""
+    return _LIST_MARKER_RE.sub("", str(text or "")).strip()
+
+
 def agency_rules(v: dict) -> list[tuple[str, str]]:
     """词表里机关的泰文名(含别名)→ id,长名在前:「สำนักงานคณะกรรมการ…」不会被它包含的短名抢先。"""
     rules = []
@@ -409,7 +419,7 @@ def apply_enrichment(rec: dict, out: dict, v: dict, model: str, basis: str = "ti
 
     rec["titles"]["zh"] = out["title_zh"].strip()[:300]
     rec["summary_zh"] = out["summary_zh"].strip()[:1200]
-    points = [re.sub(r"^[\s·•\-\d.、)]+", "", x).strip()[:120] for x in out.get("key_points") or []]
+    points = [strip_list_marker(x)[:120] for x in out.get("key_points") or []]
     rec["key_points_zh"] = [x for x in points if x][:5] if basis == "fulltext" else []
     dates = rec.setdefault("dates", {})
     eff = effective_from(out.get("effective_rule", "none"), out.get("effective_date", ""),

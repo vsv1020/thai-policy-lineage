@@ -35,6 +35,8 @@
   .brand-name { font-family: var(--serif); font-weight: 700; font-size: 19px; letter-spacing: .06em; white-space: nowrap; }
   .brand-sub { font-size: 12px; color: rgba(242,239,232,.55); border-left: 1px solid rgba(242,239,232,.2); padding-left: 14px; white-space: nowrap; }
   .header-right { display: flex; align-items: center; gap: 16px; font-size: 12px; color: rgba(242,239,232,.5); white-space: nowrap; }
+  .lang-switch { color: rgba(242,239,232,.85); border: 1px solid rgba(242,239,232,.3); border-radius: 3px; padding: 2px 8px; text-decoration: none; }
+  .lang-switch:hover { color: #fff; border-color: rgba(242,239,232,.6); }
   .btn-solid {
     background: var(--seal); color: #fff; border: 0; font: inherit; font-weight: 600; font-size: 13px;
     padding: 7px 16px; cursor: pointer;
@@ -144,7 +146,8 @@
   .field:nth-last-child(-n+4) { border-bottom: 0; }
   .field .k { font-size: 11px; color: var(--muted); letter-spacing: .05em; }
   .field .v { font-family: var(--serif); font-size: 14px; font-weight: 700; margin-top: 2px; }
-  .d-body h4 { font-family: var(--serif); font-size: 15px; margin: 20px 0 8px; font-weight: 700; }
+  .d-body h2, .d-body h4 { font-family: var(--serif); font-size: 15px; margin: 20px 0 8px; font-weight: 700; }
+  .d-body h3 { font-size: 14px; margin: 14px 0 4px; font-weight: 700; }
   .d-body p, .d-body li { font-size: 13.5px; color: var(--ink-2); }
   .d-body ul { padding-left: 20px; margin: 6px 0; }
   .origin { background: var(--panel); border: 1px dashed var(--muted); padding: 13px 17px; font-size: 12.5px; color: var(--ink-2); margin-top: 18px; }
@@ -362,7 +365,13 @@ aside .side-label { margin-top: 10px; }
 @media (max-width: 700px) {
   header { padding: 10px 16px; gap: 10px; }
   header .brand-sub, #stamp { display: none; }
-  .brand-name { white-space: normal; font-size: 17px; }
+  .brand-name { font-size: 16px; letter-spacing: .02em; overflow: hidden; text-overflow: ellipsis; }
+  .brand > a { min-width: 0; }
+  /* 右侧可收缩:页脚已有「全部政策」,窄屏页头不再放;打赏按钮与切换链接变紧凑 */
+  .header-right { gap: 8px; flex: 0 0 auto; }
+  .header-right .hdr-all { display: none; }
+  header .btn-solid { padding: 5px 9px; font-size: 12px; }
+  .lang-switch { padding: 1px 6px; }
   aside { position: sticky; top: 52px; z-index: 40; display: flex; flex-wrap: nowrap; overflow-x: auto;
     padding: 0; border-right: 0; border-bottom: 1px solid var(--line); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
   aside::-webkit-scrollbar { display: none; }
@@ -397,3 +406,12 @@ aside .side-label { margin-top: 10px; }
 .coll-item p { font-size: 13.5px; color: var(--ink-2); margin-bottom: 6px; }
 .coll-related { margin-top: 24px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 13px; line-height: 2; }
 .coll-related b { color: var(--ink-2); margin-right: 6px; }
+/* 领域页:小节标题与年份分组 */
+h2.mod.sec { font-family: var(--serif); font-size: 19px; font-weight: 700; margin: 30px 0 12px; }
+h3.mod.yr { margin: 20px 0 8px; scroll-margin-top: 70px; }
+h3.coll-title { font-weight: 700; }
+
+/* 落地页的官方原文链接很长,窄屏下允许在任意处折行,不撑出横向滚动 */
+.origin a { overflow-wrap: anywhere; }
+/* 繁体 about 页的提示:检索与图表在简体版 */
+.hant-note { font-size: 13px; color: var(--ink-2); background: var(--panel); padding: 9px 14px; line-height: 1.7; }

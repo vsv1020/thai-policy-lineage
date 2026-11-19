@@ -33,6 +33,16 @@
   {"id": "social-security", "title_zh": "社会保障与劳工", "scope_zh": "收录社会保障办公室、劳工部门及工资相关的公报。",
    "match": {"title_keywords": ["社会保障", "劳工", "工资"]}},
   {"id": "data-protection", "title_zh": "个人资料保护与网络安全", "scope_zh": "收录标题涉及个人资料保护、网络安全与数字平台的公报。",
-   "match": {"title_keywords": ["个人资料", "网络安全", "数字平台"]}}
+   "match": {"title_keywords": ["个人资料", "网络安全", "数字平台"]}},
+  {"id": "income-tax", "title_zh": "所得税", "scope_zh": "收录标题涉及所得税的公报、皇家法令、部令与税务厅公告,包括个人所得税与法人所得税。",
+   "match": {"title_keywords": ["所得税"]}},
+  {"id": "ev-auto", "title_zh": "电动汽车与汽车产业", "scope_zh": "收录标题涉及电动汽车、混合动力汽车、汽车产业与汽车零部件的公报与政策委员会文件。",
+   "match": {"title_keywords": ["电动汽车", "电动摩托车", "纯电动", "混合动力", "汽车产业", "汽车零部件"]}},
+  {"id": "industrial-standards", "title_zh": "工业产品标准(TIS)", "scope_zh": "收录标题涉及工业产品标准(TIS)的公报,包括标准的制定、修订、废止与强制执行。",
+   "match": {"title_keywords": ["工业产品标准"]}},
+  {"id": "energy", "title_zh": "能源与电力", "scope_zh": "收录标题涉及能源、太阳能、石油、天然气、电网与燃料供应的公报。",
+   "match": {"title_keywords": ["能源", "太阳能", "石油", "天然气", "电网", "燃料短缺"]}},
+  {"id": "environment", "title_zh": "环境与碳排放", "scope_zh": "收录标题涉及环境管理、环境影响、污染、碳定价、碳捕集与温室气体的公报。",
+   "match": {"title_keywords": ["环境管理", "环境影响", "环境问题", "工厂环境", "污染", "碳定价", "碳捕集", "温室气体"]}}
  ]
 }

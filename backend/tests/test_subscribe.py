@@ -51,11 +51,30 @@ def test_week_pages_list_items_of_that_week_with_official_links(site):
     assert weeks and (site / "p" / "week" / "index.html").is_file()
     html = weeks[-1].read_text(encoding="utf-8")
     a, b = seo.week_range(weeks[-1].stem)
-    for d in __import__("re").findall(r'<span class="lib-date">(\d{4}-\d{2}-\d{2})</span>', html):
-        assert a <= d <= b
+    dates = __import__("re").findall(r'<span class="lib-date">(\d{4}-\d{2}-\d{2})</span>', html)
+    assert dates and all(a <= d <= b for d in dates)
     assert ".go.th" in html and "泰文原文" in html
+    assert html.count('class="coll-item"') == len(dates) and "<p>" in html, "每条都带摘要,不只是标题"
+
+
+def test_thin_weeks_are_noindex_and_left_out_of_sitemap(site):
+    """只有一两条的周是落地页的重复:页面照常生成(周目录还链着它),但 noindex 且不进 sitemap。"""
     sm = (site / "sitemap.xml").read_text(encoding="utf-8")
-    assert f"/p/week/{weeks[-1].stem}.html" in sm
+    weeks = sorted((site / "p" / "week").glob("*-W*.html"))
+    assert weeks
+    for p in weeks:
+        html = p.read_text(encoding="utf-8")
+        thin = html.count('class="coll-item"') < seo.MIN_COLLECTION
+        assert ('content="noindex, follow"' in html) == thin, p.name
+        assert (f"/p/week/{p.name}" in sm) != thin, p.name
+    assert f"{settings.site_url}/p/week/index.html" in sm, "周目录本身照常收录"
+
+    # 样例数据里每周都不到 3 条;条目够多的周直接渲染一页来验证
+    item = {"uid": "TH-X-1", "title": "标题", "url": "u", "date": "2026-04-20", "domain": "税务", "org": "税务厅",
+            "doc_no": "", "summary": "摘要。", "points": [], "official": "https://www.rd.go.th/x.pdf"}
+    full = seo.render_week("2026-W17", [dict(item, uid=f"TH-X-{i}") for i in range(seo.MIN_COLLECTION)], None, None)
+    assert 'content="noindex' not in full and 'content="index, follow' in full
+    assert 'content="noindex, follow"' in seo.render_week("2026-W17", [item], None, None)
 
 
 def test_subscribe_json_only_accepts_telegram_links(site, tmp_path, monkeypatch):

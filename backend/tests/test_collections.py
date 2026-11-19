@@ -81,3 +81,22 @@ def test_land_use_topic_rules():
     pats = _keep_patterns()
     assert kept_by_topic({"titles": {"th": "ประกาศกระทรวงมหาดไทย เรื่อง การให้ใช้บังคับผังเมืองรวมชุมชนบางสะพาน"}}, pats)
     assert not kept_by_topic({"titles": {"th": "ประกาศกรมป่าไม้ เรื่อง เพิกถอนป่าชุมชนบ้านสารภี บางส่วน"}}, pats)
+
+
+def test_configured_topics_are_well_formed():
+    """config/topics.json:每个专题有 id、名称、只描述范围的 scope_zh;不用会大面积误收的单字关键词。"""
+    import re
+    from pathlib import Path
+    cfg = json.loads((Path(__file__).resolve().parents[2] / "config" / "topics.json").read_text(encoding="utf-8"))
+    ids = [t["id"] for t in cfg["topics"]]
+    assert len(ids) == len(set(ids))
+    for want in ("income-tax", "ev-auto", "industrial-standards", "energy", "environment"):
+        assert want in ids, want
+    for t in cfg["topics"]:
+        assert re.fullmatch(r"[a-z0-9-]+", t["id"]) and t["title_zh"] and t["scope_zh"].startswith("收录")
+        kws = t["match"].get("title_keywords") or []
+        if t["match"].get("title_th_patterns"):       # 按泰文标题匹配的专题(land-use)不要求中文关键词
+            assert all(len(k) >= 2 for k in kws), t["id"]
+        else:
+            assert kws and all(len(k) >= 2 for k in kws), (t["id"], "单字关键词(如「碳」)会误收")
+        assert not re.search(r"利好|严格|宽松|重大|应当|建议", t["scope_zh"]), "scope_zh 只描述收录范围,不下结论"

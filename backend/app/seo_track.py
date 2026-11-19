@@ -19,7 +19,7 @@ import re
 from datetime import date, datetime, timedelta
 
 from fastapi import APIRouter, Depends, Query, Response
-from sqlalchemy import delete, distinct, func, select
+from sqlalchemy import case, delete, distinct, func, or_, select
 from sqlalchemy.orm import Session
 
 from .config import DATA_DIR, settings
@@ -38,6 +38,8 @@ BOTS: list[tuple[str, str, str]] = [
     ("YandexBot", "search", r"YandexBot|YandexMobileBot"),
     ("Sogou", "search", r"Sogou"),
     ("360Spider", "search", r"360Spider|HaosouSpider"),
+    ("YisouSpider", "search", r"YisouSpider"),                  # 神马搜索 / 夸克
+    ("PetalBot", "search", r"PetalBot"),                        # 华为花瓣搜索
     ("DuckDuckBot", "search", r"DuckDuckBot"),
     ("Applebot", "search", r"Applebot(?!-Extended)"),
     ("Yeti(Naver)", "search", r"Yeti/"),
@@ -56,6 +58,8 @@ BOTS: list[tuple[str, str, str]] = [
     ("DuckAssistBot", "ai", r"DuckAssistBot"),
     ("MistralAI-User", "ai", r"MistralAI-User"),
     ("cohere-ai", "ai", r"cohere-ai"),
+    ("ChatGLM-Spider", "ai", r"ChatGLM-Spider"),                # 智谱清言
+    ("YouBot", "ai", r"YouBot"),
 ]
 _BOT_RES = [(n, g, re.compile(p, re.I)) for n, g, p in BOTS]
 SEARCH_BOTS = [n for n, g, _ in BOTS if g == "search"]
@@ -70,7 +74,9 @@ AI_REFS = {"chatgpt.com": "ChatGPT", "chat.openai.com": "ChatGPT", "openai.com":
            "bard.google.com": "Gemini", "copilot.microsoft.com": "Copilot",
            "doubao.com": "豆包", "kimi.moonshot.cn": "Kimi", "kimi.com": "Kimi",
            "chat.deepseek.com": "DeepSeek", "yuanbao.tencent.com": "腾讯元宝",
-           "metaso.cn": "秘塔", "tongyi.aliyun.com": "通义", "qianwen.com": "通义",
+           "metaso.cn": "秘塔", "tongyi.aliyun.com": "通义", "tongyi.com": "通义", "qianwen.com": "通义",
+           "yiyan.baidu.com": "文心一言", "chat.baidu.com": "文心一言", "chatglm.cn": "智谱清言",
+           "xinghuo.xfyun.cn": "讯飞星火", "n.cn": "纳米 AI", "felo.ai": "Felo",
            "you.com": "You.com", "phind.com": "Phind", "poe.com": "Poe", "grok.com": "Grok",
            "chat.mistral.ai": "Mistral"}
 SOCIAL_REFS = {"facebook.com": "Facebook", "t.co": "X", "x.com": "X", "twitter.com": "X",
@@ -141,9 +147,11 @@ def purge_crawls(s: Session, today: date | None = None) -> int:
     return s.execute(delete(CrawlHit).where(CrawlHit.day < cutoff)).rowcount or 0
 
 
-def _is_landing(path: str) -> bool:
-    """单条政策落地页 /p/<uid>.html;汇总页(专题、周汇总等)在子目录里,不计入覆盖率。"""
-    return bool(re.fullmatch(r"/p/(?!index\.html)[^/]+\.html", path))
+def _is_landing(path: str, hant: bool = False) -> bool:
+    """单条政策落地页 /p/<uid>.html(hant=True:繁体版 /zh-hant/p/<uid>.html);
+    汇总页(专题、周汇总等)在子目录里,不计入覆盖率。"""
+    return bool(re.fullmatch(r"/zh-hant/p/(?!index\.html)[^/]+\.html" if hant
+                             else r"/p/(?!index\.html)[^/]+\.html", path))
 
 
 def latest_monitor() -> dict | None:
@@ -161,10 +169,15 @@ def report(s: Session, days: int = 30, now: datetime | None = None) -> dict:
     start = end - timedelta(days=days - 1)
     rng = (CrawlHit.day >= start) & (CrawlHit.day <= end)
 
-    bots = [{"bot": b, "group": g, "hits": n, "pages": p, "last_seen": last.isoformat() if last else None}
-            for b, g, n, p, last in s.execute(
+    # page_hits:成功取到页面的次数(状态码 < 400,地址是 .html 或以 / 结尾)。hits 把样式、脚本、数据文件
+    # 和报错请求都算在内 —— 会渲染页面的爬虫每抓一页带出十来个子请求;冒用爬虫 UA 的漏洞扫描一天就能刷出几百次 404。
+    # 判断「爬虫到底来读了多少内容」看 page_hits
+    is_page = (CrawlHit.status < 400) & or_(CrawlHit.path.like("%.html"), CrawlHit.path.like("%/"))
+    bots = [{"bot": b, "group": g, "hits": n, "pages": p, "page_hits": int(ph or 0),
+             "last_seen": last.isoformat() if last else None}
+            for b, g, n, p, ph, last in s.execute(
                 select(CrawlHit.bot, CrawlHit.group, func.count(), func.count(distinct(CrawlHit.path)),
-                       func.max(CrawlHit.day))
+                       func.sum(case((is_page, 1), else_=0)), func.max(CrawlHit.day))
                 .where(rng).group_by(CrawlHit.bot, CrawlHit.group)
                 .order_by(func.count().desc(), CrawlHit.bot)).all()]
     by_day = {(d, g): n for d, g, n in s.execute(
@@ -181,9 +194,11 @@ def report(s: Session, days: int = 30, now: datetime | None = None) -> dict:
         .where(rng, CrawlHit.status >= 400).group_by(CrawlHit.path, CrawlHit.status)
         .order_by(func.count().desc()).limit(30)).all()]
 
-    # 落地页覆盖率:sitemap 里的落地页,近 N 天被主流搜索爬虫抓过几成。抓取 ≠ 收录,但没抓过一定没收录
-    crawled_search = {p for (p,) in s.execute(
-        select(CrawlHit.path).distinct().where(rng, CrawlHit.group == "search")).all() if _is_landing(p)}
+    # 落地页覆盖率:sitemap 里的落地页,近 N 天被主流搜索爬虫抓过几成。抓取 ≠ 收录,但没抓过一定没收录。
+    # 分子分母同一口径:主指标只算简体落地页(与繁体版上线前的历史可比),繁体落地页单列 hant_*
+    searched = [p for (p,) in s.execute(
+        select(CrawlHit.path).distinct().where(rng, CrawlHit.group == "search")).all()]
+    crawled_search = {p for p in searched if _is_landing(p)}
     crawled_ai = {p for (p,) in s.execute(
         select(CrawlHit.path).distinct().where(rng, CrawlHit.group == "ai")).all() if _is_landing(p)}
     sitemap_paths = _sitemap_paths()
@@ -192,6 +207,9 @@ def report(s: Session, days: int = 30, now: datetime | None = None) -> dict:
            "crawled_by_ai": len(sitemap_paths & crawled_ai)}
     cov["search_pct"] = round(cov["crawled_by_search"] / cov["sitemap_landing"] * 100, 1) if sitemap_paths else None
     cov["never_crawled_sample"] = sorted(sitemap_paths - crawled_search)[:20]
+    hant_paths = _sitemap_paths(hant=True)
+    cov["hant_sitemap_landing"] = len(hant_paths)
+    cov["hant_crawled_by_search"] = len(hant_paths & {p for p in searched if _is_landing(p, hant=True)})
 
     # 真人来源渠道
     pv = (PageHit.day >= start) & (PageHit.day <= end) & (PageHit.kind == "pv")
@@ -226,7 +244,7 @@ def report(s: Session, days: int = 30, now: datetime | None = None) -> dict:
     }
 
 
-def _sitemap_paths() -> set[str]:
+def _sitemap_paths(hant: bool = False) -> set[str]:
     from .config import REPO_ROOT
     try:
         xml = (REPO_ROOT / "sitemap.xml").read_text(encoding="utf-8")
@@ -234,7 +252,7 @@ def _sitemap_paths() -> set[str]:
         return set()
     base = settings.site_url
     return {loc[len(base):] for loc in re.findall(r"<loc>([^<]+)</loc>", xml)
-            if loc.startswith(base) and _is_landing(loc[len(base):])}
+            if loc.startswith(base) and _is_landing(loc[len(base):], hant)}
 
 
 @router.get("/admin/seo", include_in_schema=False, dependencies=[Depends(require_admin)])
