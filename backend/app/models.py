@@ -16,7 +16,7 @@ from datetime import date, datetime
 
 from sqlalchemy import (Boolean, Date, DateTime, Float, ForeignKey, Integer, String, Text,
                         UniqueConstraint)
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship, validates
 
 
 class Base(DeclarativeBase):
@@ -282,6 +282,15 @@ class CollectRun(Base):
     skipped: Mapped[int] = mapped_column(Integer, default=0)
     duration_s: Mapped[float] = mapped_column(Float, default=0.0)
     detail: Mapped[str] = mapped_column(Text, default="")
+
+    @validates("status", "trigger")
+    def _fit(self, key: str, value):
+        """运行状态与触发方式是自由文本(如 backfill-topic:land-use),截到列宽再存。
+        2026-11-19:一条 23 个字符的 trigger 让生产环境 PostgreSQL 拒绝整批写入,启动时 ingest 失败、
+        整站下线数小时;SQLite 不检查长度,测试与 CI 都没拦住(见 db.py 的长度检查)。
+        完整写法仍保存在 runs.jsonl 里,这里只是数据库里的显示值。"""
+        width = self.__table__.c[key].type.length
+        return value[:width] if isinstance(value, str) and width else value
 
 
 class SourceHealth(Base):
