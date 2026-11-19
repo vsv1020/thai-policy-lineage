@@ -1,19 +1,19 @@
 {
  "_generated": "由 backend/app/export.py 从数据库导出,请勿手改;改 data/policies/*.jsonl → python3 -m app.ingest → python3 -m app.export",
- "n": 583,
+ "n": 713,
  "kpis": {
-  "total": 583,
-  "avg_stability": 2.05,
-  "binding_pct": 8.9,
-  "in_force_pct": 17.2,
-  "high_tier_pct": 3.4,
-  "tight": 121,
-  "loose": 162
+  "total": 713,
+  "avg_stability": 2.06,
+  "binding_pct": 8.3,
+  "in_force_pct": 14.0,
+  "high_tier_pct": 3.2,
+  "tight": 163,
+  "loose": 201
  },
  "insights": [
-  "库内 583 条政策中,公告 / 规程层级最多(占 82.7%);可诉、强制力较强的占 8.9%,现行有效的占 17.2%。",
-  "「税务」的政策层级最高(平均稳定性 2.41),多以公告出台;「金融外汇」最低(平均 1.85),以公告为主,规则更容易调整。",
-  "方向上,收紧 121 条、放宽 162 条,整体偏放宽。"
+  "库内 713 条政策中,公告 / 规程层级最多(占 84.7%);可诉、强制力较强的占 8.3%,现行有效的占 14.0%。",
+  "「税务」的政策层级最高(平均稳定性 2.42),多以公告出台;「金融外汇」最低(平均 1.85),以公告为主,规则更容易调整。",
+  "方向上,收紧 163 条、放宽 201 条,整体偏放宽。"
  ],
  "legal_forms": [
   {
@@ -21,7 +21,7 @@
    "zh": "法律",
    "stability": 5,
    "justiciable": true,
-   "n": 6,
+   "n": 7,
    "pct": 1.0
   },
   {
@@ -30,47 +30,47 @@
    "stability": 5,
    "justiciable": true,
    "n": 1,
-   "pct": 0.2
+   "pct": 0.1
   },
   {
    "id": "decree",
    "zh": "皇家法令",
    "stability": 4,
    "justiciable": true,
-   "n": 13,
-   "pct": 2.2
+   "n": 15,
+   "pct": 2.1
   },
   {
    "id": "ministerial",
    "zh": "部令",
    "stability": 3,
    "justiciable": true,
-   "n": 32,
-   "pct": 5.5
+   "n": 36,
+   "pct": 5.0
   },
   {
    "id": "prakat",
    "zh": "公告",
    "stability": 2,
    "justiciable": false,
-   "n": 423,
-   "pct": 72.6
+   "n": 522,
+   "pct": 73.2
   },
   {
    "id": "rabiap",
    "zh": "规程/指令",
    "stability": 2,
    "justiciable": false,
-   "n": 59,
-   "pct": 10.1
+   "n": 82,
+   "pct": 11.5
   },
   {
    "id": "guidance",
    "zh": "操作指引",
    "stability": 1,
    "justiciable": false,
-   "n": 17,
-   "pct": 2.9
+   "n": 18,
+   "pct": 2.5
   },
   {
    "id": "resolution",
@@ -78,39 +78,39 @@
    "stability": 1,
    "justiciable": false,
    "n": 32,
-   "pct": 5.5
+   "pct": 4.5
   }
  ],
  "tiers": [
   {
    "stability": 5,
    "label": "法律",
-   "n": 7,
-   "pct": 1.2
+   "n": 8,
+   "pct": 1.1
   },
   {
    "stability": 4,
    "label": "皇家法令",
-   "n": 13,
-   "pct": 2.2
+   "n": 15,
+   "pct": 2.1
   },
   {
    "stability": 3,
    "label": "部令",
-   "n": 32,
-   "pct": 5.5
+   "n": 36,
+   "pct": 5.0
   },
   {
    "stability": 2,
    "label": "公告 / 规程",
-   "n": 482,
-   "pct": 82.7
+   "n": 604,
+   "pct": 84.7
   },
   {
    "stability": 1,
    "label": "决议 / 指引",
-   "n": 49,
-   "pct": 8.4
+   "n": 50,
+   "pct": 7.0
   }
  ],
  "instrument_classes": [
@@ -118,64 +118,64 @@
    "id": "supply",
    "zh": "供给型",
    "desc": "政府直接投入",
-   "n": 105,
-   "pct": 18.0
+   "n": 136,
+   "pct": 19.1
   },
   {
    "id": "environment",
    "zh": "环境型",
    "desc": "规则与激励塑造环境",
-   "n": 482,
-   "pct": 82.7
+   "n": 603,
+   "pct": 84.6
   },
   {
    "id": "demand",
    "zh": "需求型",
    "desc": "直接拉动市场",
-   "n": 81,
-   "pct": 13.9
+   "n": 88,
+   "pct": 12.3
   }
  ],
  "top_instruments": [
   {
    "zh": "标准与准入管制",
    "class": "环境型",
-   "n": 381
+   "n": 492
   },
   {
    "zh": "申报、备案与披露",
    "class": "环境型",
-   "n": 118
+   "n": 127
   },
   {
    "zh": "税收减免与追缴",
    "class": "环境型",
-   "n": 103
+   "n": 111
   },
   {
    "zh": "公共服务与系统供给",
    "class": "供给型",
-   "n": 89
+   "n": 102
   },
   {
    "zh": "执法、排查与处罚",
    "class": "环境型",
-   "n": 65
+   "n": 68
   },
   {
    "zh": "进出口与贸易管制",
    "class": "需求型",
-   "n": 40
+   "n": 39
   },
   {
    "zh": "价格与费率管制",
    "class": "需求型",
-   "n": 29
+   "n": 34
   },
   {
-   "zh": "补贴与价格优惠",
-   "class": "需求型",
-   "n": 13
+   "zh": "基础设施建设",
+   "class": "供给型",
+   "n": 25
   }
  ],
  "statuses": [
@@ -189,25 +189,25 @@
    "id": "pending_gazette",
    "zh": "待刊公报",
    "n": 50,
-   "pct": 8.6
+   "pct": 7.0
   },
   {
    "id": "gazetted",
    "zh": "已刊公报",
-   "n": 432,
-   "pct": 74.1
+   "n": 562,
+   "pct": 78.8
   },
   {
    "id": "in_force",
    "zh": "现行有效",
    "n": 100,
-   "pct": 17.2
+   "pct": 14.0
   },
   {
    "id": "superseded",
    "zh": "已被替代",
    "n": 1,
-   "pct": 0.2
+   "pct": 0.1
   },
   {
    "id": "repealed",
@@ -229,6 +229,10 @@
     "zh": "公司投资"
    },
    {
+    "id": "land",
+    "zh": "房产土地"
+   },
+   {
     "id": "customs",
     "zh": "海关贸易"
    },
@@ -239,10 +243,6 @@
    {
     "id": "finance",
     "zh": "金融外汇"
-   },
-   {
-    "id": "land",
-    "zh": "房产土地"
    },
    {
     "id": "health",
@@ -305,10 +305,20 @@
     0,
     0,
     5,
-    149,
+    151,
     24,
     13,
     11
+   ],
+   [
+    3,
+    0,
+    1,
+    4,
+    132,
+    34,
+    1,
+    2
    ],
    [
     0,
@@ -316,16 +326,16 @@
     0,
     12,
     64,
-    10,
+    9,
     0,
     3
    ],
    [
     0,
     0,
-    12,
-    5,
-    41,
+    13,
+    7,
+    45,
     3,
     2,
     1
@@ -339,16 +349,6 @@
     0,
     1,
     11
-   ],
-   [
-    2,
-    0,
-    0,
-    2,
-    39,
-    10,
-    0,
-    2
    ],
    [
     0,
@@ -406,23 +406,35 @@
   {
    "id": "biz",
    "zh": "公司投资",
-   "n": 206,
+   "n": 208,
    "avg_stability": 1.97,
-   "binding_pct": 4.4,
+   "binding_pct": 4.3,
    "dominant_form": "公告",
-   "dominant_form_pct": 72.3,
+   "dominant_form_pct": 72.6,
    "dominant_class": "环境型",
    "tight": 35,
-   "loose": 61
+   "loose": 62
+  },
+  {
+   "id": "land",
+   "zh": "房产土地",
+   "n": 177,
+   "avg_stability": 2.07,
+   "binding_pct": 4.5,
+   "dominant_form": "公告",
+   "dominant_form_pct": 74.6,
+   "dominant_class": "环境型",
+   "tight": 53,
+   "loose": 59
   },
   {
    "id": "customs",
    "zh": "海关贸易",
-   "n": 89,
+   "n": 88,
    "avg_stability": 2.1,
-   "binding_pct": 13.5,
+   "binding_pct": 13.6,
    "dominant_form": "公告",
-   "dominant_form_pct": 71.9,
+   "dominant_form_pct": 72.7,
    "dominant_class": "环境型",
    "tight": 34,
    "loose": 9
@@ -430,14 +442,14 @@
   {
    "id": "tax",
    "zh": "税务",
-   "n": 64,
-   "avg_stability": 2.41,
-   "binding_pct": 26.6,
+   "n": 71,
+   "avg_stability": 2.42,
+   "binding_pct": 28.2,
    "dominant_form": "公告",
-   "dominant_form_pct": 64.1,
+   "dominant_form_pct": 63.4,
    "dominant_class": "环境型",
    "tight": 10,
-   "loose": 37
+   "loose": 44
   },
   {
    "id": "finance",
@@ -450,18 +462,6 @@
    "dominant_class": "环境型",
    "tight": 9,
    "loose": 9
-  },
-  {
-   "id": "land",
-   "zh": "房产土地",
-   "n": 55,
-   "avg_stability": 2.11,
-   "binding_pct": 7.3,
-   "dominant_form": "公告",
-   "dominant_form_pct": 70.9,
-   "dominant_class": "环境型",
-   "tight": 11,
-   "loose": 28
   },
   {
    "id": "health",
@@ -527,61 +527,61 @@
  "evolution": [
   {
    "quarter": "2025Q1",
-   "n": 36,
-   "avg_stability": 2.17,
+   "n": 49,
+   "avg_stability": 2.18,
    "tiers": {
-    "法律": 3,
+    "法律": 4,
     "皇家法令": 3,
     "部令": 4,
-    "公告 / 规程": 13,
+    "公告 / 规程": 25,
     "决议 / 指引": 13
    }
   },
   {
    "quarter": "2025Q2",
-   "n": 13,
-   "avg_stability": 1.77,
+   "n": 35,
+   "avg_stability": 1.97,
    "tiers": {
     "法律": 0,
-    "皇家法令": 0,
+    "皇家法令": 1,
     "部令": 1,
-    "公告 / 规程": 8,
+    "公告 / 规程": 29,
     "决议 / 指引": 4
    }
   },
   {
    "quarter": "2025Q3",
-   "n": 7,
-   "avg_stability": 1.86,
+   "n": 21,
+   "avg_stability": 1.95,
    "tiers": {
     "法律": 0,
     "皇家法令": 0,
     "部令": 0,
-    "公告 / 规程": 6,
+    "公告 / 规程": 20,
     "决议 / 指引": 1
    }
   },
   {
    "quarter": "2025Q4",
-   "n": 13,
-   "avg_stability": 1.62,
+   "n": 22,
+   "avg_stability": 1.77,
    "tiers": {
     "法律": 0,
     "皇家法令": 0,
     "部令": 0,
-    "公告 / 规程": 8,
+    "公告 / 规程": 17,
     "决议 / 指引": 5
    }
   },
   {
    "quarter": "2026Q1",
-   "n": 367,
+   "n": 371,
    "avg_stability": 2.07,
    "tiers": {
     "法律": 4,
     "皇家法令": 5,
     "部令": 22,
-    "公告 / 规程": 319,
+    "公告 / 规程": 323,
     "决议 / 指引": 17
    }
   },
