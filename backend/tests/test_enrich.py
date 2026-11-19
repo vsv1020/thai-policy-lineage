@@ -252,3 +252,28 @@ def test_fix_agency_only_touches_gazette_records():
     manual = _raw(th="ประกาศธนาคารออมสิน เรื่อง เงินฝาก"); manual["provenance"]["pipeline"] = "manual"
     manual["agency_ids"] = ["mof"]
     assert not E.fix_agency(manual, v) and manual["agency_ids"] == ["mof"]
+
+
+# ─────────────────────────── 要点开头的列表记号 ───────────────────────────
+
+@pytest.mark.parametrize("raw,want", [
+    ("1. 自刊登次日起施行", "自刊登次日起施行"), ("2、适用于所有金融机构", "适用于所有金融机构"),
+    ("3) 须在 30 日内申报", "须在 30 日内申报"), ("(4) 逾期按日计罚", "逾期按日计罚"),
+    ("\uff085\uff09逾期按日计罚", "逾期按日计罚"), ("- 税率为 1.0%", "税率为 1.0%"), ("• 税率为 1.0%", "税率为 1.0%"),
+    ("- 1. 税率为 1.0%", "税率为 1.0%"), ("12、最后一条", "最后一条"),
+    # 正文开头的数字不是序号:年份、线路号、等级、期限、百分比、条款号、负数
+    ("2026年7月1日及以后建造的船舶须在证书中标注", None), ("7号线涵盖曼谷-芭提雅段及农普-班昌段", None),
+    ("1级包括检查安全、制动、机油", None), ("6个月定期存款年利率:自然人0.80%", None),
+    ("1.5%的预扣税率适用至2027年", None), ("10%上限适用于个人捐赠", None), ("8.2.1.1 类高效能数据中心须先获核准", None),
+    ("2569 年 4 月 1 日起施行", None), ("-5℃以下冷链运输", None), ("2026、2027两个纳税年度均适用", None),
+])
+def test_list_markers_are_stripped_but_leading_numbers_kept(raw, want):
+    assert E.strip_list_marker(raw) == (raw if want is None else want)
+
+
+def test_key_points_keep_leading_year():
+    """原先开头的数字一律被当成序号删掉:「2026年1月1日起…」入库成了「年1月1日起…」。"""
+    v = E._vocab()
+    out = E.apply_enrichment(_raw(), dict(GOOD, key_points=["1. 2026年1月1日至2027年12月31日适用", "7号线免收通行费",
+                                                           "- 税率 1.0%"]), v, "m", basis="fulltext")
+    assert out["key_points_zh"] == ["2026年1月1日至2027年12月31日适用", "7号线免收通行费", "税率 1.0%"]

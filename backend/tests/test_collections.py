@@ -62,3 +62,19 @@ def test_topic_matching_rules():
     assert not seo.topic_matches(x, {"title_keywords": ["配额"], "domains": ["tax"]})
     assert seo.topic_matches(x, {"uids": ["U1"], "parties": ["importer"]})
     assert not seo.topic_matches(x, {"title_keywords": ["土地"]})
+
+
+def test_configured_topics_are_well_formed():
+    """config/topics.json:每个专题有 id、名称、只描述范围的 scope_zh;不用会大面积误收的单字关键词。"""
+    import re
+    from pathlib import Path
+    cfg = json.loads((Path(__file__).resolve().parents[2] / "config" / "topics.json").read_text(encoding="utf-8"))
+    ids = [t["id"] for t in cfg["topics"]]
+    assert len(ids) == len(set(ids))
+    for want in ("income-tax", "ev-auto", "industrial-standards", "energy", "environment"):
+        assert want in ids, want
+    for t in cfg["topics"]:
+        assert re.fullmatch(r"[a-z0-9-]+", t["id"]) and t["title_zh"] and t["scope_zh"].startswith("收录")
+        kws = t["match"].get("title_keywords") or []
+        assert kws and all(len(k) >= 2 for k in kws), (t["id"], "单字关键词(如「碳」)会误收")
+        assert not re.search(r"利好|严格|宽松|重大|应当|建议", t["scope_zh"]), "scope_zh 只描述收录范围,不下结论"

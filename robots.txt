@@ -22,6 +22,9 @@ User-agent: CCBot
 User-agent: DuckAssistBot
 User-agent: cohere-ai
 User-agent: MistralAI-User
+User-agent: meta-externalfetcher
+User-agent: ChatGLM-Spider
+User-agent: YouBot
 Allow: /
 Disallow: /api/
 Disallow: /admin

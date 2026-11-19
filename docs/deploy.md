@@ -56,7 +56,7 @@ DOMAIN=你的域名 bash /opt/thai-policy-lineage/deploy/install.sh        # 买
   排查:`nginx -t`、`/var/log/nginx/thaipolicy.error.log`、`/var/log/letsencrypt/letsencrypt.log`。
 - **服务器在中国大陆**:任何域名走 80/443 都需要 ICP 备案,脚本会提示。建议选曼谷/新加坡/香港地域。
 - **采集分工**:GitHub Actions 每天采集并提交;服务器每小时 17 分 `deploy/sync.sh` 同步 ——
-  只有数据变了就重新入库导出,代码变了就重建镜像。服务器不自己采集,避免两份数据各走各的。
+  只有数据变了就重新入库导出,代码变了就重建镜像(重建失败时退回同步前的版本,下一小时重试)。服务器不自己采集,避免两份数据各走各的。
 - **备份**:每天 03:40 `deploy/backup.sh` 导出 Postgres 到 `/opt/backups/thai-policy/`,保留 14 天。
   统计数据只在数据库里,建议再定期拷到别处。
 - 自检会顺带测本机能否访问 data.go.th。能访问的话,这台机器可以作为 Actions 的泰国出口

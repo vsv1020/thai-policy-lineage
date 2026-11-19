@@ -39,7 +39,7 @@ def test_one_page_per_presentable_document(built, session):
     from app.models import Document
     root, stats = built
     n = session.scalar(select(func.count(Document.uid)))
-    pages = [p for p in (root / "p").glob("*.html") if p.name != "index.html"]
+    pages = [p for p in (root / "p").glob("*.html") if p.name not in ("index.html", "404.html")]
     assert len(pages) == n
 
 
