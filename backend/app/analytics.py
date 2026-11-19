@@ -72,7 +72,7 @@ def uid_agency(uid: str) -> str:
     return parts[1].lower() if len(parts) > 2 else ""
 
 
-def attribution(doc, zh: dict[str, str]) -> tuple[str, list[str], list[str]]:
+def attribution(doc, zh: dict[str, str], with_ids: bool = False):
     """机关栏 (标签, 发文机关中文名, 相关机关中文名);规则见 app.issuer.attribute。
     zh = {机关 id: 显示名}。落地页、首页卡片、详情视图、llms-full.txt 都用这一个结果。"""
     ids = [a.agency_id for a in sorted(doc.agencies, key=lambda x: x.seq)]
@@ -82,7 +82,7 @@ def attribution(doc, zh: dict[str, str]) -> tuple[str, list[str], list[str]]:
         rules, parents = [], {}
     return ISSUER.attribute(doc.title_th or "", ids, zh, rules, parents, verified=bool(doc.verified),
                             gazette=bool(doc.gazette_series), cabinet_resolution=is_cabinet_resolution(doc),
-                            uid_agency=uid_agency(doc.uid))
+                            uid_agency=uid_agency(doc.uid), with_ids=with_ids)
 
 
 def document_view(s: Session, doc: Document, today: date) -> dict:
@@ -95,7 +95,8 @@ def document_view(s: Session, doc: Document, today: date) -> dict:
         abbr = (a.abbr or "").replace("-", "")
         return f"{a.zh} ({a.abbr})" if abbr.isascii() and abbr.isalpha() else a.zh
 
-    org_label, org_issuer, org_related = attribution(doc, {a.agency_id: org_name(a.agency_id) for a in agencies})
+    org_label, org_issuer, org_related, issuer_ids = attribution(
+        doc, {a.agency_id: org_name(a.agency_id) for a in agencies}, with_ids=True)
 
     lf, st = doc.legal_form, doc.status
     if doc.effective_from:
@@ -125,11 +126,14 @@ def document_view(s: Session, doc: Document, today: date) -> dict:
         "key_points": split_summary(doc.summary_zh)[1],
         "org": " · ".join(org_name(a.agency_id) for a in agencies),
         # 机关栏:标签「发文机关」时 org_issuer 是标题(或来源)印证的发文者,其余在 org_related;
-        # 标签「相关机关」时全部在 org_related;标签为空 = 只有缺省的「内阁」,不显示。卡片上显示 org_shown
+        # 标签「相关机关」时全部在 org_related;标签为空 = 只有缺省的「内阁」,不显示。卡片上显示 org_shown;
+        # org_issuer_ids:发文机关的 id(官网来源转载别家文件时,落地页据此不把官网上架日说成发文日)
         "org_label": org_label,
         "org_issuer": " · ".join(org_issuer),
         "org_related": " · ".join(org_related),
-        "org_shown": " · ".join(org_issuer) or " · ".join(org_related),
+        # 首页卡片只显示印证了的发文机关;只有相关机关时不显示(不带标签地写出来会被读成发文者)
+        "org_shown": " · ".join(org_issuer),
+        "org_issuer_ids": issuer_ids,
         "doc_no": doc.doc_no,
         "doc_no_label": "公报" if doc.gazette_series else "文号",
         "legal_form": f"{lf.zh} · {lf.abbr} 层级",

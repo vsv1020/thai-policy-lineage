@@ -714,7 +714,9 @@ def merge_update(old: dict, new: dict) -> dict:
         merged["titles"]["zh"] = ""
         merged["summary_zh"] = ""
         merged["key_points_zh"] = []
-        merged.setdefault("flags", {}).pop("skip", None)
+        if not (merged.get("flags") or {}).get("red_line"):
+            # 因红线下线的(flags.red_line)保持跳过:标题哪怕只多了一个空格,也不能借重新翻译回到前台
+            merged.setdefault("flags", {}).pop("skip", None)
         prov = merged.setdefault("provenance", {})
         for k in ("summary_basis", "fulltext_attempts", "enriched_by"):
             prov.pop(k, None)

@@ -200,6 +200,12 @@ def check_doc(d: dict, v: dict, rep: Report, all_uids: set[str], issue_ids: set[
     for t in ROYAL_TERMS:
         if t in blob:
             rep.err(where, f"命中王室相关词 {t!r} —— 自动流程不得加工王室内容,需人工处理")
+    # 因红线下线的条目用结构化标记 flags.red_line(采集更新、放回翻译队列都认它);下线就必须跳过
+    flags = d.get("flags") or {}
+    if flags.get("red_line") and not flags.get("skip"):
+        rep.err(where, "flags.red_line 的条目必须同时 flags.skip = true(红线条目不上前台)")
+    if "红线一" in (d.get("note") or "") and not flags.get("red_line"):
+        rep.err(where, "note 写着触及红线一,但没有 flags.red_line 标记 —— 补上标记,否则采集更新会把它放回翻译队列")
 
     # 红线二:不建人名索引。规则与采集、翻译共用(backend/app/persons.py,纯标准库)。
     # 自动采集的条目必须过关;人工条目只提醒(可能在说明里引用了公开职务)

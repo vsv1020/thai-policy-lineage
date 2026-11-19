@@ -73,7 +73,7 @@ def _record(uid: str, title: str, published: str, pdf: str, pipeline: str, run_a
         "implementation_stage": None,
         "subjects": [],
         # 官网所属机关是缺省值;标题写明了别的发文机关(BOI 官网转载的总理府命令)以标题为准
-        "agency_ids": title_issuers(title, DATA_DIR / "vocab.json") or [agency],
+        "agency_ids": title_issuers(title, DATA_DIR / "vocab.json", site=agency) or [agency],
         "domain_ids": [domain],
         "legal_form_id": legal_form,
         "status_id": status,

@@ -85,7 +85,9 @@ SYSTEM_PROMPT = """你是泰国政策数据库的编辑助手,把泰国皇家公
   confidence 选 low)。
 - 涉及王室的内容不在你的处理范围内(上游已过滤),若仍遇到,relevant 设为 false。
 - 不写任何自然人的姓名(包括部长、官员、当事人),只写职务或机关,如「副总理兼财政部长」「税务厅厅长」;
-  正文里的姓名已替换为[人名略],不要猜测或还原。不用「先生/女士」等称谓。"""
+  正文里的姓名已替换为[人名略],不要猜测或还原。不用「先生/女士」等称谓。
+- 术语:ที่ราชพัสดุ 是国库厅管理的国有地产,译「国库土地」或「国有财产」,不要译成「皇家地产」;
+  กรมธนารักษ์ 译「国库厅」,不要译成「财政厅」(财政部是 กระทรวงการคลัง)。"""
 
 
 def _vocab() -> dict:
@@ -149,6 +151,7 @@ def needs_fulltext_upgrade(rec: dict) -> bool:
     from .fulltext import pdf_url
     prov = rec.get("provenance") or {}
     return (bool((rec.get("titles") or {}).get("zh")) and not (rec.get("flags") or {}).get("skip")
+            and not (rec.get("flags") or {}).get("red_line")
             and bool(prov.get("enriched_by")) and prov.get("summary_basis") != "fulltext"
             and int(prov.get("fulltext_attempts", 0) or 0) < UPGRADE_MAX_ATTEMPTS
             and bool(pdf_url(rec)))
@@ -157,7 +160,8 @@ def needs_fulltext_upgrade(rec: dict) -> bool:
 def is_pending(rec: dict) -> bool:
     """待翻译:没有中文标题、未被跳过,且有可考证的官方原文 —— 没有原文的条目上不了前台,不花钱翻译。"""
     from .ingest import official_sources
-    return (not (rec.get("titles") or {}).get("zh") and not (rec.get("flags") or {}).get("skip")
+    flags = rec.get("flags") or {}
+    return (not (rec.get("titles") or {}).get("zh") and not flags.get("skip") and not flags.get("red_line")
             and bool(official_sources(rec)))
 
 
@@ -362,9 +366,10 @@ def _parents(v: dict) -> dict:
     return {a["id"]: a.get("ministry") for a in v["agencies"]}
 
 
-def issuer_agencies(title_th: str, v: dict) -> list[str]:
-    """泰文标题写明的发文机关 id(联合发文时按标题顺序列出全部);认不出返回空列表。规则见 app.issuer。"""
-    return ISSUER.issuer_agencies(title_th, agency_rules(v), _parents(v))
+def issuer_agencies(title_th: str, v: dict, site: str = "") -> list[str]:
+    """泰文标题写明的发文机关 id(联合发文时按标题顺序列出全部);认不出返回空列表。规则见 app.issuer。
+    site = 官网来源条目的官网机关(uid 第二段),只对限定官网的别名(如 BOI 官网上的「กกท.」)起作用。"""
+    return ISSUER.issuer_agencies(title_th, agency_rules(v), _parents(v), site=site)
 
 
 def issuer_agency(title_th: str, v: dict) -> str | None:
@@ -379,7 +384,10 @@ def fix_agency(rec: dict, v: dict) -> bool:
     认不出的不动;已经以标题写明的机关开头的也不动(模型另选的机关保留,页面上列为「相关机关」)。"""
     if (rec.get("provenance") or {}).get("pipeline") not in TITLE_ISSUER_PIPELINES:
         return False
-    ids = issuer_agencies((rec.get("titles") or {}).get("th", ""), v)
+    pipeline = (rec.get("provenance") or {}).get("pipeline")
+    site = "" if pipeline == "gazette_json" else str(rec.get("uid", "")).split("-")[1].lower() \
+        if str(rec.get("uid", "")).count("-") >= 2 else ""
+    ids = issuer_agencies((rec.get("titles") or {}).get("th", ""), v, site)
     if not ids or list(rec.get("agency_ids") or [])[:len(ids)] == ids:
         return False
     rec["agency_ids"] = ids
@@ -408,8 +416,8 @@ def requeue_kept(dry_run: bool = False) -> list[str]:
     records = read_jsonl(POLICIES_DIR / "documents.jsonl")
     changed: dict[str, dict] = {}
     for r in records:
-        # 因红线跳过的(标题含王室词,或译文触及红线一)不在此列:那是留给人工判断的,不能自动放回队列
-        red = "红线" in (r.get("note") or "") or any(t in (r.get("titles") or {}).get("th", "") for t in ROYAL_TERMS)
+        # 因红线跳过的(flags.red_line,或标题含王室词)不在此列:那是留给人工判断的,不能自动放回队列
+        red = (r.get("flags") or {}).get("red_line") or any(t in (r.get("titles") or {}).get("th", "") for t in ROYAL_TERMS)
         if (r.get("flags") or {}).get("skip") and kept_by_topic(r, pats) and not red \
                 and (r.get("provenance") or {}).get("pipeline") in ("gazette_json", "cabinet_json", "rd_web", "boi_web"):
             r = json.loads(json.dumps(r))
@@ -546,6 +554,7 @@ def run_enrichment(limit: int | None = None, dry_run: bool = False, client=None,
         if any(t in th for t in ROYAL_TERMS):
             rec = json.loads(json.dumps(rec))
             rec.setdefault("flags", {})["skip"] = True
+            rec["flags"]["red_line"] = True        # 结构化标记:采集更新、放回队列都认它,不会被自动翻回来
             rec["note"] = (rec.get("note", "") + " | 触及红线一,不做任何加工").strip(" |")
             updated[rec["uid"]] = rec
             result["skipped_red_line"] += 1
@@ -606,6 +615,7 @@ def run_enrichment(limit: int | None = None, dry_run: bool = False, client=None,
             # 红线一:不写入任何模型输出,标记跳过,留给人工判断
             rec = json.loads(json.dumps(rec))
             rec.setdefault("flags", {})["skip"] = True
+            rec["flags"]["red_line"] = True
             # 说明里不能再写出命中的词,否则整条记录又会被 validate.py 的红线检查拒收
             rec["note"] = (rec.get("note", "") + " | 译文触及红线一,不做加工,待人工处理").strip(" |")
             updated[rec["uid"]] = rec

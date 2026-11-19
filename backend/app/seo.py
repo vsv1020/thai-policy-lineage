@@ -388,6 +388,14 @@ def issuer_info(doc: Document, org: str) -> tuple[str, str, str]:
     return label, " · ".join(iss), " · ".join(rel)
 
 
+def site_relay(doc, v: dict) -> bool:
+    """官网转载别家的文件:不是公报条目、机关栏印证了发文机关、但发文机关不是这个官网的机关(uid 第二段)。
+    这时日期是官网上架日,不是发文日。"""
+    site = _uid_agency(doc.uid)
+    return (not doc.gazette_series and v.get("org_label") == "发文机关" and bool((v.get("dates") or {}).get("published_at"))
+            and site not in (v.get("org_issuer_ids") or [site]))
+
+
 def _issuer_of(v: dict) -> tuple[str, str, str]:
     """document_view 里算好的机关栏 (标签, 发文机关, 相关机关)。"""
     return v.get("org_label", "发文机关"), v.get("org_issuer", v.get("org", "")), v.get("org_related", "")
@@ -478,7 +486,10 @@ def render_page(s: Session, doc: Document, today, titles: dict[str, str],
     # 机关栏:发文机关一行 + 其余机关另列「相关机关」;印证不了时只有「相关机关」一行
     org_rows = ([("发文机关", org_issuer)] if is_issuer else []) + [("相关机关", org_related)]
     points = sound_points(v["key_points"])
-    lede = _lede(v, gazetted, is_issuer, site)
+    # 官网转载别家的文件(BOI 官网上的总理府命令、税务厅官网上的财政部公告):机关栏照写发文机关,
+    # 但日期是这个官网的上架日,不是发文机关的发布日 —— 开头句与时间轴都按「在某某官网发布」写
+    relay = site_relay(doc, v)
+    lede = _lede(v, gazetted, is_issuer and not relay, site)
     title = page_title(v["title_zh"], v["date"] if dup_title else "",
                        title_lead(v["title_zh"], is_cabinet_resolution(doc)))
     desc = v["summary_zh"] or v["title_zh"]
@@ -505,7 +516,7 @@ def render_page(s: Session, doc: Document, today, titles: dict[str, str],
     origin = "泰文原文(官方):" + cite + links
 
     timeline = [(d.get("resolved_at"), "内阁决议"), (d.get("comment_deadline"), "征求意见截止"),
-                (d.get("published_at"), "刊登皇家公报" if gazetted else ("发文机关发布" if is_issuer else "官网发布")),
+                (d.get("published_at"), "刊登皇家公报" if gazetted else ("发文机关发布" if is_issuer and not relay else "官网发布")),
                 (d.get("effective_from"), "生效"),
                 (d.get("effective_to"), "失效")]
     timeline = sorted([t for t in timeline if t[0]])

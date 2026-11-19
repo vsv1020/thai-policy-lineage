@@ -195,11 +195,18 @@ def test_thai_names_unique_and_never_swallowed_by_another_agency():
             owner[k] = a["id"]
             if len(k) >= I.MIN_NAME:
                 for doc in ("ประกาศ", "คำสั่ง", "ระเบียบ"):
-                    assert ids(f"{doc}{n} เรื่อง ทดสอบ") == [a["id"]], (doc, n)
+                    site = x.get("site", "")         # 限定官网的缩写只在该官网来源里认
+                    assert E.issuer_agencies(f"{doc}{n} เรื่อง ทดสอบ", V, site) == [a["id"]], (doc, n)
                     if x.get("prefix"):
                         assert ids(f"{doc}{n}ภูเก็ต สาขาถลาง เรื่อง ทดสอบ") == [a["id"]], (doc, n)
-    zh = [a["zh"] for a in V["agencies"]] + [x["zh"] for a in V["agencies"] for x in I.alias_entries(a) if x.get("zh")]
-    assert len(zh) == len(set(zh)), "中文名(含附属实体的显示名)不重复"
+    # 中文名(含附属实体的显示名)不跨机关重复;同一附属实体的两种写法(BOI 办公室的全称与「สกท.」)可以同名
+    zh_owner: dict[str, set] = {}
+    for a in V["agencies"]:
+        zh_owner.setdefault(a["zh"], set()).add(("main", a["id"]))
+        for x in I.alias_entries(a):
+            if x.get("zh"):
+                zh_owner.setdefault(x["zh"], set()).add(("alias", a["id"]))
+    assert all(len(v) == 1 for v in zh_owner.values()), {k: v for k, v in zh_owner.items() if len(v) > 1}
 
 
 def test_no_alias_is_a_bare_generic_word():
@@ -207,7 +214,7 @@ def test_no_alias_is_a_bare_generic_word():
     for a in V["agencies"]:
         for x in I.alias_entries(a):
             assert I.norm(x["th"]) not in generic, (a["id"], x)
-            assert set(x) <= {"th", "zh", "prefix", "official"}, (a["id"], x)
+            assert set(x) <= {"th", "zh", "prefix", "official", "site"}, (a["id"], x)
 
 
 def test_org_name_shows_ascii_abbr_only():
@@ -289,7 +296,8 @@ def test_attached_entities_show_their_own_name():
         ("ประกาศสำนักงานคณะกรรมการกลางว่าด้วยราคาสินค้าและบริการ ฉบับที่ 1 เรื่อง ก", "ccp", "商品与服务价格中央委员会办公室"),
         ("ประกาศคณะกรรมการควบคุมการขนส่งทางบกกลาง เรื่อง ก", "ltcb", "陆路运输管制中央委员会"),
         ("ประกาศคณะกรรมการจัดสรรที่ดินกลาง เรื่อง ก", "land_alloc", "土地分配中央委员会"),
-        ("ประกาศสำนักงานกลางทะเบียนสมาคมการค้า ที่ 22/2568 เรื่อง ก", "dbd", "贸易协会中央登记处"),
+        # 显示名与站内条目标题的叫法对齐(第三轮审阅:「…登记处」改「…登记办公室」)
+        ("ประกาศสำนักงานกลางทะเบียนสมาคมการค้า ที่ 22/2568 เรื่อง ก", "dbd", "贸易协会中央登记办公室"),
         ("ประกาศคณะกรรมการอ้อยและน้ำตาลทราย เรื่อง ก", "ocsb", "甘蔗与砂糖委员会"),
         ("ประกาศสำนักงานศาลรัฐธรรมนูญ เรื่อง ก", "ccourt", "宪法法院办公室"),
     ]
@@ -361,6 +369,97 @@ def test_requeue_kept_does_not_bring_back_red_lined_items(tmp_path, monkeypatch)
     base = {"titles": {"zh": "某府总体规划", "th": "กฎกระทรวงให้ใช้บังคับผังเมืองรวมเมืองตัวอย่าง"},
             "agency_ids": ["cabinet"], "provenance": {"pipeline": "gazette_json"}}
     rows = [{**base, "uid": "A", "flags": {"skip": True}, "note": "LLM 判定与在泰外籍人士/企业无关"},
-            {**base, "uid": "B", "flags": {"skip": True}, "note": "译文触及红线一,不做加工,待人工处理"}]
+            # 红线状态改用结构化标记 flags.red_line 表示(原先只靠 note 里的一句话认)
+            {**base, "uid": "B", "flags": {"skip": True, "red_line": True}, "note": "译文触及红线一,不做加工,待人工处理"}]
     (d / "documents.jsonl").write_text("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in rows))
     assert E.requeue_kept() == ["A"]
+
+
+# ─────────────────────────── 第三轮审阅 ───────────────────────────
+
+@pytest.mark.parametrize("th,want", [
+    # 《农业土地整理法》(2015)下的委员会:归农业与合作社部
+    ("ระเบียบคณะกรรมการจัดรูปที่ดินกลาง ว่าด้วยหลักเกณฑ์ วิธีการ และเงื่อนไข", ["lr_committee"]),
+    ("ประกาศคณะกรรมการจัดรูปที่ดินจังหวัดสกลนคร ที่ 1/2566 เรื่อง ก", ["lr_committee"]),
+    # 《区域开发土地整理法》(2004)下的委员会:归内政部
+    ("ประกาศคณะกรรมการจัดรูปที่ดินเพื่อพัฒนาพื้นที่ส่วนจังหวัดชลบุรี เรื่อง ก", ["lrad"]),
+    ("ประกาศคณะกรรมการจัดรูปที่ดินเพื่อพัฒนาพื้นที่ เรื่อง ก", ["lrad"]),
+])
+def test_two_land_readjustment_laws_are_two_agencies(th, want):
+    assert ids(th) == want
+    assert AG["lr_committee"]["ministry"] == "moac" and AG["lrad"]["ministry"] == "moi"
+
+
+def _web(uid, agencies, th, published="2026-05-21"):
+    return NS(uid=uid, agencies=[NS(agency_id=a, seq=i) for i, a in enumerate(agencies)], title_th=th,
+              gazette_series="", published_at=published, resolved_at=None, verified=False, sources=[])
+
+
+def test_website_items_need_the_title_to_confirm_the_issuer():
+    from app import analytics as A
+    zh = {a["id"]: a["zh"] for a in V["agencies"]}
+    att = lambda d: A.attribution(d, zh)  # noqa: E731
+    # BOI 官网上的委员会 / 办公室公告:缩写只在 BOI 官网来源里认
+    assert att(_web("TH-BOI-1-A", ["boi"], "ประกาศ กกท. ที่ 10/2569 เรื่อง มาตรการ")) == ("发文机关", ["投资促进委员会"], [])
+    assert att(_web("TH-BOI-1-B", ["boi"], "ประกาศ สกท.ที่ ป.11/2569 เรื่อง ก")) == ("发文机关", ["投资促进委员会办公室"], [])
+    assert ids("ประกาศ กกท. ที่ 1/2569 เรื่อง ก") == [], "公报里的「กกท.」也可能是体育局,不认"
+    # 标题以文件类型开头而认不出(别的委员会的命令):官网所属机关只算相关机关
+    d = _web("TH-BOI-20250117-136471", ["boi"], "คำสั่งคณะกรรมการนโยบายอุตสาหกรรมเซมิคอนดักเตอร์ ที่ 1/2568 เรื่อง แต่งตั้ง")
+    assert att(d) == ("相关机关", [], ["投资促进委员会"])
+    # 标题写明了别的发文机关、数据里却没有:同样不按官网机关写成发文者
+    assert att(_web("TH-BOI-1-C", ["boi"], "คำสั่งสำนักนายกรัฐมนตรี ที่ 1/2569 เรื่อง ก"))[0] == "相关机关"
+    # 官网自拟、不带发文机关段的标题:第一个机关就是官网机关才算
+    assert att(_web("TH-BOI-1-D", ["boi", "energy"], "มาตรการส่งเสริมการลงทุนด้านพลังงาน"))[:2] == ("发文机关", ["投资促进委员会"])
+
+
+def test_site_relay_says_posted_on_the_website():
+    """官网转载别家的文件:机关栏照写发文机关,开头句与时间轴按「在某某官网发布」写(日期是官网上架日)。"""
+    from app import analytics as A
+    zh = {a["id"]: a["zh"] for a in V["agencies"]}
+    d = _web("TH-BOI-20260521-138885", ["opm"], "คำสั่งสำนักนายกรัฐมนตรี ที่ 193/2569 เรื่อง แต่งตั้ง")
+    label, iss, rel, iss_ids = A.attribution(d, zh, with_ids=True)
+    v = {"org_label": label, "org_issuer_ids": iss_ids, "dates": {"published_at": "2026-05-21"}}
+    assert label == "发文机关" and iss == ["总理府"] and seo.site_relay(d, v)
+    own = _web("TH-BOI-1-E", ["boi"], "ประกาศ กกท. ที่ 10/2569 เรื่อง ก")
+    label, _, _, iss_ids = A.attribution(own, zh, with_ids=True)
+    assert not seo.site_relay(own, {"org_label": label, "org_issuer_ids": iss_ids,
+                                    "dates": {"published_at": "2026-05-21"}})
+    lede = seo._lede({"org": "总理府", "org_issuer": "总理府", "title_zh": "总理府命令", "doc_no": "",
+                      "doc_no_label": "文号", "dates": {"published_at": "2026-05-21"}, "status_label": "现行有效"},
+                     gazetted=False, issuer=False, site="投资促进委员会")
+    assert lede.startswith("《总理府命令》于 2026-05-21 在投资促进委员会官网发布")
+
+
+def test_attribution_edge_cases():
+    zh = {a["id"]: a["zh"] for a in V["agencies"]}
+    # 内阁决议的标题以文件类型开头(审议的是某部的草案):仍只把内阁写成发文者
+    assert I.attribute("ประกาศกระทรวงการคลัง เรื่อง ร่าง", ["cabinet", "mof"], zh, RULES, cabinet_resolution=True) \
+        == ("发文机关", ["内阁"], ["财政部"])
+    assert I.attribute("ประกาศกระทรวงการคลัง เรื่อง ร่าง", ["mof"], zh, RULES, cabinet_resolution=True) \
+        == ("相关机关", [], ["财政部"])
+    # 机关名后「空白 + 非边界词」不算命中(公报索引的空格不可靠)
+    assert ids("ประกาศกรมป่าไม้ ภาคเหนือ เรื่อง ก") == []
+    assert ids("ประกาศกรมป่าไม้ เรื่อง ก") == ["rfd"]
+    # 「下属单位 + 它自己的厅」按署名写法认出下属单位
+    assert ids("ประกาศสำนักทะเบียนกลาง กรมการปกครอง เรื่อง จำนวนราษฎร") == ["dopa"]
+    assert I.attribute("ประกาศสำนักทะเบียนกลาง กรมการปกครอง เรื่อง ก", ["dopa"], zh, RULES, gazette=True) \
+        == ("发文机关", ["中央户籍登记局"], [])
+
+
+def test_red_line_flag_survives_retitle_and_requeue(tmp_path, monkeypatch):
+    """因红线下线的记录:官方索引的标题只多了一个空格,merge_update 也不能把它放回翻译队列。"""
+    from app import collect as C
+    from app.config import REPO_ROOT
+    from app.ingest import read_jsonl
+    rec = next(r for r in read_jsonl(REPO_ROOT / "data" / "policies" / "documents.jsonl")
+               if r["uid"] == "TH-GAZ-20260317-865-47-7-3-4")
+    assert rec["flags"] == {"has_detail_page": False, "skip": True, "red_line": True}
+    new = json.loads(json.dumps(rec))
+    new["titles"]["th"] = new["titles"]["th"].replace(" ", "  ", 1)
+    merged = C.merge_update(rec, new)
+    assert merged["flags"]["skip"] and merged["flags"]["red_line"] and not E.is_pending(merged)
+    d = tmp_path / "policies"; d.mkdir()
+    monkeypatch.setattr(E, "POLICIES_DIR", d)
+    monkeypatch.setattr(E, "_keep_patterns", lambda: ["กระทรวงการคลัง"])
+    (d / "documents.jsonl").write_text(json.dumps(merged, ensure_ascii=False) + "\n")
+    assert E.requeue_kept() == []

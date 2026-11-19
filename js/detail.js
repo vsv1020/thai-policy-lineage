@@ -45,6 +45,10 @@ function renderDetail(d) {
   const conf = d.confidence || {};
   // 有公报卷期才说「刊登公报」;税务厅、BOI 等官网来源的条目,这个日期是官网发布日
   const gazetted = d.doc_no_label === '公报';
+  // 官网来源:发文机关就是这个官网的机关(uid 第二段)时日期才是发文日;转载别家的文件,日期是官网上架日
+  const site = (String(d.uid).split('-')[1] || '').toLowerCase();
+  const byIssuer = d.org_label === undefined
+    || (d.org_label === '发文机关' && (d.org_issuer_ids || [site]).includes(site));
   const fields = [
     // 机关栏与落地页同一判断(导出时算好):标题印证的发文机关一行,其余列「相关机关」;只有缺省的内阁时不显示
     ...(d.org_label === undefined
@@ -117,7 +121,7 @@ function renderDetail(d) {
   const tl = [
     dates.resolved_at && { d: dates.resolved_at, n: '内阁决议', s: 'done' },
     dates.comment_deadline && { d: dates.comment_deadline, n: '公开征求意见截止', s: 'done' },
-    dates.published_at && { d: dates.published_at, n: gazetted ? '刊登皇家公报' : '发文机关发布', s: 'done' },
+    dates.published_at && { d: dates.published_at, n: gazetted ? '刊登皇家公报' : (byIssuer ? '发文机关发布' : '官网发布'), s: 'done' },
     dates.effective_from && { d: dates.effective_from, n: '生效适用', s: 'now' },
     dates.effective_to && { d: dates.effective_to, n: '失效', s: '' },
   ].filter(Boolean).sort((a, b) => a.d.localeCompare(b.d));

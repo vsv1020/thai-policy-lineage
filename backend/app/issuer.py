@@ -52,6 +52,9 @@ NO_TITLE_PREFIX = frozenset({"pm", "cabinet"})
 JOINT = "และ"
 # 机关名之后允许的边界(空白另算)
 BOUNDARY = ("เรื่อง", "ว่าด้วย", "ที่", "ฉบับ", "(", "\uff08", JOINT)
+# 空白之后还允许的词(公报索引里的空格不可靠,空白本身不算边界):「ประกาศอธิบดีกรมสรรพากร เกี่ยวกับภาษีเงินได้」、
+# 「คำวินิจฉัยของศาลรัฐธรรมนูญ คำวินิจฉัยที่」、更正启事「… ขอแก้ไขข้อความคลาดเคลื่อน」
+AFTER_SPACE = BOUNDARY + ("เกี่ยวกับ", "คำวินิจฉัย", "ขอแก้ไข", "พ.ศ.")
 CUT_RE = re.compile(r"เรื่อง|ว่าด้วย")
 MIN_NAME = 4                                   # 4 个字符以下的缩写不用
 
@@ -94,6 +97,7 @@ class Rule:
     prefix: bool = False   # 前缀式别名:后面可以接任何后缀
     official: bool = False  # 官员职务称谓
     zh: str = ""           # 附属实体自己的中文显示名
+    site: str = ""         # 只在这个官网(uid 第二段)来源的标题里认:有歧义的缩写(BOI 官网上的「กกท.」)
 
     @property
     def confirms(self) -> bool:
@@ -102,7 +106,7 @@ class Rule:
 
 
 def alias_entries(a: dict) -> list[dict]:
-    """一个机关的全部名称(正式名 + 别名),统一成 {"th", "prefix", "official", "zh"}。"""
+    """一个机关的全部名称(正式名 + 别名),统一成 {"th", "prefix", "official", "zh", "site"}。"""
     out = [{"th": a.get("th") or ""}]
     for x in a.get("th_aliases") or []:
         out.append({"th": x} if isinstance(x, str) else dict(x))
@@ -116,7 +120,8 @@ def agency_rules(v: dict) -> list[Rule]:
         for x in alias_entries(a):
             n = norm(x["th"])
             if len(n) >= MIN_NAME:
-                rules.add(Rule(n, a["id"], bool(x.get("prefix")), bool(x.get("official")), x.get("zh") or ""))
+                rules.add(Rule(n, a["id"], bool(x.get("prefix")), bool(x.get("official")), x.get("zh") or "",
+                               x.get("site") or ""))
     return sorted(rules, key=lambda r: (-len(r.name), r.name, r.aid))
 
 
@@ -138,15 +143,22 @@ class Match:
     end: int
 
 
-def _match(s: str, spaces: set[int], pos: int, rules: list[Rule], titled: bool = False) -> Match | None:
+def _match(s: str, spaces: set[int], pos: int, rules: list[Rule], titled: bool = False,
+           site: str = "") -> Match | None:
     """s[pos:] 开头是哪个机关(长名优先,机关名之后须是边界)。"""
     for r in rules:
-        if not s.startswith(r.name, pos) or (titled and r.aid in NO_TITLE_PREFIX):
+        if not s.startswith(r.name, pos) or (titled and r.aid in NO_TITLE_PREFIX) or (r.site and r.site != site):
             continue
         end = pos + len(r.name)
-        if r.prefix or end in spaces or s.startswith(BOUNDARY, end):
+        if r.prefix or end == len(s) or s.startswith(BOUNDARY, end) or (
+                end in spaces and (s.startswith(AFTER_SPACE, end) or _starts_name(s, end, rules, site))):
             return Match(r, pos, end)
     return None
+
+
+def _starts_name(s: str, pos: int, rules: list[Rule], site: str) -> bool:
+    """pos 处是不是另一个机关名的开头(「A B」署名或并列,交给 parse 判断)。"""
+    return any(s.startswith(r.name, pos) and (not r.site or r.site == site) for r in rules)
 
 
 def _start(s: str, allow_bare: bool) -> tuple[int, bool] | None:
@@ -173,30 +185,32 @@ def _ancestors(aid: str, parents: dict[str, str | None]) -> set[str]:
 
 
 def parse(title_th: str, rules: list[Rule], parents: dict[str, str | None] | None = None,
-          allow_bare: bool = True) -> tuple[list[Match], str]:
-    """(认出的发文机关,按标题顺序;发文机关段)。发文机关段 = 第一个不属于机关名的「เรื่อง / ว่าด้วย」之前的文字。"""
+          allow_bare: bool = True, site: str = "") -> tuple[list[Match], str]:
+    """(认出的发文机关,按标题顺序;发文机关段)。发文机关段 = 第一个不属于机关名的「เรื่อง / ว่าด้วย」之前的文字。
+    site = 官网来源的机关(uid 第二段),只对带 site 的别名起作用。"""
     s, spaces = _norm_with_spaces(title_th)
     parents = parents or {}
     found: list[Match] = []
     st = _start(s, allow_bare)
     if st is not None:
-        m = _match(s, spaces, st[0], rules, titled=st[1])
+        m = _match(s, spaces, st[0], rules, titled=st[1], site=site)
         while m:
             found.append(m)
             end = m.end
             if m.rule.prefix:
                 break
             if s.startswith(JOINT, end):
-                m = _match(s, spaces, end + len(JOINT), rules)
+                m = _match(s, spaces, end + len(JOINT), rules, site=site)
                 if not m:
                     found = []          # 「และ」后面认不出:联合发文不完整,整条认不出
                 continue
-            nxt = _match(s, spaces, end, rules) if end in spaces and end < len(s) else None
-            if nxt and nxt.rule.aid in _ancestors(m.rule.aid, parents):
-                # 「กรมสรรพากร กระทรวงการคลัง」:署名带上级部委,只取发文的厅局
+            nxt = _match(s, spaces, end, rules, site=site) if end in spaces and end < len(s) else None
+            if nxt and (nxt.rule.aid == m.rule.aid or nxt.rule.aid in _ancestors(m.rule.aid, parents)):
+                # 署名写法:「กรมสรรพากร กระทรวงการคลัง」(厅局 + 上级部委)、
+                # 「สำนักทะเบียนกลาง กรมการปกครอง」(下属单位 + 它自己的厅)—— 只取前一个
                 found[-1] = Match(m.rule, m.start, nxt.end)
                 if s.startswith(JOINT, nxt.end):
-                    m = _match(s, spaces, nxt.end + len(JOINT), rules)
+                    m = _match(s, spaces, nxt.end + len(JOINT), rules, site=site)
                     if not m:
                         found = []
                     continue
@@ -210,10 +224,10 @@ def parse(title_th: str, rules: list[Rule], parents: dict[str, str | None] | Non
 
 
 def issuer_agencies(title_th: str, rules: list[Rule], parents: dict[str, str | None] | None = None,
-                    allow_bare: bool = True) -> list[str]:
+                    allow_bare: bool = True, site: str = "") -> list[str]:
     """泰文标题写明的发文机关 id(联合发文时按标题顺序列出全部);认不出返回空列表。"""
     out: list[str] = []
-    for m in parse(title_th, rules, parents, allow_bare)[0]:
+    for m in parse(title_th, rules, parents, allow_bare, site)[0]:
         if m.rule.aid not in out:
             out.append(m.rule.aid)
     return out
@@ -232,25 +246,40 @@ def has_issuer_segment(title_th: str) -> bool:
 ISSUER, RELATED = "发文机关", "相关机关"
 
 
+def has_doc_type(title_th: str) -> bool:
+    """标题以文件类型(ประกาศ / คำสั่ง / ระเบียบ……)开头 —— 后面就是发文机关段。"""
+    return norm(title_th).startswith(DOC_TYPES)
+
+
 def attribute(title_th: str, ids: list[str], zh: dict[str, str], rules: list[Rule],
               parents: dict[str, str | None] | None = None, *, verified: bool = False, gazette: bool = False,
-              cabinet_resolution: bool = False, uid_agency: str = "") -> tuple[str, list[str], list[str]]:
+              cabinet_resolution: bool = False, uid_agency: str = "", with_ids: bool = False):
     """机关栏:(标签, 发文机关的中文名列表, 相关机关的中文名列表)。标签为空串 = 整栏不显示。
+    with_ids=True 时多返回发文机关的 id 列表(第四项)。
 
+    - 人工复核过的:全部照旧算发文机关。
+    - 内阁决议:只看数据,第一个机关是内阁才算,且只有内阁算发文者(决议标题即使以文件类型开头,
+      写的也是被审议的草案,不是发文者)。
     - 标题写明的发文机关(且是同一实体:前缀式别名、职务称谓不算)是该条目的机关之一:这几个按标题顺序
       写成发文机关(附属实体用它自己的中文名),其余的机关另列为相关机关。
-    - 人工复核过的:全部照旧算发文机关。
-    - 内阁决议:第一个机关是内阁才算(只有内阁算发文者)。
     - 公报条目没有泰文原题可供印证(人工整理的条目):第一个机关算发文者。
-    - 官网来源:第一个机关就是这个官网的机关(uid 的第二段),且标题的文件类型带发文机关段
-      (官网转载的皇家法令、部令不是这个官网的机关发的)。
+    - 官网来源:标题里认出了发文机关(哪怕不在数据里)、或标题以文件类型开头而认不出、或是部令 / 皇家法令 /
+      法律 —— 都不按官网所属机关算;只有标题不带发文机关段的写法(官网自拟的标题)时,第一个机关就是这个
+      官网的机关(uid 的第二段)才算。
     - 印证不了:全部列为相关机关;只有一个缺省的「内阁」时整栏不显示。"""
+    def out(label, iss, rel, iss_ids):
+        return (label, iss, rel, iss_ids) if with_ids else (label, iss, rel)
+
     if not ids:
-        return ISSUER, [], []
+        return out(ISSUER, [], [], [])
     name = lambda aids: [zh.get(a, a) for a in aids]  # noqa: E731
     if verified:
-        return ISSUER, name(ids), []
-    found, head = parse(title_th, rules, parents, allow_bare=not cabinet_resolution)
+        return out(ISSUER, name(ids), [], list(ids))
+    if cabinet_resolution:
+        if ids[0] == "cabinet":
+            return out(ISSUER, name(ids[:1]), name(ids[1:]), ids[:1])
+        return out(RELATED, [], name(ids), [])
+    found, head = parse(title_th, rules, parents, site="" if gazette else uid_agency)
     hits = [m for m in found if m.rule.confirms and m.rule.aid in ids]
     if hits:
         issuers, seen = [], []
@@ -258,22 +287,25 @@ def attribute(title_th: str, ids: list[str], zh: dict[str, str], rules: list[Rul
             if m.rule.aid not in seen:
                 seen.append(m.rule.aid)
                 issuers.append(m.rule.zh or zh.get(m.rule.aid, m.rule.aid))
-        return ISSUER, issuers, name([a for a in ids if a not in seen])
-    if cabinet_resolution:
-        ok = ids[0] == "cabinet"
-    elif gazette:
+        return out(ISSUER, issuers, name([a for a in ids if a not in seen]), seen)
+    if gazette:
         ok = not head
+    elif not head:
+        ok = ids[0] != "cabinet"
     else:
-        ok = (ids[0] == uid_agency and has_issuer_segment(title_th)) or (not head and ids[0] != "cabinet")
+        ok = (ids[0] == uid_agency and not found and not has_doc_type(title_th)
+              and has_issuer_segment(title_th))
     if ok:
-        return ISSUER, name(ids[:1]), name(ids[1:])
-    return ("", [], []) if ids == ["cabinet"] else (RELATED, [], name(ids))
+        return out(ISSUER, name(ids[:1]), name(ids[1:]), ids[:1])
+    if ids == ["cabinet"]:
+        return out("", [], [], [])
+    return out(RELATED, [], name(ids), [])
 
 
-def title_issuers(title_th: str, vocab_path: Path) -> list[str]:
+def title_issuers(title_th: str, vocab_path: Path, site: str = "") -> list[str]:
     """采集入库时用:按词表文件认标题的发文机关(与 app.enrich.fix_agency 同一口径,入库即是它的不动点)。"""
     try:
         rules, parents = vocab_rules(vocab_path)
     except (OSError, ValueError):
         return []
-    return issuer_agencies(title_th, rules, parents)
+    return issuer_agencies(title_th, rules, parents, site=site)

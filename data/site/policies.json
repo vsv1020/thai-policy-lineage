@@ -146,9 +146,12 @@
    ],
    "org": "投资促进委员会 (BOI)",
    "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
+   "org_issuer": "投资促进委员会办公室",
    "org_related": "",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "สกท. ป.12/2569",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -205,9 +208,12 @@
    ],
    "org": "投资促进委员会 (BOI)",
    "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
+   "org_issuer": "投资促进委员会办公室",
    "org_related": "",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "สกท. ป.13/2569",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -268,6 +274,9 @@
    "org_issuer": "税务厅 (RD)",
    "org_related": "",
    "org_shown": "税务厅 (RD)",
+   "org_issuer_ids": [
+    "rd"
+   ],
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -327,6 +336,9 @@
    "org_issuer": "税务厅 (RD)",
    "org_related": "",
    "org_shown": "税务厅 (RD)",
+   "org_issuer_ids": [
+    "rd"
+   ],
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -385,7 +397,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "税务厅 (RD) · 财政部 (MOF)",
-   "org_shown": "税务厅 (RD) · 财政部 (MOF)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "皇家法令 · พ.ร.ฎ. 层级",
@@ -445,7 +458,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "税务厅 (RD)",
-   "org_shown": "税务厅 (RD)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "皇家法令 · พ.ร.ฎ. 层级",
@@ -511,6 +525,9 @@
    "org_issuer": "税务厅 (RD)",
    "org_related": "",
    "org_shown": "税务厅 (RD)",
+   "org_issuer_ids": [
+    "rd"
+   ],
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -570,7 +587,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "税务厅 (RD)",
-   "org_shown": "税务厅 (RD)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "皇家法令 · พ.ร.ฎ. 层级",
@@ -630,7 +648,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "税务厅 (RD)",
-   "org_shown": "税务厅 (RD)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "皇家法令 · พ.ร.ฎ. 层级",
@@ -695,7 +714,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "税务厅 (RD) · 财政部 (MOF)",
-   "org_shown": "税务厅 (RD) · 财政部 (MOF)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "部令 · กฎ 层级",
@@ -752,10 +772,11 @@
     "会议津贴及费用由投资促进委员会办公室预算列支,自命令之日起施行。"
    ],
    "org": "投资促进委员会 (BOI) · 内阁 · 工业部 (MOI-IND)",
-   "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
-   "org_related": "内阁 · 工业部 (MOI-IND)",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_label": "相关机关",
+   "org_issuer": "",
+   "org_related": "投资促进委员会 (BOI) · 内阁 · 工业部 (MOI-IND)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -815,7 +836,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "能源部 (MOEN) · 投资促进委员会 (BOI) · 东部经济走廊办公室 (EEC)",
-   "org_shown": "能源部 (MOEN) · 投资促进委员会 (BOI) · 东部经济走廊办公室 (EEC)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -874,7 +896,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "内阁 · 工业部 (MOI-IND) · 投资促进委员会 (BOI)",
-   "org_shown": "内阁 · 工业部 (MOI-IND) · 投资促进委员会 (BOI)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -935,6 +958,9 @@
    "org_issuer": "税务厅 (RD)",
    "org_related": "",
    "org_shown": "税务厅 (RD)",
+   "org_issuer_ids": [
+    "rd"
+   ],
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -1001,6 +1027,9 @@
    "org_issuer": "税务厅 (RD)",
    "org_related": "",
    "org_shown": "税务厅 (RD)",
+   "org_issuer_ids": [
+    "rd"
+   ],
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -1061,6 +1090,9 @@
    "org_issuer": "税务厅 (RD)",
    "org_related": "",
    "org_shown": "税务厅 (RD)",
+   "org_issuer_ids": [
+    "rd"
+   ],
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -1127,6 +1159,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. ส.4/2569",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -1187,6 +1222,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. 10/2569",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -1246,6 +1284,9 @@
    "org_issuer": "财政部 (MOF)",
    "org_related": "税务厅 (RD)",
    "org_shown": "财政部 (MOF)",
+   "org_issuer_ids": [
+    "mof"
+   ],
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -1303,9 +1344,12 @@
    ],
    "org": "投资促进委员会 (BOI)",
    "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
+   "org_issuer": "投资促进委员会办公室",
    "org_related": "",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "สกท. ป.11/2569",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -1362,9 +1406,12 @@
    ],
    "org": "投资促进委员会 (BOI)",
    "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
+   "org_issuer": "投资促进委员会办公室",
    "org_related": "",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "สกท. ป.9/2569",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -1422,9 +1469,12 @@
    ],
    "org": "投资促进委员会 (BOI)",
    "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
+   "org_issuer": "投资促进委员会办公室",
    "org_related": "",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "สกท. ป.10/2569",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -1484,6 +1534,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. ส.3/2569",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -1544,6 +1597,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "能源部 (MOEN) · 内政部 (MOI)",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. 3/2569",
    "doc_no_label": "文号",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -1603,6 +1659,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -1662,6 +1721,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. 9/2569",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -1722,6 +1784,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "能源部 (MOEN) · 能源管理委员会 (ERC)",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. 2/2569",
    "doc_no_label": "文号",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -1782,6 +1847,9 @@
    "org_issuer": "总理府 (OPM)",
    "org_related": "",
    "org_shown": "总理府 (OPM)",
+   "org_issuer_ids": [
+    "opm"
+   ],
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "操作指引 · แนวปฏิบัติ 层级",
@@ -1842,6 +1910,9 @@
    "org_issuer": "总理府 (OPM)",
    "org_related": "",
    "org_shown": "总理府 (OPM)",
+   "org_issuer_ids": [
+    "opm"
+   ],
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "操作指引 · แนวปฏิบัติ 层级",
@@ -1899,9 +1970,12 @@
    ],
    "org": "投资促进委员会 (BOI)",
    "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
+   "org_issuer": "投资促进委员会办公室",
    "org_related": "",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "สกท. ป.8/2569",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -1958,9 +2032,12 @@
    ],
    "org": "投资促进委员会 (BOI)",
    "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
+   "org_issuer": "投资促进委员会办公室",
    "org_related": "",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "สกท. ป.7/2569",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -2016,10 +2093,11 @@
     "LTR签证申请人需改用其他获认证代理办理资质核验"
    ],
    "org": "投资促进委员会 (BOI)",
-   "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
-   "org_related": "",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_label": "相关机关",
+   "org_issuer": "",
+   "org_related": "投资促进委员会 (BOI)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "คสดช. 1/2569",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -2077,9 +2155,12 @@
    ],
    "org": "投资促进委员会 (BOI)",
    "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
+   "org_issuer": "投资促进委员会办公室",
    "org_related": "",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "สกท. ป.6/2569",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -2146,6 +2227,9 @@
    "org_issuer": "畜牧厅 (DLD)",
    "org_related": "",
    "org_shown": "畜牧厅 (DLD)",
+   "org_issuer_ids": [
+    "dld"
+   ],
    "doc_no": "ง พิเศษ 143/103",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -2206,6 +2290,9 @@
    "org_issuer": "食品药品管理局 (FDA)",
    "org_related": "",
    "org_shown": "食品药品管理局 (FDA)",
+   "org_issuer_ids": [
+    "fda"
+   ],
    "doc_no": "ง พิเศษ 143/103",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -2265,7 +2352,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 143/102",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -2332,6 +2420,9 @@
    "org_issuer": "劳工基金管理委员会",
    "org_related": "",
    "org_shown": "劳工基金管理委员会",
+   "org_issuer_ids": [
+    "labour_fund"
+   ],
    "doc_no": "ง พิเศษ 143/103",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -2392,6 +2483,9 @@
    "org_issuer": "政府储蓄银行 (GSB)",
    "org_related": "",
    "org_shown": "政府储蓄银行 (GSB)",
+   "org_issuer_ids": [
+    "gsb"
+   ],
    "doc_no": "ง 143/58",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -2452,6 +2546,9 @@
    "org_issuer": "政府储蓄银行 (GSB)",
    "org_related": "",
    "org_shown": "政府储蓄银行 (GSB)",
+   "org_issuer_ids": [
+    "gsb"
+   ],
    "doc_no": "ง 143/58",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -2512,6 +2609,9 @@
    "org_issuer": "政府储蓄银行 (GSB)",
    "org_related": "",
    "org_shown": "政府储蓄银行 (GSB)",
+   "org_issuer_ids": [
+    "gsb"
+   ],
    "doc_no": "ง 143/58",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -2572,6 +2672,9 @@
    "org_issuer": "政府储蓄银行 (GSB)",
    "org_related": "",
    "org_shown": "政府储蓄银行 (GSB)",
+   "org_issuer_ids": [
+    "gsb"
+   ],
    "doc_no": "ง 143/58",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -2632,6 +2735,9 @@
    "org_issuer": "政府储蓄银行 (GSB)",
    "org_related": "",
    "org_shown": "政府储蓄银行 (GSB)",
+   "org_issuer_ids": [
+    "gsb"
+   ],
    "doc_no": "ง 143/58",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -2692,6 +2798,9 @@
    "org_issuer": "对外贸易厅 (DFT)",
    "org_related": "",
    "org_shown": "对外贸易厅 (DFT)",
+   "org_issuer_ids": [
+    "dft"
+   ],
    "doc_no": "ง พิเศษ 143/101",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -2758,6 +2867,9 @@
    "org_issuer": "社会保障法医疗委员会",
    "org_related": "",
    "org_shown": "社会保障法医疗委员会",
+   "org_issuer_ids": [
+    "sso_medical"
+   ],
    "doc_no": "ง พิเศษ 143/101",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -2823,6 +2935,9 @@
    "org_issuer": "交通部 (MOT)",
    "org_related": "",
    "org_shown": "交通部 (MOT)",
+   "org_issuer_ids": [
+    "mot"
+   ],
    "doc_no": "ง พิเศษ 143/101",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -2889,6 +3004,9 @@
    "org_issuer": "政府储蓄银行 (GSB)",
    "org_related": "",
    "org_shown": "政府储蓄银行 (GSB)",
+   "org_issuer_ids": [
+    "gsb"
+   ],
    "doc_no": "ง 143/58",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -2949,6 +3067,9 @@
    "org_issuer": "对外贸易厅 (DFT)",
    "org_related": "",
    "org_shown": "对外贸易厅 (DFT)",
+   "org_issuer_ids": [
+    "dft"
+   ],
    "doc_no": "ง พิเศษ 143/101",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -3009,6 +3130,9 @@
    "org_issuer": "对外贸易厅 (DFT)",
    "org_related": "",
    "org_shown": "对外贸易厅 (DFT)",
+   "org_issuer_ids": [
+    "dft"
+   ],
    "doc_no": "ง พิเศษ 143/101",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -3069,6 +3193,9 @@
    "org_issuer": "商务部 (MOC)",
    "org_related": "",
    "org_shown": "商务部 (MOC)",
+   "org_issuer_ids": [
+    "moc"
+   ],
    "doc_no": "ง พิเศษ 143/101",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -3120,9 +3247,12 @@
    ],
    "org": "投资促进委员会 (BOI)",
    "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
+   "org_issuer": "投资促进委员会办公室",
    "org_related": "",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "สกท. ป.5/2569",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -3183,6 +3313,9 @@
    "org_issuer": "消费税厅 (EXCISE)",
    "org_related": "",
    "org_shown": "消费税厅 (EXCISE)",
+   "org_issuer_ids": [
+    "excise"
+   ],
    "doc_no": "ง พิเศษ 143/100",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -3243,6 +3376,9 @@
    "org_issuer": "保险业务监管与促进委员会办公室 (OIC)",
    "org_related": "",
    "org_shown": "保险业务监管与促进委员会办公室 (OIC)",
+   "org_issuer_ids": [
+    "oic"
+   ],
    "doc_no": "ง พิเศษ 143/100",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -3303,6 +3439,9 @@
    "org_issuer": "消费税厅 (EXCISE)",
    "org_related": "",
    "org_shown": "消费税厅 (EXCISE)",
+   "org_issuer_ids": [
+    "excise"
+   ],
    "doc_no": "ง พิเศษ 143/100",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -3369,6 +3508,9 @@
    "org_issuer": "税务厅 (RD)",
    "org_related": "",
    "org_shown": "税务厅 (RD)",
+   "org_issuer_ids": [
+    "rd"
+   ],
    "doc_no": "ง พิเศษ 143/100",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -3434,6 +3576,9 @@
    "org_issuer": "消费税厅 (EXCISE)",
    "org_related": "",
    "org_shown": "消费税厅 (EXCISE)",
+   "org_issuer_ids": [
+    "excise"
+   ],
    "doc_no": "ง พิเศษ 143/100",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -3493,6 +3638,9 @@
    "org_issuer": "消费税厅 (EXCISE)",
    "org_related": "",
    "org_shown": "消费税厅 (EXCISE)",
+   "org_issuer_ids": [
+    "excise"
+   ],
    "doc_no": "ง พิเศษ 143/100",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -3553,6 +3701,9 @@
    "org_issuer": "消费税厅 (EXCISE)",
    "org_related": "",
    "org_shown": "消费税厅 (EXCISE)",
+   "org_issuer_ids": [
+    "excise"
+   ],
    "doc_no": "ง พิเศษ 143/100",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -3612,6 +3763,9 @@
    "org_issuer": "宪法法院",
    "org_related": "",
    "org_shown": "宪法法院",
+   "org_issuer_ids": [
+    "ccourt"
+   ],
    "doc_no": "ก 143/26",
    "doc_no_label": "公报",
    "legal_form": "操作指引 · แนวปฏิบัติ 层级",
@@ -3672,6 +3826,9 @@
    "org_issuer": "泰国港务局 (PAT)",
    "org_related": "",
    "org_shown": "泰国港务局 (PAT)",
+   "org_issuer_ids": [
+    "pat"
+   ],
    "doc_no": "ง พิเศษ 143/98",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -3732,6 +3889,9 @@
    "org_issuer": "泰国港务局 (PAT)",
    "org_related": "",
    "org_shown": "泰国港务局 (PAT)",
+   "org_issuer_ids": [
+    "pat"
+   ],
    "doc_no": "ง พิเศษ 143/98",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -3792,6 +3952,7 @@
    "org_issuer": "",
    "org_related": "",
    "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 143/97",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -3857,6 +4018,7 @@
    "org_issuer": "",
    "org_related": "",
    "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 143/97",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -3904,6 +4066,9 @@
    "org_issuer": "反腐败合作委员会",
    "org_related": "",
    "org_shown": "反腐败合作委员会",
+   "org_issuer_ids": [
+    "acpc"
+   ],
    "doc_no": "ง พิเศษ 143/96",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -3969,7 +4134,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "皇家警察总署 (RTP)",
-   "org_shown": "皇家警察总署 (RTP)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 143/96",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -4036,6 +4202,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/96",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -4102,6 +4271,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/96",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -4162,6 +4334,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/96",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -4219,9 +4394,12 @@
    ],
    "org": "投资促进委员会 (BOI)",
    "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
+   "org_issuer": "投资促进委员会办公室",
    "org_related": "",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "สกท. ป.4/2569",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -4286,7 +4464,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "皇家警察总署 (RTP)",
-   "org_shown": "皇家警察总署 (RTP)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 143/95",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -4345,7 +4524,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "皇家警察总署 (RTP)",
-   "org_shown": "皇家警察总署 (RTP)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 143/95",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -4412,6 +4592,9 @@
    "org_issuer": "商品与服务安全委员会",
    "org_related": "",
    "org_shown": "商品与服务安全委员会",
+   "org_issuer_ids": [
+    "ocpb_safety"
+   ],
    "doc_no": "ง พิเศษ 143/95",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -4470,6 +4653,9 @@
    "org_issuer": "商品与服务安全委员会",
    "org_related": "",
    "org_shown": "商品与服务安全委员会",
+   "org_issuer_ids": [
+    "ocpb_safety"
+   ],
    "doc_no": "ง พิเศษ 143/95",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -4529,6 +4715,9 @@
    "org_issuer": "商品与服务安全委员会",
    "org_related": "",
    "org_shown": "商品与服务安全委员会",
+   "org_issuer_ids": [
+    "ocpb_safety"
+   ],
    "doc_no": "ง พิเศษ 143/95",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -4587,6 +4776,9 @@
    "org_issuer": "商品与服务安全委员会",
    "org_related": "",
    "org_shown": "商品与服务安全委员会",
+   "org_issuer_ids": [
+    "ocpb_safety"
+   ],
    "doc_no": "ง พิเศษ 143/95",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -4646,6 +4838,9 @@
    "org_issuer": "商品与服务安全委员会",
    "org_related": "",
    "org_shown": "商品与服务安全委员会",
+   "org_issuer_ids": [
+    "ocpb_safety"
+   ],
    "doc_no": "ง พิเศษ 143/95",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -4704,6 +4899,9 @@
    "org_issuer": "商品与服务安全委员会",
    "org_related": "",
    "org_shown": "商品与服务安全委员会",
+   "org_issuer_ids": [
+    "ocpb_safety"
+   ],
    "doc_no": "ง พิเศษ 143/95",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -4763,6 +4961,9 @@
    "org_issuer": "商品与服务安全委员会",
    "org_related": "",
    "org_shown": "商品与服务安全委员会",
+   "org_issuer_ids": [
+    "ocpb_safety"
+   ],
    "doc_no": "ง พิเศษ 143/95",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -4822,7 +5023,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "皇家警察总署 (RTP)",
-   "org_shown": "皇家警察总署 (RTP)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 143/95",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -4888,6 +5090,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/93",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -4948,6 +5153,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/93",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -5008,6 +5216,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/93",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -5068,6 +5279,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/93",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -5126,7 +5340,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "皇家警察总署 (RTP)",
-   "org_shown": "皇家警察总署 (RTP)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 143/93",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -5186,7 +5401,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "劳工部 (MOL)",
-   "org_shown": "劳工部 (MOL)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ก 143/25",
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
@@ -5241,6 +5457,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/93",
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
@@ -5301,6 +5520,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/93",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -5360,6 +5582,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/93",
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
@@ -5425,6 +5650,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/93",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -5484,6 +5712,9 @@
    "org_issuer": "能源政策管理委员会",
    "org_related": "",
    "org_shown": "能源政策管理委员会",
+   "org_issuer_ids": [
+    "epc"
+   ],
    "doc_no": "ง พิเศษ 143/92",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -5543,6 +5774,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/93",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -5602,6 +5836,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/93",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -5662,6 +5899,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/93",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -5728,6 +5968,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/93",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -5788,6 +6031,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/93",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -5848,6 +6094,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/93",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -5907,7 +6156,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "皇家警察总署 (RTP)",
-   "org_shown": "皇家警察总署 (RTP)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 143/91",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -5973,6 +6223,9 @@
    "org_issuer": "商品与服务价格中央委员会办公室",
    "org_related": "",
    "org_shown": "商品与服务价格中央委员会办公室",
+   "org_issuer_ids": [
+    "ccp"
+   ],
    "doc_no": "ง พิเศษ 143/90",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -6039,6 +6292,9 @@
    "org_issuer": "商品与服务价格中央委员会办公室",
    "org_related": "",
    "org_shown": "商品与服务价格中央委员会办公室",
+   "org_issuer_ids": [
+    "ccp"
+   ],
    "doc_no": "ง พิเศษ 143/90",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -6099,6 +6355,9 @@
    "org_issuer": "高等教育、科学、研究与创新部 (MHESI)",
    "org_related": "",
    "org_shown": "高等教育、科学、研究与创新部 (MHESI)",
+   "org_issuer_ids": [
+    "mhesi"
+   ],
    "doc_no": "ง พิเศษ 143/90",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -6159,6 +6418,9 @@
    "org_issuer": "商品与服务价格中央委员会",
    "org_related": "",
    "org_shown": "商品与服务价格中央委员会",
+   "org_issuer_ids": [
+    "ccp"
+   ],
    "doc_no": "ง พิเศษ 143/90",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -6225,6 +6487,9 @@
    "org_issuer": "食品药品管理局 (FDA)",
    "org_related": "",
    "org_shown": "食品药品管理局 (FDA)",
+   "org_issuer_ids": [
+    "fda"
+   ],
    "doc_no": "ง พิเศษ 143/90",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -6285,6 +6550,9 @@
    "org_issuer": "曼谷市 (BMA)",
    "org_related": "",
    "org_shown": "曼谷市 (BMA)",
+   "org_issuer_ids": [
+    "bma"
+   ],
    "doc_no": "ง พิเศษ 143/90",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -6351,6 +6619,9 @@
    "org_issuer": "民用航空委员会",
    "org_related": "",
    "org_shown": "民用航空委员会",
+   "org_issuer_ids": [
+    "cab"
+   ],
    "doc_no": "ง พิเศษ 143/89",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -6411,6 +6682,9 @@
    "org_issuer": "政府储蓄银行 (GSB)",
    "org_related": "",
    "org_shown": "政府储蓄银行 (GSB)",
+   "org_issuer_ids": [
+    "gsb"
+   ],
    "doc_no": "ง 143/50",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -6471,6 +6745,9 @@
    "org_issuer": "政府储蓄银行 (GSB)",
    "org_related": "",
    "org_shown": "政府储蓄银行 (GSB)",
+   "org_issuer_ids": [
+    "gsb"
+   ],
    "doc_no": "ง 143/50",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -6531,6 +6808,9 @@
    "org_issuer": "政府储蓄银行 (GSB)",
    "org_related": "",
    "org_shown": "政府储蓄银行 (GSB)",
+   "org_issuer_ids": [
+    "gsb"
+   ],
    "doc_no": "ง 143/50",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -6590,6 +6870,9 @@
    "org_issuer": "畜牧厅 (DLD)",
    "org_related": "",
    "org_shown": "畜牧厅 (DLD)",
+   "org_issuer_ids": [
+    "dld"
+   ],
    "doc_no": "ง พิเศษ 143/89",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -6650,6 +6933,9 @@
    "org_issuer": "政府储蓄银行 (GSB)",
    "org_related": "",
    "org_shown": "政府储蓄银行 (GSB)",
+   "org_issuer_ids": [
+    "gsb"
+   ],
    "doc_no": "ง 143/50",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -6710,6 +6996,9 @@
    "org_issuer": "政府储蓄银行 (GSB)",
    "org_related": "",
    "org_shown": "政府储蓄银行 (GSB)",
+   "org_issuer_ids": [
+    "gsb"
+   ],
    "doc_no": "ง 143/50",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -6770,6 +7059,9 @@
    "org_issuer": "消费税厅 (EXCISE)",
    "org_related": "海关厅 (CUSTOMS)",
    "org_shown": "消费税厅 (EXCISE)",
+   "org_issuer_ids": [
+    "excise"
+   ],
    "doc_no": "ง พิเศษ 143/88",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -6835,7 +7127,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "内政部 (MOI)",
-   "org_shown": "内政部 (MOI)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ก 143/24",
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
@@ -6896,6 +7189,9 @@
    "org_issuer": "对外贸易厅 (DFT)",
    "org_related": "",
    "org_shown": "对外贸易厅 (DFT)",
+   "org_issuer_ids": [
+    "dft"
+   ],
    "doc_no": "ง พิเศษ 143/88",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -6955,6 +7251,9 @@
    "org_issuer": "海事厅 (MD)",
    "org_related": "",
    "org_shown": "海事厅 (MD)",
+   "org_issuer_ids": [
+    "md"
+   ],
    "doc_no": "ง พิเศษ 143/88",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -7009,6 +7308,9 @@
    "org_issuer": "社会保障办公室 (SSO)",
    "org_related": "",
    "org_shown": "社会保障办公室 (SSO)",
+   "org_issuer_ids": [
+    "sso"
+   ],
    "doc_no": "ง พิเศษ 143/88",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -7068,6 +7370,9 @@
    "org_issuer": "海事厅 (MD)",
    "org_related": "",
    "org_shown": "海事厅 (MD)",
+   "org_issuer_ids": [
+    "md"
+   ],
    "doc_no": "ง พิเศษ 143/88",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -7128,6 +7433,9 @@
    "org_issuer": "海事厅 (MD)",
    "org_related": "",
    "org_shown": "海事厅 (MD)",
+   "org_issuer_ids": [
+    "md"
+   ],
    "doc_no": "ง พิเศษ 143/88",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -7187,6 +7495,9 @@
    "org_issuer": "商品与服务价格中央委员会",
    "org_related": "",
    "org_shown": "商品与服务价格中央委员会",
+   "org_issuer_ids": [
+    "ccp"
+   ],
    "doc_no": "ง พิเศษ 143/88",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -7253,6 +7564,9 @@
    "org_issuer": "证券交易委员会办公室",
    "org_related": "",
    "org_shown": "证券交易委员会办公室",
+   "org_issuer_ids": [
+    "sec"
+   ],
    "doc_no": "ง พิเศษ 143/88",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -7312,6 +7626,9 @@
    "org_issuer": "社会保障办公室 (SSO)",
    "org_related": "",
    "org_shown": "社会保障办公室 (SSO)",
+   "org_issuer_ids": [
+    "sso"
+   ],
    "doc_no": "ง พิเศษ 143/88",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -7365,6 +7682,9 @@
    "org_issuer": "海事厅 (MD)",
    "org_related": "",
    "org_shown": "海事厅 (MD)",
+   "org_issuer_ids": [
+    "md"
+   ],
    "doc_no": "ง พิเศษ 143/88",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -7424,6 +7744,9 @@
    "org_issuer": "海事厅 (MD)",
    "org_related": "",
    "org_shown": "海事厅 (MD)",
+   "org_issuer_ids": [
+    "md"
+   ],
    "doc_no": "ง พิเศษ 143/88",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -7484,6 +7807,9 @@
    "org_issuer": "投资促进委员会办公室",
    "org_related": "",
    "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "ง พิเศษ 143/87",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -7550,6 +7876,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "ง พิเศษ 143/87",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -7610,6 +7939,9 @@
    "org_issuer": "投资促进委员会办公室",
    "org_related": "",
    "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "ง พิเศษ 143/87",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -7669,6 +8001,9 @@
    "org_issuer": "投资促进委员会办公室",
    "org_related": "",
    "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "ง พิเศษ 143/87",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -7727,6 +8062,9 @@
    "org_issuer": "投资促进委员会办公室",
    "org_related": "",
    "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "ง พิเศษ 143/87",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -7778,7 +8116,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "皇家警察总署 (RTP)",
-   "org_shown": "皇家警察总署 (RTP)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 143/87",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -7843,6 +8182,9 @@
    "org_issuer": "国家广播电视与电信委员会办公室",
    "org_related": "",
    "org_shown": "国家广播电视与电信委员会办公室",
+   "org_issuer_ids": [
+    "nbtc"
+   ],
    "doc_no": "ง พิเศษ 143/87",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -7903,6 +8245,9 @@
    "org_issuer": "投资促进委员会办公室",
    "org_related": "",
    "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "ง พิเศษ 143/87",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -7969,6 +8314,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "ง พิเศษ 143/87",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -8029,6 +8377,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "ง พิเศษ 143/87",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -8095,6 +8446,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "ง พิเศษ 143/87",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -8161,6 +8515,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "ง พิเศษ 143/87",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -8225,6 +8582,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "能源管理委员会 (ERC)",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. ส.2/2569",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -8281,10 +8641,11 @@
     "自公告发布之日起提交的申请适用本公告"
    ],
    "org": "投资促进委员会 (BOI)",
-   "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
-   "org_related": "",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_label": "相关机关",
+   "org_issuer": "",
+   "org_related": "投资促进委员会 (BOI)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "กกท. ง.1/2569",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -8344,6 +8705,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. 7/2569",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -8404,6 +8768,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. 8/2569",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -8462,7 +8829,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "皇家警察总署 (RTP)",
-   "org_shown": "皇家警察总署 (RTP)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 143/85",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -8529,6 +8897,9 @@
    "org_issuer": "检查与认证标准委员会",
    "org_related": "",
    "org_shown": "检查与认证标准委员会",
+   "org_issuer_ids": [
+    "cas_committee"
+   ],
    "doc_no": "ง พิเศษ 143/85",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -8595,6 +8966,9 @@
    "org_issuer": "泰国央行 (BOT)",
    "org_related": "",
    "org_shown": "泰国央行 (BOT)",
+   "org_issuer_ids": [
+    "bot"
+   ],
    "doc_no": "ง พิเศษ 143/85",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -8661,6 +9035,9 @@
    "org_issuer": "检查与认证标准委员会",
    "org_related": "",
    "org_shown": "检查与认证标准委员会",
+   "org_issuer_ids": [
+    "cas_committee"
+   ],
    "doc_no": "ง พิเศษ 143/85",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -8727,6 +9104,9 @@
    "org_issuer": "职业与环境疾病控制委员会",
    "org_related": "",
    "org_shown": "职业与环境疾病控制委员会",
+   "org_issuer_ids": [
+    "oedc"
+   ],
    "doc_no": "ง พิเศษ 143/85",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -8792,6 +9172,9 @@
    "org_issuer": "疾病控制厅 (DDC)",
    "org_related": "",
    "org_shown": "疾病控制厅 (DDC)",
+   "org_issuer_ids": [
+    "ddc"
+   ],
    "doc_no": "ง พิเศษ 143/85",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -8852,6 +9235,9 @@
    "org_issuer": "国家统计局 (NSO)",
    "org_related": "",
    "org_shown": "国家统计局 (NSO)",
+   "org_issuer_ids": [
+    "nso"
+   ],
    "doc_no": "ง พิเศษ 143/85",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -8912,6 +9298,9 @@
    "org_issuer": "检查与认证标准委员会",
    "org_related": "",
    "org_shown": "检查与认证标准委员会",
+   "org_issuer_ids": [
+    "cas_committee"
+   ],
    "doc_no": "ง พิเศษ 143/85",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -8972,6 +9361,9 @@
    "org_issuer": "检查与认证标准委员会",
    "org_related": "",
    "org_shown": "检查与认证标准委员会",
+   "org_issuer_ids": [
+    "cas_committee"
+   ],
    "doc_no": "ง พิเศษ 143/85",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -9032,6 +9424,9 @@
    "org_issuer": "检查与认证标准委员会",
    "org_related": "",
    "org_shown": "检查与认证标准委员会",
+   "org_issuer_ids": [
+    "cas_committee"
+   ],
    "doc_no": "ง พิเศษ 143/85",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -9092,6 +9487,9 @@
    "org_issuer": "检查与认证标准委员会",
    "org_related": "",
    "org_shown": "检查与认证标准委员会",
+   "org_issuer_ids": [
+    "cas_committee"
+   ],
    "doc_no": "ง พิเศษ 143/85",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -9158,6 +9556,9 @@
    "org_issuer": "消费税厅 (EXCISE)",
    "org_related": "",
    "org_shown": "消费税厅 (EXCISE)",
+   "org_issuer_ids": [
+    "excise"
+   ],
    "doc_no": "ง พิเศษ 143/85",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -9223,6 +9624,9 @@
    "org_issuer": "检查与认证标准委员会",
    "org_related": "",
    "org_shown": "检查与认证标准委员会",
+   "org_issuer_ids": [
+    "cas_committee"
+   ],
    "doc_no": "ง พิเศษ 143/85",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -9283,6 +9687,9 @@
    "org_issuer": "检查与认证标准委员会",
    "org_related": "",
    "org_shown": "检查与认证标准委员会",
+   "org_issuer_ids": [
+    "cas_committee"
+   ],
    "doc_no": "ง พิเศษ 143/85",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -9348,6 +9755,9 @@
    "org_issuer": "中小企业促进委员会",
    "org_related": "",
    "org_shown": "中小企业促进委员会",
+   "org_issuer_ids": [
+    "osmep"
+   ],
    "doc_no": "ง พิเศษ 143/85",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -9402,6 +9812,9 @@
    "org_issuer": "检查与认证标准委员会",
    "org_related": "",
    "org_shown": "检查与认证标准委员会",
+   "org_issuer_ids": [
+    "cas_committee"
+   ],
    "doc_no": "ง พิเศษ 143/85",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -9466,7 +9879,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "皇家警察总署 (RTP)",
-   "org_shown": "皇家警察总署 (RTP)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 143/85",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -9527,6 +9941,9 @@
    "org_issuer": "检查与认证标准委员会",
    "org_related": "",
    "org_shown": "检查与认证标准委员会",
+   "org_issuer_ids": [
+    "cas_committee"
+   ],
    "doc_no": "ง พิเศษ 143/85",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -9586,6 +10003,9 @@
    "org_issuer": "检查与认证标准委员会",
    "org_related": "",
    "org_shown": "检查与认证标准委员会",
+   "org_issuer_ids": [
+    "cas_committee"
+   ],
    "doc_no": "ง พิเศษ 143/85",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -9652,6 +10072,9 @@
    "org_issuer": "检查与认证标准委员会",
    "org_related": "",
    "org_shown": "检查与认证标准委员会",
+   "org_issuer_ids": [
+    "cas_committee"
+   ],
    "doc_no": "ง พิเศษ 143/85",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -9711,6 +10134,9 @@
    "org_issuer": "交通部 (MOT)",
    "org_related": "",
    "org_shown": "交通部 (MOT)",
+   "org_issuer_ids": [
+    "mot"
+   ],
    "doc_no": "ง พิเศษ 143/84",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -9771,6 +10197,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/84",
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
@@ -9831,6 +10260,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/84",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -9890,6 +10322,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/84",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -9950,6 +10385,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/84",
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
@@ -10009,6 +10447,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/84",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -10062,6 +10503,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/84",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -10122,6 +10566,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/84",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -10182,6 +10629,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/84",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -10242,6 +10692,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/84",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -10302,6 +10755,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/84",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -10366,6 +10822,9 @@
    "org_issuer": "交通部 (MOT)",
    "org_related": "",
    "org_shown": "交通部 (MOT)",
+   "org_issuer_ids": [
+    "mot"
+   ],
    "doc_no": "ง พิเศษ 143/84",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -10420,6 +10879,9 @@
    "org_issuer": "土地厅 (DOL)",
    "org_related": "",
    "org_shown": "土地厅 (DOL)",
+   "org_issuer_ids": [
+    "dol"
+   ],
    "doc_no": "ง พิเศษ 143/83",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -10485,6 +10947,9 @@
    "org_issuer": "海关厅 (CUSTOMS)",
    "org_related": "",
    "org_shown": "海关厅 (CUSTOMS)",
+   "org_issuer_ids": [
+    "customs"
+   ],
    "doc_no": "ง พิเศษ 143/83",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -10544,6 +11009,9 @@
    "org_issuer": "公共卫生部 (MOPH)",
    "org_related": "",
    "org_shown": "公共卫生部 (MOPH)",
+   "org_issuer_ids": [
+    "moph"
+   ],
    "doc_no": "ง พิเศษ 143/83",
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
@@ -10610,6 +11078,9 @@
    "org_issuer": "能源部 (MOEN)",
    "org_related": "",
    "org_shown": "能源部 (MOEN)",
+   "org_issuer_ids": [
+    "energy"
+   ],
    "doc_no": "ง พิเศษ 143/83",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -10670,6 +11141,9 @@
    "org_issuer": "土地厅 (DOL)",
    "org_related": "内政部 (MOI)",
    "org_shown": "土地厅 (DOL)",
+   "org_issuer_ids": [
+    "dol"
+   ],
    "doc_no": "ง พิเศษ 143/83",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -10735,6 +11209,9 @@
    "org_issuer": "海事厅 (MD)",
    "org_related": "",
    "org_shown": "海事厅 (MD)",
+   "org_issuer_ids": [
+    "md"
+   ],
    "doc_no": "ง พิเศษ 143/83",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -10795,6 +11272,9 @@
    "org_issuer": "土地厅 (DOL)",
    "org_related": "内政部 (MOI)",
    "org_shown": "土地厅 (DOL)",
+   "org_issuer_ids": [
+    "dol"
+   ],
    "doc_no": "ง พิเศษ 143/83",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -10860,6 +11340,9 @@
    "org_issuer": "土地厅 (DOL)",
    "org_related": "",
    "org_shown": "土地厅 (DOL)",
+   "org_issuer_ids": [
+    "dol"
+   ],
    "doc_no": "ง พิเศษ 143/83",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -10926,6 +11409,9 @@
    "org_issuer": "土地厅 (DOL)",
    "org_related": "",
    "org_shown": "土地厅 (DOL)",
+   "org_issuer_ids": [
+    "dol"
+   ],
    "doc_no": "ง พิเศษ 143/83",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -10992,6 +11478,9 @@
    "org_issuer": "土地厅 (DOL)",
    "org_related": "",
    "org_shown": "土地厅 (DOL)",
+   "org_issuer_ids": [
+    "dol"
+   ],
    "doc_no": "ง พิเศษ 143/83",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -11058,6 +11547,9 @@
    "org_issuer": "土地厅 (DOL)",
    "org_related": "",
    "org_shown": "土地厅 (DOL)",
+   "org_issuer_ids": [
+    "dol"
+   ],
    "doc_no": "ง พิเศษ 143/83",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -11124,6 +11616,9 @@
    "org_issuer": "土地厅 (DOL)",
    "org_related": "",
    "org_shown": "土地厅 (DOL)",
+   "org_issuer_ids": [
+    "dol"
+   ],
    "doc_no": "ง พิเศษ 143/83",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -11190,6 +11685,9 @@
    "org_issuer": "土地厅 (DOL)",
    "org_related": "",
    "org_shown": "土地厅 (DOL)",
+   "org_issuer_ids": [
+    "dol"
+   ],
    "doc_no": "ง พิเศษ 143/83",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -11256,6 +11754,9 @@
    "org_issuer": "土地厅 (DOL)",
    "org_related": "内政部 (MOI)",
    "org_shown": "土地厅 (DOL)",
+   "org_issuer_ids": [
+    "dol"
+   ],
    "doc_no": "ง พิเศษ 143/83",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -11322,6 +11823,9 @@
    "org_issuer": "土地厅 (DOL)",
    "org_related": "",
    "org_shown": "土地厅 (DOL)",
+   "org_issuer_ids": [
+    "dol"
+   ],
    "doc_no": "ง พิเศษ 143/83",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -11388,6 +11892,9 @@
    "org_issuer": "土地厅 (DOL)",
    "org_related": "",
    "org_shown": "土地厅 (DOL)",
+   "org_issuer_ids": [
+    "dol"
+   ],
    "doc_no": "ง พิเศษ 143/83",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -11454,6 +11961,9 @@
    "org_issuer": "土地厅 (DOL)",
    "org_related": "内政部 (MOI)",
    "org_shown": "土地厅 (DOL)",
+   "org_issuer_ids": [
+    "dol"
+   ],
    "doc_no": "ง พิเศษ 143/83",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -11520,6 +12030,9 @@
    "org_issuer": "土地厅 (DOL)",
    "org_related": "",
    "org_shown": "土地厅 (DOL)",
+   "org_issuer_ids": [
+    "dol"
+   ],
    "doc_no": "ง พิเศษ 143/83",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -11586,6 +12099,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/82",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -11651,7 +12167,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "皇家警察总署 (RTP)",
-   "org_shown": "皇家警察总署 (RTP)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 143/82",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -11717,6 +12234,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/82",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -11777,6 +12297,9 @@
    "org_issuer": "民航局 (CAAT)",
    "org_related": "",
    "org_shown": "民航局 (CAAT)",
+   "org_issuer_ids": [
+    "caat"
+   ],
    "doc_no": "ง พิเศษ 143/82",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -11836,6 +12359,9 @@
    "org_issuer": "法律发展委员会",
    "org_related": "",
    "org_shown": "法律发展委员会",
+   "org_issuer_ids": [
+    "ldc"
+   ],
    "doc_no": "ก 143/22",
    "doc_no_label": "公报",
    "legal_form": "操作指引 · แนวปฏิบัติ 层级",
@@ -11896,6 +12422,9 @@
    "org_issuer": "消费税厅 (EXCISE)",
    "org_related": "",
    "org_shown": "消费税厅 (EXCISE)",
+   "org_issuer_ids": [
+    "excise"
+   ],
    "doc_no": "ง พิเศษ 143/82",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -11955,7 +12484,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 143/81",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -12015,7 +12545,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 143/81",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -12074,7 +12605,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "皇家警察总署 (RTP)",
-   "org_shown": "皇家警察总署 (RTP)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 143/82",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -12134,7 +12666,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "消费税厅 (EXCISE) · 财政部 (MOF)",
-   "org_shown": "消费税厅 (EXCISE) · 财政部 (MOF)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ก 143/22",
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
@@ -12194,7 +12727,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "财政部 (MOF)",
-   "org_shown": "财政部 (MOF)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ก 143/22",
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
@@ -12261,6 +12795,9 @@
    "org_issuer": "陆路交通厅 (DLT)",
    "org_related": "",
    "org_shown": "陆路交通厅 (DLT)",
+   "org_issuer_ids": [
+    "dlt"
+   ],
    "doc_no": "ง พิเศษ 143/82",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -12326,7 +12863,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 143/81",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -12392,7 +12930,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "皇家警察总署 (RTP)",
-   "org_shown": "皇家警察总署 (RTP)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 143/82",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -12453,6 +12992,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/79",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -12513,6 +13055,9 @@
    "org_issuer": "私立教育促进委员会",
    "org_related": "",
    "org_shown": "私立教育促进委员会",
+   "org_issuer_ids": [
+    "opec"
+   ],
    "doc_no": "ง พิเศษ 143/79",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -12570,7 +13115,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "法律执行厅 (LED)",
-   "org_shown": "法律执行厅 (LED)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง 143/45",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -12625,6 +13171,9 @@
    "org_issuer": "公共卫生部 (MOPH)",
    "org_related": "",
    "org_shown": "公共卫生部 (MOPH)",
+   "org_issuer_ids": [
+    "moph"
+   ],
    "doc_no": "ง พิเศษ 143/78",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -12685,6 +13234,9 @@
    "org_issuer": "陆路交通厅 (DLT)",
    "org_related": "",
    "org_shown": "陆路交通厅 (DLT)",
+   "org_issuer_ids": [
+    "dlt"
+   ],
    "doc_no": "ง พิเศษ 143/78",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -12745,6 +13297,9 @@
    "org_issuer": "工业工厂厅 (DIW)",
    "org_related": "",
    "org_shown": "工业工厂厅 (DIW)",
+   "org_issuer_ids": [
+    "diw"
+   ],
    "doc_no": "ง พิเศษ 143/78",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -12805,6 +13360,9 @@
    "org_issuer": "总理府 (OPM)",
    "org_related": "",
    "org_shown": "总理府 (OPM)",
+   "org_issuer_ids": [
+    "opm"
+   ],
    "doc_no": "ง พิเศษ 143/78",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -12858,6 +13416,9 @@
    "org_issuer": "贸易竞争委员会 (TCCT)",
    "org_related": "",
    "org_shown": "贸易竞争委员会 (TCCT)",
+   "org_issuer_ids": [
+    "tcct"
+   ],
    "doc_no": "ง พิเศษ 143/78",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -12923,6 +13484,9 @@
    "org_issuer": "海关厅 (CUSTOMS)",
    "org_related": "",
    "org_shown": "海关厅 (CUSTOMS)",
+   "org_issuer_ids": [
+    "customs"
+   ],
    "doc_no": "ง พิเศษ 143/77",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -12983,6 +13547,9 @@
    "org_issuer": "能源业务厅 (DOEB)",
    "org_related": "",
    "org_shown": "能源业务厅 (DOEB)",
+   "org_issuer_ids": [
+    "doeb"
+   ],
    "doc_no": "ง พิเศษ 143/74",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -13043,6 +13610,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/75",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -13103,6 +13673,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/75",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -13163,6 +13736,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/75",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -13223,6 +13799,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/75",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -13283,6 +13862,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/75",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -13341,7 +13923,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "皇家警察总署 (RTP)",
-   "org_shown": "皇家警察总署 (RTP)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 143/75",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -13402,6 +13985,9 @@
    "org_issuer": "财政部 (MOF)",
    "org_related": "海关厅 (CUSTOMS)",
    "org_shown": "财政部 (MOF)",
+   "org_issuer_ids": [
+    "mof"
+   ],
    "doc_no": "ง พิเศษ 143/75",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -13456,6 +14042,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/75",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -13522,6 +14111,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/75",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -13582,6 +14174,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/75",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -13648,6 +14243,9 @@
    "org_issuer": "泰国央行 (BOT)",
    "org_related": "",
    "org_shown": "泰国央行 (BOT)",
+   "org_issuer_ids": [
+    "bot"
+   ],
    "doc_no": "ง พิเศษ 143/72",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -13713,6 +14311,9 @@
    "org_issuer": "海关厅 (CUSTOMS)",
    "org_related": "",
    "org_shown": "海关厅 (CUSTOMS)",
+   "org_issuer_ids": [
+    "customs"
+   ],
    "doc_no": "ง พิเศษ 143/72",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -13773,6 +14374,9 @@
    "org_issuer": "土地厅 (DOL)",
    "org_related": "",
    "org_shown": "土地厅 (DOL)",
+   "org_issuer_ids": [
+    "dol"
+   ],
    "doc_no": "ง พิเศษ 143/72",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -13838,6 +14442,9 @@
    "org_issuer": "国家广播电视与电信委员会办公室",
    "org_related": "",
    "org_shown": "国家广播电视与电信委员会办公室",
+   "org_issuer_ids": [
+    "nbtc"
+   ],
    "doc_no": "ง 143/42",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -13898,6 +14505,9 @@
    "org_issuer": "土地厅 (DOL)",
    "org_related": "",
    "org_shown": "土地厅 (DOL)",
+   "org_issuer_ids": [
+    "dol"
+   ],
    "doc_no": "ง พิเศษ 143/72",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -13964,6 +14574,9 @@
    "org_issuer": "土地厅 (DOL)",
    "org_related": "",
    "org_shown": "土地厅 (DOL)",
+   "org_issuer_ids": [
+    "dol"
+   ],
    "doc_no": "ง พิเศษ 143/72",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -14030,6 +14643,9 @@
    "org_issuer": "土地厅 (DOL)",
    "org_related": "内政部 (MOI)",
    "org_shown": "土地厅 (DOL)",
+   "org_issuer_ids": [
+    "dol"
+   ],
    "doc_no": "ง พิเศษ 143/72",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -14096,6 +14712,9 @@
    "org_issuer": "土地厅 (DOL)",
    "org_related": "",
    "org_shown": "土地厅 (DOL)",
+   "org_issuer_ids": [
+    "dol"
+   ],
    "doc_no": "ง พิเศษ 143/72",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -14162,6 +14781,9 @@
    "org_issuer": "土地厅 (DOL)",
    "org_related": "内政部 (MOI)",
    "org_shown": "土地厅 (DOL)",
+   "org_issuer_ids": [
+    "dol"
+   ],
    "doc_no": "ง พิเศษ 143/72",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -14228,6 +14850,9 @@
    "org_issuer": "土地厅 (DOL)",
    "org_related": "内政部 (MOI)",
    "org_shown": "土地厅 (DOL)",
+   "org_issuer_ids": [
+    "dol"
+   ],
    "doc_no": "ง พิเศษ 143/72",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -14294,6 +14919,9 @@
    "org_issuer": "土地厅 (DOL)",
    "org_related": "",
    "org_shown": "土地厅 (DOL)",
+   "org_issuer_ids": [
+    "dol"
+   ],
    "doc_no": "ง พิเศษ 143/72",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -14348,6 +14976,9 @@
    "org_issuer": "土地厅 (DOL)",
    "org_related": "内政部 (MOI)",
    "org_shown": "土地厅 (DOL)",
+   "org_issuer_ids": [
+    "dol"
+   ],
    "doc_no": "ง พิเศษ 143/72",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -14413,6 +15044,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/71",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -14472,6 +15106,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/71",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -14531,6 +15168,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/71",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -14591,6 +15231,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/69",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -14650,6 +15293,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/69",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -14709,6 +15355,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/69",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -14768,6 +15417,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/69",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -14822,6 +15474,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/69",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -14888,6 +15543,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/69",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -14948,6 +15606,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/69",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -15008,6 +15669,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/69",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -15070,9 +15734,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 143/69",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -15132,6 +15799,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/69",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -15191,6 +15861,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/69",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -15250,6 +15923,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/69",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -15310,6 +15986,9 @@
    "org_issuer": "对外贸易厅 (DFT)",
    "org_related": "",
    "org_shown": "对外贸易厅 (DFT)",
+   "org_issuer_ids": [
+    "dft"
+   ],
    "doc_no": "ง พิเศษ 143/69",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -15364,6 +16043,9 @@
    "org_issuer": "土地分配中央委员会",
    "org_related": "",
    "org_shown": "土地分配中央委员会",
+   "org_issuer_ids": [
+    "land_alloc"
+   ],
    "doc_no": "ง พิเศษ 143/68",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -15424,6 +16106,9 @@
    "org_issuer": "土地分配中央委员会",
    "org_related": "",
    "org_shown": "土地分配中央委员会",
+   "org_issuer_ids": [
+    "land_alloc"
+   ],
    "doc_no": "ง พิเศษ 143/68",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -15484,6 +16169,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/66",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -15544,6 +16232,9 @@
    "org_issuer": "内政部 (MOI)",
    "org_related": "",
    "org_shown": "内政部 (MOI)",
+   "org_issuer_ids": [
+    "moi"
+   ],
    "doc_no": "ง พิเศษ 143/66",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -15604,6 +16295,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/66",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -15664,6 +16358,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/66",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -15723,6 +16420,9 @@
    "org_issuer": "曼谷市 (BMA)",
    "org_related": "",
    "org_shown": "曼谷市 (BMA)",
+   "org_issuer_ids": [
+    "bma"
+   ],
    "doc_no": "ง พิเศษ 143/66",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -15783,6 +16483,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/66",
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
@@ -15841,6 +16544,9 @@
    "org_issuer": "消费税厅 (EXCISE)",
    "org_related": "",
    "org_shown": "消费税厅 (EXCISE)",
+   "org_issuer_ids": [
+    "excise"
+   ],
    "doc_no": "ง 143/38",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -15894,6 +16600,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/64",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -15954,6 +16663,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/64",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -16013,6 +16725,9 @@
    "org_issuer": "能源业务厅 (DOEB)",
    "org_related": "",
    "org_shown": "能源业务厅 (DOEB)",
+   "org_issuer_ids": [
+    "doeb"
+   ],
    "doc_no": "ง พิเศษ 143/64",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -16073,6 +16788,9 @@
    "org_issuer": "证券交易委员会 (SEC)",
    "org_related": "",
    "org_shown": "证券交易委员会 (SEC)",
+   "org_issuer_ids": [
+    "sec"
+   ],
    "doc_no": "ง พิเศษ 143/64",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -16132,6 +16850,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/64",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -16185,6 +16906,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/64",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -16245,6 +16969,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/64",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -16305,6 +17032,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/64",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -16364,6 +17094,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/64",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -16424,6 +17157,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/64",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -16480,10 +17216,11 @@
     "命令自签署之日即2026年3月11日起生效"
    ],
    "org": "投资促进委员会 (BOI) · 移民局 (IMM) · 内阁",
-   "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
-   "org_related": "移民局 (IMM) · 内阁",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_label": "相关机关",
+   "org_issuer": "",
+   "org_related": "投资促进委员会 (BOI) · 移民局 (IMM) · 内阁",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -16550,6 +17287,9 @@
    "org_issuer": "财政部 (MOF)",
    "org_related": "税务厅 (RD)",
    "org_shown": "财政部 (MOF)",
+   "org_issuer_ids": [
+    "mof"
+   ],
    "doc_no": "ง พิเศษ 143/62",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -16615,6 +17355,9 @@
    "org_issuer": "财政部 (MOF)",
    "org_related": "税务厅 (RD)",
    "org_shown": "财政部 (MOF)",
+   "org_issuer_ids": [
+    "mof"
+   ],
    "doc_no": "ง พิเศษ 143/62",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -16680,6 +17423,9 @@
    "org_issuer": "财政部 (MOF)",
    "org_related": "",
    "org_shown": "财政部 (MOF)",
+   "org_issuer_ids": [
+    "mof"
+   ],
    "doc_no": "ง พิเศษ 143/62",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -16740,6 +17486,9 @@
    "org_issuer": "税务厅 (RD)",
    "org_related": "",
    "org_shown": "税务厅 (RD)",
+   "org_issuer_ids": [
+    "rd"
+   ],
    "doc_no": "ง พิเศษ 143/62",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -16798,6 +17547,9 @@
    "org_issuer": "财政部 (MOF)",
    "org_related": "",
    "org_shown": "财政部 (MOF)",
+   "org_issuer_ids": [
+    "mof"
+   ],
    "doc_no": "ง พิเศษ 143/62",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -16851,6 +17603,9 @@
    "org_issuer": "商务部 (MOC)",
    "org_related": "",
    "org_shown": "商务部 (MOC)",
+   "org_issuer_ids": [
+    "moc"
+   ],
    "doc_no": "ง พิเศษ 143/62",
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
@@ -16905,6 +17660,9 @@
    "org_issuer": "民航局 (CAAT)",
    "org_related": "",
    "org_shown": "民航局 (CAAT)",
+   "org_issuer_ids": [
+    "caat"
+   ],
    "doc_no": "ง พิเศษ 143/61",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -16964,6 +17722,9 @@
    "org_issuer": "民航局 (CAAT)",
    "org_related": "",
    "org_shown": "民航局 (CAAT)",
+   "org_issuer_ids": [
+    "caat"
+   ],
    "doc_no": "ง พิเศษ 143/61",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -17018,6 +17779,9 @@
    "org_issuer": "民航局 (CAAT)",
    "org_related": "",
    "org_shown": "民航局 (CAAT)",
+   "org_issuer_ids": [
+    "caat"
+   ],
    "doc_no": "ง พิเศษ 143/61",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -17077,6 +17841,9 @@
    "org_issuer": "工业工厂厅 (DIW)",
    "org_related": "",
    "org_shown": "工业工厂厅 (DIW)",
+   "org_issuer_ids": [
+    "diw"
+   ],
    "doc_no": "ง พิเศษ 143/61",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -17137,6 +17904,9 @@
    "org_issuer": "技能发展促进委员会",
    "org_related": "",
    "org_shown": "技能发展促进委员会",
+   "org_issuer_ids": [
+    "sdpc"
+   ],
    "doc_no": "ง พิเศษ 143/61",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -17197,6 +17967,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/59",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -17257,6 +18030,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/59",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -17317,6 +18093,9 @@
    "org_issuer": "劳工部 (MOL)",
    "org_related": "",
    "org_shown": "劳工部 (MOL)",
+   "org_issuer_ids": [
+    "mol"
+   ],
    "doc_no": "ง พิเศษ 143/59",
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
@@ -17377,6 +18156,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/59",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -17437,6 +18219,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/59",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -17496,6 +18281,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/59",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -17555,6 +18343,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/59",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -17614,6 +18405,9 @@
    "org_issuer": "对外贸易厅 (DFT)",
    "org_related": "",
    "org_shown": "对外贸易厅 (DFT)",
+   "org_issuer_ids": [
+    "dft"
+   ],
    "doc_no": "ง พิเศษ 143/59",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -17674,6 +18468,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/57",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -17734,6 +18531,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/57",
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
@@ -17794,6 +18594,9 @@
    "org_issuer": "预防和打击科技犯罪行动中心",
    "org_related": "",
    "org_shown": "预防和打击科技犯罪行动中心",
+   "org_issuer_ids": [
+    "tcpc"
+   ],
    "doc_no": "ง พิเศษ 143/57",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -17860,6 +18663,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/57",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -17920,6 +18726,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/55",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -17986,6 +18795,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/55",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -18052,6 +18864,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/55",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -18112,6 +18927,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/55",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -18178,6 +18996,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/55",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -18238,6 +19059,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/55",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -18304,6 +19128,9 @@
    "org_issuer": "证券交易委员会办公室",
    "org_related": "",
    "org_shown": "证券交易委员会办公室",
+   "org_issuer_ids": [
+    "sec"
+   ],
    "doc_no": "ง พิเศษ 143/54",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -18363,6 +19190,9 @@
    "org_issuer": "食品药品管理局 (FDA)",
    "org_related": "",
    "org_shown": "食品药品管理局 (FDA)",
+   "org_issuer_ids": [
+    "fda"
+   ],
    "doc_no": "ง พิเศษ 143/54",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -18423,6 +19253,9 @@
    "org_issuer": "食品药品管理局 (FDA)",
    "org_related": "",
    "org_shown": "食品药品管理局 (FDA)",
+   "org_issuer_ids": [
+    "fda"
+   ],
    "doc_no": "ง พิเศษ 143/54",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -18487,6 +19320,9 @@
    "org_issuer": "证券交易委员会办公室",
    "org_related": "",
    "org_shown": "证券交易委员会办公室",
+   "org_issuer_ids": [
+    "sec"
+   ],
    "doc_no": "ง พิเศษ 143/54",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -18546,7 +19382,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "税务厅 (RD)",
-   "org_shown": "税务厅 (RD)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ก 143/17",
    "doc_no_label": "公报",
    "legal_form": "皇家法令 · พ.ร.ฎ. 层级",
@@ -18606,7 +19443,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "税务厅 (RD) · 财政部 (MOF)",
-   "org_shown": "税务厅 (RD) · 财政部 (MOF)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ก 143/17",
    "doc_no_label": "公报",
    "legal_form": "皇家法令 · พ.ร.ฎ. 层级",
@@ -18671,6 +19509,9 @@
    "org_issuer": "证券交易委员会办公室",
    "org_related": "",
    "org_shown": "证券交易委员会办公室",
+   "org_issuer_ids": [
+    "sec"
+   ],
    "doc_no": "ง พิเศษ 143/53",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -18725,6 +19566,9 @@
    "org_issuer": "证券交易委员会 (SEC)",
    "org_related": "",
    "org_shown": "证券交易委员会 (SEC)",
+   "org_issuer_ids": [
+    "sec"
+   ],
    "doc_no": "ง พิเศษ 143/53",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -18785,6 +19629,9 @@
    "org_issuer": "资本市场监管委员会",
    "org_related": "",
    "org_shown": "资本市场监管委员会",
+   "org_issuer_ids": [
+    "sec"
+   ],
    "doc_no": "ง พิเศษ 143/53",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -18845,6 +19692,9 @@
    "org_issuer": "工业产品标准办公室 (TISI)",
    "org_related": "",
    "org_shown": "工业产品标准办公室 (TISI)",
+   "org_issuer_ids": [
+    "tisi"
+   ],
    "doc_no": "ง พิเศษ 143/53",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -18911,6 +19761,9 @@
    "org_issuer": "渔业厅 (DOF)",
    "org_related": "",
    "org_shown": "渔业厅 (DOF)",
+   "org_issuer_ids": [
+    "dof"
+   ],
    "doc_no": "ง พิเศษ 143/53",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -18971,6 +19824,9 @@
    "org_issuer": "财政部 (MOF)",
    "org_related": "海关厅 (CUSTOMS)",
    "org_shown": "财政部 (MOF)",
+   "org_issuer_ids": [
+    "mof"
+   ],
    "doc_no": "ง พิเศษ 143/53",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -19025,6 +19881,9 @@
    "org_issuer": "地方自来水局 (PWA)",
    "org_related": "",
    "org_shown": "地方自来水局 (PWA)",
+   "org_issuer_ids": [
+    "pwa"
+   ],
    "doc_no": "ง พิเศษ 143/52",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -19091,6 +19950,9 @@
    "org_issuer": "商务部 (MOC)",
    "org_related": "",
    "org_shown": "商务部 (MOC)",
+   "org_issuer_ids": [
+    "moc"
+   ],
    "doc_no": "ง พิเศษ 143/52",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -19150,6 +20012,9 @@
    "org_issuer": "泰国央行 (BOT)",
    "org_related": "",
    "org_shown": "泰国央行 (BOT)",
+   "org_issuer_ids": [
+    "bot"
+   ],
    "doc_no": "ง พิเศษ 143/51",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -19208,7 +20073,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "内政部 (MOI)",
-   "org_shown": "内政部 (MOI)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 143/51",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -19269,6 +20135,9 @@
    "org_issuer": "税务厅 (RD)",
    "org_related": "",
    "org_shown": "税务厅 (RD)",
+   "org_issuer_ids": [
+    "rd"
+   ],
    "doc_no": "ง พิเศษ 143/51",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -19321,6 +20190,9 @@
    "org_issuer": "国家广播电视与电信委员会办公室",
    "org_related": "",
    "org_shown": "国家广播电视与电信委员会办公室",
+   "org_issuer_ids": [
+    "nbtc"
+   ],
    "doc_no": "ง 143/29",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -19381,6 +20253,9 @@
    "org_issuer": "能源部 (MOEN)",
    "org_related": "",
    "org_shown": "能源部 (MOEN)",
+   "org_issuer_ids": [
+    "energy"
+   ],
    "doc_no": "ง พิเศษ 143/50",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -19440,6 +20315,9 @@
    "org_issuer": "能源部 (MOEN)",
    "org_related": "",
    "org_shown": "能源部 (MOEN)",
+   "org_issuer_ids": [
+    "energy"
+   ],
    "doc_no": "ง พิเศษ 143/50",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -19500,6 +20378,9 @@
    "org_issuer": "个人资料保护委员会 (PDPC)",
    "org_related": "",
    "org_shown": "个人资料保护委员会 (PDPC)",
+   "org_issuer_ids": [
+    "pdpc"
+   ],
    "doc_no": "ง พิเศษ 143/50",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -19547,6 +20428,9 @@
    "org_issuer": "能源部 (MOEN)",
    "org_related": "",
    "org_shown": "能源部 (MOEN)",
+   "org_issuer_ids": [
+    "energy"
+   ],
    "doc_no": "ง พิเศษ 143/50",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -19600,7 +20484,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "内政部 (MOI)",
-   "org_shown": "内政部 (MOI)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ก 143/15",
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
@@ -19665,6 +20550,9 @@
    "org_issuer": "能源部 (MOEN)",
    "org_related": "",
    "org_shown": "能源部 (MOEN)",
+   "org_issuer_ids": [
+    "energy"
+   ],
    "doc_no": "ง พิเศษ 143/50",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -19718,6 +20606,9 @@
    "org_issuer": "能源部 (MOEN)",
    "org_related": "",
    "org_shown": "能源部 (MOEN)",
+   "org_issuer_ids": [
+    "energy"
+   ],
    "doc_no": "ง พิเศษ 143/50",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -19772,6 +20663,9 @@
    "org_issuer": "能源部 (MOEN)",
    "org_related": "",
    "org_shown": "能源部 (MOEN)",
+   "org_issuer_ids": [
+    "energy"
+   ],
    "doc_no": "ง พิเศษ 143/50",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -19831,6 +20725,9 @@
    "org_issuer": "能源部 (MOEN)",
    "org_related": "",
    "org_shown": "能源部 (MOEN)",
+   "org_issuer_ids": [
+    "energy"
+   ],
    "doc_no": "ง พิเศษ 143/50",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -19885,6 +20782,9 @@
    "org_issuer": "能源部 (MOEN)",
    "org_related": "",
    "org_shown": "能源部 (MOEN)",
+   "org_issuer_ids": [
+    "energy"
+   ],
    "doc_no": "ง พิเศษ 143/50",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -19939,6 +20839,9 @@
    "org_issuer": "能源部 (MOEN)",
    "org_related": "",
    "org_shown": "能源部 (MOEN)",
+   "org_issuer_ids": [
+    "energy"
+   ],
    "doc_no": "ง พิเศษ 143/50",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -20004,6 +20907,9 @@
    "org_issuer": "海事厅 (MD)",
    "org_related": "",
    "org_shown": "海事厅 (MD)",
+   "org_issuer_ids": [
+    "md"
+   ],
    "doc_no": "ง พิเศษ 143/49",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -20064,6 +20970,9 @@
    "org_issuer": "海事厅 (MD)",
    "org_related": "",
    "org_shown": "海事厅 (MD)",
+   "org_issuer_ids": [
+    "md"
+   ],
    "doc_no": "ง พิเศษ 143/49",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -20123,6 +21032,9 @@
    "org_issuer": "海事厅 (MD)",
    "org_related": "",
    "org_shown": "海事厅 (MD)",
+   "org_issuer_ids": [
+    "md"
+   ],
    "doc_no": "ง พิเศษ 143/49",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -20183,6 +21095,9 @@
    "org_issuer": "税务厅 (RD)",
    "org_related": "",
    "org_shown": "税务厅 (RD)",
+   "org_issuer_ids": [
+    "rd"
+   ],
    "doc_no": "ง พิเศษ 143/49",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -20243,6 +21158,9 @@
    "org_issuer": "泰国央行 (BOT)",
    "org_related": "",
    "org_shown": "泰国央行 (BOT)",
+   "org_issuer_ids": [
+    "bot"
+   ],
    "doc_no": "ง พิเศษ 143/48",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -20309,6 +21227,9 @@
    "org_issuer": "泰国央行 (BOT)",
    "org_related": "",
    "org_shown": "泰国央行 (BOT)",
+   "org_issuer_ids": [
+    "bot"
+   ],
    "doc_no": "ง พิเศษ 143/48",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -20369,6 +21290,9 @@
    "org_issuer": "泰国央行 (BOT)",
    "org_related": "",
    "org_shown": "泰国央行 (BOT)",
+   "org_issuer_ids": [
+    "bot"
+   ],
    "doc_no": "ง พิเศษ 143/48",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -20428,6 +21352,9 @@
    "org_issuer": "财政部 (MOF)",
    "org_related": "",
    "org_shown": "财政部 (MOF)",
+   "org_issuer_ids": [
+    "mof"
+   ],
    "doc_no": "ง พิเศษ 143/48",
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
@@ -20487,6 +21414,9 @@
    "org_issuer": "商品与服务安全委员会",
    "org_related": "",
    "org_shown": "商品与服务安全委员会",
+   "org_issuer_ids": [
+    "ocpb_safety"
+   ],
    "doc_no": "ง พิเศษ 143/47",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -20546,6 +21476,9 @@
    "org_issuer": "海关厅 (CUSTOMS)",
    "org_related": "",
    "org_shown": "海关厅 (CUSTOMS)",
+   "org_issuer_ids": [
+    "customs"
+   ],
    "doc_no": "ง พิเศษ 143/47",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -20606,6 +21539,9 @@
    "org_issuer": "财政部 (MOF)",
    "org_related": "税务厅 (RD)",
    "org_shown": "财政部 (MOF)",
+   "org_issuer_ids": [
+    "mof"
+   ],
    "doc_no": "ง พิเศษ 143/47",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -20671,6 +21607,9 @@
    "org_issuer": "海关厅 (CUSTOMS)",
    "org_related": "",
    "org_shown": "海关厅 (CUSTOMS)",
+   "org_issuer_ids": [
+    "customs"
+   ],
    "doc_no": "ง พิเศษ 143/47",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -20730,6 +21669,9 @@
    "org_issuer": "对外贸易厅 (DFT)",
    "org_related": "",
    "org_shown": "对外贸易厅 (DFT)",
+   "org_issuer_ids": [
+    "dft"
+   ],
    "doc_no": "ง พิเศษ 143/47",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -20789,6 +21731,9 @@
    "org_issuer": "宪法法院",
    "org_related": "",
    "org_shown": "宪法法院",
+   "org_issuer_ids": [
+    "ccourt"
+   ],
    "doc_no": "ก 143/14",
    "doc_no_label": "公报",
    "legal_form": "法律 · พ.ร.บ. 层级",
@@ -20848,6 +21793,9 @@
    "org_issuer": "商品与服务安全委员会",
    "org_related": "",
    "org_shown": "商品与服务安全委员会",
+   "org_issuer_ids": [
+    "ocpb_safety"
+   ],
    "doc_no": "ง พิเศษ 143/47",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -20907,6 +21855,9 @@
    "org_issuer": "和平原子能办公室 (OAP)",
    "org_related": "",
    "org_shown": "和平原子能办公室 (OAP)",
+   "org_issuer_ids": [
+    "oap"
+   ],
    "doc_no": "ง พิเศษ 143/47",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -20965,6 +21916,9 @@
    "org_issuer": "合同委员会",
    "org_related": "",
    "org_shown": "合同委员会",
+   "org_issuer_ids": [
+    "ocpb_contract"
+   ],
    "doc_no": "ง พิเศษ 143/47",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -21018,7 +21972,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 143/46",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -21085,6 +22040,9 @@
    "org_issuer": "渔业厅 (DOF)",
    "org_related": "",
    "org_shown": "渔业厅 (DOF)",
+   "org_issuer_ids": [
+    "dof"
+   ],
    "doc_no": "ง พิเศษ 143/47",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -21150,7 +22108,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 143/46",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -21217,6 +22176,9 @@
    "org_issuer": "工程师理事会 (COE)",
    "org_related": "",
    "org_shown": "工程师理事会 (COE)",
+   "org_issuer_ids": [
+    "coe"
+   ],
    "doc_no": "ง พิเศษ 143/45",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -21277,6 +22239,9 @@
    "org_issuer": "工程师理事会 (COE)",
    "org_related": "",
    "org_shown": "工程师理事会 (COE)",
+   "org_issuer_ids": [
+    "coe"
+   ],
    "doc_no": "ง พิเศษ 143/45",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -21336,6 +22301,9 @@
    "org_issuer": "对外贸易厅 (DFT)",
    "org_related": "",
    "org_shown": "对外贸易厅 (DFT)",
+   "org_issuer_ids": [
+    "dft"
+   ],
    "doc_no": "ง พิเศษ 143/45",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -21390,6 +22358,9 @@
    "org_issuer": "对外贸易厅 (DFT)",
    "org_related": "",
    "org_shown": "对外贸易厅 (DFT)",
+   "org_issuer_ids": [
+    "dft"
+   ],
    "doc_no": "ง พิเศษ 143/45",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -21444,6 +22415,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. 1/2569",
    "doc_no_label": "文号",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -21504,6 +22478,9 @@
    "org_issuer": "政府储蓄银行 (GSB)",
    "org_related": "",
    "org_shown": "政府储蓄银行 (GSB)",
+   "org_issuer_ids": [
+    "gsb"
+   ],
    "doc_no": "ง 143/25",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -21564,6 +22541,9 @@
    "org_issuer": "陆路交通厅 (DLT)",
    "org_related": "",
    "org_shown": "陆路交通厅 (DLT)",
+   "org_issuer_ids": [
+    "dlt"
+   ],
    "doc_no": "ง พิเศษ 143/44",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -21627,9 +22607,12 @@
    ],
    "org": "商业发展厅 (DBD)",
    "org_label": "发文机关",
-   "org_issuer": "贸易协会中央登记处",
+   "org_issuer": "贸易协会中央登记办公室",
    "org_related": "",
-   "org_shown": "贸易协会中央登记处",
+   "org_shown": "贸易协会中央登记办公室",
+   "org_issuer_ids": [
+    "dbd"
+   ],
    "doc_no": "ง 143/25",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -21686,9 +22669,12 @@
    ],
    "org": "商业发展厅 (DBD)",
    "org_label": "发文机关",
-   "org_issuer": "贸易协会中央登记处",
+   "org_issuer": "贸易协会中央登记办公室",
    "org_related": "",
-   "org_shown": "贸易协会中央登记处",
+   "org_shown": "贸易协会中央登记办公室",
+   "org_issuer_ids": [
+    "dbd"
+   ],
    "doc_no": "ง 143/25",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -21749,6 +22735,9 @@
    "org_issuer": "个人资料保护委员会办公室",
    "org_related": "",
    "org_shown": "个人资料保护委员会办公室",
+   "org_issuer_ids": [
+    "pdpc"
+   ],
    "doc_no": "ง พิเศษ 143/44",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -21815,6 +22804,9 @@
    "org_issuer": "政府储蓄银行 (GSB)",
    "org_related": "",
    "org_shown": "政府储蓄银行 (GSB)",
+   "org_issuer_ids": [
+    "gsb"
+   ],
    "doc_no": "ง 143/25",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -21867,6 +22859,9 @@
    "org_issuer": "海事厅 (MD)",
    "org_related": "",
    "org_shown": "海事厅 (MD)",
+   "org_issuer_ids": [
+    "md"
+   ],
    "doc_no": "ง พิเศษ 143/44",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -21921,6 +22916,9 @@
    "org_issuer": "政府储蓄银行 (GSB)",
    "org_related": "",
    "org_shown": "政府储蓄银行 (GSB)",
+   "org_issuer_ids": [
+    "gsb"
+   ],
    "doc_no": "ง 143/25",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -21981,6 +22979,9 @@
    "org_issuer": "政府储蓄银行 (GSB)",
    "org_related": "",
    "org_shown": "政府储蓄银行 (GSB)",
+   "org_issuer_ids": [
+    "gsb"
+   ],
    "doc_no": "ง 143/25",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -22041,6 +23042,9 @@
    "org_issuer": "陆路交通厅 (DLT)",
    "org_related": "",
    "org_shown": "陆路交通厅 (DLT)",
+   "org_issuer_ids": [
+    "dlt"
+   ],
    "doc_no": "ง พิเศษ 143/44",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -22101,6 +23105,9 @@
    "org_issuer": "政府储蓄银行 (GSB)",
    "org_related": "",
    "org_shown": "政府储蓄银行 (GSB)",
+   "org_issuer_ids": [
+    "gsb"
+   ],
    "doc_no": "ง 143/25",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -22155,6 +23162,9 @@
    "org_issuer": "民航局 (CAAT)",
    "org_related": "",
    "org_shown": "民航局 (CAAT)",
+   "org_issuer_ids": [
+    "caat"
+   ],
    "doc_no": "ง พิเศษ 143/43",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -22215,6 +23225,9 @@
    "org_issuer": "民航局 (CAAT)",
    "org_related": "",
    "org_shown": "民航局 (CAAT)",
+   "org_issuer_ids": [
+    "caat"
+   ],
    "doc_no": "ง พิเศษ 143/43",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -22271,9 +23284,12 @@
    ],
    "org": "商业发展厅 (DBD)",
    "org_label": "发文机关",
-   "org_issuer": "合伙与公司中央登记处",
+   "org_issuer": "合伙与公司中央登记办公室",
    "org_related": "",
-   "org_shown": "合伙与公司中央登记处",
+   "org_shown": "合伙与公司中央登记办公室",
+   "org_issuer_ids": [
+    "dbd"
+   ],
    "doc_no": "ง พิเศษ 143/43",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -22333,6 +23349,9 @@
    "org_issuer": "就业厅 (DOE)",
    "org_related": "",
    "org_shown": "就业厅 (DOE)",
+   "org_issuer_ids": [
+    "doe"
+   ],
    "doc_no": "ง พิเศษ 143/43",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -22386,6 +23405,9 @@
    "org_issuer": "海事厅 (MD)",
    "org_related": "",
    "org_shown": "海事厅 (MD)",
+   "org_issuer_ids": [
+    "md"
+   ],
    "doc_no": "ง พิเศษ 143/43",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -22436,9 +23458,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 143/43",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -22504,6 +23529,9 @@
    "org_issuer": "海事厅 (MD)",
    "org_related": "",
    "org_shown": "海事厅 (MD)",
+   "org_issuer_ids": [
+    "md"
+   ],
    "doc_no": "ง พิเศษ 143/43",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -22564,6 +23592,9 @@
    "org_issuer": "泰国港务局 (PAT)",
    "org_related": "",
    "org_shown": "泰国港务局 (PAT)",
+   "org_issuer_ids": [
+    "pat"
+   ],
    "doc_no": "ง พิเศษ 143/43",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -22629,7 +23660,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 143/42",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -22689,7 +23721,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 143/42",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -22755,7 +23788,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 143/42",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -22821,7 +23855,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 143/42",
    "doc_no_label": "公报",
    "legal_form": "法律 · พ.ร.บ. 层级",
@@ -22887,7 +23922,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 143/42",
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
@@ -22947,6 +23983,9 @@
    "org_issuer": "财政部 (MOF)",
    "org_related": "税务厅 (RD)",
    "org_shown": "财政部 (MOF)",
+   "org_issuer_ids": [
+    "mof"
+   ],
    "doc_no": "ง พิเศษ 143/42",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -23007,6 +24046,9 @@
    "org_issuer": "陆路交通厅 (DLT)",
    "org_related": "",
    "org_shown": "陆路交通厅 (DLT)",
+   "org_issuer_ids": [
+    "dlt"
+   ],
    "doc_no": "ง พิเศษ 143/41",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -23067,6 +24109,9 @@
    "org_issuer": "工业部 (MOI-IND)",
    "org_related": "",
    "org_shown": "工业部 (MOI-IND)",
+   "org_issuer_ids": [
+    "industry"
+   ],
    "doc_no": "ง พิเศษ 143/41",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -23127,6 +24172,9 @@
    "org_issuer": "曼谷市 (BMA)",
    "org_related": "",
    "org_shown": "曼谷市 (BMA)",
+   "org_issuer_ids": [
+    "bma"
+   ],
    "doc_no": "ง พิเศษ 143/41",
    "doc_no_label": "公报",
    "legal_form": "法律 · พ.ร.บ. 层级",
@@ -23185,7 +24233,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "陆路运输管制委员会(中央及各府)",
-   "org_shown": "陆路运输管制委员会(中央及各府)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง 143/23",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -23244,6 +24293,9 @@
    "org_issuer": "选举委员会办公室",
    "org_related": "",
    "org_shown": "选举委员会办公室",
+   "org_issuer_ids": [
+    "ect"
+   ],
    "doc_no": "ก 143/12",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -23297,7 +24349,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "内政部 (MOI)",
-   "org_shown": "内政部 (MOI)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ก 143/12",
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
@@ -23364,6 +24417,9 @@
    "org_issuer": "税务厅 (RD)",
    "org_related": "",
    "org_shown": "税务厅 (RD)",
+   "org_issuer_ids": [
+    "rd"
+   ],
    "doc_no": "ง พิเศษ 143/40",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -23429,6 +24485,9 @@
    "org_issuer": "工业产品标准办公室 (TISI)",
    "org_related": "",
    "org_shown": "工业产品标准办公室 (TISI)",
+   "org_issuer_ids": [
+    "tisi"
+   ],
    "doc_no": "ง พิเศษ 143/40",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -23488,7 +24547,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "法律执行厅 (LED)",
-   "org_shown": "法律执行厅 (LED)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 143/40",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -23548,7 +24608,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 143/39",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -23615,6 +24676,9 @@
    "org_issuer": "消费税厅 (EXCISE)",
    "org_related": "",
    "org_shown": "消费税厅 (EXCISE)",
+   "org_issuer_ids": [
+    "excise"
+   ],
    "doc_no": "ง พิเศษ 143/38",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -23681,6 +24745,9 @@
    "org_issuer": "消费税厅 (EXCISE)",
    "org_related": "",
    "org_shown": "消费税厅 (EXCISE)",
+   "org_issuer_ids": [
+    "excise"
+   ],
    "doc_no": "ง พิเศษ 143/38",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -23747,6 +24814,9 @@
    "org_issuer": "消费税厅 (EXCISE)",
    "org_related": "工业部 (MOI-IND) · 投资促进委员会 (BOI)",
    "org_shown": "消费税厅 (EXCISE)",
+   "org_issuer_ids": [
+    "excise"
+   ],
    "doc_no": "ง พิเศษ 143/38",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -23813,6 +24883,9 @@
    "org_issuer": "消费税厅 (EXCISE)",
    "org_related": "",
    "org_shown": "消费税厅 (EXCISE)",
+   "org_issuer_ids": [
+    "excise"
+   ],
    "doc_no": "ง พิเศษ 143/38",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -23879,6 +24952,9 @@
    "org_issuer": "消费税厅 (EXCISE)",
    "org_related": "",
    "org_shown": "消费税厅 (EXCISE)",
+   "org_issuer_ids": [
+    "excise"
+   ],
    "doc_no": "ง พิเศษ 143/38",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -23945,6 +25021,9 @@
    "org_issuer": "消费税厅 (EXCISE)",
    "org_related": "",
    "org_shown": "消费税厅 (EXCISE)",
+   "org_issuer_ids": [
+    "excise"
+   ],
    "doc_no": "ง พิเศษ 143/38",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -24010,6 +25089,9 @@
    "org_issuer": "消费税厅 (EXCISE)",
    "org_related": "",
    "org_shown": "消费税厅 (EXCISE)",
+   "org_issuer_ids": [
+    "excise"
+   ],
    "doc_no": "ง พิเศษ 143/38",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -24070,6 +25152,9 @@
    "org_issuer": "消费税厅 (EXCISE)",
    "org_related": "",
    "org_shown": "消费税厅 (EXCISE)",
+   "org_issuer_ids": [
+    "excise"
+   ],
    "doc_no": "ง พิเศษ 143/38",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -24136,6 +25221,9 @@
    "org_issuer": "消费税厅 (EXCISE)",
    "org_related": "",
    "org_shown": "消费税厅 (EXCISE)",
+   "org_issuer_ids": [
+    "excise"
+   ],
    "doc_no": "ง พิเศษ 143/38",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -24202,6 +25290,9 @@
    "org_issuer": "消费税厅 (EXCISE)",
    "org_related": "",
    "org_shown": "消费税厅 (EXCISE)",
+   "org_issuer_ids": [
+    "excise"
+   ],
    "doc_no": "ง พิเศษ 143/38",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -24268,6 +25359,9 @@
    "org_issuer": "消费税厅 (EXCISE)",
    "org_related": "",
    "org_shown": "消费税厅 (EXCISE)",
+   "org_issuer_ids": [
+    "excise"
+   ],
    "doc_no": "ง พิเศษ 143/38",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -24334,6 +25428,9 @@
    "org_issuer": "消费税厅 (EXCISE)",
    "org_related": "",
    "org_shown": "消费税厅 (EXCISE)",
+   "org_issuer_ids": [
+    "excise"
+   ],
    "doc_no": "ง พิเศษ 143/38",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -24400,6 +25497,9 @@
    "org_issuer": "消费税厅 (EXCISE)",
    "org_related": "",
    "org_shown": "消费税厅 (EXCISE)",
+   "org_issuer_ids": [
+    "excise"
+   ],
    "doc_no": "ง พิเศษ 143/38",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -24466,6 +25566,9 @@
    "org_issuer": "消费税厅 (EXCISE)",
    "org_related": "",
    "org_shown": "消费税厅 (EXCISE)",
+   "org_issuer_ids": [
+    "excise"
+   ],
    "doc_no": "ง พิเศษ 143/38",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -24532,6 +25635,9 @@
    "org_issuer": "消费税厅 (EXCISE)",
    "org_related": "",
    "org_shown": "消费税厅 (EXCISE)",
+   "org_issuer_ids": [
+    "excise"
+   ],
    "doc_no": "ง พิเศษ 143/38",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -24598,6 +25704,9 @@
    "org_issuer": "消费税厅 (EXCISE)",
    "org_related": "",
    "org_shown": "消费税厅 (EXCISE)",
+   "org_issuer_ids": [
+    "excise"
+   ],
    "doc_no": "ง พิเศษ 143/38",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -24664,6 +25773,9 @@
    "org_issuer": "消费税厅 (EXCISE)",
    "org_related": "",
    "org_shown": "消费税厅 (EXCISE)",
+   "org_issuer_ids": [
+    "excise"
+   ],
    "doc_no": "ง พิเศษ 143/38",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -24729,6 +25841,9 @@
    "org_issuer": "反倾销与补贴审议委员会",
    "org_related": "",
    "org_shown": "反倾销与补贴审议委员会",
+   "org_issuer_ids": [
+    "adc"
+   ],
    "doc_no": "ง พิเศษ 143/37",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -24784,9 +25899,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 143/37",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -24843,9 +25961,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 143/37",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -24905,6 +26026,9 @@
    "org_issuer": "公共卫生部 (MOPH)",
    "org_related": "",
    "org_shown": "公共卫生部 (MOPH)",
+   "org_issuer_ids": [
+    "moph"
+   ],
    "doc_no": "ง พิเศษ 143/37",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -24965,6 +26089,9 @@
    "org_issuer": "曼谷大众运输机构 (BMTA)",
    "org_related": "",
    "org_shown": "曼谷大众运输机构 (BMTA)",
+   "org_issuer_ids": [
+    "bmta"
+   ],
    "doc_no": "ง พิเศษ 143/37",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -25025,6 +26152,9 @@
    "org_issuer": "对外贸易厅 (DFT)",
    "org_related": "",
    "org_shown": "对外贸易厅 (DFT)",
+   "org_issuer_ids": [
+    "dft"
+   ],
    "doc_no": "ง พิเศษ 143/37",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -25082,9 +26212,12 @@
    ],
    "org": "投资促进委员会 (BOI)",
    "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
+   "org_issuer": "投资促进委员会办公室",
    "org_related": "",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "สกท. ป.3/2569",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -25151,6 +26284,9 @@
    "org_issuer": "海洋与海岸资源厅 (DMCR)",
    "org_related": "",
    "org_shown": "海洋与海岸资源厅 (DMCR)",
+   "org_issuer_ids": [
+    "dmcr"
+   ],
    "doc_no": "ง พิเศษ 143/35",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -25217,6 +26353,7 @@
    "org_issuer": "",
    "org_related": "",
    "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ก 143/10",
    "doc_no_label": "公报",
    "legal_form": "皇家法令 · พ.ร.ฎ. 层级",
@@ -25276,6 +26413,9 @@
    "org_issuer": "泰国央行 (BOT)",
    "org_related": "",
    "org_shown": "泰国央行 (BOT)",
+   "org_issuer_ids": [
+    "bot"
+   ],
    "doc_no": "ง พิเศษ 143/35",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -25329,6 +26469,9 @@
    "org_issuer": "泰国央行 (BOT)",
    "org_related": "财政部 (MOF)",
    "org_shown": "泰国央行 (BOT)",
+   "org_issuer_ids": [
+    "bot"
+   ],
    "doc_no": "ง พิเศษ 143/35",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -25388,6 +26531,9 @@
    "org_issuer": "泰国央行 (BOT)",
    "org_related": "财政部 (MOF)",
    "org_shown": "泰国央行 (BOT)",
+   "org_issuer_ids": [
+    "bot"
+   ],
    "doc_no": "ง พิเศษ 143/35",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -25447,7 +26593,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "税务厅 (RD) · 财政部 (MOF)",
-   "org_shown": "税务厅 (RD) · 财政部 (MOF)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ก 143/10",
    "doc_no_label": "公报",
    "legal_form": "皇家法令 · พ.ร.ฎ. 层级",
@@ -25507,7 +26654,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "税务厅 (RD)",
-   "org_shown": "税务厅 (RD)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ก 143/10",
    "doc_no_label": "公报",
    "legal_form": "皇家法令 · พ.ร.ฎ. 层级",
@@ -25567,6 +26715,9 @@
    "org_issuer": "泰国央行 (BOT)",
    "org_related": "财政部 (MOF)",
    "org_shown": "泰国央行 (BOT)",
+   "org_issuer_ids": [
+    "bot"
+   ],
    "doc_no": "ง พิเศษ 143/35",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -25627,6 +26778,9 @@
    "org_issuer": "商务部 (MOC)",
    "org_related": "",
    "org_shown": "商务部 (MOC)",
+   "org_issuer_ids": [
+    "moc"
+   ],
    "doc_no": "ง พิเศษ 143/35",
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
@@ -25687,6 +26841,9 @@
    "org_issuer": "商务部 (MOC)",
    "org_related": "",
    "org_shown": "商务部 (MOC)",
+   "org_issuer_ids": [
+    "moc"
+   ],
    "doc_no": "ง พิเศษ 143/35",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -25747,6 +26904,9 @@
    "org_issuer": "畜牧厅 (DLD)",
    "org_related": "",
    "org_shown": "畜牧厅 (DLD)",
+   "org_issuer_ids": [
+    "dld"
+   ],
    "doc_no": "ง พิเศษ 143/34",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -25806,7 +26966,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "渔业厅 (DOF)",
-   "org_shown": "渔业厅 (DOF)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 143/34",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -25872,6 +27033,9 @@
    "org_issuer": "畜牧厅 (DLD)",
    "org_related": "",
    "org_shown": "畜牧厅 (DLD)",
+   "org_issuer_ids": [
+    "dld"
+   ],
    "doc_no": "ง พิเศษ 143/34",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -25931,6 +27095,9 @@
    "org_issuer": "畜牧厅 (DLD)",
    "org_related": "",
    "org_shown": "畜牧厅 (DLD)",
+   "org_issuer_ids": [
+    "dld"
+   ],
    "doc_no": "ง พิเศษ 143/34",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -25991,6 +27158,9 @@
    "org_issuer": "公共卫生部 (MOPH)",
    "org_related": "",
    "org_shown": "公共卫生部 (MOPH)",
+   "org_issuer_ids": [
+    "moph"
+   ],
    "doc_no": "ง พิเศษ 143/34",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -26050,6 +27220,9 @@
    "org_issuer": "畜牧厅 (DLD)",
    "org_related": "",
    "org_shown": "畜牧厅 (DLD)",
+   "org_issuer_ids": [
+    "dld"
+   ],
    "doc_no": "ง พิเศษ 143/34",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -26103,6 +27276,9 @@
    "org_issuer": "畜牧厅 (DLD)",
    "org_related": "",
    "org_shown": "畜牧厅 (DLD)",
+   "org_issuer_ids": [
+    "dld"
+   ],
    "doc_no": "ง พิเศษ 143/34",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -26163,6 +27339,9 @@
    "org_issuer": "医学科学厅 (DMSc)",
    "org_related": "",
    "org_shown": "医学科学厅 (DMSc)",
+   "org_issuer_ids": [
+    "dmsc"
+   ],
    "doc_no": "ง พิเศษ 143/34",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -26228,6 +27407,9 @@
    "org_issuer": "畜牧厅 (DLD)",
    "org_related": "",
    "org_shown": "畜牧厅 (DLD)",
+   "org_issuer_ids": [
+    "dld"
+   ],
    "doc_no": "ง พิเศษ 143/34",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -26282,6 +27464,9 @@
    "org_issuer": "公共卫生部 (MOPH)",
    "org_related": "",
    "org_shown": "公共卫生部 (MOPH)",
+   "org_issuer_ids": [
+    "moph"
+   ],
    "doc_no": "ง พิเศษ 143/34",
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
@@ -26347,6 +27532,9 @@
    "org_issuer": "公共卫生部 (MOPH)",
    "org_related": "",
    "org_shown": "公共卫生部 (MOPH)",
+   "org_issuer_ids": [
+    "moph"
+   ],
    "doc_no": "ง พิเศษ 143/34",
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
@@ -26406,7 +27594,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 143/31",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -26472,7 +27661,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 143/31",
    "doc_no_label": "公报",
    "legal_form": "法律 · พ.ร.บ. 层级",
@@ -26538,6 +27728,9 @@
    "org_issuer": "渔业厅 (DOF)",
    "org_related": "",
    "org_shown": "渔业厅 (DOF)",
+   "org_issuer_ids": [
+    "dof"
+   ],
    "doc_no": "ง พิเศษ 143/32",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -26596,7 +27789,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "财政部 (MOF)",
-   "org_shown": "财政部 (MOF)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 143/32",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -26651,6 +27845,9 @@
    "org_issuer": "消费税厅 (EXCISE)",
    "org_related": "",
    "org_shown": "消费税厅 (EXCISE)",
+   "org_issuer_ids": [
+    "excise"
+   ],
    "doc_no": "ง พิเศษ 143/30",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -26717,6 +27914,9 @@
    "org_issuer": "消费税厅 (EXCISE)",
    "org_related": "",
    "org_shown": "消费税厅 (EXCISE)",
+   "org_issuer_ids": [
+    "excise"
+   ],
    "doc_no": "ง พิเศษ 143/30",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -26783,6 +27983,9 @@
    "org_issuer": "农业与合作社部 (MOAC)",
    "org_related": "",
    "org_shown": "农业与合作社部 (MOAC)",
+   "org_issuer_ids": [
+    "moac"
+   ],
    "doc_no": "ง พิเศษ 143/30",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -26849,6 +28052,9 @@
    "org_issuer": "选举委员会 (ECT)",
    "org_related": "",
    "org_shown": "选举委员会 (ECT)",
+   "org_issuer_ids": [
+    "ect"
+   ],
    "doc_no": "ก 143/8",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -26909,6 +28115,9 @@
    "org_issuer": "消费税厅 (EXCISE)",
    "org_related": "",
    "org_shown": "消费税厅 (EXCISE)",
+   "org_issuer_ids": [
+    "excise"
+   ],
    "doc_no": "ง พิเศษ 143/30",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -26969,6 +28178,9 @@
    "org_issuer": "社会保障法医疗委员会",
    "org_related": "",
    "org_shown": "社会保障法医疗委员会",
+   "org_issuer_ids": [
+    "sso_medical"
+   ],
    "doc_no": "ง พิเศษ 143/30",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -27029,6 +28241,9 @@
    "org_issuer": "社会保障法医疗委员会",
    "org_related": "",
    "org_shown": "社会保障法医疗委员会",
+   "org_issuer_ids": [
+    "sso_medical"
+   ],
    "doc_no": "ง พิเศษ 143/30",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -27095,6 +28310,9 @@
    "org_issuer": "财政部 (MOF)",
    "org_related": "",
    "org_shown": "财政部 (MOF)",
+   "org_issuer_ids": [
+    "mof"
+   ],
    "doc_no": "ง พิเศษ 143/30",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -27155,6 +28373,9 @@
    "org_issuer": "技能发展促进委员会",
    "org_related": "",
    "org_shown": "技能发展促进委员会",
+   "org_issuer_ids": [
+    "sdpc"
+   ],
    "doc_no": "ง พิเศษ 143/29",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -27213,6 +28434,9 @@
    "org_issuer": "食品药品管理局 (FDA)",
    "org_related": "",
    "org_shown": "食品药品管理局 (FDA)",
+   "org_issuer_ids": [
+    "fda"
+   ],
    "doc_no": "ง พิเศษ 143/29",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -27273,6 +28497,9 @@
    "org_issuer": "技能发展促进委员会",
    "org_related": "",
    "org_shown": "技能发展促进委员会",
+   "org_issuer_ids": [
+    "sdpc"
+   ],
    "doc_no": "ง พิเศษ 143/29",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -27333,6 +28560,9 @@
    "org_issuer": "技能发展促进委员会",
    "org_related": "",
    "org_shown": "技能发展促进委员会",
+   "org_issuer_ids": [
+    "sdpc"
+   ],
    "doc_no": "ง พิเศษ 143/29",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -27387,6 +28617,9 @@
    "org_issuer": "公共卫生部 (MOPH)",
    "org_related": "",
    "org_shown": "公共卫生部 (MOPH)",
+   "org_issuer_ids": [
+    "moph"
+   ],
    "doc_no": "ง พิเศษ 143/29",
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
@@ -27449,9 +28682,12 @@
    ],
    "org": "投资促进委员会 (BOI)",
    "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
+   "org_issuer": "投资促进委员会办公室",
    "org_related": "",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "สกท. ป.2/2569",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -27506,6 +28742,9 @@
    "org_issuer": "海洋与海岸资源厅 (DMCR)",
    "org_related": "",
    "org_shown": "海洋与海岸资源厅 (DMCR)",
+   "org_issuer_ids": [
+    "dmcr"
+   ],
    "doc_no": "ง พิเศษ 143/24",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -27568,9 +28807,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 143/17",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -27631,6 +28873,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. ส.1/2569",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -27691,6 +28936,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. 1/2569",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -27751,6 +28999,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. 2/2569",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -27811,6 +29062,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. 3/2569",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -27871,6 +29125,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. 4/2569",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -27931,6 +29188,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. 5/2569",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -27997,6 +29257,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. 6/2569",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -28055,7 +29318,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 143/11",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -28121,7 +29385,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "内政部 (MOI) · 地方行政组织",
-   "org_shown": "内政部 (MOI) · 地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 143/9",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -28173,9 +29438,12 @@
    ],
    "org": "投资促进委员会 (BOI)",
    "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
+   "org_issuer": "投资促进委员会办公室",
    "org_related": "",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "สกท. ป.1/2569",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -28231,11 +29499,14 @@
     "合同已有约定或为符合法律法规的修改不视为实质性修改",
     "执行中的问题由财政厅提交国库财产管理委员会裁决,裁决为最终结论"
    ],
-   "org": "国库厅 (TD)",
+   "org": "国库厅",
    "org_label": "发文机关",
    "org_issuer": "国有不动产委员会",
    "org_related": "",
    "org_shown": "国有不动产委员会",
+   "org_issuer_ids": [
+    "td"
+   ],
    "doc_no": "ง พิเศษ 143/6",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -28292,9 +29563,12 @@
    ],
    "org": "投资促进委员会 (BOI)",
    "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
+   "org_issuer": "投资促进委员会办公室",
    "org_related": "",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "สกท. ป.10/2568",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -28340,21 +29614,24 @@
    "domain": "land",
    "domain_label": "房产土地",
    "direction": "loose",
-   "title_zh": "财政厅关于通过电子系统提交和审理价值不超过五亿泰铢的国有财产收益利用申请的规程（2025年）",
+   "title_zh": "国库厅关于通过电子系统提交和审理价值不超过五亿泰铢的国有财产收益利用申请的规程（2025年）",
    "title_th": "ระเบียบกรมธนารักษ์ ว่าด้วยการยื่นและการพิจารณาคำขอเกี่ยวกับการจัดหาประโยชน์ที่ราชพัสดุที่มีราคาไม่เกินห้าร้อยล้านบาททางระบบอิเล็กทรอนิกส์ พ.ศ. 2568",
-   "summary_zh": "本规程规定，国有财产（ราชพัสดุ）收益利用相关申请可通过财政厅电子系统提交和审理，适用于价值不超过五亿泰铢的租赁续期、租赁权抵押证明、租赁文件信息变更等事项。申请人须先注册系统用户，以用户名和密码确认身份，电子提交的申请与文件具有法律效力。文件不完整时，工作人员须通知申请人在收到通知次日起十五日内补正；逾期未补正则视为放弃，申请将从系统中移除。本规程自公报刊登之日起满一百一十天后施行。",
+   "summary_zh": "本规程规定，国有财产（ราชพัสดุ）收益利用相关申请可通过国库厅电子系统提交和审理，适用于价值不超过五亿泰铢的租赁续期、租赁权抵押证明、租赁文件信息变更等事项。申请人须先注册系统用户，以用户名和密码确认身份，电子提交的申请与文件具有法律效力。文件不完整时，工作人员须通知申请人在收到通知次日起十五日内补正；逾期未补正则视为放弃，申请将从系统中移除。本规程自公报刊登之日起满一百一十天后施行。",
    "key_points": [
     "适用于价值不超过五亿泰铢的国有财产收益利用申请，包括租赁续期、租赁权抵押证明等。",
-    "申请人须向财政厅注册电子系统用户，用户名和密码视为电子签名。",
+    "申请人须向国库厅注册电子系统用户，用户名和密码视为电子签名。",
     "文件不完整时须在通知次日起十五日内补正，逾期视为放弃申请。",
     "电子提交的申请和文件具有法律约束力，不得仅因电子形式被拒绝。",
     "本规程自刊登之日起满一百一十天后施行。"
    ],
-   "org": "国库厅 (TD)",
+   "org": "国库厅",
    "org_label": "发文机关",
-   "org_issuer": "国库厅 (TD)",
+   "org_issuer": "国库厅",
    "org_related": "",
-   "org_shown": "国库厅 (TD)",
+   "org_shown": "国库厅",
+   "org_issuer_ids": [
+    "td"
+   ],
    "doc_no": "ง พิเศษ 142/398",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -28420,6 +29697,9 @@
    "org_issuer": "海洋与海岸资源厅 (DMCR)",
    "org_related": "",
    "org_shown": "海洋与海岸资源厅 (DMCR)",
+   "org_issuer_ids": [
+    "dmcr"
+   ],
    "doc_no": "ง พิเศษ 142/395",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -28480,6 +29760,9 @@
    "org_issuer": "内政部 (MOI)",
    "org_related": "",
    "org_shown": "内政部 (MOI)",
+   "org_issuer_ids": [
+    "moi"
+   ],
    "doc_no": "ง พิเศษ 142/379",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -28546,6 +29829,9 @@
    "org_issuer": "内政部 (MOI)",
    "org_related": "",
    "org_shown": "内政部 (MOI)",
+   "org_issuer_ids": [
+    "moi"
+   ],
    "doc_no": "ง พิเศษ 142/369",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -28611,6 +29897,9 @@
    "org_issuer": "内政部 (MOI)",
    "org_related": "",
    "org_shown": "内政部 (MOI)",
+   "org_issuer_ids": [
+    "moi"
+   ],
    "doc_no": "ง พิเศษ 142/369",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -28671,6 +29960,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. ส.9/2568",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -28737,6 +30029,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. 4/2568",
    "doc_no_label": "文号",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -28797,6 +30092,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. ส.8/2568",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -28853,9 +30151,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 142/354",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -28918,9 +30219,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 142/341",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -28987,6 +30291,9 @@
    "org_issuer": "总理府 (OPM)",
    "org_related": "",
    "org_shown": "总理府 (OPM)",
+   "org_issuer_ids": [
+    "opm"
+   ],
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -29047,6 +30354,9 @@
    "org_issuer": "总理府 (OPM)",
    "org_related": "",
    "org_shown": "总理府 (OPM)",
+   "org_issuer_ids": [
+    "opm"
+   ],
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -29103,9 +30413,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 142/336",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -29166,6 +30479,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. 2/2568",
    "doc_no_label": "文号",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -29226,6 +30542,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. 3/2568",
    "doc_no_label": "文号",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -29282,9 +30601,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 142/330",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -29342,7 +30664,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 142/315",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -29393,9 +30716,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 142/311",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -29455,6 +30781,9 @@
    "org_issuer": "林业厅 (RFD)",
    "org_related": "",
    "org_shown": "林业厅 (RFD)",
+   "org_issuer_ids": [
+    "rfd"
+   ],
    "doc_no": "ง พิเศษ 142/311",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -29511,9 +30840,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 142/310",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -29570,9 +30902,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 142/307",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -29639,6 +30974,9 @@
    "org_issuer": "内政部 (MOI)",
    "org_related": "",
    "org_shown": "内政部 (MOI)",
+   "org_issuer_ids": [
+    "moi"
+   ],
    "doc_no": "ง พิเศษ 142/286",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -29701,9 +31039,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 142/278",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -29764,6 +31105,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. 8/2568",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -29819,10 +31163,11 @@
     "代理机构名单依据2025年2月24日第1/2568号公告的认证标准确定"
    ],
    "org": "投资促进委员会 (BOI)",
-   "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
-   "org_related": "",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_label": "相关机关",
+   "org_issuer": "",
+   "org_related": "投资促进委员会 (BOI)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "คสดช. 2/2568",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -29878,9 +31223,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 142/264",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -29937,9 +31285,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 142/264",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -30000,6 +31351,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. 6/2568",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -30066,6 +31420,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. 7/2568",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -30126,6 +31483,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. ส.7/2568",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -30189,9 +31549,12 @@
    ],
    "org": "投资促进委员会 (BOI)",
    "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
+   "org_issuer": "投资促进委员会办公室",
    "org_related": "",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "สกท. ป.9/2568",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -30251,6 +31614,9 @@
    "org_issuer": "林业厅 (RFD)",
    "org_related": "",
    "org_shown": "林业厅 (RFD)",
+   "org_issuer_ids": [
+    "rfd"
+   ],
    "doc_no": "ง พิเศษ 142/244",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -30307,9 +31673,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 142/242",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -30365,9 +31734,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 142/242",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -30424,9 +31796,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 142/242",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -30483,9 +31858,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 142/230",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -30543,9 +31921,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 142/230",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -30606,6 +31987,9 @@
    "org_issuer": "内政部 (MOI)",
    "org_related": "",
    "org_shown": "内政部 (MOI)",
+   "org_issuer_ids": [
+    "moi"
+   ],
    "doc_no": "ง พิเศษ 142/228",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -30666,6 +32050,9 @@
    "org_issuer": "内政部 (MOI)",
    "org_related": "",
    "org_shown": "内政部 (MOI)",
+   "org_issuer_ids": [
+    "moi"
+   ],
    "doc_no": "ง พิเศษ 142/224",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -30732,6 +32119,9 @@
    "org_issuer": "内政部 (MOI)",
    "org_related": "",
    "org_shown": "内政部 (MOI)",
+   "org_issuer_ids": [
+    "moi"
+   ],
    "doc_no": "ง พิเศษ 142/223",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -30798,6 +32188,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. ส.6/2568",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -30857,6 +32250,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. ส.5/2568",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -30914,9 +32310,12 @@
    ],
    "org": "投资促进委员会 (BOI)",
    "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
+   "org_issuer": "投资促进委员会办公室",
    "org_related": "",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "สกท. ป.8/2568",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -30983,6 +32382,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. 5/2568",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -31048,6 +32450,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. 4/2568",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -31107,6 +32512,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. 3/2568",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -31165,7 +32573,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "内政部 (MOI) · 土地厅 (DOL)",
-   "org_shown": "内政部 (MOI) · 土地厅 (DOL)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ก 142/38",
    "doc_no_label": "公报",
    "legal_form": "皇家法令 · พ.ร.ฎ. 层级",
@@ -31219,7 +32628,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 142/206",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -31274,6 +32684,9 @@
    "org_issuer": "内政部 (MOI)",
    "org_related": "",
    "org_shown": "内政部 (MOI)",
+   "org_issuer_ids": [
+    "moi"
+   ],
    "doc_no": "ง พิเศษ 142/204",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -31334,6 +32747,9 @@
    "org_issuer": "内政部 (MOI)",
    "org_related": "",
    "org_shown": "内政部 (MOI)",
+   "org_issuer_ids": [
+    "moi"
+   ],
    "doc_no": "ง พิเศษ 142/202",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -31400,6 +32816,9 @@
    "org_issuer": "林业厅 (RFD)",
    "org_related": "",
    "org_shown": "林业厅 (RFD)",
+   "org_issuer_ids": [
+    "rfd"
+   ],
    "doc_no": "ง พิเศษ 142/193",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -31456,9 +32875,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 142/191",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -31515,9 +32937,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 142/188",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -31574,9 +32999,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 142/183",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -31639,9 +33067,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 142/183",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -31698,9 +33129,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 142/183",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -31767,6 +33201,9 @@
    "org_issuer": "内政部 (MOI)",
    "org_related": "",
    "org_shown": "内政部 (MOI)",
+   "org_issuer_ids": [
+    "moi"
+   ],
    "doc_no": "ง พิเศษ 142/169",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -31830,9 +33267,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 142/167",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -31893,6 +33333,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. ส.4/2568",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -31953,6 +33396,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. 2/2568",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -32019,6 +33465,9 @@
    "org_issuer": "国家森林保护区使用审议委员会",
    "org_related": "",
    "org_shown": "国家森林保护区使用审议委员会",
+   "org_issuer_ids": [
+    "forest_use"
+   ],
    "doc_no": "ง พิเศษ 142/162",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -32073,6 +33522,9 @@
    "org_issuer": "内政部 (MOI)",
    "org_related": "",
    "org_shown": "内政部 (MOI)",
+   "org_issuer_ids": [
+    "moi"
+   ],
    "doc_no": "ง พิเศษ 142/161",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -32135,9 +33587,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 142/160",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -32202,7 +33657,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 142/159",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -32263,6 +33719,9 @@
    "org_issuer": "海洋与海岸资源厅 (DMCR)",
    "org_related": "",
    "org_shown": "海洋与海岸资源厅 (DMCR)",
+   "org_issuer_ids": [
+    "dmcr"
+   ],
    "doc_no": "ง พิเศษ 142/158",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -32325,9 +33784,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 142/152",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -32388,6 +33850,9 @@
    "org_issuer": "内政部 (MOI)",
    "org_related": "",
    "org_shown": "内政部 (MOI)",
+   "org_issuer_ids": [
+    "moi"
+   ],
    "doc_no": "ง พิเศษ 142/152",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -32454,6 +33919,9 @@
    "org_issuer": "内政部 (MOI)",
    "org_related": "",
    "org_shown": "内政部 (MOI)",
+   "org_issuer_ids": [
+    "moi"
+   ],
    "doc_no": "ง พิเศษ 142/142",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -32520,6 +33988,9 @@
    "org_issuer": "内政部 (MOI)",
    "org_related": "",
    "org_shown": "内政部 (MOI)",
+   "org_issuer_ids": [
+    "moi"
+   ],
    "doc_no": "ง พิเศษ 142/140",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -32585,6 +34056,9 @@
    "org_issuer": "内政部 (MOI)",
    "org_related": "",
    "org_shown": "内政部 (MOI)",
+   "org_issuer_ids": [
+    "moi"
+   ],
    "doc_no": "ง พิเศษ 142/138",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -32651,6 +34125,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. ส.3/2568",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -32711,6 +34188,9 @@
    "org_issuer": "内政部 (MOI)",
    "org_related": "",
    "org_shown": "内政部 (MOI)",
+   "org_issuer_ids": [
+    "moi"
+   ],
    "doc_no": "ง พิเศษ 142/129",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -32762,9 +34242,9 @@
    "domain": "land",
    "domain_label": "房产土地",
    "direction": "tight",
-   "title_zh": "疾病控制厅公告：关于曼谷邦卡莱区邦空区第 กท.2256 号登记皇家地产开发利用的租金、手续费、罚款及其他相关费用标准（佛历2568年）",
+   "title_zh": "疾病控制厅公告：关于曼谷邦卡莱区邦空区第 กท.2256 号登记国库土地开发利用的租金、手续费、罚款及其他相关费用标准（佛历2568年）",
    "title_th": "ประกาศกรมควบคุมโรค เรื่อง อัตราค่าเช่า ค่าธรรมเนียม ค่าปรับ รวมถึงค่าใช้จ่ายอื่นใดที่เกี่ยวข้องกับการจัดหาประโยชน์ในที่ราชพัสดุแปลงหมายเลขทะเบียนที่ กท.2256 แขวงบางโคล่ เขตบางคอแหลม กรุงเทพมหานคร พ.ศ. 2568",
-   "summary_zh": "疾病控制厅依据其皇家地产开发利用规程，为该厅位于曼谷邦卡莱区邦空区第 กท.2256 号登记皇家地产设定租金、手续费、罚款及其他相关费用标准。租金按用途分为居住、居住兼营业、商业三类，分别按每单元每月计收；租金每3年上调5%，转租或另行开发利用的部分上调25%。手续费、续租费、转让费、抵押许可费等按公告规定比例收取，擅自转租或开发利用的按3年租金罚款。公告自刊登之日起施行。",
+   "summary_zh": "疾病控制厅依据其国库土地开发利用规程，为该厅位于曼谷邦卡莱区邦空区第 กท.2256 号登记国库土地设定租金、手续费、罚款及其他相关费用标准。租金按用途分为居住、居住兼营业、商业三类，分别按每单元每月计收；租金每3年上调5%，转租或另行开发利用的部分上调25%。手续费、续租费、转让费、抵押许可费等按公告规定比例收取，擅自转租或开发利用的按3年租金罚款。公告自刊登之日起施行。",
    "key_points": [
     "居住租金每单元每月2,552泰铢，居住兼营业3,113泰铢，商业5,522泰铢",
     "租金每3年上调5%；转租或另行开发利用部分上调25%",
@@ -32777,6 +34257,9 @@
    "org_issuer": "疾病控制厅 (DDC)",
    "org_related": "",
    "org_shown": "疾病控制厅 (DDC)",
+   "org_issuer_ids": [
+    "ddc"
+   ],
    "doc_no": "ง พิเศษ 142/108",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -32842,6 +34325,9 @@
    "org_issuer": "林业厅 (RFD)",
    "org_related": "",
    "org_shown": "林业厅 (RFD)",
+   "org_issuer_ids": [
+    "rfd"
+   ],
    "doc_no": "ง พิเศษ 142/108",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -32893,9 +34379,12 @@
    ],
    "org": "投资促进委员会 (BOI)",
    "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
+   "org_issuer": "投资促进委员会办公室",
    "org_related": "",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "สกท. ป.7/2568",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -32956,6 +34445,9 @@
    "org_issuer": "内政部 (MOI)",
    "org_related": "",
    "org_shown": "内政部 (MOI)",
+   "org_issuer_ids": [
+    "moi"
+   ],
    "doc_no": "ง พิเศษ 142/96",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -33021,7 +34513,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 142/93",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -33084,10 +34577,11 @@
     "须每90天向BOI报告运营情况及问题，必要时可被要求提前报告。"
    ],
    "org": "投资促进委员会 (BOI) · 内阁",
-   "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
-   "org_related": "内阁",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_label": "相关机关",
+   "org_issuer": "",
+   "org_related": "投资促进委员会 (BOI) · 内阁",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "คสดช. 1/2568",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -33153,6 +34647,9 @@
    "org_issuer": "林业厅 (RFD)",
    "org_related": "",
    "org_shown": "林业厅 (RFD)",
+   "org_issuer_ids": [
+    "rfd"
+   ],
    "doc_no": "ง พิเศษ 142/78",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -33213,6 +34710,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. ส.2/2568",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -33270,9 +34770,12 @@
    ],
    "org": "投资促进委员会 (BOI) · 移民局 (IMM)",
    "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
+   "org_issuer": "投资促进委员会办公室",
    "org_related": "移民局 (IMM)",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "สกท. ป.4/2568",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -33330,9 +34833,12 @@
    ],
    "org": "投资促进委员会 (BOI) · 内阁 · 移民局 (IMM)",
    "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
+   "org_issuer": "投资促进委员会办公室",
    "org_related": "内阁 · 移民局 (IMM)",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "สกท. ป.5/2568",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -33396,9 +34902,12 @@
    ],
    "org": "投资促进委员会 (BOI) · 移民局 (IMM)",
    "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
+   "org_issuer": "投资促进委员会办公室",
    "org_related": "移民局 (IMM)",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "สกท. ป.6/2568",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -33456,9 +34965,12 @@
    ],
    "org": "投资促进委员会 (BOI)",
    "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
+   "org_issuer": "投资促进委员会办公室",
    "org_related": "",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "สกท. ป.3/2568",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -33516,9 +35028,12 @@
    ],
    "org": "投资促进委员会 (BOI)",
    "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
+   "org_issuer": "投资促进委员会办公室",
    "org_related": "",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "สกท. ป.2/2568",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -33579,6 +35094,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. 1/2568",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -33645,6 +35163,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. ส.1/2568",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -33710,7 +35231,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 142/14",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -33776,7 +35298,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "内阁 · 能源部 (MOEN) · 投资促进委员会 (BOI)",
-   "org_shown": "内阁 · 能源部 (MOEN) · 投资促进委员会 (BOI)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -33836,7 +35359,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "工业部 (MOI-IND) · 投资促进委员会 (BOI) · 消费税厅 (EXCISE)",
-   "org_shown": "工业部 (MOI-IND) · 投资促进委员会 (BOI) · 消费税厅 (EXCISE)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "操作指引 · แนวปฏิบัติ 层级",
@@ -33896,7 +35420,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "内阁 · 投资促进委员会 (BOI) · 工业部 (MOI-IND)",
-   "org_shown": "内阁 · 投资促进委员会 (BOI) · 工业部 (MOI-IND)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "操作指引 · แนวปฏิบัติ 层级",
@@ -33953,10 +35478,11 @@
     "会议津贴等费用从投资促进委员会办公室预算列支"
    ],
    "org": "投资促进委员会 (BOI) · 内阁",
-   "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
-   "org_related": "内阁",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_label": "相关机关",
+   "org_issuer": "",
+   "org_related": "投资促进委员会 (BOI) · 内阁",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "操作指引 · แนวปฏิบัติ 层级",
@@ -34017,6 +35543,9 @@
    "org_issuer": "曼谷市 (BMA)",
    "org_related": "",
    "org_shown": "曼谷市 (BMA)",
+   "org_issuer_ids": [
+    "bma"
+   ],
    "doc_no": "ง พิเศษ 142/10",
    "doc_no_label": "公报",
    "legal_form": "法律 · พ.ร.บ. 层级",
@@ -34080,9 +35609,12 @@
    ],
    "org": "投资促进委员会 (BOI)",
    "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
+   "org_issuer": "投资促进委员会办公室",
    "org_related": "",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "สกท. ป.1/2568",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -34141,7 +35673,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "财政部 (MOF)",
-   "org_shown": "财政部 (MOF)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ก 141/83",
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
@@ -34194,7 +35727,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "财政部 (MOF)",
-   "org_shown": "财政部 (MOF)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ก 141/83",
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
@@ -34252,7 +35786,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "财政部 (MOF)",
-   "org_shown": "财政部 (MOF)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ก 141/82",
    "doc_no_label": "公报",
    "legal_form": "皇家法令 · พ.ร.ฎ. 层级",
@@ -34309,9 +35844,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 141/353",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -34369,9 +35907,12 @@
    ],
    "org": "投资促进委员会 (BOI)",
    "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
+   "org_issuer": "投资促进委员会办公室",
    "org_related": "",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "สกท. ป.11/2567",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -34429,9 +35970,12 @@
    ],
    "org": "投资促进委员会 (BOI)",
    "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
+   "org_issuer": "投资促进委员会办公室",
    "org_related": "",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "สกท. ป.12/2567",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -34488,9 +36032,12 @@
    ],
    "org": "投资促进委员会 (BOI)",
    "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
+   "org_issuer": "投资促进委员会办公室",
    "org_related": "",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "สกท. ป.13/2567",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -34550,7 +36097,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织 · 内政部 (MOI)",
-   "org_shown": "地方行政组织 · 内政部 (MOI)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 141/348",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -34617,6 +36165,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. 17/2567",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -34677,6 +36228,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. 18/2567",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -34737,6 +36291,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. 19/2567",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -34797,6 +36354,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. 20/2567",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -34857,6 +36417,9 @@
    "org_issuer": "内政部 (MOI)",
    "org_related": "地方行政组织",
    "org_shown": "内政部 (MOI)",
+   "org_issuer_ids": [
+    "moi"
+   ],
    "doc_no": "ง พิเศษ 141/331",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -34921,7 +36484,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 141/326",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -34988,6 +36552,9 @@
    "org_issuer": "林业厅 (RFD)",
    "org_related": "",
    "org_shown": "林业厅 (RFD)",
+   "org_issuer_ids": [
+    "rfd"
+   ],
    "doc_no": "ง พิเศษ 141/326",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -35045,9 +36612,12 @@
    ],
    "org": "投资促进委员会 (BOI)",
    "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
+   "org_issuer": "投资促进委员会办公室",
    "org_related": "",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "สกท. ป.9/2567",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -35105,9 +36675,12 @@
    ],
    "org": "投资促进委员会 (BOI)",
    "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
+   "org_issuer": "投资促进委员会办公室",
    "org_related": "",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "สกท. ป.10/2567",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -35168,6 +36741,9 @@
    "org_issuer": "东部经济走廊政策委员会",
    "org_related": "",
    "org_shown": "东部经济走廊政策委员会",
+   "org_issuer_ids": [
+    "eec"
+   ],
    "doc_no": "ง พิเศษ 141/323",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -35227,7 +36803,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "内政部 (MOI)",
-   "org_shown": "内政部 (MOI)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ก 141/71",
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
@@ -35294,6 +36871,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. ส.6/2567",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -35354,6 +36934,9 @@
    "org_issuer": "内政部 (MOI)",
    "org_related": "",
    "org_shown": "内政部 (MOI)",
+   "org_issuer_ids": [
+    "moi"
+   ],
    "doc_no": "ง พิเศษ 141/307",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -35413,7 +36996,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 141/302",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -35477,9 +37061,12 @@
    ],
    "org": "投资促进委员会 (BOI)",
    "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
+   "org_issuer": "投资促进委员会办公室",
    "org_related": "",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "สกท. ป.8/2567",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -35540,6 +37127,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. 15/2567",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -35600,6 +37190,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "กกท. 16/2567",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -35660,6 +37253,9 @@
    "org_issuer": "总理府 (OPM)",
    "org_related": "",
    "org_shown": "总理府 (OPM)",
+   "org_issuer_ids": [
+    "opm"
+   ],
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -35720,6 +37316,9 @@
    "org_issuer": "总理府 (OPM)",
    "org_related": "",
    "org_shown": "总理府 (OPM)",
+   "org_issuer_ids": [
+    "opm"
+   ],
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "操作指引 · แนวปฏิบัติ 层级",
@@ -35765,7 +37364,7 @@
    "domain": "land",
    "domain_label": "房产土地",
    "direction": "neutral",
-   "title_zh": "财政厅关于国库土地收益合同管理的规程（2024年）",
+   "title_zh": "国库厅关于国库土地收益合同管理的规程（2024年）",
    "title_th": "ระเบียบกรมธนารักษ์ ว่าด้วยการบริหารสัญญาจัดหาประโยชน์ที่ราชพัสดุ พ.ศ. 2567",
    "summary_zh": "本规程依据《2024年国库土地收益部令》制定，规定国库土地收益合同的订立须采用财政部常务次长核准的合同范本，并明确合同管理自合同生效之日起至合同义务履行完毕期间的监管要求。规程同时废止2008年关于许可使用作为公园或园林的国库土地的厅令，并对各类建筑、补偿费用等术语作出定义。",
    "key_points": [
@@ -35774,11 +37373,14 @@
     "废止2008年关于公园或园林用地许可的厅令",
     "规程自刊登次日起施行"
    ],
-   "org": "国库厅 (TD)",
+   "org": "国库厅",
    "org_label": "发文机关",
-   "org_issuer": "国库厅 (TD)",
+   "org_issuer": "国库厅",
    "org_related": "",
-   "org_shown": "国库厅 (TD)",
+   "org_shown": "国库厅",
+   "org_issuer_ids": [
+    "td"
+   ],
    "doc_no": "ง พิเศษ 141/286",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -35838,7 +37440,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 141/285",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -35902,9 +37505,12 @@
    ],
    "org": "投资促进委员会 (BOI)",
    "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
+   "org_issuer": "投资促进委员会办公室",
    "org_related": "",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "สกท. ป.7/2567",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -35963,7 +37569,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 141/282",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -36026,9 +37633,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 141/282",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -36091,9 +37701,12 @@
    ],
    "org": "投资促进委员会 (BOI)",
    "org_label": "发文机关",
-   "org_issuer": "投资促进委员会 (BOI)",
+   "org_issuer": "投资促进委员会办公室",
    "org_related": "",
-   "org_shown": "投资促进委员会 (BOI)",
+   "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "สกท. ป.5/2567",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -36150,9 +37763,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 141/259",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -36219,6 +37835,9 @@
    "org_issuer": "土地整理中央委员会",
    "org_related": "",
    "org_shown": "土地整理中央委员会",
+   "org_issuer_ids": [
+    "lr_committee"
+   ],
    "doc_no": "ง พิเศษ 141/248",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -36284,7 +37903,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 141/221",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -36351,6 +37971,9 @@
    "org_issuer": "内政部 (MOI)",
    "org_related": "",
    "org_shown": "内政部 (MOI)",
+   "org_issuer_ids": [
+    "moi"
+   ],
    "doc_no": "ง พิเศษ 141/219",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -36414,9 +38037,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 141/215",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -36477,6 +38103,9 @@
    "org_issuer": "内政部 (MOI)",
    "org_related": "",
    "org_shown": "内政部 (MOI)",
+   "org_issuer_ids": [
+    "moi"
+   ],
    "doc_no": "ง พิเศษ 141/213",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -36543,6 +38172,9 @@
    "org_issuer": "内政部 (MOI)",
    "org_related": "地方行政组织",
    "org_shown": "内政部 (MOI)",
+   "org_issuer_ids": [
+    "moi"
+   ],
    "doc_no": "ง พิเศษ 141/208",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -36608,7 +38240,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 141/202",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -36669,11 +38302,12 @@
     "项目范围以公告所附地图标示的边界为准",
     "委员会于2024年5月23日会议作出批准决议"
    ],
-   "org": "土地整理委员会(中央及各府)",
+   "org": "土地整理与区域开发委员会(中央及各府)",
    "org_label": "相关机关",
    "org_issuer": "",
-   "org_related": "土地整理委员会(中央及各府)",
-   "org_shown": "土地整理委员会(中央及各府)",
+   "org_related": "土地整理与区域开发委员会(中央及各府)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 141/202",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -36725,9 +38359,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 141/183",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -36787,7 +38424,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织 · 内政部 (MOI)",
-   "org_shown": "地方行政组织 · 内政部 (MOI)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 141/179",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -36851,7 +38489,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 141/175",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -36912,11 +38551,12 @@
     "项目范围以公告附图1:1500规划图为准",
     "由公共工程与城乡规划厅与汶干市市政厅共同提出"
    ],
-   "org": "土地整理委员会(中央及各府)",
+   "org": "土地整理与区域开发委员会(中央及各府)",
    "org_label": "相关机关",
    "org_issuer": "",
-   "org_related": "土地整理委员会(中央及各府)",
-   "org_shown": "土地整理委员会(中央及各府)",
+   "org_related": "土地整理与区域开发委员会(中央及各府)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 141/169",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -36970,7 +38610,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 141/154",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -37037,6 +38678,9 @@
    "org_issuer": "内政部 (MOI)",
    "org_related": "",
    "org_shown": "内政部 (MOI)",
+   "org_issuer_ids": [
+    "moi"
+   ],
    "doc_no": "ง พิเศษ 141/144",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -37102,6 +38746,9 @@
    "org_issuer": "内政部 (MOI)",
    "org_related": "",
    "org_shown": "内政部 (MOI)",
+   "org_issuer_ids": [
+    "moi"
+   ],
    "doc_no": "ง พิเศษ 141/135",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -37168,6 +38815,9 @@
    "org_issuer": "内政部 (MOI)",
    "org_related": "",
    "org_shown": "内政部 (MOI)",
+   "org_issuer_ids": [
+    "moi"
+   ],
    "doc_no": "ง พิเศษ 141/135",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -37233,7 +38883,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 141/126",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -37296,9 +38947,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 141/124",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -37357,7 +39011,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 141/115",
    "doc_no_label": "公报",
    "legal_form": "操作指引 · แนวปฏิบัติ 层级",
@@ -37410,7 +39065,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "土地厅 (DOL) · 内政部 (MOI)",
-   "org_shown": "土地厅 (DOL) · 内政部 (MOI)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 141/111",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -37476,7 +39132,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 141/81",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -37542,7 +39199,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "农业与合作社部 (MOAC)",
-   "org_shown": "农业与合作社部 (MOAC)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ก 141/12",
    "doc_no_label": "公报",
    "legal_form": "部令 · กฎ 层级",
@@ -37602,7 +39260,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 141/74",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -37668,7 +39327,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 141/73",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -37732,9 +39392,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 141/48",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -37791,9 +39454,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 141/48",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -37850,9 +39516,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 141/42",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -37912,7 +39581,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "农业与合作社部 (MOAC)",
-   "org_shown": "农业与合作社部 (MOAC)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 141/12",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -37972,7 +39642,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 140/314",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -38039,6 +39710,9 @@
    "org_issuer": "农业土地改革委员会",
    "org_related": "",
    "org_shown": "农业土地改革委员会",
+   "org_issuer_ids": [
+    "alro"
+   ],
    "doc_no": "ง พิเศษ 140/309",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -38099,6 +39773,9 @@
    "org_issuer": "内政部 (MOI)",
    "org_related": "",
    "org_shown": "内政部 (MOI)",
+   "org_issuer_ids": [
+    "moi"
+   ],
    "doc_no": "ง พิเศษ 140/302",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -38163,7 +39840,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 140/276",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -38229,7 +39907,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 140/252",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -38295,6 +39974,9 @@
    "org_issuer": "海洋与海岸资源厅 (DMCR)",
    "org_related": "",
    "org_shown": "海洋与海岸资源厅 (DMCR)",
+   "org_issuer_ids": [
+    "dmcr"
+   ],
    "doc_no": "ง พิเศษ 140/229",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -38353,7 +40035,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 140/226",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -38417,9 +40100,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 140/224",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -38480,6 +40166,9 @@
    "org_issuer": "内政部 (MOI)",
    "org_related": "",
    "org_shown": "内政部 (MOI)",
+   "org_issuer_ids": [
+    "moi"
+   ],
    "doc_no": "ง พิเศษ 140/218",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -38545,7 +40234,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 140/203",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -38610,7 +40300,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 140/200",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -38671,6 +40362,9 @@
    "org_issuer": "林业厅 (RFD)",
    "org_related": "",
    "org_shown": "林业厅 (RFD)",
+   "org_issuer_ids": [
+    "rfd"
+   ],
    "doc_no": "ง พิเศษ 140/200",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -38727,9 +40421,12 @@
    ],
    "org": "泰国工业园区管理局 (IEAT)",
    "org_label": "发文机关",
-   "org_issuer": "泰国工业园区管理局董事会",
+   "org_issuer": "泰国工业园区管理局委员会",
    "org_related": "",
-   "org_shown": "泰国工业园区管理局董事会",
+   "org_shown": "泰国工业园区管理局委员会",
+   "org_issuer_ids": [
+    "ieat"
+   ],
    "doc_no": "ง พิเศษ 140/187",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -38790,6 +40487,9 @@
    "org_issuer": "内政部 (MOI)",
    "org_related": "",
    "org_shown": "内政部 (MOI)",
+   "org_issuer_ids": [
+    "moi"
+   ],
    "doc_no": "ง พิเศษ 140/169",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -38856,6 +40556,9 @@
    "org_issuer": "内政部 (MOI)",
    "org_related": "",
    "org_shown": "内政部 (MOI)",
+   "org_issuer_ids": [
+    "moi"
+   ],
    "doc_no": "ง พิเศษ 140/165",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -38920,7 +40623,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 140/157",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -38982,11 +40686,12 @@
     "委员会2023年1月23日会议决议批准",
     "项目范围以公告附图为准"
    ],
-   "org": "土地整理委员会(中央及各府)",
+   "org": "土地整理与区域开发委员会(中央及各府)",
    "org_label": "相关机关",
    "org_issuer": "",
-   "org_related": "土地整理委员会(中央及各府)",
-   "org_shown": "土地整理委员会(中央及各府)",
+   "org_related": "土地整理与区域开发委员会(中央及各府)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 140/152",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -39041,6 +40746,9 @@
    "org_issuer": "内政部 (MOI)",
    "org_related": "",
    "org_shown": "内政部 (MOI)",
+   "org_issuer_ids": [
+    "moi"
+   ],
    "doc_no": "ง พิเศษ 140/146",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -39107,6 +40815,9 @@
    "org_issuer": "内政部 (MOI)",
    "org_related": "",
    "org_shown": "内政部 (MOI)",
+   "org_issuer_ids": [
+    "moi"
+   ],
    "doc_no": "ง พิเศษ 140/142",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -39173,6 +40884,9 @@
    "org_issuer": "海洋与海岸资源厅 (DMCR)",
    "org_related": "",
    "org_shown": "海洋与海岸资源厅 (DMCR)",
+   "org_issuer_ids": [
+    "dmcr"
+   ],
    "doc_no": "ง พิเศษ 140/128",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -39233,6 +40947,9 @@
    "org_issuer": "财政部 (MOF)",
    "org_related": "",
    "org_shown": "财政部 (MOF)",
+   "org_issuer_ids": [
+    "mof"
+   ],
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -39286,7 +41003,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "税务厅 (RD)",
-   "org_shown": "税务厅 (RD)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "皇家法令 · พ.ร.ฎ. 层级",
@@ -39341,6 +41059,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "操作指引 · แนวปฏิบัติ 层级",
@@ -39395,6 +41116,9 @@
    "org_issuer": "内阁",
    "org_related": "",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "415301",
    "doc_no_label": "文号",
    "legal_form": "内阁决议 · มติ ครม. 层级",
@@ -39449,6 +41173,9 @@
    "org_issuer": "内阁",
    "org_related": "",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "415288",
    "doc_no_label": "文号",
    "legal_form": "内阁决议 · มติ ครม. 层级",
@@ -39490,6 +41217,9 @@
    "org_issuer": "内阁",
    "org_related": "陆路交通厅 (DLT)",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "415285",
    "doc_no_label": "文号",
    "legal_form": "内阁决议 · มติ ครม. 层级",
@@ -39538,6 +41268,7 @@
    "org_issuer": "",
    "org_related": "",
    "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 143/97",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -39579,6 +41310,9 @@
    "org_issuer": "海事厅 (MD)",
    "org_related": "",
    "org_shown": "海事厅 (MD)",
+   "org_issuer_ids": [
+    "md"
+   ],
    "doc_no": "ง พิเศษ 143/88",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -39620,6 +41354,9 @@
    "org_issuer": "总理",
    "org_related": "",
    "org_shown": "总理",
+   "org_issuer_ids": [
+    "pm"
+   ],
    "doc_no": "ง พิเศษ 143/87",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -39661,6 +41398,9 @@
    "org_issuer": "总理",
    "org_related": "",
    "org_shown": "总理",
+   "org_issuer_ids": [
+    "pm"
+   ],
    "doc_no": "ง พิเศษ 143/87",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -39701,7 +41441,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "交通部 (MOT)",
-   "org_shown": "交通部 (MOT)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "415259",
    "doc_no_label": "文号",
    "legal_form": "部令 · กฎ 层级",
@@ -39756,6 +41497,9 @@
    "org_issuer": "内阁",
    "org_related": "",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "415260",
    "doc_no_label": "文号",
    "legal_form": "内阁决议 · มติ ครม. 层级",
@@ -39797,6 +41541,9 @@
    "org_issuer": "总理",
    "org_related": "",
    "org_shown": "总理",
+   "org_issuer_ids": [
+    "pm"
+   ],
    "doc_no": "ง พิเศษ 143/76",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -39838,6 +41585,9 @@
    "org_issuer": "总理",
    "org_related": "",
    "org_shown": "总理",
+   "org_issuer_ids": [
+    "pm"
+   ],
    "doc_no": "ง พิเศษ 143/75",
    "doc_no_label": "公报",
    "legal_form": "操作指引 · แนวปฏิบัติ 层级",
@@ -39879,6 +41629,9 @@
    "org_issuer": "内阁",
    "org_related": "",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "415244",
    "doc_no_label": "文号",
    "legal_form": "内阁决议 · มติ ครม. 层级",
@@ -39920,6 +41673,9 @@
    "org_issuer": "内阁",
    "org_related": "",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "415249",
    "doc_no_label": "文号",
    "legal_form": "内阁决议 · มติ ครม. 层级",
@@ -39961,6 +41717,9 @@
    "org_issuer": "内阁",
    "org_related": "",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "415243",
    "doc_no_label": "文号",
    "legal_form": "内阁决议 · มติ ครม. 层级",
@@ -40002,6 +41761,9 @@
    "org_issuer": "总理",
    "org_related": "",
    "org_shown": "总理",
+   "org_issuer_ids": [
+    "pm"
+   ],
    "doc_no": "ง พิเศษ 143/58",
    "doc_no_label": "公报",
    "legal_form": "规程/指令 · ระเบียบ 层级",
@@ -40043,6 +41805,10 @@
    "org_issuer": "总理府 (OPM) · 内政部 (MOI)",
    "org_related": "",
    "org_shown": "总理府 (OPM) · 内政部 (MOI)",
+   "org_issuer_ids": [
+    "opm",
+    "moi"
+   ],
    "doc_no": "ง พิเศษ 143/52",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -40091,6 +41857,9 @@
    "org_issuer": "内阁",
    "org_related": "",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "415191",
    "doc_no_label": "文号",
    "legal_form": "内阁决议 · มติ ครม. 层级",
@@ -40132,6 +41901,9 @@
    "org_issuer": "泰国央行 (BOT)",
    "org_related": "",
    "org_shown": "泰国央行 (BOT)",
+   "org_issuer_ids": [
+    "bot"
+   ],
    "doc_no": "ง พิเศษ 143/48",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -40186,6 +41958,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "操作指引 · แนวปฏิบัติ 层级",
@@ -40240,6 +42015,9 @@
    "org_issuer": "内阁",
    "org_related": "",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "415174",
    "doc_no_label": "文号",
    "legal_form": "内阁决议 · มติ ครม. 层级",
@@ -40288,6 +42066,9 @@
    "org_issuer": "财政部 (MOF)",
    "org_related": "",
    "org_shown": "财政部 (MOF)",
+   "org_issuer_ids": [
+    "mof"
+   ],
    "doc_no": "ง พิเศษ 143/44",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -40341,7 +42122,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "证券交易委员会 (SEC)",
-   "org_shown": "证券交易委员会 (SEC)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "415145",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -40383,6 +42165,9 @@
    "org_issuer": "内阁",
    "org_related": "",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "415143",
    "doc_no_label": "文号",
    "legal_form": "内阁决议 · มติ ครม. 层级",
@@ -40423,7 +42208,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "财政部 (MOF) · 海关厅 (CUSTOMS)",
-   "org_shown": "财政部 (MOF) · 海关厅 (CUSTOMS)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "415140",
    "doc_no_label": "文号",
    "legal_form": "公告 · ประกาศ 层级",
@@ -40472,6 +42258,9 @@
    "org_issuer": "泰国发电局 (EGAT)",
    "org_related": "",
    "org_shown": "泰国发电局 (EGAT)",
+   "org_issuer_ids": [
+    "egat"
+   ],
    "doc_no": "ง พิเศษ 143/33",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -40513,6 +42302,9 @@
    "org_issuer": "内阁",
    "org_related": "",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "415115",
    "doc_no_label": "文号",
    "legal_form": "部令 · กฎ 层级",
@@ -40561,6 +42353,9 @@
    "org_issuer": "内阁",
    "org_related": "",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "415116",
    "doc_no_label": "文号",
    "legal_form": "内阁决议 · มติ ครม. 层级",
@@ -40615,6 +42410,9 @@
    "org_issuer": "内阁",
    "org_related": "",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "415062",
    "doc_no_label": "文号",
    "legal_form": "内阁决议 · มติ ครม. 层级",
@@ -40656,6 +42454,9 @@
    "org_issuer": "内阁",
    "org_related": "农业与合作社部 (MOAC)",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "415055",
    "doc_no_label": "文号",
    "legal_form": "部令 · กฎ 层级",
@@ -40710,6 +42511,9 @@
    "org_issuer": "内阁",
    "org_related": "",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "415035",
    "doc_no_label": "文号",
    "legal_form": "内阁决议 · มติ ครม. 层级",
@@ -40751,6 +42555,9 @@
    "org_issuer": "内阁",
    "org_related": "",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "415026",
    "doc_no_label": "文号",
    "legal_form": "内阁决议 · มติ ครม. 层级",
@@ -40804,7 +42611,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "交通部 (MOT)",
-   "org_shown": "交通部 (MOT)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "415012",
    "doc_no_label": "文号",
    "legal_form": "部令 · กฎ 层级",
@@ -40853,6 +42661,9 @@
    "org_issuer": "内阁",
    "org_related": "",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "415032",
    "doc_no_label": "文号",
    "legal_form": "内阁决议 · มติ ครม. 层级",
@@ -40901,6 +42712,9 @@
    "org_issuer": "内阁",
    "org_related": "",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "415001",
    "doc_no_label": "文号",
    "legal_form": "内阁决议 · มติ ครม. 层级",
@@ -40942,6 +42756,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "操作指引 · แนวปฏิบัติ 层级",
@@ -40996,6 +42813,9 @@
    "org_issuer": "内阁",
    "org_related": "",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "414928",
    "doc_no_label": "文号",
    "legal_form": "内阁决议 · มติ ครม. 层级",
@@ -41037,6 +42857,9 @@
    "org_issuer": "内阁",
    "org_related": "",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "414874",
    "doc_no_label": "文号",
    "legal_form": "内阁决议 · มติ ครม. 层级",
@@ -41085,6 +42908,9 @@
    "org_issuer": "内阁",
    "org_related": "",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "414795",
    "doc_no_label": "文号",
    "legal_form": "内阁决议 · มติ ครม. 层级",
@@ -41126,6 +42952,9 @@
    "org_issuer": "内阁",
    "org_related": "",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "414563",
    "doc_no_label": "文号",
    "legal_form": "内阁决议 · มติ ครม. 层级",
@@ -41167,6 +42996,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "操作指引 · แนวปฏิบัติ 层级",
@@ -41220,7 +43052,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "地方行政组织",
-   "org_shown": "地方行政组织",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "ง พิเศษ 142/279",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -41281,6 +43114,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "操作指引 · แนวปฏิบัติ 层级",
@@ -41335,6 +43171,9 @@
    "org_issuer": "内阁",
    "org_related": "",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "413544",
    "doc_no_label": "文号",
    "legal_form": "内阁决议 · มติ ครม. 层级",
@@ -41376,6 +43215,9 @@
    "org_issuer": "内阁",
    "org_related": "",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "413476",
    "doc_no_label": "文号",
    "legal_form": "内阁决议 · มติ ครม. 层级",
@@ -41417,6 +43259,9 @@
    "org_issuer": "内阁",
    "org_related": "",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "413384",
    "doc_no_label": "文号",
    "legal_form": "部令 · กฎ 层级",
@@ -41458,6 +43303,9 @@
    "org_issuer": "内阁",
    "org_related": "",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "413383",
    "doc_no_label": "文号",
    "legal_form": "内阁决议 · มติ ครม. 层级",
@@ -41512,6 +43360,9 @@
    "org_issuer": "内阁",
    "org_related": "",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "413305",
    "doc_no_label": "文号",
    "legal_form": "内阁决议 · มติ ครม. 层级",
@@ -41553,6 +43404,9 @@
    "org_issuer": "内阁",
    "org_related": "",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "413306",
    "doc_no_label": "文号",
    "legal_form": "内阁决议 · มติ ครม. 层级",
@@ -41594,6 +43448,9 @@
    "org_issuer": "内阁",
    "org_related": "税务厅 (RD)",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "413309",
    "doc_no_label": "文号",
    "legal_form": "皇家法令 · พ.ร.ฎ. 层级",
@@ -41648,6 +43505,9 @@
    "org_issuer": "内阁",
    "org_related": "证券交易委员会 (SEC)",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "413355",
    "doc_no_label": "文号",
    "legal_form": "紧急法令 · พ.ร.ก. 层级",
@@ -41696,6 +43556,9 @@
    "org_issuer": "内阁",
    "org_related": "",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "413243",
    "doc_no_label": "文号",
    "legal_form": "内阁决议 · มติ ครม. 层级",
@@ -41750,6 +43613,9 @@
    "org_issuer": "内阁",
    "org_related": "财政部 (MOF)",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "413230",
    "doc_no_label": "文号",
    "legal_form": "部令 · กฎ 层级",
@@ -41803,7 +43669,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "税务厅 (RD)",
-   "org_shown": "税务厅 (RD)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "413161",
    "doc_no_label": "文号",
    "legal_form": "部令 · กฎ 层级",
@@ -41845,6 +43712,9 @@
    "org_issuer": "内阁",
    "org_related": "",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "413070",
    "doc_no_label": "文号",
    "legal_form": "内阁决议 · มติ ครม. 层级",
@@ -41886,6 +43756,9 @@
    "org_issuer": "内阁",
    "org_related": "财政部 (MOF)",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "413071",
    "doc_no_label": "文号",
    "legal_form": "内阁决议 · มติ ครม. 层级",
@@ -41927,6 +43800,9 @@
    "org_issuer": "内阁",
    "org_related": "",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "413109",
    "doc_no_label": "文号",
    "legal_form": "操作指引 · แนวปฏิบัติ 层级",
@@ -41975,6 +43851,9 @@
    "org_issuer": "投资促进委员会 (BOI)",
    "org_related": "",
    "org_shown": "投资促进委员会 (BOI)",
+   "org_issuer_ids": [
+    "boi"
+   ],
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "操作指引 · แนวปฏิบัติ 层级",
@@ -42028,7 +43907,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "税务厅 (RD)",
-   "org_shown": "税务厅 (RD)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "",
    "doc_no_label": "文号",
    "legal_form": "操作指引 · แนวปฏิบัติ 层级",
@@ -42082,7 +43962,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "政府储蓄银行 (GSB) · 内阁",
-   "org_shown": "政府储蓄银行 (GSB) · 内阁",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "413036",
    "doc_no_label": "文号",
    "legal_form": "内阁决议 · มติ ครม. 层级",
@@ -42137,6 +44018,9 @@
    "org_issuer": "内阁",
    "org_related": "",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "412974",
    "doc_no_label": "文号",
    "legal_form": "法律 · พ.ร.บ. 层级",
@@ -42191,6 +44075,9 @@
    "org_issuer": "内阁",
    "org_related": "海关厅 (CUSTOMS)",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "412892",
    "doc_no_label": "文号",
    "legal_form": "内阁决议 · มติ ครม. 层级",
@@ -42239,6 +44126,9 @@
    "org_issuer": "内阁",
    "org_related": "海关厅 (CUSTOMS)",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "412813",
    "doc_no_label": "文号",
    "legal_form": "部令 · กฎ 层级",
@@ -42279,7 +44169,8 @@
    "org_label": "相关机关",
    "org_issuer": "",
    "org_related": "消费税厅 (EXCISE)",
-   "org_shown": "消费税厅 (EXCISE)",
+   "org_shown": "",
+   "org_issuer_ids": [],
    "doc_no": "412841",
    "doc_no_label": "文号",
    "legal_form": "部令 · กฎ 层级",
@@ -42321,6 +44212,9 @@
    "org_issuer": "内阁",
    "org_related": "",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "412764",
    "doc_no_label": "文号",
    "legal_form": "法律 · พ.ร.บ. 层级",
@@ -42375,6 +44269,9 @@
    "org_issuer": "内阁",
    "org_related": "",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "412740",
    "doc_no_label": "文号",
    "legal_form": "皇家法令 · พ.ร.ฎ. 层级",
@@ -42429,6 +44326,9 @@
    "org_issuer": "内阁",
    "org_related": "税务厅 (RD)",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "412715",
    "doc_no_label": "文号",
    "legal_form": "皇家法令 · พ.ร.ฎ. 层级",
@@ -42477,6 +44377,9 @@
    "org_issuer": "内阁",
    "org_related": "",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "412714",
    "doc_no_label": "文号",
    "legal_form": "内阁决议 · มติ ครม. 层级",
@@ -42525,6 +44428,9 @@
    "org_issuer": "内阁",
    "org_related": "",
    "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
    "doc_no": "412574",
    "doc_no_label": "文号",
    "legal_form": "内阁决议 · มติ ครม. 层级",
@@ -42573,6 +44479,9 @@
    "org_issuer": "内政部 (MOI)",
    "org_related": "",
    "org_shown": "内政部 (MOI)",
+   "org_issuer_ids": [
+    "moi"
+   ],
    "doc_no": "ง พิเศษ 140/218",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -42627,6 +44536,9 @@
    "org_issuer": "内政部 (MOI)",
    "org_related": "",
    "org_shown": "内政部 (MOI)",
+   "org_issuer_ids": [
+    "moi"
+   ],
    "doc_no": "ง พิเศษ 140/215",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
@@ -42687,6 +44599,9 @@
    "org_issuer": "内政部 (MOI)",
    "org_related": "",
    "org_shown": "内政部 (MOI)",
+   "org_issuer_ids": [
+    "moi"
+   ],
    "doc_no": "ง พิเศษ 140/140",
    "doc_no_label": "公报",
    "legal_form": "公告 · ประกาศ 层级",
