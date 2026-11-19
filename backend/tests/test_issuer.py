@@ -351,3 +351,16 @@ def test_collectors_set_issuer_from_title():
     r = AS._record("TH-BOI-1-Y", "ประกาศ สกท. ที่ ป.1/2569 เรื่อง ก", "2026-01-01", "", "boi_web",
                    "2026-01-01T00:00:00+07:00", agency="boi", domain="biz", legal_form="prakat", status="in_force")
     assert r["agency_ids"] == ["boi"]
+
+
+def test_requeue_kept_does_not_bring_back_red_lined_items(tmp_path, monkeypatch):
+    """必收专题的放回队列(enrich --requeue-kept)不碰因红线跳过的条目:那是留给人工判断的。"""
+    d = tmp_path / "policies"; d.mkdir()
+    monkeypatch.setattr(E, "POLICIES_DIR", d)
+    monkeypatch.setattr(E, "_keep_patterns", lambda: ["ผังเมืองรวม"])
+    base = {"titles": {"zh": "某府总体规划", "th": "กฎกระทรวงให้ใช้บังคับผังเมืองรวมเมืองตัวอย่าง"},
+            "agency_ids": ["cabinet"], "provenance": {"pipeline": "gazette_json"}}
+    rows = [{**base, "uid": "A", "flags": {"skip": True}, "note": "LLM 判定与在泰外籍人士/企业无关"},
+            {**base, "uid": "B", "flags": {"skip": True}, "note": "译文触及红线一,不做加工,待人工处理"}]
+    (d / "documents.jsonl").write_text("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in rows))
+    assert E.requeue_kept() == ["A"]

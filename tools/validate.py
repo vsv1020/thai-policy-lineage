@@ -393,8 +393,14 @@ def check_topics_config(rep: Report, vocab: dict) -> None:
             if not str(t.get(f) or "").strip():
                 rep.err(where, f"缺少 {f}")
         m = t.get("match") or {}
-        if not (m.get("title_keywords") or m.get("uids")):
-            rep.err(where, "match 至少要有 title_keywords 或 uids")
+        if not (m.get("title_keywords") or m.get("uids") or m.get("title_th_patterns")):
+            rep.err(where, "match 至少要有 title_keywords、title_th_patterns 或 uids")
+        for f in ("title_th_patterns", "title_th_exclude"):
+            for pat in m.get(f) or []:
+                try:
+                    re.compile(pat)
+                except re.error as exc:
+                    rep.err(where, f"{f} 正则写错了 {pat!r}: {exc}")
         for d in m.get("domains") or []:
             if d not in domains:
                 rep.err(where, f"未知 domain_id: {d}")

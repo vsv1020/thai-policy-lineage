@@ -722,11 +722,21 @@ def render_topic(dom_id: str, zh: str, en: str, items: list[dict],
 STANCE_ZH = {"constrain": "约束", "support": "利好", "neutral": ""}
 
 
+def th_title_matches(title_th: str, match: dict) -> bool:
+    """泰文标题按正则匹配(title_th_patterns 任一命中,且 title_th_exclude 都不命中)。
+    采集环节回填专题(collect --backfill-topic)用的也是这一条规则。"""
+    pats = match.get("title_th_patterns") or []
+    if not any(re.search(p, title_th or "") for p in pats):
+        return False
+    return not any(re.search(p, title_th or "") for p in match.get("title_th_exclude") or [])
+
+
 def topic_matches(x: dict, match: dict) -> bool:
-    """配置专题的匹配规则:标题含任一关键词或 uid 在名单里;再与领域 / 影响对象取交集。"""
+    """配置专题的匹配规则:中文标题含任一关键词、泰文标题命中正则,或 uid 在名单里;再与领域 / 影响对象取交集。"""
     kws = match.get("title_keywords") or []
     uids = set(match.get("uids") or [])
-    if not (any(k and k in x["title"] for k in kws) or x["uid"] in uids):
+    if not (any(k and k in x["title"] for k in kws) or x["uid"] in uids
+            or th_title_matches(x.get("title_th", ""), match)):
         return False
     if match.get("domains") and x["domain_id"] not in match["domains"]:
         return False
