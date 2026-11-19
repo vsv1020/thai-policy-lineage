@@ -29,7 +29,7 @@ from pathlib import Path
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from . import analytics as A
+from . import analytics as A, issuer as ISSUER
 from .config import DATA_DIR, REPO_ROOT, SITE_DIR, settings
 from .ingest import split_summary
 from .models import Agency, Document, Domain, Party
@@ -358,17 +358,15 @@ def is_cabinet_resolution(doc: Document) -> bool:
 
 
 def agency_th_names() -> dict[str, list[str]]:
-    """词表里各机关的泰文名与别名 {id: [名称…]}(与 app.enrich.agency_rules 同一口径:4 个字符以下的缩写不用)。
-    词表里写的是「某某委员会办公室」(สำนักงานคณะกรรมการ…)的,委员会本身(คณะกรรมการ…)发的公告也算它的 ——
-    BOI 在词表里是办公室的泰文名,而公报上的「投资促进委员会公告」署的是委员会。"""
+    """词表里各机关的泰文名与别名 {id: [名称…]}(4 个字符以下的缩写不用)。委员会与其办公室(「คณะกรรมการ…」/
+    「สำนักงานคณะกรรมการ…」)算同一机关的,在词表里写成别名(如 BOI),这里不再自动推导。"""
     try:
         vocab = json.loads((DATA_DIR / "vocab.json").read_text(encoding="utf-8"))
     except (OSError, ValueError):
         return {}
     out: dict[str, list[str]] = {}
     for a in vocab.get("agencies") or []:
-        names = [n for n in [a.get("th") or "", *(a.get("th_aliases") or [])] if len(n) >= 4]
-        names += [n[len("สำนักงาน"):] for n in names if n.startswith("สำนักงานคณะกรรมการ")]
+        names = [n for n in [a.get("th") or "", *(a.get("th_aliases") or [])] if len(n) >= ISSUER.MIN_NAME]
         out[a["id"]] = list(dict.fromkeys(names))
     return out
 
@@ -376,10 +374,11 @@ def agency_th_names() -> dict[str, list[str]]:
 def issuer_info(doc: Document, org: str, th_names: dict[str, list[str]]) -> tuple[str, str]:
     """落地页上「机关」一栏的 (标签, 名称)。标签是「发文机关」时,开头那句话和结构化数据才把它写成发文者。
 
-    数据里的机关是模型从词表里选的:词表没有的机关(宪法法院、商品与服务安全委员会、疾病控制厅……)
-    会被归到上级部委,或者落到缺省值「内阁」。原样写成「内阁于某日在皇家公报刊登《宪法法院裁决……》」
+    数据里的机关是模型从词表里选的,词表里没有的机关会被归到上级部委,或者落到缺省值「内阁」(数据层由
+    app.enrich.fix_agency 按泰文原题重定,这里是页面层的第二道闸)。原样写成「内阁于某日在皇家公报刊登《宪法法院裁决……》」
     就是一句错话,而开头这句正是 AI 最常引用的。所以只在有依据时才说是谁发的:
-    - 公报条目:泰文原题的发文机关段(「เรื่อง」之前)里出现了该机关的泰文名;没有泰文原题的(人工整理的条目)照旧。
+    - 公报条目:泰文原题写明的发文机关(app.issuer,与数据层同一套判断)是该条目的机关之一;
+      没有泰文原题的(人工整理的条目)照旧。
     - 官网来源的条目:第一个机关就是这个官网的机关(uid 的第二段,如 TH-BOI-…、TH-RD-…),或泰文原题印证。
     - 内阁决议:第一个机关是内阁。
     - 人工复核过的条目照旧。
@@ -387,8 +386,9 @@ def issuer_info(doc: Document, org: str, th_names: dict[str, list[str]]) -> tupl
     ids = [a.agency_id for a in sorted(doc.agencies, key=lambda x: x.seq)]
     if not ids or not org:
         return "发文机关", org
-    head = re.split(r"เรื่อง|ว่าด้วย", doc.title_th or "")[0][:160].strip()
-    named = bool(head) and any(n in head for i in ids for n in th_names.get(i, ()))
+    rules = _issuer_rules(th_names)
+    head = ISSUER.issuer_head(doc.title_th or "", rules)
+    named = bool(head) and bool(set(ids) & set(ISSUER.issuer_agencies(doc.title_th or "", rules)))
     if doc.verified or named:
         ok = True
     elif is_cabinet_resolution(doc):
@@ -400,6 +400,19 @@ def issuer_info(doc: Document, org: str, th_names: dict[str, list[str]]) -> tupl
     if ok:
         return "发文机关", org
     return ("", "") if ids == ["cabinet"] else ("相关机关", org)
+
+
+_RULES_CACHE: dict[int, tuple[dict, list]] = {}
+
+
+def _issuer_rules(th_names: dict[str, list[str]]) -> list[tuple[str, str]]:
+    """同一份名称表只排一次序(导出时对每个落地页都要调用)。"""
+    hit = _RULES_CACHE.get(id(th_names))
+    if hit is None or hit[0] is not th_names:
+        hit = (th_names, ISSUER.rules_from_names(th_names))
+        _RULES_CACHE.clear()
+        _RULES_CACHE[id(th_names)] = hit
+    return hit[1]
 
 
 def _uid_agency(uid: str) -> str:

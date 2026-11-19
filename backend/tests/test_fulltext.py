@@ -269,3 +269,29 @@ def test_pdftotext_fallback_and_detailed_miss_reason(monkeypatch):
     (why, m), = F.misses().items()
     assert why == "文字层不可读,OCR 超时"
     assert "9.pdf" in m["example"] and "pypdf 200 字" in m["example"]
+
+
+@pytest.mark.parametrize("phrase", ["受诗纳卡琳王太后殿下赞助的协会", "太后基金会", "经国王陛下批准", "某亲王基金会", "王储办公室"])
+def test_royal_titles_of_address_in_model_output_are_red_lined(jsonl, phrase):
+    """称谓也算红线一:财政部免税机构名单公告的摘要里曾出现「受诗纳卡琳王太后殿下赞助」的机构名。"""
+    _write(jsonl, _raw())
+    E.run_enrichment(client=FakeClient({**FULL, "summary_zh": f"该公告将{phrase}列入免税名单。"}),
+                     fetch_text=lambda rec: (THAI, "text"))
+    row = _rows(jsonl)[0]
+    assert row["flags"]["skip"] is True and row["titles"]["zh"] == "" and row["summary_zh"] == ""
+    blob = json.dumps(row, ensure_ascii=False)
+    assert not any(t in blob for t in E.ROYAL_OUTPUT_TERMS if t not in rec_terms(row)), "note 里也不写出命中的词"
+
+
+def test_output_red_line_terms_match_validate_py():
+    """输出侧的中文红线词与 tools/validate.py 保持一致(validate 不装包也能跑,所以各存一份)。"""
+    import importlib.util
+    from app.config import REPO_ROOT
+    spec = importlib.util.spec_from_file_location("validate_tool", REPO_ROOT / "tools" / "validate.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    zh = lambda ts: {t for t in ts if not any("฀" <= c <= "๿" for c in t)}  # noqa: E731
+    assert zh(E.ROYAL_OUTPUT_TERMS) == zh(mod.ROYAL_TERMS)
+    assert {"王太后", "太后", "陛下", "殿下", "亲王", "王储"} <= zh(mod.ROYAL_TERMS)
+    for ordinary in ("太阳能", "王先生", "后续", "下调", "储蓄", "亲属", "皇家公报", "王国政府"):
+        assert not any(t in ordinary for t in zh(mod.ROYAL_TERMS)), ordinary

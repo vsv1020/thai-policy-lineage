@@ -1,18 +1,18 @@
 {
  "_generated": "由 backend/app/export.py 从数据库导出,请勿手改;改 data/policies/*.jsonl → python3 -m app.ingest → python3 -m app.export",
- "n": 583,
+ "n": 582,
  "kpis": {
-  "total": 583,
+  "total": 582,
   "avg_stability": 2.05,
-  "binding_pct": 8.9,
+  "binding_pct": 8.8,
   "in_force_pct": 17.2,
   "high_tier_pct": 3.4,
   "tight": 121,
   "loose": 162
  },
  "insights": [
-  "库内 583 条政策中,公告 / 规程层级最多(占 82.7%);可诉、强制力较强的占 8.9%,现行有效的占 17.2%。",
-  "「税务」的政策层级最高(平均稳定性 2.41),多以公告出台;「金融外汇」最低(平均 1.85),以公告为主,规则更容易调整。",
+  "库内 582 条政策中,公告 / 规程层级最多(占 82.8%);可诉、强制力较强的占 8.8%,现行有效的占 17.2%。",
+  "「税务」的政策层级最高(平均稳定性 2.4),多以公告出台;「金融外汇」最低(平均 1.85),以公告为主,规则更容易调整。",
   "方向上,收紧 121 条、放宽 162 条,整体偏放宽。"
  ],
  "legal_forms": [
@@ -45,8 +45,8 @@
    "zh": "部令",
    "stability": 3,
    "justiciable": true,
-   "n": 32,
-   "pct": 5.5
+   "n": 31,
+   "pct": 5.3
   },
   {
    "id": "prakat",
@@ -54,7 +54,7 @@
    "stability": 2,
    "justiciable": false,
    "n": 423,
-   "pct": 72.6
+   "pct": 72.7
   },
   {
    "id": "rabiap",
@@ -97,14 +97,14 @@
   {
    "stability": 3,
    "label": "部令",
-   "n": 32,
-   "pct": 5.5
+   "n": 31,
+   "pct": 5.3
   },
   {
    "stability": 2,
    "label": "公告 / 规程",
    "n": 482,
-   "pct": 82.7
+   "pct": 82.8
   },
   {
    "stability": 1,
@@ -125,8 +125,8 @@
    "id": "environment",
    "zh": "环境型",
    "desc": "规则与激励塑造环境",
-   "n": 482,
-   "pct": 82.7
+   "n": 481,
+   "pct": 82.6
   },
   {
    "id": "demand",
@@ -150,7 +150,7 @@
   {
    "zh": "税收减免与追缴",
    "class": "环境型",
-   "n": 103
+   "n": 102
   },
   {
    "zh": "公共服务与系统供给",
@@ -194,7 +194,7 @@
   {
    "id": "gazetted",
    "zh": "已刊公报",
-   "n": 432,
+   "n": 431,
    "pct": 74.1
   },
   {
@@ -324,7 +324,7 @@
     0,
     0,
     12,
-    5,
+    4,
     41,
     3,
     2,
@@ -430,11 +430,11 @@
   {
    "id": "tax",
    "zh": "税务",
-   "n": 64,
-   "avg_stability": 2.41,
-   "binding_pct": 26.6,
+   "n": 63,
+   "avg_stability": 2.4,
+   "binding_pct": 25.4,
    "dominant_form": "公告",
-   "dominant_form_pct": 64.1,
+   "dominant_form_pct": 65.1,
    "dominant_class": "环境型",
    "tight": 10,
    "loose": 37
@@ -575,12 +575,12 @@
   },
   {
    "quarter": "2026Q1",
-   "n": 367,
+   "n": 366,
    "avg_stability": 2.07,
    "tiers": {
     "法律": 4,
     "皇家法令": 5,
-    "部令": 22,
+    "部令": 21,
     "公告 / 规程": 319,
     "决议 / 指引": 17
    }

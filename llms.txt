@@ -14,7 +14,7 @@
 
 - [泰国公司投资政策](https://www.thaipolicy.com/p/topic/biz.html): 公司设立、外资准入、投资促进(BOI)与营商规则;206 条,最新 2026-11-17
 - [泰国海关贸易政策](https://www.thaipolicy.com/p/topic/customs.html): 进出口管制、配额、关税与贸易救济;89 条,最新 2026-04-22
-- [泰国税务政策](https://www.thaipolicy.com/p/topic/tax.html): 个人所得税、企业所得税、增值税、消费税等税费;64 条,最新 2026-11-05
+- [泰国税务政策](https://www.thaipolicy.com/p/topic/tax.html): 个人所得税、企业所得税、增值税、消费税等税费;63 条,最新 2026-11-05
 - [泰国金融外汇政策](https://www.thaipolicy.com/p/topic/finance.html): 银行、证券、保险、外汇与支付;55 条,最新 2026-04-21
 - [泰国房产土地政策](https://www.thaipolicy.com/p/topic/land.html): 土地、公寓、建筑与城市规划;55 条,最新 2026-04-22
 - [泰国医疗政策](https://www.thaipolicy.com/p/topic/health.html): 药品、食品、医疗器械、医疗服务与卫生管理;50 条,最新 2026-09-30
@@ -34,7 +34,7 @@
 - [泰国食品与药品监管](https://www.thaipolicy.com/p/t/food-drug.html): 收录食品药品管理局及药品、食品管制相关的公报;20 条,最新 2026-04-22
 - [泰国社会保障与劳工](https://www.thaipolicy.com/p/t/social-security.html): 收录社会保障办公室、劳工部门及工资相关的公报;7 条,最新 2026-04-22
 - [泰国个人资料保护与网络安全](https://www.thaipolicy.com/p/t/data-protection.html): 收录标题涉及个人资料保护、网络安全与数字平台的公报;3 条,最新 2026-03-24
-- [泰国所得税](https://www.thaipolicy.com/p/t/income-tax.html): 收录标题涉及所得税的公报、皇家法令、部令与税务厅公告,包括个人所得税与法人所得税;18 条,最新 2026-11-05
+- [泰国所得税](https://www.thaipolicy.com/p/t/income-tax.html): 收录标题涉及所得税的公报、皇家法令、部令与税务厅公告,包括个人所得税与法人所得税;17 条,最新 2026-11-05
 - [泰国电动汽车与汽车产业](https://www.thaipolicy.com/p/t/ev-auto.html): 收录标题涉及电动汽车、混合动力汽车、汽车产业与汽车零部件的公报与政策委员会文件;31 条,最新 2026-10-06
 - [泰国工业产品标准(TIS)](https://www.thaipolicy.com/p/t/industrial-standards.html): 收录标题涉及工业产品标准(TIS)的公报,包括标准的制定、修订、废止与强制执行;80 条,最新 2026-04-10
 - [泰国能源与电力](https://www.thaipolicy.com/p/t/energy.html): 收录标题涉及能源、太阳能、石油、天然气、电网与燃料供应的公报;24 条,最新 2026-10-02
