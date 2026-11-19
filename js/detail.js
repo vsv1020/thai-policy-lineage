@@ -46,7 +46,12 @@ function renderDetail(d) {
   // 有公报卷期才说「刊登公报」;税务厅、BOI 等官网来源的条目,这个日期是官网发布日
   const gazetted = d.doc_no_label === '公报';
   const fields = [
-    `<div class="field"><div class="k">发文机关</div><div class="v">${E(d.org)}</div></div>`,
+    // 机关栏与落地页同一判断(导出时算好):标题印证的发文机关一行,其余列「相关机关」;只有缺省的内阁时不显示
+    ...(d.org_label === undefined
+      ? [`<div class="field"><div class="k">发文机关</div><div class="v">${E(d.org)}</div></div>`]
+      : [[d.org_label === '发文机关' ? '发文机关' : '', d.org_issuer], ['相关机关', d.org_related]]
+          .filter(([k, v]) => k && v)
+          .map(([k, v]) => `<div class="field"><div class="k">${E(k)}</div><div class="v">${E(v)}</div></div>`)),
     d.doc_no ? `<div class="field"><div class="k">${E(d.doc_no_label || '文号')}</div>
       <div class="v">${E(d.doc_no)}</div></div>` : '',
     dateRow('内阁决议日', dates.resolved_at),

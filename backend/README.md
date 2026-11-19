@@ -135,8 +135,8 @@ WantedBy=multi-user.target
 `ENRICH_PROVIDER` 可强制指定,`ENRICH_MODEL` 可换模型。两家的护栏完全相同:
 
 - 王室相关标题**不发给模型**,直接标 skip(红线一:翻译也是加工)
-- 译文里出现王室相关表述(`ROYAL_OUTPUT_TERMS`:王室、国王、王后、御准、冒犯君主,以及王太后、太后、陛下、殿下、亲王、王储等称谓 —— 与 `tools/validate.py` 的 `ROYAL_TERMS` 保持一致)整条作废:标 skip、不写入任何模型输出、`note` 里不写出命中的词,留待人工判断
-- 公报条目的发文机关以泰文原题为准:模型只能在词表里选,选不到时会退而选上级部委;写入前 `fix_agency` 按标题改正(规则在 `app/issuer.py`,与落地页的 `seo.issuer_info` 共用)。词表扩充后对已入库条目重跑:`python3 -m app.enrich --fix-agencies`(先加 `--dry-run` 看前 10 条),只改 `agency_ids`,可重复执行
+- 译文里出现王室相关表述(`ROYAL_OUTPUT_TERMS`:王室、国王、王后、御准、冒犯君主,以及王太后、太后、陛下、殿下、亲王、王储、公主、王妃、皇后、皇室、泰皇、皇上、御赐、钦赐、皇家赞助等称谓 —— 与 `tools/validate.py` 的 `ROYAL_TERMS` 一致;泰文部分与 `app.collect` 采集时过滤标题用的同一份)整条作废:标 skip、不写入任何模型输出、`note` 里不写出命中的词,留待人工判断
+- 发文机关以泰文原题为准(公报与部门官网条目):采集入库时就按标题定(`app.issuer`),模型只能在词表里选、选不到时会退而选上级部委,写入前 `fix_agency` 再按标题改正(判为无关的条目也一样)。词表扩充后对已入库条目重跑:`python3 -m app.enrich --fix-agencies`(先加 `--dry-run` 看前 10 条),只改 `agency_ids`,可重复执行
 - 模型判定与在泰外籍人士/企业无关的(人事任免、授勋、地方招标)标 skip,不上首页
 - 返回的 id 再按词表校验一次;拒答、截断、解析失败一律跳过、不写入
 - 产出一律 `verified=false`、`direction.method="llm"`

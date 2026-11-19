@@ -4,6 +4,8 @@
     python3 -m app.enrich                 # 处理待办队列(title_zh 为空的条目)
     python3 -m app.enrich --limit 5       # 只处理 5 条
     python3 -m app.enrich --dry-run       # 只列出队列,不调用 API
+    python3 -m app.enrich --fix-agencies  # 词表补了机关后:已入库条目按泰文标题重定发文机关(不调用模型)
+    python3 -m app.enrich --fix-agencies --dry-run   # 只列出前 10 条改动,不写
 
 为什么需要这一步:app.collect 从官方接口取回的是泰文标题 + 公报卷期 + 日期,
 中文标题、摘要、领域、工具、方向全是空的或占位值 —— 不补这一步,自动采集的内容
@@ -49,13 +51,15 @@ from .persons import output_person_reason, redact as redact_persons
 
 log = logging.getLogger("policy.enrich")
 
-ROYAL_TERMS = ("พระบรมราชโองการ", "สมเด็จพระ", "พระบาทสมเด็จ", "ราชวงศ์",
-               "เครื่องราชอิสริยาภรณ์", "พระราชทาน")
+# 泰文部分与 app.collect.ROYAL_TERMS、tools/validate.py 完全一致
+ROYAL_TERMS = ("พระบรมราชโองการ", "สมเด็จพระ", "พระบาทสมเด็จ", "ราชวงศ์", "เครื่องราชอิสริยาภรณ์", "พระราชทาน")
 # 模型输出里也不得出现王室相关表述(与 tools/validate.py 的红线一保持一致)。
 # 读正文后模型可能写出「经国王御准」之类的话 —— 命中就按红线一整条跳过,不写入任何译文
 # 称谓也算:正文里受王室赞助的机构名(「受某某王太后殿下赞助的……协会」)会被模型原样译出
 ROYAL_OUTPUT_TERMS = ROYAL_TERMS + ("王室", "国王", "王后", "御准", "冒犯君主",
-                                    "王太后", "太后", "陛下", "殿下", "亲王", "王储")
+                                    "王太后", "太后", "陛下", "殿下", "亲王", "王储",
+                                    "公主", "王妃", "皇后", "皇室", "泰皇", "皇上", "御赐", "钦赐", "皇家赞助")
+# 不收「王子」(会命中「宋卡王子大学」)和单独的「皇家」(皇家公报、皇家法令)
 
 SYSTEM_PROMPT = """你是泰国政策数据库的编辑助手,把泰国皇家公报/内阁决议/部门公告(税务厅、BOI)整理成中文结构化记录,
 读者是在泰国生活和经商的华人(长居个人、中资企业、投资者)。输入有泰文标题,多数还附有正文(从官方 PDF 抽取,
@@ -338,14 +342,29 @@ def strip_list_marker(text: str) -> str:
     return _LIST_MARKER_RE.sub("", str(text or "")).strip()
 
 
-def agency_rules(v: dict) -> list[tuple[str, str]]:
-    """词表里机关的泰文名(含别名)→ id,长名在前(规则在 app.issuer,与 app.seo 共用)。"""
-    return ISSUER.agency_rules(v)
+# 按泰文标题定发文机关的来源管线:公报与部门官网。内阁决议数据的标题是议题名,人工整理的条目以人工为准
+TITLE_ISSUER_PIPELINES = ("gazette_json", "rd_web", "boi_web")
+
+
+_RULES_MEMO: dict[int, tuple[dict, list]] = {}
+
+
+def agency_rules(v: dict) -> list:
+    """词表里机关的泰文名(含别名)→ 规则,长名在前(规则在 app.issuer,与页面层共用)。同一份词表只排一次序。"""
+    hit = _RULES_MEMO.get(id(v))
+    if hit is None or hit[0] is not v:
+        _RULES_MEMO.clear()
+        hit = _RULES_MEMO[id(v)] = (v, ISSUER.agency_rules(v))
+    return hit[1]
+
+
+def _parents(v: dict) -> dict:
+    return {a["id"]: a.get("ministry") for a in v["agencies"]}
 
 
 def issuer_agencies(title_th: str, v: dict) -> list[str]:
     """泰文标题写明的发文机关 id(联合发文时按标题顺序列出全部);认不出返回空列表。规则见 app.issuer。"""
-    return ISSUER.issuer_agencies(title_th, agency_rules(v))
+    return ISSUER.issuer_agencies(title_th, agency_rules(v), _parents(v))
 
 
 def issuer_agency(title_th: str, v: dict) -> str | None:
@@ -356,9 +375,9 @@ def issuer_agency(title_th: str, v: dict) -> str | None:
 
 
 def fix_agency(rec: dict, v: dict) -> bool:
-    """公报条目的发文机关以标题为准(模型在词表里找不到时会退而选上级部委)。返回是否改动。
-    认不出的不动;已经以标题写明的机关开头的也不动(模型另选的联署 / 相关机关保留)。"""
-    if (rec.get("provenance") or {}).get("pipeline") != "gazette_json":
+    """公报与部门官网条目的发文机关以标题为准(模型在词表里找不到时会退而选上级部委)。返回是否改动。
+    认不出的不动;已经以标题写明的机关开头的也不动(模型另选的机关保留,页面上列为「相关机关」)。"""
+    if (rec.get("provenance") or {}).get("pipeline") not in TITLE_ISSUER_PIPELINES:
         return False
     ids = issuer_agencies((rec.get("titles") or {}).get("th", ""), v)
     if not ids or list(rec.get("agency_ids") or [])[:len(ids)] == ids:
@@ -379,6 +398,7 @@ def apply_enrichment(rec: dict, out: dict, v: dict, model: str, basis: str = "ti
     if not out.get("relevant", True):
         rec.setdefault("flags", {})["skip"] = True
         rec["titles"]["zh"] = out.get("title_zh", "")[:200]
+        fix_agency(rec, v)                     # 无关条目也按标题定机关:事实层始终是 fix_agencies 的不动点
         rec["note"] = (rec.get("note", "") + f" | {now} LLM 判定与在泰外籍人士/企业无关,不上首页").strip(" |")
         return rec
 

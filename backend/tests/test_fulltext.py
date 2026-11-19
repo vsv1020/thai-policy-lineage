@@ -283,15 +283,20 @@ def test_royal_titles_of_address_in_model_output_are_red_lined(jsonl, phrase):
     assert not any(t in blob for t in E.ROYAL_OUTPUT_TERMS if t not in rec_terms(row)), "note 里也不写出命中的词"
 
 
-def test_output_red_line_terms_match_validate_py():
-    """输出侧的中文红线词与 tools/validate.py 保持一致(validate 不装包也能跑,所以各存一份)。"""
+def test_red_line_terms_are_the_same_everywhere():
+    """红线一的词表三处同一份:泰文词在采集(标题)、翻译、校验三处逐字相同;中文词在翻译输出与校验两处相同
+    (validate.py 不装包也能跑,所以各存一份)。"""
     import importlib.util
+    from app import collect as C
     from app.config import REPO_ROOT
     spec = importlib.util.spec_from_file_location("validate_tool", REPO_ROOT / "tools" / "validate.py")
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
-    zh = lambda ts: {t for t in ts if not any("฀" <= c <= "๿" for c in t)}  # noqa: E731
-    assert zh(E.ROYAL_OUTPUT_TERMS) == zh(mod.ROYAL_TERMS)
-    assert {"王太后", "太后", "陛下", "殿下", "亲王", "王储"} <= zh(mod.ROYAL_TERMS)
-    for ordinary in ("太阳能", "王先生", "后续", "下调", "储蓄", "亲属", "皇家公报", "王国政府"):
-        assert not any(t in ordinary for t in zh(mod.ROYAL_TERMS)), ordinary
+    thai = lambda ts: {t for t in ts if any("\u0e00" <= c <= "\u0e7f" for c in t)}  # noqa: E731
+    assert set(C.ROYAL_TERMS) == set(E.ROYAL_TERMS) == thai(mod.ROYAL_TERMS) == thai(E.ROYAL_OUTPUT_TERMS)
+    assert set(E.ROYAL_OUTPUT_TERMS) == set(mod.ROYAL_TERMS)
+    assert {"王太后", "太后", "陛下", "殿下", "亲王", "王储", "公主", "王妃", "皇后", "皇室", "泰皇", "皇上",
+            "御赐", "钦赐", "皇家赞助"} <= set(mod.ROYAL_TERMS)
+    for ordinary in ("太阳能", "王先生", "后续", "下调", "储蓄", "亲属", "皇家公报", "皇家法令", "王国政府",
+                     "宋卡王子大学", "主管机关", "妃子笑荔枝"):
+        assert not any(t in ordinary for t in mod.ROYAL_TERMS), ordinary

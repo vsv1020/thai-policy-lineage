@@ -36,8 +36,10 @@ function policyCard(p) {
   // 日期前的动词:公报文件是「刊登」,部门官网来源是「发布」,只有决议日的是「决议」
   const pubVerb = p.doc_no_label === '公报' ? '刊登' : (p.dates && p.dates.published_at) ? '发布' : '决议';
   const points = (p.key_points || []).slice(0, 2);
+  // 机关:导出时已按「发文机关 / 相关机关」判断过(org_shown);旧数据没有这个字段时退回全部机关
+  const org = p.org_shown !== undefined ? p.org_shown : p.org;
   const meta = [
-    p.org ? `<span>${esc(p.org)}</span>` : '',
+    org ? `<span>${esc(org)}</span>` : '',
     p.doc_no ? `<span>${esc(p.doc_no_label || '文号')} <b>${esc(p.doc_no)}</b></span>` : '',
     pub ? `<span>${pubVerb} ${esc(pub)}</span>` : '',
     originLink(p)

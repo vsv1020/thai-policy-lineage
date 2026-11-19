@@ -352,73 +352,51 @@ def book(title: str) -> str:
     return "《" + (t.replace("《", "〈").replace("》", "〉") if "《" in t or "》" in t else t) + "》"
 
 
-def is_cabinet_resolution(doc: Document) -> bool:
-    """内阁决议条目:只有决议日,没有公报卷期,也没有发布日。"""
-    return bool(doc.resolved_at) and not doc.published_at and not doc.gazette_series
+is_cabinet_resolution = A.is_cabinet_resolution
+_uid_agency = A.uid_agency
 
 
 def agency_th_names() -> dict[str, list[str]]:
-    """词表里各机关的泰文名与别名 {id: [名称…]}(4 个字符以下的缩写不用)。委员会与其办公室(「คณะกรรมการ…」/
-    「สำนักงานคณะกรรมการ…」)算同一机关的,在词表里写成别名(如 BOI),这里不再自动推导。"""
+    """词表里各机关的泰文名与别名 {id: [名称…]}(4 个字符以下的缩写不用)。只用于展示与核对;
+    认发文机关的规则(别名的种类、附属实体的中文名)见 app.issuer。"""
     try:
         vocab = json.loads((DATA_DIR / "vocab.json").read_text(encoding="utf-8"))
     except (OSError, ValueError):
         return {}
     out: dict[str, list[str]] = {}
     for a in vocab.get("agencies") or []:
-        names = [n for n in [a.get("th") or "", *(a.get("th_aliases") or [])] if len(n) >= ISSUER.MIN_NAME]
+        names = [x["th"] for x in ISSUER.alias_entries(a) if len(x["th"]) >= ISSUER.MIN_NAME]
         out[a["id"]] = list(dict.fromkeys(names))
     return out
 
 
-def issuer_info(doc: Document, org: str, th_names: dict[str, list[str]]) -> tuple[str, str]:
-    """落地页上「机关」一栏的 (标签, 名称)。标签是「发文机关」时,开头那句话和结构化数据才把它写成发文者。
+def issuer_info(doc: Document, org: str) -> tuple[str, str, str]:
+    """落地页上「机关」一栏的 (标签, 发文机关, 相关机关)。标签是「发文机关」时,开头那句话和结构化数据
+    才把发文机关写成发文者。org 是全部机关按顺序以「 · 」连起来的显示名(document_view 的 org)。
 
-    数据里的机关是模型从词表里选的,词表里没有的机关会被归到上级部委,或者落到缺省值「内阁」(数据层由
-    app.enrich.fix_agency 按泰文原题重定,这里是页面层的第二道闸)。原样写成「内阁于某日在皇家公报刊登《宪法法院裁决……》」
-    就是一句错话,而开头这句正是 AI 最常引用的。所以只在有依据时才说是谁发的:
-    - 公报条目:泰文原题写明的发文机关(app.issuer,与数据层同一套判断)是该条目的机关之一;
-      没有泰文原题的(人工整理的条目)照旧。
-    - 官网来源的条目:第一个机关就是这个官网的机关(uid 的第二段,如 TH-BOI-…、TH-RD-…),或泰文原题印证。
-    - 内阁决议:第一个机关是内阁。
-    - 人工复核过的条目照旧。
-    印证不了的:标签改为「相关机关」(本站归类,不等于发文者);只有一个缺省的「内阁」时整栏不显示。"""
+    数据里的机关有模型选的成分:词表里没有的机关会被归到上级部委或缺省值「内阁」(数据层由 app.enrich.fix_agency
+    按泰文原题重定),模型另选的机关也会跟在发文机关后面。原样把整串写成「某某 · 某某于某日在皇家公报刊登……」
+    就是一句错话,而开头这句正是 AI 最常引用的。所以只把有依据的写成发文者,规则见 app.issuer.attribute:
+    标题写明的发文机关(同一实体)、人工复核、内阁决议的内阁、官网来源的官网机关;其余列为相关机关;
+    只有一个缺省的「内阁」时整栏不显示。"""
     ids = [a.agency_id for a in sorted(doc.agencies, key=lambda x: x.seq)]
+    parts = (org or "").split(" · ")
+    zh = dict(zip(ids, parts)) if len(parts) == len(ids) else {}
     if not ids or not org:
-        return "发文机关", org
-    rules = _issuer_rules(th_names)
-    head = ISSUER.issuer_head(doc.title_th or "", rules)
-    named = bool(head) and bool(set(ids) & set(ISSUER.issuer_agencies(doc.title_th or "", rules)))
-    if doc.verified or named:
-        ok = True
-    elif is_cabinet_resolution(doc):
-        ok = ids[0] == "cabinet"
-    elif doc.gazette_series:
-        ok = not head
-    else:
-        ok = ids[0] == _uid_agency(doc.uid) or (not head and ids[0] != "cabinet")
-    if ok:
-        return "发文机关", org
-    return ("", "") if ids == ["cabinet"] else ("相关机关", org)
+        return "发文机关", org, ""
+    label, iss, rel = A.attribution(doc, zh)
+    return label, " · ".join(iss), " · ".join(rel)
 
 
-_RULES_CACHE: dict[int, tuple[dict, list]] = {}
+def _issuer_of(v: dict) -> tuple[str, str, str]:
+    """document_view 里算好的机关栏 (标签, 发文机关, 相关机关)。"""
+    return v.get("org_label", "发文机关"), v.get("org_issuer", v.get("org", "")), v.get("org_related", "")
 
 
-def _issuer_rules(th_names: dict[str, list[str]]) -> list[tuple[str, str]]:
-    """同一份名称表只排一次序(导出时对每个落地页都要调用)。"""
-    hit = _RULES_CACHE.get(id(th_names))
-    if hit is None or hit[0] is not th_names:
-        hit = (th_names, ISSUER.rules_from_names(th_names))
-        _RULES_CACHE.clear()
-        _RULES_CACHE[id(th_names)] = hit
-    return hit[1]
-
-
-def _uid_agency(uid: str) -> str:
-    """uid 的第二段(TH-<机关>-<日期>-…):官网来源的条目,这一段就是来源网站所属的机关。"""
-    parts = str(uid or "").split("-")
-    return parts[1].lower() if len(parts) > 2 else ""
+def _passed_by(org_issuer: str):
+    """结构化数据的发文机关:一个是对象,联合发文是列表。"""
+    orgs = [{"@type": "GovernmentOrganization", "name": n} for n in org_issuer.split(" · ") if n]
+    return orgs[0] if len(orgs) == 1 else (orgs or None)
 
 
 def source_site(doc: Document, agencies_zh: dict[str, str]) -> str:
@@ -458,7 +436,7 @@ def _lede(v: dict, gazetted: bool = True, issuer: bool = True, site: str = "") -
     内阁决议:只说「内阁就《……》作出决议」。决议可能是批准,也可能只是听取报告或交办,
     没读过决议正文的条目不能一律写成「通过」。"""
     d = v["dates"]
-    who = v["org"] if issuer else ""
+    who = v.get("org_issuer", v["org"]) if issuer else ""
     sep = " " if who[-1:].isascii() else ""
     title = book(v["title_zh"])
     no = f"({v['doc_no_label']} {v['doc_no']})" if v["doc_no"] else ""
@@ -483,19 +461,22 @@ def render_page(s: Session, doc: Document, today, titles: dict[str, str],
                 dom: tuple[str, str] = ("", ""), related: list[tuple[str, str, str]] = (),
                 series: list[tuple[str, str, str]] = (),
                 collections: list[tuple[str, str]] = (), dup_title: bool = False,
-                view: dict | None = None, issuer: tuple[str, str] | None = None, site: str = "") -> str:
+                view: dict | None = None, issuer: tuple[str, str, str] | None = None, site: str = "") -> str:
     """dom = (领域 id, 领域中文名);related = 同领域相邻政策 [(uid, 日期, 标题)],做站内链接;
     series = 同一标题先后刊登的其他文件 [(uid, 日期, 标题)],按日期排列;
     collections = 收录本条的汇总页 [(相对 p/ 的地址, 名称)],专题页与影响对象页靠它拿到内链;
     dup_title = 还有别的条目与本条中文标题完全相同,<title> 要带上日期区分;
     view = 已算好的 A.document_view(简繁两遍渲染共用一份,省一半查询);
-    issuer = issuer_info 的结果 (机关一栏的标签, 名称),site = source_site 的结果;不传就现算。"""
+    issuer = (机关一栏的标签, 发文机关, 相关机关),即 document_view 里的 org_label / org_issuer / org_related;
+    site = source_site 的结果;不传就现算。"""
     v = view or A.document_view(s, doc, today)
     d = v["dates"]
     # 有公报卷期才说「刊登公报」;部门官网来源的条目,日期是官网发布日
     gazetted = bool(doc.gazette_series)
-    org_label, org = issuer if issuer is not None else issuer_info(doc, v["org"], agency_th_names())
+    org_label, org_issuer, org_related = issuer if issuer is not None else _issuer_of(v)
     is_issuer = org_label == "发文机关"
+    # 机关栏:发文机关一行 + 其余机关另列「相关机关」;印证不了时只有「相关机关」一行
+    org_rows = ([("发文机关", org_issuer)] if is_issuer else []) + [("相关机关", org_related)]
     points = sound_points(v["key_points"])
     lede = _lede(v, gazetted, is_issuer, site)
     title = page_title(v["title_zh"], v["date"] if dup_title else "",
@@ -532,7 +513,7 @@ def render_page(s: Session, doc: Document, today, titles: dict[str, str],
                  f'<div class="tl-name">{e(t[1])}</div></div>' for t in timeline)
 
     when = " / ".join(f"{n} {dt}" for dt, n in timeline) or "—"
-    facts = [("是什么", v["title_zh"]), (org_label, org),
+    facts = [("是什么", v["title_zh"]), *org_rows,
              (v["doc_no_label"], v["doc_no"]), ("关键日期", when), ("当前状态", _status(v)),
              ("法律层级", v["legal_form"]), ("所属领域", dom[1])]
     facts_html = "".join(f"<dt>{e(k)}</dt><dd>{e(val)}</dd>" for k, val in facts if val)
@@ -547,8 +528,7 @@ def render_page(s: Session, doc: Document, today, titles: dict[str, str],
         "legislationDate": d.get("published_at") or d.get("resolved_at"),
         "legislationLegalForce": legal_force(doc, today),
         # 只在机关确是发文者时才声明(见 issuer_info);印证不了的不写
-        "legislationPassedBy": ({"@type": "GovernmentOrganization", "name": org}
-                                if is_issuer and org else None),
+        "legislationPassedBy": _passed_by(org_issuer) if is_issuer else None,
         "datePublished": v["date"] or None,
         "inLanguage": _lang(), "url": canonical, "abstract": v["summary_zh"],
         "about": dom[1] or None,
@@ -588,7 +568,7 @@ def render_page(s: Session, doc: Document, today, titles: dict[str, str],
   {f'<div class="d-thai" lang="th">泰文原题:{e(v["title_th"])}</div>' if v['title_th'] else ''}
   <p class="lede">{e(lede)}</p>
   <div class="fields">
-    {_field(org_label, org)}{_field(v['doc_no_label'], v['doc_no'])}
+    {"".join(_field(k, val) for k, val in org_rows)}{_field(v['doc_no_label'], v['doc_no'])}
     {_field('内阁决议日', d.get('resolved_at'))}{_field('刊登公报日' if gazetted else '发布日', d.get('published_at'))}
     {_field('生效日', d.get('effective_from'))}{_field('状态', _status(v))}
     {_field('法律层级', v['legal_form'])}{_field('稳定性', f"{v['stability']} / 5")}
@@ -1089,6 +1069,7 @@ def render_llms(entries: list[dict], topics: list[tuple[str, str, int]], full: b
                  *([f"- 生效日:{x['effective']}"] if x.get("effective") else []),
                  *([f"- 影响对象:{'、'.join(x['parties_zh'])}"] if x.get("parties_zh") else []),
                  *([f"- {x.get('org_label') or '发文机关'}:{x['org']}"] if x["org"] else []),
+                 *([f"- 相关机关:{x['org_related']}"] if x.get("org_related") else []),
                  f"- 泰文原文(官方):{x['official']}", "",
                  _md(x["summary"]), *([""] + [f"- {_md(k)}" for k in x["points"]] if x["points"] else []), ""]
     return "\n".join(body) + "\n"
@@ -1230,6 +1211,11 @@ def _cut(t: str, n: int) -> str:
     return t[:n] + "…" if len(t) > n else t
 
 
+def _card_org(p: dict) -> str:
+    """卡片上的机关:与 js/data.js 一样,优先用导出时判断过的 org_shown。"""
+    return p["org_shown"] if "org_shown" in p else (p.get("org") or "")
+
+
 def render_policy_card(p: dict) -> str:
     """与 js/data.js 的 policyCard 同一结构、同一类名、同一处空白,前端加载后整体替换时版面不跳。
     只少了点击打开站内详情的 onclick:脚本还没加载完时点标题,直接去落地页,而不是调用还不存在的函数。"""
@@ -1238,7 +1224,7 @@ def render_policy_card(p: dict) -> str:
     verb = "刊登" if p.get("doc_no_label") == "公报" else ("发布" if dates.get("published_at") else "决议")
     points = (p.get("key_points") or [])[:2]
     meta = "".join(x for x in [
-        f'<span>{e(p["org"])}</span>' if p.get("org") else "",
+        f'<span>{e(_card_org(p))}</span>' if _card_org(p) else "",
         f'<span>{e(p.get("doc_no_label") or "文号")} <b>{e(p["doc_no"])}</b></span>' if p.get("doc_no") else "",
         f"<span>{verb} {e(pub)}</span>" if pub else "",
         (f'<span><a href="{e(p["source_url"])}" target="_blank" rel="noopener"\n'
@@ -1382,9 +1368,8 @@ def build(s: Session, overview: dict | None = None) -> dict[str, int]:
     domains = {d.id: d for d in s.scalars(select(Domain)).all()}
     views = {d.uid: A.document_view(s, d, today) for d in docs}    # 简繁两遍渲染共用
     # 机关一栏能不能当「发文机关」说(见 issuer_info);官网来源的条目,原文在哪个机关的官网上
-    th_names = agency_th_names()
     agencies_zh = {a.id: a.zh for a in s.scalars(select(Agency)).all()}
-    issuers = {d.uid: issuer_info(d, views[d.uid]["org"], th_names) for d in docs}
+    issuers = {d.uid: _issuer_of(views[d.uid]) for d in docs}
     sites = {d.uid: source_site(d, agencies_zh) for d in docs}
 
     def dom_of(doc: Document) -> tuple[str, str]:
@@ -1437,7 +1422,9 @@ def build(s: Session, overview: dict | None = None) -> dict[str, int]:
                         "effective": doc.effective_from.isoformat() if doc.effective_from else "",
                         "parties_zh": [parties_zh[x.party_id] for x in sorted(doc.parties, key=lambda x: x.party_id)
                                        if x.party_id in parties_zh],
-                        "org": issuers[doc.uid][1], "org_label": issuers[doc.uid][0]})
+                        "org_label": issuers[doc.uid][0],
+                        "org": issuers[doc.uid][1] if issuers[doc.uid][0] == "发文机关" else issuers[doc.uid][2],
+                        "org_related": issuers[doc.uid][2] if issuers[doc.uid][0] == "发文机关" else ""})
 
     topics = sorted(((i, domains[i].zh, len(items)) for i, items in by_dom.items() if i),
                     key=lambda t: (-t[2], t[0]))

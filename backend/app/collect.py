@@ -33,9 +33,10 @@ import httpx
 from sqlalchemy import select
 
 from .persons import title_person_reason
-from .config import BKK, POLICIES_DIR, settings
+from .config import BKK, DATA_DIR, POLICIES_DIR, settings
 from .db import init_db, session_scope
 from .ingest import load_documents, read_jsonl
+from .issuer import title_issuers
 from .models import CollectRun, Document, SourceHealth
 
 log = logging.getLogger("policy.collect")
@@ -56,7 +57,9 @@ SOURCES = [
 ]
 
 # 红线一:王室相关一律不自动入库
-ROYAL_TERMS = ("พระบรมราชโองการ", "สมเด็จพระ", "พระบาทสมเด็จ", "ราชวงศ์", "เครื่องราชอิสริยาภรณ์")
+# 红线一的泰文词:采集(标题)、翻译(enrich.ROYAL_TERMS)、校验(tools/validate.py)三处同一份,
+# 测试 test_fulltext.test_red_line_terms_are_the_same_everywhere 逐字比对
+ROYAL_TERMS = ("พระบรมราชโองการ", "สมเด็จพระ", "พระบาทสมเด็จ", "ราชวงศ์", "เครื่องราชอิสริยาภรณ์", "พระราชทาน")
 # 红线二:人名前缀出现即跳过(叙勋、归化名单等)。规则在 app.persons,与翻译环节共用
 PERSON_PREFIX = re.compile(r"(นาย|นาง|นางสาว)\s*\S")     # 旧规则,仅为兼容保留;判断用 persons
 
@@ -357,7 +360,8 @@ def normalize_gazette(rec: dict, run_at: str) -> tuple[dict | None, str]:
         "goal_ids": [],
         "implementation_stage": None,
         "subjects": [],
-        "agency_ids": ["cabinet"],          # 公报索引不含发文机关,先挂内阁秘书处口径
+        # 公报索引不含发文机关字段:按泰文标题认(app.issuer,与 enrich.fix_agency 同一口径);认不出先挂内阁秘书处口径
+        "agency_ids": title_issuers(title, DATA_DIR / "vocab.json") or ["cabinet"],
         "domain_ids": ["biz"],              # 待翻译分类环节改写
         "legal_form_id": "prakat",
         "status_id": "gazetted",
