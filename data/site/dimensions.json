@@ -18,8 +18,8 @@
     "zh": "环境型",
     "desc": "规则与激励塑造环境",
     "color": "seal",
-    "share": 77,
-    "count": 677,
+    "share": 78,
+    "count": 679,
     "rows": [
      {
       "id": "disclosure",
@@ -54,7 +54,7 @@
       "data": [
        10,
        34,
-       335
+       337
       ]
      },
      {
@@ -152,7 +152,7 @@
     ]
    }
   ],
-  "n": 874,
+  "n": 876,
   "sufficient": true,
   "min_n": 12
  },
@@ -218,7 +218,7 @@
      38,
      93,
      89,
-     146,
+     147,
      4
     ]
    },
@@ -244,7 +244,7 @@
     "goal": "区域均衡"
    }
   ],
-  "n": 747,
+  "n": 748,
   "sufficient": true,
   "min_n": 12
  },
@@ -292,7 +292,7 @@
     "justiciable": true,
     "note": "部长签发,程序性约束",
     "count": 32,
-    "pct": 6
+    "pct": 5
    },
    {
     "id": "prakat",
@@ -302,8 +302,8 @@
     "stability": 2,
     "justiciable": false,
     "note": "调整最快,占比最高",
-    "count": 421,
-    "pct": 72
+    "count": 423,
+    "pct": 73
    },
    {
     "id": "rabiap",
@@ -325,7 +325,7 @@
     "justiciable": false,
     "note": "政策方向,需后续文件落地",
     "count": 32,
-    "pct": 6
+    "pct": 5
    },
    {
     "id": "guidance",
@@ -339,10 +339,10 @@
     "pct": 3
    }
   ],
-  "total": 581,
+  "total": 583,
   "fragile_pct": 91,
   "fragile_note": "承载在公告与内阁决议层的比例 —— 调整快、可诉性弱,投资测算应按可撤回处理",
-  "n": 581,
+  "n": 583,
   "sufficient": true,
   "min_n": 20
  },
@@ -352,15 +352,15 @@
     "id": "foreign_company",
     "label": "外资企业",
     "support": 124,
-    "constrain": 138,
-    "neutral": 178
+    "constrain": 139,
+    "neutral": 179
    },
    {
     "id": "foreign_investor",
     "label": "外资投资者",
     "support": 90,
     "constrain": 28,
-    "neutral": 77
+    "neutral": 78
    },
    {
     "id": "consumer",
@@ -381,7 +381,7 @@
     "label": "本地雇主",
     "support": 25,
     "constrain": 35,
-    "neutral": 38
+    "neutral": 39
    },
    {
     "id": "foreign_resident",
@@ -412,8 +412,8 @@
     "neutral": 25
    }
   ],
-  "max": 138,
-  "n": 1181,
+  "max": 139,
+  "n": 1185,
   "sufficient": true,
   "min_n": 10
  },
@@ -566,7 +566,7 @@
    }
   ],
   "max": 14,
-  "solo_documents": 522,
+  "solo_documents": 524,
   "note": "联署少而各自单独规定同一事项,是维度六冲突的来源",
   "n": 87,
   "sufficient": true,
@@ -611,7 +611,7 @@
     "id": "implementing_rule",
     "label": "实施细则",
     "seq": 4,
-    "count": 518,
+    "count": 520,
     "hot": true,
     "weak": false
    },
@@ -632,12 +632,12 @@
     "weak": true
    }
   ],
-  "total": 581,
-  "peak": 518,
+  "total": 583,
+  "peak": 520,
   "missing": [
    "国家规划"
   ],
-  "n": 581,
+  "n": 583,
   "sufficient": true,
   "min_n": 12
  }

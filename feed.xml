@@ -5,8 +5,24 @@
   <link href="https://www.thaipolicy.com/feed.xml" rel="self"/>
   <link href="https://www.thaipolicy.com/"/>
   <id>https://www.thaipolicy.com/feed.xml</id>
-  <updated>2026-11-05T00:00:00+07:00</updated>
+  <updated>2026-11-17T00:00:00+07:00</updated>
   <author><name>政策脉络 · 泰国</name></author>
+  <entry>
+    <title>投资促进委员会公告第 ป.13/2569 号：取消私人机构协助检查生产损耗或不合格原材料的许可</title>
+    <link href="https://www.thaipolicy.com/p/th-boi-20261117-139686.html"/>
+    <id>https://www.thaipolicy.com/p/th-boi-20261117-139686.html</id>
+    <updated>2026-11-17T00:00:00+07:00</updated>
+    <category term="公司投资"/>
+    <summary>投资促进委员会取消此前授予电气与电子研究所的许可，该许可允许其协助检查生产损耗或不合格原材料。原因是该机构未能在 2568 年（2025 年）内取得泰国工业产品标准体系下检查机构认证（มอก. 17020），不符合第 ป.12/2567 号公告第 3.2 条和第 6 条规定的条件。取消自 2569 年 1 月 27 日（2026 年 1 月 27 日）起生效。</summary>
+  </entry>
+  <entry>
+    <title>投资促进委员会公告第 ป.12/2569 号:撤销私人协助检查生产损耗或不合格原材料的许可</title>
+    <link href="https://www.thaipolicy.com/p/th-boi-20261117-139685.html"/>
+    <id>https://www.thaipolicy.com/p/th-boi-20261117-139685.html</id>
+    <updated>2026-11-17T00:00:00+07:00</updated>
+    <category term="公司投资"/>
+    <summary>投资促进委员会撤销此前授予一家私人检验公司的许可,该公司原获准协助检查生产损耗或不合格的原材料。原因是该公司未能在 2568 年(2025 年)内取得泰国工业标准 TIS 17020 检验机构认证,不符合第 ป.12/2567 号公告第 3.2 条和第 6 条规定的条件。撤销自 2569 年 1 月 27 日(2026 年 1 月 27 日)起生效。</summary>
+  </entry>
   <entry>
     <title>税务厅厅长关于所得税的公告（第473号）：规定依据政党法向政党捐款的支出条件、方法与规则（修订第358号公告）</title>
     <link href="https://www.thaipolicy.com/p/th-rd-20261105-dg473a.html"/>
@@ -390,21 +406,5 @@
     <updated>2026-04-21T00:00:00+07:00</updated>
     <category term="金融外汇"/>
     <summary>泰国政府储蓄银行推出13个月特别活期存款（Special）产品，以促进储蓄并扩大客户基础。开户期为2026年2月25日至5月15日，仅限7岁以上个人客户，且须为2026年2月1日起在该产品中保有余额的客户，不接受法人及团体账户。存款按金额分档计息，年利率1.00%至1.30%，不代扣所得税，起存1万泰铢，续存每次不低于1,000泰铢；不可部分支取，提前支取按活期最低利率计息，满13个月后本息自动转入绑定的活期账户。</summary>
-  </entry>
-  <entry>
-    <title>政府储蓄银行公告：1年期数字特别储蓄彩票（Digital Salak on MyMo）第630期通过MyMo手机银行服务办理存款</title>
-    <link href="https://www.thaipolicy.com/p/th-gaz-20260421-1-630-digital-salak-on.html"/>
-    <id>https://www.thaipolicy.com/p/th-gaz-20260421-1-630-digital-salak-on.html</id>
-    <updated>2026-04-21T00:00:00+07:00</updated>
-    <category term="金融外汇"/>
-    <summary>政府储蓄银行发布公告，开办1年期数字特别储蓄彩票第630期，每单位100泰铢，仅通过MyMo手机银行渠道办理，自2026年2月17日起接受存款。存款期限1年，未满6个月提前赎回每单位98泰铢，满6个月未满1年赎回100泰铢，到期赎回本息合计每单位100.20泰铢。每月16日开奖一次，中奖款项于开奖次日转入储户指定的关联账户。</summary>
-  </entry>
-  <entry>
-    <title>政府储蓄银行公告：1年期特别储蓄彩票第629期存款业务</title>
-    <link href="https://www.thaipolicy.com/p/th-gaz-20260421-1-629.html"/>
-    <id>https://www.thaipolicy.com/p/th-gaz-20260421-1-629.html</id>
-    <updated>2026-04-21T00:00:00+07:00</updated>
-    <category term="金融外汇"/>
-    <summary>政府储蓄银行依据2004年特别储蓄彩票存款部令及资产管理委员会2025年11月13日第16/2568号决议，开办1年期特别储蓄彩票第629期存款业务。彩票每单位100泰铢，分记名式和礼品式两种，自2026年2月28日起在帕凤裕庭办公室、拉差丹嫩办公室及全国各分行发售。存满1年连本带息每单位可取回100.20泰铢；存不满6个月取回98泰铢，存满6个月不满1年取回100泰铢。每月16日开奖一次。</summary>
   </entry>
 </feed>
