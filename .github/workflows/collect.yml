@@ -18,6 +18,9 @@ on:
       enrich_limit:
         description: '本轮最多翻译多少条(0 = 不翻译;回填时忽略此项)'
         default: '300'
+      backfill_topic:
+        description: '专题回填(可选):填 config/topics.json 里开启 backfill 的专题 id(如 land-use),扫描公报数据集全部月份补齐该专题'
+        default: ''
 
 permissions:
   contents: write
@@ -97,9 +100,14 @@ jobs:
       - name: 采集 → 翻译分类 → 入库 → 导出
         id: collect
         working-directory: backend
+        env:
+          BACKFILL_TOPIC: ${{ github.event.inputs.backfill_topic }}
         # 先不用 --strict:即使全部源失败,也要把「失败」这一事实提交进仓库,
         # 页面才会诚实显示源状态。是否标红放到最后一步决定。
         run: |
+          if [ -n "$BACKFILL_TOPIC" ]; then
+            python -m app.collect --backfill-topic "$BACKFILL_TOPIC"
+          fi
           python -m app.collect --trigger ${{ github.event_name == 'schedule' && 'schedule' || 'manual' }} ${{ github.event.inputs.backfill == 'true' && '--backfill' || '' }} | tee ../collect-result.json
           echo "status=$(python -c "import json;print(json.load(open('../collect-result.json'))['status'])")" >> "$GITHUB_OUTPUT"
 

@@ -237,7 +237,13 @@ def download(r: dict, throttle: Throttle, client: httpx.Client) -> tuple[Any, st
     errors = []
     if r.get("datastore_active") and r.get("id"):
         try:
-            return fetch_datastore(r["id"], throttle, client), "data.go.th datastore"
+            rows = fetch_datastore(r["id"], throttle, client)
+            if datastore_is_garbled(rows):
+                # 2023-11 ~ 2024-02 几个月:平台把排版过的 JSON 文件按行导入,每行一条「[」「{」碎片,
+                # 而且只导入了前 1 万行。这种 datastore 不能用,改下原始文件
+                errors.append("datastore:按行导入的 JSON 碎片,改下原始文件")
+            else:
+                return rows, "data.go.th datastore"
         except Exception as exc:
             errors.append(f"datastore:{str(exc)[:150]}")
     if r.get("url"):
@@ -248,6 +254,14 @@ def download(r: dict, throttle: Throttle, client: httpx.Client) -> tuple[Any, st
     raise RuntimeError(";".join(errors) or "没有可用的下载途径")
 
 
+def datastore_is_garbled(rows: list[dict]) -> bool:
+    """datastore 的列名是「[」「{」之类的 JSON 标点,说明原始 JSON 被当成了按行的文本导入。"""
+    if not rows:
+        return False
+    cols = {k for k in rows[0] if k != "_id"}
+    return bool(cols) and all(re.fullmatch(r"[\s\[\]{},]*", k) for k in cols)
+
+
 def iter_records(payload: Any) -> list[dict]:
     if isinstance(payload, list):
         return [x for x in payload if isinstance(x, dict)]
@@ -255,6 +269,10 @@ def iter_records(payload: Any) -> list[dict]:
         for k in ("data", "records", "result", "items"):
             if isinstance(payload.get(k), list):
                 return [x for x in payload[k] if isinstance(x, dict)]
+        # 2024-06、07 两个月的文件是 Excel 转出来的:{"Worksheet": [...]}。只有一个列表值时就用它
+        lists = [v for v in payload.values() if isinstance(v, list) and v and isinstance(v[0], dict)]
+        if len(lists) == 1:
+            return [x for x in lists[0] if isinstance(x, dict)]
         return [payload]
     return []
 
@@ -720,6 +738,73 @@ def purge_red_lines(dry_run: bool = False) -> list[tuple[str, str]]:
     return dropped
 
 
+def load_topic(topic_id: str) -> dict:
+    from .seo import TOPICS_CONFIG
+    cfg = json.loads(TOPICS_CONFIG.read_text(encoding="utf-8"))
+    t = next((x for x in cfg.get("topics") or [] if x.get("id") == topic_id), None)
+    if t is None:
+        raise SystemExit(f"config/topics.json 里没有专题 {topic_id}")
+    if not t.get("backfill") or not (t.get("match") or {}).get("title_th_patterns"):
+        raise SystemExit(f"专题 {topic_id} 没有开启 backfill 或没有 title_th_patterns,不能回填")
+    return t
+
+
+def backfill_topic(topic_id: str, dry_run: bool = False) -> dict:
+    """专题回填:把公报数据集里**全部月份**中命中该专题泰文规则的条目补进事实层。
+    日常同步只取最近几个月,回溯期也只有两年;一个专题要「收全」,就得把数据集从头扫一遍。
+    红线、系列过滤与日常采集完全相同,只多一道专题筛选;已入库的条目按官方源照常更新。"""
+    from .seo import th_title_matches
+    topic = load_topic(topic_id)
+    match = topic["match"]
+    started = datetime.now(BKK)
+    run_at = started.replace(microsecond=0).isoformat()
+    throttle = Throttle(settings.min_request_interval)
+    src = next(x for x in SOURCES if x["id"] == "gazette_json")
+    records: dict[str, dict] = {}
+    months: list[str] = []
+    failed: list[str] = []
+    skipped: dict[str, int] = {}
+    with source_client({"User-Agent": UA, "Accept": "application/json"}) as client:
+        resources = fetch_ckan(src["dataset"], throttle, client)
+        usable = [r for r in resources
+                  if r.get("datastore_active") or (r.get("format") or "").lower() == "json"]
+        usable.sort(key=resource_period)
+        for r in usable:
+            name = r.get("name") or r.get("id", "?")
+            try:
+                payload, _ = download(r, throttle, client)
+            except Exception as exc:           # noqa: BLE001 —— 单月失败不影响其他月份
+                failed.append(f"{name}:{str(exc)[:120]}")
+                continue
+            got = 0
+            for rec in iter_records(payload):
+                norm, why = normalize_gazette(rec, run_at)
+                if norm is None:
+                    skipped[why] = skipped.get(why, 0) + 1
+                    continue
+                if not th_title_matches(norm["titles"]["th"], match):
+                    continue
+                if norm["uid"] not in records:
+                    records[norm["uid"]] = norm
+                    got += 1
+            y, m = resource_period(r)
+            months.append(f"{y}-{m:02d}:{got}")
+    out = {"topic": topic_id, "matched": len(records), "months": months, "failed": failed,
+           "skipped_top": dict(sorted(skipped.items(), key=lambda kv: -kv[1])[:8]), "dry_run": dry_run}
+    if dry_run:
+        out["sample"] = [r["titles"]["th"][:120] for r in list(records.values())[:20]]
+        return out
+    touched, added, updated = upsert_jsonl(list(records.values()), run_at)
+    out.update(added=added, updated=updated)
+    append_run({"started_at": run_at, "finished_at": datetime.now(BKK).replace(microsecond=0).isoformat(),
+                "status": "ok" if not failed else "partial", "trigger": f"backfill-topic:{topic_id}",
+                "added": added, "updated": updated, "backfill": True,
+                "duration_s": round((datetime.now(BKK) - started).total_seconds(), 1),
+                "detail": f"专题回填 {topic_id}:命中 {len(records)} 条,新增 {added},更新 {updated};"
+                          f"扫描 {len(months)} 个月" + (f";{len(failed)} 个月失败" if failed else "")})
+    return out
+
+
 def append_run(entry: dict) -> None:
     with (POLICIES_DIR / "runs.jsonl").open("a", encoding="utf-8") as fh:
         fh.write(json.dumps(entry, ensure_ascii=False) + "\n")
@@ -834,9 +919,14 @@ def main() -> None:
                     help=f"回填:下载回溯期(LOOKBACK_DAYS,当前 {settings.lookback_days} 天)内的全部月份")
     ap.add_argument("--strict", action="store_true",
                     help="所有源都失败时以退出码 2 结束 —— 给 CI 用,让失败变红、触发通知")
+    ap.add_argument("--backfill-topic", metavar="TOPIC_ID",
+                    help="专题回填:扫描公报数据集全部月份,只补进命中该专题(config/topics.json)的条目")
     ap.add_argument("--purge-red-lines", action="store_true",
                     help="不采集,只按现行红线清理事实层里早先收进来的不合规条目")
     args = ap.parse_args()
+    if args.backfill_topic:
+        print(json.dumps(backfill_topic(args.backfill_topic, dry_run=args.dry_run), ensure_ascii=False, indent=1))
+        return
     if args.purge_red_lines:
         dropped = purge_red_lines(dry_run=args.dry_run)
         reasons: dict[str, int] = {}
