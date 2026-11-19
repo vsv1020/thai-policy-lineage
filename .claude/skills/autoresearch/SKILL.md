@@ -8,8 +8,8 @@ description: 抓取泰国官方政策最新动态,写入 data/policies/documents
 一次运行 = 一轮增量采集。
 
 **写入 `data/policies/*.jsonl`(规范化事实层),然后 `python3 -m app.ingest` 入库、
-`python3 -m app.export` 生成 `data/site/*.json`。**
-不要手改 `data/site/` 下的任何文件(那是派生产物,CI 会检查它与事实层一致),
+`python3 -m app.export` 生成 `data/site/*.json` 以及落地页等其他派生产物(`p/`、`zh-hant/`、`feed/`、sitemap、llms)。**
+不要手改 `data/site/`、`p/`、`zh-hant/`、`feed/` 下的任何文件(都是派生产物,CI 会检查它们与事实层一致),
 也不要改 `index.html` / `js/`(前端从 API 或这些 JSON 渲染)。
 
 **先看后端有没有在跑**:`python3 -m app.collect` 已经会自动采集 data.go.th 官方源并入库。
@@ -105,8 +105,12 @@ python3 tools/validate.py                    # 词表、关系、日期顺序、
 cd backend && pip install -q -r requirements.txt   # 首次或依赖变动时
 python3 -m app.ingest                        # 事实层 → 数据库(幂等)
 python3 -m pytest tests -q                   # 全部测试,分析口径别被改坏
-python3 -m app.export                        # 数据库 → data/site/*.json
-cd .. && git add data/policies data/site
+python3 -m app.export                        # 数据库 → data/site/*.json,并重新生成落地页等全部派生产物
+# 导出会重写 p/、zh-hant/(繁体镜像)、feed/、sitemap、llms、三个手写页里的受管区块 —— 都要一起提交,
+# 否则 CI(.github/workflows/data.yml)重新导出比对时会报「派生产物与事实层不一致」。
+# 清单与 .github/workflows/collect.yml 的「提交采集结果」一步保持一致
+cd .. && git add data/policies data/site p feed zh-hant sitemap.xml robots.txt feed.xml llms.txt llms-full.txt index.html privacy.html about.html
+[ -f ads.txt ] && git add ads.txt || true
 git commit -m "data: 政策数据增量更新(新增 N 条 / 更新 M 条)"
 git push -u origin claude/code-review-loop-autoresearch-pisrof
 ```
