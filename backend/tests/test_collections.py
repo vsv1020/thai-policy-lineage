@@ -62,3 +62,22 @@ def test_topic_matching_rules():
     assert not seo.topic_matches(x, {"title_keywords": ["配额"], "domains": ["tax"]})
     assert seo.topic_matches(x, {"uids": ["U1"], "parties": ["importer"]})
     assert not seo.topic_matches(x, {"title_keywords": ["土地"]})
+
+
+def test_land_use_topic_rules():
+    """「变更土地用途」专题按泰文标题匹配;部门名「กรมโยธาธิการและผังเมือง」不算城市规划;必收类型不许判为无关。"""
+    import json
+    from app.enrich import kept_by_topic, _keep_patterns
+    from app.config import REPO_ROOT
+    from app.seo import th_title_matches
+    cfg = json.loads((REPO_ROOT / "config" / "topics.json").read_text(encoding="utf-8"))
+    t = next(x for x in cfg["topics"] if x["id"] == "land-use")
+    m = t["match"]
+    assert th_title_matches("ประกาศกระทรวงมหาดไทย เรื่อง การให้ใช้บังคับผังเมืองรวมจังหวัดเพชรบุรี พ.ศ. 2568", m)
+    assert th_title_matches("เทศบัญญัติเทศบาลนครยะลา เรื่อง กำหนดบริเวณห้ามก่อสร้าง ดัดแปลง หรือเปลี่ยนการใช้อาคารบางชนิด", m)
+    assert th_title_matches("ประกาศคณะกรรมการการนิคมอุตสาหกรรมแห่งประเทศไทย เรื่อง การเปลี่ยนแปลงเขต นิคมอุตสาหกรรมหนองละลอก", m)
+    assert not th_title_matches("ประกาศกรมโยธาธิการและผังเมือง เรื่อง โครงสร้าง การจัดองค์กรในการดำเนินงาน", m)
+    assert not th_title_matches("ประกาศกระทรวงทรัพยากรธรรมชาติ เรื่อง แต่งตั้งพนักงานเจ้าหน้าที่ตามพระราชบัญญัติป่าสงวนแห่งชาติ", m)
+    pats = _keep_patterns()
+    assert kept_by_topic({"titles": {"th": "ประกาศกระทรวงมหาดไทย เรื่อง การให้ใช้บังคับผังเมืองรวมชุมชนบางสะพาน"}}, pats)
+    assert not kept_by_topic({"titles": {"th": "ประกาศกรมป่าไม้ เรื่อง เพิกถอนป่าชุมชนบ้านสารภี บางส่วน"}}, pats)

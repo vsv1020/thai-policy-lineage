@@ -41,7 +41,7 @@ from datetime import date, datetime, timedelta
 
 import httpx
 
-from .config import BKK, DATA_DIR, POLICIES_DIR, settings
+from .config import BKK, DATA_DIR, POLICIES_DIR, REPO_ROOT, settings
 from .db import init_db, session_scope
 from .ingest import load_documents, read_jsonl
 from .persons import output_person_reason, redact as redact_persons
@@ -358,6 +358,40 @@ def fix_agency(rec: dict, v: dict) -> bool:
     return True
 
 
+def _keep_patterns() -> list[str]:
+    """专题配置里的 keep_patterns:命中的条目不许判为「无关」(见 config/topics.json)。"""
+    path = REPO_ROOT / "config" / "topics.json"
+    try:
+        cfg = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return []
+    return [p for t in cfg.get("topics") or [] for p in t.get("keep_patterns") or []]
+
+
+def kept_by_topic(rec: dict, patterns: list[str] | None = None) -> bool:
+    title = (rec.get("titles") or {}).get("th", "")
+    return any(re.search(p, title) for p in (_keep_patterns() if patterns is None else patterns))
+
+
+def requeue_kept(dry_run: bool = False) -> list[str]:
+    """早先被判为「无关」、但命中 keep_patterns 的条目:去掉 skip、清空中文标题,回到翻译队列。
+    判为无关时只留了标题、没写摘要,所以要重新翻译,不能只改标记。"""
+    pats = _keep_patterns()
+    records = read_jsonl(POLICIES_DIR / "documents.jsonl")
+    changed: dict[str, dict] = {}
+    for r in records:
+        if (r.get("flags") or {}).get("skip") and kept_by_topic(r, pats) \
+                and (r.get("provenance") or {}).get("pipeline") in ("gazette_json", "cabinet_json", "rd_web", "boi_web"):
+            r = json.loads(json.dumps(r))
+            r["flags"].pop("skip", None)
+            r["titles"]["zh"] = ""
+            r["note"] = (r.get("note", "") + " | 属于必收专题,重新翻译").strip(" |")
+            changed[r["uid"]] = r
+    if changed and not dry_run:
+        rewrite_jsonl(changed)
+    return sorted(changed)
+
+
 def apply_enrichment(rec: dict, out: dict, v: dict, model: str, basis: str = "title") -> dict:
     """把模型输出合并进记录。再按词表过一遍 —— schema 约束之外的第二道闸。"""
     valid = {k: {e["id"] for e in v[k]} for k in
@@ -511,6 +545,7 @@ def run_enrichment(limit: int | None = None, dry_run: bool = False, client=None,
     with ThreadPoolExecutor(max_workers=max(1, settings.enrich_concurrency)) as pool:
         outputs = list(pool.map(call, todo))
 
+    keep_pats = _keep_patterns()
     for rec, (out, how) in zip(todo, outputs):
         is_upgrade = rec["uid"] in upgrade_ids
         if how == "no_text":
@@ -545,6 +580,8 @@ def run_enrichment(limit: int | None = None, dry_run: bool = False, client=None,
             updated[rec["uid"]] = rec
             result["skipped_red_line"] += 1
             continue
+        if not out.get("relevant", True) and kept_by_topic(rec, keep_pats):
+            out = {**out, "relevant": True}        # 必收专题(城市规划、工业园边界等)不许判为无关
         if is_upgrade and not out.get("relevant", True):
             # 重做时不推翻早先的「相关」判定,只更新内容
             out = {**out, "relevant": True}
@@ -591,9 +628,15 @@ def main() -> None:
     ap.add_argument("--limit", type=int, default=None)
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--fix-agencies", action="store_true", help="按泰文标题重定已入库条目的发文机关")
+    ap.add_argument("--requeue-kept", action="store_true",
+                    help="把早先判为无关、但属于必收专题(keep_patterns)的条目放回翻译队列")
     args = ap.parse_args()
     if args.fix_agencies:
         print(json.dumps(fix_agencies(args.dry_run), ensure_ascii=False))
+        return
+    if args.requeue_kept:
+        uids = requeue_kept(args.dry_run)
+        print(json.dumps({"requeued": len(uids), "uids": uids, "dry_run": args.dry_run}, ensure_ascii=False))
         return
     print(json.dumps(run_enrichment(args.limit, args.dry_run), ensure_ascii=False, indent=1))
 
