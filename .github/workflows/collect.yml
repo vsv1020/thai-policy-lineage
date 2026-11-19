@@ -40,6 +40,7 @@ jobs:
       - id: check
         env:
           GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
         run: |
           if [ "${{ github.event_name }}" != "schedule" ]; then echo "skip=false" >> "$GITHUB_OUTPUT"; exit 0; fi
           curl -s -H "Authorization: Bearer $GH_TOKEN" \
@@ -52,6 +53,16 @@ jobs:
           runs = json.load(sys.stdin).get('workflow_runs', [])
           done = any(datetime.fromisoformat(r['created_at'].replace('Z', '+00:00')).astimezone(bkk).date() == today
                      and r.get('conclusion') in (None, 'success') for r in runs)
+          # 服务器自己采集(deploy/collect-local.sh)时没有 dispatch 记录,看 main 上今天有没有采集提交
+          import os, urllib.request
+          req = urllib.request.Request(
+              'https://api.github.com/repos/' + os.environ['REPO'] + '/commits?sha=main&per_page=20',
+              headers={'Authorization': 'Bearer ' + os.environ['GH_TOKEN']})
+          try:
+              commits = json.load(urllib.request.urlopen(req, timeout=30))
+          except Exception:
+              commits = []
+          done = done or any(c['commit']['message'].startswith(f'data: 每日采集 {today.isoformat()}') for c in commits)
           print('skip=' + ('true' if done else 'false'))
           print('今天已由服务器触发过,跳过这次定时运行' if done else '今天还没跑过,继续', file=sys.stderr)
           " >> "$GITHUB_OUTPUT"
