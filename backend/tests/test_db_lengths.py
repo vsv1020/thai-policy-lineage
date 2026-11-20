@@ -43,3 +43,37 @@ def test_real_run_history_loads(tmp_path):
     with session_scope() as s:
         assert load_runs(s, records) == len(records)
         s.rollback()
+
+
+def test_overlong_document_title_is_clipped_not_rejected():
+    """2026-11-20:内阁决议 TH-CABX-20250318-2 的泰文标题 1420 个字符,documents.title_th 是 VARCHAR(512)。
+    翻译上线后入库,SQLite 的长度检查会让采集失败、PostgreSQL 会让整站启动失败。现在截到列宽并加省略号。"""
+    from app.models import Document
+    width = Document.__table__.c.title_th.type.length
+    title = "มติคณะรัฐมนตรี " * 120
+    with session_scope() as s:
+        doc = Document(uid="TH-CABX-20250318-ZZTEST", title_zh="测试", title_th=title,
+                       legal_form_id="resolution", status_id="pending_gazette")
+        assert len(doc.title_th) == width and doc.title_th.endswith("…")
+        assert doc.title_th[:-1] == title[:width - 1]
+        assert Document(uid="x", title_zh="短标题", title_th="ประกาศ").title_th == "ประกาศ"
+        s.rollback()
+
+
+def test_every_record_in_the_fact_layer_fits_after_translation():
+    """事实层全部记录(含尚未翻译、还不入库的)按「已翻译」载入数据库,不超过任何列宽。"""
+    import json
+    from app.config import REPO_ROOT
+    from app.ingest import load_documents, read_jsonl
+    rows = read_jsonl(REPO_ROOT / "data" / "policies" / "documents.jsonl")      # 仓库真实数据,不是测试夹具
+    assert any(len((r.get("titles") or {}).get("th", "")) > 512 for r in rows), "样本里应有超长泰文标题"
+    filled = []
+    for r in rows:
+        r = json.loads(json.dumps(r))
+        r["titles"]["zh"] = r["titles"].get("zh") or "待译"
+        r.setdefault("flags", {}).pop("skip", None)
+        filled.append(r)
+    with session_scope() as s:
+        load_documents(s, filled)
+        s.flush()
+        s.rollback()
