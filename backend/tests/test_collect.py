@@ -579,3 +579,65 @@ def test_recollecting_every_existing_record_changes_nothing(tmp_path, monkeypatc
     assert C.upsert_jsonl([json.loads(json.dumps(r)) for r in auto], "x", stats)[1:] == (0, 0)
     assert stats["uid_collisions"] == 0
     assert (d / "documents.jsonl").read_text(encoding="utf-8") == src
+
+
+# ── uid:截断后不得以连字符结尾(2026-11-20 每日采集校验失败,run 44643214351)──
+import re as _re
+
+RUN = "2026-11-20T07:21:00+07:00"
+
+_UID_RE = _re.compile(r"^TH-[A-Z0-9]+-[A-Z0-9]+(-[A-Z0-9]+)*$")      # 与 tools/validate.py 相同
+
+
+def _slug_before_fix(text: str, limit: int = 5) -> str:
+    words = _re.findall(r"[A-Za-z0-9]+", text)
+    return "-".join(w.upper() for w in words[:limit])[:48] if words else C.slug(text)
+
+
+# 事故当天的真实输入:内阁决议数据集(dataset_02_03,2568 年)toP_SERLNO 413586、meeT_DATE 13/05/2568。
+# 五个拉丁词连起来 52 个字符,截到 48 正好落在「SCHOLARSHIP-」之后
+SCHOLARSHIP = ("แนวทางการดำเนินการโครงการทุนการศึกษาเพื่อขยายโอกาสและพัฒนาประเทศ "
+               "(Outstanding Development Opportunity Scholarship: ODOS)")
+
+
+def test_truncated_slug_has_no_trailing_hyphen():
+    assert _slug_before_fix(SCHOLARSHIP).endswith("-"), "样本必须复现事故(修复前末尾是连字符)"
+    rec, why = C.normalize_cabinet({"toP_SERLNO": 413586, "toP_NAME": SCHOLARSHIP, "owner": "นร.10",
+                                    "meeT_DATE": "13/05/2568", "docNews": []}, RUN)
+    assert why == ""
+    assert rec["uid"] == "TH-CABX-20250513-OUTSTANDING-DEVELOPMENT-OPPORTUNITY-SCHOLARSHIP"
+    assert _UID_RE.match(rec["uid"])
+    gz, _ = C.normalize_gazette({"title": SCHOLARSHIP, "date": "13/05/2568", "series": "ง",
+                                 "pdf_url": "https://ratchakitcha.soc.go.th/documents/1.pdf"}, RUN)
+    assert _UID_RE.match(gz["uid"])
+
+
+def test_slug_unchanged_for_every_existing_title():
+    """只有原来以连字符结尾的结果会变;仓库里全部现有标题的 slug 都和修复前一样(已发布网址不变)。"""
+    from app.config import POLICIES_DIR
+    from app.ingest import read_jsonl
+    rows = read_jsonl(POLICIES_DIR / "documents.jsonl")
+    assert rows
+    for r in rows:
+        t = (r.get("titles") or {}).get("th", "")
+        old = _slug_before_fix(t)
+        assert C.slug(t) == (old.rstrip("-") if old.endswith("-") else old), t
+        assert _UID_RE.match(r["uid"]), r["uid"]
+    for t, want in (("ประกาศกรมสรรพากร เรื่อง Foreign Income 2567", "FOREIGN-INCOME-2567"),
+                    ("ประกาศ เรื่อง ฉบับที่ 806", "806")):
+        assert C.slug(t) == want
+
+
+def test_fixed_slug_collision_still_gets_a_suffix(tmp_path, monkeypatch):
+    """修复后的 slug 若与另一份文件相同(同日、拉丁词恰好就是这四个),仍按撞号规则加消歧后缀,两份都保留。"""
+    a, _ = C.normalize_gazette({"title": SCHOLARSHIP, "date": "13/05/2568", "series": "ง",
+                                "pdf_url": "https://ratchakitcha.soc.go.th/documents/7001.pdf"}, RUN)
+    b, _ = C.normalize_gazette({"title": "ประกาศ Outstanding Development Opportunity Scholarship", "date": "13/05/2568",
+                                "series": "ง", "pdf_url": "https://ratchakitcha.soc.go.th/documents/7002.pdf"}, RUN)
+    assert a["uid"] == b["uid"]
+    path = _jsonl(tmp_path, monkeypatch, [])
+    assert C.upsert_jsonl([a, b], RUN)[1:] == (2, 0)
+    uids = [json.loads(x)["uid"] for x in path.read_text().splitlines()]
+    assert uids == ["TH-GAZ-20250513-OUTSTANDING-DEVELOPMENT-OPPORTUNITY-SCHOLARSHIP",
+                    "TH-GAZ-20250513-OUTSTANDING-DEVELOPMENT-OPPORTUNITY-SCHOLARSHIP-7002"]
+    assert all(_UID_RE.match(u) for u in uids)

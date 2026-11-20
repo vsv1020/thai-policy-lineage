@@ -331,7 +331,9 @@ def normalize_date(value: str) -> str | None:
 def slug(text: str, limit: int = 5) -> str:
     words = re.findall(r"[A-Za-z0-9]+", text)
     if words:
-        return "-".join(w.upper() for w in words[:limit])[:48]
+        # 截到 48 字符时可能正好落在连字符后面(前几个词恰好 47 字符),留下末尾的「-」,
+        # uid 就不合规范了。去掉它;不以「-」结尾的结果不受影响,已入库的 uid 不会变
+        return "-".join(w.upper() for w in words[:limit])[:48].rstrip("-")
     # 泰文标题没有拉丁词可用,退回稳定哈希 —— 保证 uid 可复现
     import hashlib
     return hashlib.sha1(text.encode("utf-8")).hexdigest()[:10].upper()
