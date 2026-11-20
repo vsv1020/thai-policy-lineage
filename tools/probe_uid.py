@@ -56,3 +56,4 @@ dup_new = [k for k, v in after.items() if v > 1]
 before = Counter((n["uid"].split("-")[1], n["uid"].split("-")[2], slug_old(n["titles"]["th"])) for _, n, _ in titles)
 print("## 修复前同批撞号组数:", sum(1 for v in before.values() if v > 1), " 修复后:", len(dup_new))
 print("## 修复后新增的撞号组:", [k for k in dup_new if before.get((k[0], k[1], k[2] + "-"), 0) and before[k] == 0][:5])
+# retry
