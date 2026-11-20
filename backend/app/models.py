@@ -122,6 +122,16 @@ class Document(Base):
     title_en: Mapped[str] = mapped_column(String(512), default="")
     summary_zh: Mapped[str] = mapped_column(Text, default="")
 
+    @validates("title_zh", "title_th", "title_en")
+    def _fit_title(self, key: str, value):
+        """标题超过列宽时截断并加省略号再存(PostgreSQL 会拒收超长值,整站启动失败)。
+        2026-11-20:内阁决议数据集恢复更新后有两条泰文标题 1420、687 个字符,上限 512。
+        完整标题仍保存在事实层 documents.jsonl,落地页另附官方原文链接;这里只是数据库里的显示值。"""
+        width = self.__table__.c[key].type.length
+        if isinstance(value, str) and width and len(value) > width:
+            return value[:width - 1] + "…"
+        return value
+
     legal_form_id: Mapped[str] = mapped_column(ForeignKey("legal_forms.id"))
     status_id: Mapped[str] = mapped_column(ForeignKey("statuses.id"))
     implementation_stage_id: Mapped[str | None] = mapped_column(
