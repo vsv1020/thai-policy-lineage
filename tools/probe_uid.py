@@ -36,8 +36,8 @@ with C.source_client({"User-Agent": C.UA, "Accept": "application/json"}) as clie
                 titles.append((src["id"], n, rec))
 
 print("标题样本数", len(titles), Counter(s for s, _, _ in titles))
-bad = [(s, n, rec) for s, n, rec in titles if not UID_RE.match(n["uid"])]
-print("\n## 当前代码生成的不合规 uid:", len(bad))
+bad = [(s, n, rec) for s, n, rec in titles if slug_old(n["titles"]["th"]).endswith("-")]
+print("\n## 修复前会生成末尾连字符的源记录:", len(bad))
 for s, n, rec in bad:
     print(" ", s, n["uid"])
     print("    原始记录:", json.dumps({k: (v if k != "docNews" else f"[{len(v)} 个附件]") for k, v in rec.items()}, ensure_ascii=False)[:600])
