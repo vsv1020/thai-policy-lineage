@@ -594,13 +594,16 @@ def _slug_before_fix(text: str, limit: int = 5) -> str:
     return "-".join(w.upper() for w in words[:limit])[:48] if words else C.slug(text)
 
 
-# 事故当天的输入形态:内阁决议标题里的前四个拉丁词连起来正好 47 个字符,第 48 个字符是连字符
-SCHOLARSHIP = "ทุนการศึกษา Outstanding Development Opportunity Scholarship Program ปี 2568"
+# 事故当天的真实输入:内阁决议数据集(dataset_02_03,2568 年)toP_SERLNO 413586、meeT_DATE 13/05/2568。
+# 五个拉丁词连起来 52 个字符,截到 48 正好落在「SCHOLARSHIP-」之后
+SCHOLARSHIP = ("แนวทางการดำเนินการโครงการทุนการศึกษาเพื่อขยายโอกาสและพัฒนาประเทศ "
+               "(Outstanding Development Opportunity Scholarship: ODOS)")
 
 
 def test_truncated_slug_has_no_trailing_hyphen():
     assert _slug_before_fix(SCHOLARSHIP).endswith("-"), "样本必须复现事故(修复前末尾是连字符)"
-    rec, why = C.normalize_cabinet({"toP_NAME": SCHOLARSHIP, "meeT_DATE": "13/05/2568", "toP_SERLNO": "1"}, RUN)
+    rec, why = C.normalize_cabinet({"toP_SERLNO": 413586, "toP_NAME": SCHOLARSHIP, "owner": "นร.10",
+                                    "meeT_DATE": "13/05/2568", "docNews": []}, RUN)
     assert why == ""
     assert rec["uid"] == "TH-CABX-20250513-OUTSTANDING-DEVELOPMENT-OPPORTUNITY-SCHOLARSHIP"
     assert _UID_RE.match(rec["uid"])
