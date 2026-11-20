@@ -634,6 +634,22 @@ def test_foreign_404_scanner_paths_ignored_real_ones_kept(tmp_path, monkeypatch)
     assert got == {f"404 {p}" for p in real} | {"500 /index.php/x"}, "站内不可能有的路径不报;旧页面、错误内链、5xx 照报"
 
 
+def test_script_relative_404_ignored_real_scripts_kept():
+    def err(path):
+        return {"path": path, "status": 404, "n": 1, "bots": "GPTBot", "last_seen": "2026-09-29"}
+    noise = ["/js/'+s+'", "/js/feed.xml", "/js/p/week/index.html"]
+    real = ["/js/old.js", "/p/week/index.htm", "/feed.xml"]
+    data = {"crawlers": {"bots": [{"bot": "Googlebot", "group": "search", "hits": 1, "pages": 1, "last_seen": "2026-09-29"},
+                                  {"bot": "Bingbot", "group": "search", "hits": 1, "pages": 1, "last_seen": "2026-09-29"}],
+                         "errors": [err(p) for p in noise + real]},
+            "coverage": {}, "channels": {}}
+    client = httpx.Client(transport=httpx.MockTransport(lambda r: httpx.Response(200, json=data)))
+    rep = M.Report(SITE, date(2026, 9, 29))
+    M.server_stats(client, rep, "tok")
+    items = next(i for i in rep.issues if i["code"] == "crawl_errors")["items"]
+    assert {it.split("(")[0] for it in items} == {f"404 {p}" for p in real}, "脚本字符串被解析到 /js/ 下的地址不报;缺脚本照报"
+
+
 def test_short_summary_gets_lede_in_description(session):
     from sqlalchemy import select
     from app import analytics as A

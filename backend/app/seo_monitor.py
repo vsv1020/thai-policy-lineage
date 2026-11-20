@@ -370,6 +370,18 @@ def _is_foreign_404(path: str) -> bool:
     return not (REPO_ROOT / top).exists()
 
 
+_SCRIPT_ASSET_RE = re.compile(r"\.(?:m?js|map)$", re.I)
+
+
+def _is_script_relative_404(path: str) -> bool:
+    """/js/ 下不是脚本文件的 404:AI 爬虫把脚本里的字符串当链接,按脚本自身地址解析出来的。
+    js/data.js 里的 href="feed.xml"(页面在根目录,浏览器里解析到 /feed.xml,是对的)被 GPTBot 抓成 /js/feed.xml;
+    echarts.min.js 的 '<img src="'+s+'"' 成了 /js/'+s+'。js/ 目录只放脚本,这种地址站内不会有。
+    缺了真的脚本文件(/js/old.js)仍照常上报。"""
+    path = path.split("?", 1)[0]
+    return path.startswith("/js/") and not _SCRIPT_ASSET_RE.search(path)
+
+
 def server_stats(client: httpx.Client, rep: Report, token: str, baidu_on: bool = False) -> dict | None:
     if not token:
         rep.disabled.append("ADMIN_TOKEN:没配置,拿不到服务器记录的爬虫抓取与搜索/AI 来源访问。"
@@ -426,7 +438,8 @@ def server_stats(client: httpx.Client, rep: Report, token: str, baidu_on: bool =
               if (e.get("last_seen") or since) >= since and e.get("status") != 410
               and e.get("path") not in skipped
               and "${" not in e.get("path", "") and not _is_probe(e.get("path", ""))
-              and not (e.get("status") == 404 and _is_foreign_404(e.get("path", "")))]
+              and not (e.get("status") == 404 and (_is_foreign_404(e.get("path", ""))
+                                                   or _is_script_relative_404(e.get("path", ""))))]
     if recent:
         rep.issue("warn", "crawl_errors", f"爬虫近两天遇到 {len(recent)} 个报错路径",
                   "404 通常是删掉的旧页面(可在 nginx 加 301)或错误链接;5xx 查服务器日志",
