@@ -1,0 +1,19 @@
+name: probe uid (temporary, read-only)
+on:
+  push:
+    branches: [fix/uid-trailing-hyphen]
+    paths: [tools/probe_uid.py, .github/workflows/probe-uid.yml]
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      THAI_EGRESS_PROXY: ${{ secrets.THAI_EGRESS_PROXY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install -q -r backend/requirements.txt
+      - run: python tools/probe_uid.py
