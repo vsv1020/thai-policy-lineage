@@ -313,12 +313,17 @@ def validate_output(out: dict, v: dict) -> str | None:
     return None
 
 
-def effective_from(rule: str, explicit: str, published: str | None) -> str | None:
-    """按正文的生效规定推出生效日;推不出返回 None(不覆盖已有日期)。"""
+def _iso(day: str | None) -> date | None:
     try:
-        pub = date.fromisoformat(published) if published else None
+        return date.fromisoformat(day) if day else None
     except ValueError:
-        pub = None
+        return None
+
+
+def effective_from(rule: str, explicit: str, published: str | None,
+                   resolved: str | None = None) -> str | None:
+    """按正文的生效规定推出生效日;推不出返回 None(不覆盖已有日期)。"""
+    pub, res = _iso(published), _iso(resolved)
     if rule == "on_publication" and pub:
         return pub.isoformat()
     if rule == "day_after_publication" and pub:
@@ -330,8 +335,13 @@ def effective_from(rule: str, explicit: str, published: str | None) -> str | Non
             return None
         if d.year > 2400:                      # 模型忘了把佛历换成公历
             d = d.replace(year=d.year - 543)
-        # 离刊登日太远的多半是抽错了,不采用
-        if pub is None or abs((d - pub).days) <= 3 * 366:
+        # 早于决议日的多半是附件里公函的落款日(内阁决议没有刊登日,2026-11-21 一条委员会任命决议
+        # 抽成了部里来函的日期),事实层也不允许生效早于决议
+        if res and d < res:
+            return None
+        # 离刊登日(没有刊登日时按决议日)太远的多半是抽错了,不采用
+        anchor = pub or res
+        if anchor is None or abs((d - anchor).days) <= 3 * 366:
             return d.isoformat()
     return None
 
@@ -452,7 +462,7 @@ def apply_enrichment(rec: dict, out: dict, v: dict, model: str, basis: str = "ti
     rec["key_points_zh"] = [x for x in points if x][:5] if basis == "fulltext" else []
     dates = rec.setdefault("dates", {})
     eff = effective_from(out.get("effective_rule", "none"), out.get("effective_date", ""),
-                         dates.get("published_at")) if basis == "fulltext" else None
+                         dates.get("published_at"), dates.get("resolved_at")) if basis == "fulltext" else None
     if eff and not dates.get("effective_from"):
         dates["effective_from"] = eff
     rec["agency_ids"] = keep(out["agency_ids"], "agencies") or rec.get("agency_ids") or ["cabinet"]

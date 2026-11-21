@@ -100,3 +100,56 @@ def test_boi_doc_no_and_supersede_links():
     assert old["relations"] == [{"type": "superseded_by", "uid": new["uid"]}]
     assert old["status_id"] == "superseded"
     assert "_repeals" not in new and "_repeals" not in old
+
+
+# 2026-11-21 实测:BOI 前面的 Incapsula 防火墙间歇性回这样一个验证页,8 秒后重取即正常
+BOI_CHALLENGE = """<html>
+<head>
+<META NAME="robots" CONTENT="noindex,nofollow">
+<script src="/_Incapsula_Resource?SWJIYLWA=5074a744e2e3d891814e9a2dace20bd4,719d34d31c8e3a6e6fffd425f7e032f3">
+</script>
+<body>
+</body></html>
+"""
+
+
+class _Pages:
+    """按顺序回放页面的假 httpx 客户端。"""
+
+    def __init__(self, *pages):
+        self.pages, self.calls = list(pages), 0
+
+    def get(self, url):
+        import httpx
+        self.calls += 1
+        return httpx.Response(200, text=self.pages.pop(0), request=httpx.Request("GET", url))
+
+
+def test_boi_retries_after_firewall_challenge():
+    waits = []
+    client = _Pages(BOI_CHALLENGE, BOI_HTML)
+    objs, note = AS.fetch_boi(client, sleep=waits.append)
+    assert len(objs) == 4 and client.calls == 2 and waits == [AS.BOI_RETRY_WAITS[0]]
+    assert "验证页 1 次后重取成功" in note
+
+
+def test_boi_gives_up_with_a_firewall_message():
+    import pytest
+    waits = []
+    client = _Pages(*[BOI_CHALLENGE] * 3)
+    with pytest.raises(RuntimeError, match="防火墙验证页"):
+        AS.fetch_boi(client, sleep=waits.append)
+    assert client.calls == 3 and waits == list(AS.BOI_RETRY_WAITS)
+
+
+def test_boi_redesign_still_fails_fast():
+    import pytest
+    client = _Pages("<html><body>new layout</body></html>")
+    with pytest.raises(RuntimeError, match="页面可能改版"):
+        AS.fetch_boi(client, sleep=lambda s: None)
+    assert client.calls == 1
+
+
+def test_boi_first_try_has_no_retry_note():
+    objs, note = AS.fetch_boi(_Pages(BOI_HTML), sleep=lambda s: (_ for _ in ()).throw(AssertionError))
+    assert note == "公告列表共 4 条"

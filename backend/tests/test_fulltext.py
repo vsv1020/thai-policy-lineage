@@ -174,6 +174,18 @@ def test_effective_from_rules(rule, explicit, pub, expect):
     assert E.effective_from(rule, explicit, pub) == expect
 
 
+@pytest.mark.parametrize("explicit,pub,resolved,expect", [
+    # 2026-11-21 实测:TH-CABX-20261027-F4722EA34F 决议日 10-27,模型从附件公函抽出 10-02
+    ("2026-10-02", None, "2026-10-27", None),
+    ("2026-11-01", None, "2026-10-27", "2026-11-01"),
+    ("2026-10-27", None, "2026-10-27", "2026-10-27"),
+    ("2035-01-01", None, "2026-10-27", None),                # 没有刊登日时按决议日判断离得太远
+    ("2026-08-01", "2026-09-01", "2026-07-01", "2026-08-01"),  # 早于刊登日(追溯)仍可,只要不早于决议
+])
+def test_effective_from_never_precedes_resolution(explicit, pub, resolved, expect):
+    assert E.effective_from("explicit_date", explicit, pub, resolved) == expect
+
+
 def test_validate_rejects_bad_new_fields():
     v = E._vocab()
     assert E.validate_output({**FULL, "key_points": "x"}, v)
@@ -300,3 +312,17 @@ def test_red_line_terms_are_the_same_everywhere():
     for ordinary in ("太阳能", "王先生", "后续", "下调", "储蓄", "亲属", "皇家公报", "皇家法令", "王国政府",
                      "宋卡王子大学", "主管机关", "妃子笑荔枝"):
         assert not any(t in ordinary for t in mod.ROYAL_TERMS), ordinary
+
+
+def test_cabinet_resolution_keeps_effective_date_after_resolution():
+    """2026-11-21 的第一批补译:模型给委员会任命决议填了附件公函的日期,早于决议日,校验整批拒收。"""
+    from app.config import REPO_ROOT
+    rows = (json.loads(x) for x in (REPO_ROOT / "data/policies/documents.jsonl").open(encoding="utf-8"))
+    rec = next(r for r in rows if r["uid"] == "TH-CABX-20261027-F4722EA34F")
+    assert rec["dates"]["published_at"] is None and rec["dates"]["resolved_at"] == "2026-10-27"
+    out = {**FULL, "effective_rule": "explicit_date", "effective_date": "2026-10-02"}
+    row = E.apply_enrichment(json.loads(json.dumps(rec)), out, E._vocab(), "m", basis="fulltext")
+    assert row["dates"]["effective_from"] is None
+    later = E.apply_enrichment(json.loads(json.dumps(rec)), {**out, "effective_date": "2026-11-01"},
+                               E._vocab(), "m", basis="fulltext")
+    assert later["dates"]["effective_from"] == "2026-11-01"
