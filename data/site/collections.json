@@ -3,21 +3,21 @@
   {
    "id": "land-property",
    "zh": "土地与房产",
-   "n": 71,
+   "n": 86,
    "href": "p/t/land-property.html",
    "date": "2026-11-10"
   },
   {
    "id": "land-use",
    "zh": "变更土地用途与城市规划",
-   "n": 147,
+   "n": 164,
    "href": "p/t/land-use.html",
    "date": "2026-11-10"
   },
   {
    "id": "import-control",
    "zh": "进口管制、配额与贸易救济",
-   "n": 76,
+   "n": 86,
    "href": "p/t/import-control.html",
    "date": "2026-11-10"
   },
@@ -31,16 +31,16 @@
   {
    "id": "excise",
    "zh": "消费税",
-   "n": 33,
+   "n": 35,
    "href": "p/t/excise.html",
-   "date": "2026-04-20"
+   "date": "2026-11-03"
   },
   {
    "id": "financial-regulation",
    "zh": "金融监管:央行与证监会",
-   "n": 20,
+   "n": 23,
    "href": "p/t/financial-regulation.html",
-   "date": "2026-04-01"
+   "date": "2026-07-07"
   },
   {
    "id": "gsb-savings",
@@ -59,28 +59,28 @@
   {
    "id": "social-security",
    "zh": "社会保障与劳工",
-   "n": 12,
+   "n": 19,
    "href": "p/t/social-security.html",
    "date": "2026-11-10"
   },
   {
    "id": "data-protection",
    "zh": "个人资料保护与网络安全",
-   "n": 3,
+   "n": 4,
    "href": "p/t/data-protection.html",
-   "date": "2026-03-24"
+   "date": "2026-08-05"
   },
   {
    "id": "income-tax",
    "zh": "所得税",
-   "n": 17,
+   "n": 18,
    "href": "p/t/income-tax.html",
    "date": "2026-11-05"
   },
   {
    "id": "ev-auto",
    "zh": "电动汽车与汽车产业",
-   "n": 32,
+   "n": 35,
    "href": "p/t/ev-auto.html",
    "date": "2026-10-06"
   },
@@ -94,14 +94,14 @@
   {
    "id": "energy",
    "zh": "能源与电力",
-   "n": 39,
+   "n": 61,
    "href": "p/t/energy.html",
-   "date": "2026-10-02"
+   "date": "2026-10-27"
   },
   {
    "id": "environment",
    "zh": "环境与碳排放",
-   "n": 21,
+   "n": 23,
    "href": "p/t/environment.html",
    "date": "2026-11-10"
   }
@@ -110,63 +110,63 @@
   {
    "id": "consumer",
    "zh": "消费者",
-   "n": 338,
+   "n": 424,
    "href": "p/who/consumer.html",
    "date": "2026-11-10"
   },
   {
    "id": "foreign_company",
    "zh": "外资企业",
-   "n": 854,
+   "n": 1105,
    "href": "p/who/foreign_company.html",
    "date": "2026-11-17"
   },
   {
    "id": "foreign_investor",
    "zh": "外资投资者",
-   "n": 330,
+   "n": 478,
    "href": "p/who/foreign_investor.html",
    "date": "2026-11-17"
   },
   {
    "id": "foreign_resident",
    "zh": "外籍长居个人",
-   "n": 288,
+   "n": 367,
    "href": "p/who/foreign_resident.html",
    "date": "2026-11-17"
   },
   {
    "id": "importer",
    "zh": "进口商与经销商",
-   "n": 230,
+   "n": 278,
    "href": "p/who/importer.html",
    "date": "2026-11-10"
   },
   {
    "id": "local_government",
    "zh": "府级与地方政府",
-   "n": 200,
+   "n": 298,
    "href": "p/who/local_government.html",
    "date": "2026-11-17"
   },
   {
    "id": "sme",
    "zh": "中小企业",
-   "n": 200,
+   "n": 228,
    "href": "p/who/sme.html",
    "date": "2026-11-04"
   },
   {
    "id": "thai_employer",
    "zh": "本地雇主",
-   "n": 169,
+   "n": 205,
    "href": "p/who/thai_employer.html",
    "date": "2026-11-17"
   },
   {
    "id": "traveller",
    "zh": "短期入境者",
-   "n": 60,
+   "n": 85,
    "href": "p/who/traveller.html",
    "date": "2026-11-17"
   }

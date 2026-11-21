@@ -2,6 +2,43 @@
  "_generated": "由 backend/app/export.py 从数据库导出,请勿手改;改 data/policies/*.jsonl → python3 -m app.ingest → python3 -m app.export",
  "issues": [
   {
+   "issue_id": "series-th-cabx-20260915-edd3c5a3fd",
+   "title_zh": "关于将依法院判决收归国有的国库土地出售后向合同方转移所有权的决议",
+   "summary_zh": "同一机关以同一标题先后刊登 3 份(2026-06-10 至 2026-09-15),按刊登日期排列。后一份是否取代前一份,以各份原文为准。",
+   "watch": "",
+   "domains": [
+    "房产土地"
+   ],
+   "kind": "series",
+   "stem_th": "การโอนกรรมสิทธิ์ให้แก่คู่สัญญาในการขายที่ราชพัสดุที่ตกเป็นของแผ่นดินตามคำพิพากษาของศาล",
+   "stages": [
+    {
+     "stage": "2026-06-10",
+     "title": "关于将依法院判决收归国有的国库土地出售后向合同方转移所有权的内阁决议",
+     "uid": "TH-CABX-20260610-EDD3C5A3FD",
+     "milestone": false,
+     "note": "",
+     "meta": "มติ ครม. 层级 · 415679"
+    },
+    {
+     "stage": "2026-07-21",
+     "title": "关于向合同方转让经法院判决收归国有的国库土地出售权的决议",
+     "uid": "TH-CABX-20260721-EDD3C5A3FD",
+     "milestone": false,
+     "note": "",
+     "meta": "มติ ครม. 层级 · 415995"
+    },
+    {
+     "stage": "2026-09-15",
+     "title": "关于将依法院判决收归国有的国库土地出售后向合同方转移所有权的决议",
+     "uid": "TH-CABX-20260915-EDD3C5A3FD",
+     "milestone": true,
+     "note": "最近刊登的一份",
+     "meta": "มติ ครม. 层级 · 416354"
+    }
+   ]
+  },
+  {
    "issue_id": "series-th-gaz-20260311-16",
    "title_zh": "财政部公告：延长受灾地区纳税人申报及缴纳税款期限",
    "summary_zh": "同一机关以同一标题先后刊登 3 份(第 14–16 号,2026-02-19 至 2026-03-11),按刊登日期排列。后一份是否取代前一份,以各份原文为准。",
@@ -183,6 +220,122 @@
      "milestone": true,
      "note": "最近刊登的一份",
      "meta": "ประกาศ 层级 · ง พิเศษ 142/188"
+    }
+   ]
+  },
+  {
+   "issue_id": "series-th-cabx-20261103-c342b5a1bf",
+   "title_zh": "通过轨道交通系统联程票价降低民众生活成本负担的措施",
+   "summary_zh": "同一机关以同一标题先后刊登 2 份(2026-06-23 至 2026-11-03),按刊登日期排列。后一份是否取代前一份,以各份原文为准。",
+   "watch": "",
+   "domains": [
+    "金融外汇"
+   ],
+   "kind": "series",
+   "stem_th": "มาตรการลดภาระค่าครองชีพของประชาชนผ่านอัตราค่าโดยสารร่วมในระบบรถไฟฟ้าขนส่งมวลชน",
+   "stages": [
+    {
+     "stage": "2026-06-23",
+     "title": "通过轨道交通联合票价减轻民众生活成本负担的措施",
+     "uid": "TH-CABX-20260623-C342B5A1BF",
+     "milestone": false,
+     "note": "",
+     "meta": "มติ ครม. 层级 · 415790"
+    },
+    {
+     "stage": "2026-11-03",
+     "title": "通过轨道交通系统联程票价降低民众生活成本负担的措施",
+     "uid": "TH-CABX-20261103-C342B5A1BF",
+     "milestone": true,
+     "note": "最近刊登的一份",
+     "meta": "มติ ครม. 层级 · 416699"
+    }
+   ]
+  },
+  {
+   "issue_id": "series-th-cabx-20261006-agreement-on-reciprocal-trade-art",
+   "title_zh": "美国与泰国互惠贸易协定（Agreement on Reciprocal Trade: ART）",
+   "summary_zh": "同一机关以同一标题先后刊登 2 份(2026-05-12 至 2026-10-06),按刊登日期排列。后一份是否取代前一份,以各份原文为准。",
+   "watch": "",
+   "domains": [
+    "海关贸易"
+   ],
+   "kind": "series",
+   "stem_th": "ความตกลงการค้าต่างตอบแทนระหว่างสหรัฐอเมริกาและไทย (Agreement on Reciprocal Trade: ART)",
+   "stages": [
+    {
+     "stage": "2026-05-12",
+     "title": "美国与泰国互惠贸易协定（Agreement on Reciprocal Trade: ART）",
+     "uid": "TH-CABX-20260512-AGREEMENT-ON-RECIPROCAL-TRADE-ART",
+     "milestone": false,
+     "note": "",
+     "meta": "มติ ครม. 层级 · 415480"
+    },
+    {
+     "stage": "2026-10-06",
+     "title": "美国与泰国互惠贸易协定（Agreement on Reciprocal Trade: ART）",
+     "uid": "TH-CABX-20261006-AGREEMENT-ON-RECIPROCAL-TRADE-ART",
+     "milestone": true,
+     "note": "最近刊登的一份",
+     "meta": "มติ ครม. 层级 · 416518"
+    }
+   ]
+  },
+  {
+   "issue_id": "series-th-cabx-20260805-46bcc77a48",
+   "title_zh": "关于做好应对干旱和异常天气形势准备的工作",
+   "summary_zh": "同一机关以同一标题先后刊登 2 份(2026-06-16 至 2026-08-05),按刊登日期排列。后一份是否取代前一份,以各份原文为准。",
+   "watch": "",
+   "domains": [
+    "房产土地"
+   ],
+   "kind": "series",
+   "stem_th": "การเตรียมความพร้อมรับมือสถานการณ์ภัยแล้งและสภาพอากาศที่แปรปรวน",
+   "stages": [
+    {
+     "stage": "2026-06-16",
+     "title": "关于做好干旱和异常天气形势应对准备的工作部署",
+     "uid": "TH-CABX-20260616-46BCC77A48",
+     "milestone": false,
+     "note": "",
+     "meta": "มติ ครม. 层级 · 415723"
+    },
+    {
+     "stage": "2026-08-05",
+     "title": "关于做好应对干旱和异常天气形势准备的工作",
+     "uid": "TH-CABX-20260805-46BCC77A48",
+     "milestone": true,
+     "note": "最近刊登的一份",
+     "meta": "มติ ครม. 层级 · 416061"
+    }
+   ]
+  },
+  {
+   "issue_id": "series-th-cabx-20260714-d3a8d0a769",
+   "title_zh": "关于收受和给予贿赂情形下反腐败措施的决议",
+   "summary_zh": "同一机关以同一标题先后刊登 2 份(2026-04-21 至 2026-07-14),按刊登日期排列。后一份是否取代前一份,以各份原文为准。",
+   "watch": "",
+   "domains": [
+    "公司投资"
+   ],
+   "kind": "series",
+   "stem_th": "มาตรการป้องกันการทุจริตกรณีการรับและให้สินบน",
+   "stages": [
+    {
+     "stage": "2026-04-21",
+     "title": "关于收受和给予贿赂情形的反腐败措施",
+     "uid": "TH-CABX-20260421-D3A8D0A769",
+     "milestone": false,
+     "note": "",
+     "meta": "มติ ครม. 层级 · 415301"
+    },
+    {
+     "stage": "2026-07-14",
+     "title": "关于收受和给予贿赂情形下反腐败措施的决议",
+     "uid": "TH-CABX-20260714-D3A8D0A769",
+     "milestone": true,
+     "note": "最近刊登的一份",
+     "meta": "มติ ครม. 层级 · 415920"
     }
    ]
   },
