@@ -5,8 +5,16 @@
   <link href="https://www.thaipolicy.com/feed/tax.xml" rel="self"/>
   <link href="https://www.thaipolicy.com/p/topic/tax.html"/>
   <id>https://www.thaipolicy.com/feed/tax.xml</id>
-  <updated>2026-11-05T00:00:00+07:00</updated>
+  <updated>2026-11-10T00:00:00+07:00</updated>
   <author><name>政策脉络 · 泰国</name></author>
+  <entry>
+    <title>财政部公告草案:关于确定从电子商务保税区出区、供在境内使用或销售之进口货物,以及国际邮递进口货物的紧急税率</title>
+    <link href="https://www.thaipolicy.com/p/th-cabx-20261110-1d14d1820e.html"/>
+    <id>https://www.thaipolicy.com/p/th-cabx-20261110-1d14d1820e.html</id>
+    <updated>2026-11-10T00:00:00+07:00</updated>
+    <category term="税务"/>
+    <summary>内阁于2026年11月10日会议通过决议,原则上批准财政部提交的公告草案,该草案规定从电子商务保税区出区、供在境内使用或销售之进口货物,以及国际邮递进口货物的紧急税率。内阁同时要求财政部及相关机构采纳商务部与预算局的意见,并决定自决议之日起解除该事项的保密等级。草案将提交法律审查委员会第四组紧急审议后继续推进。</summary>
+  </entry>
   <entry>
     <title>税务厅厅长关于所得税的公告（第473号）：规定依据政党法向政党捐款的支出条件、方法与规则（修订第358号公告）</title>
     <link href="https://www.thaipolicy.com/p/th-rd-20261105-dg473a.html"/>
@@ -256,6 +264,22 @@
     <summary>本公告依据《税法典》第3条之十三、第4条及第4条之十一，以及第800号皇家法令（2025年）关于免征所得税的规定，为企业所得税免征制定准则、方法和条件。适用于按酒店法经营酒店业务的法人，其用于酒店相关资产的扩建、改造、扩建或改良的支出，在2025年10月21日至2026年3月31日期间支付，可免征企业所得税，但不超过该资产价值的100%。纳税人须在2026年3月31日前向税务厅提交免征申请，并提交资产使用报告。</summary>
   </entry>
   <entry>
+    <title>消费税厅公告：关于使用含脂肪酸甲酯不低于19%且不超过20%的生物柴油混合燃料的乘用皮卡（Pick-up Passenger Vehicle: PPV）的规则、条件与特征规定</title>
+    <link href="https://www.thaipolicy.com/p/th-gaz-20260210-pick-up-passenger-vehicle-ppv-102323.html"/>
+    <id>https://www.thaipolicy.com/p/th-gaz-20260210-pick-up-passenger-vehicle-ppv-102323.html</id>
+    <updated>2026-02-10T00:00:00+07:00</updated>
+    <category term="税务"/>
+    <summary>本公告依据消费税法附表第02.01类乘用车的税率规定，明确使用含脂肪酸甲酯不低于19%且不超过20%的生物柴油混合燃料的乘用皮卡（PPV）可适用该税率，并规定其车辆特征条件。适用对象为生产或进口此类车辆的经营者，包括位于保税区、自由经营区内的生产者及进口商。自2026年7月1日起，此类车辆须至少安装公告列明的2项高级驾驶辅助系统（ADAS），并通过www.car.go.th的ECO Sticker系统提交证明文件。</summary>
+  </entry>
+  <entry>
+    <title>消费税厅公告：关于半载客皮卡车（Pick-up Passenger Vehicle：PPV）的准则、条件与特征规定</title>
+    <link href="https://www.thaipolicy.com/p/th-gaz-20260210-pick-up-passenger-vehicle-ppv-102322.html"/>
+    <id>https://www.thaipolicy.com/p/th-gaz-20260210-pick-up-passenger-vehicle-ppv-102322.html</id>
+    <updated>2026-02-10T00:00:00+07:00</updated>
+    <category term="税务"/>
+    <summary>本公告依据消费税法附表对半载客皮卡车（PPV）作出界定，规定只有符合特定车身结构、轴距等特征的车辆，生产商或进口商才可按该税目项下的优惠税率缴纳消费税。自2026年7月1日起，PPV还须至少安装AEB、FCW、LKAS、LDW、BSD、ACC六项ADAS系统中的两项，并通过www.car.go.th的ECO Sticker系统提交证明文件。生产商须在车辆出厂前向工厂所在地的税务官员提交ECO Sticker及二氧化碳排放与能耗申报单，在保税区或自由区生产的则向海关提交并在放行前缴税。</summary>
+  </entry>
+  <entry>
     <title>消费税厅公告：关于可插电式混合动力（Plug-in Hybrid Electric Vehicle）半载客皮卡（Pick-up Passenger Vehicle: PPV）的准则、条件与特征</title>
     <link href="https://www.thaipolicy.com/p/th-gaz-20260210-pick-up-passenger-vehicle-ppv.html"/>
     <id>https://www.thaipolicy.com/p/th-gaz-20260210-pick-up-passenger-vehicle-ppv.html</id>
@@ -376,35 +400,11 @@
     <summary>本公告由消费税厅厅长依据《消费税法》附属税率表（经第50号部令修订）授权发布，规定享受轻度混合动力汽车（MHEV）消费税待遇须满足的条件。适用对象为不超过10座、排量不超过3000毫升的乘用车或客运车，须配备至少5项ADAS系统（如自动紧急制动、前碰撞预警、车道保持辅助等），并须在泰国境内、保税区或自由经营区生产，使用本地生产的电池（至少电池包组装级别）及发动机关键部件。纳税人须提交工业部出具的ADAS安装及关键部件使用证明，以及投资促进委员会（BOI）出具的电动汽车产业转型投资证明：2023—2025年投资不低于10亿泰铢，2026—2028年不低于50亿泰铢。此外须提交二氧化碳排放量及能耗数据（ECO Sticker），国产车在出厂前向所在地消费税办公室提交，保税区或自由经营区车辆在海关放行前向海关提交。</summary>
   </entry>
   <entry>
-    <title>消费税厅公告：关于不超过10座、节能型油电混合动力（Hybrid Electric Vehicle）乘用车或客车的标准与条件</title>
-    <link href="https://www.thaipolicy.com/p/th-gaz-20260210-10-hybrid-electric-vehicle.html"/>
-    <id>https://www.thaipolicy.com/p/th-gaz-20260210-10-hybrid-electric-vehicle.html</id>
+    <title>消费税厅公告：规定不超过10座、节能型油电混合动力（Hybrid Electric Vehicle）乘用车或客车的标准与条件，以支持向电动汽车产业转型</title>
+    <link href="https://www.thaipolicy.com/p/th-gaz-20260210-10-hybrid-electric-vehicle-102326.html"/>
+    <id>https://www.thaipolicy.com/p/th-gaz-20260210-10-hybrid-electric-vehicle-102326.html</id>
     <updated>2026-02-10T00:00:00+07:00</updated>
     <category term="税务"/>
-    <summary>本公告由消费税厅厅长依据消费税税率表相关规定发布，明确不超过10座、节能型油电混合动力（HEV）乘用车或客车适用优惠消费税税率的资格条件。适用主体包括国内生产商、设在保税区或自由区内的生产商，以及从上述生产商处进口产品的进口商。车辆须满足气缸容量不超过3000毫升、具备自动启停、再生制动、驱动电机等混合动力特征，并至少安装2项ADAS系统（如AEB、FCW、LKAS、LDW、BSD、ACC），且须通过www.car.go.th的ECO Sticker系统提交证明文件。此外，车辆须使用国内生产的电池或零部件，并按规定时间表逐步提高本地化比例。</summary>
-  </entry>
-  <entry>
-    <title>消费税厅公告：载客不超过10人乘用车的标准、条件与特征</title>
-    <link href="https://www.thaipolicy.com/p/th-gaz-20260210-10.html"/>
-    <id>https://www.thaipolicy.com/p/th-gaz-20260210-10.html</id>
-    <updated>2026-02-10T00:00:00+07:00</updated>
-    <category term="税务"/>
-    <summary>本公告依据消费税税率表第002.02类（载客不超过10人乘用车）及第23号修订部令，规定气缸容量不超过3,000毫升的该类车辆须符合的安全与特征标准。车辆须为面包车或同类多人载客车型，并分阶段满足联合国UN Reg.94/95碰撞防护标准：2026年1月1日至6月30日适用Rev.1/Series 01及Rev.1/Series 03，2026年7月1日起适用Rev.4/Series 04及Rev.3/Series 05。还须配备ABS、ESC及至少2项ADAS系统，并通过www.car.go.th的ECO Sticker系统提交证明文件。</summary>
-  </entry>
-  <entry>
-    <title>根据《税法典》颁布的关于规定可从应课税所得中扣除费用的皇家法令（第803号）佛历2569年</title>
-    <link href="https://www.thaipolicy.com/p/th-gaz-20260206-803-2569.html"/>
-    <id>https://www.thaipolicy.com/p/th-gaz-20260206-803-2569.html</id>
-    <updated>2026-02-06T00:00:00+07:00</updated>
-    <category term="税务"/>
-    <summary>该皇家法令修订了《税法典》下关于个人所得税中自由职业者按固定比例扣除费用的规定。自由职业中的医疗艺术类所得可按20%扣除，美术艺术类所得也可按20%扣除，其他自由职业所得按30%扣除。若纳税人能向评估官员提供证据证明实际费用更高，可按必要且合理的金额扣除。该费率适用于佛历2569纳税年度（即佛历2569年需申报的所得）起的应课税所得。</summary>
-  </entry>
-  <entry>
-    <title>《税收法典》项下免税皇家法令（第802号）佛历2569年</title>
-    <link href="https://www.thaipolicy.com/p/th-gaz-20260206-802-2569.html"/>
-    <id>https://www.thaipolicy.com/p/th-gaz-20260206-802-2569.html</id>
-    <updated>2026-02-06T00:00:00+07:00</updated>
-    <category term="税务"/>
-    <summary>该皇家法令对符合条件的中小法人企业给予企业所得税免税优惠：实缴资本不超过500万泰铢、年度销售商品及服务收入不超过3000万泰铢的公司或合伙法人，其购买或雇佣制作计算机软件、硬件、智能设备或数字服务的支出，可按100%金额免税，但每项不超过30万泰铢。适用支出期间为佛历2569年6月25日至2569年12月31日，且交易对方须为已列入数字经济促进局数字服务名录的供应商。享受该优惠的企业不得同时就相关项目享受其他皇家法令的税收优惠，也不得将相关软件、硬件、智能设备或数字服务用于投资促进法、目标产业竞争力提升法或东部经济走廊法下已获企业所得税免税的业务。</summary>
+    <summary>本公告依据消费税法相关税率表，规定排量不超过3000cc的油电混合动力（HEV）乘用车或不超过10座客车须满足的技术与本地化条件，才能适用相应消费税税率。车辆须具备自动启停、能量回收制动、驱动电机等系统，并至少安装5项ADAS系统（如自动紧急制动、前碰撞预警、车道保持等），须取得工业部出具的ADAS安装证明。车辆须在保税区或自由经营区生产，并使用泰国本地生产的电池及高价值、中价值关键零部件；纳税人须按投资规模（5000亿泰铢以上或3000亿泰铢以上）选择相应本地零部件组合，并取得工业部证明及BOI投资证明（2023—2025年投资不少于3000亿泰铢）。纳税人还须提交二氧化碳排放量及能耗资料（ECO Sticker等）供税务官员核定税率。</summary>
   </entry>
 </feed>

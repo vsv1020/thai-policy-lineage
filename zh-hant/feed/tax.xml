@@ -5,8 +5,16 @@
   <link href="https://www.thaipolicy.com/zh-hant/feed/tax.xml" rel="self"/>
   <link href="https://www.thaipolicy.com/zh-hant/p/topic/tax.html"/>
   <id>https://www.thaipolicy.com/zh-hant/feed/tax.xml</id>
-  <updated>2026-11-05T00:00:00+07:00</updated>
+  <updated>2026-11-10T00:00:00+07:00</updated>
   <author><name>政策脈絡 · 泰國</name></author>
+  <entry>
+    <title>財政部公告草案:關於確定從電子商務保稅區出區、供在境內使用或銷售之進口貨物,以及國際郵遞進口貨物的緊急稅率</title>
+    <link href="https://www.thaipolicy.com/zh-hant/p/th-cabx-20261110-1d14d1820e.html"/>
+    <id>https://www.thaipolicy.com/zh-hant/p/th-cabx-20261110-1d14d1820e.html</id>
+    <updated>2026-11-10T00:00:00+07:00</updated>
+    <category term="稅務"/>
+    <summary>內閣於2026年11月10日會議通過決議,原則上批准財政部提交的公告草案,該草案規定從電子商務保稅區出區、供在境內使用或銷售之進口貨物,以及國際郵遞進口貨物的緊急稅率。內閣同時要求財政部及相關機構採納商務部與預算局的意見,並決定自決議之日起解除該事項的保密等級。草案將提交法律審查委員會第四組緊急審議後繼續推進。</summary>
+  </entry>
   <entry>
     <title>稅務廳廳長關於所得稅的公告（第473號）：規定依據政黨法向政黨捐款的支出條件、方法與規則（修訂第358號公告）</title>
     <link href="https://www.thaipolicy.com/zh-hant/p/th-rd-20261105-dg473a.html"/>
@@ -256,6 +264,22 @@
     <summary>本公告依據《稅法典》第3條之十三、第4條及第4條之十一，以及第800號皇家法令（2025年）關於免徵所得稅的規定，為企業所得稅免徵制定準則、方法和條件。適用於按酒店法經營酒店業務的法人，其用於酒店相關資產的擴建、改造、擴建或改良的支出，在2025年10月21日至2026年3月31日期間支付，可免徵企業所得稅，但不超過該資產價值的100%。納稅人須在2026年3月31日前向稅務廳提交免徵申請，並提交資產使用報告。</summary>
   </entry>
   <entry>
+    <title>消費稅廳公告：關於使用含脂肪酸甲酯不低於19%且不超過20%的生物柴油混合燃料的乘用皮卡（Pick-up Passenger Vehicle: PPV）的規則、條件與特徵規定</title>
+    <link href="https://www.thaipolicy.com/zh-hant/p/th-gaz-20260210-pick-up-passenger-vehicle-ppv-102323.html"/>
+    <id>https://www.thaipolicy.com/zh-hant/p/th-gaz-20260210-pick-up-passenger-vehicle-ppv-102323.html</id>
+    <updated>2026-02-10T00:00:00+07:00</updated>
+    <category term="稅務"/>
+    <summary>本公告依據消費稅法附表第02.01類乘用車的稅率規定，明確使用含脂肪酸甲酯不低於19%且不超過20%的生物柴油混合燃料的乘用皮卡（PPV）可適用該稅率，並規定其車輛特徵條件。適用對象為生產或進口此類車輛的經營者，包括位於保稅區、自由經營區內的生產者及進口商。自2026年7月1日起，此類車輛須至少安裝公告列明的2項高級駕駛輔助系統（ADAS），並通過www.car.go.th的ECO Sticker系統提交證明文件。</summary>
+  </entry>
+  <entry>
+    <title>消費稅廳公告：關於半載客皮卡車（Pick-up Passenger Vehicle：PPV）的準則、條件與特徵規定</title>
+    <link href="https://www.thaipolicy.com/zh-hant/p/th-gaz-20260210-pick-up-passenger-vehicle-ppv-102322.html"/>
+    <id>https://www.thaipolicy.com/zh-hant/p/th-gaz-20260210-pick-up-passenger-vehicle-ppv-102322.html</id>
+    <updated>2026-02-10T00:00:00+07:00</updated>
+    <category term="稅務"/>
+    <summary>本公告依據消費稅法附表對半載客皮卡車（PPV）作出界定，規定只有符合特定車身結構、軸距等特徵的車輛，生產商或進口商才可按該稅目項下的優惠稅率繳納消費稅。自2026年7月1日起，PPV還須至少安裝AEB、FCW、LKAS、LDW、BSD、ACC六項ADAS系統中的兩項，並通過www.car.go.th的ECO Sticker系統提交證明文件。生產商須在車輛出廠前向工廠所在地的稅務官員提交ECO Sticker及二氧化碳排放與能耗申報單，在保稅區或自由區生產的則向海關提交並在放行前繳稅。</summary>
+  </entry>
+  <entry>
     <title>消費稅廳公告：關於可插電式混合動力（Plug-in Hybrid Electric Vehicle）半載客皮卡（Pick-up Passenger Vehicle: PPV）的準則、條件與特徵</title>
     <link href="https://www.thaipolicy.com/zh-hant/p/th-gaz-20260210-pick-up-passenger-vehicle-ppv.html"/>
     <id>https://www.thaipolicy.com/zh-hant/p/th-gaz-20260210-pick-up-passenger-vehicle-ppv.html</id>
@@ -376,35 +400,11 @@
     <summary>本公告由消費稅廳廳長依據《消費稅法》附屬稅率表（經第50號部令修訂）授權發布，規定享受輕度混合動力汽車（MHEV）消費稅待遇須滿足的條件。適用對象為不超過10座、排量不超過3000毫升的乘用車或客運車，須配備至少5項ADAS系統（如自動緊急制動、前碰撞預警、車道保持輔助等），並須在泰國境內、保稅區或自由經營區生產，使用本地生產的電池（至少電池包組裝級別）及發動機關鍵部件。納稅人須提交工業部出具的ADAS安裝及關鍵部件使用證明，以及投資促進委員會（BOI）出具的電動汽車產業轉型投資證明：2023—2025年投資不低於10億泰銖，2026—2028年不低於50億泰銖。此外須提交二氧化碳排放量及能耗數據（ECO Sticker），國產車在出廠前向所在地消費稅辦公室提交，保稅區或自由經營區車輛在海關放行前向海關提交。</summary>
   </entry>
   <entry>
-    <title>消費稅廳公告：關於不超過10座、節能型油電混合動力（Hybrid Electric Vehicle）乘用車或客車的標準與條件</title>
-    <link href="https://www.thaipolicy.com/zh-hant/p/th-gaz-20260210-10-hybrid-electric-vehicle.html"/>
-    <id>https://www.thaipolicy.com/zh-hant/p/th-gaz-20260210-10-hybrid-electric-vehicle.html</id>
+    <title>消費稅廳公告：規定不超過10座、節能型油電混合動力（Hybrid Electric Vehicle）乘用車或客車的標準與條件，以支持向電動汽車產業轉型</title>
+    <link href="https://www.thaipolicy.com/zh-hant/p/th-gaz-20260210-10-hybrid-electric-vehicle-102326.html"/>
+    <id>https://www.thaipolicy.com/zh-hant/p/th-gaz-20260210-10-hybrid-electric-vehicle-102326.html</id>
     <updated>2026-02-10T00:00:00+07:00</updated>
     <category term="稅務"/>
-    <summary>本公告由消費稅廳廳長依據消費稅稅率表相關規定發布，明確不超過10座、節能型油電混合動力（HEV）乘用車或客車適用優惠消費稅稅率的資格條件。適用主體包括國內生產商、設在保稅區或自由區內的生產商，以及從上述生產商處進口產品的進口商。車輛須滿足氣缸容量不超過3000毫升、具備自動啟停、再生制動、驅動電機等混合動力特徵，並至少安裝2項ADAS系統（如AEB、FCW、LKAS、LDW、BSD、ACC），且須通過www.car.go.th的ECO Sticker系統提交證明文件。此外，車輛須使用國內生產的電池或零部件，並按規定時間表逐步提高本地化比例。</summary>
-  </entry>
-  <entry>
-    <title>消費稅廳公告：載客不超過10人乘用車的標準、條件與特徵</title>
-    <link href="https://www.thaipolicy.com/zh-hant/p/th-gaz-20260210-10.html"/>
-    <id>https://www.thaipolicy.com/zh-hant/p/th-gaz-20260210-10.html</id>
-    <updated>2026-02-10T00:00:00+07:00</updated>
-    <category term="稅務"/>
-    <summary>本公告依據消費稅稅率表第002.02類（載客不超過10人乘用車）及第23號修訂部令，規定氣缸容量不超過3,000毫升的該類車輛須符合的安全與特徵標準。車輛須為麵包車或同類多人載客車型，並分階段滿足聯合國UN Reg.94/95碰撞防護標準：2026年1月1日至6月30日適用Rev.1/Series 01及Rev.1/Series 03，2026年7月1日起適用Rev.4/Series 04及Rev.3/Series 05。還須配備ABS、ESC及至少2項ADAS系統，並通過www.car.go.th的ECO Sticker系統提交證明文件。</summary>
-  </entry>
-  <entry>
-    <title>根據《稅法典》頒布的關於規定可從應課稅所得中扣除費用的皇家法令（第803號）佛曆2569年</title>
-    <link href="https://www.thaipolicy.com/zh-hant/p/th-gaz-20260206-803-2569.html"/>
-    <id>https://www.thaipolicy.com/zh-hant/p/th-gaz-20260206-803-2569.html</id>
-    <updated>2026-02-06T00:00:00+07:00</updated>
-    <category term="稅務"/>
-    <summary>該皇家法令修訂了《稅法典》下關於個人所得稅中自由職業者按固定比例扣除費用的規定。自由職業中的醫療藝術類所得可按20%扣除，美術藝術類所得也可按20%扣除，其他自由職業所得按30%扣除。若納稅人能向評估官員提供證據證明實際費用更高，可按必要且合理的金額扣除。該費率適用於佛曆2569納稅年度（即佛曆2569年需申報的所得）起的應課稅所得。</summary>
-  </entry>
-  <entry>
-    <title>《稅收法典》項下免稅皇家法令（第802號）佛曆2569年</title>
-    <link href="https://www.thaipolicy.com/zh-hant/p/th-gaz-20260206-802-2569.html"/>
-    <id>https://www.thaipolicy.com/zh-hant/p/th-gaz-20260206-802-2569.html</id>
-    <updated>2026-02-06T00:00:00+07:00</updated>
-    <category term="稅務"/>
-    <summary>該皇家法令對符合條件的中小法人企業給予企業所得稅免稅優惠：實繳資本不超過500萬泰銖、年度銷售商品及服務收入不超過3000萬泰銖的公司或合夥法人，其購買或僱傭製作計算機軟件、硬件、智能設備或數字服務的支出，可按100%金額免稅，但每項不超過30萬泰銖。適用支出期間為佛曆2569年6月25日至2569年12月31日，且交易對方須為已列入數字經濟促進局數字服務名錄的供應商。享受該優惠的企業不得同時就相關項目享受其他皇家法令的稅收優惠，也不得將相關軟件、硬件、智能設備或數字服務用於投資促進法、目標產業競爭力提升法或東部經濟走廊法下已獲企業所得稅免稅的業務。</summary>
+    <summary>本公告依據消費稅法相關稅率表，規定排量不超過3000cc的油電混合動力（HEV）乘用車或不超過10座客車須滿足的技術與本地化條件，才能適用相應消費稅稅率。車輛須具備自動啟停、能量回收制動、驅動電機等系統，並至少安裝5項ADAS系統（如自動緊急制動、前碰撞預警、車道保持等），須取得工業部出具的ADAS安裝證明。車輛須在保稅區或自由經營區生產，並使用泰國本地生產的電池及高價值、中價值關鍵零部件；納稅人須按投資規模（5000億泰銖以上或3000億泰銖以上）選擇相應本地零部件組合，並取得工業部證明及BOI投資證明（2023—2025年投資不少於3000億泰銖）。納稅人還須提交二氧化碳排放量及能耗資料（ECO Sticker等）供稅務官員核定稅率。</summary>
   </entry>
 </feed>

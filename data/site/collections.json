@@ -3,42 +3,42 @@
   {
    "id": "land-property",
    "zh": "土地与房产",
-   "n": 69,
+   "n": 71,
    "href": "p/t/land-property.html",
-   "date": "2026-04-22"
+   "date": "2026-11-10"
   },
   {
    "id": "land-use",
    "zh": "变更土地用途与城市规划",
-   "n": 145,
+   "n": 147,
    "href": "p/t/land-use.html",
-   "date": "2026-04-02"
+   "date": "2026-11-10"
   },
   {
    "id": "import-control",
    "zh": "进口管制、配额与贸易救济",
-   "n": 57,
+   "n": 76,
    "href": "p/t/import-control.html",
-   "date": "2026-04-22"
+   "date": "2026-11-10"
   },
   {
    "id": "boi",
    "zh": "投资促进(BOI)",
-   "n": 93,
+   "n": 95,
    "href": "p/t/boi.html",
    "date": "2026-11-17"
   },
   {
    "id": "excise",
    "zh": "消费税",
-   "n": 30,
+   "n": 33,
    "href": "p/t/excise.html",
    "date": "2026-04-20"
   },
   {
    "id": "financial-regulation",
    "zh": "金融监管:央行与证监会",
-   "n": 19,
+   "n": 20,
    "href": "p/t/financial-regulation.html",
    "date": "2026-04-01"
   },
@@ -52,16 +52,16 @@
   {
    "id": "food-drug",
    "zh": "食品与药品监管",
-   "n": 27,
+   "n": 29,
    "href": "p/t/food-drug.html",
-   "date": "2026-04-22"
+   "date": "2026-11-10"
   },
   {
    "id": "social-security",
    "zh": "社会保障与劳工",
-   "n": 9,
+   "n": 12,
    "href": "p/t/social-security.html",
-   "date": "2026-04-22"
+   "date": "2026-11-10"
   },
   {
    "id": "data-protection",
@@ -80,95 +80,95 @@
   {
    "id": "ev-auto",
    "zh": "电动汽车与汽车产业",
-   "n": 31,
+   "n": 32,
    "href": "p/t/ev-auto.html",
    "date": "2026-10-06"
   },
   {
    "id": "industrial-standards",
    "zh": "工业产品标准(TIS)",
-   "n": 171,
+   "n": 196,
    "href": "p/t/industrial-standards.html",
    "date": "2026-04-10"
   },
   {
    "id": "energy",
    "zh": "能源与电力",
-   "n": 31,
+   "n": 39,
    "href": "p/t/energy.html",
    "date": "2026-10-02"
   },
   {
    "id": "environment",
    "zh": "环境与碳排放",
-   "n": 18,
+   "n": 21,
    "href": "p/t/environment.html",
-   "date": "2026-03-30"
+   "date": "2026-11-10"
   }
  ],
  "who": [
   {
    "id": "consumer",
    "zh": "消费者",
-   "n": 235,
+   "n": 338,
    "href": "p/who/consumer.html",
-   "date": "2026-10-02"
+   "date": "2026-11-10"
   },
   {
    "id": "foreign_company",
    "zh": "外资企业",
-   "n": 718,
+   "n": 854,
    "href": "p/who/foreign_company.html",
    "date": "2026-11-17"
   },
   {
    "id": "foreign_investor",
    "zh": "外资投资者",
-   "n": 305,
+   "n": 330,
    "href": "p/who/foreign_investor.html",
    "date": "2026-11-17"
   },
   {
    "id": "foreign_resident",
    "zh": "外籍长居个人",
-   "n": 213,
+   "n": 288,
    "href": "p/who/foreign_resident.html",
-   "date": "2026-11-05"
+   "date": "2026-11-17"
   },
   {
    "id": "importer",
    "zh": "进口商与经销商",
-   "n": 184,
+   "n": 230,
    "href": "p/who/importer.html",
-   "date": "2026-04-22"
+   "date": "2026-11-10"
   },
   {
    "id": "local_government",
    "zh": "府级与地方政府",
-   "n": 142,
+   "n": 200,
    "href": "p/who/local_government.html",
-   "date": "2026-04-22"
+   "date": "2026-11-17"
   },
   {
    "id": "sme",
    "zh": "中小企业",
-   "n": 126,
+   "n": 200,
    "href": "p/who/sme.html",
    "date": "2026-11-04"
   },
   {
    "id": "thai_employer",
    "zh": "本地雇主",
-   "n": 129,
+   "n": 169,
    "href": "p/who/thai_employer.html",
    "date": "2026-11-17"
   },
   {
    "id": "traveller",
    "zh": "短期入境者",
-   "n": 44,
+   "n": 60,
    "href": "p/who/traveller.html",
-   "date": "2026-04-22"
+   "date": "2026-11-17"
   }
  ]
 }
