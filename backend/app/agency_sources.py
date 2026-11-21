@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import json
 import re
+import time
 from datetime import date, datetime
 from email.utils import parsedate_to_datetime
 from urllib.parse import quote, urljoin
@@ -258,11 +259,25 @@ def normalize_boi(obj: dict, run_at: str) -> tuple[dict | None, str]:
     return rec, ""
 
 
-def fetch_boi(client: httpx.Client) -> tuple[list[dict], str]:
-    objs = parse_boi(client.get(BOI_LIST).raise_for_status().text)
-    if not objs:
-        raise RuntimeError("公告列表页里没有找到内嵌数据(dataMasterLaws),页面可能改版")
-    return objs, f"公告列表共 {len(objs)} 条"
+# BOI 站前的 Incapsula 防火墙会间歇性地先回一个两百字节的验证页(只有一行脚本,没有正文),
+# 隔几秒再取就是完整列表页(2026-11-21 实测:第一次 212 字节,8 秒后 1 MB)
+_BOI_CHALLENGE = "_Incapsula_Resource"
+BOI_RETRY_WAITS = (10, 30)
+
+
+def fetch_boi(client: httpx.Client, sleep=time.sleep) -> tuple[list[dict], str]:
+    challenged = 0
+    for wait in (*BOI_RETRY_WAITS, None):
+        html = client.get(BOI_LIST).raise_for_status().text
+        if objs := parse_boi(html):
+            note = f"(防火墙验证页 {challenged} 次后重取成功)" if challenged else ""
+            return objs, f"公告列表共 {len(objs)} 条{note}"
+        if _BOI_CHALLENGE not in html:
+            raise RuntimeError("公告列表页里没有找到内嵌数据(dataMasterLaws),页面可能改版")
+        challenged += 1
+        if wait is not None:
+            sleep(wait)
+    raise RuntimeError(f"连续 {challenged} 次拿到 BOI 防火墙验证页(Incapsula),没有取到公告列表;页面本身未必改版")
 
 
 def in_window(day: str, cutoff: date) -> bool:
