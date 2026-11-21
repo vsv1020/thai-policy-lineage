@@ -12,6 +12,11 @@
    "href": "feed/land.xml"
   },
   {
+   "id": "finance",
+   "zh": "金融外汇",
+   "href": "feed/finance.xml"
+  },
+  {
    "id": "customs",
    "zh": "海关贸易",
    "href": "feed/customs.xml"
@@ -20,11 +25,6 @@
    "id": "health",
    "zh": "医疗",
    "href": "feed/health.xml"
-  },
-  {
-   "id": "finance",
-   "zh": "金融外汇",
-   "href": "feed/finance.xml"
   },
   {
    "id": "tax",
@@ -92,7 +92,7 @@
    "id": "2026-W41",
    "from": "2026-10-05",
    "to": "2026-10-11",
-   "n": 21,
+   "n": 22,
    "href": "p/week/2026-W41.html"
   }
  ]
