@@ -16,6 +16,13 @@ function go(v) {
   if (v === 'trends' && !inited) { inited = true; setTimeout(initCharts, 30); }
 }
 document.querySelectorAll('.nav-item[data-v]').forEach(b => b.addEventListener('click', () => go(b.dataset.v)));
+/* 地址栏 #lineage / #trends / #morph / #dims 直接打开对应视图(繁体首页的侧栏链到这里);#search 由 search.js 处理 */
+function goHash() {
+  const v = location.hash.slice(1);
+  if (['lineage', 'trends', 'morph', 'dims'].includes(v) && document.getElementById('v-' + v)) go(v);
+}
+window.addEventListener('hashchange', goHash);
+goHash();
 
 /* 维度页的矩阵/双向条渲染已移到 js/dims.js —— 那里的数据来自真实聚合,
    不再是这里写死的 EV 演示数组。 */

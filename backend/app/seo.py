@@ -224,9 +224,16 @@ def _ld(obj: dict) -> str:
             + json.dumps(obj, ensure_ascii=False).replace("</", "<\\/") + "</script>")
 
 
+_NARROW_MAIN = '<main style="max-width:880px;margin:0 auto;padding:32px 20px">'
+# 带侧栏的版式(与简体首页同一套 .layout / aside 样式,桌面是左侧栏、手机是顶部横排标签);正文仍限宽 880px
+_SIDE_MAIN = '<main><div style="max-width:880px">'
+
+
 def _head(title: str, desc: str, canonical: str, jsonld: list[dict] | dict | None = None,
-          up: str = "../", robots: str = ROBOTS_INDEX, og_type: str = "website", extra: str = "") -> str:
-    """extra:追加到 <head> 的标签(如本领域的订阅地址),调用方负责转义。"""
+          up: str = "../", robots: str = ROBOTS_INDEX, og_type: str = "website", extra: str = "",
+          aside: str = "") -> str:
+    """extra:追加到 <head> 的标签(如本领域的订阅地址),调用方负责转义。
+    aside:左侧导航栏的 HTML;给了就用侧栏版式,收尾要配 _foot(..., aside=True)。"""
     lds = jsonld if isinstance(jsonld, list) else ([jsonld] if jsonld else [])
     ld = "\n".join(x for x in [extra, *(_ld(x) for x in lds)] if x)
     img = f"{settings.site_url}/{_og_image()}"
@@ -266,12 +273,13 @@ def _head(title: str, desc: str, canonical: str, jsonld: list[dict] | dict | Non
   <div class="header-right">{lang_switch(up, canonical)}<a class="hdr-all" href="{up}p/index.html" style="color:inherit">全部政策</a>
     <button class="btn-solid" data-support-button hidden>☕ 打赏支持</button></div>
 </header>
-<main style="max-width:880px;margin:0 auto;padding:32px 20px">"""
+{f'<div class="layout">{aside}{_SIDE_MAIN}' if aside else _NARROW_MAIN}"""
 
 
-def _foot(up: str = "../") -> str:
+def _foot(up: str = "../", aside: bool = False) -> str:
     root = _root(up)
-    return f"""</main>
+    close = "</div></main></div>" if aside else "</main>"
+    return f"""{close}
 <footer>{SITE_NAME} —— 官方源自动监测 · 全部内容可溯源 · 零带货中立平台。
 本站译文均为非官方翻译,仅供参考,以泰文原文为准;不构成法律意见。
 <a href="{up}about.html">关于本站与数据来源</a> · <a href="{up}{GUIDE_PATH}">泰国皇家公报指南</a> ·
@@ -1311,6 +1319,34 @@ HANT_HOME_DESC = ("泰国皇家公报、内阁决议与各部委公告的中文�
                   "海关贸易等领域整理,每条附泰国政府网站上的泰文原文链接。非官方翻译,以泰文原文为准。")
 
 
+# 繁体首页的左侧导航:与简体首页同样的分组与字形。繁体只有静态门户页,检索、同名系列与趋势图表在简体单页应用里,
+# 这几项链到简体首页对应的视图(js/app.js 按地址栏 #lineage 等打开);文字写简体,写盘前统一转繁体
+_HANT_SIDE = (
+    ("读政策", (("新", "最新收录", "index.html", True), ("找", "找政策", "../#search", False),
+               ("链", "同名系列", "../#lineage", False), ("全", "全部政策", "p/index.html", True))),
+    ("看趋势", (("势", "发文趋势", "../#trends", False), ("形", "政策形态", "../#morph", False),
+               ("维", "七维分析", "../#dims", False))),
+)
+
+
+def hant_home_aside() -> str:
+    def item(glyph: str, label: str, href: str, local: bool, active: bool) -> str:
+        cls = "nav-item active" if active else "nav-item"
+        lang = "" if local else ' hreflang="zh-Hans" title="简体版"'
+        cur = ' aria-current="page"' if active else ""
+        return f'<a class="{cls}" href="{href}"{lang}{cur}><span class="glyph">{glyph}</span>{label}</a>'
+    parts = []
+    for label, items in _HANT_SIDE:
+        parts.append(f'<div class="side-label">{label}</div>')
+        parts += [item(*x, active=(x[2] == "index.html")) for x in items]
+    parts.append('<div class="side-div side-extra"></div><div class="side-label side-extra">关于</div>'
+                 '<a class="nav-link side-extra" href="about.html"><span class="glyph">问</span>怎么用本站</a>'
+                 '<a class="nav-link side-extra" href="privacy.html"><span class="glyph">私</span>隐私政策</a>'
+                 '<div class="side-note side-extra">检索、同名系列与趋势图表目前只有简体版,点开会进入简体首页。'
+                 '免费 · 不接中介推广 · 每条附原文溯源。</div>')
+    return '<aside aria-label="主导航">' + "".join(parts) + "</aside>"
+
+
 def render_hant_home(entries: list[dict], topics: list[tuple[str, str, int]], collections: list[dict],
                      who: list[dict], weeks: list[tuple[str, int]], telegram: str = "") -> str:
     """/zh-hant/ 首页:静态门户页(单页应用只有简体)。entries 的 url 已是繁体地址;文字仍是简体,写盘前统一转换。"""
@@ -1350,8 +1386,9 @@ def render_hant_home(entries: list[dict], topics: list[tuple[str, str, int]], co
            "mainEntity": {"@type": "ItemList", "numberOfItems": len(latest),
                           "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": x["url"],
                                                "name": x["title"]} for i, x in enumerate(latest)]}}]
-    return (_head("泰国政策中文数据库:皇家公报、内阁决议中文摘要与原文 | 政策脉络", clip(HANT_HOME_DESC), url, ld, up="")
-            + body + _foot(""))
+    return (_head("泰国政策中文数据库:皇家公报、内阁决议中文摘要与原文 | 政策脉络", clip(HANT_HOME_DESC), url, ld, up="",
+                  aside=hant_home_aside())
+            + body + _foot("", aside=True))
 
 
 _ASSET_REF_RE = re.compile(r'((?:href|src)=")(css/|js/|assets/|favicon\.svg)')

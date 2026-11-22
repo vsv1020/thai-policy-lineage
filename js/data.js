@@ -170,7 +170,9 @@ getData('trends').then(t => {
   set('trends-sub', `基于库内 <b>${t.total_documents}</b> 条政策聚合 · 数据截至 <b>${t.data_through}</b>`
     + (t.gazette_through ? ` · 泰国官方公报数据集目前更新至 ${t.gazette_through}` : ''));
   // 真实数据可能比首次进入趋势页更晚到达 —— initCharts 可重复调用
-  if (typeof initCharts === 'function' && document.querySelector('#c-stack canvas')) initCharts();
+  // 已画过,或趋势页已打开但当时数据未到(从 #trends 直接进入、或很快点进来)都要重画
+  if (typeof initCharts === 'function' && (document.querySelector('#c-stack canvas') ||
+      document.getElementById('v-trends')?.classList.contains('active'))) initCharts();
 }).catch(err => console.warn('[trends] 未加载:', err.message));
 
 getData('lineage').then(renderLineage)
