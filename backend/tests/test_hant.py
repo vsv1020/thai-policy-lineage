@@ -93,6 +93,10 @@ RULE_CASES = [
     ("对箱包、家具、印刷品", "家具", "傢俱"),
     ("撤销此前授予一家私人检验公司的许可", "一家私人檢驗公司", "傢俬"),   # 2026-11-19 采集的 TH-BOI-20261117-139685
     ("国家私有化计划", "國家私有化", "傢俬"),                             # *
+    ("受邀成为金砖国家伙伴国", "金磚國家夥伴國", "傢"),                   # 2026-11-22 补译的 TH-CABX-20241224
+    ("关于议定书签署事宜", "議定書簽署", "籤"),                           # 同批补译
+    ("更新附图中签署人姓名", "圖中簽署", "籤"),                           # 同批补译
+    ("在证书签名处盖章", "證書簽名", "籤"),                               # *
     ("公告列明了生产、进口的条件", "列明了", "明瞭"),
     ("公告载明了适用范围", "載明了", "明瞭"),                           # *
     ("附表标明了税率", "標明了", "明瞭"),                               # *
@@ -441,6 +445,18 @@ def test_hant_home_portal(site):
     n_entries = len([p for p in (root / "p").glob("*.html") if p.name not in ("index.html", "404.html")])
     assert t.count('class="coll-item"') == min(seo.HANT_LATEST, n_entries)
     assert re.search(r'<a href="\.\./" hreflang="zh-Hans">簡體版首頁</a>', t), "注明互动检索在简体版并给链接"
+    # 左侧导航:与简体首页同一套 .layout / aside(桌面左栏、手机顶部标签);门户页不加载 app.js,
+    # 所以是普通链接而不是 data-v 按钮,简体单页应用里才有的视图链到简体首页的对应锚点
+    assert '<div class="layout"><aside' in t and t.index("</aside>") < t.index("<main"), "侧栏在正文之前,版式与简体首页一致"
+    aside = t.split("<aside", 1)[1].split("</aside>", 1)[0]
+    assert "data-v=" not in aside
+    assert re.search(r'<a class="nav-item active" href="index.html" aria-current="page">.*最新收錄</a>', aside)
+    for href in ('href="p/index.html"', 'href="about.html"', 'href="privacy.html"'):
+        assert href in aside, href
+    for view in ("search", "lineage", "trends", "morph", "dims"):
+        assert f'href="../#{view}" hreflang="zh-Hans"' in aside, view
+    assert "發文趨勢" in aside and "七維分析" in aside and "发文趋势" not in aside, "侧栏文字同样转成繁体"
+    assert t.rstrip().count("</main></div>") == 1
     lds = {x["@type"]: x for x in _lds(t)}
     assert lds["WebSite"]["inLanguage"] == "zh-Hant" and lds["WebSite"]["url"] == f"{HANT}/"
     assert lds["CollectionPage"]["mainEntity"]["itemListElement"][0]["url"].startswith(f"{HANT}/p/")
