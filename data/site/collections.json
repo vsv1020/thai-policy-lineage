@@ -3,9 +3,9 @@
   {
    "id": "land-property",
    "zh": "土地与房产",
-   "n": 115,
+   "n": 116,
    "href": "p/t/land-property.html",
-   "date": "2026-11-10"
+   "date": "2026-11-17"
   },
   {
    "id": "land-use",
@@ -38,9 +38,9 @@
   {
    "id": "financial-regulation",
    "zh": "金融监管:央行与证监会",
-   "n": 30,
+   "n": 31,
    "href": "p/t/financial-regulation.html",
-   "date": "2026-07-07"
+   "date": "2026-11-17"
   },
   {
    "id": "gsb-savings",
@@ -73,9 +73,9 @@
   {
    "id": "income-tax",
    "zh": "所得税",
-   "n": 19,
+   "n": 20,
    "href": "p/t/income-tax.html",
-   "date": "2026-11-05"
+   "date": "2026-11-17"
   },
   {
    "id": "ev-auto",
@@ -110,63 +110,63 @@
   {
    "id": "consumer",
    "zh": "消费者",
-   "n": 600,
+   "n": 602,
    "href": "p/who/consumer.html",
-   "date": "2026-11-10"
+   "date": "2026-11-17"
   },
   {
    "id": "foreign_company",
    "zh": "外资企业",
-   "n": 1588,
+   "n": 1597,
    "href": "p/who/foreign_company.html",
    "date": "2026-11-17"
   },
   {
    "id": "foreign_investor",
    "zh": "外资投资者",
-   "n": 736,
+   "n": 738,
    "href": "p/who/foreign_investor.html",
    "date": "2026-11-17"
   },
   {
    "id": "foreign_resident",
    "zh": "外籍长居个人",
-   "n": 571,
+   "n": 576,
    "href": "p/who/foreign_resident.html",
    "date": "2026-11-17"
   },
   {
    "id": "importer",
    "zh": "进口商与经销商",
-   "n": 385,
+   "n": 386,
    "href": "p/who/importer.html",
-   "date": "2026-11-10"
+   "date": "2026-11-17"
   },
   {
    "id": "local_government",
    "zh": "府级与地方政府",
-   "n": 451,
+   "n": 452,
    "href": "p/who/local_government.html",
    "date": "2026-11-17"
   },
   {
    "id": "sme",
    "zh": "中小企业",
-   "n": 299,
+   "n": 300,
    "href": "p/who/sme.html",
-   "date": "2026-11-04"
+   "date": "2026-11-17"
   },
   {
    "id": "thai_employer",
    "zh": "本地雇主",
-   "n": 293,
+   "n": 295,
    "href": "p/who/thai_employer.html",
    "date": "2026-11-17"
   },
   {
    "id": "traveller",
    "zh": "短期入境者",
-   "n": 166,
+   "n": 169,
    "href": "p/who/traveller.html",
    "date": "2026-11-17"
   }

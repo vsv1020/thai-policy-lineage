@@ -5,8 +5,24 @@
   <link href="https://www.thaipolicy.com/feed/health.xml" rel="self"/>
   <link href="https://www.thaipolicy.com/p/topic/health.html"/>
   <id>https://www.thaipolicy.com/feed/health.xml</id>
-  <updated>2026-11-10T00:00:00+07:00</updated>
+  <updated>2026-11-17T00:00:00+07:00</updated>
   <author><name>政策脉络 · 泰国</name></author>
+  <entry>
+    <title>北部地区自来水质量监管</title>
+    <link href="https://www.thaipolicy.com/p/th-cabx-20261117-7766132983.html"/>
+    <id>https://www.thaipolicy.com/p/th-cabx-20261117-7766132983.html</id>
+    <updated>2026-11-17T00:00:00+07:00</updated>
+    <category term="医疗"/>
+    <summary>内阁会议获悉在清莱府及流经该府的湄公河、郭河河水中检测出砷含量超标，引发民众对自来水质量与安全的担忧。总理责成内政部（地方自来水局）会同自然资源与环境部、高等教育、科学、研究与创新部及相关机构，密切监测清莱府及邻近府的自来水质量，为受影响民众提供充足的安全用水，并要求责任单位持续、清晰、全面地向公众说明检测结果及自来水生产与质量控制流程。内阁已决议通过。</summary>
+  </entry>
+  <entry>
+    <title>关于无法依据《2008年酒精饮料管制法》及其修正案制定次级法规的理由报告</title>
+    <link href="https://www.thaipolicy.com/p/th-cabx-20261117-2551.html"/>
+    <id>https://www.thaipolicy.com/p/th-cabx-20261117-2551.html</id>
+    <updated>2026-11-17T00:00:00+07:00</updated>
+    <category term="医疗"/>
+    <summary>内阁于2026年11月17日决议，知悉公共卫生部提出的无法在《2025年酒精饮料管制法（第2号）》规定期限内完成次级法规制定的理由，并要求公共卫生部一并考虑国务委员会办公室的意见后继续办理。该文件涉及酒精饮料管制次级法规的制定进度，具体条款与时限以原文为准。</summary>
+  </entry>
   <entry>
     <title>关于《水俣汞公约》缔约方大会第六次会议成果及落实第六次会议决议提案的内阁决议</title>
     <link href="https://www.thaipolicy.com/p/th-cabx-20261110-6-6.html"/>
@@ -390,21 +406,5 @@
     <updated>2026-04-09T00:00:00+07:00</updated>
     <category term="医疗"/>
     <summary>该命令撤销此前对Baby Gift（泰国）有限公司旗下1类UVC辐射商品（PRINCE&amp;PRINCESS品牌UV Tech型号紫外线烘干机）的临时销售禁令。该公司已向消费者保护委员会办公室提交检测，结果显示紫外线辐射对眼睛和皮肤的伤害限值符合规定标准。自本命令生效之日起，该公司可继续销售、生产、进口该类商品。</summary>
-  </entry>
-  <entry>
-    <title>商品与服务安全委员会第4/2569号命令：取消对阿提拉有限公司UVC辐射商品或设备的销售禁令</title>
-    <link href="https://www.thaipolicy.com/p/th-gaz-20260409-4-2569-uvc.html"/>
-    <id>https://www.thaipolicy.com/p/th-gaz-20260409-4-2569-uvc.html</id>
-    <updated>2026-04-09T00:00:00+07:00</updated>
-    <category term="医疗"/>
-    <summary>该命令依据消费者保护法，取消此前对阿提拉有限公司（บริษัท อธีราห์ คอร์ปอเรชั่น จำกัด）旗下SAKER品牌Muti-Cleaner UVC Sterilizer &amp; Dryer型号多功能奶瓶清洗机（UVC辐射商品）的临时销售禁令。原因是该公司已向消费者保护委员会办公室送检，检测结果显示紫外线辐射对眼睛和皮肤的暴露限值符合规定标准。自本命令生效之日起，该公司可销售、生产、储存或进口该型号产品。</summary>
-  </entry>
-  <entry>
-    <title>工业部公告：规定工业产品标准——食品链微生物学：实时RT-PCR检测甲型肝炎病毒和诺如病毒的一般方法 第2卷 检测方法 佛历2569年</title>
-    <link href="https://www.thaipolicy.com/p/th-gaz-20260408-rt-pcr-2-2569.html"/>
-    <id>https://www.thaipolicy.com/p/th-gaz-20260408-rt-pcr-2-2569.html</id>
-    <updated>2026-04-08T00:00:00+07:00</updated>
-    <category term="医疗"/>
-    <summary>工业部依据《工业产品标准法》发布公告，将ISO 15216-2:2019(E)以重印方式完全等同采用，制定泰国工业标准 มอก. 4402 第2卷-2568。该标准规定用实时RT-PCR方法从食品样本（软果、叶菜、茎菜、根菜、瓶装饮用水、双壳贝类）或接触表面中检测甲型肝炎病毒（HAV）及诺如病毒基因群I（GI）和II（GII）。标准共50页，自刊登之日起施行。</summary>
   </entry>
 </feed>

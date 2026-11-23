@@ -5,8 +5,24 @@
   <link href="https://www.thaipolicy.com/feed/tax.xml" rel="self"/>
   <link href="https://www.thaipolicy.com/p/topic/tax.html"/>
   <id>https://www.thaipolicy.com/feed/tax.xml</id>
-  <updated>2026-11-10T00:00:00+07:00</updated>
+  <updated>2026-11-17T00:00:00+07:00</updated>
   <author><name>政策脉络 · 泰国</name></author>
+  <entry>
+    <title>关于援助洪灾受灾所得税纳税人的税务措施法案（2025年7月21日至2025年12月31日期间）</title>
+    <link href="https://www.thaipolicy.com/p/th-cabx-20261117-2568-21-2568-31-2568.html"/>
+    <id>https://www.thaipolicy.com/p/th-cabx-20261117-2568-21-2568-31-2568.html</id>
+    <updated>2026-11-17T00:00:00+07:00</updated>
+    <category term="税务"/>
+    <summary>内阁批准财政部提出的两项税务措施法案原则：一项为依《税法典》发布的免税皇家法令草案，一项为依《税法典》发布的免税部令草案，共2份，适用于2025年7月21日至12月31日期间遭受洪灾的有所得税纳税人。内阁要求将两份草案作为紧急事项送交法律委员会办公室审议，之后继续推进程序；同时要求财政部及相关机构考虑预算办公室和国家经济与社会发展委员会的意見。</summary>
+  </entry>
+  <entry>
+    <title>关于依据税收措施救助泰柬边境安全紧急状态影响地区民众的法律草案（适用于2025年7月24日起发生的情况）</title>
+    <link href="https://www.thaipolicy.com/p/th-cabx-20261117-24-2568.html"/>
+    <id>https://www.thaipolicy.com/p/th-cabx-20261117-24-2568.html</id>
+    <updated>2026-11-17T00:00:00+07:00</updated>
+    <category term="税务"/>
+    <summary>内阁于2026年11月17日会议批准两项法律草案的原则：一是依据《税法典》关于免税的皇家法令草案，二是依据《税法典》关于免税的部令草案，共2份，由财政部提出，并交法律委员会办公室紧急审议后继续推进。内阁同时知悉财政部已发布两份公告，延长泰柬边境受影响地区申报及缴纳税款的期限（分别 dated 2025年10月27日与2026年1月16日）。</summary>
+  </entry>
   <entry>
     <title>财政部公告草案:关于确定从电子商务保税区出区、供在境内使用或销售之进口货物,以及国际邮递进口货物的紧急税率</title>
     <link href="https://www.thaipolicy.com/p/th-cabx-20261110-1d14d1820e.html"/>
@@ -390,21 +406,5 @@
     <updated>2026-02-23T00:00:00+07:00</updated>
     <category term="税务"/>
     <summary>本公告依据相关皇家法令授权，规定公司或法人合伙企业为提升员工能力、且有利于本企业业务而举办国内培训研讨会所支付费用的所得税免征准则、方法和条件。可免税的支出包括研讨会场地费、住宿费、交通费及相关支出，以及依法注册的旅行社和导游服务费，但须为2026年10月25日至12月15日期间发生的研讨会支出。企业须编制培训项目并留存文件备查，且已依相关法令享受免税者不得重复享受。电子发票或电子收据须由增值税登记经营者或规定出票人开具。</summary>
-  </entry>
-  <entry>
-    <title>财政部公告：延长受灾地区纳税人申报及缴纳税款期限（第14号）</title>
-    <link href="https://www.thaipolicy.com/p/th-gaz-20260219-14.html"/>
-    <id>https://www.thaipolicy.com/p/th-gaz-20260219-14.html</id>
-    <updated>2026-02-19T00:00:00+07:00</updated>
-    <category term="税务"/>
-    <summary>因信武里府发生洪灾，财政部依据《税法典》第3条之八第二款，批准延长信武里府税务局第5区下属城市信武里、帕侬武里、因武里三个税务分局辖区内纳税人的申报和缴税期限。适用税种包括预扣所得税、企业所得税、增值税、特定商业税和印花税，涉及2025年10月纳税月及2025年11月5日至30日期间的印花税。原须于2025年11月3日或经延至11月17日（电子申报）的申报，延至2025年12月15日；企业所得税延至2025年12月15日；增值税和特定商业税（不含房地产销售）延至2025年12月15日。</summary>
-  </entry>
-  <entry>
-    <title>财政部公告：关于延长通过电子代扣代缴系统缴纳税款期限的补充规定</title>
-    <link href="https://www.thaipolicy.com/p/th-gaz-20260213-f847bc113b.html"/>
-    <id>https://www.thaipolicy.com/p/th-gaz-20260213-f847bc113b.html</id>
-    <updated>2026-02-13T00:00:00+07:00</updated>
-    <category term="税务"/>
-    <summary>财政部依据《税法典》第3条之八第二款发布公告，延长通过电子代扣代缴系统（e-Withholding）缴纳税款的期限。适用对象为按《税法典》第3条之十五及第305号部令负有代扣代缴义务、且属于第155号部令（经第355号部令修订）第2条(13/5)项所列应税所得的纳税人。对2026年1月1日至3月31日期间应缴纳的税款，缴款期限延长至2026年4月30日，以免除滞纳金、罚款及刑事处罚。</summary>
   </entry>
 </feed>

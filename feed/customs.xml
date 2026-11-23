@@ -5,8 +5,16 @@
   <link href="https://www.thaipolicy.com/feed/customs.xml" rel="self"/>
   <link href="https://www.thaipolicy.com/p/topic/customs.html"/>
   <id>https://www.thaipolicy.com/feed/customs.xml</id>
-  <updated>2026-11-10T00:00:00+07:00</updated>
+  <updated>2026-11-17T00:00:00+07:00</updated>
   <author><name>政策脉络 · 泰国</name></author>
+  <entry>
+    <title>商务部关于《2019年大规模毁灭性武器相关商品管制法》项下的两项部级公告</title>
+    <link href="https://www.thaipolicy.com/p/th-cabx-20261117-2562-2.html"/>
+    <id>https://www.thaipolicy.com/p/th-cabx-20261117-2562-2.html</id>
+    <updated>2026-11-17T00:00:00+07:00</updated>
+    <category term="海关贸易"/>
+    <summary>内阁于2026年11月17日会议知悉商务部依《2019年大规模毁灭性武器相关商品管制法》发布的两项部级公告：一是《2026年国家大规模毁灭性武器相关商品清单公告》，二是《2026年规定两用物项为须申请出口及复运出境许可商品公告》。据此，两用物项出口及复运出境须向商务部申请许可，相关经营者须遵守清单与许可要求。</summary>
+  </entry>
   <entry>
     <title>加入“一带一路”倡议下进出口食品安全合作机制（BRI食品安全合作机制）</title>
     <link href="https://www.thaipolicy.com/p/th-cabx-20261110-import-export-food-safety-cooperation.html"/>
@@ -398,13 +406,5 @@
     <updated>2026-04-21T00:00:00+07:00</updated>
     <category term="海关贸易"/>
     <summary>泰国对外贸易厅依据《反倾销和补贴法》启动对中国产天然橡胶或合成橡胶手套的反倾销调查，涉案产品为5个海关子目（4015.12.10、4015.12.50、4015.15.10、4015.15.50等）。申请人为泰国诗董手套（大众）有限公司，其提供的证据显示倾销幅度为CIF价格的235.05%，并主张国内产业可能受到实质损害。调查自公告刊登之日起启动，利害关系人须在公告刊登后15日内书面申请问卷，30日内提交事实与意见。</summary>
-  </entry>
-  <entry>
-    <title>消费税厅公告：关于通过电子系统提交进口酒类容器封签样品及审查的标准与程序</title>
-    <link href="https://www.thaipolicy.com/p/th-gaz-20260420-a5012452bb.html"/>
-    <id>https://www.thaipolicy.com/p/th-gaz-20260420-a5012452bb.html</id>
-    <updated>2026-04-20T00:00:00+07:00</updated>
-    <category term="海关贸易"/>
-    <summary>本公告由消费税厅发布，规定拟申请进口酒类许可证者须通过消费税厅电子系统提交酒类容器封签样品及相关文件，供税务官员审查。申请人须先在消费税厅网站注册取得用户名和密码，用于电子签名与身份验证。审查不通过时，官员将通过电子邮件通知申请人在指定期限内补正；逾期未补正则视为不提交样品。公告自发布次日起施行，并废止2022年8月25日的旧公告。</summary>
   </entry>
 </feed>

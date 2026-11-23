@@ -1,12 +1,12 @@
 {
  "_generated": "由 backend/app/export.py 从数据库导出,请勿手改;改 data/policies/*.jsonl → python3 -m app.ingest → python3 -m app.export",
  "schema_version": 4,
- "updated_at": "2026-11-22T07:07:54+07:00",
+ "updated_at": "2026-11-23T07:07:46+07:00",
  "stats": {
-  "total": 2611,
+  "total": 2624,
   "research": 0,
   "demo": 0,
-  "with_points": 2489,
+  "with_points": 2502,
   "date_from": "2023-06-02",
   "date_to": "2026-11-17",
   "gazette_to": "2026-04-22",
@@ -15,27 +15,27 @@
    {
     "id": "biz",
     "zh": "公司投资",
-    "n": 797
+    "n": 801
    },
    {
     "id": "land",
     "zh": "房产土地",
-    "n": 536
+    "n": 537
    },
    {
     "id": "customs",
     "zh": "海关贸易",
-    "n": 274
+    "n": 275
    },
    {
     "id": "finance",
     "zh": "金融外汇",
-    "n": 265
+    "n": 266
    },
    {
     "id": "health",
     "zh": "医疗",
-    "n": 236
+    "n": 238
    },
    {
     "id": "labor",
@@ -45,7 +45,7 @@
    {
     "id": "tax",
     "zh": "税务",
-    "n": 136
+    "n": 138
    },
    {
     "id": "digital",
@@ -55,7 +55,7 @@
    {
     "id": "visa",
     "zh": "签证居留",
-    "n": 78
+    "n": 80
    },
    {
     "id": "education",
@@ -68,30 +68,37 @@
   {
    "domain": "biz",
    "label": "公司投资",
-   "score": 0.15,
-   "n": 111,
+   "score": 0.13,
+   "n": 115,
    "direction": "neutral"
   },
   {
    "domain": "land",
    "label": "房产土地",
-   "score": 0.2,
-   "n": 51,
+   "score": 0.19,
+   "n": 52,
    "direction": "loose"
   },
   {
    "domain": "finance",
    "label": "金融外汇",
-   "score": 0.47,
-   "n": 45,
+   "score": 0.46,
+   "n": 46,
    "direction": "loose"
   },
   {
    "domain": "tax",
    "label": "税务",
-   "score": 0.48,
-   "n": 24,
+   "score": 0.52,
+   "n": 26,
    "direction": "loose"
+  },
+  {
+   "domain": "customs",
+   "label": "海关贸易",
+   "score": -0.3,
+   "n": 22,
+   "direction": "tight"
   },
   {
    "domain": "labor",
@@ -101,17 +108,10 @@
    "direction": "loose"
   },
   {
-   "domain": "customs",
-   "label": "海关贸易",
-   "score": -0.26,
-   "n": 21,
-   "direction": "tight"
-  },
-  {
    "domain": "health",
    "label": "医疗",
-   "score": -0.1,
-   "n": 16,
+   "score": -0.06,
+   "n": 18,
    "direction": "neutral"
   },
   {
@@ -124,8 +124,8 @@
   {
    "domain": "visa",
    "label": "签证居留",
-   "score": 0.36,
-   "n": 6,
+   "score": 0.41,
+   "n": 8,
    "direction": "loose"
   },
   {
@@ -288,6 +288,444 @@
    "featured": true
   },
   {
+   "uid": "TH-CABX-20261117-0878922036",
+   "issue_id": null,
+   "date": "2026-11-17",
+   "domain": "biz",
+   "domain_label": "公司投资",
+   "direction": "neutral",
+   "title_zh": "泰国—马里航空谈判结果报告",
+   "title_th": "รายงานผลการเจรจาการบินระหว่างไทย - มาลี",
+   "summary_zh": "内阁于2026年11月17日会议听取并批准交通部提交的泰国—马里航空谈判结果报告，以及《泰王国政府与马里共和国政府航空服务协定》草案。若日后需对该协定草案作不影响实质内容、且不违背内阁所定原则的修改，可先行办理，但须事后报内阁知悉，并说明修改理由、必要性及泰国所获利益。交通部及相关机构须一并考虑外交部与国家安全委员会的意见。",
+   "key_points": [
+    "内阁听取并批准泰马航空谈判结果及航空服务协定草案",
+    "协定草案非实质修改可先办后报内阁，须说明理由与利益",
+    "交通部及相关机构须考虑外交部、国家安全委员会意见",
+    "修改须遵循2026年5月26日内阁关于对外协定提交程序的决议"
+   ],
+   "org": "内阁 · 交通部 (MOT)",
+   "org_label": "发文机关",
+   "org_issuer": "内阁",
+   "org_related": "交通部 (MOT)",
+   "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
+   "doc_no": "416784",
+   "doc_no_label": "文号",
+   "legal_form": "内阁决议 · มติ ครม. 层级",
+   "stability": 1,
+   "effective_label": "待刊公报后生效",
+   "status": "draft",
+   "status_label": "待刊公报",
+   "source_url": "https://resolution.soc.go.th/PDF_UPLOAD/2569/P_416784_1.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "cabinet_json",
+   "dates": {
+    "resolved_at": "2026-11-17",
+    "published_at": null,
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
+    },
+    {
+     "id": "traveller",
+     "party_id": "traveller",
+     "stance": "support",
+     "label": "短期入境者"
+    }
+   ],
+   "featured": true
+  },
+  {
+   "uid": "TH-CABX-20261117-24-2568",
+   "issue_id": null,
+   "date": "2026-11-17",
+   "domain": "tax",
+   "domain_label": "税务",
+   "direction": "loose",
+   "title_zh": "关于依据税收措施救助泰柬边境安全紧急状态影响地区民众的法律草案（适用于2025年7月24日起发生的情况）",
+   "title_th": "ร่างกฎหมายตามมาตรการภาษีเพื่อช่วยเหลือประชาชนในพื้นที่ที่ได้รับผลกระทบจากสถานการณ์ฉุกเฉินด้านความมั่นคงบริเวณชายแดนไทย - กัมพูชา (ช่วงที่เกิดขึ้นตั้งแต่วันที่ 24 กรกฎาคม 2568)",
+   "summary_zh": "内阁于2026年11月17日会议批准两项法律草案的原则：一是依据《税法典》关于免税的皇家法令草案，二是依据《税法典》关于免税的部令草案，共2份，由财政部提出，并交法律委员会办公室紧急审议后继续推进。内阁同时知悉财政部已发布两份公告，延长泰柬边境受影响地区申报及缴纳税款的期限（分别 dated 2025年10月27日与2026年1月16日）。",
+   "key_points": [
+    "内阁批准2份免税法律草案的原则，交法律委员会办公室紧急审议",
+    "草案包括税法典免税皇家法令草案与免税部令草案",
+    "财政部已发布公告延长边境受影响地区申报及缴税期限",
+    "延长公告分别 dated 2025年10月27日与2026年1月16日",
+    "财政部及相关机构须采纳预算办公室与国民经济和社会发展委员会的意見"
+   ],
+   "org": "内阁 · 财政部 (MOF) · 税务厅 (RD)",
+   "org_label": "发文机关",
+   "org_issuer": "内阁",
+   "org_related": "财政部 (MOF) · 税务厅 (RD)",
+   "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
+   "doc_no": "416797",
+   "doc_no_label": "文号",
+   "legal_form": "内阁决议 · มติ ครม. 层级",
+   "stability": 1,
+   "effective_label": "待刊公报后生效",
+   "status": "draft",
+   "status_label": "待刊公报",
+   "source_url": "https://resolution.soc.go.th/PDF_UPLOAD/2569/P_416797_1.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "cabinet_json",
+   "dates": {
+    "resolved_at": "2026-11-17",
+    "published_at": null,
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "support",
+     "label": "外资企业"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "support",
+     "label": "外籍长居个人"
+    },
+    {
+     "id": "sme",
+     "party_id": "sme",
+     "stance": "support",
+     "label": "中小企业"
+    }
+   ],
+   "featured": true
+  },
+  {
+   "uid": "TH-CABX-20261117-2551",
+   "issue_id": null,
+   "date": "2026-11-17",
+   "domain": "health",
+   "domain_label": "医疗",
+   "direction": "neutral",
+   "title_zh": "关于无法依据《2008年酒精饮料管制法》及其修正案制定次级法规的理由报告",
+   "title_th": "รายงานเหตุผลที่ไม่อาจดำเนินการออกกฎหมายลำดับรองตามพระราชบัญญัติควบคุมเครื่องดื่มแอลกอฮอล์ พ.ศ. 2551 และที่แก้ไขเพิ่มเติม",
+   "summary_zh": "内阁于2026年11月17日决议，知悉公共卫生部提出的无法在《2025年酒精饮料管制法（第2号）》规定期限内完成次级法规制定的理由，并要求公共卫生部一并考虑国务委员会办公室的意见后继续办理。该文件涉及酒精饮料管制次级法规的制定进度，具体条款与时限以原文为准。",
+   "key_points": [
+    "内阁知悉公共卫生部无法按期完成酒精饮料管制次级法规制定的理由",
+    "公共卫生部须一并考虑国务委员会办公室的意见后继续办理",
+    "涉及《2025年酒精饮料管制法（第2号）》规定的次级法规期限"
+   ],
+   "org": "内阁 · 公共卫生部 (MOPH)",
+   "org_label": "发文机关",
+   "org_issuer": "内阁",
+   "org_related": "公共卫生部 (MOPH)",
+   "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
+   "doc_no": "416794",
+   "doc_no_label": "文号",
+   "legal_form": "内阁决议 · มติ ครม. 层级",
+   "stability": 1,
+   "effective_label": "待刊公报后生效",
+   "status": "draft",
+   "status_label": "待刊公报",
+   "source_url": "https://resolution.soc.go.th/PDF_UPLOAD/2569/P_416794_1.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "cabinet_json",
+   "dates": {
+    "resolved_at": "2026-11-17",
+    "published_at": null,
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "parties": [
+    {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "neutral",
+     "label": "消费者"
+    },
+    {
+     "id": "thai_employer",
+     "party_id": "thai_employer",
+     "stance": "neutral",
+     "label": "本地雇主"
+    }
+   ],
+   "featured": true
+  },
+  {
+   "uid": "TH-CABX-20261117-2562-2",
+   "issue_id": null,
+   "date": "2026-11-17",
+   "domain": "customs",
+   "domain_label": "海关贸易",
+   "direction": "tight",
+   "title_zh": "商务部关于《2019年大规模毁灭性武器相关商品管制法》项下的两项部级公告",
+   "title_th": "ประกาศกระทรวงพาณิชย์ ภายใต้พระราชบัญญัติการควบคุมสินค้าที่เกี่ยวข้องกับการแพร่ขยายอาวุธที่มีอานุภาพทำลายล้างสูง พ.ศ. 2562 จำนวน 2 ฉบับ",
+   "summary_zh": "内阁于2026年11月17日会议知悉商务部依《2019年大规模毁灭性武器相关商品管制法》发布的两项部级公告：一是《2026年国家大规模毁灭性武器相关商品清单公告》，二是《2026年规定两用物项为须申请出口及复运出境许可商品公告》。据此，两用物项出口及复运出境须向商务部申请许可，相关经营者须遵守清单与许可要求。",
+   "key_points": [
+    "两用物项被列为须申请出口及复运出境许可的商品",
+    "出口或复运两用物项须向商务部申请许可",
+    "发布国家大规模毁灭性武器相关商品清单",
+    "内阁于2026年11月17日会议知悉上述两项公告"
+   ],
+   "org": "商务部 (MOC) · 内阁",
+   "org_label": "相关机关",
+   "org_issuer": "",
+   "org_related": "商务部 (MOC) · 内阁",
+   "org_shown": "",
+   "org_issuer_ids": [],
+   "doc_no": "416786",
+   "doc_no_label": "文号",
+   "legal_form": "公告 · ประกาศ 层级",
+   "stability": 2,
+   "effective_label": "待刊公报后生效",
+   "status": "draft",
+   "status_label": "待刊公报",
+   "source_url": "https://resolution.soc.go.th/PDF_UPLOAD/2569/P_416786_1.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "cabinet_json",
+   "dates": {
+    "resolved_at": "2026-11-17",
+    "published_at": null,
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "constrain",
+     "label": "外资企业"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "constrain",
+     "label": "进口商与经销商"
+    }
+   ],
+   "featured": true
+  },
+  {
+   "uid": "TH-CABX-20261117-2568-21-2568-31-2568",
+   "issue_id": null,
+   "date": "2026-11-17",
+   "domain": "tax",
+   "domain_label": "税务",
+   "direction": "loose",
+   "title_zh": "关于援助洪灾受灾所得税纳税人的税务措施法案（2025年7月21日至2025年12月31日期间）",
+   "title_th": "ร่างกฎหมายตามมาตรการภาษีเพื่อช่วยเหลือผู้มีเงินได้ที่ประสบอุทกภัย (ช่วงปี 2568 ตั้งแต่วันที่ 21 กรกฎาคม2568 ถึงวันที่ 31 ธันวาคม 2568)",
+   "summary_zh": "内阁批准财政部提出的两项税务措施法案原则：一项为依《税法典》发布的免税皇家法令草案，一项为依《税法典》发布的免税部令草案，共2份，适用于2025年7月21日至12月31日期间遭受洪灾的有所得税纳税人。内阁要求将两份草案作为紧急事项送交法律委员会办公室审议，之后继续推进程序；同时要求财政部及相关机构考虑预算办公室和国家经济与社会发展委员会的意見。",
+   "key_points": [
+    "内阁批准2份免税法案草案原则，分别以皇家法令和部令形式发布",
+    "适用期间为2025年7月21日至2025年12月31日",
+    "适用对象为该期间遭受洪灾的有所得税纳税人",
+    "草案作为紧急事项送交法律委员会办公室审议"
+   ],
+   "org": "内阁 · 财政部 (MOF)",
+   "org_label": "发文机关",
+   "org_issuer": "内阁",
+   "org_related": "财政部 (MOF)",
+   "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
+   "doc_no": "416792",
+   "doc_no_label": "文号",
+   "legal_form": "内阁决议 · มติ ครม. 层级",
+   "stability": 1,
+   "effective_label": "待刊公报后生效",
+   "status": "draft",
+   "status_label": "待刊公报",
+   "source_url": "https://resolution.soc.go.th/PDF_UPLOAD/2569/P_416792_1.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "cabinet_json",
+   "dates": {
+    "resolved_at": "2026-11-17",
+    "published_at": null,
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "support",
+     "label": "外资企业"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "support",
+     "label": "外籍长居个人"
+    }
+   ],
+   "featured": true
+  },
+  {
+   "uid": "TH-CABX-20261117-30F352B916",
+   "issue_id": null,
+   "date": "2026-11-17",
+   "domain": "biz",
+   "domain_label": "公司投资",
+   "direction": "neutral",
+   "title_zh": "关于泰国—苏丹航空谈判结果的报告",
+   "title_th": "รายงานผลการเจรจาการบินระหว่างไทย - ซูดาน",
+   "summary_zh": "内阁于2026年11月17日会议审议交通部提交的泰国—苏丹航空谈判结果报告,决议收悉、同意并批准交通部所提方案,即《泰王国政府与苏丹共和国政府航空服务协定》草案及外交换文草案。若日后需修改且不影响实质内容、不违背内阁已批准的原则,可先行办理,事后再报内阁知悉,并须说明理由、必要性与泰国所获利益。交通部须一并考虑外交部与国家经济与社会发展委员会办公室的意见。",
+   "key_points": [
+    "内阁收悉并批准泰—苏丹航空服务协定草案及外交换文草案",
+    "不影响实质内容的后续修改可先办、事后报内阁并说明理由与利益",
+    "交通部须采纳外交部与经社发展委办公室的意见",
+    "协定涉及两国政府间航空服务安排"
+   ],
+   "org": "内阁 · 交通部 (MOT)",
+   "org_label": "发文机关",
+   "org_issuer": "内阁",
+   "org_related": "交通部 (MOT)",
+   "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
+   "doc_no": "416783",
+   "doc_no_label": "文号",
+   "legal_form": "内阁决议 · มติ ครม. 层级",
+   "stability": 1,
+   "effective_label": "待刊公报后生效",
+   "status": "draft",
+   "status_label": "待刊公报",
+   "source_url": "https://resolution.soc.go.th/PDF_UPLOAD/2569/P_416783_1.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "cabinet_json",
+   "dates": {
+    "resolved_at": "2026-11-17",
+    "published_at": null,
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
+    },
+    {
+     "id": "traveller",
+     "party_id": "traveller",
+     "stance": "neutral",
+     "label": "短期入境者"
+    }
+   ],
+   "featured": true
+  },
+  {
+   "uid": "TH-CABX-20261117-392718BA17",
+   "issue_id": null,
+   "date": "2026-11-17",
+   "domain": "biz",
+   "domain_label": "公司投资",
+   "direction": "tight",
+   "title_zh": "刑法修正案草案（第..号）佛历....年（针对儿童的性犯罪与自由侵害）",
+   "title_th": "ร่างพระราชบัญญัติแก้ไขเพิ่มเติมประมวลกฎหมายอาญา (ฉบับที่ ..) พ.ศ. .... (ความผิดเกี่ยวกับเพศและเสรีภาพที่กระทำต่อเด็ก)",
+   "summary_zh": "内阁会议审议了司法部提出的刑法修正案草案，该草案涉及针对儿童的性犯罪与自由侵害，并已由国务委员会办公室审查完毕。内阁决议认可该草案，并同意将其作为紧急事项提交众议院审议，以便在佛历2570年（公历2027年）某月举行的全球女性领袖峰会之前生效。",
+   "key_points": [
+    "内阁认可司法部提出的刑法修正案草案，涉及针对儿童的性犯罪与自由侵害",
+    "草案已通过国务委员会办公室审查",
+    "内阁决议将其作为紧急事项提交众议院审议",
+    "目标是在佛历2570年全球女性领袖峰会前生效"
+   ],
+   "org": "内阁 · 司法部 (MOJ)",
+   "org_label": "发文机关",
+   "org_issuer": "内阁",
+   "org_related": "司法部 (MOJ)",
+   "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
+   "doc_no": "416787",
+   "doc_no_label": "文号",
+   "legal_form": "法律 · พ.ร.บ. 层级",
+   "stability": 5,
+   "effective_label": "待刊公报后生效",
+   "status": "draft",
+   "status_label": "待刊公报",
+   "source_url": "https://resolution.soc.go.th/PDF_UPLOAD/2569/P_416787_1.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "cabinet_json",
+   "dates": {
+    "resolved_at": "2026-11-17",
+    "published_at": null,
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "neutral",
+     "label": "外籍长居个人"
+    }
+   ],
+   "featured": true
+  },
+  {
    "uid": "TH-CABX-20261117-5499B5E440",
    "issue_id": null,
    "date": "2026-11-17",
@@ -342,6 +780,74 @@
     }
    ],
    "featured": true
+  },
+  {
+   "uid": "TH-CABX-20261117-7766132983",
+   "issue_id": null,
+   "date": "2026-11-17",
+   "domain": "health",
+   "domain_label": "医疗",
+   "direction": "loose",
+   "title_zh": "北部地区自来水质量监管",
+   "title_th": "การดูแลคุณภาพน้ำประปาในพื้นที่ภาคเหนือ",
+   "summary_zh": "内阁会议获悉在清莱府及流经该府的湄公河、郭河河水中检测出砷含量超标，引发民众对自来水质量与安全的担忧。总理责成内政部（地方自来水局）会同自然资源与环境部、高等教育、科学、研究与创新部及相关机构，密切监测清莱府及邻近府的自来水质量，为受影响民众提供充足的安全用水，并要求责任单位持续、清晰、全面地向公众说明检测结果及自来水生产与质量控制流程。内阁已决议通过。",
+   "key_points": [
+    "清莱府及湄公河、郭河沿岸检测出砷超标，引发自来水安全担忧",
+    "内政部（地方自来水局）等机构须密切监测清莱府及邻近府自来水质量",
+    "须为受影响民众提供充足的安全用水",
+    "责任单位须持续、清晰、全面公开检测结果及水质控制流程"
+   ],
+   "org": "内阁 · 内政部 (MOI) · 地方自来水局 (PWA) · 自然资源与环境部 (MNRE) · 高等教育、科学、研究与创新部 (MHESI)",
+   "org_label": "发文机关",
+   "org_issuer": "内阁",
+   "org_related": "内政部 (MOI) · 地方自来水局 (PWA) · 自然资源与环境部 (MNRE) · 高等教育、科学、研究与创新部 (MHESI)",
+   "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
+   "doc_no": "416789",
+   "doc_no_label": "文号",
+   "legal_form": "内阁决议 · มติ ครม. 层级",
+   "stability": 1,
+   "effective_label": "待刊公报后生效",
+   "status": "draft",
+   "status_label": "待刊公报",
+   "source_url": "https://resolution.soc.go.th/PDF_UPLOAD/2569/P_416789_1.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "cabinet_json",
+   "dates": {
+    "resolved_at": "2026-11-17",
+    "published_at": null,
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "parties": [
+    {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "support",
+     "label": "消费者"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "support",
+     "label": "外籍长居个人"
+    },
+    {
+     "id": "local_government",
+     "party_id": "local_government",
+     "stance": "constrain",
+     "label": "府级与地方政府"
+    }
+   ],
+   "featured": false
   },
   {
    "uid": "TH-CABX-20261117-84D27B526C",
@@ -409,7 +915,243 @@
      "label": "短期入境者"
     }
    ],
-   "featured": true
+   "featured": false
+  },
+  {
+   "uid": "TH-CABX-20261117-907FB6323A",
+   "issue_id": null,
+   "date": "2026-11-17",
+   "domain": "visa",
+   "domain_label": "签证居留",
+   "direction": "loose",
+   "title_zh": "泰王国政府与斯里兰卡民主社会主义共和国政府关于普通护照持有人免签协定的缔结",
+   "title_th": "การจัดทำความตกลงระหว่างรัฐบาลแห่งราชอาณาจักรไทยกับรัฐบาลแห่งสาธารณรัฐสังคมนิยมประชาธิปไตยศรีลังกาว่าด้วยการยกเว้นการตรวจลงตราสำหรับผู้ถือหนังสือเดินทางธรรมดา",
+   "summary_zh": "内阁于2026年11月17日会议通过外交部提议,批准缔结泰王国政府与斯里兰卡民主社会主义共和国政府关于普通护照持有人免签的协定。若后续需对协定草案作不影响实质内容、不违背内阁所同意原则的修改,可先行办理,但须事后报内阁知悉,并按2026年5月26日内阁决议说明修改理由、必要性及泰国所获利益。",
+   "key_points": [
+    "内阁批准与斯里兰卡缔结普通护照持有人免签协定",
+    "适用对象为持普通护照的泰国与斯里兰卡公民",
+    "协定草案的非实质性修改可先办、事后报内阁",
+    "修改须说明理由、必要性及泰国所获利益"
+   ],
+   "org": "内阁 · 财政部 (MOF)",
+   "org_label": "发文机关",
+   "org_issuer": "内阁",
+   "org_related": "财政部 (MOF)",
+   "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
+   "doc_no": "416795",
+   "doc_no_label": "文号",
+   "legal_form": "内阁决议 · มติ ครม. 层级",
+   "stability": 1,
+   "effective_label": "待刊公报后生效",
+   "status": "draft",
+   "status_label": "待刊公报",
+   "source_url": "https://resolution.soc.go.th/PDF_UPLOAD/2569/P_416795_1.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "cabinet_json",
+   "dates": {
+    "resolved_at": "2026-11-17",
+    "published_at": null,
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "parties": [
+    {
+     "id": "traveller",
+     "party_id": "traveller",
+     "stance": "support",
+     "label": "短期入境者"
+    }
+   ],
+   "featured": false
+  },
+  {
+   "uid": "TH-CABX-20261117-E8ED707299",
+   "issue_id": null,
+   "date": "2026-11-17",
+   "domain": "land",
+   "domain_label": "房产土地",
+   "direction": "neutral",
+   "title_zh": "关于在国家土地政策委员会办公室下设土地信息与土地管理服务机构（特殊服务单位）的设立",
+   "title_th": "การจัดตั้งสถาบันบริการสารสนเทศและบริหารจัดการที่ดิน (หน่วยบริการรูปแบบพิเศษ) ภายใต้สำนักงานคณะกรรมการนโยบายที่ดินแห่งชาติ",
+   "summary_zh": "内阁于2026年11月17日决议批准在国家土地政策委员会办公室下设土地信息与土地管理服务机构（特殊服务单位），该设立事项由公共组织发展与促进委员会提出并经其会议通过。内阁秘书处已将决议通知财政部长、预算局局长、国务委员会秘书长、国家经济与社会发展委员会秘书长等相关部门。",
+   "key_points": [
+    "内阁批准设立土地信息与土地管理服务机构，作为特殊服务单位",
+    "该机构隶属国家土地政策委员会办公室",
+    "设立事项由公共组织发展与促进委员会提出",
+    "内阁秘书处已通知财政部长、预算局等相关部门"
+   ],
+   "org": "内阁 · 总理府 (OPM)",
+   "org_label": "发文机关",
+   "org_issuer": "内阁",
+   "org_related": "总理府 (OPM)",
+   "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
+   "doc_no": "416788",
+   "doc_no_label": "文号",
+   "legal_form": "内阁决议 · มติ ครม. 层级",
+   "stability": 1,
+   "effective_label": "待刊公报后生效",
+   "status": "draft",
+   "status_label": "待刊公报",
+   "source_url": "https://resolution.soc.go.th/PDF_UPLOAD/2569/P_416788_1.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "cabinet_json",
+   "dates": {
+    "resolved_at": "2026-11-17",
+    "published_at": null,
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
+    },
+    {
+     "id": "foreign_investor",
+     "party_id": "foreign_investor",
+     "stance": "neutral",
+     "label": "外资投资者"
+    }
+   ],
+   "featured": false
+  },
+  {
+   "uid": "TH-CABX-20261117-FIDF1-FIDF3",
+   "issue_id": null,
+   "date": "2026-11-17",
+   "domain": "finance",
+   "domain_label": "金融外汇",
+   "direction": "neutral",
+   "title_zh": "关于划拨金融机构复兴与发展基金的资金或资产以偿还 FIDF1 和 FIDF3 贷款本金及利息",
+   "title_th": "การโอนเงินหรือสินทรัพย์ของกองทุนเพื่อการฟื้นฟูและพัฒนาระบบสถาบันการเงินเพื่อชำระคืนต้นเงินกู้และดอกเบี้ย FIDF1 และ FIDF3",
+   "summary_zh": "内阁会议于 2026 年 11 月 17 日通过决议，批准财政部提出的划拨金融机构复兴与发展基金的资金或资产，用于偿还 FIDF1 和 FIDF3 的贷款本金及利息。决议要求财政部及相关机构一并考虑国家经济与社会发展委员会办公室的意见，在各自职责范围内继续办理。预算局、国家经济与社会发展委员会办公室和泰国央行已就此提出意见。",
+   "key_points": [
+    "内阁批准划拨金融机构复兴与发展基金的资金或资产",
+    "用途为偿还 FIDF1 和 FIDF3 的贷款本金及利息",
+    "财政部及相关机构须一并考虑国家经济与社会发展委员会办公室的意见",
+    "预算局、国家经济与社会发展委员会办公室、泰国央行已提出意见"
+   ],
+   "org": "内阁 · 财政部 (MOF) · 泰国央行 (BOT)",
+   "org_label": "发文机关",
+   "org_issuer": "内阁",
+   "org_related": "财政部 (MOF) · 泰国央行 (BOT)",
+   "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
+   "doc_no": "416796",
+   "doc_no_label": "文号",
+   "legal_form": "内阁决议 · มติ ครม. 层级",
+   "stability": 1,
+   "effective_label": "待刊公报后生效",
+   "status": "draft",
+   "status_label": "待刊公报",
+   "source_url": "https://resolution.soc.go.th/PDF_UPLOAD/2569/P_416796_1.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "cabinet_json",
+   "dates": {
+    "resolved_at": "2026-11-17",
+    "published_at": null,
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
+    },
+    {
+     "id": "foreign_investor",
+     "party_id": "foreign_investor",
+     "stance": "neutral",
+     "label": "外资投资者"
+    }
+   ],
+   "featured": false
+  },
+  {
+   "uid": "TH-CABX-20261117-PARTNERSHIP-FRAMEWORK-AGREEMENT-PFA",
+   "issue_id": null,
+   "date": "2026-11-17",
+   "domain": "visa",
+   "domain_label": "签证居留",
+   "direction": "neutral",
+   "title_zh": "内政部与联合国难民署驻泰国办事处合作框架协议（PFA）草案的编制",
+   "title_th": "การจัดทำร่างกรอบความร่วมมือของความตกลง (Partnership Framework Agreement : PFA) ระหว่างกระทรวงมหาดไทยกับสำนักงานข้าหลวงใหญ่ผู้ลี้ภัยแห่งสหประชาชาติประจำประเทศไทย",
+   "summary_zh": "内阁于2026年11月1日会议通过并批准内政部提交的与联合国难民署驻泰国办事处合作框架协议（PFA）草案。若日后需作不改变实质内容、不违背内阁批准原则的修改，可自行办理，但须事后报内阁知悉，并说明必要性及泰国所获利益。内政部及相关机构须一并考虑财政部、外交部、预算局、国家安全委员会、国家经济与社会发展委员会的意见及商务部提出的意见。",
+   "key_points": [
+    "内阁批准内政部与联合国难民署驻泰办事处合作框架协议草案",
+    "不改变实质内容的修改可自行办理，须事后报内阁知悉",
+    "修改须说明必要性及泰国所获利益",
+    "内政部及相关机构须采纳财政部、外交部等部门意见"
+   ],
+   "org": "内阁 · 内政部 (MOI)",
+   "org_label": "发文机关",
+   "org_issuer": "内阁",
+   "org_related": "内政部 (MOI)",
+   "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
+   "doc_no": "416781",
+   "doc_no_label": "文号",
+   "legal_form": "内阁决议 · มติ ครม. 层级",
+   "stability": 1,
+   "effective_label": "待刊公报后生效",
+   "status": "draft",
+   "status_label": "待刊公报",
+   "source_url": "https://resolution.soc.go.th/PDF_UPLOAD/2569/P_416781_1.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "cabinet_json",
+   "dates": {
+    "resolved_at": "2026-11-17",
+    "published_at": null,
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "parties": [
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "neutral",
+     "label": "外籍长居个人"
+    }
+   ],
+   "featured": false
   },
   {
    "uid": "TH-CABX-20261110-0CBF9860F4",
@@ -471,7 +1213,7 @@
      "label": "外籍长居个人"
     }
    ],
-   "featured": true
+   "featured": false
   },
   {
    "uid": "TH-CABX-20261110-0DD8AB1C46",
@@ -539,7 +1281,7 @@
      "label": "进口商与经销商"
     }
    ],
-   "featured": true
+   "featured": false
   },
   {
    "uid": "TH-CABX-20261110-12-9-2569",
@@ -595,7 +1337,7 @@
      "label": "外资企业"
     }
    ],
-   "featured": true
+   "featured": false
   },
   {
    "uid": "TH-CABX-20261110-14-2566",
@@ -656,7 +1398,7 @@
      "label": "府级与地方政府"
     }
    ],
-   "featured": true
+   "featured": false
   },
   {
    "uid": "TH-CABX-20261110-1D14D1820E",
@@ -725,7 +1467,7 @@
      "label": "进口商与经销商"
     }
    ],
-   "featured": true
+   "featured": false
   },
   {
    "uid": "TH-CABX-20261110-215AAE258F",
@@ -787,7 +1529,7 @@
      "label": "进口商与经销商"
     }
    ],
-   "featured": true
+   "featured": false
   },
   {
    "uid": "TH-CABX-20261110-23-2534-22-2543-17",
@@ -131743,6 +132485,68 @@
      "party_id": "local_government",
      "stance": "neutral",
      "label": "府级与地方政府"
+    }
+   ],
+   "featured": false
+  },
+  {
+   "uid": "TH-CABX-20250218-305D593F1F",
+   "issue_id": null,
+   "date": "2025-02-18",
+   "domain": "biz",
+   "domain_label": "公司投资",
+   "direction": "loose",
+   "title_zh": "关于促进泰国出口虾类品种研究与开发的事项",
+   "title_th": "การส่งเสริมการวิจัยและพัฒนาสายพันธ์ุกุ้งเพื่อการส่งออกของประเทศไทย",
+   "summary_zh": "内阁会议审议了总理提出的促进虾类品种研究与开发、虾类养殖的议题，并决议批准该提议。责成农业与合作社部（渔业厅）及相关机构切实推进虾类品种研发与养殖推广，向养殖户传授知识和技术，使其能够全年持续养殖，以恢复泰国出口虾养殖业的全球领先地位。要求编制上述计划/项目的详细方案，按程序申请预算支持并尽快实施。",
+   "key_points": [
+    "内阁决议批准促进虾类品种研发与养殖推广",
+    "责成农业与合作社部（渔业厅）及相关机构推进落实",
+    "向养殖户传授知识和技术，支持全年持续养殖",
+    "要求编制计划/项目细节并按程序申请预算"
+   ],
+   "org": "内阁 · 农业与合作社部 (MOAC) · 渔业厅 (DOF) · 商务部 (MOC)",
+   "org_label": "发文机关",
+   "org_issuer": "内阁",
+   "org_related": "农业与合作社部 (MOAC) · 渔业厅 (DOF) · 商务部 (MOC)",
+   "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
+   "doc_no": "413054",
+   "doc_no_label": "文号",
+   "legal_form": "内阁决议 · มติ ครม. 层级",
+   "stability": 1,
+   "effective_label": "待刊公报后生效",
+   "status": "draft",
+   "status_label": "待刊公报",
+   "source_url": "https://resolution.soc.go.th/PDF_UPLOAD/2568/P_413054_1.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "cabinet_json",
+   "dates": {
+    "resolved_at": "2025-02-18",
+    "published_at": null,
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
+    },
+    {
+     "id": "thai_employer",
+     "party_id": "thai_employer",
+     "stance": "support",
+     "label": "本地雇主"
     }
    ],
    "featured": false

@@ -2,9 +2,9 @@
  "_generated": "由 backend/app/export.py 从数据库导出,请勿手改;改 data/policies/*.jsonl → python3 -m app.ingest → python3 -m app.export",
  "issues": [
   {
-   "issue_id": "series-th-cabx-20260602-fidf1-fidf3",
-   "title_zh": "关于划转金融机构复兴与发展基金的资金或资产以偿还 FIDF1 和 FIDF3 贷款本金及利息",
-   "summary_zh": "同一机关以同一标题先后刊登 4 份(2024-12-11 至 2026-06-02),按刊登日期排列。后一份是否取代前一份,以各份原文为准。",
+   "issue_id": "series-th-cabx-20261117-fidf1-fidf3",
+   "title_zh": "关于划拨金融机构复兴与发展基金的资金或资产以偿还 FIDF1 和 FIDF3 贷款本金及利息",
+   "summary_zh": "同一机关以同一标题先后刊登 5 份(2024-12-11 至 2026-11-17),按刊登日期排列。后一份是否取代前一份,以各份原文为准。",
    "watch": "",
    "domains": [
     "金融外汇"
@@ -40,9 +40,17 @@
      "stage": "2026-06-02",
      "title": "关于划转金融机构复兴与发展基金的资金或资产以偿还 FIDF1 和 FIDF3 贷款本金及利息",
      "uid": "TH-CABX-20260602-FIDF1-FIDF3",
+     "milestone": false,
+     "note": "",
+     "meta": "มติ ครม. 层级 · 415602"
+    },
+    {
+     "stage": "2026-11-17",
+     "title": "关于划拨金融机构复兴与发展基金的资金或资产以偿还 FIDF1 和 FIDF3 贷款本金及利息",
+     "uid": "TH-CABX-20261117-FIDF1-FIDF3",
      "milestone": true,
      "note": "最近刊登的一份",
-     "meta": "มติ ครม. 层级 · 415602"
+     "meta": "มติ ครม. 层级 · 416796"
     }
    ]
   },

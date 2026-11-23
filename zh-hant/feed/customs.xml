@@ -5,8 +5,16 @@
   <link href="https://www.thaipolicy.com/zh-hant/feed/customs.xml" rel="self"/>
   <link href="https://www.thaipolicy.com/zh-hant/p/topic/customs.html"/>
   <id>https://www.thaipolicy.com/zh-hant/feed/customs.xml</id>
-  <updated>2026-11-10T00:00:00+07:00</updated>
+  <updated>2026-11-17T00:00:00+07:00</updated>
   <author><name>政策脈絡 · 泰國</name></author>
+  <entry>
+    <title>商務部關於《2019年大規模毀滅性武器相關商品管制法》項下的兩項部級公告</title>
+    <link href="https://www.thaipolicy.com/zh-hant/p/th-cabx-20261117-2562-2.html"/>
+    <id>https://www.thaipolicy.com/zh-hant/p/th-cabx-20261117-2562-2.html</id>
+    <updated>2026-11-17T00:00:00+07:00</updated>
+    <category term="海關貿易"/>
+    <summary>內閣於2026年11月17日會議知悉商務部依《2019年大規模毀滅性武器相關商品管制法》發布的兩項部級公告：一是《2026年國家大規模毀滅性武器相關商品清單公告》，二是《2026年規定兩用物項為須申請出口及復運出境許可商品公告》。據此，兩用物項出口及復運出境須向商務部申請許可，相關經營者須遵守清單與許可要求。</summary>
+  </entry>
   <entry>
     <title>加入“一帶一路”倡議下進出口食品安全合作機制（BRI食品安全合作機制）</title>
     <link href="https://www.thaipolicy.com/zh-hant/p/th-cabx-20261110-import-export-food-safety-cooperation.html"/>
@@ -398,13 +406,5 @@
     <updated>2026-04-21T00:00:00+07:00</updated>
     <category term="海關貿易"/>
     <summary>泰國對外貿易廳依據《反傾銷和補貼法》啟動對中國產天然橡膠或合成橡膠手套的反傾銷調查，涉案產品為5個海關子目（4015.12.10、4015.12.50、4015.15.10、4015.15.50等）。申請人為泰國詩董手套（大眾）有限公司，其提供的證據顯示傾銷幅度為CIF價格的235.05%，並主張國內產業可能受到實質損害。調查自公告刊登之日起啟動，利害關係人須在公告刊登後15日內書面申請問卷，30日內提交事實與意見。</summary>
-  </entry>
-  <entry>
-    <title>消費稅廳公告：關於通過電子系統提交進口酒類容器封籤樣品及審查的標準與程序</title>
-    <link href="https://www.thaipolicy.com/zh-hant/p/th-gaz-20260420-a5012452bb.html"/>
-    <id>https://www.thaipolicy.com/zh-hant/p/th-gaz-20260420-a5012452bb.html</id>
-    <updated>2026-04-20T00:00:00+07:00</updated>
-    <category term="海關貿易"/>
-    <summary>本公告由消費稅廳發布，規定擬申請進口酒類許可證者須通過消費稅廳電子系統提交酒類容器封籤樣品及相關文件，供稅務官員審查。申請人須先在消費稅廳網站註冊取得用戶名和密碼，用於電子簽名與身份驗證。審查不通過時，官員將通過電子郵件通知申請人在指定期限內補正；逾期未補正則視為不提交樣品。公告自發布次日起施行，並廢止2022年8月25日的舊公告。</summary>
   </entry>
 </feed>
