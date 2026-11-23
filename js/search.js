@@ -64,6 +64,10 @@
   }
 
   function syncHash() {
+    // 数据到达时会在后台先渲染一遍检索列表;不在「找政策」视图时不能改地址栏,
+    // 否则从 #trends 等地址进来(或直接打开首页)会被改成 #search,刷新就落到检索页
+    const v = document.getElementById('v-search');
+    if (!v || !v.classList.contains('active')) return;
     const p = new URLSearchParams();
     Object.entries(state).forEach(([k, v]) => { if (v) p.set(k, v); });
     const h = '#search' + (p.toString() ? '?' + p : '');

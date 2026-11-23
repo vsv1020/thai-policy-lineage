@@ -224,7 +224,6 @@ def _ld(obj: dict) -> str:
             + json.dumps(obj, ensure_ascii=False).replace("</", "<\\/") + "</script>")
 
 
-_NARROW_MAIN = '<main style="max-width:880px;margin:0 auto;padding:32px 20px">'
 # 带侧栏的版式(与简体首页同一套 .layout / aside 样式,桌面是左侧栏、手机是顶部横排标签);正文仍限宽 880px
 _SIDE_MAIN = '<main><div style="max-width:880px">'
 
@@ -233,10 +232,10 @@ def _head(title: str, desc: str, canonical: str, jsonld: list[dict] | dict | Non
           up: str = "../", robots: str = ROBOTS_INDEX, og_type: str = "website", extra: str = "",
           aside: str = "") -> str:
     """extra:追加到 <head> 的标签(如本领域的订阅地址),调用方负责转义。
-    aside:左侧导航栏的 HTML;给了就用侧栏版式。繁体页一律带侧栏(没给就按 canonical 生成,当前页高亮),
-    收尾的 _foot 同样按字形判断,两边一致。"""
-    if not aside and _is_hant():
-        aside = hant_aside(up, _hant_active(canonical))
+    aside:左侧导航栏的 HTML。生成的每个页面(简繁都是)都带侧栏:没给就按 canonical 生成,当前页高亮。"""
+    if not aside:
+        active = _side_active(canonical)
+        aside = hant_aside(up, active) if _is_hant() else simp_aside(up, active)
     lds = jsonld if isinstance(jsonld, list) else ([jsonld] if jsonld else [])
     ld = "\n".join(x for x in [extra, *(_ld(x) for x in lds)] if x)
     img = f"{settings.site_url}/{_og_image()}"
@@ -276,12 +275,12 @@ def _head(title: str, desc: str, canonical: str, jsonld: list[dict] | dict | Non
   <div class="header-right">{lang_switch(up, canonical)}<a class="hdr-all" href="{up}p/index.html" style="color:inherit">全部政策</a>
     <button class="btn-solid" data-support-button hidden>☕ 打赏支持</button></div>
 </header>
-{f'<div class="layout">{aside}{_SIDE_MAIN}' if aside else _NARROW_MAIN}"""
+<div class="layout">{aside}{_SIDE_MAIN}"""
 
 
 def _foot(up: str = "../", aside: bool = False) -> str:
     root = _root(up)
-    close = "</div></main></div>" if aside or _is_hant() else "</main>"
+    close = "</div></main></div>"            # 与 _head 的侧栏版式成对(aside 参数保留兼容)
     return f"""{close}
 <footer>{SITE_NAME} —— 官方源自动监测 · 全部内容可溯源 · 零带货中立平台。
 本站译文均为非官方翻译,仅供参考,以泰文原文为准;不构成法律意见。
@@ -1201,6 +1200,7 @@ def update_index_html(entries: list[dict], topics: list[tuple[str, str, int]], c
             continue
         old = page.read_text(encoding="utf-8")
         new = _replace_block(old, "head", _static_head(old, fname, name, kind))
+        new = _replace_block(new, "aside", simp_aside("", _side_active(f"{settings.site_url}/{fname}")))
         if new != old:
             page.write_text(new, encoding="utf-8")
     return True
@@ -1336,7 +1336,7 @@ _HANT_SIDE_ABOUT = (("guide", "指", "皇家公报指南", GUIDE_PATH), ("about"
                     ("privacy", "私", "隐私政策", "privacy.html"))
 
 
-def _hant_active(canonical: str) -> str:
+def _side_active(canonical: str) -> str:
     """侧栏里该高亮哪一项:按页面地址(繁体站内路径)判断;政策页、专题页等不高亮。"""
     if not canonical or not canonical.startswith(_base()):
         return ""
@@ -1369,6 +1369,35 @@ def hant_aside(up: str = "", active: str = "") -> str:
     parts += [item(*x, extra=" side-extra") for x in _HANT_SIDE_ABOUT]
     parts.append('<div class="side-note side-extra">关键词检索与趋势图表目前只有简体版,可用右上角的「简体中文」切换。'
                  '免费 · 不接中介推广 · 每条附原文溯源。</div>')
+    return '<aside aria-label="主导航">' + "".join(parts) + "</aside>"
+
+
+# 简体内页的左侧导航:与简体首页(index.html 手写的那份)同样的分组、字形与顺序。
+# 找政策、同名系列与三个趋势视图在单页应用里,用 index.html#search / #lineage … 直接打开(js/app.js、search.js)
+_SIMP_SIDE = (
+    ("读政策", (("home", "新", "最新收录", "index.html"), ("", "找", "找政策", "index.html#search"),
+               ("", "链", "同名系列", "index.html#lineage"), ("all", "全", "全部政策", "p/index.html"),
+               ("week", "周", "周汇总", "p/week/index.html"))),
+    ("看趋势", (("", "势", "发文趋势", "index.html#trends"), ("", "形", "政策形态", "index.html#morph"),
+               ("", "维", "七维分析", "index.html#dims"))),
+)
+SIMP_SIDE_NOTE = "免费 · 不接中介推广 · 每条附原文溯源。靠广告与读者打赏运营。"
+
+
+def simp_aside(up: str = "", active: str = "") -> str:
+    """简体页的侧栏。up:本页到站点根的相对前缀(404 页是绝对的 "/")。"""
+    def item(key: str, glyph: str, label: str, href: str, extra: str = "") -> str:
+        on = bool(key) and key == active
+        cls = "nav-item" + extra + (" active" if on else "")
+        cur = ' aria-current="page"' if on else ""
+        return f'<a class="{cls}" href="{up}{href}"{cur}><span class="glyph">{glyph}</span>{label}</a>'
+    parts = []
+    for label, items in _SIMP_SIDE:
+        parts.append(f'<div class="side-label">{label}</div>')
+        parts += [item(*x) for x in items]
+    parts.append('<div class="side-div side-extra"></div><div class="side-label side-extra">关于</div>')
+    parts += [item(*x, extra=" side-extra") for x in _HANT_SIDE_ABOUT]
+    parts.append(f'<div class="side-note side-extra">{SIMP_SIDE_NOTE}</div>')
     return '<aside aria-label="主导航">' + "".join(parts) + "</aside>"
 
 
@@ -1430,6 +1459,7 @@ HANT_ABOUT_NOTE = ('<p class="hant-note">繁体版说明:下文提到的首页�
                    '<a href="p/index.html">全部政策目录</a>。</p>')
 _SWITCH_RE = re.compile(r'<a class="lang-switch"[^>]*>.*?</a>', re.S)
 _STATIC_MAIN_RE = re.compile(r'<main style="max-width:(\d+px);[^"]*">')
+_BLOCK_ASIDE_RE = re.compile(r"<!-- seo:aside [^>]*-->")
 
 
 def render_hant_static(text: str, fname: str, name: str, kind: str) -> str:
@@ -1444,14 +1474,17 @@ def render_hant_static(text: str, fname: str, name: str, kind: str) -> str:
     text = _ASSET_REF_RE.sub(r"\1../\2", text)
     text = _DATA_BASE_RE.sub(lambda m: f'data-base="../{m.group(1)}"', text)
     text = _SWITCH_RE.sub(lambda m: lang_switch("", f"{_base()}/{fname}"), text, count=1)
-    # 繁体页一律带左侧导航:把手写页的 <main style=…> 换成与其他繁体页相同的侧栏版式,正文宽度不变
+    # 繁体页一律带左侧导航。手写页里有受管的侧栏区块(简体侧栏)就换成繁体侧栏;
+    # 没有区块的旧结构,把 <main style=…> 包进与其他繁体页相同的侧栏版式,正文宽度不变
+    hant_side = hant_aside("", _side_active(f"{_base()}/{fname}"))
+    if _BLOCK_ASIDE_RE.search(text):
+        return _replace_block(text, "aside", hant_side)
     m = _STATIC_MAIN_RE.search(text)
     if not m or text.count("</main>") != 1:
         # 手写页改了结构时只是这一页没侧栏,不该让整个繁体导出失败;真实页面由测试与导出检查兜住
         log.warning("%s:找不到唯一的 <main style=…max-width…>,繁体版不加侧栏", fname)
         return text
-    shell = (f'<div class="layout">{hant_aside("", _hant_active(f"{_base()}/{fname}"))}'
-             f'<main><div style="max-width:{m.group(1)}">')
+    shell = f'<div class="layout">{hant_side}<main><div style="max-width:{m.group(1)}">'
     text = text[:m.start()] + shell + text[m.end():]
     return text.replace("</main>", "</div></main></div>", 1)
 

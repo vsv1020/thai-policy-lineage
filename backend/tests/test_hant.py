@@ -270,9 +270,11 @@ STATIC = """<!DOCTYPE html>
 <!-- seo:head x -->
 <!-- /seo:head -->
 </head><body><header><div class="header-right"><a class="lang-switch" href="zh-hant/{f}" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a></div></header>
-<main style="max-width:780px;margin:0 auto;padding:32px 20px">
+<div class="layout"><!-- seo:aside 左侧导航 -->
+<!-- /seo:aside -->
+<main><div style="max-width:780px">
 <h1>{t}</h1><p><a href="index.html">首页</a> · <a href="p/index.html">全部政策</a> · <a href="feed.xml">订阅</a></p>
-</main>
+</div></main></div>
 </body></html>
 """
 
@@ -417,10 +419,11 @@ def test_thai_text_and_official_links_unchanged(site):
         gov = re.compile(r'https?://[A-Za-z0-9.-]+\.go\.th/[^"\s<()]*')
         assert gov.findall(s) == gov.findall(t), rel
         cls = re.compile(r'class="([^"]*)"')
-        # 繁体页多一层侧栏外壳(.layout + aside),其余结构与简体页逐个相同
-        assert '<div class="layout"><aside' in t, f"{rel}:繁体页都带左侧导航"
-        body = re.sub(r'<div class="layout"><aside\b.*?</aside>', "", t, count=1, flags=re.S)
-        assert cls.findall(s) == cls.findall(body), rel
+        # 简繁两边都有侧栏外壳(.layout + aside,链接与字形各自不同),去掉侧栏后结构逐个相同
+        shell = r'<div class="layout">(?:<!-- seo:aside [^>]*-->\s*)?<aside\b.*?</aside>'   # 手写页中间夹着受管区块标记
+        strip = lambda x: re.sub(shell, "", x, count=1, flags=re.S)  # noqa: E731
+        assert re.search(shell, s, re.S) and re.search(shell, t, re.S), f"{rel}:简繁页都带左侧导航"
+        assert cls.findall(strip(s)) == cls.findall(strip(t)), rel
         for ld in _lds(t):                        # 仍是合法 JSON(_lds 解析失败会抛错)
             assert ld["@context"] == "https://schema.org"
 
@@ -846,3 +849,43 @@ def test_every_hant_page_keeps_the_sidebar(site):
             assert active == ["週彙總"], (rel, active)
         else:
             assert active == [], (rel, active)
+
+
+def test_every_simplified_page_keeps_the_sidebar(site):
+    """简体内页(目录、周汇总、指南、关于、隐私、每条政策页、专题页)也都带与简体首页同样的侧栏:
+    单页应用里的视图用 index.html#search 等打开,其余链接指向存在的简体页,当前页高亮,不链繁体版。"""
+    import posixpath
+    root, _ = site
+    spa = {"search", "lineage", "trends", "morph", "dims"}
+    want = {"p/index.html": "全部政策", "p/week/index.html": "周汇总", "about.html": "怎么用本站",
+            "privacy.html": "隐私政策", "p/guide/royal-gazette.html": "皇家公报指南"}
+    files = [*root.joinpath("p").rglob("*.html"), root / "about.html", root / "privacy.html"]
+    for f in files:
+        rel = f.relative_to(root).as_posix()
+        t = f.read_text(encoding="utf-8")
+        assert t.count("<aside") == 1 and t.count('<div class="layout">') == 1, rel
+        aside = t.split("<aside", 1)[1].split("</aside>", 1)[0]
+        assert "zh-hant" not in aside and "zh-Hant" not in aside, rel
+        hrefs = re.findall(r'href="([^"]*)"', aside)
+        for href in hrefs:
+            target, _, anchor = href.partition("#")
+            path = (target.removeprefix("/") if target.startswith("/")
+                    else posixpath.normpath(posixpath.join(posixpath.dirname(rel), target)))
+            assert not path.startswith(".."), (rel, href)
+            if anchor:
+                assert path == "index.html" and anchor in spa, (rel, href)
+            else:
+                assert (root / path).is_file(), (rel, href)
+        assert {h.partition("#")[2] for h in hrefs} >= spa, f"{rel}:单页应用的五个视图都在侧栏里"
+        active = re.findall(r'class="nav-item[^"]*active"[^>]*><span class="glyph">.</span>([^<]*)<', aside)
+        if rel in want:
+            assert active == [want[rel]], (rel, active)
+        elif rel.startswith("p/week/"):
+            assert active == ["周汇总"], (rel, active)
+        else:
+            assert active == [], (rel, active)
+    # 繁体的关于 / 隐私:受管区块换成了繁体侧栏,不留简体侧栏的单页应用锚点
+    for fname in ("about.html", "privacy.html"):
+        t = (root / "zh-hant" / fname).read_text(encoding="utf-8")
+        aside = t.split("<aside", 1)[1].split("</aside>", 1)[0]
+        assert "#search" not in aside and "#lineage" not in aside and "週彙總" in aside, fname
