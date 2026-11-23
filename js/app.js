@@ -11,6 +11,11 @@ function go(v) {
   document.getElementById('v-' + v).classList.add('active');
   document.querySelectorAll('.nav-item[data-v]').forEach(b => b.classList.toggle('active', b.dataset.v === v));
   window.scrollTo(0, 0);
+  // 地址栏跟着视图走(#trends 等可分享、刷新不跳走);检索的条件由 search.js 写进 #search?…,这里不覆盖
+  if (v !== 'detail' && !(v === 'search' && location.hash.startsWith('#search'))) {
+    const h = v === 'today' ? location.pathname + location.search : '#' + v;
+    if (location.hash !== (v === 'today' ? '' : h)) history.replaceState(null, '', h);
+  }
   // 单页切换记一次虚拟浏览;详情页由 openDetail 带着 uid 自己记
   if (v !== 'detail') window.PolicyTrack && PolicyTrack.page(location.pathname.replace(/index\.html$/, '') + '#' + v);
   if (v === 'trends' && !inited) { inited = true; setTimeout(initCharts, 30); }
