@@ -233,7 +233,10 @@ def _head(title: str, desc: str, canonical: str, jsonld: list[dict] | dict | Non
           up: str = "../", robots: str = ROBOTS_INDEX, og_type: str = "website", extra: str = "",
           aside: str = "") -> str:
     """extra:追加到 <head> 的标签(如本领域的订阅地址),调用方负责转义。
-    aside:左侧导航栏的 HTML;给了就用侧栏版式,收尾要配 _foot(..., aside=True)。"""
+    aside:左侧导航栏的 HTML;给了就用侧栏版式。繁体页一律带侧栏(没给就按 canonical 生成,当前页高亮),
+    收尾的 _foot 同样按字形判断,两边一致。"""
+    if not aside and _is_hant():
+        aside = hant_aside(up, _hant_active(canonical))
     lds = jsonld if isinstance(jsonld, list) else ([jsonld] if jsonld else [])
     ld = "\n".join(x for x in [extra, *(_ld(x) for x in lds)] if x)
     img = f"{settings.site_url}/{_og_image()}"
@@ -278,7 +281,7 @@ def _head(title: str, desc: str, canonical: str, jsonld: list[dict] | dict | Non
 
 def _foot(up: str = "../", aside: bool = False) -> str:
     root = _root(up)
-    close = "</div></main></div>" if aside else "</main>"
+    close = "</div></main></div>" if aside or _is_hant() else "</main>"
     return f"""{close}
 <footer>{SITE_NAME} —— 官方源自动监测 · 全部内容可溯源 · 零带货中立平台。
 本站译文均为非官方翻译,仅供参考,以泰文原文为准;不构成法律意见。
@@ -1319,33 +1322,58 @@ HANT_HOME_DESC = ("泰国皇家公报、内阁决议与各部委公告的中文�
                   "海关贸易等领域整理,每条附泰国政府网站上的泰文原文链接。非官方翻译,以泰文原文为准。")
 
 
-# 繁体首页的左侧导航:与简体首页同一套版式与字形,但只链繁体版自己的页面 —— 检索、同名系列与趋势图表只有简体版,
-# 侧栏里放了它们,读者一点就掉进简体页(2026-11-23 站长反馈)。要用这些功能走右上角的语言切换。
-# 「按领域 / 专题 / 影响对象」跳到本页正文里对应的分组;文字写简体,写盘前统一转繁体
+# 繁体版的左侧导航:每个繁体页都有(首页、目录、周汇总、指南、关于、隐私、每条政策页),
+# 与简体首页同一套版式与字形,但只链繁体版自己的页面 —— 检索、同名系列与趋势图表只有简体版,
+# 放进侧栏读者一点就掉进简体页(2026-11-23 站长反馈);要用这些功能走右上角的语言切换。
+# 「按领域 / 专题 / 影响对象」跳到繁体首页正文里对应的分组。文字写简体,写盘前统一转繁体
 _HANT_SIDE = (
-    ("读政策", (("新", "最新收录", "index.html"), ("全", "全部政策", "p/index.html"),
-               ("周", "周汇总", "p/week/index.html"))),
-    ("分类浏览", (("域", "按领域", "#by-domain"), ("题", "专题汇总", "#by-topic"),
-                ("人", "按影响对象", "#by-party"))),
+    ("读政策", (("home", "新", "最新收录", "index.html"), ("all", "全", "全部政策", "p/index.html"),
+               ("week", "周", "周汇总", "p/week/index.html"))),
+    ("分类浏览", (("", "域", "按领域", "#by-domain"), ("", "题", "专题汇总", "#by-topic"),
+                ("", "人", "按影响对象", "#by-party"))),
 )
+_HANT_SIDE_ABOUT = (("guide", "指", "皇家公报指南", GUIDE_PATH), ("about", "问", "怎么用本站", "about.html"),
+                    ("privacy", "私", "隐私政策", "privacy.html"))
 
 
-def hant_home_aside() -> str:
-    def item(glyph: str, label: str, href: str) -> str:
-        if href == "index.html":
-            return f'<a class="nav-item active" href="{href}" aria-current="page"><span class="glyph">{glyph}</span>{label}</a>'
-        return f'<a class="nav-item" href="{href}"><span class="glyph">{glyph}</span>{label}</a>'
+def _hant_active(canonical: str) -> str:
+    """侧栏里该高亮哪一项:按页面地址(繁体站内路径)判断;政策页、专题页等不高亮。"""
+    if not canonical or not canonical.startswith(_base()):
+        return ""
+    path = canonical[len(_base()):]
+    if path in ("", "/", "/index.html"):
+        return "home"
+    if path == "/p/index.html":
+        return "all"
+    if path.startswith("/p/week/"):
+        return "week"
+    return {f"/{GUIDE_PATH}": "guide", "/about.html": "about", "/privacy.html": "privacy"}.get(path, "")
+
+
+def hant_aside(up: str = "", active: str = "") -> str:
+    """up:本页到繁体站根的相对前缀(首页 "",目录页 "../",专题页 "../../")。"""
+    def item(key: str, glyph: str, label: str, href: str, extra: str = "") -> str:
+        if href.startswith("#"):
+            href = href if active == "home" else f"{up}index.html{href}"   # 别的页面上先回到繁体首页
+        else:
+            href = up + href
+        on = bool(key) and key == active
+        cls = "nav-item" + extra + (" active" if on else "")
+        cur = ' aria-current="page"' if on else ""
+        return f'<a class="{cls}" href="{href}"{cur}><span class="glyph">{glyph}</span>{label}</a>'
     parts = []
     for label, items in _HANT_SIDE:
         parts.append(f'<div class="side-label">{label}</div>')
         parts += [item(*x) for x in items]
-    parts.append('<div class="side-div side-extra"></div><div class="side-label side-extra">关于</div>'
-                 f'<a class="nav-link side-extra" href="{GUIDE_PATH}"><span class="glyph">指</span>皇家公报指南</a>'
-                 '<a class="nav-link side-extra" href="about.html"><span class="glyph">问</span>怎么用本站</a>'
-                 '<a class="nav-link side-extra" href="privacy.html"><span class="glyph">私</span>隐私政策</a>'
-                 '<div class="side-note side-extra">关键词检索与趋势图表目前只有简体版,可用右上角的「简体中文」切换。'
+    parts.append('<div class="side-div side-extra"></div><div class="side-label side-extra">关于</div>')
+    parts += [item(*x, extra=" side-extra") for x in _HANT_SIDE_ABOUT]
+    parts.append('<div class="side-note side-extra">关键词检索与趋势图表目前只有简体版,可用右上角的「简体中文」切换。'
                  '免费 · 不接中介推广 · 每条附原文溯源。</div>')
     return '<aside aria-label="主导航">' + "".join(parts) + "</aside>"
+
+
+def hant_home_aside() -> str:
+    return hant_aside("", "home")
 
 
 def render_hant_home(entries: list[dict], topics: list[tuple[str, str, int]], collections: list[dict],
@@ -1401,6 +1429,7 @@ HANT_ABOUT_NOTE = ('<p class="hant-note">繁体版说明:下文提到的首页�
                    '<a href="index.html">繁体首页</a>(按领域、专题、最新收录浏览)与'
                    '<a href="p/index.html">全部政策目录</a>。</p>')
 _SWITCH_RE = re.compile(r'<a class="lang-switch"[^>]*>.*?</a>', re.S)
+_STATIC_MAIN_RE = re.compile(r'<main style="max-width:(\d+px);[^"]*">')
 
 
 def render_hant_static(text: str, fname: str, name: str, kind: str) -> str:
@@ -1414,7 +1443,17 @@ def render_hant_static(text: str, fname: str, name: str, kind: str) -> str:
         raise ValueError(f"{fname}:找不到 <html lang=…>,无法标成繁体")
     text = _ASSET_REF_RE.sub(r"\1../\2", text)
     text = _DATA_BASE_RE.sub(lambda m: f'data-base="../{m.group(1)}"', text)
-    return _SWITCH_RE.sub(lambda m: lang_switch("", f"{_base()}/{fname}"), text, count=1)
+    text = _SWITCH_RE.sub(lambda m: lang_switch("", f"{_base()}/{fname}"), text, count=1)
+    # 繁体页一律带左侧导航:把手写页的 <main style=…> 换成与其他繁体页相同的侧栏版式,正文宽度不变
+    m = _STATIC_MAIN_RE.search(text)
+    if not m or text.count("</main>") != 1:
+        # 手写页改了结构时只是这一页没侧栏,不该让整个繁体导出失败;真实页面由测试与导出检查兜住
+        log.warning("%s:找不到唯一的 <main style=…max-width…>,繁体版不加侧栏", fname)
+        return text
+    shell = (f'<div class="layout">{hant_aside("", _hant_active(f"{_base()}/{fname}"))}'
+             f'<main><div style="max-width:{m.group(1)}">')
+    text = text[:m.start()] + shell + text[m.end():]
+    return text.replace("</main>", "</div></main></div>", 1)
 
 
 def build(s: Session, overview: dict | None = None) -> dict[str, int]:

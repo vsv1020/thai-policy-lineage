@@ -270,7 +270,9 @@ STATIC = """<!DOCTYPE html>
 <!-- seo:head x -->
 <!-- /seo:head -->
 </head><body><header><div class="header-right"><a class="lang-switch" href="zh-hant/{f}" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a></div></header>
+<main style="max-width:780px;margin:0 auto;padding:32px 20px">
 <h1>{t}</h1><p><a href="index.html">首页</a> · <a href="p/index.html">全部政策</a> · <a href="feed.xml">订阅</a></p>
+</main>
 </body></html>
 """
 
@@ -415,7 +417,10 @@ def test_thai_text_and_official_links_unchanged(site):
         gov = re.compile(r'https?://[A-Za-z0-9.-]+\.go\.th/[^"\s<()]*')
         assert gov.findall(s) == gov.findall(t), rel
         cls = re.compile(r'class="([^"]*)"')
-        assert cls.findall(s) == cls.findall(t), rel
+        # 繁体页多一层侧栏外壳(.layout + aside),其余结构与简体页逐个相同
+        assert '<div class="layout"><aside' in t, f"{rel}:繁体页都带左侧导航"
+        body = re.sub(r'<div class="layout"><aside\b.*?</aside>', "", t, count=1, flags=re.S)
+        assert cls.findall(s) == cls.findall(body), rel
         for ld in _lds(t):                        # 仍是合法 JSON(_lds 解析失败会抛错)
             assert ld["@context"] == "https://schema.org"
 
@@ -758,9 +763,13 @@ def test_render_hant_static_rewrites_data_base_and_requires_lang():
     src = ('<!DOCTYPE html>\n<html class="x" lang="zh-CN" dir="ltr"><head>\n<!-- seo:head x -->\n<!-- /seo:head -->\n'
            '<title>隐私政策</title></head><body><a class="lang-switch" href="zh-hant/privacy.html">繁體中文</a>'
            '<script src="js/track.js" data-base=""></script><script src="js/ads.js" data-base="./"></script>'
-           '<a href="index.html">首页</a></body></html>')
+           '<main style="max-width:780px;margin:0 auto;padding:32px 20px"><a href="index.html">首页</a></main>'
+           '</body></html>')
     with seo._variant(True):
         out = seo.render_hant_static(src, "privacy.html", "隐私政策", "WebPage")
+    assert '<div class="layout"><aside' in out and '<main><div style="max-width:780px">' in out
+    assert out.count("</div></main></div>") == 1
+    assert '<a class="nav-item side-extra active" href="privacy.html" aria-current="page">' in out
     assert '<html class="x" lang="zh-Hant" dir="ltr">' in out
     assert 'src="../js/track.js" data-base="../"' in out and 'data-base=".././"' in out
     assert 'href="index.html"' in out and 'href="../privacy.html"' in out
@@ -800,3 +809,40 @@ def test_not_found_handler_uses_hant_page_for_zh_hant_paths(tmp_path, monkeypatc
     assert r.status_code == 404 and Path(r.path) == hp and r.headers["x-robots-tag"] == "noindex"
     assert Path(call("/p/gone.html").path) == sp
     assert Path(call("/zh-hantx/gone.html").path) == sp
+
+
+def test_every_hant_page_keeps_the_sidebar(site):
+    """站长反馈:从繁体首页点「全部政策 / 周汇总 / 指南 / 关于 / 隐私」后左侧导航不见了。
+    每个繁体页都要有侧栏,链接按页面层级换算、都指向存在的繁体页,当前页高亮,且不链简体版。"""
+    import posixpath
+    root, _ = site
+    hant = root / "zh-hant"
+    want = {"index.html": "最新收錄", "p/index.html": "全部政策", "p/week/index.html": "週彙總",
+            "about.html": "怎麼用本站", "privacy.html": "隱私政策", "p/guide/royal-gazette.html": "皇家公報指南"}
+    for f in hant.rglob("*.html"):
+        rel = f.relative_to(hant).as_posix()
+        t = f.read_text(encoding="utf-8")
+        assert t.count("<aside") == 1 and t.count('<div class="layout">') == 1, rel
+        aside = t.split("<aside", 1)[1].split("</aside>", 1)[0]
+        assert "zh-Hans" not in aside, rel
+        for href in re.findall(r'href="([^"]*)"', aside):
+            target, _, anchor = href.partition("#")
+            if not target:                                   # 本页锚点只出现在首页
+                assert rel == "index.html" and f'id="{anchor}"' in t, (rel, href)
+                continue
+            if target.startswith("/"):                       # 404 页在任意深度的地址返回,用站内绝对路径
+                assert target.startswith("/zh-hant/"), (rel, href)
+                path = target.removeprefix("/zh-hant/")
+            else:
+                path = posixpath.normpath(posixpath.join(posixpath.dirname(rel), target))
+            assert not path.startswith(".."), (rel, href)
+            assert (hant / path).is_file(), (rel, href)
+            if anchor:
+                assert f'id="{anchor}"' in (hant / path).read_text(encoding="utf-8"), (rel, href)
+        active = re.findall(r'class="nav-item[^"]*active"[^>]*><span class="glyph">.</span>([^<]*)<', aside)
+        if rel in want:
+            assert active == [want[rel]], (rel, active)
+        elif rel.startswith("p/week/"):
+            assert active == ["週彙總"], (rel, active)
+        else:
+            assert active == [], (rel, active)
