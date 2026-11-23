@@ -1319,30 +1319,31 @@ HANT_HOME_DESC = ("泰国皇家公报、内阁决议与各部委公告的中文�
                   "海关贸易等领域整理,每条附泰国政府网站上的泰文原文链接。非官方翻译,以泰文原文为准。")
 
 
-# 繁体首页的左侧导航:与简体首页同样的分组与字形。繁体只有静态门户页,检索、同名系列与趋势图表在简体单页应用里,
-# 这几项链到简体首页对应的视图(js/app.js 按地址栏 #lineage 等打开);文字写简体,写盘前统一转繁体
+# 繁体首页的左侧导航:与简体首页同一套版式与字形,但只链繁体版自己的页面 —— 检索、同名系列与趋势图表只有简体版,
+# 侧栏里放了它们,读者一点就掉进简体页(2026-11-23 站长反馈)。要用这些功能走右上角的语言切换。
+# 「按领域 / 专题 / 影响对象」跳到本页正文里对应的分组;文字写简体,写盘前统一转繁体
 _HANT_SIDE = (
-    ("读政策", (("新", "最新收录", "index.html", True), ("找", "找政策", "../#search", False),
-               ("链", "同名系列", "../#lineage", False), ("全", "全部政策", "p/index.html", True))),
-    ("看趋势", (("势", "发文趋势", "../#trends", False), ("形", "政策形态", "../#morph", False),
-               ("维", "七维分析", "../#dims", False))),
+    ("读政策", (("新", "最新收录", "index.html"), ("全", "全部政策", "p/index.html"),
+               ("周", "周汇总", "p/week/index.html"))),
+    ("分类浏览", (("域", "按领域", "#by-domain"), ("题", "专题汇总", "#by-topic"),
+                ("人", "按影响对象", "#by-party"))),
 )
 
 
 def hant_home_aside() -> str:
-    def item(glyph: str, label: str, href: str, local: bool, active: bool) -> str:
-        cls = "nav-item active" if active else "nav-item"
-        lang = "" if local else ' hreflang="zh-Hans" title="简体版"'
-        cur = ' aria-current="page"' if active else ""
-        return f'<a class="{cls}" href="{href}"{lang}{cur}><span class="glyph">{glyph}</span>{label}</a>'
+    def item(glyph: str, label: str, href: str) -> str:
+        if href == "index.html":
+            return f'<a class="nav-item active" href="{href}" aria-current="page"><span class="glyph">{glyph}</span>{label}</a>'
+        return f'<a class="nav-item" href="{href}"><span class="glyph">{glyph}</span>{label}</a>'
     parts = []
     for label, items in _HANT_SIDE:
         parts.append(f'<div class="side-label">{label}</div>')
-        parts += [item(*x, active=(x[2] == "index.html")) for x in items]
+        parts += [item(*x) for x in items]
     parts.append('<div class="side-div side-extra"></div><div class="side-label side-extra">关于</div>'
+                 f'<a class="nav-link side-extra" href="{GUIDE_PATH}"><span class="glyph">指</span>皇家公报指南</a>'
                  '<a class="nav-link side-extra" href="about.html"><span class="glyph">问</span>怎么用本站</a>'
                  '<a class="nav-link side-extra" href="privacy.html"><span class="glyph">私</span>隐私政策</a>'
-                 '<div class="side-note side-extra">检索、同名系列与趋势图表目前只有简体版,点开会进入简体首页。'
+                 '<div class="side-note side-extra">关键词检索与趋势图表目前只有简体版,可用右上角的「简体中文」切换。'
                  '免费 · 不接中介推广 · 每条附原文溯源。</div>')
     return '<aside aria-label="主导航">' + "".join(parts) + "</aside>"
 
@@ -1365,9 +1366,9 @@ def render_hant_home(entries: list[dict], topics: list[tuple[str, str, int]], co
             '本页是繁体中文版入口;互动检索、筛选与趋势图表目前只有简体版:'
             '<a href="../" hreflang="zh-Hans">简体版首页</a> · <a href="../#search" hreflang="zh-Hans">找政策</a>。</div>'
             '<nav class="coll-related">'
-            + (f"<div><b>按领域浏览</b> {nav}</div>" if nav else "")
-            + (f"<div><b>专题汇总</b> {coll}</div>" if coll else "")
-            + (f"<div><b>按影响对象</b> {whos}</div>" if whos else "")
+            + (f'<div id="by-domain" style="scroll-margin-top:110px"><b>按领域浏览</b> {nav}</div>' if nav else "")
+            + (f'<div id="by-topic" style="scroll-margin-top:110px"><b>专题汇总</b> {coll}</div>' if coll else "")
+            + (f'<div id="by-party" style="scroll-margin-top:110px"><b>按影响对象</b> {whos}</div>' if whos else "")
             + f'<div><b>指南</b> <a href="{GUIDE_PATH}">泰国皇家公报(政府公报)中文指南</a> · '
               '<a href="about.html">怎么用本站</a> · <a href="p/index.html">全部政策目录</a></div>'
             + '<div><b>周汇总</b> ' + (f"{wk} · " if wk else "") + '<a href="p/week/index.html">全部周汇总</a></div>'
