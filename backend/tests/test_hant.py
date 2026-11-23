@@ -444,17 +444,18 @@ def test_hant_home_portal(site):
     n_entries = len([p for p in (root / "p").glob("*.html") if p.name not in ("index.html", "404.html")])
     assert t.count('class="coll-item"') == min(seo.HANT_LATEST, n_entries)
     assert re.search(r'<a href="\.\./" hreflang="zh-Hans">簡體版首頁</a>', t), "注明互动检索在简体版并给链接"
-    # 左侧导航:与简体首页同一套 .layout / aside(桌面左栏、手机顶部标签);门户页不加载 app.js,
-    # 所以是普通链接而不是 data-v 按钮,简体单页应用里才有的视图链到简体首页的对应锚点
+    # 左侧导航:与简体首页同一套 .layout / aside(桌面左栏、手机顶部标签),但只链繁体版自己的页面:
+    # 门户页不加载 app.js,所以是普通链接;不能有掉进简体版的入口(语言切换在页头,不在侧栏)
     assert '<div class="layout"><aside' in t and t.index("</aside>") < t.index("<main"), "侧栏在正文之前,版式与简体首页一致"
     aside = t.split("<aside", 1)[1].split("</aside>", 1)[0]
-    assert "data-v=" not in aside
+    assert "data-v=" not in aside and "zh-Hans" not in aside and 'href="../' not in aside, "侧栏不链简体版"
     assert re.search(r'<a class="nav-item active" href="index.html" aria-current="page">.*最新收錄</a>', aside)
-    for href in ('href="p/index.html"', 'href="about.html"', 'href="privacy.html"'):
+    for href in ('href="p/index.html"', 'href="p/week/index.html"', 'href="p/guide/royal-gazette.html"',
+                 'href="about.html"', 'href="privacy.html"'):
         assert href in aside, href
-    for view in ("search", "lineage", "trends", "morph", "dims"):
-        assert f'href="../#{view}" hreflang="zh-Hans"' in aside, view
-    assert "發文趨勢" in aside and "七維分析" in aside and "发文趋势" not in aside, "侧栏文字同样转成繁体"
+    for anchor in ("by-domain", "by-topic", "by-party"):
+        assert f'href="#{anchor}"' in aside and f'id="{anchor}"' in t, f"侧栏锚点 #{anchor} 在正文里有对应分组"
+    assert "週彙總" in aside and "專題彙總" in aside and "周汇总" not in aside, "侧栏文字同样转成繁体"
     assert t.rstrip().count("</main></div>") == 1
     lds = {x["@type"]: x for x in _lds(t)}
     assert lds["WebSite"]["inLanguage"] == "zh-Hant" and lds["WebSite"]["url"] == f"{HANT}/"
