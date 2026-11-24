@@ -1,12 +1,12 @@
 {
  "_generated": "由 backend/app/export.py 从数据库导出,请勿手改;改 data/policies/*.jsonl → python3 -m app.ingest → python3 -m app.export",
  "schema_version": 4,
- "updated_at": "2026-11-23T07:07:46+07:00",
+ "updated_at": "2026-11-24T07:07:53+07:00",
  "stats": {
-  "total": 2624,
+  "total": 2626,
   "research": 0,
   "demo": 0,
-  "with_points": 2502,
+  "with_points": 2504,
   "date_from": "2023-06-02",
   "date_to": "2026-11-17",
   "gazette_to": "2026-04-22",
@@ -15,7 +15,7 @@
    {
     "id": "biz",
     "zh": "公司投资",
-    "n": 801
+    "n": 803
    },
    {
     "id": "land",
@@ -69,21 +69,21 @@
    "domain": "biz",
    "label": "公司投资",
    "score": 0.13,
-   "n": 115,
+   "n": 111,
    "direction": "neutral"
   },
   {
    "domain": "land",
    "label": "房产土地",
-   "score": 0.19,
-   "n": 52,
+   "score": 0.2,
+   "n": 51,
    "direction": "loose"
   },
   {
    "domain": "finance",
    "label": "金融外汇",
-   "score": 0.46,
-   "n": 46,
+   "score": 0.44,
+   "n": 42,
    "direction": "loose"
   },
   {
@@ -103,22 +103,22 @@
   {
    "domain": "labor",
    "label": "劳工用工",
-   "score": 0.23,
-   "n": 21,
+   "score": 0.26,
+   "n": 18,
    "direction": "loose"
   },
   {
    "domain": "health",
    "label": "医疗",
    "score": -0.06,
-   "n": 18,
+   "n": 17,
    "direction": "neutral"
   },
   {
    "domain": "digital",
    "label": "数字与数据",
-   "score": 0.36,
-   "n": 11,
+   "score": 0.32,
+   "n": 10,
    "direction": "loose"
   },
   {
@@ -350,6 +350,62 @@
    "featured": true
   },
   {
+   "uid": "TH-CABX-20261117-1910DE8F54",
+   "issue_id": null,
+   "date": "2026-11-17",
+   "domain": "biz",
+   "domain_label": "公司投资",
+   "direction": "neutral",
+   "title_zh": "关于请求批准美国贸易与发展署与泰王国政府（由泰国民航局代表）之间接受资助协议草案的申请，以获取技术援助开展机场总体规划研究项目",
+   "title_th": "การขอความเห็นชอบร่างข้อตกลงการรับทุนระหว่างรัฐบาลแห่งสหรัฐอเมริกา โดยองค์การการค้าและการพัฒนาของสหรัฐอเมริกา และรัฐบาลแห่งราชอาณาจักรไทย โดยสำนักงานการบินพลเรือนแห่งประเทศไทย เพื่อรับความช่วยเหลือทางวิชาการในการดำเนินโครงการศึกษาจัดทำแผนแม่บทสนามบิน",
+   "summary_zh": "内阁审议了交通部提交的关于接受美国贸易与发展署技术援助的资助协议草案，该援助用于开展机场总体规划研究项目。内阁会议于2026年11月17日决议批准按交通部所提方案执行。若日后需修改协议但不影响实质内容、不违背内阁已批准的原则，可先行修改，事后向内阁报告并说明理由、必要性与泰国所获利益。交通部（民航局）须一并考虑预算办公室和国家经济社会发展委员会的意見。",
+   "key_points": [
+    "内阁批准接受美国贸易与发展署技术援助的资助协议草案",
+    "援助用于开展机场总体规划研究项目",
+    "不影响实质的修改可先执行、事后报内阁",
+    "交通部（民航局）须采纳预算办公室与经济社会发展委员会意见"
+   ],
+   "org": "内阁 · 交通部 (MOT) · 民航局 (CAAT)",
+   "org_label": "发文机关",
+   "org_issuer": "内阁",
+   "org_related": "交通部 (MOT) · 民航局 (CAAT)",
+   "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
+   "doc_no": "416802",
+   "doc_no_label": "文号",
+   "legal_form": "内阁决议 · มติ ครม. 层级",
+   "stability": 1,
+   "effective_label": "待刊公报后生效",
+   "status": "draft",
+   "status_label": "待刊公报",
+   "source_url": "https://resolution.soc.go.th/PDF_UPLOAD/2569/P_416802_1.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "cabinet_json",
+   "dates": {
+    "resolved_at": "2026-11-17",
+    "published_at": null,
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
+    }
+   ],
+   "featured": true
+  },
+  {
    "uid": "TH-CABX-20261117-24-2568",
    "issue_id": null,
    "date": "2026-11-17",
@@ -546,19 +602,19 @@
    "domain": "tax",
    "domain_label": "税务",
    "direction": "loose",
-   "title_zh": "关于援助洪灾受灾所得税纳税人的税务措施法案（2025年7月21日至2025年12月31日期间）",
-   "title_th": "ร่างกฎหมายตามมาตรการภาษีเพื่อช่วยเหลือผู้มีเงินได้ที่ประสบอุทกภัย (ช่วงปี 2568 ตั้งแต่วันที่ 21 กรกฎาคม2568 ถึงวันที่ 31 ธันวาคม 2568)",
-   "summary_zh": "内阁批准财政部提出的两项税务措施法案原则：一项为依《税法典》发布的免税皇家法令草案，一项为依《税法典》发布的免税部令草案，共2份，适用于2025年7月21日至12月31日期间遭受洪灾的有所得税纳税人。内阁要求将两份草案作为紧急事项送交法律委员会办公室审议，之后继续推进程序；同时要求财政部及相关机构考虑预算办公室和国家经济与社会发展委员会的意見。",
+   "title_zh": "关于救助洪灾受灾所得税措施的法律草案（2025年7月21日至2025年12月31日期间）",
+   "title_th": "ร่างกฎหมายตามมาตรการภาษีเพื่อช่วยเหลือผู้มีเงินได้ที่ประสบอุทกภัย (ช่วงปี 2568 ตั้งแต่วันที่ 21 กรกฎาคม 2568 ถึงวันที่ 31 ธันวาคม 2568)",
+   "summary_zh": "内阁会议审议并批准了财政部提出的两项法律草案原则：一是依据《税法典》关于免税规定的皇家法令草案，二是依据《税法典》关于免税规定的部令草案，共2份，用于救助2025年7月21日至12月31日期间遭受洪灾的纳税人。两项草案将作为紧急事项送交法律发展委员会办公室审查后继续推进。内阁同时要求财政部及相关机构考虑预算办公室和国家经济与社会发展委员会的意见。",
    "key_points": [
-    "内阁批准2份免税法案草案原则，分别以皇家法令和部令形式发布",
+    "内阁批准2份免税法律草案原则，用于救助洪灾受灾纳税人",
     "适用期间为2025年7月21日至2025年12月31日",
-    "适用对象为该期间遭受洪灾的有所得税纳税人",
-    "草案作为紧急事项送交法律委员会办公室审议"
+    "草案送法律发展委员会办公室紧急审查后继续推进",
+    "财政部等机构须考虑预算办公室与国民经济与社会发展委员会意见"
    ],
-   "org": "内阁 · 财政部 (MOF)",
+   "org": "内阁 · 财政部 (MOF) · 法律发展委员会",
    "org_label": "发文机关",
    "org_issuer": "内阁",
-   "org_related": "财政部 (MOF)",
+   "org_related": "财政部 (MOF) · 法律发展委员会",
    "org_shown": "内阁",
    "org_issuer_ids": [
     "cabinet"
@@ -597,6 +653,62 @@
      "party_id": "foreign_resident",
      "stance": "support",
      "label": "外籍长居个人"
+    }
+   ],
+   "featured": true
+  },
+  {
+   "uid": "TH-CABX-20261117-2BCE079401",
+   "issue_id": null,
+   "date": "2026-11-17",
+   "domain": "biz",
+   "domain_label": "公司投资",
+   "direction": "loose",
+   "title_zh": "泰王国自然资源与环境部与俄罗斯联邦经济发展部关于气候变化与低碳发展议题的谅解备忘录",
+   "title_th": "บันทึกความเข้าใจระหว่างกระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อมแห่งราชอาณาจักรไทยกับกระทรวงพัฒนาเศรษฐกิจแห่งสหพันธ์รัฐรัสเซียว่าด้วยประเด็นด้านการเปลี่ยนแปลงสภาพภูมิอากาศและการพัฒนาคาร์บอนต่ำ",
+   "summary_zh": "内阁于2026年11月17日会议通过决议，批准自然资源与环境部提出的与俄罗斯联邦经济发展部签署气候变化与低碳发展谅解备忘录。外交部、高等教育科研与创新部、能源部、工业部及国家经济与社会发展委员会办公室已提交意见供审议。若日后需修改且不触及实质内容、不违背内阁批准原则，可先行办理并事后报内阁知悉，同时须说明理由、必要性及泰国所得利益。",
+   "key_points": [
+    "内阁批准签署泰俄气候变化与低碳发展谅解备忘录",
+    "备忘录由自然资源与环境部与俄经济发展部签署",
+    "不触及实质的修改可先办后报内阁并说明理由与利益",
+    "外交部等五部门意见已提交内阁审议"
+   ],
+   "org": "内阁 · 自然资源与环境部 (MNRE)",
+   "org_label": "发文机关",
+   "org_issuer": "内阁",
+   "org_related": "自然资源与环境部 (MNRE)",
+   "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
+   "doc_no": "416801",
+   "doc_no_label": "文号",
+   "legal_form": "内阁决议 · มติ ครม. 层级",
+   "stability": 1,
+   "effective_label": "待刊公报后生效",
+   "status": "draft",
+   "status_label": "待刊公报",
+   "source_url": "https://resolution.soc.go.th/PDF_UPLOAD/2569/P_416801_1.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "cabinet_json",
+   "dates": {
+    "resolved_at": "2026-11-17",
+    "published_at": null,
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
     }
    ],
    "featured": true
@@ -723,7 +835,7 @@
      "label": "外籍长居个人"
     }
    ],
-   "featured": true
+   "featured": false
   },
   {
    "uid": "TH-CABX-20261117-5499B5E440",
@@ -779,7 +891,7 @@
      "label": "外资投资者"
     }
    ],
-   "featured": true
+   "featured": false
   },
   {
    "uid": "TH-CABX-20261117-7766132983",
