@@ -21,7 +21,7 @@
     "desc": "规则与激励塑造环境",
     "color": "seal",
     "share": 57,
-    "count": 2081,
+    "count": 2083,
     "rows": [
      {
       "id": "disclosure",
@@ -30,7 +30,7 @@
        1,
        14,
        59,
-       243
+       244
       ]
      },
      {
@@ -60,7 +60,7 @@
        22,
        74,
        284,
-       837
+       838
       ]
      },
      {
@@ -176,7 +176,7 @@
     ]
    }
   ],
-  "n": 3632,
+  "n": 3634,
   "sufficient": true,
   "min_n": 12
  },
@@ -241,7 +241,7 @@
      89,
      126,
      224,
-     182,
+     183,
      638,
      57
     ]
@@ -263,7 +263,7 @@
    }
   ],
   "gaps": [],
-  "n": 3574,
+  "n": 3575,
   "sufficient": true,
   "min_n": 12
  },
@@ -321,7 +321,7 @@
     "stability": 2,
     "justiciable": false,
     "note": "调整最快,占比最高",
-    "count": 854,
+    "count": 855,
     "pct": 33
    },
    {
@@ -358,10 +358,10 @@
     "pct": 1
    }
   ],
-  "total": 2626,
+  "total": 2627,
   "fragile_pct": 82,
   "fragile_note": "承载在公告与内阁决议层的比例 —— 调整快、可诉性弱,投资测算应按可撤回处理",
-  "n": 2626,
+  "n": 2627,
   "sufficient": true,
   "min_n": 20
  },
@@ -372,7 +372,7 @@
     "label": "外资企业",
     "support": 287,
     "constrain": 422,
-    "neutral": 890
+    "neutral": 891
    },
    {
     "id": "consumer",
@@ -386,7 +386,7 @@
     "label": "外资投资者",
     "support": 190,
     "constrain": 95,
-    "neutral": 453
+    "neutral": 454
    },
    {
     "id": "foreign_resident",
@@ -432,7 +432,7 @@
    }
   ],
   "max": 422,
-  "n": 5117,
+  "n": 5119,
   "sufficient": true,
   "min_n": 10
  },
@@ -3830,7 +3830,7 @@
    }
   ],
   "max": 467,
-  "solo_documents": 932,
+  "solo_documents": 933,
   "note": "联署少而各自单独规定同一事项,是维度六冲突的来源",
   "n": 6480,
   "sufficient": true,
@@ -3875,7 +3875,7 @@
     "id": "implementing_rule",
     "label": "实施细则",
     "seq": 4,
-    "count": 1051,
+    "count": 1052,
     "hot": false,
     "weak": false
    },
@@ -3896,10 +3896,10 @@
     "weak": true
    }
   ],
-  "total": 2626,
+  "total": 2627,
   "peak": 1418,
   "missing": [],
-  "n": 2626,
+  "n": 2627,
   "sufficient": true,
   "min_n": 12
  }

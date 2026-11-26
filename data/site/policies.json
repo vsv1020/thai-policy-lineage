@@ -1,21 +1,21 @@
 {
  "_generated": "由 backend/app/export.py 从数据库导出,请勿手改;改 data/policies/*.jsonl → python3 -m app.ingest → python3 -m app.export",
  "schema_version": 4,
- "updated_at": "2026-11-25T07:07:53+07:00",
+ "updated_at": "2026-11-26T07:08:14+07:00",
  "stats": {
-  "total": 2626,
+  "total": 2627,
   "research": 0,
   "demo": 0,
-  "with_points": 2504,
+  "with_points": 2505,
   "date_from": "2023-06-02",
-  "date_to": "2026-11-17",
+  "date_to": "2026-11-24",
   "gazette_to": "2026-04-22",
-  "agency_n": 115,
+  "agency_n": 116,
   "by_domain": [
    {
     "id": "biz",
     "zh": "公司投资",
-    "n": 803
+    "n": 804
    },
    {
     "id": "land",
@@ -69,7 +69,7 @@
    "domain": "biz",
    "label": "公司投资",
    "score": 0.13,
-   "n": 111,
+   "n": 112,
    "direction": "neutral"
   },
   {
@@ -163,6 +163,69 @@
   }
  ],
  "policies": [
+  {
+   "uid": "TH-BOI-20261124-139724",
+   "issue_id": null,
+   "date": "2026-11-24",
+   "domain": "biz",
+   "domain_label": "公司投资",
+   "direction": "neutral",
+   "title_zh": "投资促进委员会办公室第 ป.14/2569 号公告：邀请私营机构协助执行生产损耗或不合格原材料检查工作",
+   "title_th": "ประกาศ สกท.ที่ ป.14/2569 เรื่อง เชิญชวนให้เอกชนช่วยปฏิบัติงานตรวจสอบวัตถุดิบที่สูญเสียจากการผลิตหรือไม่ได้คุณภาพ",
+   "summary_zh": "投资促进委员会办公室依据《投资促进法》第 13/1 条发布公告，废止第 ป.12/2567 号旧公告，重新邀请私营机构协助检查并出具生产损耗或不合格原材料证明，再报办公室审批。申请者须为从事商品质量检验的法人，须持续持有 มอก. 17020 检查机构认证，外资法人还须取得商业发展厅的外商经营许可证。有意者即日起向办公室提交申请及第 3 条规定的证明材料；原有获准机构须在 2027 年 4 月 30 日前取得上述认证。",
+   "key_points": [
+    "申请者须为从事商品质量检验的法人，并持续持有 มอก. 17020 检查机构认证",
+    "外资法人须先取得商业发展厅的外商经营许可证",
+    "获选者须按办公室指定范本签署代理委任合同，名单将在公报刊登",
+    "有意者即日起向投资促进委员会办公室提交申请及第 3 条证明材料",
+    "原有获准机构须在 2027 年 4 月 30 日前取得 มอก. 17020 认证"
+   ],
+   "org": "投资促进委员会 (BOI)",
+   "org_label": "发文机关",
+   "org_issuer": "投资促进委员会办公室",
+   "org_related": "",
+   "org_shown": "投资促进委员会办公室",
+   "org_issuer_ids": [
+    "boi"
+   ],
+   "doc_no": "สกท. ป.14/2569",
+   "doc_no_label": "文号",
+   "legal_form": "公告 · ประกาศ 层级",
+   "stability": 2,
+   "effective_label": "现行有效",
+   "status": "active",
+   "status_label": "现行有效",
+   "source_url": "https://www.boi.go.th/upload/content/por14_2569_6b064e8ddcc4b.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "boi_web",
+   "dates": {
+    "resolved_at": null,
+    "published_at": "2026-11-24",
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
+    },
+    {
+     "id": "foreign_investor",
+     "party_id": "foreign_investor",
+     "stance": "neutral",
+     "label": "外资投资者"
+    }
+   ],
+   "featured": true
+  },
   {
    "uid": "TH-BOI-20261117-139685",
    "issue_id": null,
@@ -285,7 +348,7 @@
      "label": "本地雇主"
     }
    ],
-   "featured": true
+   "featured": false
   },
   {
    "uid": "TH-CABX-20261117-0878922036",
@@ -143703,8 +143766,8 @@
    "legal_form": "公告 · ประกาศ 层级",
    "stability": 2,
    "effective_label": "已生效",
-   "status": "active",
-   "status_label": "现行有效",
+   "status": "draft",
+   "status_label": "已被替代",
    "source_url": "https://www.boi.go.th/upload/content/por12_2567.pdf",
    "verified": false,
    "detail_ready": false,

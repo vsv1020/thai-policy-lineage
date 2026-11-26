@@ -19,7 +19,7 @@
  "min_months_required": 6,
  "data_through": "2026-11",
  "gazette_through": "2026-04",
- "total_documents": 2626,
+ "total_documents": 2627,
  "volume_by_domain": [
   {
    "id": "biz",
@@ -36,7 +36,7 @@
     19,
     48,
     35,
-    28
+    29
    ]
   },
   {
@@ -400,7 +400,7 @@
     3,
     4,
     6,
-    3
+    4
    ]
   },
   {
@@ -2278,18 +2278,6 @@
  ],
  "rising": [
   {
-   "label": "绿色转型",
-   "current": 30,
-   "previous": 6,
-   "growth_pct": 400
-  },
-  {
-   "label": "补贴与价格优惠",
-   "current": 24,
-   "previous": 6,
-   "growth_pct": 300
-  },
-  {
    "label": "本地化与合规考核",
    "current": 4,
    "previous": 1,
@@ -2297,21 +2285,33 @@
   },
   {
    "label": "产业升级",
-   "current": 33,
-   "previous": 9,
-   "growth_pct": 267
+   "current": 32,
+   "previous": 10,
+   "growth_pct": 220
   },
   {
-   "label": "资金与预算投入",
-   "current": 38,
-   "previous": 17,
-   "growth_pct": 124
+   "label": "绿色转型",
+   "current": 27,
+   "previous": 9,
+   "growth_pct": 200
   },
   {
    "label": "税收减免与追缴",
    "current": 23,
-   "previous": 11,
-   "growth_pct": 109
+   "previous": 9,
+   "growth_pct": 156
+  },
+  {
+   "label": "补贴与价格优惠",
+   "current": 21,
+   "previous": 9,
+   "growth_pct": 133
+  },
+  {
+   "label": "税务",
+   "current": 26,
+   "previous": 12,
+   "growth_pct": 117
   },
   {
    "label": "人才与技能培训",
@@ -2320,10 +2320,10 @@
    "growth_pct": 100
   },
   {
-   "label": "公司投资",
-   "current": 117,
-   "previous": 59,
-   "growth_pct": 98
+   "label": "资金与预算投入",
+   "current": 36,
+   "previous": 19,
+   "growth_pct": 89
   }
  ]
 }
