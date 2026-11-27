@@ -1,17 +1,17 @@
 {
  "_generated": "由 backend/app/export.py 从数据库导出,请勿手改;改 data/policies/*.jsonl → python3 -m app.ingest → python3 -m app.export",
- "n": 2627,
+ "n": 2635,
  "kpis": {
-  "total": 2627,
+  "total": 2635,
   "avg_stability": 1.94,
-  "binding_pct": 17.6,
+  "binding_pct": 17.7,
   "in_force_pct": 3.8,
   "high_tier_pct": 11.6,
   "tight": 530,
   "loose": 666
  },
  "insights": [
-  "库内 2627 条政策中,决议 / 指引层级最多(占 44.5%);可诉、强制力较强的占 17.6%,现行有效的占 3.8%。",
+  "库内 2635 条政策中,决议 / 指引层级最多(占 44.6%);可诉、强制力较强的占 17.7%,现行有效的占 3.8%。",
   "「医疗」的政策层级最高(平均稳定性 2.64),多以内阁决议出台;「教育」最低(平均 1.08),以内阁决议为主,规则更容易调整。",
   "方向上,收紧 530 条、放宽 666 条,整体偏放宽。",
   "与 2025Q1–2025Q4 相比,2026Q1–2026Q4 新出台政策的平均层级上升了 0.54(稳定性 1–5),规则更趋向以高层级立法固定。"
@@ -23,7 +23,7 @@
    "stability": 5,
    "justiciable": true,
    "n": 238,
-   "pct": 9.1
+   "pct": 9.0
   },
   {
    "id": "emergency",
@@ -38,7 +38,7 @@
    "zh": "皇家法令",
    "stability": 4,
    "justiciable": true,
-   "n": 57,
+   "n": 59,
    "pct": 2.2
   },
   {
@@ -46,7 +46,7 @@
    "zh": "部令",
    "stability": 3,
    "justiciable": true,
-   "n": 159,
+   "n": 161,
    "pct": 6.1
   },
   {
@@ -55,7 +55,7 @@
    "stability": 2,
    "justiciable": false,
    "n": 855,
-   "pct": 32.5
+   "pct": 32.4
   },
   {
    "id": "rabiap",
@@ -78,7 +78,7 @@
    "zh": "内阁决议",
    "stability": 1,
    "justiciable": false,
-   "n": 1146,
+   "n": 1150,
    "pct": 43.6
   }
  ],
@@ -92,26 +92,26 @@
   {
    "stability": 4,
    "label": "皇家法令",
-   "n": 57,
+   "n": 59,
    "pct": 2.2
   },
   {
    "stability": 3,
    "label": "部令",
-   "n": 159,
+   "n": 161,
    "pct": 6.1
   },
   {
    "stability": 2,
    "label": "公告 / 规程",
    "n": 994,
-   "pct": 37.8
+   "pct": 37.7
   },
   {
    "stability": 1,
    "label": "决议 / 指引",
-   "n": 1170,
-   "pct": 44.5
+   "n": 1174,
+   "pct": 44.6
   }
  ],
  "instrument_classes": [
@@ -119,14 +119,14 @@
    "id": "supply",
    "zh": "供给型",
    "desc": "政府直接投入",
-   "n": 923,
-   "pct": 35.1
+   "n": 927,
+   "pct": 35.2
   },
   {
    "id": "environment",
    "zh": "环境型",
    "desc": "规则与激励塑造环境",
-   "n": 1611,
+   "n": 1616,
    "pct": 61.3
   },
   {
@@ -141,17 +141,17 @@
   {
    "zh": "标准与准入管制",
    "class": "环境型",
-   "n": 1218
+   "n": 1222
   },
   {
    "zh": "公共服务与系统供给",
    "class": "供给型",
-   "n": 656
+   "n": 658
   },
   {
    "zh": "执法、排查与处罚",
    "class": "环境型",
-   "n": 344
+   "n": 345
   },
   {
    "zh": "申报、备案与披露",
@@ -161,7 +161,7 @@
   {
    "zh": "资金与预算投入",
    "class": "供给型",
-   "n": 220
+   "n": 221
   },
   {
    "zh": "税收减免与追缴",
@@ -189,14 +189,14 @@
   {
    "id": "pending_gazette",
    "zh": "待刊公报",
-   "n": 1491,
-   "pct": 56.8
+   "n": 1499,
+   "pct": 56.9
   },
   {
    "id": "gazetted",
    "zh": "已刊公报",
    "n": 1034,
-   "pct": 39.4
+   "pct": 39.2
   },
   {
    "id": "in_force",
@@ -304,22 +304,22 @@
    [
     43,
     1,
-    7,
+    8,
     50,
     255,
     35,
     17,
-    396
+    398
    ],
    [
     91,
     0,
-    13,
-    22,
+    14,
+    24,
     191,
     52,
     1,
-    167
+    168
    ],
    [
     0,
@@ -339,7 +339,7 @@
     54,
     1,
     2,
-    184
+    185
    ],
    [
     72,
@@ -407,7 +407,7 @@
   {
    "id": "biz",
    "zh": "公司投资",
-   "n": 804,
+   "n": 807,
    "avg_stability": 1.73,
    "binding_pct": 12.6,
    "dominant_form": "内阁决议",
@@ -419,11 +419,11 @@
   {
    "id": "land",
    "zh": "房产土地",
-   "n": 537,
-   "avg_stability": 2.28,
-   "binding_pct": 23.5,
+   "n": 541,
+   "avg_stability": 2.29,
+   "binding_pct": 23.8,
    "dominant_form": "公告",
-   "dominant_form_pct": 35.6,
+   "dominant_form_pct": 35.3,
    "dominant_class": "环境型",
    "tight": 132,
    "loose": 126
@@ -443,11 +443,11 @@
   {
    "id": "finance",
    "zh": "金融外汇",
-   "n": 266,
+   "n": 267,
    "avg_stability": 1.53,
    "binding_pct": 9.4,
    "dominant_form": "内阁决议",
-   "dominant_form_pct": 69.2,
+   "dominant_form_pct": 69.3,
    "dominant_class": "供给型",
    "tight": 24,
    "loose": 77
@@ -612,14 +612,14 @@
   },
   {
    "quarter": "2026Q4",
-   "n": 147,
-   "avg_stability": 1.69,
+   "n": 155,
+   "avg_stability": 1.72,
    "tiers": {
     "法律": 9,
-    "皇家法令": 7,
-    "部令": 13,
+    "皇家法令": 9,
+    "部令": 15,
     "公告 / 规程": 18,
-    "决议 / 指引": 100
+    "决议 / 指引": 104
    }
   }
  ]

@@ -3,16 +3,16 @@
   {
    "id": "land-property",
    "zh": "土地与房产",
-   "n": 116,
+   "n": 117,
    "href": "p/t/land-property.html",
    "date": "2026-11-17"
   },
   {
    "id": "land-use",
    "zh": "变更土地用途与城市规划",
-   "n": 186,
+   "n": 187,
    "href": "p/t/land-use.html",
-   "date": "2026-11-10"
+   "date": "2026-11-17"
   },
   {
    "id": "import-control",
@@ -94,9 +94,9 @@
   {
    "id": "energy",
    "zh": "能源与电力",
-   "n": 89,
+   "n": 90,
    "href": "p/t/energy.html",
-   "date": "2026-10-27"
+   "date": "2026-11-24"
   },
   {
    "id": "environment",
@@ -117,14 +117,14 @@
   {
    "id": "foreign_company",
    "zh": "外资企业",
-   "n": 1600,
+   "n": 1606,
    "href": "p/who/foreign_company.html",
    "date": "2026-11-24"
   },
   {
    "id": "foreign_investor",
    "zh": "外资投资者",
-   "n": 739,
+   "n": 744,
    "href": "p/who/foreign_investor.html",
    "date": "2026-11-24"
   },
@@ -145,7 +145,7 @@
   {
    "id": "local_government",
    "zh": "府级与地方政府",
-   "n": 452,
+   "n": 454,
    "href": "p/who/local_government.html",
    "date": "2026-11-17"
   },
@@ -166,7 +166,7 @@
   {
    "id": "traveller",
    "zh": "短期入境者",
-   "n": 169,
+   "n": 170,
    "href": "p/who/traveller.html",
    "date": "2026-11-17"
   }
