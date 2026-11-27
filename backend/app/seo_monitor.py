@@ -743,6 +743,17 @@ PPLX_HINT = {
 }
 
 
+PPLX_QUOTA_HINT = ("账户额度用完(Key 本身有效,不用重新生成):到 console.perplexity.ai → Billing 充值或绑卡;"
+                   "充值后次日日报自动恢复,无需改 GitHub Secret")
+
+
+def _pplx_hint(status: int, detail: str) -> str:
+    """接口有时用 401 报「额度用完」;按返回的原因而不是状态码给建议,免得让人白换一次 Key。"""
+    if re.search(r"quota|credit|billing|balance|payment", detail or "", re.I):
+        return PPLX_QUOTA_HINT
+    return PPLX_HINT.get(status, "")
+
+
 def _api_error(r: httpx.Response) -> str:
     """从错误响应里取出人能看懂的原因(JSON 的 error.message,或 HTML/纯文本的前 120 字)。"""
     try:
@@ -776,7 +787,7 @@ def geo_probe(client: httpx.Client, rep: Report, key: str, questions: list[str])
             if r.status_code in (401, 402, 403):
                 # 账号问题,后面的问题问了也一样,别浪费请求
                 rep.issue("warn", "geo_api", f"Perplexity 接口返回 {r.status_code}:{detail or '无详情'}"[:300],
-                          PPLX_HINT.get(r.status_code, ""))
+                          _pplx_hint(r.status_code, detail))
                 break
             continue
         try:

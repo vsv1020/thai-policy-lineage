@@ -424,6 +424,23 @@ def test_monitor_end_to_end(site, tmp_path, monkeypatch):
     assert "整站重新提交" in M.render_md(res["report"], None)
 
 
+def test_geo_probe_quota_401_is_not_reported_as_bad_key():
+    """Perplexity 额度用完时返回 401;建议应是充值,而不是重新生成 Key。"""
+    msg = "You exceeded your current quota, add credits at https://console.perplexity.ai/project/billing."
+    rep = M.Report(SITE, date(2026, 11, 27))
+    client = httpx.Client(transport=httpx.MockTransport(
+        lambda r: httpx.Response(401, json={"error": {"message": msg}})))
+    M.geo_probe(client, rep, "k", ["q1"])
+    fix = next(i for i in rep.issues if i["code"] == "geo_api")["fix"]
+    assert "充值" in fix and "API Key 无效" not in fix
+    # 真正的 Key 错误仍然提示换 Key
+    rep2 = M.Report(SITE, date(2026, 11, 27))
+    client2 = httpx.Client(transport=httpx.MockTransport(
+        lambda r: httpx.Response(401, json={"error": {"message": "Invalid API key"}})))
+    M.geo_probe(client2, rep2, "k", ["q1"])
+    assert "API Key 无效" in next(i for i in rep2.issues if i["code"] == "geo_api")["fix"]
+
+
 def test_monitor_site_down_is_error(tmp_path, monkeypatch):
     monkeypatch.setattr(seo, "SEO_CONFIG", tmp_path / "none.json")
     client = httpx.Client(transport=httpx.MockTransport(lambda r: httpx.Response(502)))
