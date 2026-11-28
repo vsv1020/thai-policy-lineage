@@ -5,8 +5,16 @@
   <link href="https://www.thaipolicy.com/zh-hant/feed/customs.xml" rel="self"/>
   <link href="https://www.thaipolicy.com/zh-hant/p/topic/customs.html"/>
   <id>https://www.thaipolicy.com/zh-hant/feed/customs.xml</id>
-  <updated>2026-11-17T00:00:00+07:00</updated>
+  <updated>2026-11-24T00:00:00+07:00</updated>
   <author><name>政策脈絡 · 泰國</name></author>
+  <entry>
+    <title>執行《關於持久性有機汙染物的斯德哥爾摩公約》第22條第3款(b)項:通知不接受附件A增列MCCPs的修正</title>
+    <link href="https://www.thaipolicy.com/zh-hant/p/th-cabx-20261124-22-3-mccps.html"/>
+    <id>https://www.thaipolicy.com/zh-hant/p/th-cabx-20261124-22-3-mccps.html</id>
+    <updated>2026-11-24T00:00:00+07:00</updated>
+    <category term="海關貿易"/>
+    <summary>內閣會議於2026年11月25日審議,批准自然資源與環境部提出的全部3項建議,內容為依《斯德哥爾摩公約》第22條第3款(b)項,通知不接受將MCCPs(中鏈氯化石蠟)增列至附件A的修正。勞工部已提交意見供內閣審議,內閣秘書處已將結果通知財政部、外交部、商務部、勞工部、工業部等相關機關。</summary>
+  </entry>
   <entry>
     <title>商務部關於《2019年大規模毀滅性武器相關商品管制法》項下的兩項部級公告</title>
     <link href="https://www.thaipolicy.com/zh-hant/p/th-cabx-20261117-2562-2.html"/>
@@ -398,13 +406,5 @@
     <updated>2026-04-21T00:00:00+07:00</updated>
     <category term="海關貿易"/>
     <summary>本公告公布2026年第1次馬鈴薯進口配額分配結果：工業用種薯共2,520.550噸，分配給2家企業；鮮食用加工馬鈴薯共35,000噸，分配給3家企業。獲分配者須通過對外貿易廳電子系統申請關稅配額內稅收待遇證明，並在2026年12月31日前向海關出示以辦理進口。公告自2026年1月1日起施行至2026年12月31日。</summary>
-  </entry>
-  <entry>
-    <title>對外貿易廳公告：對中國產天然橡膠或合成橡膠手套啟動反傾銷調查（2569年）</title>
-    <link href="https://www.thaipolicy.com/zh-hant/p/th-gaz-20260421-2569.html"/>
-    <id>https://www.thaipolicy.com/zh-hant/p/th-gaz-20260421-2569.html</id>
-    <updated>2026-04-21T00:00:00+07:00</updated>
-    <category term="海關貿易"/>
-    <summary>泰國對外貿易廳依據《反傾銷和補貼法》啟動對中國產天然橡膠或合成橡膠手套的反傾銷調查，涉案產品為5個海關子目（4015.12.10、4015.12.50、4015.15.10、4015.15.50等）。申請人為泰國詩董手套（大眾）有限公司，其提供的證據顯示傾銷幅度為CIF價格的235.05%，並主張國內產業可能受到實質損害。調查自公告刊登之日起啟動，利害關係人須在公告刊登後15日內書面申請問卷，30日內提交事實與意見。</summary>
   </entry>
 </feed>

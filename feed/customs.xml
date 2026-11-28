@@ -5,8 +5,16 @@
   <link href="https://www.thaipolicy.com/feed/customs.xml" rel="self"/>
   <link href="https://www.thaipolicy.com/p/topic/customs.html"/>
   <id>https://www.thaipolicy.com/feed/customs.xml</id>
-  <updated>2026-11-17T00:00:00+07:00</updated>
+  <updated>2026-11-24T00:00:00+07:00</updated>
   <author><name>政策脉络 · 泰国</name></author>
+  <entry>
+    <title>执行《关于持久性有机污染物的斯德哥尔摩公约》第22条第3款(b)项:通知不接受附件A增列MCCPs的修正</title>
+    <link href="https://www.thaipolicy.com/p/th-cabx-20261124-22-3-mccps.html"/>
+    <id>https://www.thaipolicy.com/p/th-cabx-20261124-22-3-mccps.html</id>
+    <updated>2026-11-24T00:00:00+07:00</updated>
+    <category term="海关贸易"/>
+    <summary>内阁会议于2026年11月25日审议,批准自然资源与环境部提出的全部3项建议,内容为依《斯德哥尔摩公约》第22条第3款(b)项,通知不接受将MCCPs(中链氯化石蜡)增列至附件A的修正。劳工部已提交意见供内阁审议,内阁秘书处已将结果通知财政部、外交部、商务部、劳工部、工业部等相关机关。</summary>
+  </entry>
   <entry>
     <title>商务部关于《2019年大规模毁灭性武器相关商品管制法》项下的两项部级公告</title>
     <link href="https://www.thaipolicy.com/p/th-cabx-20261117-2562-2.html"/>
@@ -398,13 +406,5 @@
     <updated>2026-04-21T00:00:00+07:00</updated>
     <category term="海关贸易"/>
     <summary>本公告公布2026年第1次马铃薯进口配额分配结果：工业用种薯共2,520.550吨，分配给2家企业；鲜食用加工马铃薯共35,000吨，分配给3家企业。获分配者须通过对外贸易厅电子系统申请关税配额内税收待遇证明，并在2026年12月31日前向海关出示以办理进口。公告自2026年1月1日起施行至2026年12月31日。</summary>
-  </entry>
-  <entry>
-    <title>对外贸易厅公告：对中国产天然橡胶或合成橡胶手套启动反倾销调查（2569年）</title>
-    <link href="https://www.thaipolicy.com/p/th-gaz-20260421-2569.html"/>
-    <id>https://www.thaipolicy.com/p/th-gaz-20260421-2569.html</id>
-    <updated>2026-04-21T00:00:00+07:00</updated>
-    <category term="海关贸易"/>
-    <summary>泰国对外贸易厅依据《反倾销和补贴法》启动对中国产天然橡胶或合成橡胶手套的反倾销调查，涉案产品为5个海关子目（4015.12.10、4015.12.50、4015.15.10、4015.15.50等）。申请人为泰国诗董手套（大众）有限公司，其提供的证据显示倾销幅度为CIF价格的235.05%，并主张国内产业可能受到实质损害。调查自公告刊登之日起启动，利害关系人须在公告刊登后15日内书面申请问卷，30日内提交事实与意见。</summary>
   </entry>
 </feed>

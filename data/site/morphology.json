@@ -1,20 +1,20 @@
 {
  "_generated": "由 backend/app/export.py 从数据库导出,请勿手改;改 data/policies/*.jsonl → python3 -m app.ingest → python3 -m app.export",
- "n": 2635,
+ "n": 2649,
  "kpis": {
-  "total": 2635,
+  "total": 2649,
   "avg_stability": 1.94,
   "binding_pct": 17.7,
   "in_force_pct": 3.8,
   "high_tier_pct": 11.6,
   "tight": 530,
-  "loose": 666
+  "loose": 670
  },
  "insights": [
-  "库内 2635 条政策中,决议 / 指引层级最多(占 44.6%);可诉、强制力较强的占 17.7%,现行有效的占 3.8%。",
+  "库内 2649 条政策中,决议 / 指引层级最多(占 44.8%);可诉、强制力较强的占 17.7%,现行有效的占 3.8%。",
   "「医疗」的政策层级最高(平均稳定性 2.64),多以内阁决议出台;「教育」最低(平均 1.08),以内阁决议为主,规则更容易调整。",
-  "方向上,收紧 530 条、放宽 666 条,整体偏放宽。",
-  "与 2025Q1–2025Q4 相比,2026Q1–2026Q4 新出台政策的平均层级上升了 0.54(稳定性 1–5),规则更趋向以高层级立法固定。"
+  "方向上,收紧 530 条、放宽 670 条,整体偏放宽。",
+  "与 2025Q1–2025Q4 相比,2026Q1–2026Q4 新出台政策的平均层级上升了 0.53(稳定性 1–5),规则更趋向以高层级立法固定。"
  ],
  "legal_forms": [
   {
@@ -46,8 +46,8 @@
    "zh": "部令",
    "stability": 3,
    "justiciable": true,
-   "n": 161,
-   "pct": 6.1
+   "n": 163,
+   "pct": 6.2
   },
   {
    "id": "prakat",
@@ -55,7 +55,7 @@
    "stability": 2,
    "justiciable": false,
    "n": 855,
-   "pct": 32.4
+   "pct": 32.3
   },
   {
    "id": "rabiap",
@@ -63,14 +63,14 @@
    "stability": 2,
    "justiciable": false,
    "n": 139,
-   "pct": 5.3
+   "pct": 5.2
   },
   {
    "id": "guidance",
    "zh": "操作指引",
    "stability": 1,
    "justiciable": false,
-   "n": 24,
+   "n": 25,
    "pct": 0.9
   },
   {
@@ -78,8 +78,8 @@
    "zh": "内阁决议",
    "stability": 1,
    "justiciable": false,
-   "n": 1150,
-   "pct": 43.6
+   "n": 1161,
+   "pct": 43.8
   }
  ],
  "tiers": [
@@ -87,7 +87,7 @@
    "stability": 5,
    "label": "法律",
    "n": 247,
-   "pct": 9.4
+   "pct": 9.3
   },
   {
    "stability": 4,
@@ -98,20 +98,20 @@
   {
    "stability": 3,
    "label": "部令",
-   "n": 161,
-   "pct": 6.1
+   "n": 163,
+   "pct": 6.2
   },
   {
    "stability": 2,
    "label": "公告 / 规程",
    "n": 994,
-   "pct": 37.7
+   "pct": 37.5
   },
   {
    "stability": 1,
    "label": "决议 / 指引",
-   "n": 1174,
-   "pct": 44.6
+   "n": 1186,
+   "pct": 44.8
   }
  ],
  "instrument_classes": [
@@ -119,21 +119,21 @@
    "id": "supply",
    "zh": "供给型",
    "desc": "政府直接投入",
-   "n": 927,
+   "n": 933,
    "pct": 35.2
   },
   {
    "id": "environment",
    "zh": "环境型",
    "desc": "规则与激励塑造环境",
-   "n": 1616,
+   "n": 1625,
    "pct": 61.3
   },
   {
    "id": "demand",
    "zh": "需求型",
    "desc": "直接拉动市场",
-   "n": 489,
+   "n": 493,
    "pct": 18.6
   }
  ],
@@ -141,22 +141,22 @@
   {
    "zh": "标准与准入管制",
    "class": "环境型",
-   "n": 1222
+   "n": 1227
   },
   {
    "zh": "公共服务与系统供给",
    "class": "供给型",
-   "n": 658
+   "n": 662
   },
   {
    "zh": "执法、排查与处罚",
    "class": "环境型",
-   "n": 345
+   "n": 346
   },
   {
    "zh": "申报、备案与披露",
    "class": "环境型",
-   "n": 318
+   "n": 321
   },
   {
    "zh": "资金与预算投入",
@@ -164,19 +164,19 @@
    "n": 221
   },
   {
+   "zh": "进出口与贸易管制",
+   "class": "需求型",
+   "n": 185
+  },
+  {
    "zh": "税收减免与追缴",
    "class": "环境型",
    "n": 183
   },
   {
-   "zh": "进出口与贸易管制",
-   "class": "需求型",
-   "n": 183
-  },
-  {
    "zh": "补贴与价格优惠",
    "class": "需求型",
-   "n": 158
+   "n": 159
   }
  ],
  "statuses": [
@@ -189,14 +189,14 @@
   {
    "id": "pending_gazette",
    "zh": "待刊公报",
-   "n": 1499,
-   "pct": 56.9
+   "n": 1513,
+   "pct": 57.1
   },
   {
    "id": "gazetted",
    "zh": "已刊公报",
    "n": 1034,
-   "pct": 39.2
+   "pct": 39.0
   },
   {
    "id": "in_force",
@@ -305,17 +305,17 @@
     43,
     1,
     8,
-    50,
+    51,
     255,
     35,
     17,
-    398
+    403
    ],
    [
     91,
     0,
     14,
-    24,
+    25,
     191,
     52,
     1,
@@ -329,7 +329,7 @@
     139,
     18,
     0,
-    95
+    96
    ],
    [
     14,
@@ -339,7 +339,7 @@
     54,
     1,
     2,
-    185
+    188
    ],
    [
     72,
@@ -378,8 +378,8 @@
     5,
     31,
     7,
-    1,
-    60
+    2,
+    62
    ],
    [
     1,
@@ -407,23 +407,23 @@
   {
    "id": "biz",
    "zh": "公司投资",
-   "n": 807,
+   "n": 813,
    "avg_stability": 1.73,
-   "binding_pct": 12.6,
+   "binding_pct": 12.7,
    "dominant_form": "内阁决议",
-   "dominant_form_pct": 49.3,
+   "dominant_form_pct": 49.6,
    "dominant_class": "环境型",
    "tight": 135,
-   "loose": 206
+   "loose": 208
   },
   {
    "id": "land",
    "zh": "房产土地",
-   "n": 541,
+   "n": 542,
    "avg_stability": 2.29,
-   "binding_pct": 23.8,
+   "binding_pct": 24.0,
    "dominant_form": "公告",
-   "dominant_form_pct": 35.3,
+   "dominant_form_pct": 35.2,
    "dominant_class": "环境型",
    "tight": 132,
    "loose": 126
@@ -431,11 +431,11 @@
   {
    "id": "customs",
    "zh": "海关贸易",
-   "n": 275,
+   "n": 276,
    "avg_stability": 1.74,
-   "binding_pct": 8.4,
+   "binding_pct": 8.3,
    "dominant_form": "公告",
-   "dominant_form_pct": 50.5,
+   "dominant_form_pct": 50.4,
    "dominant_class": "环境型",
    "tight": 80,
    "loose": 40
@@ -443,14 +443,14 @@
   {
    "id": "finance",
    "zh": "金融外汇",
-   "n": 267,
-   "avg_stability": 1.53,
-   "binding_pct": 9.4,
+   "n": 270,
+   "avg_stability": 1.52,
+   "binding_pct": 9.3,
    "dominant_form": "内阁决议",
-   "dominant_form_pct": 69.3,
+   "dominant_form_pct": 69.6,
    "dominant_class": "供给型",
    "tight": 24,
-   "loose": 77
+   "loose": 78
   },
   {
    "id": "health",
@@ -491,14 +491,14 @@
   {
    "id": "digital",
    "zh": "数字与数据",
-   "n": 112,
-   "avg_stability": 1.69,
-   "binding_pct": 11.6,
+   "n": 115,
+   "avg_stability": 1.67,
+   "binding_pct": 11.3,
    "dominant_form": "内阁决议",
-   "dominant_form_pct": 53.6,
+   "dominant_form_pct": 53.9,
    "dominant_class": "环境型",
    "tight": 19,
-   "loose": 19
+   "loose": 20
   },
   {
    "id": "visa",
@@ -612,14 +612,14 @@
   },
   {
    "quarter": "2026Q4",
-   "n": 155,
-   "avg_stability": 1.72,
+   "n": 169,
+   "avg_stability": 1.68,
    "tiers": {
     "法律": 9,
     "皇家法令": 9,
-    "部令": 15,
+    "部令": 17,
     "公告 / 规程": 18,
-    "决议 / 指引": 104
+    "决议 / 指引": 116
    }
   }
  ]

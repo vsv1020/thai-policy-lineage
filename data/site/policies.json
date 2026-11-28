@@ -1,12 +1,12 @@
 {
  "_generated": "由 backend/app/export.py 从数据库导出,请勿手改;改 data/policies/*.jsonl → python3 -m app.ingest → python3 -m app.export",
  "schema_version": 4,
- "updated_at": "2026-11-27T07:07:44+07:00",
+ "updated_at": "2026-11-28T07:07:57+07:00",
  "stats": {
-  "total": 2635,
+  "total": 2649,
   "research": 0,
   "demo": 0,
-  "with_points": 2513,
+  "with_points": 2526,
   "date_from": "2023-06-02",
   "date_to": "2026-11-24",
   "gazette_to": "2026-04-22",
@@ -15,22 +15,22 @@
    {
     "id": "biz",
     "zh": "公司投资",
-    "n": 807
+    "n": 813
    },
    {
     "id": "land",
     "zh": "房产土地",
-    "n": 541
+    "n": 542
    },
    {
     "id": "customs",
     "zh": "海关贸易",
-    "n": 275
+    "n": 276
    },
    {
     "id": "finance",
     "zh": "金融外汇",
-    "n": 267
+    "n": 270
    },
    {
     "id": "health",
@@ -50,7 +50,7 @@
    {
     "id": "digital",
     "zh": "数字与数据",
-    "n": 112
+    "n": 115
    },
    {
     "id": "visa",
@@ -68,22 +68,22 @@
   {
    "domain": "biz",
    "label": "公司投资",
-   "score": 0.12,
-   "n": 116,
+   "score": 0.13,
+   "n": 122,
    "direction": "neutral"
   },
   {
    "domain": "land",
    "label": "房产土地",
-   "score": 0.19,
-   "n": 55,
+   "score": 0.18,
+   "n": 56,
    "direction": "loose"
   },
   {
    "domain": "finance",
    "label": "金融外汇",
-   "score": 0.43,
-   "n": 43,
+   "score": 0.44,
+   "n": 47,
    "direction": "loose"
   },
   {
@@ -96,8 +96,8 @@
   {
    "domain": "customs",
    "label": "海关贸易",
-   "score": -0.3,
-   "n": 22,
+   "score": -0.29,
+   "n": 23,
    "direction": "tight"
   },
   {
@@ -117,8 +117,8 @@
   {
    "domain": "digital",
    "label": "数字与数据",
-   "score": 0.32,
-   "n": 10,
+   "score": 0.31,
+   "n": 13,
    "direction": "loose"
   },
   {
@@ -233,14 +233,14 @@
    "domain": "finance",
    "domain_label": "金融外汇",
    "direction": "neutral",
-   "title_zh": "关于《2026年授权财政部借款以解决能源危机影响并推动国家能源转型的紧急法令》第10条执行结果报告（2026财年）",
-   "title_th": "รายงานผลการดำเนินการตามมาตรา 10 แห่งพระราชกำหนดให้อำนาจกระทรวงการคลังกู้เงินเพื่อแก้ไขปัญหาผลกระทบจากสถานการณ์วิกฤตด้านพลังงานและสร้างการเปลี่ยนผ่านด้านพลังงานของประเทศ พ.ศ.2569 ประจำปีงบประมาณ พ.ศ. 2569",
-   "summary_zh": "财政部依据《2026年授权财政部借款以解决能源危机影响并推动国家能源转型的紧急法令》第10条，提交了2026财年执行结果报告。内阁于2026年11月24日决议知悉该报告，并决定将其提交国会知悉，同时已通知参议院秘书处，并要求财政部直接向众议院秘书处报送该报告。",
+   "title_zh": "关于依据《2026年授权财政部借款以解决能源危机影响并推动国家能源转型紧急法令》第10条提交的2026财年执行结果报告",
+   "title_th": "รายงานผลการดำเนินการตามมาตรา 10 แห่งพระราชกำหนดให้อำนาจกระทรวงการคลังกู้เงินเพื่อแก้ไขปัญหาผลกระทบจากสถานการณ์วิกฤตด้านพลังงานและสร้างการเปลี่ยนผ่านด้านพลังงานของประเทศ พ.ศ. 2569 ประจำปีงบประมาณ พ.ศ. 2569",
+   "summary_zh": "财政部依据《2026年授权财政部借款以解决能源危机影响并推动国家能源转型紧急法令》第10条，提交2026财年执行结果报告。内阁于2026年11月24日决议知悉该报告，并责成将其提交国会下议院知悉，同时已通知国会参议院秘书处，并要求财政部直接向下议院秘书处报送该报告。",
    "key_points": [
-    "财政部提交2026财年能源危机借款法令第10条执行结果报告",
+    "财政部依紧急法令第10条提交2026财年借款执行结果报告",
     "内阁2026年11月24日决议知悉该报告",
-    "报告将提交国会知悉，并已通知参议院秘书处",
-    "要求财政部直接向众议院秘书处报送报告"
+    "报告将提交国会下议院知悉，并已通知参议院秘书处",
+    "要求财政部直接向下议院秘书处报送报告"
    ],
    "org": "内阁 · 财政部 (MOF)",
    "org_label": "发文机关",
@@ -284,6 +284,240 @@
      "party_id": "foreign_investor",
      "stance": "neutral",
      "label": "外资投资者"
+    }
+   ],
+   "featured": true
+  },
+  {
+   "uid": "TH-CABX-20261124-22-3-MCCPS",
+   "issue_id": null,
+   "date": "2026-11-24",
+   "domain": "customs",
+   "domain_label": "海关贸易",
+   "direction": "neutral",
+   "title_zh": "执行《关于持久性有机污染物的斯德哥尔摩公约》第22条第3款(b)项:通知不接受附件A增列MCCPs的修正",
+   "title_th": "การดำเนินการตามข้อบท 22 วรรค 3 (บี) ของอนุสัญญาสตอกโฮล์มว่าด้วยสารมลพิษที่ตกค้างยาวนาน การแจ้งไม่สามารถยอมรับการแก้ไขภาคผนวก เอ บรรจุรายชื่อสาร MCCPs เพิ่มเติม",
+   "summary_zh": "内阁会议于2026年11月25日审议,批准自然资源与环境部提出的全部3项建议,内容为依《斯德哥尔摩公约》第22条第3款(b)项,通知不接受将MCCPs(中链氯化石蜡)增列至附件A的修正。劳工部已提交意见供内阁审议,内阁秘书处已将结果通知财政部、外交部、商务部、劳工部、工业部等相关机关。",
+   "key_points": [
+    "内阁批准自然资源与环境部提出的3项建议",
+    "泰方将通知不接受附件A增列MCCPs的修正",
+    "劳工部意见已一并提交内阁审议",
+    "内阁秘书处已通知财政部、外交部、商务部、劳工部、工业部等机关"
+   ],
+   "org": "内阁 · 自然资源与环境部 (MNRE) · 劳工部 (MOL)",
+   "org_label": "发文机关",
+   "org_issuer": "内阁",
+   "org_related": "自然资源与环境部 (MNRE) · 劳工部 (MOL)",
+   "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
+   "doc_no": "416849",
+   "doc_no_label": "文号",
+   "legal_form": "内阁决议 · มติ ครม. 层级",
+   "stability": 1,
+   "effective_label": "待刊公报后生效",
+   "status": "draft",
+   "status_label": "待刊公报",
+   "source_url": "https://resolution.soc.go.th/PDF_UPLOAD/2569/P_416849_1.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "cabinet_json",
+   "dates": {
+    "resolved_at": "2026-11-24",
+    "published_at": null,
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "neutral",
+     "label": "进口商与经销商"
+    }
+   ],
+   "featured": true
+  },
+  {
+   "uid": "TH-CABX-20261124-23C696D8FB",
+   "issue_id": null,
+   "date": "2026-11-24",
+   "domain": "finance",
+   "domain_label": "金融外汇",
+   "direction": "loose",
+   "title_zh": "关于泰国国家铁路局红色线城郊铁路（纳空威提线：曼谷阿披瓦中央站—达灵参；塔尼拉线：曼谷阿披瓦中央站—兰实）及泰国大众捷运局地铁紫色线（察隆拉差线）实施日票通票措施",
+   "title_th": "การดำเนินมาตรการบัตรโดยสารเหมาจ่ายรายวัน สำหรับรถไฟชานเมืองสายสีแดง สายนครวิถี (กรุงเทพอภิวัฒน์ - ตลิ่งชัน) และสายธานีรัถยา (กรุงเทพอภิวัฒน์ - รังสิต) ของการรถไฟแห่งประเทศไทย และรถไฟฟ้ามหานคร สายฉลองรัชธรรม (สายสีม่วง) ของการรถไฟฟ้าขนส่งมวลชนแห่งประเทศไทย",
+   "summary_zh": "内阁于2026年11月24日会议决议，批准、知悉并同意交通部提出的三项方案，即在泰国国家铁路局红色线城郊铁路两条线路和泰国大众捷运局地铁紫色线实施日票通票措施。内阁同时要求交通部、泰国国家铁路局和泰国大众捷运局研究财政部与预算局的看法和意见，并在相关职责范围内落实。",
+   "key_points": [
+    "内阁批准在红色线城郊铁路两条线路及地铁紫色线实施日票通票措施",
+    "交通部、国家铁路局和大众捷运局须研究财政部与预算局的意见并落实",
+    "决议涉及曼谷阿披瓦中央站—达灵参、曼谷阿披瓦中央站—兰实及紫色线"
+   ],
+   "org": "内阁 · 交通部 (MOT)",
+   "org_label": "发文机关",
+   "org_issuer": "内阁",
+   "org_related": "交通部 (MOT)",
+   "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
+   "doc_no": "416853",
+   "doc_no_label": "文号",
+   "legal_form": "内阁决议 · มติ ครม. 层级",
+   "stability": 1,
+   "effective_label": "待刊公报后生效",
+   "status": "draft",
+   "status_label": "待刊公报",
+   "source_url": "https://resolution.soc.go.th/PDF_UPLOAD/2569/P_416853_1.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "cabinet_json",
+   "dates": {
+    "resolved_at": "2026-11-24",
+    "published_at": null,
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "parties": [
+    {
+     "id": "consumer",
+     "party_id": "consumer",
+     "stance": "support",
+     "label": "消费者"
+    },
+    {
+     "id": "traveller",
+     "party_id": "traveller",
+     "stance": "support",
+     "label": "短期入境者"
+    }
+   ],
+   "featured": true
+  },
+  {
+   "uid": "TH-CABX-20261124-2565",
+   "issue_id": null,
+   "date": "2026-11-24",
+   "domain": "digital",
+   "domain_label": "数字与数据",
+   "direction": "loose",
+   "title_zh": "依据《2022年电子政务法》的电子文件转换电子方法",
+   "title_th": "วิธีการทางอิเล็กทรอนิกส์สำหรับการแปลงเอกสารให้อยู่ในรูปแบบอิเล็กทรอนิกส์ตามพระราชบัญญัติการปฏิบัติราชการทางอิเล็กทรอนิกส์ พ.ศ. 2565",
+   "summary_zh": "内阁会议于2026年11月24日通过决议,批准电子文件转换的电子方法,并原则上批准依据《2022年电子政务法》第17条长期保存电子文件的方法,该内容已编成《电子文件转换长期保存手册(草案)》。内阁同时要求公务员制度发展委员会办公室、法制委员会办公室、电子交易发展局、数字政府发展局四个主要机构共同研究确定细则,并要求相关机构考虑总理府常务次长办公室提出的意见。",
+   "key_points": [
+    "内阁批准电子文件转换的电子方法及长期保存原则",
+    "依据《2022年电子政务法》第17条保存电子文件",
+    "由公务员制度发展委员会办公室等四个机构共同制定细则",
+    "相关机构须考虑总理府常务次长办公室的意见"
+   ],
+   "org": "内阁 · 数字经济与社会部 (MDES) · 电子交易发展局 (ETDA) · 总理府 (OPM)",
+   "org_label": "发文机关",
+   "org_issuer": "内阁",
+   "org_related": "数字经济与社会部 (MDES) · 电子交易发展局 (ETDA) · 总理府 (OPM)",
+   "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
+   "doc_no": "416855",
+   "doc_no_label": "文号",
+   "legal_form": "内阁决议 · มติ ครม. 层级",
+   "stability": 1,
+   "effective_label": "待刊公报后生效",
+   "status": "draft",
+   "status_label": "待刊公报",
+   "source_url": "https://resolution.soc.go.th/PDF_UPLOAD/2569/P_416855_1.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "cabinet_json",
+   "dates": {
+    "resolved_at": "2026-11-24",
+    "published_at": null,
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "parties": [
+    {
+     "id": "local_government",
+     "party_id": "local_government",
+     "stance": "neutral",
+     "label": "府级与地方政府"
+    }
+   ],
+   "featured": true
+  },
+  {
+   "uid": "TH-CABX-20261124-2569",
+   "issue_id": null,
+   "date": "2026-11-24",
+   "domain": "biz",
+   "domain_label": "公司投资",
+   "direction": "neutral",
+   "title_zh": "关于2026年度湄公河—澜沧江合作专项基金项目合作协定草案",
+   "title_th": "ร่างความตกลงว่าด้วยความร่วมมือในโครงการภายใต้กองทุนพิเศษแม่โขง-ล้านช้าง ประจำปี พ.ศ. 2569",
+   "summary_zh": "内阁于2026年11月24日会议通过国家水资源办公室提交的2026年度湄公河—澜沧江合作专项基金项目合作协定草案。若后续修改不涉及实质内容且不违背内阁批准原则，可直接办理，但须事后报内阁知悉，并说明修改理由、必要性及泰国所获利益。国家水资源办公室须结合外交部与法律委员会办公室意见继续办理。",
+   "key_points": [
+    "内阁通过2026年度湄公河—澜沧江合作专项基金项目合作协定草案",
+    "非实质性修改可不经内阁事先批准，但须事后报备并说明理由与利益",
+    "由国家水资源办公室会同外交部、法律委员会办公室办理"
+   ],
+   "org": "内阁 · 总理府 (OPM)",
+   "org_label": "发文机关",
+   "org_issuer": "内阁",
+   "org_related": "总理府 (OPM)",
+   "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
+   "doc_no": "416835",
+   "doc_no_label": "文号",
+   "legal_form": "内阁决议 · มติ ครม. 层级",
+   "stability": 1,
+   "effective_label": "待刊公报后生效",
+   "status": "draft",
+   "status_label": "待刊公报",
+   "source_url": "https://resolution.soc.go.th/PDF_UPLOAD/2569/P_416835_1.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "cabinet_json",
+   "dates": {
+    "resolved_at": "2026-11-24",
+    "published_at": null,
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
     }
    ],
    "featured": true
@@ -342,6 +576,537 @@
     }
    ],
    "featured": true
+  },
+  {
+   "uid": "TH-CABX-20261124-49-2569",
+   "issue_id": null,
+   "date": "2026-11-24",
+   "domain": "biz",
+   "domain_label": "公司投资",
+   "direction": "loose",
+   "title_zh": "参加第49届东盟峰会及2026年亚太经合组织领导人会议",
+   "title_th": "การเข้าร่วมการประชุมสุดยอดอาเซียน ครั้งที่ 49 และการประชุมผู้นำเขตเศรษฐกิจเอเปค ประจำปี 2569",
+   "summary_zh": "内阁会议审议了总理关于出席东盟峰会及亚太经合组织领导人会议成果的报告,并决议批准。会议期间与多个贸易伙伴就经济、贸易、投资合作进行了双边讨论,涵盖电动汽车、健康产业、清洁能源、数字经济和能源安全等领域,并与美国签署了泰美对等贸易协定联合声明。内阁要求相关部长和部门将讨论成果落实到具体行动,整合工作并制定跟踪进展的明确方针,以在商业机会、投资、就业和民众收入方面为泰国经济带来实际利益。",
+   "key_points": [
+    "内阁批准总理关于出席东盟峰会及亚太经合组织领导人会议成果的报告",
+    "与美方签署泰美对等贸易协定联合声明,推进双边贸易协定谈判",
+    "与韩国、日本、印度拓展电动汽车、健康产业、清洁能源投资合作",
+    "与秘鲁、俄罗斯、中国拓展贸易、能源及高价值产业投资合作",
+    "要求相关部门将讨论成果落实并制定进展跟踪方针"
+   ],
+   "org": "内阁 · 总理府 (OPM)",
+   "org_label": "发文机关",
+   "org_issuer": "内阁",
+   "org_related": "总理府 (OPM)",
+   "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
+   "doc_no": "416850",
+   "doc_no_label": "文号",
+   "legal_form": "内阁决议 · มติ ครม. 层级",
+   "stability": 1,
+   "effective_label": "待刊公报后生效",
+   "status": "draft",
+   "status_label": "待刊公报",
+   "source_url": "https://resolution.soc.go.th/PDF_UPLOAD/2569/P_416850_1.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "cabinet_json",
+   "dates": {
+    "resolved_at": "2026-11-24",
+    "published_at": null,
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "support",
+     "label": "外资企业"
+    },
+    {
+     "id": "foreign_investor",
+     "party_id": "foreign_investor",
+     "stance": "support",
+     "label": "外资投资者"
+    },
+    {
+     "id": "importer",
+     "party_id": "importer",
+     "stance": "support",
+     "label": "进口商与经销商"
+    }
+   ],
+   "featured": true
+  },
+  {
+   "uid": "TH-CABX-20261124-5-2560",
+   "issue_id": null,
+   "date": "2026-11-24",
+   "domain": "digital",
+   "domain_label": "数字与数据",
+   "direction": "neutral",
+   "title_zh": "向内阁提交的关于国家机关尚未完整正确履行《泰王国宪法》第五编国家职责的报告（议题：预防和打击网络威胁的安全保障，以及国家机关以整合方式解决科技犯罪问题的管理）",
+   "title_th": "รายงานเสนอต่อคณะรัฐมนตรีกรณีที่หน่วยงานของรัฐยังมิได้ปฏิบัติให้ถูกต้องครบถ้วนตามหมวด 5 หน้าที่ของรัฐ ของรัฐธรรมนูญแห่งราชอาณาจักรไทย พุทธศักราช 2560 (เรื่อง ความมั่นคงในการป้องกันและปราบปรามภัยคุกคามไซเบอร์และการบริหารจัดการของหน่วยงานของรัฐในการแก้ไขปัญหาอาชญากรรมทางเทคโนโลยีแบบบูรณาการ)",
+   "summary_zh": "内阁于2026年11月24日决议：一、知悉监察专员办公室就国家机关未完整履行宪法第五编国家职责（网络威胁防控与整合解决科技犯罪）提交的报告；二、指定数字经济与社会部为主责机关，会同国防部、财政部、外交部、高等教育科研与创新部、商务部、内政部、司法部、教育部、消费者保护委员会办公室、国家情报局、国家安全委员会办公室、国内安全维护指挥部、国家网络安全委员会办公室、皇家警察总署、反洗钱办公室、证券交易委员会办公室、国家广播电视与电信委员会办公室、消费者组织理事会及相关单位，共同研究监察专员的建议。数字经济与社会部须在收到内阁秘书处通知之日起30日内，将审议结果、执行情况和总体意见汇总报送内阁秘书处，以便提交内阁。",
+   "key_points": [
+    "内阁知悉监察专员关于国家机关未完整履行宪法第五编职责的报告",
+    "指定数字经济与社会部为主责机关，汇总研究监察专员建议",
+    "会同国防、财政、外交、商务、内政、司法、教育等多部门及机构共同办理",
+    "数字经济与社会部须在收到通知起30日内向内阁秘书处报送结果"
+   ],
+   "org": "内阁 · 数字经济与社会部 (MDES) · 监察专员办公室",
+   "org_label": "发文机关",
+   "org_issuer": "内阁",
+   "org_related": "数字经济与社会部 (MDES) · 监察专员办公室",
+   "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
+   "doc_no": "416851",
+   "doc_no_label": "文号",
+   "legal_form": "内阁决议 · มติ ครม. 层级",
+   "stability": 1,
+   "effective_label": "待刊公报后生效",
+   "status": "draft",
+   "status_label": "待刊公报",
+   "source_url": "https://resolution.soc.go.th/PDF_UPLOAD/2569/P_416851_1.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "cabinet_json",
+   "dates": {
+    "resolved_at": "2026-11-24",
+    "published_at": null,
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
+    },
+    {
+     "id": "foreign_resident",
+     "party_id": "foreign_resident",
+     "stance": "neutral",
+     "label": "外籍长居个人"
+    }
+   ],
+   "featured": true
+  },
+  {
+   "uid": "TH-CABX-20261124-50-2561-30-2569",
+   "issue_id": null,
+   "date": "2026-11-24",
+   "domain": "finance",
+   "domain_label": "金融外汇",
+   "direction": "neutral",
+   "title_zh": "截至2026年9月30日依据《2018年国家财政纪律法》第50条提交的公共债务比例报告",
+   "title_th": "รายงานสัดส่วนหนี้สาธารณะ ตามมาตรา 50 แห่งพระราชบัญญัติวินัยการเงินการคลังของรัฐ พ.ศ. 2561 ณ วันที่ 30 กันยายน 2569",
+   "summary_zh": "财政部依据《2018年国家财政纪律法》第50条，向内阁提交截至2026年9月30日的公共债务比例报告。内阁于2026年11月25日会议决议收悉该报告，总理府秘书处已将结果转告预算局、国家审计署和泰国央行。",
+   "key_points": [
+    "财政部依《国家财政纪律法》第50条提交公共债务比例报告",
+    "报告数据截至2026年9月30日",
+    "内阁2026年11月25日会议决议收悉",
+    "总理府秘书处已转告预算局、国家审计署和泰国央行"
+   ],
+   "org": "财政部 (MOF) · 内阁 · 总理府 (OPM)",
+   "org_label": "相关机关",
+   "org_issuer": "",
+   "org_related": "财政部 (MOF) · 内阁 · 总理府 (OPM)",
+   "org_shown": "",
+   "org_issuer_ids": [],
+   "doc_no": "416830",
+   "doc_no_label": "文号",
+   "legal_form": "内阁决议 · มติ ครม. 层级",
+   "stability": 1,
+   "effective_label": "待刊公报后生效",
+   "status": "draft",
+   "status_label": "待刊公报",
+   "source_url": "https://resolution.soc.go.th/PDF_UPLOAD/2569/P_416830_1.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "cabinet_json",
+   "dates": {
+    "resolved_at": "2026-11-24",
+    "published_at": null,
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
+    },
+    {
+     "id": "foreign_investor",
+     "party_id": "foreign_investor",
+     "stance": "neutral",
+     "label": "外资投资者"
+    }
+   ],
+   "featured": true
+  },
+  {
+   "uid": "TH-CABX-20261124-5046E1E05D",
+   "issue_id": null,
+   "date": "2026-11-24",
+   "domain": "biz",
+   "domain_label": "公司投资",
+   "direction": "neutral",
+   "title_zh": "规定受管制建筑师职业从业者收费标准的部令（第……号）佛历……年草案",
+   "title_th": "ร่างกฎกระทรวงกำหนดอัตราค่าธรรมเนียมสำหรับผู้ประกอบวิชาชีพสถาปัตยกรรมควบคุม (ฉบับที่ ..) พ.ศ. ....",
+   "summary_zh": "内阁于2026年11月24日批准内政部提交的《规定受管制建筑师职业从业者收费标准的部令（第……号）佛历……年草案》原则，并交由法律委员会办公室审查后继续推进。同时要求内政部研究公务员委员会办公室的意见。该草案涉及受管制建筑师职业从业者的收费标准，具体费率尚未在本文中列明。",
+   "key_points": [
+    "内阁批准该部令草案原则，并交法律委员会办公室审查",
+    "草案针对受管制建筑师职业从业者的收费标准",
+    "要求内政部研究公务员委员会办公室的意见",
+    "具体费率与生效日期尚未在本文中列明"
+   ],
+   "org": "内阁 · 内政部 (MOI)",
+   "org_label": "发文机关",
+   "org_issuer": "内阁",
+   "org_related": "内政部 (MOI)",
+   "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
+   "doc_no": "416832",
+   "doc_no_label": "文号",
+   "legal_form": "部令 · กฎ 层级",
+   "stability": 3,
+   "effective_label": "待刊公报后生效",
+   "status": "draft",
+   "status_label": "待刊公报",
+   "source_url": "https://resolution.soc.go.th/PDF_UPLOAD/2569/P_416832_1.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "cabinet_json",
+   "dates": {
+    "resolved_at": "2026-11-24",
+    "published_at": null,
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
+    }
+   ],
+   "featured": false
+  },
+  {
+   "uid": "TH-CABX-20261124-6692BA7678",
+   "issue_id": null,
+   "date": "2026-11-24",
+   "domain": "biz",
+   "domain_label": "公司投资",
+   "direction": "neutral",
+   "title_zh": "关于请求批准《东盟公路网发展谅解备忘录》草案的函",
+   "title_th": "ขอความเห็นชอบร่างบันทึกความเข้าใจว่าด้วยการพัฒนาโครงข่ายทางหลวงอาเซียน",
+   "summary_zh": "内阁秘书处致函交通部长,转达内阁于2026年11月24日会议对《东盟公路网发展谅解备忘录》草案的审议结果:内阁决议批准并同意交通部所提方案,该备忘录与内阁此前已批准版本目的一致,不产生未来预算或财政负担。如需对备忘录作不影响实质内容、不违背内阁所定原则的修改,可先行办理,事后报内阁知悉,并说明理由、必要性与泰国所获利益。",
+   "key_points": [
+    "内阁批准《东盟公路网发展谅解备忘录》草案及交通部所提方案",
+    "该备忘录不产生未来预算或财政负担",
+    "不影响实质内容且不违背内阁原则的修改可先办后报",
+    "修改须事后报内阁并说明理由、必要性与泰国所获利益"
+   ],
+   "org": "内阁 · 交通部 (MOT) · 总理府 (OPM)",
+   "org_label": "发文机关",
+   "org_issuer": "内阁",
+   "org_related": "交通部 (MOT) · 总理府 (OPM)",
+   "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
+   "doc_no": "416847",
+   "doc_no_label": "文号",
+   "legal_form": "内阁决议 · มติ ครม. 层级",
+   "stability": 1,
+   "effective_label": "待刊公报后生效",
+   "status": "draft",
+   "status_label": "待刊公报",
+   "source_url": "https://resolution.soc.go.th/PDF_UPLOAD/2569/P_416847_1.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "cabinet_json",
+   "dates": {
+    "resolved_at": "2026-11-24",
+    "published_at": null,
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
+    }
+   ],
+   "featured": false
+  },
+  {
+   "uid": "TH-CABX-20261124-76-2561-2569",
+   "issue_id": null,
+   "date": "2026-11-24",
+   "domain": "finance",
+   "domain_label": "金融外汇",
+   "direction": "neutral",
+   "title_zh": "关于依据《2018年国家财政纪律法》第76条提交2026财年末公共债务、政府债务及财政风险状况的报告",
+   "title_th": "รายงานสถานะหนี้สาธารณะ หนี้ภาครัฐ และความเสี่ยงทางการคลัง ตามมาตรา 76 แห่งพระราชบัญญัติวินัยการเงินการคลังของรัฐ พ.ศ. 2561 ณ วันสิ้นปีงบประมาณ 2569",
+   "summary_zh": "财政部依据《2018年国家财政纪律法》第76条，向内阁提交2026财年末公共债务、政府债务及财政风险状况报告。内阁于2026年11月24日决议知悉该报告，并将报告内容告知内政部长、预算局局长、国家审计长及泰国央行行长等相关方。",
+   "key_points": [
+    "财政部依《国家财政纪律法》第76条提交2026财年末债务与财政风险报告",
+    "内阁2026年11月24日决议知悉该报告",
+    "报告已告知内政部长、预算局局长、国家审计长及央行行长"
+   ],
+   "org": "内阁 · 财政部 (MOF)",
+   "org_label": "发文机关",
+   "org_issuer": "内阁",
+   "org_related": "财政部 (MOF)",
+   "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
+   "doc_no": "416831",
+   "doc_no_label": "文号",
+   "legal_form": "内阁决议 · มติ ครม. 层级",
+   "stability": 1,
+   "effective_label": "待刊公报后生效",
+   "status": "draft",
+   "status_label": "待刊公报",
+   "source_url": "https://resolution.soc.go.th/PDF_UPLOAD/2569/P_416831_1.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "cabinet_json",
+   "dates": {
+    "resolved_at": "2026-11-24",
+    "published_at": null,
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "parties": [
+    {
+     "id": "foreign_investor",
+     "party_id": "foreign_investor",
+     "stance": "neutral",
+     "label": "外资投资者"
+    }
+   ],
+   "featured": false
+  },
+  {
+   "uid": "TH-CABX-20261124-9-10-1-2527-24",
+   "issue_id": null,
+   "date": "2026-11-24",
+   "domain": "biz",
+   "domain_label": "公司投资",
+   "direction": "loose",
+   "title_zh": "取消石油特许权附加第9号作业义务并以石油特许权附加第10号替代——石油特许权编号1/2527/24陆上勘探区块SW1",
+   "title_th": "การยกเลิกข้อผูกพันการดำเนินงานของสัมปทานปิโตรเลียมเพิ่มเติม (ฉบับที่ 9) โดยออกเป็นสัมปทานปิโตรเลียมเพิ่มเติม (ฉบับที่ 10) ของสัมปทานปิโตรเลียมเลขที่ 1/2527/24 แปลงสำรวจบนบก หมายเลข SW1",
+   "summary_zh": "内阁会议审议并批准能源部提出的方案，取消石油特许权编号1/2527/24陆上勘探区块SW1的附加第9号作业义务，改以附加第10号特许权替代。内阁同时要求能源部将自然资源与环境部的意见纳入后续执行。该决定涉及该区块特许权持有方的勘探作业义务调整。",
+   "key_points": [
+    "内阁批准取消SW1陆上勘探区块石油特许权附加第9号作业义务",
+    "以附加第10号石油特许权替代原附加第9号",
+    "适用对象为特许权编号1/2527/24的持有方",
+    "能源部须吸纳自然资源与环境部意见后执行"
+   ],
+   "org": "内阁 · 能源部 (MOEN)",
+   "org_label": "发文机关",
+   "org_issuer": "内阁",
+   "org_related": "能源部 (MOEN)",
+   "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
+   "doc_no": "416857",
+   "doc_no_label": "文号",
+   "legal_form": "内阁决议 · มติ ครม. 层级",
+   "stability": 1,
+   "effective_label": "待刊公报后生效",
+   "status": "draft",
+   "status_label": "待刊公报",
+   "source_url": "https://resolution.soc.go.th/PDF_UPLOAD/2569/P_416857_1.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "cabinet_json",
+   "dates": {
+    "resolved_at": "2026-11-24",
+    "published_at": null,
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "support",
+     "label": "外资企业"
+    }
+   ],
+   "featured": false
+  },
+  {
+   "uid": "TH-CABX-20261124-D318D813EF",
+   "issue_id": null,
+   "date": "2026-11-24",
+   "domain": "land",
+   "domain_label": "房产土地",
+   "direction": "neutral",
+   "title_zh": "关于轨道或专用线路互联以开展联合铁路运输的准则、方法和条件部令草案",
+   "title_th": "ร่างกฎกระทรวงว่าด้วยหลักเกณฑ์ วิธีการ และเงื่อนไขการเชื่อมต่อรางหรือทางเฉพาะเพื่อการขนส่งทางรางร่วมกัน พ.ศ. ....",
+   "summary_zh": "内阁于2026年11月24日批准交通部提交的部令草案原则，该草案规定轨道或专用线路互联以开展联合铁路运输的准则、方法和条件。内阁同时要求交通部采纳国家经济与社会发展委员会办公室的意见，并将草案送交法律委员会办公室审议后继续推进。",
+   "key_points": [
+    "内阁批准该部令草案原则，并送法律委员会办公室审议",
+    "草案规定轨道或专用线路互联以联合运输的准则、方法和条件",
+    "交通部须采纳国家经济与社会发展委员会办公室的意见"
+   ],
+   "org": "内阁 · 交通部 (MOT)",
+   "org_label": "发文机关",
+   "org_issuer": "内阁",
+   "org_related": "交通部 (MOT)",
+   "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
+   "doc_no": "416836",
+   "doc_no_label": "文号",
+   "legal_form": "部令 · กฎ 层级",
+   "stability": 3,
+   "effective_label": "待刊公报后生效",
+   "status": "draft",
+   "status_label": "待刊公报",
+   "source_url": "https://resolution.soc.go.th/PDF_UPLOAD/2569/P_416836_1.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "cabinet_json",
+   "dates": {
+    "resolved_at": "2026-11-24",
+    "published_at": null,
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
+    }
+   ],
+   "featured": false
+  },
+  {
+   "uid": "TH-CABX-20261124-L6-66",
+   "issue_id": null,
+   "date": "2026-11-24",
+   "domain": "biz",
+   "domain_label": "公司投资",
+   "direction": "neutral",
+   "title_zh": "关于授予陆上勘探区块 L6/66 石油勘探与生产权的决议",
+   "title_th": "การให้สิทธิสำรวจและผลิตปิโตรเลียมสำหรับแปลงสำรวจบนบกหมายเลข L6/66",
+   "summary_zh": "内阁于 2026 年 11 月 24 日会议批准并同意能源部提出的全部三项请求，内容为授予陆上勘探区块 L6/66 的石油勘探与生产权。财政部、自然资源与环境部、文化部、工业部、法律事务委员会办公室及国家经济与社会发展委员会办公室已提交意见供审议。内阁要求能源部一并考虑财政部与自然资源与环境部的意见后再行推进，并自内阁决议之日起解除该文件的保密等级。",
+   "key_points": [
+    "内阁批准能源部提出的全部三项请求，授予陆上区块 L6/66 石油勘探与生产权",
+    "财政部、自然资源与环境部等六个机关已提交意见供内阁审议",
+    "能源部须一并考虑财政部与自然资源与环境部的意见后推进",
+    "自 2026 年 11 月 24 日内阁决议之日起解除文件保密等级"
+   ],
+   "org": "内阁 · 能源部 (MOEN)",
+   "org_label": "发文机关",
+   "org_issuer": "内阁",
+   "org_related": "能源部 (MOEN)",
+   "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
+   "doc_no": "416843",
+   "doc_no_label": "文号",
+   "legal_form": "内阁决议 · มติ ครม. 层级",
+   "stability": 1,
+   "effective_label": "待刊公报后生效",
+   "status": "draft",
+   "status_label": "待刊公报",
+   "source_url": "https://resolution.soc.go.th/PDF_UPLOAD/2569/P_416843_1.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "cabinet_json",
+   "dates": {
+    "resolved_at": "2026-11-24",
+    "published_at": null,
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "parties": [
+    {
+     "id": "foreign_company",
+     "party_id": "foreign_company",
+     "stance": "neutral",
+     "label": "外资企业"
+    },
+    {
+     "id": "foreign_investor",
+     "party_id": "foreign_investor",
+     "stance": "neutral",
+     "label": "外资投资者"
+    }
+   ],
+   "featured": false
   },
   {
    "uid": "TH-BOI-20261117-139685",
@@ -403,7 +1168,7 @@
      "label": "外资投资者"
     }
    ],
-   "featured": true
+   "featured": false
   },
   {
    "uid": "TH-BOI-20261117-139686",
@@ -527,7 +1292,7 @@
      "label": "短期入境者"
     }
    ],
-   "featured": true
+   "featured": false
   },
   {
    "uid": "TH-CABX-20261117-1-40000-ONE-MAP-5",
@@ -596,7 +1361,7 @@
      "label": "府级与地方政府"
     }
    ],
-   "featured": true
+   "featured": false
   },
   {
    "uid": "TH-CABX-20261117-1910DE8F54",
@@ -652,7 +1417,7 @@
      "label": "外资企业"
     }
    ],
-   "featured": true
+   "featured": false
   },
   {
    "uid": "TH-CABX-20261117-24-2568",
@@ -721,7 +1486,7 @@
      "label": "中小企业"
     }
    ],
-   "featured": true
+   "featured": false
   },
   {
    "uid": "TH-CABX-20261117-2551",
@@ -782,7 +1547,7 @@
      "label": "本地雇主"
     }
    ],
-   "featured": true
+   "featured": false
   },
   {
    "uid": "TH-CABX-20261117-2562-2",
@@ -842,7 +1607,7 @@
      "label": "进口商与经销商"
     }
    ],
-   "featured": true
+   "featured": false
   },
   {
    "uid": "TH-CABX-20261117-2568-21-2568-31-2568",
@@ -155748,6 +156513,50 @@
      "label": "短期入境者"
     }
    ],
+   "featured": false
+  },
+  {
+   "uid": "TH-CABX-20261124-CLOUD-2571-2573",
+   "issue_id": null,
+   "date": "2026-11-24",
+   "domain": "digital",
+   "domain_label": "数字与数据",
+   "direction": "neutral",
+   "title_zh": "2028—2030财年云服务系统采购或租赁服务指引",
+   "title_th": "แนวทางการจัดซื้อจัดจ้างหรือเช่าใช้บริการระบบคลาวด์ (Cloud) ประจำปีงบประมาณ พ.ศ. 2571 - 2573",
+   "summary_zh": "据标题，本文件涉及2028—2030财年政府云服务系统采购或租赁服务的指引；具体条款待原文核对。",
+   "key_points": [],
+   "org": "内阁",
+   "org_label": "发文机关",
+   "org_issuer": "内阁",
+   "org_related": "",
+   "org_shown": "内阁",
+   "org_issuer_ids": [
+    "cabinet"
+   ],
+   "doc_no": "416858",
+   "doc_no_label": "文号",
+   "legal_form": "操作指引 · แนวปฏิบัติ 层级",
+   "stability": 1,
+   "effective_label": "待刊公报后生效",
+   "status": "draft",
+   "status_label": "待刊公报",
+   "source_url": "https://resolution.soc.go.th/PDF_UPLOAD/2569/P_416858_1.pdf",
+   "verified": false,
+   "detail_ready": false,
+   "provenance": "cabinet_json",
+   "dates": {
+    "resolved_at": "2026-11-24",
+    "published_at": null,
+    "effective_from": null,
+    "effective_to": null,
+    "comment_deadline": null
+   },
+   "confidence": {
+    "dates": "high",
+    "doc_no": "high"
+   },
+   "parties": [],
    "featured": false
   },
   {

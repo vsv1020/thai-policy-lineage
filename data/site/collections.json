@@ -94,60 +94,60 @@
   {
    "id": "energy",
    "zh": "能源与电力",
-   "n": 90,
+   "n": 92,
    "href": "p/t/energy.html",
    "date": "2026-11-24"
   },
   {
    "id": "environment",
    "zh": "环境与碳排放",
-   "n": 36,
+   "n": 37,
    "href": "p/t/environment.html",
-   "date": "2026-11-10"
+   "date": "2026-11-24"
   }
  ],
  "who": [
   {
    "id": "consumer",
    "zh": "消费者",
-   "n": 602,
+   "n": 603,
    "href": "p/who/consumer.html",
-   "date": "2026-11-17"
+   "date": "2026-11-24"
   },
   {
    "id": "foreign_company",
    "zh": "外资企业",
-   "n": 1606,
+   "n": 1616,
    "href": "p/who/foreign_company.html",
    "date": "2026-11-24"
   },
   {
    "id": "foreign_investor",
    "zh": "外资投资者",
-   "n": 744,
+   "n": 748,
    "href": "p/who/foreign_investor.html",
    "date": "2026-11-24"
   },
   {
    "id": "foreign_resident",
    "zh": "外籍长居个人",
-   "n": 576,
+   "n": 577,
    "href": "p/who/foreign_resident.html",
-   "date": "2026-11-17"
+   "date": "2026-11-24"
   },
   {
    "id": "importer",
    "zh": "进口商与经销商",
-   "n": 386,
+   "n": 388,
    "href": "p/who/importer.html",
-   "date": "2026-11-17"
+   "date": "2026-11-24"
   },
   {
    "id": "local_government",
    "zh": "府级与地方政府",
-   "n": 454,
+   "n": 455,
    "href": "p/who/local_government.html",
-   "date": "2026-11-17"
+   "date": "2026-11-24"
   },
   {
    "id": "sme",
@@ -166,9 +166,9 @@
   {
    "id": "traveller",
    "zh": "短期入境者",
-   "n": 170,
+   "n": 171,
    "href": "p/who/traveller.html",
-   "date": "2026-11-17"
+   "date": "2026-11-24"
   }
  ]
 }
